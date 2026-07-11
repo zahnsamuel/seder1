@@ -1,5 +1,20 @@
 # QA intake and implementation log
 
+## Applied directly by Claude (2026-07-11) -- Codex was temporarily unavailable
+
+Since Codex was out of tokens, Claude applied its own already-verified corrections directly rather than leaving them queued. **These are done, not just drafted** -- no need to re-implement:
+
+- All 4 citation fixes (Third batch below + the canon-studio.js propagation from the Sixth batch): applied to `curriculum/canon-journey.json`, `canon-studio.js`, `tefillah-arc.js`, `halakha-arc.js` (all 3 occurrences, including the typed-recall `acceptable` answers array).
+- All 11 Berakhot distractor revisions (Fourth batch below): applied across `berakhot-deep.js` and units 2-5.
+- Both halakhic-boundary steps (Fifth batch below): inserted into `eruvin-arc.js` and `tefillah-arc.js`, verified live (step count and sidebar position correct on both pages).
+- New finding while applying: `gemara-runway.json` is also dead data (folded into the existing dead-code finding near the bottom of this file).
+
+All changes verified: every touched `.js` file passes `node --check`, `canon-journey.json` passes `JSON.parse`, live console-error checks clean on both arc pages, and the full test suite passes (38/38) after these edits. Not yet committed to git -- ask Claude to commit, or Codex/the user can commit alongside its own next batch.
+
+The sections below are kept as the historical record of what was drafted and why; treat their "ready to apply" language as superseded by this note.
+
+---
+
 ## Sixth batch: QA of newly added pages (2026-07-11), per coordinated plan P2
 
 First: confirmed all 3 P0 code fixes (placement/phase-checkpoint shuffle, canon-session advancement gate) are already implemented and correct, with `test/assessment-integrity.test.mjs` and `test/gemara-workbench-integration.test.mjs` passing. Nice work -- the `currentEvidenceMet` fix in `canMasterJourneyStage` (checking real per-source-context correct-answer events, not just the prior skill's threshold) is exactly right. Full suite: 37/37 passing.
@@ -340,10 +355,10 @@ Specific file: eruvin-arc.js / eruvin-arc.html, tefillah-arc.js / tefillah-arc.h
 ---
 Priority: Low
 Area: curriculum
-Problem: `curriculum/berakhot-onramp.json` and `curriculum/berakhot-unit-1.json` are dead data -- confirmed no live HTML/JS references either file (only served by unused API routes). They appear to be superseded by `berakhot-deep.js` and friends.
-Why it matters: No learner impact, but they're stale artifacts that could confuse a future contributor into thinking they're live content.
-Recommended change: Delete both files and their now-unused `/api/curriculum/berakhot-onramp` and `/api/curriculum/berakhot-unit-1` routes in `server.mjs`, or explicitly document why they're kept.
-Specific file: curriculum/berakhot-onramp.json, curriculum/berakhot-unit-1.json, server.mjs
+Problem: `curriculum/berakhot-onramp.json`, `curriculum/berakhot-unit-1.json`, and (confirmed in this later pass) `curriculum/gemara-runway.json` are all dead data -- no live HTML/JS references any of the three (only served by unused API routes). The first two appear superseded by `berakhot-deep.js` and friends; `gemara-runway.json` (a 5-stage tractate-sequencing roadmap -- content itself is fine, just unused) looks superseded by `data/advanced-gemara-sequence.json`, which `gemara-continuation.js` actually uses.
+Why it matters: No learner impact, but they're stale artifacts that could confuse a future contributor into thinking they're live content, and there are now three of them instead of two.
+Recommended change: Delete all three files and their now-unused `/api/curriculum/berakhot-onramp`, `/api/curriculum/berakhot-unit-1`, and `/api/curriculum/gemara-runway` routes in `server.mjs`, or explicitly document why they're kept.
+Specific file: curriculum/berakhot-onramp.json, curriculum/berakhot-unit-1.json, curriculum/gemara-runway.json, server.mjs
 ---
 
 ### Not yet reviewed (out of scope for this pass)

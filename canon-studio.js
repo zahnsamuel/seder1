@@ -1,0 +1,14 @@
+const learnerId=Seder.currentLearnerId();
+const sources=[
+['Torah · Deuteronomy 6:4','שְׁמַע יִשְׂרָאֵל ה׳ אֱלֹהֵינוּ ה׳ אֶחָד','Hear, Israel: the Lord is our God, the Lord is one.','Direct address or affirmation','identify-conceptual-claim','Torah source'],
+['Tefillah · Amidah','בָּרוּךְ אַתָּה ה׳','Blessed are You, Lord.','Liturgical praise','liturgical-function','Siddur praise'],
+['Halakha · Deuteronomy 8:10','וְאָכַלְתָּ וְשָׂבָעְתָּ וּבֵרַכְתָּ','You shall eat, be satisfied, and bless.','Source received into practice','canonical-reception','blessings source chain'],
+['Jewish Thought · Pirkei Avot 1:2','עַל שְׁלֹשָׁה דְבָרִים הָעוֹלָם עוֹמֵד','The world stands on three things.','Conceptual claim','identify-conceptual-claim','Pirkei Avot'],
+['Mussar · Pirkei Avot 2:5','בְּמָקוֹם שֶׁאֵין אֲנָשִׁים הִשְׁתַּדֵּל לִהְיוֹת אִישׁ','Where there are no people acting humanely, strive to be a person.','Character-forming instruction','conceptual-application','Mussar responsibility'],
+['Chassidus · Psalms 100:2','עִבְדוּ אֶת ה׳ בְּשִׂמְחָה','Serve the Lord with joy.','Character-forming instruction','conceptual-application','Chassidus joy'],
+['History · Jeremiah 29:7','וְדִרְשׁוּ אֶת שְׁלוֹם הָעִיר','Seek the welfare of the city.','Historically situated address','historical-context','Jeremiah exile'],
+['Wider World · Shemoneh Perakim','קַבֵּל אֶת הָאֱמֶת מִמִּי שֶׁאֲמָרוֹ','Accept the truth from whoever says it.','Comparative reading invitation','comparative-reading','reason and revelation']
+];
+const options=['Direct address or affirmation','Liturgical praise','Source received into practice','Conceptual claim','Character-forming instruction','Historically situated address','Comparative reading invitation'];
+document.querySelector('#studio').innerHTML=sources.map(([label,hebrew,translation],index)=>`<article><span>${label}</span><p lang="he" dir="rtl">${hebrew}</p><small>${translation}</small><label>What kind of source move is this?<select data-i="${index}"><option value="">Choose</option>${options.map(option=>`<option>${option}</option>`).join('')}</select></label></article>`).join('');
+document.querySelector('#check').addEventListener('click',async()=>{const selections=[...document.querySelectorAll('select')];const correct=selections.every((select,index)=>select.value===sources[index][3]);document.querySelector('#feedback').textContent=correct?'You distinguished source functions across the canon while preserving each genre’s own voice.':'Read each source in its own genre first. Connections become clearer when the differences remain visible.';for(const source of sources)await Seder.api(`/api/learners/${learnerId}/events`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'source_annotation',skillId:source[4],competency:'sourceReasoning',sourceContext:source[5],correct})});});
