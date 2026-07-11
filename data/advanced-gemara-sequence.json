@@ -1,0 +1,12 @@
+{
+  "title":"Gemara continuation: foundations into tractates",
+  "steps":[
+    {"stageId":"berakhot-baraita-disagreement","title":"Deepen Berakhot: cited teachings and disagreement","reason":"Return to Berakhot with the tools to follow a baraita, objection, and distinction.","url":"berakhot-unit-5.html"},
+    {"stageId":"shabbat-tractate-arc","title":"Enter Shabbat: cases, domains, and categories","reason":"Use your reading tools in a new legal world built from concrete cases.","url":"shabbat-arc.html"},
+    {"stageId":"eruvin-tractate-arc","title":"Enter Eruvin: boundary and measure","reason":"Read a tractate where physical space and legal categories meet.","url":"eruvin-arc.html"},
+    {"stageId":"pesachim-tractate-arc","title":"Enter Pesachim: action, time, and source","reason":"Carry argument mapping into ritual time and practice.","url":"pesachim-arc.html"},
+    {"stageId":"sukkah-tractate-arc","title":"Enter Sukkah: validity, measurement, and dispute","reason":"Practice reading how a physical condition becomes a legal question.","url":"sukkah-arc.html"},
+    {"stageId":"bava-metzia-tractate-arc","title":"Enter Bava Metzia: claims and evidence","reason":"Bring Gemara tools into civil disputes, competing claims, and evidence.","url":"bava-metzia-arc.html"},
+    {"stageId":"bava-kamma-tractate-arc","title":"Enter Bava Kamma: categories of damage","reason":"Sort a legal field into categories, differentiate them, then find what they share.","url":"bava-kamma-arc.html"}
+  ]
+}

@@ -1,5 +1,19 @@
 # QA intake and implementation log
 
+## New content: full Bava Kamma tractate arc (2026-07-11)
+
+The user asked to move past QA and expand content while Codex was unavailable. Built a complete 10-step arc for Bava Kamma, upgrading it from the existing 3-question lab (per `docs/gemara-canon-strategy.md` Stage 3's priority list) to match the depth of the other 6 gateway-tractate arcs.
+
+**New files:** `bava-kamma-arc.html`, `bava-kamma-arc.js` (uses the shared `course-engine.js`, same pattern as Shabbat/Eruvin/Pesachim/Sukkah/Bava Metzia).
+
+**Wiring:** added `"stage":"tractate-arc"` and `"arcUrl":"bava-kamma-arc.html"` to the Bava Kamma entry in `data/gemara-tractates.json` (Shas map now routes there instead of the lab, verified live), and appended a `bava-kamma-tractate-arc` step to `data/advanced-gemara-sequence.json`'s continuation sequence after Bava Metzia. Updated `README.md`'s tractate-arc count from five to six.
+
+**Content, verified against Sefaria/web search before writing (not just recalled):** the Mishnah's full opening (four categories, the differentiation clauses "the ox is not like the maveh," and the shared-principle clause) is verbatim; the av/toldot (primary category / derivative) concept is real and central to the actual sugya, not invented; the Torah grounding is described generally as Exodus 21–22 rather than claiming a single verse, since that's what's actually accurate. Where I wasn't confident enough to claim a specific verbatim Gemara 2a line (unlike Berakhot, where I had that confidence), I used generic transferable phrases instead (`מַאי טַעְמָא`), matching the same conservative pattern the existing Bava Metzia arc already uses.
+
+**Verified end-to-end live:** all 10 steps click through correctly with proper shuffling, feedback, and XP; the typed-recall step accepts the expected answer; the checkpoint-complete screen and routing to the lab work; `demo` learner's mastery now shows all 6 `bava-kamma-*` skill IDs with real values; Shas map click-through confirmed "Begin the Bava Kamma arc →" routes to the new page. Full test suite: 38/38 passing throughout.
+
+---
+
 ## Seventh batch: canon_lab mastery-tracking bug, found and fixed (2026-07-11)
 
 Went beyond the QA/curriculum lane since Codex was offline and the user said not to wait on the division of labor. Reviewed the newest content (`canon-labs.js` / `data/non-gemara-labs.json` -- the 7-subject, 21-prompt Canon Practice Labs) and found a real bug, not just a content issue.
