@@ -1,5 +1,23 @@
 # QA intake and implementation log
 
+## New content: Jewish Thought deep-dive on Suffering (2026-07-11)
+
+User asked to beef up the non-Gemara tracks specifically. Found that `philosophy-questions.js` (the "question atlas") already surveys 7 durable questions (Revelation, Reason, Ethics, Prayer, Suffering, Peoplehood, Modernity) at one touch each, and its own completion text explicitly promises deep-dive courses for each field as "the next stage" -- `philosophy-unit-2.js` already fulfilled that promise for Freedom/Providence (not part of the 7, but the same idea), but none of the atlas's 7 fields had a real deep-dive yet. Built one for Suffering, matching `philosophy-unit-2.js`'s exact structural pattern (find tension → define → second source creating tension → state disagreement fairly → distinction → apply without overreaching → independent → typed recall).
+
+**New files:** `thought-suffering.html`, `thought-suffering.js` (8 steps, course-engine.js).
+
+**Content:** three primary-source voices held in tension without ranking one as more correct -- Job 1:21 (composed acceptance), Psalms 22:2 (raw protest), Lamentations 3:1 (communal/historical witness, read on Tisha B'Av). All three Hebrew citations verified via web search against Sefaria before writing, not recalled from memory. Explicitly scoped Job 1:21 as "Job's first recorded response," not a general rule, since the rest of the book is extended protest -- oversimplifying Job would have been a real accuracy risk.
+
+**Handled the sensitivity of the topic deliberately:** this is a serious subject (grief, suffering) that could tip into pastoral territory if handled carelessly. Step 6 ("Apply without overreaching") is an explicit boundary step distinguishing text study from real personal/pastoral support -- correct answer is "Offer these texts as company across history, while making clear that real personal support needs a rabbi, counselor, or community — not a course," with a wrong-answer option that explicitly rejects treating the course as equivalent to emotional support. No content anywhere tries to explain why suffering happens or offers comfort as if that were the app's place.
+
+**Wiring:** `philosophy-questions.js`'s completion screen now includes a real embedded link to the new arc (`completeCopy` renders via `innerHTML` in `course-engine.js`, confirmed this is safe and already how the shared completion template works).
+
+**Verified end-to-end live:** all 8 steps click through correctly with shuffling, feedback, and the boundary step's exact wording confirmed; typed-recall accepts the expected answer; checkpoint completes and the atlas link-back renders as a real clickable link (confirmed via DOM query, not just visual inspection); `demo` learner's mastery shows all 8 `thought-suffering-*` skill IDs. Full suite: 38/38.
+
+**For whoever picks up "beef up the non-Gemara tracks" next:** Mussar and Chassidus each still have only one arc (Humility; Joy/Awe) despite being paired subjects in `canon-journey.json`. A second Mussar middah (e.g. Emet/truth via Pirkei Avot 1:18, or Hakarat HaTov/gratitude) would be the next natural target using the same pattern.
+
+---
+
 ## New content: full Bava Kamma tractate arc (2026-07-11)
 
 The user asked to move past QA and expand content while Codex was unavailable. Built a complete 10-step arc for Bava Kamma, upgrading it from the existing 3-question lab (per `docs/gemara-canon-strategy.md` Stage 3's priority list) to match the depth of the other 6 gateway-tractate arcs.
