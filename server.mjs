@@ -6,7 +6,7 @@ import { callYochaiTool } from './yochai-adapter.mjs';
 import { createLearner, decayingSkills, deleteLearner, getLearner, listLearners, recordLearnerEvent, reviewStatus } from './data/repository.mjs';
 import { supabaseConfig, verifySupabaseAccessToken } from './data/supabase-adapter.mjs';
 import { deleteHostedLearnerData, getHostedLearner, recordHostedEvent } from './data/supabase-learner-repository.mjs';
-import { canMasterJourneyStage, canonJourney, journeyStatus, nextJourneyRecommendation, remediationFor, sourceReviewItems } from './data/curriculum-engine.mjs';
+import { canMasterJourneyStage, canonJourney, journeyStatus, nextGemaraArc, nextGraphPractice, nextJourneyRecommendation, remediationFor, sourceReviewItems } from './data/curriculum-engine.mjs';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const port = Number(process.env.PORT || 4180);
@@ -39,10 +39,12 @@ async function recommendFor(learner, { skipReview = false } = {}) {
     if (badlyFaded.length) return { kind: 'review', title: 'Refresh a skill that has faded', reason: `${badlyFaded.length === 1 ? 'A previously mastered skill has' : `${badlyFaded.length} previously mastered skills have`} faded well below their peak. A quick retrieval restores it faster than relearning from scratch.`, url: 'review.html' };
   }
   const remediation = await remediationFor(root, learner);
-  if (remediation) return { kind: 'remediation', ...remediation };
+  if (remediation) return { kind: 'remediation', ...remediation, url: 'remediation.html' };
   const journeyRecommendation = await nextJourneyRecommendation(root, learner);
   if (journeyRecommendation) return journeyRecommendation;
-  return { kind: 'tractate-lab', title: 'Enter Shabbat through its opening Mishnah', reason: 'Your foundations are ready for a new tractate practice field.', url: 'lab.html?tractate=shabbat' };
+  const gemaraArc = await nextGemaraArc(root, learner);
+  if (gemaraArc) return { kind: 'gemara-arc', ...gemaraArc };
+  return { kind: 'shas-map', title: 'Choose your next Shas practice field', reason: 'Your current foundations are ready for broader tractate exploration.', url: 'shas-map-v2.html' };
 }
 
 async function learnerAccess(request, requestedId) {
@@ -94,6 +96,14 @@ async function handleApi(request, response, url) {
   }
   if (url.pathname === '/api/curriculum/gemara-runway') {
     sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'curriculum', 'gemara-runway.json'), 'utf8')));
+    return true;
+  }
+  if (url.pathname === '/api/curriculum/advanced-gemara-sequence') {
+    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'advanced-gemara-sequence.json'), 'utf8')));
+    return true;
+  }
+  if (url.pathname === '/api/curriculum/non-gemara-labs') {
+    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'non-gemara-labs.json'), 'utf8')));
     return true;
   }
   if (url.pathname === '/api/source-glossary') {
@@ -188,6 +198,12 @@ async function handleApi(request, response, url) {
     sendJson(response, 200, { remediation: await remediationFor(root, learner) });
     return true;
   }
+  const graphPracticeMatch = url.pathname.match(/^\/api\/learners\/([a-zA-Z0-9_-]+)\/graph-practice$/);
+  if (request.method === 'GET' && graphPracticeMatch) {
+    const { learner } = await readLearner(request, graphPracticeMatch[1]);
+    sendJson(response, 200, { practice: await nextGraphPractice(root, learner) });
+    return true;
+  }
   const recommendationMatch = url.pathname.match(/^\/api\/learners\/([a-zA-Z0-9_-]+)\/recommendation$/);
   if (request.method === 'GET' && recommendationMatch) {
     const { learner } = await readLearner(request, recommendationMatch[1]);
@@ -203,7 +219,7 @@ async function handleApi(request, response, url) {
   const insightsMatch = url.pathname.match(/^\/api\/learners\/([a-zA-Z0-9_-]+)\/insights$/);
   if (request.method === 'GET' && insightsMatch) {
     const { learner } = await readLearner(request, insightsMatch[1]);
-    const answers = (learner.events || []).filter((event) => event.type === 'answer_submitted' || event.type === 'source_annotation');
+    const answers = (learner.events || []).filter((event) => event.type === 'answer_submitted' || event.type === 'source_annotation' || event.type === 'canon_lab');
     const correct = answers.filter((event) => event.correct).length;
     const contexts = Object.values(learner.evidence || {}).reduce((total, list) => total + list.length, 0);
     const journey = await journeyStatus(root, learner);

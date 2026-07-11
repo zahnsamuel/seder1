@@ -1,5 +1,20 @@
 # QA intake and implementation log
 
+## Seventh batch: canon_lab mastery-tracking bug, found and fixed (2026-07-11)
+
+Went beyond the QA/curriculum lane since Codex was offline and the user said not to wait on the division of labor. Reviewed the newest content (`canon-labs.js` / `data/non-gemara-labs.json` -- the 7-subject, 21-prompt Canon Practice Labs) and found a real bug, not just a content issue.
+
+Priority: High
+Area: mastery
+Problem: `canon-labs.js` posts learner events with `type:'canon_lab'`, but `data/repository.mjs`, `data/supabase-learner-repository.mjs`, and the `/api/learners/:id/insights` route in `server.mjs` all only credited `'answer_submitted'` or `'source_annotation'` events toward XP, mastery, competencies, evidence, review scheduling, and `totalAnswered`/streak. `canon_lab` events were recorded into `learner.events` (so they show up in raw history) but silently produced zero mastery/XP/competency change.
+Why it matters: the labs reuse the exact same `skillId`s as `canon-journey.json` and the arcs (e.g. `historical-context`, `conceptual-application`, `liturgical-function`) -- they're explicitly meant to supply a third or fourth source-context toward the same skills tracked elsewhere. A learner could complete all 21 prompts, see "Strong reading" feedback and a completion counter, and their actual mastery/XP would never move. This is the same class of issue as the earlier mastery-gating bug, just inverted: instead of advancing without evidence, evidence was being generated and thrown away.
+Fix applied: added `event.type === 'canon_lab'` alongside the existing checks in all 4 locations (`data/repository.mjs` x2, `data/supabase-learner-repository.mjs`, `server.mjs`'s insights route) plus `data/curriculum-engine.mjs`'s `canMasterJourneyStage` evidence check for future-proofing (no current sourceContext overlap with canon-journey, but same silent-gap risk if one is ever added).
+Verified: `node --check` on all 4 touched files, full suite passes (38/38), and a live end-to-end test (POST a `canon_lab` event to a disposable test learner via a freshly-restarted server) confirmed `xp`, `mastery`, `evidence`, `competencies`, `totalAnswered`, `dailyStreak`, and the review queue all update correctly now. Content itself (all 21 Torah/Tefillah/Halakha/Thought/Mussar-Chassidus/History/Wider-World citations) checked against known text -- accurate.
+
+Note for whoever picks this up next: **the server process caches its own backend module imports (`repository.mjs`, `curriculum-engine.mjs`, etc.) in memory at startup** -- unlike static frontend files, which `createReadStream` fresh on every request, edits to backend `.mjs` files do NOT take effect until the running `node server.mjs` process is restarted. I discovered this by testing against a stale long-running process first and seeing no effect. Worth remembering when verifying future backend fixes.
+
+---
+
 ## Applied directly by Claude (2026-07-11) -- Codex was temporarily unavailable
 
 Since Codex was out of tokens, Claude applied its own already-verified corrections directly rather than leaving them queued. **These are done, not just drafted** -- no need to re-implement:

@@ -55,7 +55,7 @@ async function putReview(learner, skillId, accessToken) {
 
 export async function recordHostedEvent(user, accessToken, event) {
   const learner = await getHostedLearner(user, accessToken);
-  if (event.type === 'answer_submitted' || event.type === 'source_annotation') {
+  if (event.type === 'answer_submitted' || event.type === 'source_annotation' || event.type === 'canon_lab') {
     const correct = Boolean(event.correct);
     const skillId = event.skillId;
     const competency = competencyFor(event);

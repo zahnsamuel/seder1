@@ -154,7 +154,7 @@ async function recordLearnerEventUnlocked(root, id, event) {
   const recorded = { ...event, at: new Date().toISOString() };
   learner.events.push(recorded);
   const today = recorded.at.slice(0, 10);
-  if (event.type === 'answer_submitted' || event.type === 'source_annotation') {
+  if (event.type === 'answer_submitted' || event.type === 'source_annotation' || event.type === 'canon_lab') {
     learner.totalAnswered = (learner.totalAnswered || 0) + 1;
     if (learner.lastStudyDate !== today) {
       const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
@@ -162,7 +162,7 @@ async function recordLearnerEventUnlocked(root, id, event) {
       learner.lastStudyDate = today;
     }
   }
-  if (event.type === 'answer_submitted' || event.type === 'source_annotation') {
+  if (event.type === 'answer_submitted' || event.type === 'source_annotation' || event.type === 'canon_lab') {
     learner.xp += event.correct ? 10 : 5;
     const contexts = new Set(learner.evidence[event.skillId] || []);
     if (event.correct && event.sourceContext) contexts.add(event.sourceContext);
