@@ -1,0 +1,11 @@
+{
+  "name": "seder",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Seder: a mastery-learning platform for Gemara, Chumash, Halakha, and Jewish Thought.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test"
+  }
+}

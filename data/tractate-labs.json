@@ -1,0 +1,87 @@
+{
+  "labs": [
+    {
+      "id": "shabbat",
+      "tractate": "Shabbat",
+      "ref": "Mishnah Shabbat 1:1 · Shabbat 2a",
+      "sourceUrl": "https://www.sefaria.org/Shabbat.2a",
+      "status": "editorially-reviewed-demo",
+      "focus": "Learn to read a Mishnah that counts cases before the Gemara begins its analysis.",
+      "steps": [
+        {"kind":"ORIENT TO THE MISHNAH","title":"What is this Mishnah organizing?","hebrew":"יציאות השבת שתים שהן ארבע בפנים ושתים שהן ארבע בחוץ","translation":"The acts of carrying out on Shabbat are two that are four inside, and two that are four outside.","prompt":"Before reaching for every detail, identify the job of the opening line.","answers":["It introduces a counted set of cases that the Mishnah will distinguish.","It gives a story about a person who forgot Shabbat.","It announces a final ruling without any cases."],"correct":0,"feedback":"Good. The Mishnah opens by organizing a legal field through numbered cases."},
+        {"kind":"READ THE CONTRAST","title":"Notice the two locations","hebrew":"בפנים · בחוץ","translation":"Inside · outside","prompt":"What distinction will matter as the Mishnah develops its cases?","answers":["Whether the action is inside or outside a domain.","Whether the action happens in the morning or evening.","Whether the person is rich or poor."],"correct":0,"feedback":"Exactly. The terms mark the two sides of the exchange the Mishnah is about to describe."},
+        {"kind":"NAME THE TEXT MOVE","title":"A counted Mishnah needs examples","hebrew":"שתים שהן ארבע","translation":"Two that are four","prompt":"Why might a Mishnah use the phrase “two that are four”?","answers":["It signals basic cases and related extensions that require careful sorting.","It means only two cases exist and the rest do not matter.","It tells the reader to skip the examples."],"correct":0,"feedback":"Right. The phrase prepares the learner to track how a compact principle unfolds into cases."}
+      ]
+    },
+    {
+      "id": "pesachim",
+      "tractate": "Pesachim",
+      "ref": "Mishnah Pesachim 1:1 · Pesachim 2a",
+      "sourceUrl": "https://www.sefaria.org/Pesachim.2a",
+      "status": "editorially-reviewed-demo",
+      "focus": "Use a concise Mishnah to separate the action, its time, and the tool used to perform it.",
+      "steps": [
+        {"kind":"FIND THE ACTION","title":"Begin with the verb","hebrew":"אור לארבעה עשר בודקין את החמץ לאור הנר","translation":"On the eve of the fourteenth, one searches for leaven by the light of a lamp.","prompt":"What does the Mishnah tell a person to do?","answers":["Search for chametz.","Eat the Passover offering.","Recite the evening Shema."],"correct":0,"feedback":"Correct. First identify the required action before analyzing its timing or details."},
+        {"kind":"SEPARATE THE PARTS","title":"Read time and tool separately","hebrew":"אור לארבעה עשר · לאור הנר","translation":"On the eve of the fourteenth · by the light of a lamp","prompt":"Which pairing correctly identifies the two supporting details?","answers":["The first phrase gives the time; the second gives the tool.","The first gives the tool; the second gives the time.","Both phrases give different names for chametz."],"correct":0,"feedback":"Yes. This is a core close-reading habit: separate action, time, and instrument."},
+        {"kind":"ANTICIPATE A QUESTION","title":"Where might Gemara focus?","hebrew":"אור","translation":"Light / the eve","prompt":"A short opening word can carry more than one shade of meaning. What is a responsible next question?","answers":["What does this word mean here, and how does the surrounding Mishnah clarify it?","Which later law should we decide without reading the discussion?","Can we ignore the word because the action is clear?"],"correct":0,"feedback":"Exactly. Gemara often slows down over a compact word and tests it against the context and sources."}
+      ]
+    },
+    {
+      "id": "eruvin",
+      "tractate": "Eruvin",
+      "ref": "Mishnah Eruvin 1:1 · Eruvin 2a",
+      "sourceUrl": "https://www.sefaria.org/Eruvin.2a",
+      "status": "editorially-reviewed-demo",
+      "focus": "Learn to separate a Mishnah’s physical description from the legal question it invites.",
+      "steps": [
+        {"kind":"ORIENT TO THE CASE","title":"Find the object under discussion","hebrew":"מָבוֹי שֶׁהוּא גָבוֹהַּ לְמַעְלָה מֵעֶשְׂרִים אַמָּה","translation":"An alleyway whose entrance is higher than twenty cubits.","prompt":"What fact does the Mishnah give before stating what should be done?","answers":["The height of an alleyway entrance.","The time for evening Shema.","The ownership of a lost object."],"correct":0,"feedback":"Exactly. Start by locating the concrete case before looking for the rule."},
+        {"kind":"NAME THE RESPONSE","title":"Notice the Mishnah’s instruction","hebrew":"יְמַעֵט","translation":"One should lower it.","prompt":"What kind of move is this short word making?","answers":["It gives the required response to the case.","It asks for a biblical proof.","It introduces a disagreement between witnesses."],"correct":0,"feedback":"Right. A compact Mishnah often gives the case and its response before explaining why."},
+        {"kind":"ANTICIPATE GEMARA","title":"Ask the next responsible question","hebrew":"אַמַּאי?","translation":"Why?","prompt":"What question naturally opens the Gemara’s analysis of this Mishnah?","answers":["Why does this measurement determine the response?","Who first built the alleyway?","Which Hebrew letter appears most often?"],"correct":0,"feedback":"Yes. Gemara turns a terse threshold into an inquiry about the reason and source of the rule."}
+      ]
+    },
+    {
+      "id": "bava-metzia",
+      "tractate": "Bava Metzia",
+      "ref": "Mishnah Bava Metzia 1:1 · Bava Metzia 2a",
+      "sourceUrl": "https://www.sefaria.org/Bava_Metzia.2a",
+      "status": "editorially-reviewed-demo",
+      "focus": "Enter a civil-law sugya by identifying the conflict, the claims, and the evidence question.",
+      "steps": [
+        {"kind":"FIND THE DISPUTE","title":"Two people, one garment","hebrew":"שנים אוחזין בטלית","translation":"Two people are holding a garment.","prompt":"What basic situation does the Mishnah place before the reader?","answers":["Two people make competing claims over the same object.","Two people agree to divide a gift equally.","A merchant is measuring cloth for sale."],"correct":0,"feedback":"Correct. Start with the human and legal conflict before parsing the remedies."},
+        {"kind":"COMPARE CLAIMS","title":"Each person says: I found it","hebrew":"זה אומר אני מצאתיה וזה אומר אני מצאתיה","translation":"This one says, “I found it,” and this one says, “I found it.”","prompt":"Why does the Mishnah repeat the same claim from both sides?","answers":["It establishes that neither side’s assertion alone settles the dispute.","It proves the first person is correct.","It changes the case into a question about ritual purity."],"correct":0,"feedback":"Yes. Parallel claims create the evidentiary problem the Mishnah must address."},
+        {"kind":"FOLLOW THE RESPONSE","title":"What must the court decide?","hebrew":"יחלוקו","translation":"They divide [it].","prompt":"Before treating a short ruling as simple, what should a learner ask?","answers":["What facts, claims, and legal principles make this response appropriate?","Which claimant is more sympathetic?","Whether the Mishnah is only telling a story."],"correct":0,"feedback":"Exactly. The Gemara’s work is to test how and why a terse Mishnah response follows from its case."}
+      ]
+    }
+    ,{
+      "id":"sukkah","tractate":"Sukkah","ref":"Mishnah Sukkah 1:1 · Sukkah 2a","sourceUrl":"https://www.sefaria.org/Sukkah.2a","status":"reviewed-instructional-pilot","focus":"Read a Mishnah that gives a physical limit, then ask what makes that limit meaningful.","steps":[
+        {"kind":"FIND THE MEASURE","title":"What is being measured?","hebrew":"סֻכָּה שֶׁהִיא גְבוֹהָה לְמַעְלָה מֵעֶשְׂרִים אַמָּה","translation":"A sukkah that is higher than twenty cubits.","prompt":"What concrete feature does the Mishnah place before the reader?","answers":["The height of a sukkah.","The time of a festival meal.","The owner of a field."],"correct":0,"feedback":"Good. Begin with the physical case before asking why the measure matters."},
+        {"kind":"READ THE RULING","title":"What does the Mishnah say?","hebrew":"פְּסוּלָה","translation":"It is invalid.","prompt":"What kind of statement is this?","answers":["A ruling about the described case.","A question about a verse.","A description of a custom."],"correct":0,"feedback":"Exactly. The Mishnah’s short ruling gives the Gemara something precise to investigate."},
+        {"kind":"ANTICIPATE GEMARA","title":"What comes next?","hebrew":"מַאי טַעְמָא","translation":"What is the reason?","prompt":"What productive question does this phrase invite?","answers":["Why does this height affect the validity of the sukkah?","Who built the first sukkah?","Which word is easiest to translate?"],"correct":0,"feedback":"Right. A measurement becomes a Gemara question when the reader asks what principle explains it."}
+      ]
+    },{
+      "id":"ketubot","tractate":"Ketubot","ref":"Mishnah Ketubot 1:1 · Ketubot 2a","sourceUrl":"https://www.sefaria.org/Ketubot.2a","status":"reviewed-instructional-pilot","focus":"Separate a Mishnah’s schedule from the social and legal reason the Gemara will examine.","steps":[
+        {"kind":"ORIENT TO TIME","title":"Read the schedule","hebrew":"בְּתוּלָה נִשֵּׂאת לְיוֹם הָרְבִיעִי","translation":"A virgin is married on Wednesday.","prompt":"What kind of information does the opening line provide?","answers":["A scheduled time for a case.","A list of witnesses.","A biblical quotation."],"correct":0,"feedback":"Yes. First identify that the Mishnah is setting a time before pursuing the reason."},
+        {"kind":"LOOK FOR A REASON","title":"A schedule invites explanation","hebrew":"מַאי שְׁנָא יוֹם הָרְבִיעִי","translation":"Why specifically Wednesday?","prompt":"What is the Gemara likely to investigate?","answers":["Why this particular day serves the Mishnah’s concern.","How to spell Wednesday in Hebrew.","Whether the Mishnah has a page number."],"correct":0,"feedback":"Exactly. The Gemara often turns a fixed detail into a question about institutional purpose."},
+        {"kind":"NAME THE MOVE","title":"Keep the structure visible","hebrew":"מִשְׁנָה · שְׁאֵלָה · טַעַם","translation":"Mishnah · question · reason","prompt":"Which sequence describes this opening?","answers":["A schedule, a question about it, then an explanation.","A final ruling with no discussion.","A verse followed by an unrelated story."],"correct":0,"feedback":"Good. You are tracking the function of each line, not only its vocabulary."}
+      ]
+    },{
+      "id":"bava-kamma","tractate":"Bava Kamma","ref":"Mishnah Bava Kamma 1:1 · Bava Kamma 2a","sourceUrl":"https://www.sefaria.org/Bava_Kamma.2a","status":"reviewed-instructional-pilot","focus":"Enter a damages sugya by recognizing how a Mishnah organizes categories before it debates their details.","steps":[
+        {"kind":"FIND THE CATEGORIES","title":"The Mishnah opens with a list","hebrew":"אַרְבָּעָה אָבוֹת נְזִיקִין","translation":"There are four primary categories of damages.","prompt":"What is the Mishnah doing with this opening phrase?","answers":["Organizing a legal field into foundational categories.","Telling a story about four people.","Giving one final ruling about payment."],"correct":0,"feedback":"Correct. A numbered opening tells the learner to expect distinctions and examples."},
+        {"kind":"READ A TERM IN CONTEXT","title":"What is an av?","hebrew":"אָבוֹת","translation":"Primary categories.","prompt":"Why might the Mishnah call these categories avot, “fathers”?","answers":["They are root cases from which related cases can be understood.","They are the names of historical figures.","They are a signal that discussion has ended."],"correct":0,"feedback":"Exactly. The term prepares the reader for a system rather than a single fact."},
+        {"kind":"ANTICIPATE COMPARISON","title":"What will Gemara ask?","hebrew":"מַאי שְׁנָא","translation":"What is different?","prompt":"What reasoning task fits a list of legal categories?","answers":["Compare what distinguishes one category from another.","Choose the shortest Hebrew word.","Skip the cases and memorize the number."],"correct":0,"feedback":"Right. Gemara examines why categories are alike or different and what follows from that."}
+      ]
+    },{
+      "id":"chullin","tractate":"Chullin","ref":"Mishnah Chullin 1:1 · Chullin 2a","sourceUrl":"https://www.sefaria.org/Chullin.2a","status":"reviewed-instructional-pilot","focus":"Read a Mishnah by identifying its subject, its scope, and the question hidden inside a general statement.","steps":[
+        {"kind":"FIND THE SUBJECT","title":"What action is named?","hebrew":"הַכֹּל שׁוֹחֲטִין","translation":"All may slaughter.","prompt":"What does the Mishnah state before listing qualifications or exceptions?","answers":["A broad statement about who may perform an action.","A story about a festival.","A measure of a courtyard."],"correct":0,"feedback":"Good. First locate the scope of the statement."},
+        {"kind":"NOTICE THE SCOPE","title":"A general word creates work","hebrew":"הַכֹּל","translation":"All.","prompt":"What should a careful Gemara reader ask when seeing “all”?","answers":["Who is included, and are there any exceptions?","What page comes next?","Which word is a verse?"],"correct":0,"feedback":"Exactly. General language often becomes the focus of a close Gemara analysis."},
+        {"kind":"READ WITH A BOUNDARY","title":"What is this activity for?","hebrew":"לִלְמוּד","translation":"To learn.","prompt":"How should a learner treat a source about practice?","answers":["Study its structure while recognizing that Seder is not issuing a ruling.","Treat the activity as personal legal advice.","Ignore the source and memorize the English."],"correct":0,"feedback":"Right. Source literacy includes knowing the boundary between learning and practical decision-making."}
+      ]
+    },{
+      "id":"niddah","tractate":"Niddah","ref":"Mishnah Niddah 1:1 · Niddah 2a","sourceUrl":"https://www.sefaria.org/Niddah.2a","status":"reviewed-instructional-pilot","focus":"Approach a sensitive legal tractate through careful textual orientation and the study-aid boundary.","steps":[
+        {"kind":"ORIENT TO THE TEXT","title":"Name the subject carefully","hebrew":"כָּל הַנָּשִׁים בְּחֶזְקַת טָהֳרָה","translation":"All women are presumed to be in a state of purity.","prompt":"What kind of opening does the Mishnah provide?","answers":["A general presumption that frames later cases.","A personal instruction to the learner.","A biblical narrative."],"correct":0,"feedback":"Correct. Start by identifying the legal framing without treating it as personal guidance."},
+        {"kind":"NAME THE STRUCTURE","title":"A presumption is not every case","hebrew":"חֲזָקָה","translation":"Presumption / established status.","prompt":"What reading habit helps with a statement of presumption?","answers":["Ask how the later discussion defines its scope and limits.","Assume it answers every possible question.","Skip the source because it is difficult."],"correct":0,"feedback":"Exactly. Gemara teaches learners to examine the conditions of a general rule."},
+        {"kind":"KEEP THE BOUNDARY","title":"Learn responsibly","hebrew":"תַּלְמוּד","translation":"Study.","prompt":"What is Seder’s role with sensitive halakhic material?","answers":["Support careful learning while directing practical questions to qualified guidance.","Replace qualified guidance with an automatic answer.","Avoid showing the source itself."],"correct":0,"feedback":"Right. Moral seriousness includes making the learning boundary explicit."}
+      ]
+    }
+  ]
+}

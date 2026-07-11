@@ -1,0 +1,41 @@
+{
+  "version": "0.1.0",
+  "sources": [
+    {
+      "id": "mishnah-berakhot-1-1",
+      "status": "approved",
+      "subjectId": "gemara",
+      "stageId": "enter-page",
+      "ref": "Mishnah Berakhot 1:1",
+      "url": "https://www.sefaria.org/Mishnah_Berakhot.1.1",
+      "role": "primary-text",
+      "note": "Opening Mishnah for the Berakhot onramp.",
+      "reviewedAt": "2026-07-10",
+      "reviewedBy": "Seder editorial demo"
+    },
+    {
+      "id": "berakhot-2a-opening",
+      "status": "approved",
+      "subjectId": "gemara",
+      "stageId": "gemara-moves",
+      "ref": "Berakhot 2a",
+      "url": "https://www.sefaria.org/Berakhot.2a",
+      "role": "primary-text",
+      "note": "Opening sugya: Mishnah, contextual question, and verse-based answer.",
+      "reviewedAt": "2026-07-10",
+      "reviewedBy": "Seder editorial demo"
+    },
+    {
+      "id": "deuteronomy-6-7",
+      "status": "approved",
+      "subjectId": "gemara",
+      "stageId": "source-chain",
+      "ref": "Deuteronomy 6:7",
+      "url": "https://www.sefaria.org/Deuteronomy.6.7",
+      "role": "tanakh-source",
+      "note": "Torah source used to trace the opening Berakhot discussion back to Shema.",
+      "reviewedAt": "2026-07-10",
+      "reviewedBy": "Seder editorial demo"
+    }
+  ]
+}

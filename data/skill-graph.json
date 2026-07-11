@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "principle": "A learner advances through demonstrated skills, not page completion. Each skill has multiple source contexts so mastery transfers beyond one memorized answer.",
+  "skills": [
+    {"id":"hebrew-question-words","track":"language","title":"Recognize question signals","prerequisites":[],"evidence":"Identify a question word and predict the kind of answer it seeks.","reviewContexts":["Berakhot 2a","Eruvin 2a","Sukkah 2a"]},
+    {"id":"source-signals","track":"language","title":"Recognize source signals","prerequisites":["hebrew-question-words"],"evidence":"Identify when a verse or cited teaching is entering an argument.","reviewContexts":["Berakhot 2a","Shabbat 2a","Bava Kamma 2a"]},
+    {"id":"mishnah-orientation","track":"gemara","title":"Orient to a Mishnah","prerequisites":["hebrew-question-words"],"evidence":"State the case, category, or practical question before analyzing it.","reviewContexts":["Berakhot 2a","Pesachim 2a","Ketubot 2a"]},
+    {"id":"gemara-context-question","track":"gemara","title":"Identify a context question","prerequisites":["mishnah-orientation","source-signals"],"evidence":"Explain what prior statement, source, or problem the Gemara is examining.","reviewContexts":["Berakhot 2a","Eruvin 2a","Chullin 2a"]},
+    {"id":"proof-role","track":"gemara","title":"Explain a proof text’s role","prerequisites":["gemara-context-question"],"evidence":"State whether a source supports, clarifies, challenges, or distinguishes a claim.","reviewContexts":["Berakhot 2a","Berakhot 2b","Bava Kamma 2a"]},
+    {"id":"challenge-and-answer","track":"gemara","title":"Follow challenge and answer","prerequisites":["proof-role"],"evidence":"Mark an objection, the pressure it creates, and the response that follows.","reviewContexts":["Berakhot 2b","Shabbat 2a","Sukkah 2a"]},
+    {"id":"independent-sugya-reading","track":"gemara","title":"Read a short sugya independently","prerequisites":["challenge-and-answer"],"evidence":"Label each line’s job in an unfamiliar source using translation only to verify.","reviewContexts":["Berakhot 2b","Pesachim 2a","Bava Metzia 2a"]},
+    {"id":"identify-conceptual-claim","track":"thought","title":"Identify a conceptual claim","prerequisites":[],"evidence":"State what a source claims about God, human beings, values, or knowledge.","reviewContexts":["Deuteronomy 4","Pirkei Avot","Rambam Foundations of Torah"]},
+    {"id":"define-conceptual-term","track":"thought","title":"Define a key term","prerequisites":["identify-conceptual-claim"],"evidence":"Distinguish related concepts and explain why the distinction matters to an argument.","reviewContexts":["knowledge and heart","freedom and compulsion","service and kindness"]},
+    {"id":"compare-interpretations","track":"thought","title":"Compare interpretations","prerequisites":["define-conceptual-term"],"evidence":"State a shared source or question and identify where two readings diverge.","reviewContexts":["divine knowledge","human freedom","reason and revelation"]},
+    {"id":"conceptual-application","track":"thought","title":"Apply an idea responsibly","prerequisites":["compare-interpretations"],"evidence":"Explain how a source frames a question without mistaking philosophical reflection for halakhic ruling.","reviewContexts":["education","ethical responsibility","community"]}
+  ]
+}

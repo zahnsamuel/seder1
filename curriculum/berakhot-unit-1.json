@@ -1,0 +1,17 @@
+{
+  "id": "berakhot-unit-1",
+  "title": "Berakhot: Entering the opening sugya",
+  "reference": "Mishnah Berakhot 1:1 · Berakhot 2a–2b",
+  "audience": "English-speaking beginners who can sound out Hebrew",
+  "outcome": "The learner can orient to a Mishnah, identify a Gemara question, explain an answer rooted in a verse, and request translation without leaving the source page.",
+  "lessons": [
+    {"id":"b1-01","title":"A Mishnah begins with a question","skill":"mishnah-orientation","evidence":"Identify the practical question in the opening Mishnah."},
+    {"id":"b1-02","title":"Recognize me'eimatai","skill":"hebrew-decoding","evidence":"Recognize that me'eimatai asks for a beginning time."},
+    {"id":"b1-03","title":"What is the Gemara asking?","skill":"gemara-moves","evidence":"Explain why the Gemara asks what context the Mishnah addresses."},
+    {"id":"b1-04","title":"Read an answer with a verse","skill":"proof-texts","evidence":"State what the verse adds to the Mishnah’s order."},
+    {"id":"b1-05","title":"A word can become a problem","skill":"translation","evidence":"Use the surrounding text to identify what the Gemara investigates in ve-taher."},
+    {"id":"b1-06","title":"Trace the opening movement","skill":"source-reasoning","evidence":"Map Mishnah, question, answer, and textual support in order."}
+  ],
+  "review_policy": "Return incomplete or uncertain skills in the next session; expand successful retrieval intervals from one day to two weeks.",
+  "status": "reviewed instructional pilot"
+}

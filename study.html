@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seder - Berakhot Foundations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="study.css?v=9" />
+    <link rel="stylesheet" href="study-extra.css?v=9" />
+  </head>
+  <body>
+    <header class="study-topbar">
+      <a class="study-brand" href="seder.html"><span>ס</span>Seder</a>
+      <div class="course-name"><small>GEMARA FOUNDATIONS</small><strong>Berakhot: Learning to Enter the Daf</strong></div>
+      <div class="course-progress"><span id="progressLabel">MOVE 1 OF 4</span><i><b id="progressBar"></b></i><strong id="xpLabel">0 XP</strong></div>
+    </header>
+    <main class="course-shell">
+      <aside class="course-rail" aria-label="Course sequence">
+        <div class="rail-label">YOUR COURSE</div>
+        <button class="unit active" data-unit="opening"><span>01</span><strong>Berakhot 2a</strong><small>The opening question</small></button>
+        <button class="unit" data-unit="night"><span>02</span><strong>Berakhot 2b</strong><small>When does night begin?</small></button>
+        <button class="unit" data-unit="moves"><span>03</span><strong>Gemara moves</strong><small>Question, answer, proof</small></button>
+        <button class="unit" data-unit="canon"><span>04</span><strong>Canon connections</strong><small>Torah to later tradition</small></button>
+        <div class="rail-note"><span>MASTERY PATH</span><p>Each unit unlocks after you show you can read the previous move.</p></div>
+      </aside>
+
+      <section class="reader-area" aria-labelledby="reader-title">
+        <div class="reader-header"><div><span class="reader-kicker">TEXT IN STUDY</span><h1 id="reader-title">Berakhot 2a</h1></div><div class="reader-actions"><button id="translateToggle" type="button">Translate passage</button><button id="zoomDaf" type="button">Fit daf</button><a id="readerLink" href="https://www.sefaria.org/Berakhot.2a" target="_blank" rel="noreferrer">Complete text ↗</a></div></div>
+        <section class="text-strip text-strip-top" aria-label="Guided text translation">
+          <div><span>HEBREW</span><p class="hebrew" id="sourceHebrew" lang="he" dir="rtl"></p></div>
+          <div><span>GUIDED READING</span><p id="sourceTranslation"></p></div>
+          <div><span>WHY IT MATTERS</span><p id="sourceReason"></p></div>
+        </section>
+        <div class="reader-focus reader-focus-top" id="readerFocus"><span>FOCUS IN THE DAF</span><strong>Opening Mishnah: a question about the beginning time of evening Shema.</strong></div>
+        <div class="translation-panel" id="translationPanel" hidden><span>TRANSLATION OF THE HIGHLIGHTED PASSAGE</span><p id="liveTranslation"></p></div>
+        <div class="daf-stage is-zoomed" id="dafStage">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Berakhot2a.jpg?width=1022" alt="Scanned page of Berakhot 2a in the Vilna edition" />
+          <button class="page-focus" id="pageFocus" type="button" aria-label="Show the current passage in the guided reader"></button>
+          <div class="folio-mark">ב</div>
+        </div>
+      </section>
+
+      <aside class="chavruta-panel" aria-live="polite">
+        <div class="panel-status"><span id="stepType">READ THE PAGE</span><span id="masteryStatus">IN PROGRESS</span></div>
+        <div id="promptContent"></div>
+        <div class="answer-list" id="answerList"></div>
+        <p class="answer-feedback" id="answerFeedback"></p>
+        <button class="continue-direct" id="continueDirect" type="button">Continue <span>→</span></button>
+        <div class="prompt-footer"><button class="next-move" id="nextMove" type="button">Continue <span>→</span></button><span>Choose an answer, then continue.</span></div>
+      </aside>
+    </main>
+<script src="seder-auth.js?v=1"></script>
+<script src="study.js?v=12"></script>
+  </body>
+</html>

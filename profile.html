@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Seder - Learner Profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="profile.css?v=1">
+</head>
+<body>
+  <header><a href="/">ס Seder</a><span>LEARNER PROFILE</span><a href="goals.html">Goal</a><a href="today.html">Today</a></header>
+  <main>
+    <section class="hero"><span>YOUR PRIVATE LEARNING PATH</span><h1 id="name">Choose a learner profile.</h1><p>Each profile keeps its own placement, mastery evidence, XP, and review rhythm on this device.</p></section>
+    <section class="profile-grid">
+      <section class="profiles"><div class="section-title"><span>PROFILES</span><h2>Continue as</h2></div><div id="profiles" class="profile-list"></div><form id="new-profile"><label>New learner name<input name="displayName" required placeholder="First name or nickname"></label><button type="submit">Create learner profile</button><p id="status" aria-live="polite"></p></form></section>
+      <section class="mastery"><div class="section-title"><span>MASTERY EVIDENCE</span><h2>What this learner can do</h2></div><div id="competencies" class="competencies"><p>Select a profile to see its skill evidence.</p></div><a class="begin" id="begin" href="today.html">Begin today’s session →</a>
+        <div class="account-actions">
+          <button type="button" id="export-data">Export my data</button>
+          <button type="button" id="delete-profile" class="delete-btn">Delete this profile</button>
+        </div>
+        <p id="account-status" aria-live="polite" class="account-status"></p>
+      </section>
+    </section>
+    <p class="note">This is a local development profile system. Production Seder will use authenticated accounts and a secure database.</p>
+  </main>
+  <script src="seder-auth.js?v=1"></script>
+  <script src="profile.js?v=3"></script>
+</body>
+</html>

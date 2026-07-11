@@ -1,0 +1,11 @@
+{
+  "model": "Each tractate course has an entry unit, language bank, source-map sequence, retrieval set, and independent checkpoint.",
+  "courses": [
+    {"tractate":"Berakhot","units":["Entry and Mishnah grammar","Opening sugya","Proof and challenge","Prayer and blessings","Independent reading"],"status":"flagship-in-progress"},
+    {"tractate":"Shabbat","units":["Domain vocabulary","Counted Mishnah cases","Action and responsibility","Challenge and distinction","Independent case map"],"status":"next-build"},
+    {"tractate":"Eruvin","units":["Space and boundary vocabulary","Measurement Mishnah","Purpose of a limit","Cited sources","Independent source map"],"status":"next-build"},
+    {"tractate":"Pesachim","units":["Time and action vocabulary","Search for chametz","Ambiguous words","Practice and source","Independent reading"],"status":"next-build"},
+    {"tractate":"Sukkah","units":["Structure vocabulary","Physical measure","Reason and proof","Dispute","Independent case map"],"status":"next-build"},
+    {"tractate":"Bava Metzia","units":["Claims and evidence","Two claimants","Mishnah response","Challenge and source","Independent dispute map"],"status":"next-build"}
+  ]
+}

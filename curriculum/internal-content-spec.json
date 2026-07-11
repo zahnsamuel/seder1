@@ -1,0 +1,5 @@
+{
+  "audience": "internal Seder curriculum team only; never exposed as a public contributor marketplace",
+  "requiredFields": ["sourceReference","sourceText","translation","skillId","prerequisites","questionVariants","plausibleDistractors","feedback","reviewContexts","independentCheckpoint","reviewStatus","version"],
+  "qualityGate": ["primary source verified","translation reviewed","non-pesak boundary checked where relevant","at least three transfer contexts planned","learner pilot observation completed"]
+}

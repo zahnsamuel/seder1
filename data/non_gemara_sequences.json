@@ -1,0 +1,13 @@
+{
+  "model": "Every subject grows from a source-first foundation into multi-unit question arcs, varied retrieval, and an independent checkpoint.",
+  "sequences": [
+    {"subject":"Chumash & Tanakh","arcs":["Shema and reception","Covenant and responsibility","Exile and return","Narrative and leadership"]},
+    {"subject":"Halakha","arcs":["Blessings source chain","Shabbat source chain","Prayer source chain","Case clarification and responsible guidance"]},
+    {"subject":"Tefillah","arcs":["Siddur structure","Shema","Amidah","Prayer and intention"]},
+    {"subject":"Jewish Thought","arcs":["Revelation and reason","Freedom and providence","Ethics and dignity","Prayer and suffering","Modernity"]},
+    {"subject":"Chassidus","arcs":["Desire and devekut","Joy and awe","Soul and metaphor","Practice and intention"]},
+    {"subject":"Mussar","arcs":["Humility","Responsibility","Patience","Courage","Gratitude"]},
+    {"subject":"Jewish History","arcs":["Second Temple and Rabbinic worlds","Babylonia and Geonim","Spain and Ashkenaz","Modern communities"]},
+    {"subject":"Judaism & the Wider World","arcs":["Reason and revelation","Jewish-Islamic exchange","Jewish-Christian encounters","Law in pluralistic society","Eastern wisdom comparisons"]}
+  ]
+}

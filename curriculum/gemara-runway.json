@@ -1,0 +1,11 @@
+{
+  "title": "Gemara runway: beginner to independent reader",
+  "principle": "Each tractate returns to the same reading repertoire while adding a new legal world, vocabulary field, and argument shape.",
+  "stages": [
+    {"stage":"Reading the page","tractates":["Berakhot"],"moves":["question signals","Mishnah orientation","context question","proof role","challenge and response"]},
+    {"stage":"Cases, domains, and measures","tractates":["Shabbat","Eruvin","Sukkah"],"moves":["counted cases","location and boundary","measure and reason","distinction"]},
+    {"stage":"Time, terms, and practice","tractates":["Pesachim","Chullin","Niddah"],"moves":["word-level inquiry","scope and exception","source chain","study-aid boundary"]},
+    {"stage":"Claims, evidence, and categories","tractates":["Bava Metzia","Bava Kamma","Ketubot"],"moves":["competing claims","evidence","institutional purpose","category comparison"]},
+    {"stage":"Independent Shas reading","tractates":["All tractates"],"moves":["source map","translation verification","retrieval across contexts","responsible independent study"]}
+  ]
+}

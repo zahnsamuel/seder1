@@ -1,0 +1,26 @@
+{
+  "program": "Seder",
+  "version": "0.1.0",
+  "subjects": [
+    { "id": "gemara", "title": "Gemara", "crown_path": true, "entry_skill": "hebrew-decoding", "map": "full-bavli" },
+    { "id": "tanakh", "title": "Chumash & Tanakh", "entry_skill": "biblical-hebrew" },
+    { "id": "chassidus", "title": "Chassidus", "entry_skill": "text-orientation" },
+    { "id": "halakha", "title": "Halakha", "entry_skill": "source-literacy" },
+    { "id": "history", "title": "Jewish History", "entry_skill": "timeline-literacy" },
+    { "id": "tefillah", "title": "Tefillah & Liturgy", "entry_skill": "hebrew-decoding" },
+    { "id": "mussar", "title": "Mussar & Ethics", "entry_skill": "text-orientation" },
+    { "id": "philosophy", "title": "Jewish Philosophy", "entry_skill": "text-orientation" },
+    { "id": "widerworld", "title": "Judaism & the Wider World", "entry_skill": "contextual-reading" }
+  ],
+  "gemara_stages": [
+    { "id": "enter-page", "title": "Enter the page", "prerequisites": ["hebrew-decoding", "mishnah-orientation"] },
+    { "id": "read-language", "title": "Read the language", "prerequisites": ["enter-page"] },
+    { "id": "gemara-moves", "title": "Follow Gemara moves", "prerequisites": ["read-language"] },
+    { "id": "tractate-labs", "title": "Study first tractates", "prerequisites": ["gemara-moves"] },
+    { "id": "rashi", "title": "Read Rashi with the daf", "prerequisites": ["tractate-labs"] },
+    { "id": "dialectic", "title": "Compare voices and Tosafot", "prerequisites": ["rashi"] },
+    { "id": "source-chain", "title": "Trace to halakha", "prerequisites": ["dialectic"] },
+    { "id": "independence", "title": "Independent mastery", "prerequisites": ["source-chain"] }
+  ],
+  "content_policy": "All learner-facing material must include a primary-source reference, a review status, and a non-pesak disclaimer where relevant."
+}

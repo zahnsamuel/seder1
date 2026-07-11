@@ -1,0 +1,5 @@
+.env
+.env.local
+supabase/.temp/
+node_modules/
+data/learners.json

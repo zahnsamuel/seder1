@@ -1,0 +1,14 @@
+{
+  "terms": [
+    {"term":"מֵאֵימָתַי","transliteration":"me-eimatai","meaning":"From when?","job":"Signals a question about a starting point in time."},
+    {"term":"מַאי","transliteration":"mai","meaning":"What? / Why?","job":"Signals a question whose precise force must be read from context."},
+    {"term":"תַּנָּא","transliteration":"tanna","meaning":"Mishnah teacher","job":"Often points the reader toward the Mishnah and its formulation."},
+    {"term":"דִּכְתִיב","transliteration":"dikhtiv","meaning":"As it is written","job":"Signals that a biblical verse is entering as evidence."},
+    {"term":"מֵיתִיבֵי","transliteration":"meitivei","meaning":"They raise an objection","job":"Signals pressure on a preceding claim through a source or case."},
+    {"term":"לָא קַשְׁיָא","transliteration":"la kashya","meaning":"It is not difficult","job":"Often introduces a distinction that resolves an apparent conflict."},
+    {"term":"חֲזָקָה","transliteration":"chazakah","meaning":"Established presumption","job":"Names a legal or practical status that frames later discussion."},
+    {"term":"סְבָרָא","transliteration":"sevara","meaning":"Reasoning","job":"Names an inference or line of reasoning, often distinct from a direct citation."},
+    {"term":"פְּסוּלָה","transliteration":"pesulah","meaning":"Invalid","job":"Signals a ruling about the described case, inviting a question about its reason."},
+    {"term":"רְאָיָה","transliteration":"ra'ayah","meaning":"Proof / evidence","job":"Names evidence brought to support or test a claim."}
+  ]
+}
