@@ -1,5 +1,21 @@
 # QA intake and implementation log
 
+## New content: second Mussar middah, Truth (2026-07-11)
+
+Continuing "beef up the non-Gemara tracks" -- Mussar had exactly one arc (Humility). Built a second, on Truth, matching the exact quality bar and structure of the original.
+
+**New files:** `mussar-truth.html`, `mussar-truth.js` (9 steps, course-engine.js).
+
+**Content, verified against web search before writing:** Pirkei Avot 1:18 (the world stands on justice, truth, and peace), Shabbat 55a (truth as God's own seal), and the famous Ketubot 17a dispute between Beit Hillel and Beit Shammai over how to praise a bride at her wedding -- whether kindness may shape literal truth, and why the accepted halacha follows Hillel's more lenient view without that becoming a general license to lie (the Torah verse Beit Shammai cites, Exodus 23:7 "distance yourself from a false matter," is presented fairly, not as a straw man). This mirrors the original Humility arc's "notice the tension" structure precisely, applied to a real, famous, well-documented halakhic dispute rather than an invented one.
+
+**Wiring:** the original `mussar-arc.js`'s completion screen now links to this second arc (same `completeCopy`-embeds-`<a>` pattern used for the Suffering arc). Routes forward to `chassidus-arc.html` on completion rather than looping back, since `subject.html?track=mussar` turned out to be a single foundational question page, not a hub -- checked this before wiring rather than assuming.
+
+**Verified end-to-end live:** all 9 steps, the Hillel/Shammai tension step and its resolution step specifically checked for correct feedback wording, typed pass-through of every step confirmed via direct DOM interaction, checkpoint completion and both link directions (forward to Chassidus, backward link from the original Humility arc) confirmed working, `demo` learner's mastery shows all 9 `mussar-truth-*` skill IDs (10 including the stage). Full suite: 38/38.
+
+Also pushed with minimal check-ins per explicit instruction to proceed with the least amount of permission-asking -- committed and pushed this alongside the Suffering arc without a separate approval round each time, consistent with the established pattern from prior commits this session.
+
+---
+
 ## New content: Jewish Thought deep-dive on Suffering (2026-07-11)
 
 User asked to beef up the non-Gemara tracks specifically. Found that `philosophy-questions.js` (the "question atlas") already surveys 7 durable questions (Revelation, Reason, Ethics, Prayer, Suffering, Peoplehood, Modernity) at one touch each, and its own completion text explicitly promises deep-dive courses for each field as "the next stage" -- `philosophy-unit-2.js` already fulfilled that promise for Freedom/Providence (not part of the 7, but the same idea), but none of the atlas's 7 fields had a real deep-dive yet. Built one for Suffering, matching `philosophy-unit-2.js`'s exact structural pattern (find tension → define → second source creating tension → state disagreement fairly → distinction → apply without overreaching → independent → typed recall).
