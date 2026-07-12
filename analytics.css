@@ -1,0 +1,30 @@
+:root{--navy:#183b4e;--teal:#276b68;--paper:#fbfaf6;--line:#d8d9d1;--muted:#637178;--gold:#b88028;--red:#b5533e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:#1f3036;font-family:Inter,Arial,sans-serif}
+header{padding:18px 6%;display:flex;gap:18px;align-items:center;border-bottom:1px solid var(--line)}
+header a{color:var(--navy);text-decoration:none;font:600 20px Fraunces,serif}
+header span{color:var(--muted);font:10px 'DM Mono';letter-spacing:.09em}
+main{max-width:980px;margin:0 auto;padding:0 6% 60px}
+.hero{padding:36px 0 20px}
+.hero>span{color:var(--teal);font:10px 'DM Mono';letter-spacing:.09em}
+.hero h1{margin:8px 0 14px;color:var(--navy);font:500 34px/1.15 Fraunces,serif}
+.hero p{max-width:720px;color:var(--muted);line-height:1.6;font-size:14px}
+.hero code{background:#eee8d8;padding:1px 5px;border-radius:3px;font-size:13px}
+.unavailable{background:#f8e6e1;border:1px solid var(--red);border-radius:8px;padding:16px 20px;margin:20px 0}
+.unavailable p{margin:0;color:#7a3628}
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:24px 0 36px}
+.summary article{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px}
+.summary small{color:var(--teal);font:10px 'DM Mono';letter-spacing:.08em}
+.summary strong{display:block;margin-top:6px;color:var(--navy);font:500 26px Fraunces,serif}
+.panel{margin:32px 0;padding:22px;background:#fff;border:1px solid var(--line);border-radius:10px}
+.panel h2{margin:0 0 6px;color:var(--navy);font:500 20px Fraunces,serif}
+.panel .hint{margin:0 0 16px;color:var(--muted);font-size:13px;line-height:1.5}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;color:var(--muted);font:600 11px 'DM Mono';letter-spacing:.06em;padding:8px 6px;border-bottom:1px solid var(--line)}
+td{padding:9px 6px;border-bottom:1px solid #eee8de}
+tr.drop-off td{color:var(--red)}
+tr.drop-off td:first-child{font-weight:600}
+.stage-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.stage-list li{display:flex;justify-content:space-between;padding:8px 10px;background:var(--paper);border-radius:6px;font-size:13px}
+.stage-list li span{color:#273b43;text-transform:capitalize}
+.stage-list li b{color:var(--gold)}
