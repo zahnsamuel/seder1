@@ -1,5 +1,21 @@
 # QA intake and implementation log
 
+## New content: second Chassidus arc, Ahavat Yisrael (2026-07-11)
+
+Third non-Gemara addition this session, applying the Yochai `source-sheet` skill's role-based curation method explicitly for the first time (foundational → dominant reading → counter-voice → applied), now that Claude has read access to the Yochai KG repo and its documented methodology (no live API key yet -- user will request one later; this uses the method, not live graph calls).
+
+**New files:** `chassidus-ahavat-yisrael.html`, `chassidus-ahavat-yisrael.js` (8 steps, course-engine.js).
+
+**Sources, all verified via web search before writing:** Leviticus 19:18 (foundational command), Rabbi Akiva's "great principle of the Torah" framing from the Sifra (dominant reading), Ben Azzai's real, recorded counter-proposal via Genesis 5:1 -- a genuine Tannaitic disagreement about whether the command's reach is particular (fellow) or universal (shared human origin), not an invented tension. Hillel's Shabbat 31a formulation to the convert (applied/practical), and a Chassidic root via Tanya ch. 32 (all Israel as literally sharing one source) -- presented as the chapter's well-documented theme rather than an over-precise verbatim quote I couldn't fully verify character-by-character.
+
+**Wiring:** bidirectional links with the original Joy/Awe arc, same pattern as Mussar's Truth arc.
+
+**Verified end-to-end live:** all 8 steps in a single batched pass (no timeout issues this time), checkpoint completion, mastery recording (all 9 skill IDs including stage), link-back rendering. Full suite: 42/42 (Codex added 4 more tests concurrently while this was in progress -- confirms Codex is active again).
+
+**Pivoting after this:** user asked to shift focus entirely to the Gemara section for an extended period -- see the next entry for the improvement plan.
+
+---
+
 ## New content: second Mussar middah, Truth (2026-07-11)
 
 Continuing "beef up the non-Gemara tracks" -- Mussar had exactly one arc (Humility). Built a second, on Truth, matching the exact quality bar and structure of the original.
