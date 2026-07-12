@@ -1,0 +1,40 @@
+const learnerId = Seder.currentLearnerId();
+const $ = (selector) => document.querySelector(selector);
+const gemaraCycle = [
+  ['berakhot', 'Berakhot: begin to read the sugya'],
+  ['shabbat', 'Shabbat: map a legal case'],
+  ['pesachim', 'Pesachim: read a word-question closely'],
+  ['eruvin', 'Eruvin: connect a measure to its reason'],
+  ['sukkah', 'Sukkah: read a ruling and its source'],
+  ['bava-metzia', 'Bava Metzia: map competing claims'],
+  ['bava-kamma', 'Bava Kamma: distinguish categories of damage'],
+  ['ketubot', 'Ketubot: trace a schedule to its reason'],
+  ['chullin', 'Chullin: read a rule through its exception'],
+  ['niddah', 'Niddah: hold a three-way dispute carefully']
+];
+
+Promise.all([
+  Seder.api(`/api/learners/${learnerId}`).then((response) => response.json()),
+  fetch('/api/curriculum/repair-router').then((response) => response.json()),
+  fetch('/api/curriculum/canon-six-session-courses').then((response) => response.json())
+]).then(([learner, router, courses]) => {
+  const struggles = learner.struggles || {};
+  const category = router.categories.map((item) => ({ ...item, score: item.skills.reduce((total, skill) => total + (struggles[skill] || 0), 0) })).sort((a, b) => b.score - a.score)[0];
+  const vocabDue = (learner.reviewQueue || []).find((item) => String(item.skillId || '').startsWith('vocab-'));
+  const progress = courses.courses.map((course) => {
+    const done = new Set(JSON.parse(localStorage.getItem(`seder-course-${course.id}-${learnerId}`) || '[]'));
+    return { course, done, first: [...Array(course.sessions.length).keys()].find((item) => !done.has(item)), capstone: localStorage.getItem(`seder-capstone-${course.id}-${learnerId}`) === 'complete' };
+  });
+  const active = progress.find((item) => item.done.size > 0 && item.done.size < item.course.sessions.length);
+  const readyCapstone = progress.find((item) => item.done.size === item.course.sessions.length && !item.capstone);
+  const capstoned = progress.filter((item) => item.capstone).length;
+  const transferDone = JSON.parse(localStorage.getItem(`seder-independent-reading-${learnerId}`) || '[]').length;
+  const [tractate, gemaraTitle] = gemaraCycle[Math.floor(Date.now() / 86400000) % gemaraCycle.length];
+
+  let recommendation = category?.score > 0 ? category : vocabDue ? { title: 'Retrieve a source word', url: 'canon-vocabulary.html', reason: 'A word you met before is due for a brief retrieval. Recall keeps source reading available.' } : active ? { title: `Resume ${active.course.title}`, url: `canon-course.html?course=${active.course.id}&session=${active.first}`, reason: `Continue at session ${active.first + 1} of ${active.course.sessions.length}; your earlier source work is saved.` } : readyCapstone ? { title: `Capstone: ${readyCapstone.course.title}`, url: `canon-capstone.html?course=${readyCapstone.course.id}`, reason: 'You completed the source sequence. Now make an independent connection.' } : capstoned && transferDone < 5 ? { title: 'Read an unfamiliar source', url: 'independent-reading.html', reason: 'You have completed a course connection. Now prove that your reading habits transfer to a new text.' } : { title: gemaraTitle, url: `tractate-mastery.html?tractate=${tractate}`, reason: 'Today’s core source work is a Gemara move. The wider canon will return in the next daily cycle.' };
+
+  $('#title').textContent = recommendation.title;
+  $('#reason').textContent = recommendation.reason;
+  $('#primary').href = recommendation.url;
+  $('#sequence').innerHTML = [['1', 'Recall', 'canon-vocabulary.html', 'Retrieve a source word.'], ['2', 'Study', recommendation.url, 'Follow the next adaptive step.'], ['3', 'Transfer', 'independent-reading.html', 'Read a source you have not rehearsed.'], ['4', 'Connect', 'course-dashboard.html', 'See course, bridge, and capstone evidence.']].map(([number, title, url, copy]) => `<article><small>${number}</small><h2>${title}</h2><p>${copy}</p><a href="${url}">Open &rarr;</a></article>`).join('');
+}).catch(() => { $('#title').textContent = 'Begin today\'s Canon Studio'; $('#primary').href = 'daily-canon.html'; });
