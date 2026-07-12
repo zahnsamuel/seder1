@@ -38,6 +38,6 @@
     {"seder":"Kodashim","title":"Keritot","theme":"serious transgressions and atonement","stage":"tractate-labs","prerequisites":["gemara-moves","proof-texts"],"practice":"Guided sugya selected by the editorial team"},
     {"seder":"Kodashim","title":"Meilah","theme":"misuse of consecrated property","stage":"tractate-labs","prerequisites":["gemara-moves","proof-texts"],"practice":"Guided sugya selected by the editorial team"},
     {"seder":"Kodashim","title":"Tamid","theme":"daily Temple service","stage":"tractate-labs","prerequisites":["gemara-moves","proof-texts"],"practice":"Guided sugya selected by the editorial team"},
-    {"seder":"Taharot","title":"Niddah","theme":"ritual purity and family law","stage":"tractate-labs","prerequisites":["gemara-moves","proof-texts"],"practice":"Opening Mishnah lab on Niddah 2a","labId":"niddah"}
+    {"seder":"Taharot","title":"Niddah","theme":"ritual purity and family law","stage":"tractate-arc","prerequisites":["gemara-moves","proof-texts"],"practice":"Full tractate arc: a three-way Tannaitic dispute, a correctly-sourced presumption, and an independent case-map checkpoint","labId":"niddah","arcUrl":"niddah-arc.html"}
   ]
 }
