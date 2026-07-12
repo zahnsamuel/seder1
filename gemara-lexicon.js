@@ -1,0 +1,1 @@
+fetch('/api/source-glossary').then(r=>r.json()).then(data=>{document.querySelector('#terms').innerHTML=data.terms.map(item=>`<article class="source"><p class="hebrew" lang="he" dir="rtl">${item.term}</p><div class="citation">${item.transliteration} · ${item.meaning}</div><p>${item.job}</p></article>`).join('')});
