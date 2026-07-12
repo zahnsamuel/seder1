@@ -7,6 +7,9 @@
     {"stageId":"pesachim-tractate-arc","title":"Enter Pesachim: action, time, and source","reason":"Carry argument mapping into ritual time and practice.","url":"pesachim-arc.html"},
     {"stageId":"sukkah-tractate-arc","title":"Enter Sukkah: validity, measurement, and dispute","reason":"Practice reading how a physical condition becomes a legal question.","url":"sukkah-arc.html"},
     {"stageId":"bava-metzia-tractate-arc","title":"Enter Bava Metzia: claims and evidence","reason":"Bring Gemara tools into civil disputes, competing claims, and evidence.","url":"bava-metzia-arc.html"},
-    {"stageId":"bava-kamma-tractate-arc","title":"Enter Bava Kamma: categories of damage","reason":"Sort a legal field into categories, differentiate them, then find what they share.","url":"bava-kamma-arc.html"}
+    {"stageId":"bava-kamma-tractate-arc","title":"Enter Bava Kamma: categories of damage","reason":"Sort a legal field into categories, differentiate them, then find what they share.","url":"bava-kamma-arc.html"},
+    {"stageId":"ketubot-tractate-arc","title":"Enter Ketubot: schedule and institutional reason","reason":"Trace a fixed detail to its real reason, then weigh it against a second value the same reason has to balance.","url":"ketubot-arc.html"},
+    {"stageId":"chullin-tractate-arc","title":"Enter Chullin: a rule read through its exception","reason":"Follow a broad rule, its narrowing exception, and the condition that reopens it.","url":"chullin-arc.html"},
+    {"stageId":"niddah-tractate-arc","title":"Enter Niddah: a three-way dispute, held carefully","reason":"Track three distinct positions in a live machloket without flattening any of them.","url":"niddah-arc.html"}
   ]
 }
