@@ -20,7 +20,8 @@ Promise.all([
   let open = true;
   const practice = graph.practice ? `<p class="graph-practice">Your graph practice: <a href="${graph.practice.url}">${graph.practice.skill.title} in ${graph.practice.context || 'a new source'} →</a></p>` : '';
   const crossTractate = done.size >= 3 ? `<p class="graph-practice">You have entered enough tractates to test transfer: <a href="cross-tractate.html">practice recognizing the same reading move across Shas →</a></p>` : '';
-  document.querySelector('#arcs').innerHTML = `${practice}${crossTractate}${sequence.steps.map((step, index) => {
+  const shasLiteracy = sequence.steps.every((step) => done.has(step.stageId)) ? `<p class="graph-practice">You have completed every tractate in this sequence: <a href="shas-literacy-checkpoint.html">take the Shas literacy checkpoint →</a></p>` : '';
+  document.querySelector('#arcs').innerHTML = `${practice}${crossTractate}${shasLiteracy}${sequence.steps.map((step, index) => {
     const complete = done.has(step.stageId);
     const current = !complete && open;
     open = open && complete;
