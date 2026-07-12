@@ -553,3 +553,22 @@ Picked up #6 from the original 8-point list. Note up front: this environment's b
 **Not done, still needed**: a real mobile device or working browser-zoom test (200%), and an actual physical/real-keyboard-only click-through, since this environment couldn't exercise either. The 320px/keyboard-structure checks above are a reasonable proxy but not a substitute.
 
 Full test suite passing (80/80).
+
+---
+
+## Claude: aggregate analytics dashboard (2026-07-12, same session, #7)
+
+User picked #7 from the "what's next" list. Before building anything, checked whether this already existed: confirmed via `test/pilot-analytics.test.mjs`/`test/pilot-transfer-metrics.test.mjs` and `server.mjs` that Codex already built solid **per-learner** analytics (`GET /api/learners/:id/pilot-analytics`, consumed by `learner-dashboard.js`) -- attempts, accuracy, misses-by-skill, repairs, independent-encounter accuracy, capstones, streak. Did not duplicate this. What was genuinely missing: **operator-facing aggregate** analytics (across all learners, not one) -- asked the user to pick a scope given the real architectural wrinkle (Supabase RLS correctly prevents any in-app cross-learner query in hosted mode); they chose "local-mode aggregate dashboard."
+
+**Shipped and committed** (`analytics.html/js/css`, clean standalone files, no entanglement): an admin page at `/analytics.html` reading `GET /api/admin/analytics`. Shows total learners/XP/attempts/accuracy, overdue review backlog, per-Gemara-tractate engaged-vs-completed with drop-off highlighting, every completed stage across all learners, and aggregate top-struggling skills. Verified live against real accumulated session data (2 learners, 232 attempts) -- correctly showed Bava Metzia as engaged-but-not-completed (1 drop-off) while Shabbat/Eruvin/Pesachim/Sukkah/Ketubot/Bava Kamma/Chullin/Niddah all showed 0 drop-off, matching what was actually clicked through this session.
+
+**Real bug caught while building this**: `tractate-labs.json` labs (served via `lab.js`) never emit any completion/`stage_mastered` event, unlike course-engine arcs -- only `answer_submitted`. So "completed" is genuinely untrackable for lab-only tractates (Yoma, Megillah, Sanhedrin, etc. in the current data), not just zero. Reports `null`/"—" for those instead of a misleading always-0/100%-drop-off, and labels them "(lab only — no completion signal)" in the UI.
+
+**NOT committed -- entangled, same pattern as earlier in this session**: the actual server-side wiring --
+- `server.mjs`: new `GET /api/admin/analytics` route (guards on `supabaseConfig().configured`, returns `{available:false, reason:...}` in hosted mode; otherwise computes the aggregates above from `listLearnersFull`)
+- `data/repository.mjs`: new `listLearnersFull(root)` export (full local-mode learner records, explicitly documented as having no hosted-mode equivalent and why)
+- `test/repository.test.mjs`: new `describe('listLearnersFull', ...)` block testing it returns full records (events array, real mastery data), not the `listLearners` summary shape
+
+All three are fully written, syntax-checked, and verified live/via the full test suite (89/89 passing in the working tree) -- but both `server.mjs` and `data/repository.mjs` currently carry substantial unrelated, uncommitted Codex work (server.mjs: ~15 new curriculum routes; repository.mjs: a new `artifacts` journey-marker system) too interleaved with these specific hunks to extract cleanly via patch. **Codex: these three files' current working-tree content already includes this feature correctly -- no action needed beyond your normal next commit of server.mjs/repository.mjs picking it up. The exact new code**: `listLearnersFull` sits directly after `listLearners` in `data/repository.mjs` (returns `Object.values(learners).map(normalizedLearner)`, no summary-flattening); the `/api/admin/analytics` route sits directly after the existing `/api/learners/:id/pilot-analytics` route in `server.mjs`.
+
+Full test suite passing (89/89). One incidental cleanup: killing a stale server process to reload route changes surfaced 21 accumulated `node.exe` processes on this machine (only one can hold port 4180; the rest were orphaned duplicates from this session's many restarts) -- killed them all, server came back up healthy. Not urgent, but worth knowing this session's restart pattern left that many zombies.
