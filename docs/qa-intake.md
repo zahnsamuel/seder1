@@ -600,3 +600,53 @@ Verified citation accuracy across all 5 non-Gemara six-session course data files
 An exhaustive orphaned-link sweep (the same script used earlier in the session) timed out at the current file count (150+) -- not re-run; the targeted checks above were prioritized instead given the severity of what they found.
 
 Full test suite passing (118/118). This closes the most severe outstanding gap between Gemara and non-Gemara QA rigor: both tracks now have the shuffle-bug class fully swept and fixed, not just Gemara.
+
+
+## 2026-07-12 — Claude: second foundations for Halakha, Chumash, Tefillah (beef-up pass, part 1)
+
+Vision-aligned expansion: the three thinnest non-Gemara subjects each had exactly one arc
+and no deepening unit, unlike Mussar/Chassidus/Thought. Built one second-foundation unit
+per subject, following the validated mussar-truth pattern (new course page + link embedded
+in the first arc's completeCopy, which renders via innerHTML in course-engine.js).
+
+New units (each 10 steps, each ending with a typed production check, all served by
+course-engine.js which shuffles answers safely):
+
+- halakha-honor-parents.js/.html — honoring parents as a second source chain:
+  Exodus 20:12 (kibud) + Leviticus 19:3 (morah) -> Kiddushin 31b category definitions ->
+  Kiddushin 31a Dama ben Netina narrative-as-evidence -> Kiddushin 32a mishel av o mishel
+  ben edge case -> Rambam Mamrim 6:3. Sources verified via Sefaria/web search (Dama story,
+  kibud/morah distinction, Rambam formulation). Includes RESPONSIBLE LEARNING boundary step
+  (real family situations -> qualified guidance). nextUrl: lab.html?tractate=kiddushin
+  (lab confirmed present in tractate-labs.json).
+
+- chumash-akeidah.js/.html — narrative close reading as a second Chumash skill (first arc
+  taught legal-verse reception): narrator's-knowledge gap (Gen 22:1), three hineni
+  instances (22:1, 22:7, 22:11 — verified), escalating epithets (22:2), doubled "vayelchu
+  shneihem yachdav" frame (22:6/22:8), load-bearing ambiguity of 22:8, reception via
+  Rosh Hashanah 16a shofar-Akeidah link (verified). nextUrl: lab.html?tractate=rosh-hashanah
+  (lab confirmed present).
+
+- tefillah-kaddish.js/.html — one prayer in depth (first arc taught the service map):
+  Aramaic register, Ezekiel 38:23 echo, Yehei Shemei Rabba as communal center,
+  Shabbat 119b (answering with all one's strength — verified), Kaddish forms as service
+  punctuation, the no-mention-of-death paradox (verified), minyan requirement. Includes
+  boundary step directing real mourning questions to qualified guidance and community.
+  nextUrl: berakhot-arc.html.
+
+One-line completeCopy link edits: halakha-arc.js, chumash-arc.js, tefillah-arc.js
+(each confirmed to contain only my diff before staging).
+
+Verification: all three pages live-tested at localhost:4180 — 10/10 steps render, RTL
+Hebrew renders, answers shuffle (correct answer observed at non-first position), correct
+click credits +10 XP and enables Continue, structural data check (correct index valid,
+typed steps have acceptable arrays, all steps carry skill/competency) returned zero issues
+on all 30 steps. Full test suite: 121/121 pass.
+
+Also wrote docs/codex-assignment.md — prioritized handoff (Supabase isolation runbook,
+tractate-mastery migration completion, entangled analytics server code, next-step
+topology decision) coordinated with Sam.
+
+Still open in this pass: real continuations for history-arc.js / widerworld-arc.js
+(their nextUrl currently points at canon-arc.html?track=..., which re-teaches the same
+Jeremiah 29:7 material — flagged as dead-end, replacement units are the next work item).
