@@ -1,5 +1,11 @@
 const learnerId = Seder.currentLearnerId();
 const navigation = document.querySelector('header');
+if (navigation && !navigation.querySelector('[href="academy.html"]')) {
+  const academy = document.createElement('a');
+  academy.href = 'academy.html';
+  academy.textContent = 'First Month';
+  navigation.insertBefore(academy, navigation.querySelector('#xp'));
+}
 if (navigation && !navigation.querySelector('[href="study-record.html"]')) {
   const record = document.createElement('a');
   record.href = 'study-record.html';
