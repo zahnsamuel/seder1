@@ -1363,3 +1363,31 @@ all credited, completion renders); suite 151/151.
 
 Wave 2 begins next: distractor rewrites, highest-traffic first (berakhot chain, first
 arcs, canon courses). The auditor's longest-bias column is the progress meter.
+
+
+## 2026-07-13 — Claude: Wave 2 batch 1 — diagnostic distractors in the Gemara-signals core
+
+First distractor-sophistication batch, targeting the three worst-biased high-traffic
+files. Method: keep every correct answer unchanged; replace each curt strawman
+distractor with a same-register near-miss that encodes a SPECIFIC misreading — for the
+signals toolkit, the natural near-miss is another signal's function (mistaking ela for
+ta shema, meitivei for la kashya, mai ka mashma lan for mena hanei milei or an
+attribution question). Feedback upgraded in step where the contrast itself teaches
+(teyuvta fells a position; kashya leaves it wounded but standing; distinctions re-map
+cases rather than compromising or tie-breaking).
+
+- gemara-toolkit.js: all 13 MC questions rewritten. Audit longest-bias 13/13 -> 0/13,
+  score 7 -> 10.
+- berakhot-unit-3.js: all 7 rewritten (incl. the mastery-reflection step, whose old
+  distractors were absurd rather than tempting — now "translate first and let structure
+  emerge" and "read the conclusion first", both genuinely tempting wrong strategies).
+  7/7 -> 0/7, score 7 -> 10.
+- berakhot-unit-5.js: all 7 rewritten. 7/7 -> 0/7, score 7 -> 10.
+
+Corpus distribution now {3:26, 4:7, 5:4, 6:6, 7:33, 8:10, 9:1, 10:4} — four perfect
+scores. Verification: 3/3 node --check; gemara-toolkit live end-to-end (14 steps, all
+credited, completion renders — correct answers still credit against shuffled rewritten
+options); suite 151/151.
+
+Next batches: berakhot-deep + unit-2/4 + grammar (front door, partially biased), then
+first arcs, then canon courses, then deepening units (~430 questions remaining).
