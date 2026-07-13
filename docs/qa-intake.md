@@ -1206,3 +1206,13 @@ renders, correct primary + at most one lateral); suite 142/142.
   original prompt, so the learner must carry the move into a new setting.
 - Added regression coverage for the first-month evidence bank’s flagship Gemara citations.
   Verification: full suite passes, 151 tests / 0 failures.
+
+## 2026-07-13 — Codex: live Academy learner QA
+
+- Ran the Academy in the live local app as a learner. Day 1 recorded two correct source
+  checks (+20 XP), showed the mastered state, and unlocked Day 2 while retaining all later
+  days as evidence-gated.
+- Found and fixed a learner-dashboard rendering fault (`sessionDay` was omitted from the
+  current-month map calculation), which had incorrectly triggered the generic learner-state
+  fallback and left the course map blank. Live re-test confirmed the full month map renders
+  with Day 1 mastered, Day 2 current, and later days locked.
