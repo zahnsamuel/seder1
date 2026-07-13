@@ -12,6 +12,19 @@ const gemaraCycle = [
   ['chullin', 'Chullin: read a rule through its exception'],
   ['niddah', 'Niddah: hold a three-way dispute carefully']
 ];
+// Second-foundation deepenings: [first arc stage, second unit stage, title, url].
+// When a learner has finished a subject's first arc but not its second unit, the
+// router offers the deepening every third day; the Gemara spine keeps the other days.
+const deepenings = [
+  ['halakha-blessings-arc', 'halakha-honor-parents-arc', 'Halakha: trace honoring parents from two Torah verbs to Rambam', 'halakha-honor-parents.html'],
+  ['chumash-shema-arc', 'chumash-akeidah-arc', 'Chumash: follow one word through the Akeidah', 'chumash-akeidah.html'],
+  ['tefillah-siddur-arc', 'tefillah-kaddish-arc', 'Tefillah: read the Kaddish in depth', 'tefillah-kaddish.html'],
+  ['mussar-humility-arc', 'mussar-truth-arc', 'Mussar: trace truth through a real halakhic dispute', 'mussar-truth.html'],
+  ['chassidus-joy-awe-arc', 'chassidus-ahavat-yisrael-arc', 'Chassidus: read love of a fellow as a gateway', 'chassidus-ahavat-yisrael.html'],
+  ['history-community-arc', 'history-yavneh-arc', 'History: work your questions on the year 70 and Yavneh', 'history-yavneh.html'],
+  ['widerworld-law-reason-arc', 'widerworld-encounter-arc', 'Wider World: read the tradition’s own charters of encounter', 'widerworld-encounter.html'],
+  ['jewish-thought-question-atlas', 'jewish-thought-suffering', 'Jewish Thought: hold three voices on suffering', 'thought-suffering.html']
+];
 
 Promise.all([
   Seder.api(`/api/learners/${learnerId}`).then((response) => response.json()),
@@ -29,9 +42,13 @@ Promise.all([
   const readyCapstone = progress.find((item) => item.done.size === item.course.sessions.length && !item.capstone);
   const capstoned = progress.filter((item) => item.capstone).length;
   const transferDone = JSON.parse(localStorage.getItem(`seder-independent-reading-${learnerId}`) || '[]').length;
-  const [tractate, gemaraTitle] = gemaraCycle[Math.floor(Date.now() / 86400000) % gemaraCycle.length];
+  const day = Math.floor(Date.now() / 86400000);
+  const [tractate, gemaraTitle] = gemaraCycle[day % gemaraCycle.length];
+  const doneStages = new Set(learner.completedStages || []);
+  const pendingDeepenings = deepenings.filter(([firstStage, secondStage]) => doneStages.has(firstStage) && !doneStages.has(secondStage));
+  const deepening = pendingDeepenings.length && day % 3 === 2 ? pendingDeepenings[day % pendingDeepenings.length] : null;
 
-  let recommendation = category?.score > 0 ? category : vocabDue ? { title: 'Retrieve a source word', url: 'canon-vocabulary.html', reason: 'A word you met before is due for a brief retrieval. Recall keeps source reading available.' } : active ? { title: `Resume ${active.course.title}`, url: `canon-course.html?course=${active.course.id}&session=${active.first}`, reason: `Continue at session ${active.first + 1} of ${active.course.sessions.length}; your earlier source work is saved.` } : readyCapstone ? { title: `Capstone: ${readyCapstone.course.title}`, url: `canon-capstone.html?course=${readyCapstone.course.id}`, reason: 'You completed the source sequence. Now make an independent connection.' } : capstoned && transferDone < 5 ? { title: 'Read an unfamiliar source', url: 'independent-reading.html', reason: 'You have completed a course connection. Now prove that your reading habits transfer to a new text.' } : { title: gemaraTitle, url: `tractate-mastery.html?tractate=${tractate}`, reason: 'Today’s core source work is a Gemara move. The wider canon will return in the next daily cycle.' };
+  let recommendation = category?.score > 0 ? category : vocabDue ? { title: 'Retrieve a source word', url: 'canon-vocabulary.html', reason: 'A word you met before is due for a brief retrieval. Recall keeps source reading available.' } : active ? { title: `Resume ${active.course.title}`, url: `canon-course.html?course=${active.course.id}&session=${active.first}`, reason: `Continue at session ${active.first + 1} of ${active.course.sessions.length}; your earlier source work is saved.` } : readyCapstone ? { title: `Capstone: ${readyCapstone.course.title}`, url: `canon-capstone.html?course=${readyCapstone.course.id}`, reason: 'You completed the source sequence. Now make an independent connection.' } : capstoned && transferDone < 5 ? { title: 'Read an unfamiliar source', url: 'independent-reading.html', reason: 'You have completed a course connection. Now prove that your reading habits transfer to a new text.' } : deepening ? { title: deepening[2], url: deepening[3], reason: 'You finished this subject’s foundation, and its second unit is waiting. Deepen it today — the Gemara spine returns tomorrow.' } : { title: gemaraTitle, url: `tractate-mastery.html?tractate=${tractate}`, reason: 'Today’s core source work is a Gemara move. The wider canon will return in the next daily cycle.' };
 
   $('#title').textContent = recommendation.title;
   $('#reason').textContent = recommendation.reason;
