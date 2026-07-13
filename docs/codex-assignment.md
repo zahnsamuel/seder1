@@ -143,12 +143,31 @@ const workbenchFallbacks = skillIds.filter((s) => !covered.has(s)).map((s) =>
 A test in `test/*.test.mjs` asserting that a `history-yavneh-*` skill yields a
 `HISTORY RETRIEVAL` item (not `DAF RETRIEVAL`) would lock it in.
 
-## Claude's concurrent work (avoid collisions)
+## Claude's concurrent work (avoid collisions) — updated 2026-07-13
 
-Claude is creating these new files (do not create files with these names):
-- `halakha-honor-parents.js` / `.html`
-- `chumash-akeidah.js` / `.html`
-- `tefillah-kaddish.js` / `.html`
-- plus one-line completion-copy link edits inside `halakha-arc.js`, `chumash-arc.js`,
-  `tefillah-arc.js`, and later real continuations for `history-arc.js` /
-  `widerworld-arc.js` nextUrls.
+Claude has created and committed these units (all in git history now): second and third
+foundations for every non-Gemara subject — halakha-honor-parents, halakha-machloket,
+chumash-akeidah, chumash-tehillim, tefillah-kaddish, tefillah-amidah, mussar-truth (pre-
+existing) + mussar-anger, chassidus-ahavat-yisrael (pre-existing) + chassidus-simcha,
+history-yavneh, history-geniza, widerworld-encounter, widerworld-mean (each .js + .html);
+plus the units lists in subject.js/subject.html, the deepenings map in daily-router.js,
+test/daily-deepening.test.mjs (guards 15 stage pairs — if you rename any course stage ID,
+this test will tell you), and typed production checks in canon-course.js + the six course
+JSONs (now committed).
+
+## When you finish committing (item 0), please signal
+
+Append one line to this file or docs/qa-intake.md ("Codex: in-flight surface committed,
+tree clean"). Claude has three tasks queued that need your files to be stable first:
+typed production checks in the front-door Gemara arcs (shabbat-arc.js is mid-migration in
+your tree), Sefaria deep links per course step (needs course-engine.js), and a full
+new-learner funnel dry run (walks seder.html/js and placement.js). Also flagged: test
+runs go flaky when test files are edited mid-run — one more reason scoped commits help
+us both.
+
+## Optional, low priority
+
+The ~250 skill IDs from Claude's 14 new units are not registered in data/skill-graph.json,
+so nextGraphPractice never recommends them (mastery/review/decay all work fine — the graph
+is the only system that doesn't see them). If you want graph coverage, the IDs all follow
+`<subject>-<unit>-<step>` naming inside the unit files.
