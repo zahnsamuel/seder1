@@ -1,0 +1,80 @@
+{
+  "version": "0.1.0",
+  "tractate": "Bava Kamma",
+  "status": "draft-awaiting-scholar-review",
+  "purpose": "Review records for the existing beginner-facing classification and responsibility block.",
+  "encounters": [
+    {
+      "id": "bava-kamma-primary-categories",
+      "reference": "Mishnah Bava Kamma 1:1; Bava Kamma 2a",
+      "primaryText": {
+        "hebrew": "ארבעה אבות נזיקין השור הבור המבעה וההבער",
+        "edition": "Sefaria's Bava Kamma 2a presentation",
+        "editorialNormalization": "Opening list excerpted for guided category reading."
+      },
+      "translation": {"text": "There are four primary categories of damage: ox, pit, maveh, and fire.", "type": "guided"},
+      "genre": "Mishnah / Gemara",
+      "learnerLevel": "Beginner learning to read a legal classification as an argument rather than as isolated vocabulary.",
+      "learningObjective": "Name the categories before inferring that they function alike.",
+      "prerequisiteSkillIds": ["mishnah-orientation", "follow-sugya-flow"],
+      "languageSupport": {
+        "glosses": ["ארבעה — four", "אבות — primary categories", "נזיקין — damages", "בור — pit", "הבער — fire"],
+        "transliterationPolicy": "On demand only.",
+        "grammarNote": "A list may establish categories whose differences will matter in the next move.",
+        "translationPath": "Guided English remains visible alongside the source."
+      },
+      "context": "The opening Mishnah introduces a classification of damages. Seder uses it to teach source structure, not to determine responsibility in a real incident.",
+      "assessment": {
+        "bestAnswer": "First name the categories, then look for the feature that makes each distinct.",
+        "rationale": "The source begins by sorting; a learner should not erase distinctions before reading them.",
+        "misconceptions": ["Assuming the first category controls every later case.", "Treating the list as a story rather than a classification."],
+        "transferPrompt": "For an unfamiliar classification, record the named categories before asking what they share or how they differ."
+      },
+      "safetyBoundary": "Text study only; this does not determine liability, payment, or halakhic responsibility for any real case.",
+      "review": {
+        "secondSourceContext": "The same opening passage contrasts categories and later identifies a common denominator, giving a second context for the reading move.",
+        "retrievalTrigger": "Weekly review or a missed category-map item.",
+        "reviewerInitials": "",
+        "reviewStatus": "awaiting-primary-text-and-translation-review",
+        "releaseGates": {"primary-text-verified": false, "translation-checked": false, "context-checked": false, "assessment-reviewed": false, "accessibility-checked": true, "safety-boundary-checked": true}
+      },
+      "primaryTextUrl": "https://www.sefaria.org/Bava_Kamma.2a"
+    },
+    {
+      "id": "bava-kamma-difference-and-common-ground",
+      "reference": "Bava Kamma 2a",
+      "primaryText": {
+        "hebrew": "לא הרי השור כהרי המבעה ... הצד השוה שבהן שדרכן להזיק ושמירתן עליך",
+        "edition": "Sefaria's Bava Kamma 2a presentation",
+        "editorialNormalization": "Two short excerpts combined only for a guided comparison exercise."
+      },
+      "translation": {"text": "Ox is not like maveh ... their common denominator is that they cause damage and their safeguarding is upon you.", "type": "guided"},
+      "genre": "Gemara",
+      "learnerLevel": "Beginner ready to compare categories without making them identical.",
+      "learningObjective": "Distinguish a relevant difference from a stated common principle.",
+      "prerequisiteSkillIds": ["bava-kamma-primary-categories", "challenge-and-answer"],
+      "languageSupport": {
+        "glosses": ["לא הרי — is not like", "הצד השוה — common denominator", "שמירתן — their safeguarding"],
+        "transliterationPolicy": "On demand only.",
+        "grammarNote": "First identify the contrast; then ask what the source explicitly says is shared.",
+        "translationPath": "Guided English remains visible; a literal gloss may be opened on request."
+      },
+      "context": "The Gemara's classification work preserves differences while drawing a limited common principle. This is a textual-reasoning exercise, not a procedure for actual claims.",
+      "assessment": {
+        "bestAnswer": "A shared principle can connect categories without erasing the feature that made the contrast necessary.",
+        "rationale": "The sequence models classification through both distinction and connection.",
+        "misconceptions": ["Treating a common denominator as proof that all cases have identical details.", "Treating every difference as a rejection of all connection."],
+        "transferPrompt": "In a fresh source, state one named difference and one stated common principle before offering an explanation."
+      },
+      "safetyBoundary": "The lesson explains the source's reasoning; it gives no legal or financial advice for a real dispute or accident.",
+      "review": {
+        "secondSourceContext": "The learner later meets the same move in a fresh classification exercise, rather than a reordered copy of this question.",
+        "retrievalTrigger": "Return after a missed distinction-versus-common-ground prompt.",
+        "reviewerInitials": "",
+        "reviewStatus": "awaiting-primary-text-and-translation-review",
+        "releaseGates": {"primary-text-verified": false, "translation-checked": false, "context-checked": false, "assessment-reviewed": false, "accessibility-checked": true, "safety-boundary-checked": true}
+      },
+      "primaryTextUrl": "https://www.sefaria.org/Bava_Kamma.2a"
+    }
+  ]
+}

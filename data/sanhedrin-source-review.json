@@ -1,0 +1,100 @@
+{
+  "version": "0.1.0",
+  "tractate": "Sanhedrin",
+  "status": "draft-awaiting-scholar-review",
+  "purpose": "Review records for a beginner-facing court-structure and Gemara-questioning block.",
+  "encounters": [
+    {
+      "id": "sanhedrin-court-categories",
+      "reference": "Mishnah Sanhedrin 1:1; Sanhedrin 2a",
+      "primaryText": {
+        "hebrew": "דיני ממונות בשלשה גזילות וחבלות בשלשה",
+        "edition": "Sefaria's Sanhedrin 2a presentation",
+        "editorialNormalization": "Excerpted for guided category-and-case reading."
+      },
+      "translation": {
+        "text": "Cases concerning monetary law are judged by three; cases of theft and injury are judged by three.",
+        "type": "guided"
+      },
+      "genre": "Mishnah / Gemara",
+      "learnerLevel": "Beginner who can distinguish a heading, an example, and a number in a Mishnah.",
+      "learningObjective": "Map a court category, the cases named under it, and the stated number without collapsing them into one claim.",
+      "prerequisiteSkillIds": ["mishnah-orientation", "recognize-key-words", "identify-a-question"],
+      "languageSupport": {
+        "glosses": ["דיני — laws/cases", "ממונות — monetary matters", "בשלשה — by three", "גזילות — thefts", "חבלות — injuries"],
+        "transliterationPolicy": "On demand only.",
+        "grammarNote": "Read the repeated 'by three' as a court-size statement, then ask which cases are being placed under which category.",
+        "translationPath": "Guided English remains visible alongside the source."
+      },
+      "context": "The Mishnah opens a discussion of court composition. The following Gemara asks why theft and injury are separately named if they belong to monetary law, making the wording itself the next learning problem.",
+      "assessment": {
+        "bestAnswer": "The Mishnah first names a broad category and then specifies theft and injury cases, each with a court of three.",
+        "rationale": "The learner must preserve the difference between a category label, its examples, and the number assigned.",
+        "misconceptions": ["Treating theft and injury as a different court size.", "Assuming a repeated phrase adds no reading question."],
+        "transferPrompt": "In a new Mishnah, mark the category label, the cases that specify it, and any number or procedure attached to each."
+      },
+      "safetyBoundary": "Text study only; this encounter does not adjudicate a dispute or provide legal or halakhic advice for a live case.",
+      "review": {
+        "secondSourceContext": "The Gemara on Sanhedrin 2a opens by challenging the apparent repetition and records more than one way to account for it.",
+        "retrievalTrigger": "Weekly review or a missed category-versus-case map item.",
+        "reviewerInitials": "",
+        "reviewStatus": "awaiting-primary-text-and-translation-review",
+        "releaseGates": {
+          "primary-text-verified": false,
+          "translation-checked": false,
+          "context-checked": false,
+          "assessment-reviewed": false,
+          "accessibility-checked": true,
+          "safety-boundary-checked": true
+        }
+      },
+      "primaryTextUrl": "https://www.sefaria.org/Sanhedrin.2a"
+    },
+    {
+      "id": "sanhedrin-why-specify",
+      "reference": "Sanhedrin 2a",
+      "primaryText": {
+        "hebrew": "אטו גזילות וחבלות לאו דיני ממונות נינהו",
+        "edition": "Sefaria's Sanhedrin 2a presentation",
+        "editorialNormalization": "Question excerpted for guided close reading."
+      },
+      "translation": {
+        "text": "Are theft and injury cases not monetary-law cases?",
+        "type": "guided"
+      },
+      "genre": "Gemara",
+      "learnerLevel": "Beginner ready to follow a question that tests the purpose of a Mishnah's wording.",
+      "learningObjective": "State the Gemara's question as a challenge about why a Mishnah specifies cases already included in its category.",
+      "prerequisiteSkillIds": ["sanhedrin-court-categories", "identify-a-question", "follow-sugya-flow"],
+      "languageSupport": {
+        "glosses": ["אטו — is it really so?/are...not", "לאו — not", "נינהו — are they"],
+        "transliterationPolicy": "On demand only.",
+        "grammarNote": "The negative question expects the reader to recognize an apparent overlap between the specific cases and the broader category.",
+        "translationPath": "Guided English remains visible; a literal gloss can be opened on request."
+      },
+      "context": "The Gemara treats the Mishnah's wording as deliberate and seeks an explanation for the specification. It later records a reading proposal and an institutional explanation; this draft does not ask the learner to decide law.",
+      "assessment": {
+        "bestAnswer": "The Gemara asks why the Mishnah separately names theft and injury if they already fall under monetary law.",
+        "rationale": "The question is about the function of wording, not whether theft and injury are monetary cases.",
+        "misconceptions": ["Answering that theft and injury are not monetary cases.", "Treating the question as a request for a court ruling."],
+        "transferPrompt": "When a source gives both a broad label and a named example, ask what work the extra wording might be doing before supplying an answer."
+      },
+      "safetyBoundary": "This is a lesson in textual reasoning, not an invitation to issue legal judgments or apply court procedure.",
+      "review": {
+        "secondSourceContext": "A reviewer should verify the translation and the presentation of the Gemara's subsequent explanations before a full learner-facing arc is released.",
+        "retrievalTrigger": "Return after a missed wording-purpose question or during a Gemara-moves review.",
+        "reviewerInitials": "",
+        "reviewStatus": "awaiting-primary-text-and-translation-review",
+        "releaseGates": {
+          "primary-text-verified": false,
+          "translation-checked": false,
+          "context-checked": false,
+          "assessment-reviewed": false,
+          "accessibility-checked": true,
+          "safety-boundary-checked": true
+        }
+      },
+      "primaryTextUrl": "https://www.sefaria.org/Sanhedrin.2a"
+    }
+  ]
+}

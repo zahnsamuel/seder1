@@ -760,3 +760,11 @@ one lateral (widerworld-encounter.html) rendered from completeCopy innerHTML. Th
 validates the whole completion pipeline for the pattern all 17 non-Gemara units now share.
 
 Test suite: 122/122 pass.
+
+## 2026-07-12 — Codex: release-readiness and integrated-path preparation
+
+Worked around the blocked Supabase SQL editor and the need for source-review sign-off without claiming either was complete. Added Bava Kamma and Sanhedrin source-review records, both explicitly `draft-awaiting-scholar-review`; a release-review register; a no-secret Supabase execution sheet; an independent-learner QA script; and an eight-week integrated Gemara-plus-canon sequence.
+
+No learner-facing Sanhedrin legal-content arc was shipped: its source record must clear all six release gates first. The Supabase execution sheet operationalizes migrations 001–005 and the two-account isolation checks once the dashboard accepts SQL input again.
+
+Verification: every route named in the eight-week sequence exists. Full test suite passes: 124 tests, 0 failures. New files are deliberately uncommitted because the worktree remains shared and contains broad concurrent changes.

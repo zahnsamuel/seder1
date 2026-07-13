@@ -1,0 +1,17 @@
+{
+  "version": "0.1.0",
+  "title": "Eight weeks into one Jewish learning journey",
+  "audience": "Independent adult beginners who can decode Hebrew phonetically and need guided English support.",
+  "principle": "Gemara is the reading-and-reasoning spine; each wider-canon encounter supplies a source form, question, or practice that makes the spine more intelligible.",
+  "weeks": [
+    {"week":1,"theme":"How to enter a source","gemara":"berakhot-arc.html","canon":"chumash-arc.html","practice":"Identify a source's voice, setting, and first question.","review":"weekly-review.html"},
+    {"week":2,"theme":"Address and response","gemara":"shabbat-arc.html","canon":"tefillah-arc.html","practice":"Distinguish a textual claim from the act of prayer it later informs.","review":"independent-reading.html"},
+    {"week":3,"theme":"Categories and obligations","gemara":"bava-kamma-arc.html","canon":"halakha-arc.html","practice":"Name a category, its limit, and the boundary between studying a rule and applying it.","review":"weekly-review.html"},
+    {"week":4,"theme":"Question, tension, and responsibility","gemara":"bava-metzia-arc.html","canon":"mussar-arc.html","practice":"Map competing claims and explain one ethical tension without flattening it.","review":"independent-reading.html"},
+    {"week":5,"theme":"Measure and purpose","gemara":"sukkah-arc.html","canon":"thought-suffering.html","practice":"Ask what purpose a stated measure or claim serves before judging it.","review":"weekly-review.html"},
+    {"week":6,"theme":"Boundary and community","gemara":"eruvin-arc.html","canon":"history-arc.html","practice":"Connect a textual boundary to a community and historical setting.","review":"independent-reading.html"},
+    {"week":7,"theme":"Difference and shared principle","gemara":"pesachim-arc.html","canon":"widerworld-arc.html","practice":"Compare two sources: name a genuine difference and one responsible point of connection.","review":"weekly-review.html"},
+    {"week":8,"theme":"Synthesis and next mastery loop","gemara":"gemara-unseen-check.html","canon":"chassidus-arc.html","practice":"Read an unfamiliar source, state one uncertainty, and choose the next targeted repair.","review":"gemara-continuation.html"}
+  ],
+  "completionRule":"Every week ends with retrieval or unfamiliar-source transfer; completion routes back to the Gemara spine with only a meaningful optional lateral connection."
+}
