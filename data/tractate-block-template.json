@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "purpose": "A repeatable production pattern for a beginner-facing Gemara tractate block. Each block teaches transferable reading, not only the tractate's facts.",
+  "requiredStages": [
+    {"id":"orientation","outcome":"Name the Mishnah's case, people, objects, and setting before seeking a ruling."},
+    {"id":"language","outcome":"Recognize the Hebrew/Aramaic signals that predict the next textual move."},
+    {"id":"argument","outcome":"Map question, source, objection, distinction, response, and interim conclusion."},
+    {"id":"second-source","outcome":"Apply the move to a second, genuinely different source in the same tractate."},
+    {"id":"daf-map","outcome":"Build and explain an interactive source map on a short passage."},
+    {"id":"retrieval","outcome":"Retrieve a fragile move after time has passed."},
+    {"id":"transfer","outcome":"Read an unfamiliar source and state one uncertainty responsibly."}
+  ],
+  "packetFields": ["reference", "edition", "primaryText", "translation", "context", "learningObjective", "prerequisiteSkillIds", "languageSupport", "misconception", "assessment", "safetyBoundary", "secondSource", "transferPrompt"],
+  "releaseRule": "No tractate block is production-complete until every learner-facing packet passes the source-review schema and has a second source context."
+}

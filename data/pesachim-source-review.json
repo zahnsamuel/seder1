@@ -1,0 +1,56 @@
+{
+  "version": "0.1.0",
+  "tractate": "Pesachim",
+  "status": "draft-awaiting-scholar-review",
+  "purpose": "Audit-ready records for the beginner Pesachim block. Learners see guided English; this file makes every source, teaching claim, and review gate inspectable before release.",
+  "encounters": [
+    {
+      "id": "pesachim-opening-action-time-tool",
+      "reference": "Mishnah Pesachim 1:1; Pesachim 2a",
+      "primaryText": {"hebrew": "אור לארבעה עשר בודקין את החמץ לאור הנר", "edition": "Sefaria's Mishnah Pesachim 1:1 presentation", "editorialNormalization": "None."},
+      "translation": {"text": "On the eve of the fourteenth, one searches for leaven by the light of a lamp.", "type": "guided"},
+      "genre": "Mishnah / Gemara",
+      "learnerLevel": "English-speaking beginner who can sound out Hebrew and is beginning to identify a Mishnah's case variables.",
+      "learningObjective": "Separate the required action from its time and instrument before interpreting the discussion.",
+      "prerequisiteSkillIds": ["mishnah-orientation", "sentence-role-mapping"],
+      "languageSupport": {"glosses": ["בודקין — one searches", "חמץ — leaven", "לאור הנר — by lamp light"], "transliterationPolicy": "On demand only; Hebrew remains visible.", "grammarNote": "Treat בודקין as the action, then attach the time and instrument phrases.", "translationPath": "A learner may reveal the guided English at any time."},
+      "context": "The opening Mishnah states the bedikah practice. The opening Gemara examines the word אור; this lesson does not present a personal ruling about how to perform the practice.",
+      "assessment": {"bestAnswer": "Name search as the action, the eve of the fourteenth as the time, and lamp light as the instrument.", "rationale": "This makes the case visible before analysis.", "misconceptions": ["Treating the time as the action.", "Treating the lamp as a separate legal case."], "transferPrompt": "Map the people, action, place, and time in an unfamiliar Mishnah before asking why."},
+      "safetyBoundary": "Text study only; for personal Pesach practice, consult a qualified halakhic authority.",
+      "review": {"secondSourceContext": "Mishnah Shabbat 1:1 changes the central variable from time/tool to people/place.", "retrievalTrigger": "Return after a missed case-map item or in the weekly review.", "reviewerInitials": "", "reviewStatus": "awaiting-primary-text-and-translation-review", "releaseGates": {"primary-text-verified": false, "translation-checked": false, "context-checked": false, "assessment-reviewed": false, "accessibility-checked": true, "safety-boundary-checked": true}},
+      "primaryTextUrl": "https://www.sefaria.org/Mishnah_Pesachim.1.1"
+    },
+    {
+      "id": "pesachim-or-ambiguous-word",
+      "reference": "Pesachim 2a",
+      "primaryText": {"hebrew": "אור", "edition": "Sefaria's Pesachim 2a presentation", "editorialNormalization": "The lesson isolates one word from its surrounding sugya for a vocabulary-and-context exercise."},
+      "translation": {"text": "light / the eve", "type": "guided"},
+      "genre": "Gemara",
+      "learnerLevel": "Beginner ready to notice that a compact Hebrew word may require textual context.",
+      "learningObjective": "Ask which meaning of a short word fits this source and why.",
+      "prerequisiteSkillIds": ["pesachim-action", "hebrew-question-words"],
+      "languageSupport": {"glosses": ["אור — light; in context, also used for the eve"], "transliterationPolicy": "On demand only.", "grammarNote": "The learner is not asked to settle lexical history, only to notice ambiguity responsibly.", "translationPath": "Guided translation and surrounding case remain available."},
+      "context": "The Gemara opens by asking about the sense of אור in the Mishnah's opening. The exercise teaches an interpretive question, not a final philological conclusion.",
+      "assessment": {"bestAnswer": "Ask what אור means here and use the surrounding Mishnah and sugya to test the reading.", "rationale": "Context, rather than a guess from an isolated word, guides the reading.", "misconceptions": ["Assuming every occurrence has one fixed English gloss.", "Treating ambiguity as an error in the text."], "transferPrompt": "Flag one compact word in a new passage and state what context you would need."},
+      "safetyBoundary": "This is guided textual interpretation, not a basis for issuing practice or deciding translation disputes.",
+      "review": {"secondSourceContext": "A comparable compact-term exercise appears in a different tractate during cross-tractate transfer.", "retrievalTrigger": "Return when a learner misses the ambiguity check or saves a new vocabulary word.", "reviewerInitials": "", "reviewStatus": "awaiting-primary-text-and-translation-review", "releaseGates": {"primary-text-verified": false, "translation-checked": false, "context-checked": false, "assessment-reviewed": false, "accessibility-checked": true, "safety-boundary-checked": true}},
+      "primaryTextUrl": "https://www.sefaria.org/Pesachim.2a"
+    },
+    {
+      "id": "pesachim-search-limit",
+      "reference": "Mishnah Pesachim 1:2",
+      "primaryText": {"hebrew": "אין חוששין שמא גררה חולדה מבית לבית", "edition": "Sefaria's Mishnah Pesachim 1:2 presentation", "editorialNormalization": "None."},
+      "translation": {"text": "We are not concerned that perhaps a weasel dragged [leaven] from house to house.", "type": "guided"},
+      "genre": "Mishnah",
+      "learnerLevel": "Beginner who can distinguish an established obligation from a question about its practical limit.",
+      "learningObjective": "Identify a limiting move that prevents an open-ended concern from making a practice impossible to complete.",
+      "prerequisiteSkillIds": ["pesachim-case-map", "pesachim-ambiguous-word"],
+      "languageSupport": {"glosses": ["אין חוששין — we are not concerned", "שמא — perhaps", "חולדה — weasel"], "transliterationPolicy": "On demand only.", "grammarNote": "Read the concern as a hypothetical that tests the edge of an established practice.", "translationPath": "Guided English may be shown alongside the Hebrew."},
+      "context": "This is a boundary question within the Mishnah's treatment of searching. The teaching claim is about reading the limiting move, not an instruction for a learner's own Pesach preparation.",
+      "assessment": {"bestAnswer": "The source sets a practical boundary rather than chasing an endless hypothetical.", "rationale": "The learner distinguishes the baseline practice from an open-ended extension.", "misconceptions": ["Concluding that the search is optional.", "Assuming every conceivable concern must be eliminated."], "transferPrompt": "In another source, identify the baseline case, the added concern, and the proposed boundary."},
+      "safetyBoundary": "Text study only; no personal halakhic guidance is implied.",
+      "review": {"secondSourceContext": "A later tractate's distinction can be compared as another way a legal discussion limits a case.", "retrievalTrigger": "Weekly review after a learner confuses the action with the boundary.", "reviewerInitials": "", "reviewStatus": "awaiting-primary-text-and-translation-review", "releaseGates": {"primary-text-verified": false, "translation-checked": false, "context-checked": false, "assessment-reviewed": false, "accessibility-checked": true, "safety-boundary-checked": true}},
+      "primaryTextUrl": "https://www.sefaria.org/Mishnah_Pesachim.1.2"
+    }
+  ]
+}

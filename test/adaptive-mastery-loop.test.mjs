@@ -1,0 +1,2 @@
+import test from 'node:test'; import assert from 'node:assert/strict'; import { readFile } from 'node:fs/promises';
+test('adaptive repair visibly proceeds from targeted source to contrast and transfer', async () => { const [repair, loop] = await Promise.all(['pilot-repair.js', 'mastery-loop.js'].map((file) => readFile(new URL(`../${file}`, import.meta.url), 'utf8'))); assert.match(repair, /CONTRASTING SOURCE CHECK/); assert.match(repair, /independent-reading\.html/); assert.match(loop, /DIAGNOSE/); assert.match(loop, /PROVE TRANSFER/); assert.match(loop, /SCHEDULE/); });
