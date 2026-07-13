@@ -2,10 +2,16 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 
-const journey = JSON.parse(await readFile(new URL('../curriculum/canon-journey.json', import.meta.url), 'utf8'));
+const [foundationFile, extensionFile] = await Promise.all([
+  readFile(new URL('../curriculum/canon-journey.json', import.meta.url), 'utf8'),
+  readFile(new URL('../curriculum/canon-journey-extension.json', import.meta.url), 'utf8')
+]);
+const foundation = JSON.parse(foundationFile);
+const extension = JSON.parse(extensionFile);
+const journey = { ...foundation, sessions: [...foundation.sessions, ...extension.sessions] };
 
 test('every canon session has two valid source-based checks with distinct contexts', () => {
-  assert.ok(journey.sessions.length >= 18);
+  assert.equal(journey.sessions.length, 36);
   for (const session of journey.sessions) {
     assert.ok(session.source?.citation, `${session.id} needs a citation`);
     assert.ok(session.source?.hebrew, `${session.id} needs source text`);

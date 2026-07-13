@@ -1,7 +1,8 @@
 const id = new URLSearchParams(location.search).get('id');
 const learnerId = Seder.currentLearnerId();
-let session, learner, index = 0, answered = false;
+let session, learner, index = 0, answered = false, showingPractice = false;
 const $ = (selector) => document.querySelector(selector);
+$('#translationToggle').addEventListener('click', () => { const translation = $('#translation'); translation.hidden = !translation.hidden; $('#translationToggle').textContent = translation.hidden ? 'Show translation' : 'Hide translation'; });
 
 function shuffledChoices(question) {
   return question.choices.map((text, originalIndex) => ({ text, originalIndex })).sort(() => Math.random() - .5);
@@ -10,6 +11,8 @@ function shuffledChoices(question) {
 function renderQuestion() {
   const question = session.questions[index];
   answered = false;
+  showingPractice = false;
+  $('#practice').hidden = true;
   $('#questionCount').textContent = `SOURCE MOVE ${index + 1} OF ${session.questions.length}`;
   $('#prompt').textContent = question.prompt;
   $('#feedback').textContent = '';
@@ -36,12 +39,38 @@ async function answer(button, choice) {
 $('#continue').addEventListener('click', async () => {
   if (!answered) return;
   if (index < session.questions.length - 1) { index++; renderQuestion(); return; }
+  if (session.practice && !showingPractice) { showPractice(); return; }
+  if (showingPractice) await savePractice();
   const completion = await Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'stage_mastered', stageId: session.stageId }) });
   if (completion.ok) { location.href = 'journey.html'; return; }
   index = 0;
   renderQuestion();
   $('#feedback').textContent = 'One source move still needs stronger evidence. Work through this short session once more; the next try counts as new retrieval evidence.';
 });
+
+function showPractice() {
+  showingPractice = true;
+  const practice = session.practice;
+  $('#practice').hidden = false;
+  $('#practicePrompt').textContent = practice.prompt;
+  $('#practiceHint').textContent = practice.hint;
+  $('#practiceNote').value = localStorage.getItem(`seder:source-map:${learnerId}:${session.id}`) || '';
+  $('#continue').textContent = 'Save source map and complete →';
+  const ready = () => { $('#continue').disabled = $('#practiceNote').value.trim().length < practice.minLength; };
+  $('#practiceNote').oninput = ready;
+  ready();
+  $('#practiceNote').focus();
+}
+
+async function savePractice() {
+  const note = $('#practiceNote').value.trim();
+  if (note.length < session.practice.minLength) return;
+  localStorage.setItem(`seder:source-map:${learnerId}:${session.id}`, note);
+  await Seder.api(`/api/learners/${learnerId}/events`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ type: 'journey_artifact_saved', artifactType: 'source-maps', artifactId: session.id, note })
+  });
+}
 
 Promise.all([Seder.api('/api/curriculum/canon-journey').then((r) => r.json()), Seder.api(`/api/learners/${learnerId}`).then((r) => r.json()), Seder.api('/api/source-glossary').then((r) => r.ok ? r.json() : { terms: [] })]).then(([curriculum, currentLearner, glossary]) => {
   learner = currentLearner;

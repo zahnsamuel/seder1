@@ -1,11 +1,25 @@
 import { promises as fs } from 'node:fs';
 import { join } from 'node:path';
+import { advancedCanonSessions } from './advanced-canon-cycle.mjs';
 
 let cachedJourney;
 let cachedGemaraSequence;
 
 export async function canonJourney(root) {
-  if (!cachedJourney) cachedJourney = JSON.parse(await fs.readFile(join(root, 'curriculum', 'canon-journey.json'), 'utf8'));
+  if (!cachedJourney) {
+    const [foundationFile, extensionFile] = await Promise.all([
+      fs.readFile(join(root, 'curriculum', 'canon-journey.json'), 'utf8'),
+      fs.readFile(join(root, 'curriculum', 'canon-journey-extension.json'), 'utf8')
+    ]);
+    const foundation = JSON.parse(foundationFile);
+    const extension = JSON.parse(extensionFile);
+    cachedJourney = {
+      ...foundation,
+      title: 'Integrated Canon Journey',
+      description: `${foundation.description} Later cycles deepen language, argument, canon connections, transfer, and independent study through deliberate source practice.`,
+      sessions: [...foundation.sessions, ...extension.sessions, ...advancedCanonSessions()]
+    };
+  }
   return cachedJourney;
 }
 
@@ -23,7 +37,19 @@ const phases = [
   { id: 'phase-1', title: 'Reading foundations', start: 0, end: 3 },
   { id: 'phase-2', title: 'Canon connections', start: 4, end: 9 },
   { id: 'phase-3', title: 'Gemara fluency', start: 10, end: 13 },
-  { id: 'phase-4', title: 'Integrated reading', start: 14, end: 17 }
+  { id: 'phase-4', title: 'Integrated reading', start: 14, end: 17 },
+  { id: 'phase-5', title: 'Second foundation', start: 18, end: 21 },
+  { id: 'phase-6', title: 'Gemara across Shas', start: 22, end: 26 },
+  { id: 'phase-7', title: 'Canon and comparison', start: 27, end: 31 },
+  { id: 'phase-8', title: 'Independent navigation', start: 32, end: 35 },
+  { id: 'phase-9', title: 'Signals and first questions', start: 36, end: 43 },
+  { id: 'phase-10', title: 'Cases, people, and conditions', start: 44, end: 51 },
+  { id: 'phase-11', title: 'Claims and evidence', start: 52, end: 59 },
+  { id: 'phase-12', title: 'Categories and distinctions', start: 60, end: 67 },
+  { id: 'phase-13', title: 'A source has a later life', start: 68, end: 75 },
+  { id: 'phase-14', title: 'Comparison without flattening', start: 76, end: 83 },
+  { id: 'phase-15', title: 'Retrieve and transfer', start: 84, end: 91 },
+  { id: 'phase-16', title: 'Independent source navigation', start: 92, end: 99 }
 ];
 
 function phaseForIndex(index) { return phases.find((phase) => index >= phase.start && index <= phase.end); }
@@ -40,7 +66,7 @@ export async function journeyStatus(root, learner) {
     const prerequisitesMet = phaseGate && (session.prerequisiteStages || []).every((stage) => completeStages.has(stage)) && skillsReady(learner, session.skillRequirements);
     const available = !complete && priorReady && prerequisitesMet;
     if (!complete) priorReady = false;
-    return { ...session, index: index + 1, phase: `${['I', 'II', 'III', 'IV'][phases.indexOf(phase)]} · ${phase.title}`, complete, available, locked: !complete && !available };
+    return { ...session, index: index + 1, phase: `${['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI'][phases.indexOf(phase)]} · ${phase.title}`, complete, available, locked: !complete && !available };
   });
   const next = nodes.find((node) => node.available) || null;
   const phaseStatus = phases.map((phase) => {
@@ -86,10 +112,15 @@ export async function canMasterJourneyStage(root, learner, stageId) {
 }
 
 export async function sourceReviewItems(root, skillIds = []) {
-  const journey = await canonJourney(root);
+  const [journey, flagshipFile] = await Promise.all([
+    canonJourney(root),
+    fs.readFile(join(root, 'data', 'flagship-retrieval.json'), 'utf8')
+  ]);
+  const flagship = JSON.parse(flagshipFile).items || [];
+  const flagshipSkillIds = new Set(flagship.map((item) => item.skillId));
   const wanted = new Set(skillIds);
   const mapped = journey.sessions.flatMap((session) => session.questions
-    .filter((question) => wanted.has(question.skillId))
+    .filter((question) => wanted.has(question.skillId) && !flagshipSkillIds.has(question.skillId))
     .map((question, index) => ({
       trueSkillId: question.skillId,
       label: `${session.lens.toUpperCase()} RETRIEVAL`,
@@ -102,23 +133,39 @@ export async function sourceReviewItems(root, skillIds = []) {
       sourceContext: question.sourceContext,
       variantId: `${session.id}-${index}`
     })));
-  const covered = new Set(mapped.map((item) => item.trueSkillId));
+  const flagshipMapped = flagship.filter((item) => wanted.has(item.skillId)).map((item) => ({ ...item, trueSkillId: item.skillId, variantId: `flagship-${item.skillId}` }));
+  const covered = new Set([...mapped, ...flagshipMapped].map((item) => item.trueSkillId));
   const workbenchFallbacks = skillIds.filter((skillId) => !covered.has(skillId)).map((skillId) => ({
     trueSkillId: skillId, label: 'DAF RETRIEVAL', hebrew: 'מַה תַּפְקִיד הַשּׁוּרָה?', translation: 'What job does this line perform?',
     prompt: 'Before deciding whether a line is correct, what should you identify in a sugya?', answers: ['Its role: case, question, proof, objection, response, or distinction.', 'Only the longest word in the line.', 'The final ruling without reading the argument.'], correct: 0,
     feedback: 'Daf reading starts by naming the work a line does in the argument.', sourceContext: `retrieval for ${skillId}`, variantId: `fallback-${skillId}`
   }));
-  return [...mapped, ...workbenchFallbacks];
+  return [...mapped, ...flagshipMapped, ...workbenchFallbacks];
 }
 
 export async function remediationFor(root, learner) {
   const struggleEntries = Object.entries(learner.struggles || {}).filter(([, count]) => count >= 2).sort((a, b) => b[1] - a[1]);
   if (!struggleEntries.length) return null;
   const [skillId, count] = struggleEntries[0];
+  const router = JSON.parse(await fs.readFile(join(root, 'data', 'repair-router.json'), 'utf8'));
+  const category = router.categories.find((item) => item.skills.includes(skillId));
+  const directRepair = category && ['source-function', 'source-chain', 'conceptual-claim', 'historical-context'].includes(category.id);
+  if (directRepair) return {
+    skillId, count, title: category.title,
+    reason: `${category.reason} You will rebuild it in a short contrast source, then test it again in an unfamiliar passage.`,
+    url: `pilot-repair.html?skill=${encodeURIComponent(skillId)}`,
+    repairMode: 'contrast-and-transfer'
+  };
   const journey = await canonJourney(root);
   const session = journey.sessions.find((item) => item.questions.some((question) => question.skillId === skillId));
-  if (!session) return null;
-  return { skillId, count, title: `Strengthen ${session.lens}`, reason: `This source move has felt uncertain ${count} times. Revisit it in context before piling on new material.`, url: `canon-session.html?id=${encodeURIComponent(session.id)}` };
+  if (session) return { skillId, count, title: `Strengthen ${session.lens}`, reason: `This source move has felt uncertain ${count} times. Revisit it in context before piling on new material.`, url: `canon-session.html?id=${encodeURIComponent(session.id)}`, repairMode: 'source-context' };
+  if (!category) return null;
+  return {
+    skillId, count, title: category.title,
+    reason: `${category.reason} You will rebuild it in a short contrast source, then test it again in an unfamiliar passage.`,
+    url: category.url,
+    repairMode: 'targeted-practice'
+  };
 }
 
 // Select the most teachable next skill: prerequisites must be present, and the
@@ -130,7 +177,18 @@ export async function nextGraphPractice(root, learner) {
   const eligible = graph.skills.filter((skill) => (skill.prerequisites || []).every((id) => (mastery[id] || 0) >= .67));
   const candidate = eligible.filter((skill) => (mastery[skill.id] || 0) < .85).sort((a, b) => (mastery[a.id] || 0) - (mastery[b.id] || 0))[0];
   if (!candidate) return null;
-  const workbenchByContext = { 'Berakhot 2a': 'berakhot', 'Shabbat 2a': 'shabbat', 'Eruvin 2a': 'eruvin', 'Pesachim 2a': 'pesachim', 'Sukkah 2a': 'sukkah', 'Bava Metzia 2a': 'bava' };
+  const workbenchByContext = {
+    'Berakhot 2a': 'daf-workbench.html?tractate=berakhot',
+    'Shabbat 2a': 'flagship-daf-workbench.html?tractate=shabbat',
+    'Eruvin 2a': 'flagship-daf-workbench.html?tractate=eruvin',
+    'Pesachim 2a': 'flagship-daf-workbench.html?tractate=pesachim',
+    'Sukkah 2a': 'flagship-daf-workbench.html?tractate=sukkah',
+    'Yoma 2a': 'yoma-daf-workbench.html',
+    'Bava Metzia 2a': 'flagship-daf-workbench.html?tractate=bava-metzia'
+  };
   const context = candidate.reviewContexts?.find((item) => workbenchByContext[item]) || candidate.reviewContexts?.[0];
-  return { skill: candidate, context, url: workbenchByContext[context] ? `daf-workbench.html?tractate=${workbenchByContext[context]}` : 'cross-tractate.html' };
+  const url = candidate.track === 'language'
+    ? 'language.html'
+    : workbenchByContext[context] || (candidate.track === 'thought' ? 'source-reader.html?collection=freedom' : 'cross-tractate.html');
+  return { skill: candidate, context, url, reason: `Build ${candidate.title.toLowerCase()} before moving to the next dependent source skill.`, mastery: mastery[candidate.id] || 0 };
 }
