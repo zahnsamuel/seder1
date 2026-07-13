@@ -739,3 +739,24 @@ entries). Left in place — delete at leisure or repurpose.
 Verification: all 6 link targets exist on disk; topology audit greps show every primary
 landing on the spine; 122/122 tests pass (count grew from 121 — Codex added a test
 concurrently); node --check passed on all 11 edited files.
+
+
+## 2026-07-12 — Claude: subject-page discoverability + full end-to-end run of a new unit
+
+Discoverability gap: the five new second-foundation units were reachable only via
+completion-screen laterals — a learner browsing subject.html?track=... could not see that
+a subject had more than its entry prompt. Added a "UNITS READY NOW" section to the subject
+page: units arrays for all 7 tracks in subject.js (title, url, one-line description for
+both the first arc and the second unit), container + hidden-by-default header in
+subject.html, rendered only when a track has units. Both files confirmed clean of Codex
+work before editing; node --check passed; live-tested on halakha and history tracks
+(2 units listed each, correct hrefs, zero console errors).
+
+Also completed the deferred end-to-end verification: scripted a full 10-step run of
+history-yavneh.html in the live browser — every step credited +10 XP including the typed
+production check (accepted "give me yavneh and its sages"), and the completion screen
+rendered the exact hub-with-lateral shape: primary link lab.html?tractate=gittin, exactly
+one lateral (widerworld-encounter.html) rendered from completeCopy innerHTML. This
+validates the whole completion pipeline for the pattern all 17 non-Gemara units now share.
+
+Test suite: 122/122 pass.
