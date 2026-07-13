@@ -1,4 +1,7 @@
-const config=window.SederCourse;let courseIndex=0,answered=false,xp=0;const $$=s=>document.querySelector(s);const courseLearner=Seder.currentLearnerId();
+const config=window.SederCourse;
+const masteryLoopByStage={'shabbat-tractate-arc':'shabbat','pesachim-tractate-arc':'pesachim','eruvin-tractate-arc':'eruvin','sukkah-tractate-arc':'sukkah','bava-metzia-tractate-arc':'bava-metzia','bava-kamma-tractate-arc':'bava-kamma','berakhot-baraita-disagreement':'berakhot','ketubot-tractate-arc':'ketubot','chullin-tractate-arc':'chullin','niddah-tractate-arc':'niddah'};
+if(masteryLoopByStage[config.stage]){const tractate=masteryLoopByStage[config.stage];config.nextUrl=`tractate-mastery.html?tractate=${tractate}`;config.nextLabel=`Open the ${tractate.replace(/-/g,' ')} mastery loop`;}
+let courseIndex=0,answered=false,xp=0;const $$=s=>document.querySelector(s);const courseLearner=Seder.currentLearnerId();
 function shuffle(list){return list.map((text,i)=>({text,i})).sort(()=>Math.random()-.5)}
 (function injectCelebrationStyles(){
   if(document.getElementById('seder-celebration-styles'))return;
