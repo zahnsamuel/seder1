@@ -768,3 +768,376 @@ Worked around the blocked Supabase SQL editor and the need for source-review sig
 No learner-facing Sanhedrin legal-content arc was shipped: its source record must clear all six release gates first. The Supabase execution sheet operationalizes migrations 001–005 and the two-account isolation checks once the dashboard accepts SQL input again.
 
 Verification: every route named in the eight-week sequence exists. Full test suite passes: 124 tests, 0 failures. New files are deliberately uncommitted because the worktree remains shared and contains broad concurrent changes.
+
+## 2026-07-12 — Codex: deepening-lesson interaction guard
+
+Added `test/deepening-lesson-integrity.test.mjs`, covering Pesachim, Eruvin, Sukkah,
+Bava Metzia, and Bava Kamma deepening lessons. The guard requires an answer area,
+feedback, and a Continue control in the page; randomized answer presentation with retained
+original identity; feedback; post-answer continuation; and a Sefaria source link in each
+lesson. Full suite passes: 126 tests, 0 failures.
+
+## 2026-07-12 — Codex: learner-facing integrated eight-week journey
+
+Added `integrated-path.html`, `integrated-path.js`, and `integrated-path.css`. The page
+renders the eight-week Gemara-spine/canon-connection journey as a vertical sequence with
+Begin, In Progress, Ready for Review, and Coming Next states. It reads XP and established
+skill evidence from the learner record, but keeps the learner's own week-review state
+separate so a click is never presented as mastery. Each week contains direct Gemara,
+canon, and retrieval/transfer routes and stores a durable journey artifact when started
+or made ready for review.
+
+Added `test/integrated-path.test.mjs`; every named route exists. Full suite: 127 tests,
+0 failures. Local-server smoke test: `http://127.0.0.1:4180/integrated-path.html` returned
+HTTP 200 and the expected journey heading.
+
+## 2026-07-12 — Codex: Shas entry integrity audit
+
+Added `test/shas-entry-audit.test.mjs`. It confirms all 37 tractates in
+`gemara-tractates.json` have a learner-facing practice description; every non-Berakhot
+tractate resolves to an existing lab; and every lab has a Sefaria URL, at least three
+complete source steps, Hebrew, translation, prompt, feedback, three or more answer choices,
+and a valid answer key. Full suite: 128 tests, 0 failures.
+
+## 2026-07-12 — Codex: legacy My Path routing
+
+Updated `path.html`, previously a redirect stub to the older static mastery map, to redirect
+to `integrated-path.html`. This makes prior My Path bookmarks land on the learner-facing,
+sequential eight-week journey. Verified the local route returns HTTP 200; full suite remains
+128 tests, 0 failures.
+
+## 2026-07-12 — Codex: evidence-led eight-week progression and discovery
+
+Replaced self-reported week completion in `integrated-path.js` with demonstrated evidence.
+Each week now declares two or more relevant skill-prefix requirements in
+`data/eight-week-integrated-path.json`; it becomes **Retrieval Ready** only after the
+learner has at least two matching recorded source moves at the repository's emerging-evidence
+threshold. Earlier weeks remain revisitable, while later weeks display as Coming Next until
+the preceding source work has evidence. Opening a link only records that a learner started
+the week; it cannot unlock it.
+
+Added an `8-Week Path` link in the active Seder landing header, plus test coverage for
+evidence criteria and landing discoverability. Full suite: 128 tests, 0 failures.
+
+## 2026-07-12 — Codex: deep Gemara language support
+
+Added a shared deep-lesson language layer through `seder-auth.js` plus
+`deep-language-support.css`. On every source-card-based deep lesson (Pesachim, Eruvin,
+Sukkah, Bava Metzia, Bava Kamma), it renders immediately beneath the active Hebrew/Aramaic
+excerpt and updates with each new step. It provides: a sentence-role cue based on the
+current Gemara move; clickable context glosses; optional focus-word transliteration; and a
+clear reminder that the aligned English checks rather than replaces first reading. The
+observer is keyed to the current line to avoid redraw loops. Added
+`test/deep-language-support.test.mjs`; full suite: 129 tests, 0 failures.
+
+## 2026-07-13 — Codex: Yoma full mastery block
+
+Added `yoma-arc.html` / `yoma-arc.js`: nine source-based moves from Mishnah Yoma 1:1
+through Yoma 2a and Leviticus 8:34. The learner maps a Temple role and preparation
+procedure, identifies the risk addressed by a replacement, holds Rabbi Yehuda's extension
+beside the Rabbis' “no end to the matter” limit, asks for the Gemara's source, reads the
+proof-text phrases, compares the red-heifer context, and transfers the map to a fresh
+procedure source. Every step distinguishes text study from practical guidance.
+
+Added Yoma to `tractate-mastery.js`, `course-engine.js`, and the source-sequence data;
+the Yoma interactive lab serves as its current working-source stage while a dedicated Daf
+workspace remains future work. Added `data/yoma-source-review.json`, explicitly
+`draft-awaiting-scholar-review`, and `test/yoma-production-block.test.mjs`. Full suite:
+130 tests, 0 failures. Local smoke test: `yoma-arc.html` returns HTTP 200.
+
+## 2026-07-13 — Codex: Yoma interactive Daf workspace
+
+Added `yoma-daf-workbench.html` / `.js` / `.css`, a dedicated visible-source workspace
+for Mishnah Yoma 1:1 through Yoma 2a. It asks the learner to classify each source move:
+case, preparation safeguard, stated concern, limiting objection, Gemara question,
+proof text, and response. Correct classifications build a persistent on-page argument map,
+record source-annotation evidence and XP, and unlock a clear continuation into the guided
+Yoma source trail. The page includes translation toggling, reading clues, a Sefaria link,
+and an explicit study-not-practical-guidance boundary.
+
+Updated the Yoma mastery loop and source sequence to use this workspace as the first
+working-source step, added a Yoma source packet and curriculum route mapping, and added
+`test/yoma-daf-workbench.test.mjs`. Full suite: 131 tests, 0 failures. Local smoke tests:
+`yoma-daf-workbench.html` and `tractate-mastery.html?tractate=yoma` both return HTTP 200.
+
+## 2026-07-13 — Codex: flagship Daf workspaces and adaptive repair
+
+Added `flagship-daf-workbench.html` / `.js`, a shared but tractate-specific visible-source
+workspace for Shabbat, Pesachim, Eruvin, Sukkah, Bava Metzia, and Bava Kamma. Each opening
+now has its own Hebrew source lines, guided translation reveal, reading clues, Sefaria link,
+and argument map. A learner must classify each line’s source role before the source trail
+continuation appears; each correct classification saves source-annotation evidence and XP.
+After two incorrect classifications, the workspace exposes an explicit tractate-specific
+repair route rather than leaving the learner without a next move.
+
+Updated all six flagship mastery loops and source sequences to enter these workspaces.
+`nextGraphPractice` now routes eligible source skills to the relevant workspace, including
+the dedicated Yoma workspace, instead of sending every opening source to the older generic
+reader. Added `test/flagship-daf-workbench.test.mjs` and updated mastery-loop tests.
+Full suite: 132 tests, 0 failures. Local smoke tests for Shabbat and Bava Kamma workspace
+URLs both return HTTP 200.
+
+## 2026-07-13 — Codex: delayed retrieval after flagship Daf maps
+
+Added a learner-visible retention handoff to the six flagship Daf workspaces. When a learner
+completes an argument map, `flagship-daf-retention.js` schedules a 24-hour retrieval and
+explains why it is happening before the learner continues into the next source trail.
+
+Added `data/flagship-retrieval.json`: six tractate-specific retrieval prompts for Shabbat,
+Pesachim, Eruvin, Sukkah, Bava Metzia, and Bava Kamma. The review API now selects these
+instead of falling back to a generic “what job does this line do?” prompt, preserving the
+actual source skill the learner practiced. `repository.mjs` records the explicit delayed
+retrieval schedule without awarding false mastery or XP.
+
+Added `test/flagship-retention.test.mjs`. Full suite: 133 tests, 0 failures. The server
+must be restarted after this change because `server.mjs` imports the curriculum/repository
+modules once at startup.
+
+## 2026-07-13 — Codex: flagship transfer and wider-canon handoff
+
+Added `flagship-transfer.html` / `.js` / `.css`: six short, shuffled, contrasting-source
+checks for the flagship Daf skills. Each check records source-annotation evidence against
+the learner’s original skill in a distinct source context, enabling the existing
+multi-context transfer bonus rather than treating completion as a click-through.
+
+After a correct transfer, the learner sees one concrete wider-canon connection: Shabbat and
+responsibility, Pesachim and freedom, Eruvin and prayer, Sukkah and covenant, Bava Metzia
+and responsibility, or Bava Kamma and covenant. Each bridge explains the shared reading
+habit and gives a direct learner route into its non-Gemara source work.
+
+The completed Daf-map panel now offers this transfer as an optional next move while retaining
+the scheduled 24-hour retrieval as the recommended durability step. Added
+`test/flagship-transfer.test.mjs`. Full suite: 134 tests, 0 failures; both new client scripts
+pass Node syntax checks.
+
+## 2026-07-13 — Codex: First Month Academy
+
+Added `academy.html` / `.js` / `.css`: a learner-facing first-month program for independent
+adult beginners. It turns the existing interleaved source assets into one clear 30-day entry
+sequence, with a single next session, placement-aware starting language, four visible phases,
+and evidence-led milestones. The sequence deliberately interleaves Hebrew orientation,
+Gemara, Chumash/Torah source reading, prayer, thought/freedom, history, responsibility,
+retrieval, repair, and unfamiliar-source transfer.
+
+Added a First month link from the eight-week integrated journey so this is discoverable from
+the learner’s primary path. Added `test/academy.test.mjs`. Full suite: 135 tests, 0 failures;
+`academy.js` passes Node syntax check.
+
+## 2026-07-13 — Codex: long-form integrated curriculum map
+
+Added `seder-curriculum.html` / `.js` / `.css` plus
+`data/seder-curriculum-map.json`. The learner-facing map extends Seder beyond the first
+foundation moves without splitting it into independent subject tracks. It presents six
+continuous levels—entering the page, source fluency, argument reading, canon in
+conversation, responsible synthesis, and independent study—with twelve evidence-based
+milestones. Each milestone names a capability, uses existing source-skill evidence prefixes,
+and leads to a concrete next learner action.
+
+Added a Long-term map link to the First Month Academy and `test/seder-curriculum.test.mjs`.
+Full suite: 138 tests, 0 failures; `seder-curriculum.js` passes Node syntax check.
+
+
+## 2026-07-13 — Claude: typed production checks now gate all six canon-course capstones
+
+Production-over-recognition, applied to the six-session canon courses (previously 36
+recognition-only questions). Per Sam's delegation, also issued directive 0 to Codex in
+docs/codex-assignment.md: commit the ~29-file in-flight surface today.
+
+- canon-course.js (tracked, was clean): after all six sessions are demonstrated, a typed
+  PRODUCTION CHECK now gates the capstone link — the course's anchor Hebrew phrase shown
+  without translation, meaning typed from memory. Wrong answers deliberately do NOT
+  reveal the expected answer (instant retry would allow copying); they point back to the
+  sessions. Correct answers set a per-learner localStorage flag, post an answer_submitted
+  event (competency: translation) so mastery/review pick it up, and unlock the capstone.
+  Revisit path handled: 6/6 sessions + no production on load lands on the check
+  (?session= deep links still show sessions; nav buttons still work from the check).
+  Courses without a production field degrade gracefully to the old direct-capstone flow.
+
+- Added production data to all 6 courses across 5 JSONs (each anchor phrase is taught in
+  the course's own Session 1, so recall is fair): shema-six (shema yisrael), blessings-six
+  (v'achalta v'savata uverachta), tefillah-six (baruch atah), freedom-six (uvacharta
+  bachayim), history-six (v'dirshu et shlom ha'ir), responsibility-six (hishtadel lihyot
+  ish). Node validation: all 6 have complete production fields.
+
+- Live-tested history-six end to end: 6 correct sessions -> "One production check
+  remains" (not capstone), wrong typed answer -> no reveal + retry, correct answer ->
+  capstone link + flag + event, flag-cleared reload -> lands on production check, session
+  nav intact. Suite: 134/134 pass (up from 122; Codex added tests concurrently).
+
+Note: the five course JSONs had never been committed (Codex-authored); committed here
+with my production additions, per the protect-uncommitted-work directive, with
+authorship noted in the commit message.
+
+
+## 2026-07-13 — Claude: daily router now recommends second foundations
+
+The recommendation engine did not know the eight deepening units exist: a learner who
+finished a first arc never saw "your next step: Honoring Parents" on the daily page.
+
+- daily-router.js (tracked, clean before edit): added a deepenings map pairing each first
+  arc stage with its second unit stage/page (all 8 subjects, including the Thought
+  atlas -> thought-suffering pair). New branch in the recommendation waterfall, placed
+  after struggle/vocab/active-course/capstone/transfer and BEFORE the Gemara fallback,
+  firing only when (a) a first arc is complete, (b) its second unit is not, and (c)
+  day % 3 === 2 — so the Gemara spine keeps two of every three fallback days, per the
+  hub topology. Multiple pending deepenings rotate by day.
+
+- test/daily-deepening.test.mjs (new): cross-file consistency guard — every stage ID the
+  router names must be the stage its unit file actually declares (8 pairs x both sides),
+  every linked page must exist on disk, and regexes lock the gating conditions (has-first/
+  not-second, day % 3, Gemara remains final default).
+
+Verification: node --check clean; new test 2/2; full suite 137/137 (Codex adding tests
+concurrently, all green); live page renders without console errors and correctly shows a
+ready capstone outranking the deepening slot for the demo learner; branch logic verified
+against 4 simulated scenarios (fires only in the exact intended case).
+
+Blocked until Codex commits: Sefaria deep links on unit steps (needs course-engine.js,
+dirty), typed checks in front-door Gemara arcs (shabbat-arc.js mid-migration).
+
+## 2026-07-13 — Codex: 36-lesson integrated canon journey
+
+- Expanded the learner-facing canon journey from 18 to 36 sequential source encounters.
+  The second cycle is gated as four earned phases: Second foundation, Gemara across
+  Shas, Canon and comparison, and Independent navigation.
+- The added work returns to language, Tefillah, Torah reception, and historical context;
+  then develops close reading across Pesachim, Eruvin, Sukkah, Bava Metzia, Bava Kamma,
+  and Yoma; and culminates in source-chain synthesis, an unfamiliar-sugya map, and a
+  responsible next-study decision.
+- Added phase-five through phase-eight checkpoints. Questions are shuffled at render
+  time and require all correct answers before opening the next phase.
+- Kept flagship delayed-retrieval records authoritative for overlapping Gemara skill IDs,
+  preventing the new journey sources from duplicating a scheduled flagship review.
+- Verification: full test suite passes, 140 tests / 0 failures.
+
+## 2026-07-13 — Codex: learner-facing 36-lesson journey framing
+
+- Updated the Journey page so the 36 source encounters are visible as eight earned
+  phases, each with a brief statement of the reading capability being built and a
+  checkpoint expectation.
+- Reframed the page from a “first” journey to a continuous canon journey, made the
+  one-path premise explicit, and linked the learner to the longer-term mastery map.
+- Added a UI regression guard for the 36-move / eight-phase presentation.
+- Verification: full test suite passes, 141 tests / 0 failures.
+
+## 2026-07-13 — Codex: 100-move canon mastery path
+
+- Expanded the actual sequential Journey from 36 to 100 source encounters and from
+  eight to sixteen earned phases. The added 64 sessions are not screen padding: they
+  revisit eight representative Gemara and wider-canon sources through eight distinct
+  deliberate-practice modes—signals, case maps, evidence, distinctions, reception,
+  comparison, transfer, and independent synthesis.
+- Every added session has visible Hebrew, translation, cited source, two shuffled source
+  checks, distinct evidence contexts, sequential prerequisite evidence, and a phase gate.
+- Added a generic advanced-phase checkpoint that assesses transfer and responsible
+  independent navigation rather than rewarding recognition alone.
+- Added cycle and learner-UI regression coverage. Verification: full suite passes,
+  142 tests / 0 failures. Restart the server after this backend curriculum change.
+
+
+## 2026-07-13 — Claude: third foundations for Halakha, Tefillah, Mussar (content expansion)
+
+Per Sam's go-ahead to expand beyond the existing lessons, three third-foundation units,
+each teaching a genuinely new skill on verified sources, each chained from its subject's
+second unit and integrated into subject pages + daily router:
+
+- halakha-machloket.js/.html — how the law handles disagreement: Eruvin 13b (three-year
+  dispute, elu v'elu, halakha k'Beit Hillel because they were "nochin va'aluvin" and
+  taught Shammai's words first — all verified), Mishnah Eduyot 1:5-6 (why rejected
+  opinions are recorded), the Ketubot 17a pattern-recognition tie to mussar-truth, and
+  an exceptions step (rule-with-tracked-scope, echoing Chullin). Primary: eruvin-arc.html
+  (the sugya's home). Lateral: mussar-arc.html (the ruling's stated reason IS a middah).
+
+- tefillah-amidah.js/.html — the service's center as architecture-with-history: the
+  shevach/bakasha/hodaya structure (extends first arc's three moves), Berakhot 28b Shimon
+  HaPakuli arranging the eighteen at Yavneh before Rabban Gamliel (verified; "arranged is
+  not invented" distinction from the same sugya), the eighteen-that-are-nineteen name
+  fossil, Mishnah Berakhot 4:4 keva warning, Berakhot 17a Elohai Netzor as the built-in
+  personal opening. Primary: berakhot-arc.html. Lateral: history-yavneh.html — the same
+  institution now appears in two subjects, exactly the integrated-canon vision.
+
+- mussar-anger.js/.html — third middah, third structure: Rambam Deot 1:4 middle path,
+  Deot 2:3 anger exception ("to the other extreme", "even over something fitting" —
+  verified), Shabbat 105b tearing-garments/idolatry escalation psychology (verified with
+  attribution chain), Avot 4:1 strength redefined, the show-without-feeling permission
+  (Deot 2:3), and a three-middot structural comparison step. Primary: shabbat-arc.html.
+  Lateral: widerworld-encounter.html (the middle path's Aristotelian backstory).
+
+Chain wiring (one lateral each, per topology): halakha-honor-parents -> machloket;
+tefillah-kaddish -> amidah; mussar-truth's lateral swapped from chassidus-arc to
+mussar-anger (chassidus remains discoverable via its own track and mussar-arc's flow).
+subject.js units lists now show 3 units for halakha/tefillah/mussar. daily-router
+deepenings extended with the three second->third pairs (chain gating works unchanged);
+test/daily-deepening.test.mjs extended to 11 pairs.
+
+Verification: node --check on 8 files; all three units live-tested end to end (10/10
+credited incl. typed check, completion renders, correct primary + exactly one lateral);
+subject page shows 3 units; consistency test 2/2 (11 pairs). Full suite: one transient
+2-fail run caused by Codex editing test files mid-run (count moved 137->138->140 across
+runs); clean re-run 140/140 pass, my-surface tests 4/4 deterministic.
+
+
+## 2026-07-13 — Claude: third foundations batch 2 — Chumash poetry, Geniza, Simcha, the Mean
+
+Four more units, completing third foundations for 7 of 8 subjects (Thought's third layer
+already exists via its atlas + suffering + unit-2 structure). All sources verified by
+web search before writing; all pages live-tested end to end.
+
+- chumash-tehillim.js/.html (9 steps) — biblical poetry as the third genre after law and
+  narrative: synonymous parallelism (Psalm 19:2-3, verified), antithetic (Proverbs 10:1,
+  verified), metaphor-as-claim (Psalm 23:1), the He->You pronoun turn at Psalm 23:4
+  (verified), reception via Berakhot 4b Ashrei-three-times-daily, and a three-genres
+  synthesis step. Primary: berakhot-arc.html. Lateral: none (chassidus-simcha laterals IN).
+
+- history-geniza.js/.html — a second evidence-kind after Yavneh's memory-sources:
+  Megillah 26b genizah rule (sefer torah shebalah gonzin oto), Ben Ezra/Fustat ~400k
+  fragments, Schechter 1896 (with a discovery-as-event-with-perspectives step), everyday
+  papers, curated-canon vs accidental-archive distinction, Goitein's Mediterranean
+  Society, memory-vs-residue judgment step (all verified). Primary:
+  lab.html?tractate=megillah (lab confirmed). Lateral: widerworld-encounter.html
+  (moved here from history-yavneh, which now laterals to geniza — chain intact).
+
+- chassidus-simcha.js/.html — joy as discipline: Psalm 100:2 command, Deut 28:47 rebuke
+  for joyless service, Shabbat 30b simcha-shel-mitzvah as the Shechinah's condition (with
+  the kalut-rosh exclusion as a built-in boundary), Likutei Moharan II:24 (verified at
+  Sefaria Part II 24:1), practice step, and a RESPONSIBLE LEARNING step explicitly
+  separating spiritual practice from mental-health judgment. Primary: shabbat-arc.html.
+  Lateral: chumash-tehillim.html (the command is a psalm — cross-new-unit mesh).
+
+- widerworld-mean.js/.html — the charters unit's method actually performed: Deot 1:4
+  mean, Deot 1:5-6 vehalachta bidrachav grounding (verified), Sotah 14a imitatio Dei
+  (verified), Aristotle NE II presented in its own terms, the documented influence via
+  Shemonah Perakim, precise shared question, and the divergence (same architecture,
+  covenantal vs rational foundations; the anger/arrogance exceptions as religious
+  correctives). Primary: lab.html?tractate=sotah (lab confirmed). Lateral:
+  mussar-anger.html (two-way mesh with anger's lateral to encounter — no cycles).
+
+Chain wiring: chumash-akeidah -> tehillim (new lateral); history-yavneh lateral swapped
+widerworld-encounter -> geniza; chassidus-ahavat-yisrael lateral swapped chassidus-arc ->
+simcha; widerworld-encounter lateral swapped philosophy.html -> mean. subject.js: chumash/
+history/chassidus/widerworld now list 3 units. daily-router: 4 new pairs (15 total).
+test/daily-deepening.test.mjs: 15 pairs guarded.
+
+Verification: 10/10 node --check; consistency test 2/2 (15 pairs x both sides + page
+existence); all four units e2e in live browser (all steps credit incl. typed, completion
+renders, correct primary + at most one lateral); suite 142/142.
+
+## 2026-07-13 — Codex: active source maps in the advanced 100-move cycles
+
+- Built the 64 added advanced encounters into active source-work sessions. After the
+  two evidence checks, each requires a short learner-authored source map that names a
+  concrete feature of the visible source before the stage can be completed.
+- Source maps are stored as learner-owned study artifacts and local notes; they do not
+  award false XP or substitute self-report for source-answer evidence.
+- Added the responsive source-map writing interface and regression tests for its
+  presence and the 64 practice prompts.
+- Verification: full suite passes, 143 tests / 0 failures.
+
+## 2026-07-13 — Codex: subject-aware retrieval
+
+- Replaced the incoherent one-size-fits-all Daf fallback for non-Gemara review skills.
+  A learner returning to History, Tefillah, Chumash, Wider World, Mussar, Chassidus, or
+  Jewish Thought now receives a discipline-appropriate retrieval prompt and Hebrew cue.
+- Kept the existing Daf retrieval intact for Gemara and unknown skills; no source review
+  is orphaned.
+- Added coverage across all seven subject prefixes. Verification: 145 tests / 0 failures.

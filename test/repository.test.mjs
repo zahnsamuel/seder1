@@ -8,6 +8,7 @@ import {
   recordLearnerEvent,
   getLearner,
   listLearners,
+  listLearnersFull,
   reviewStatus,
   decayingSkills,
 } from '../data/repository.mjs';
@@ -215,5 +216,17 @@ describe('recordLearnerEvent: concurrent write safety', () => {
     for (const learner of created) {
       assert.ok(all.some((entry) => entry.id === learner.id), `${learner.id} should be persisted after a concurrent create`);
     }
+  });
+});
+
+describe('listLearnersFull', () => {
+  test('returns complete records, unlike listLearners\' id/profile/xp/updatedAt summary', async () => {
+    const learner = await createLearner(root, 'Full Record Learner');
+    await recordLearnerEvent(root, learner.id, { type: 'answer_submitted', skillId: 'ketubot-schedule', correct: true, sourceContext: 'Mishnah Ketubot 1:1' });
+    const full = await listLearnersFull(root);
+    const entry = full.find((item) => item.id === learner.id);
+    assert.ok(entry, 'the learner created above should appear in listLearnersFull');
+    assert.ok(Array.isArray(entry.events) && entry.events.length === 1, 'listLearnersFull should expose the full events array, not just a summary');
+    assert.ok(entry.mastery['ketubot-schedule'] > 0, 'listLearnersFull should expose real mastery data usable for aggregate reporting');
   });
 });

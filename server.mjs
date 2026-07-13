@@ -3,7 +3,7 @@ import { createServer } from 'node:http';
 import { extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { callYochaiTool } from './yochai-adapter.mjs';
-import { createLearner, decayingSkills, deleteLearner, getLearner, listLearners, recordLearnerEvent, reviewStatus } from './data/repository.mjs';
+import { createLearner, decayingSkills, deleteLearner, getLearner, listLearners, listLearnersFull, recordLearnerEvent, reviewStatus } from './data/repository.mjs';
 import { supabaseConfig, verifySupabaseAccessToken } from './data/supabase-adapter.mjs';
 import { deleteHostedLearnerData, getHostedLearner, recordHostedEvent } from './data/supabase-learner-repository.mjs';
 import { canMasterJourneyStage, canonJourney, journeyStatus, nextGemaraArc, nextGraphPractice, nextJourneyRecommendation, remediationFor, sourceReviewItems } from './data/curriculum-engine.mjs';
@@ -40,6 +40,8 @@ async function recommendFor(learner, { skipReview = false } = {}) {
   }
   const remediation = await remediationFor(root, learner);
   if (remediation) return { kind: 'remediation', ...remediation, url: 'remediation.html' };
+  const graphPractice = await nextGraphPractice(root, learner);
+  if (graphPractice) return { kind: 'graph-practice', title: graphPractice.skill.title, reason: graphPractice.reason, url: graphPractice.url, skill: graphPractice.skill, context: graphPractice.context, mastery: graphPractice.mastery };
   const journeyRecommendation = await nextJourneyRecommendation(root, learner);
   if (journeyRecommendation) return journeyRecommendation;
   const gemaraArc = await nextGemaraArc(root, learner);
@@ -80,34 +82,115 @@ async function handleApi(request, response, url) {
     catch (error) { sendJson(response, 401, { error: error.message }); }
     return true;
   }
-  if (url.pathname === '/api/curriculum/berakhot-onramp') {
-    const curriculum = JSON.parse(await fs.readFile(join(root, 'curriculum', 'berakhot-onramp.json'), 'utf8'));
-    sendJson(response, 200, curriculum);
-    return true;
-  }
-  if (url.pathname === '/api/curriculum/berakhot-unit-1') {
-    const curriculum = JSON.parse(await fs.readFile(join(root, 'curriculum', 'berakhot-unit-1.json'), 'utf8'));
-    sendJson(response, 200, curriculum);
-    return true;
-  }
   if (url.pathname === '/api/curriculum/canon-journey') {
     sendJson(response, 200, await canonJourney(root));
-    return true;
-  }
-  if (url.pathname === '/api/curriculum/gemara-runway') {
-    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'curriculum', 'gemara-runway.json'), 'utf8')));
     return true;
   }
   if (url.pathname === '/api/curriculum/advanced-gemara-sequence') {
     sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'advanced-gemara-sequence.json'), 'utf8')));
     return true;
   }
+  if (url.pathname === '/api/curriculum/gemara-source-packets') {
+    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'gemara-source-packets.json'), 'utf8')));
+    return true;
+  }
+  if (url.pathname === '/api/curriculum/gemara-source-sequences') {
+    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'gemara-source-sequences.json'), 'utf8')));
+    return true;
+  }
+  if (url.pathname === '/api/curriculum/canon-source-sequences') {
+    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'canon-source-sequences.json'), 'utf8')));
+    return true;
+  }
   if (url.pathname === '/api/curriculum/non-gemara-labs') {
     sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'non-gemara-labs.json'), 'utf8')));
     return true;
   }
+  if (url.pathname === '/api/curriculum/canon-synthesis') {
+    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'canon-synthesis.json'), 'utf8')));
+    return true;
+  }
+  if (url.pathname === '/api/curriculum/non-gemara-deepening') {
+    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'non-gemara-deepening.json'), 'utf8')));
+    return true;
+  }
+  if (url.pathname === '/api/curriculum/non-gemara-retrieval') {
+    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'non-gemara-retrieval.json'), 'utf8')));
+    return true;
+  }
+  if (url.pathname === '/api/curriculum/non-gemara-anchor-units') {
+    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'non-gemara-anchor-units.json'), 'utf8')));
+    return true;
+  }
+  if (url.pathname === '/api/curriculum/pilot-foundations') {
+    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'pilot-foundations.json'), 'utf8')));
+    return true;
+  }
+  if (url.pathname === '/api/curriculum/pilot-repairs') {
+    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'pilot-repairs.json'), 'utf8')));
+    return true;
+  }
+  if (url.pathname === '/api/curriculum/non-gemara-source-reader') {
+    const primary = JSON.parse(await fs.readFile(join(root, 'data', 'non-gemara-source-reader.json'), 'utf8'));
+    const additional = JSON.parse(await fs.readFile(join(root, 'data', 'additional-source-reader.json'), 'utf8'));
+    sendJson(response, 200, { collections: [...primary.collections, ...additional.collections] });
+    return true;
+  }
+  if (url.pathname === '/api/curriculum/berakhot-practice-lab') {
+    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'berakhot-practice-lab.json'), 'utf8')));
+    return true;
+  }
+  if (url.pathname === '/api/curriculum/non-gemara-practice-lab') {
+    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'non-gemara-practice-lab.json'), 'utf8')));
+    return true;
+  }
+  if (url.pathname === '/api/curriculum/daily-canon-studio') {
+    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'daily-canon-studio.json'), 'utf8')));
+    return true;
+  }
+  if (url.pathname === '/api/curriculum/canon-mastery-arcs') {
+    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'canon-mastery-arcs.json'), 'utf8')));
+    return true;
+  }
+  if (url.pathname === '/api/curriculum/contrasting-repairs') {
+    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'contrasting-repairs.json'), 'utf8')));
+    return true;
+  }
+  if (url.pathname === '/api/curriculum/canon-six-session-courses') {
+    const base = JSON.parse(await fs.readFile(join(root, 'data', 'canon-six-session-courses.json'), 'utf8'));
+    const tefillah = JSON.parse(await fs.readFile(join(root, 'data', 'tefillah-six-session-course.json'), 'utf8'));
+    const thought = JSON.parse(await fs.readFile(join(root, 'data', 'thought-six-session-course.json'), 'utf8'));
+    const history = JSON.parse(await fs.readFile(join(root, 'data', 'history-six-session-course.json'), 'utf8'));
+    const responsibility = JSON.parse(await fs.readFile(join(root, 'data', 'responsibility-six-session-course.json'), 'utf8'));
+    sendJson(response, 200, { courses: [...base.courses, ...tefillah.courses, ...thought.courses, ...history.courses, ...responsibility.courses] });
+    return true;
+  }
+  if (url.pathname === '/api/curriculum/canon-vocabulary') {
+    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'canon-vocabulary.json'), 'utf8')));
+    return true;
+  }
+  if (url.pathname === '/api/curriculum/repair-router') {
+    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'repair-router.json'), 'utf8')));
+    return true;
+  }
+  if (url.pathname === '/api/curriculum/course-capstones') {
+    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'course-capstones.json'), 'utf8')));
+    return true;
+  }
+  if (url.pathname === '/api/curriculum/canon-bridges') {
+    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'canon-bridges.json'), 'utf8')));
+    return true;
+  }
+  if (url.pathname === '/api/curriculum/independent-source-encounters') {
+    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'independent-source-encounters.json'), 'utf8')));
+    return true;
+  }
   if (url.pathname === '/api/source-glossary') {
     sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'source-glossary.json'), 'utf8')));
+    return true;
+  }
+  if (url.pathname === '/api/curriculum/language-ladder') {
+    sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'language-ladder.json'), 'utf8')));
     return true;
   }
   if (url.pathname === '/api/catalog') {
@@ -224,6 +307,60 @@ async function handleApi(request, response, url) {
     const contexts = Object.values(learner.evidence || {}).reduce((total, list) => total + list.length, 0);
     const journey = await journeyStatus(root, learner);
     sendJson(response, 200, { attempts: answers.length, correct, accuracy: answers.length ? Math.round((correct / answers.length) * 100) : null, sourceContexts: contexts, currentCanonMoment: journey.next?.title || 'First Canon Journey complete', completedMoments: journey.completed, totalMoments: journey.total, reviewDue: reviewStatus(learner).due.length, needsSupport: Object.entries(learner.struggles || {}).filter(([, count]) => count >= 2).map(([skillId]) => skillId) });
+    return true;
+  }
+  const pilotAnalyticsMatch = url.pathname.match(/^\/api\/learners\/([a-zA-Z0-9_-]+)\/pilot-analytics$/);
+  if (request.method === 'GET' && pilotAnalyticsMatch) {
+    const { learner } = await readLearner(request, pilotAnalyticsMatch[1]);
+    const events = (learner.events || []).filter((event) => event.type === 'answer_submitted');
+    const attempts = events.length;
+    const correct = events.filter((event) => event.correct).length;
+    const misses = events.filter((event) => !event.correct).reduce((all, event) => { all[event.skillId] = (all[event.skillId] || 0) + 1; return all; }, {});
+    const repairs = events.filter((event) => String(event.sourceContext || '').startsWith('Repair:'));
+    const independent = events.filter((event) => String(event.sourceContext || '').startsWith('Independent encounter:'));
+    const independentCorrect = independent.filter((event) => event.correct).length;
+    const capstones = (learner.events || []).filter((event) => event.type === 'source_annotation' && String(event.sourceContext || '').includes('capstone')).length;
+    const last = events.at(-1)?.at || null;
+    sendJson(response, 200, { attempts, correct, accuracy: attempts ? Math.round((correct / attempts) * 100) : null, repairsAttempted: repairs.length, independentAttempts: independent.length, independentAccuracy: independent.length ? Math.round((independentCorrect / independent.length) * 100) : null, capstonesSubmitted: capstones, needsRepair: Object.entries(misses).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([skillId, misses]) => ({ skillId, misses })), lastActivityAt: last, streak: learner.dailyStreak || 0, xp: learner.xp || 0, reviewDue: reviewStatus(learner).due.length });
+    return true;
+  }
+  // Aggregate, cross-learner reporting for the operator, not any individual learner. Local-mode
+  // only: in hosted mode, RLS scopes every query to auth.uid(), so there is no safe way for this
+  // server to read across learners without a service-role key, which it intentionally never holds
+  // (see data/supabase-adapter.mjs). Real hosted-pilot aggregate reporting needs a separate
+  // admin-side tool run with actual Supabase dashboard access, not this endpoint.
+  if (url.pathname === '/api/admin/analytics') {
+    if (supabaseConfig().configured) {
+      sendJson(response, 200, { available: false, reason: 'Aggregate analytics only works in local/demo mode. In hosted mode, row-level security correctly prevents this server from reading across learners without a service-role key it does not hold.' });
+      return true;
+    }
+    const learners = await listLearnersFull(root);
+    const tractateGraph = JSON.parse(await fs.readFile(join(root, 'data', 'gemara-tractates.json'), 'utf8'));
+    const totalLearners = learners.length;
+    const totalXp = learners.reduce((sum, l) => sum + (l.xp || 0), 0);
+    const allAnswerEvents = learners.flatMap((l) => (l.events || []).filter((e) => e.type === 'answer_submitted' || e.type === 'source_annotation' || e.type === 'canon_lab'));
+    const totalAttempts = allAnswerEvents.length;
+    const totalCorrect = allAnswerEvents.filter((e) => e.correct).length;
+    const overallAccuracy = totalAttempts ? Math.round((totalCorrect / totalAttempts) * 100) : null;
+    // Labs (tractate-labs.json, served via lab.js) only ever emit answer_submitted events --
+    // they have no stage_mastered/completion signal at all, unlike course-engine arcs. So
+    // completedLearners/dropOff are only meaningful for tractates with a real arc; for
+    // lab-only tractates they are reported as null rather than a misleading always-0/100%.
+    const tractateStats = tractateGraph.tractates.filter((t) => t.labId).map((t) => {
+      const stageId = t.arcUrl ? `${t.labId}-tractate-arc` : null;
+      const completedLearners = stageId ? learners.filter((l) => (l.completedStages || []).includes(stageId)).length : null;
+      const engagedLearners = learners.filter((l) => (l.events || []).some((e) => (e.skillId || '').includes(t.labId))).length;
+      return { title: t.title, labId: t.labId, hasArc: Boolean(t.arcUrl), engagedLearners, completedLearners, dropOff: completedLearners === null ? null : Math.max(0, engagedLearners - completedLearners) };
+    }).filter((t) => t.engagedLearners > 0).sort((a, b) => b.engagedLearners - a.engagedLearners);
+    const stageCounts = {};
+    learners.forEach((l) => (l.completedStages || []).forEach((stageId) => { stageCounts[stageId] = (stageCounts[stageId] || 0) + 1; }));
+    const stageCompletion = Object.entries(stageCounts).sort((a, b) => b[1] - a[1]).map(([stageId, count]) => ({ stageId, count }));
+    const struggleTotals = {};
+    learners.forEach((l) => Object.entries(l.struggles || {}).forEach(([skillId, count]) => { if (count > 0) struggleTotals[skillId] = (struggleTotals[skillId] || 0) + count; }));
+    const topStruggles = Object.entries(struggleTotals).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([skillId, count]) => ({ skillId, count }));
+    const now = Date.now();
+    const overdueReviews = learners.reduce((sum, l) => sum + (l.reviewQueue || []).filter((item) => new Date(item.dueAt).getTime() <= now).length, 0);
+    sendJson(response, 200, { available: true, totalLearners, totalXp, totalAttempts, overallAccuracy, tractateStats, stageCompletion, topStruggles, overdueReviews });
     return true;
   }
   const todayMatch = url.pathname.match(/^\/api\/learners\/([a-zA-Z0-9_-]+)\/today$/);

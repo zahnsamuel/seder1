@@ -1,4 +1,11 @@
 const learnerId = Seder.currentLearnerId();
+Seder.api(`/api/learners/${learnerId}/journey`).then((response) => response.ok ? response.json() : null).then((journey) => {
+  if (!journey) return;
+  const panel = document.createElement('section');
+  panel.className = 'phase-progress';
+  panel.innerHTML = `<span>CANON PHASES</span><div>${journey.phases.map((phase) => `<article><b>${phase.checkpointComplete ? '✓' : phase.complete ? 'Checkpoint ready' : 'In progress'}</b><strong>${phase.title}</strong><small>${phase.checkpointComplete ? 'Phase mastery confirmed.' : phase.complete ? `<a href="phase-checkpoint.html?phase=${phase.id}">Open checkpoint →</a>` : `${journey.nodes.slice(phase.start, phase.end + 1).filter((node) => node.complete).length} of ${phase.end - phase.start + 1} moments complete`}</small></article>`).join('')}</div>`;
+  document.querySelector('.hero').after(panel);
+}).catch(() => {});
 const tracks = document.querySelector('#tracks');
 const names = { language: 'Language foundations', gemara: 'Gemara reasoning', thought: 'Jewish Thought' };
 const links = { language: 'language.html', gemara: 'gemara-toolkit.html', thought: 'philosophy.html' };
@@ -36,6 +43,20 @@ Promise.all([
   Seder.api(`/api/learners/${learnerId}`).then((response) => response.json())
 ]).then(([graph, learner]) => {
   document.querySelector('#xp').textContent = `${learner.xp || 0} XP`;
+  const gemaraSets = {
+    'Gemara Foundations': ['foundations-word-context', 'foundations-measure-case', 'foundations-purpose-reasons', 'foundations-formulation', 'foundations-evidence-chain'],
+    'Civil Reasoning': ['civil-claims-evidence', 'civil-procedure-purpose', 'civil-category-difference', 'civil-common-principle']
+  };
+  const score = (id) => learner.decayedMastery?.[id] ?? learner.mastery?.[id] ?? 0;
+  const summaries = Object.entries(gemaraSets).map(([title, ids]) => ({ title, ids, established: ids.filter((id) => score(id) >= .67).length }));
+  const allGemaraIds = Object.values(gemaraSets).flat();
+  const weakest = allGemaraIds.sort((a, b) => score(a) - score(b))[0];
+  const due = (learner.reviews || []).filter((item) => !item.dueAt || new Date(item.dueAt) <= new Date()).length;
+  const next = summaries.find((item) => item.established < item.ids.length);
+  const panel = document.createElement('section');
+  panel.className = 'phase-progress gemara-dashboard';
+  panel.innerHTML = `<span>YOUR GEMARA DASHBOARD</span><div>${summaries.map((item) => `<article><b>${item.established}/${item.ids.length}</b><strong>${item.title}</strong><small>${item.established === item.ids.length ? 'Established across the checkpoint.' : 'Keep building this repertoire.'}</small></article>`).join('')}<article><b>${due}</b><strong>Reviews due</strong><small>${due ? '<a href="weekly-review.html">Protect what you learned →</a>' : 'No due review at this moment.'}</small></article><article><b>Next</b><strong>${next?.title || 'Transfer practice'}</strong><small><a href="${next?.title === 'Civil Reasoning' ? 'civil-reasoning.html' : 'gemara-foundations.html'}">${weakest ? `Strengthen ${weakest.replace(/-/g, ' ')} →` : 'Try an unfamiliar source →'}</a></small></article></div>`;
+  document.querySelector('.hero').after(panel);
   const groups = graph.skills.reduce((all, skill) => { (all[skill.track] ||= []).push(skill); return all; }, {});
   tracks.innerHTML = Object.entries(groups).map(([track, skills]) => `<section class="track"><span>${track.toUpperCase()}</span><h2>${names[track]}</h2><div class="skills">${skills.map((skill) => renderSkill(skill, learner, track)).join('')}</div></section>`).join('');
   const checkpoint = document.createElement('p');

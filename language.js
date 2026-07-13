@@ -1,20 +1,46 @@
-const words=[
-['QUESTION WORD','מֵאֵימָתַי','me’eimatai · from when?','Mishnah Berakhot 1:1 opens: “From when do we recite Shema in the evenings?”','What job does this word do in the opening Mishnah?',['It asks for a starting point in time.','It introduces a final ruling.','It names a person.'],0],
-['QUESTION WORD','מַאי','mai · what?','Gemara often pauses on one word and asks: mai?','When you see mai, what should you expect?',['The Gemara is asking what something means or is.','The discussion has ended.','A new tractate is beginning.'],0],
-['QUESTION WORD','אַמַּאי','ammai · why?','A terse Mishnah response invites the Gemara to ask why it follows.','What is the reader being asked to look for?',['A reason for the statement or rule.','A different pronunciation.','The page number.'],0],
-['SOURCE SIGNAL','דִּכְתִיב','dikhtiv · as it is written','Berakhot 2a brings a verse after explaining the Mishnah’s order.','What usually follows this signal?',['A biblical verse used as evidence.','A personal story.','A list of vocabulary.'],0],
-['SOURCE SIGNAL','תַּנְיָא','tanya · it was taught','A baraita can add, clarify, or challenge the discussion.','What does this signal introduce?',['A cited teaching outside the Mishnah.','A conclusion with no source.','A change of tractate.'],0],
-['ARGUMENT SIGNAL','מֵיתִיבֵי','meitivei · they raise an objection','A source can test whether an earlier answer holds up.','What should you expect next?',['A source that challenges the preceding claim.','An unrelated topic.','A final agreement.'],0],
-['ARGUMENT SIGNAL','תָּא שְׁמַע','ta shema · come and hear','The Gemara invites a source into the discussion.','What job does this phrase usually perform?',['It brings evidence for the question at hand.','It tells the learner to stop reading.','It translates a word into English.'],0],
-['CONCLUSION SIGNAL','שְׁמַע מִינָּהּ','shema minah · learn from it','After weighing a source, the Gemara may draw an inference.','What is the Gemara doing here?',['Drawing a conclusion from the source.','Asking when evening begins.','Naming a new speaker.'],0],
-['QUESTION SIGNAL','אִיבַּעְיָא לְהוּ','ibaya lehu · they raised a question','The Gemara can introduce an unresolved inquiry for the sages to examine.','What should a learner expect after this phrase?',['A focused question that needs investigation.','A final practical ruling.','A list of chapter names.'],0],
-['RETURN SIGNAL','גּוּפָא','gufa · returning to the statement itself','After a detour, the Gemara can return to examine an earlier teaching closely.','What does this signal help you do?',['Notice that the discussion is returning to an earlier statement.','Assume the topic has changed completely.','Skip the following source.'],0],
-['OBJECTION SIGNAL','מֵיתִיבֵי','meitivei · they raise an objection','A cited source can put pressure on an earlier answer.','What is the source doing in this moment?',['Testing or challenging the previous claim.','Repeating the final conclusion.','Giving a Hebrew translation.'],0],
-['UNRESOLVED SIGNAL','קַשְׁיָא','kashya · a difficulty remains','Not every Gemara problem resolves immediately and completely.','What is the responsible reading move here?',['Notice that a difficulty remains and keep the question in view.','Pretend the issue was solved.','Treat the page as a personal ruling.'],0]
-];
-let index=0,answered=false,xp=0,foundationComplete=false;const $=s=>document.querySelector(s);const learnerId=Seder.currentLearnerId();
-const shuffled=w=>w[5].map((text,i)=>({text,i})).sort(()=>Math.random()-.5);
-function render(){const w=words[index];answered=false;$('#progress').textContent=`WORD ${index+1} OF ${words.length}`;$('#bar').style.width=`${(index+1)/words.length*100}%`;$('#kind').textContent=w[0];$('#title').textContent=w[1];$('#hebrew').textContent=w[1];$('#transliteration').textContent=w[2];$('#source').textContent=w[3];$('#prompt').textContent=w[4];$('#feedback').textContent='';$('#continue').disabled=true;$('#continue').textContent=index===words.length-1?'Complete foundation →':'Continue →';const a=$('#answers');a.innerHTML='';shuffled(w).forEach(({text,i})=>{const b=document.createElement('button');b.type='button';b.textContent=text;b.addEventListener('click',()=>answer(b,i===w[6]));a.appendChild(b)});$('#wordMap').innerHTML=words.map((item,i)=>`<li class="${i===index?'active':''} ${i<index?'done':''}">${item[2]}</li>`).join('')}
-function answer(button,correct){if(answered)return;answered=true;document.querySelectorAll('#answers button').forEach(b=>b.disabled=true);button.classList.add(correct?'correct':'incorrect');xp+=correct?10:5;$('#xp').textContent=`${xp} XP`;$('#feedback').textContent=correct?'+10 XP. You recognized the job this word does in an argument.':'+5 XP. Keep the word in view; it will return in review.';$('#continue').disabled=false;Seder.api(`/api/learners/${learnerId}/events`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'answer_submitted',skillId:`language-core-${index+1}`,competency:'translation',correct})}).then(r=>r.ok?r.json():null).then(l=>{if(l){xp=l.xp;$('#xp').textContent=`${xp} XP`}}).catch(()=>{})}
-$('#continue').addEventListener('click',()=>{if(foundationComplete){location.href='grammar.html';return}if(!answered)return;if(index<words.length-1){index++;render();return}$('#title').textContent='Foundation complete';$('#hebrew').textContent='מוכנים ללמוד';$('#transliteration').textContent='Ready to learn.';$('#source').textContent='You now recognize common signals that make a Gemara page navigable.';$('#prompt').textContent='Continue into grammar to see how these words combine inside real sentences.';$('#answers').innerHTML='';foundationComplete=true;$('#continue').disabled=false;$('#continue').textContent='Continue to grammar →';Seder.api(`/api/learners/${learnerId}/events`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'stage_mastered',stageId:'read-language'})}).catch(()=>{})});
-Seder.api(`/api/learners/${learnerId}`).then(r=>r.ok?r.json():null).then(l=>{if(l){xp=l.xp||0;$('#xp').textContent=`${xp} XP`}}).catch(()=>{});render();
+const $ = (selector) => document.querySelector(selector);
+const learnerId = Seder.currentLearnerId();
+const storageKey = 'seder-language-ladder-v1';
+let ladder, stageIndex = 0, itemIndex = 0, answered = false;
+
+function progress() { try { return JSON.parse(localStorage.getItem(storageKey)) || { completed: [] }; } catch { return { completed: [] }; } }
+function saveProgress(next) { localStorage.setItem(storageKey, JSON.stringify(next)); }
+function shuffledAnswers(item) { return item.answers.map((text, index) => ({ text, index })).sort(() => Math.random() - 0.5); }
+function renderMap() {
+  const completed = progress().completed;
+  $('#wordMap').innerHTML = ladder.stages.map((stage, index) => {
+    const status = completed.includes(stage.id) ? 'done' : index === stageIndex ? 'active' : '';
+    return `<li class="${status}">${String(index + 1).padStart(2, '0')} · ${stage.title}<small>${stage.mastery}</small></li>`;
+  }).join('');
+}
+function record(type, payload) {
+  return Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type, ...payload }) })
+    .then((response) => response.ok ? response.json() : null).then((learner) => { if (learner) $('#xp').textContent = `${learner.xp || 0} XP`; }).catch(() => {});
+}
+function updateXp() { Seder.api(`/api/learners/${learnerId}`).then((r) => r.ok ? r.json() : null).then((l) => { if (l) $('#xp').textContent = `${l.xp || 0} XP`; }).catch(() => {}); }
+function renderComplete(stage) {
+  $('#progress').textContent = 'STAGE COMPLETE'; $('#bar').style.width = '100%'; $('#kind').textContent = 'MASTERY CHECKPOINT'; $('#title').textContent = stage.title; $('#hebrew').textContent = '';
+  $('#transliteration').textContent = stage.mastery; $('#source').textContent = `You have practiced this skill in ${stage.sourceForms.join(', ')}. It will return in a different source context.`;
+  $('#prompt').textContent = 'Continue only when you can name the reading move, not merely the English word.'; $('#answers').innerHTML = ''; $('#feedback').textContent = 'Stage saved. A later review will test transfer.'; $('#continue').disabled = false;
+  const finalStage = stageIndex === ladder.stages.length - 1; $('#continue').textContent = finalStage ? 'Continue to Gemara grammar →' : 'Begin next reading skill →';
+  $('#continue').onclick = () => { if (finalStage) location.href = 'grammar.html'; else { stageIndex += 1; itemIndex = 0; render(); } };
+}
+function completeStage() {
+  const stage = ladder.stages[stageIndex], state = progress();
+  if (!state.completed.includes(stage.id)) saveProgress({ completed: [...state.completed, stage.id] });
+  record('stage_mastered', { stageId: stage.id, skillId: stage.skillId }); renderMap(); renderComplete(stage);
+}
+function answer(button, correct) {
+  if (answered) return; answered = true; document.querySelectorAll('#answers button').forEach((item) => { item.disabled = true; }); button.classList.add(correct ? 'correct' : 'incorrect');
+  record('answer_submitted', { skillId: ladder.stages[stageIndex].skillId, competency: 'language-reading', sourceContext: `${ladder.stages[stageIndex].id}: ${item.source}`, correct });
+  $('#feedback').textContent = correct ? 'Correct. You identified the job this language does in the source.' : 'Not yet. Read the source cue again: its job matters more than a word-for-word gloss.'; $('#continue').disabled = false;
+}
+function render() {
+  const stage = ladder.stages[stageIndex], item = stage.items[itemIndex]; answered = false; renderMap();
+  $('#progress').textContent = `${stageIndex + 1}.${itemIndex + 1} · ${stage.title.toUpperCase()}`; $('#bar').style.width = `${((itemIndex + 1) / stage.items.length) * 100}%`; $('#kind').textContent = item.kind; $('#title').textContent = stage.goal;
+  $('#hebrew').textContent = item.hebrew; $('#transliteration').textContent = item.transliteration; $('#source').textContent = item.source; $('#prompt').textContent = item.prompt; $('#feedback').textContent = ''; $('#continue').disabled = true; $('#continue').textContent = itemIndex === stage.items.length - 1 ? 'Complete this reading skill →' : 'Continue →';
+  $('#continue').onclick = () => { if (!answered) return; if (itemIndex === stage.items.length - 1) completeStage(); else { itemIndex += 1; render(); } };
+  const answers = $('#answers'); answers.innerHTML = ''; shuffledAnswers(item).forEach(({ text, index }) => { const button = document.createElement('button'); button.type = 'button'; button.textContent = text; button.addEventListener('click', () => answer(button, index === item.correct)); answers.appendChild(button); });
+}
+async function init() { const response = await fetch('/api/curriculum/language-ladder'); if (!response.ok) throw new Error('The reading ladder could not load.'); ladder = await response.json(); const firstOpen = ladder.stages.findIndex((stage) => !progress().completed.includes(stage.id)); stageIndex = firstOpen === -1 ? ladder.stages.length - 1 : firstOpen; updateXp(); render(); }
+init().catch((error) => { $('#feedback').textContent = error.message; });

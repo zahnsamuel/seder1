@@ -16,6 +16,7 @@ const defaultLearner = (id) => ({
   completedStages: [],
   reviewQueue: [],
   placement: null,
+  artifacts: {},
   events: [],
   dailyStreak: 0,
   lastStudyDate: null,
@@ -52,7 +53,7 @@ function withWriteLock(root, fn) {
 function normalizedLearner(learner) {
   if (!learner) return null;
   const base = defaultLearner(learner.id);
-  const merged = { ...base, ...learner, profile: { ...base.profile, ...(learner.profile || {}) }, competencies: { ...base.competencies, ...(learner.competencies || {}) }, evidence: { ...(learner.evidence || {}) }, masteryUpdatedAt: { ...(learner.masteryUpdatedAt || {}) }, struggles: { ...(learner.struggles || {}) }, reviewQueue: normalizedReviewQueue(learner.reviewQueue) };
+  const merged = { ...base, ...learner, profile: { ...base.profile, ...(learner.profile || {}) }, competencies: { ...base.competencies, ...(learner.competencies || {}) }, evidence: { ...(learner.evidence || {}) }, masteryUpdatedAt: { ...(learner.masteryUpdatedAt || {}) }, struggles: { ...(learner.struggles || {}) }, artifacts: { ...(learner.artifacts || {}) }, reviewQueue: normalizedReviewQueue(learner.reviewQueue) };
   merged.decayedMastery = decayedMasteryMap(merged.mastery, merged.masteryUpdatedAt);
   return merged;
 }
@@ -118,6 +119,15 @@ export async function listLearners(root) {
   return Object.values(learners).map((learner) => { const normalized = normalizedLearner(learner); return { id: normalized.id, profile: normalized.profile, xp: normalized.xp || 0, updatedAt: normalized.updatedAt }; });
 }
 
+// Full local-mode learner records, for aggregate/operator-facing reporting only (see
+// /api/admin/analytics in server.mjs). This intentionally has no hosted-mode equivalent:
+// Supabase RLS scopes every query to auth.uid(), so there is no safe way for the running
+// app to read across hosted learners without a service-role key, which it never holds.
+export async function listLearnersFull(root) {
+  const learners = await readLearners(root);
+  return Object.values(learners).map((learner) => normalizedLearner(learner));
+}
+
 export async function deleteLearner(root, id) {
   return withWriteLock(root, async () => {
     const learners = await readLearners(root);
@@ -151,8 +161,15 @@ async function recordLearnerEventUnlocked(root, id, event) {
   learner.competencies ||= { recognition: 0, translation: 0, argument: 0, sourceReasoning: 0 };
   learner.evidence ||= {};
   learner.struggles ||= {};
+  learner.artifacts ||= {};
   const recorded = { ...event, at: new Date().toISOString() };
   learner.events.push(recorded);
+  if (event.type === 'retrieval_scheduled' && event.skillId) {
+    queueReview(learner, event.skillId, {
+      delayHours: Number.isFinite(event.delayHours) ? Math.max(1, event.delayHours) : 24,
+      reason: event.reason || 'Return to retrieve this source move before it fades.'
+    });
+  }
   const today = recorded.at.slice(0, 10);
   if (event.type === 'answer_submitted' || event.type === 'source_annotation' || event.type === 'canon_lab') {
     learner.totalAnswered = (learner.totalAnswered || 0) + 1;
@@ -189,6 +206,11 @@ async function recordLearnerEventUnlocked(root, id, event) {
     }
   }
   if (event.type === 'stage_mastered' && !learner.completedStages.includes(event.stageId)) learner.completedStages.push(event.stageId);
+  if (event.type === 'journey_artifact_saved' && event.artifactType && event.artifactId) {
+    const items = new Set(learner.artifacts[event.artifactType] || []);
+    items.add(event.artifactId);
+    learner.artifacts[event.artifactType] = [...items];
+  }
   if (event.type === 'goal_set') learner.goal = event.goal || null;
   if (event.type === 'placement_completed') {
     learner.placement = { completedAt: recorded.at, scores: event.scores || {} };

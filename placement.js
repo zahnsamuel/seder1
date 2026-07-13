@@ -20,19 +20,28 @@ const checks = [
   { skill: 'tanakh-address-claim', label: 'CHUMASH CLOSE READING', source: 'שְׁמַע יִשְׂרָאֵל ה׳ אֱלֹהֵינוּ ה׳ אֶחָד', prompt: 'What is the first close-reading task?', answers: ['Identify who is addressed and what claim the verse makes.', 'Find a later halakhic code immediately.', 'Treat the verse as a list of disconnected words.'], correct: 0 },
   { skill: 'thought-identify-claim', label: 'JEWISH THOUGHT', source: 'וְיָדַעְתָּ הַיּוֹם וַהֲשֵׁבֹתָ אֶל לְבָבֶךָ', prompt: 'What is the central claim the verse asks a learner to take seriously?', answers: ['Knowledge of God must move from awareness into the heart.', 'All questions have already been answered.', 'Only outward action matters.'], correct: 0 }
 ];
+checks.push(
+  { skill: 'liturgical-function', label: 'TEFILLAH FUNCTION', source: 'מודים אנחנו לך', prompt: 'What is this line doing?', answers: ['Offering communal thanks.', 'Giving a court procedure.', 'Describing a historical period.'], correct: 0 },
+  { skill: 'historical-context', label: 'HISTORY IN CONTEXT', source: 'ודרשו את שלום העיר', prompt: 'What should guide a first reading of this line?', answers: ['Who is addressed, where they are, and what situation the line addresses.', 'Which current opinion it automatically settles.', 'Only the number of Hebrew words.'], correct: 0 },
+  { skill: 'comparative-reading', label: 'RESPONSIBLE COMPARISON', source: 'שאלה · הקשר · דמיון · הבדל', prompt: 'What makes a comparison between Jewish sources responsible?', answers: ['Name the shared question and preserve each source’s setting and difference.', 'Treat every source as making the same claim.', 'Use the source with the shortest translation only.'], correct: 0 },
+  { skill: 'conceptual-application', label: 'ETHICAL READING', source: 'אל תפרוש מן הציבור', prompt: 'What is a careful first response to this ethical maxim?', answers: ['Ask how it might invite a modest practice while avoiding an automatic ruling.', 'Use it to judge every disagreement immediately.', 'Ignore its communal setting.'], correct: 0 }
+);
 const learnerId = Seder.currentLearnerId();
 let index = 0;
 const scores = {};
 const $ = (selector) => document.querySelector(selector);
+const shuffle = (items) => items.map((text, originalIndex) => ({ text, originalIndex })).sort(() => Math.random() - .5);
 function render() {
   const check = checks[index];
+  $('#status').textContent = `${checks.length} SHORT CHECKS`;
+  $('#dots').innerHTML = checks.map((_, dotIndex) => `<li class="${dotIndex === index ? 'active' : ''}">${dotIndex + 1}</li>`).join('');
   $('#progress').textContent = `CHECK ${index + 1} OF ${checks.length}`;
   $('#skill-label').textContent = check.label;
   $('#source').textContent = check.source;
   $('#prompt').textContent = check.prompt;
   document.querySelectorAll('#dots li').forEach((dot, dotIndex) => dot.classList.toggle('active', dotIndex === index));
   const answers = $('#answers'); answers.innerHTML = '';
-  check.answers.forEach((answer, answerIndex) => { const button = document.createElement('button'); button.type = 'button'; button.textContent = answer; button.addEventListener('click', () => { scores[check.skill] = answerIndex === check.correct ? 1 : .25; if (index < checks.length - 1) { index += 1; render(); } else complete(); }); answers.appendChild(button); });
+  shuffle(check.answers).forEach(({ text, originalIndex }) => { const button = document.createElement('button'); button.type = 'button'; button.textContent = text; button.addEventListener('click', () => { scores[check.skill] = originalIndex === check.correct ? 1 : .25; if (index < checks.length - 1) { index += 1; render(); } else complete(); }); answers.appendChild(button); });
 }
 function complete() {
   $('#status').textContent = 'SAVING YOUR STARTING POINT';

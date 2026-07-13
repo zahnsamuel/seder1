@@ -19,7 +19,9 @@ export function decayedMastery(rawScore, lastUpdatedIso) {
   if (raw <= 0) return 0;
   if (!lastUpdatedIso) return raw; // no timestamp on record (older data) -- do not penalize, just show raw
   const daysSince = Math.max(0, (Date.now() - new Date(lastUpdatedIso).getTime()) / 86400000);
-  if (daysSince <= 0) return raw;
+  // Treat the first minute as fresh. Besides matching learner reality, this avoids
+  // displaying a microscopic decay between recording an answer and rendering it.
+  if (daysSince < (1 / 1440)) return raw;
   const decayed = raw * Math.pow(0.5, daysSince / HALF_LIFE_DAYS);
   const floor = raw * MIN_RETENTION;
   return Math.max(decayed, floor);

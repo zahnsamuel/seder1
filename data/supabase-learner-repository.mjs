@@ -1,7 +1,7 @@
 import { supabaseRest } from './supabase-adapter.mjs';
 
 const competencies = { recognition: 0, translation: 0, argument: 0, sourceReasoning: 0 };
-const empty = (id, displayName = 'Learner') => ({ id, xp: 0, mastery: {}, competencies: { ...competencies }, profile: { displayName }, completedStages: [], reviewQueue: [], placement: null, events: [], updatedAt: new Date().toISOString() });
+const empty = (id, displayName = 'Learner') => ({ id, xp: 0, mastery: {}, evidence: {}, masteryUpdatedAt: {}, struggles: {}, competencies: { ...competencies }, profile: { displayName }, completedStages: [], reviewQueue: [], placement: null, artifacts: {}, events: [], dailyStreak: 0, lastStudyDate: null, totalAnswered: 0, updatedAt: new Date().toISOString() });
 const encode = (value) => encodeURIComponent(value);
 
 function competencyFor(event) {
@@ -32,17 +32,22 @@ export async function getHostedLearner(user, accessToken) {
     xp: state.xp || 0,
     mastery: state.mastery || {},
     evidence: state.evidence || {},
+    masteryUpdatedAt: state.mastery_updated_at || {},
+    struggles: state.struggles || {},
+    artifacts: state.artifacts || {},
+    events: state.events || [],
     competencies: { ...competencies, ...(state.competencies || {}) },
     completedStages: state.completed_stages || [],
     reviewQueue: reviewRows.map((item) => ({ skillId: item.skill_id, dueAt: item.due_at, attempts: item.attempts, reason: item.reason })),
     placement: placementRows[0] ? { completedAt: placementRows[0].completed_at, scores: placementRows[0].scores } : null,
+    totalAnswered: state.total_answered || 0, dailyStreak: state.daily_streak || 0, lastStudyDate: state.last_study_date || null,
     updatedAt: state.updated_at || profile.updated_at || new Date().toISOString()
   };
 }
 
 async function putState(learner, accessToken) {
   await supabaseRest('learner_state?on_conflict=user_id', { accessToken, method: 'POST', body: {
-    user_id: learner.id, xp: learner.xp, mastery: learner.mastery, evidence: learner.evidence || {}, competencies: learner.competencies,
+    user_id: learner.id, xp: learner.xp, mastery: learner.mastery, evidence: learner.evidence || {}, mastery_updated_at: learner.masteryUpdatedAt || {}, struggles: learner.struggles || {}, artifacts: learner.artifacts || {}, events: learner.events || [], total_answered: learner.totalAnswered || 0, daily_streak: learner.dailyStreak || 0, last_study_date: learner.lastStudyDate || null, competencies: learner.competencies,
     completed_stages: learner.completedStages, updated_at: new Date().toISOString()
   } });
 }
@@ -55,6 +60,16 @@ async function putReview(learner, skillId, accessToken) {
 
 export async function recordHostedEvent(user, accessToken, event) {
   const learner = await getHostedLearner(user, accessToken);
+  learner.events ||= [];
+  learner.struggles ||= {};
+  learner.masteryUpdatedAt ||= {};
+  const recorded = { ...event, at: new Date().toISOString() };
+  learner.events.push(recorded);
+  if (event.type === 'answer_submitted' || event.type === 'source_annotation' || event.type === 'canon_lab') {
+    learner.totalAnswered = (learner.totalAnswered || 0) + 1;
+    const today = recorded.at.slice(0, 10);
+    if (learner.lastStudyDate !== today) { const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10); learner.dailyStreak = learner.lastStudyDate === yesterday ? (learner.dailyStreak || 0) + 1 : 1; learner.lastStudyDate = today; }
+  }
   if (event.type === 'answer_submitted' || event.type === 'source_annotation' || event.type === 'canon_lab') {
     const correct = Boolean(event.correct);
     const skillId = event.skillId;
@@ -66,7 +81,9 @@ export async function recordHostedEvent(user, accessToken, event) {
     learner.evidence[skillId] = [...contexts];
     const transferBonus = correct && contexts.size > 1 ? .08 : 0;
     learner.mastery[skillId] = Math.min(1, (learner.mastery[skillId] || 0) + (correct ? .34 + transferBonus : .08));
+    learner.masteryUpdatedAt[skillId] = recorded.at;
     learner.competencies[competency] = Math.min(1, (learner.competencies[competency] || 0) + (correct ? .22 : .04));
+    learner.struggles[skillId] = Math.max(0, (learner.struggles[skillId] || 0) + (correct ? -1 : 1));
     const existing = learner.reviewQueue.find((item) => item.skillId === skillId);
     if (!correct || learner.mastery[skillId] < .85) {
       const priorAttempts = existing?.attempts || 0;
@@ -79,6 +96,12 @@ export async function recordHostedEvent(user, accessToken, event) {
     await putReview(learner, skillId, accessToken);
   }
   if (event.type === 'stage_mastered' && !learner.completedStages.includes(event.stageId)) learner.completedStages.push(event.stageId);
+  if (event.type === 'journey_artifact_saved' && event.artifactType && event.artifactId) {
+    learner.artifacts ||= {};
+    const items = new Set(learner.artifacts[event.artifactType] || []);
+    items.add(event.artifactId);
+    learner.artifacts[event.artifactType] = [...items];
+  }
   if (event.type === 'placement_completed') {
     learner.placement = { completedAt: new Date().toISOString(), scores: event.scores || {} };
     Object.entries(event.scores || {}).forEach(([skill, score]) => { learner.mastery[skill] = Math.max(learner.mastery[skill] || 0, Math.min(1, Number(score) || 0)); });

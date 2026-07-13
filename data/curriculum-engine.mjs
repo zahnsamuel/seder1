@@ -5,6 +5,23 @@ import { advancedCanonSessions } from './advanced-canon-cycle.mjs';
 let cachedJourney;
 let cachedGemaraSequence;
 
+const subjectRetrievals = {
+  halakha: { label: 'HALAKHA RETRIEVAL', hebrew: 'תורה · משנה · גמרא · קוד', translation: 'Torah · Mishnah · Gemara · code.', prompt: 'When a practice is grounded across source layers, what is the first thing to identify?', answers: ['Which genre each source is, and what role it plays in the chain.', 'Only the final ruling.', 'The longest word.'], feedback: 'Halakhic literacy begins by naming each source layer’s role; study support is not a personal ruling.' },
+  chumash: { label: 'CHUMASH RETRIEVAL', hebrew: 'פשט · הקשר · קבלה', translation: 'Plain sense · context · reception.', prompt: 'Before bringing later readings, what should a close reader establish?', answers: ['Speaker, audience, and the verse’s immediate claim.', 'Which commentator wins.', 'A final ruling.'], feedback: 'Read the verse in its own setting before tracing later reception.' },
+  tefillah: { label: 'TEFILLAH RETRIEVAL', hebrew: 'ברוך · חננו · מודים', translation: 'Blessed · grant us · we give thanks.', prompt: 'Entering a section of prayer, what is the first move?', answers: ['Name the kind of address it makes: praise, petition, or thanks.', 'Memorize every word first.', 'Assume all sections are identical.'], feedback: 'Prayer is read by the form of address its language performs.' },
+  history: { label: 'HISTORY RETRIEVAL', hebrew: 'זכרון · עדות · ראיה', translation: 'Memory · testimony · evidence.', prompt: 'Reading a historical source, what distinction comes first?', answers: ['Whether it is evidence of an event, of how it was remembered, or both.', 'That every source is a neutral camera.', 'That memory has no value.'], feedback: 'Sources are windows and voices at once.' },
+  widerworld: { label: 'WIDER WORLD RETRIEVAL', hebrew: 'מקור · הקשר · השוואה', translation: 'Source · context · comparison.', prompt: 'Comparing a Jewish and a non-Jewish source, what is the responsible order?', answers: ['Read each in context, name the shared question, then compare.', 'Start from a stereotype.', 'Assume comparison erases difference.'], feedback: 'Compare without flattening: context, shared question, then similarity and difference.' },
+  mussar: { label: 'MUSSAR RETRIEVAL', hebrew: 'מידה · מתח · הרגל', translation: 'Trait · tension · habit.', prompt: 'Studying a middah, what makes it serious rather than a slogan?', answers: ['Name the trait, its real tension, and the case that tests it.', 'Pick the nicest-sounding word.', 'Turn reflection into self-judgment.'], feedback: 'A middah is traced from source, to tension, to a real situation.' },
+  chassidus: { label: 'CHASSIDUS RETRIEVAL', hebrew: 'מקור · מושג · השלכה', translation: 'Source · concept · implication.', prompt: 'Reading a Chassidic source, what is the responsible order?', answers: ['Read the source, define its concept, then consider an implication.', 'Begin with a feeling and make the text agree.', 'Skip the text for a slogan.'], feedback: 'Inner learning stays anchored in the text.' },
+  thought: { label: 'JEWISH THOUGHT RETRIEVAL', hebrew: 'שאלה · קול · פירוש', translation: 'Question · voice · interpretation.', prompt: 'Holding several voices on a question, what is the first move?', answers: ['State what each voice claims before ranking them.', 'Pick the most comfortable answer.', 'Assume the voices agree.'], feedback: 'Jewish Thought holds distinct voices without flattening them.' }
+};
+
+function subjectReviewItem(skillId) {
+  const key = Object.keys(subjectRetrievals).find((prefix) => skillId.startsWith(`${prefix}-`));
+  const spec = key && subjectRetrievals[key];
+  return spec && { trueSkillId: skillId, ...spec, correct: 0, sourceContext: `retrieval for ${skillId}`, variantId: `subject-${skillId}` };
+}
+
 export async function canonJourney(root) {
   if (!cachedJourney) {
     const [foundationFile, extensionFile] = await Promise.all([
@@ -135,7 +152,7 @@ export async function sourceReviewItems(root, skillIds = []) {
     })));
   const flagshipMapped = flagship.filter((item) => wanted.has(item.skillId)).map((item) => ({ ...item, trueSkillId: item.skillId, variantId: `flagship-${item.skillId}` }));
   const covered = new Set([...mapped, ...flagshipMapped].map((item) => item.trueSkillId));
-  const workbenchFallbacks = skillIds.filter((skillId) => !covered.has(skillId)).map((skillId) => ({
+  const workbenchFallbacks = skillIds.filter((skillId) => !covered.has(skillId)).map((skillId) => subjectReviewItem(skillId) || ({
     trueSkillId: skillId, label: 'DAF RETRIEVAL', hebrew: 'מַה תַּפְקִיד הַשּׁוּרָה?', translation: 'What job does this line perform?',
     prompt: 'Before deciding whether a line is correct, what should you identify in a sugya?', answers: ['Its role: case, question, proof, objection, response, or distinction.', 'Only the longest word in the line.', 'The final ruling without reading the argument.'], correct: 0,
     feedback: 'Daf reading starts by naming the work a line does in the argument.', sourceContext: `retrieval for ${skillId}`, variantId: `fallback-${skillId}`
