@@ -1391,3 +1391,31 @@ options); suite 151/151.
 
 Next batches: berakhot-deep + unit-2/4 + grammar (front door, partially biased), then
 first arcs, then canon courses, then deepening units (~430 questions remaining).
+
+
+## 2026-07-13 — Claude: Wave 2 batch 2 — the whole Berakhot front door now scores 10/10
+
+Diagnostic-distractor rewrites for berakhot-deep (9 MC), berakhot-unit-2 (8),
+berakhot-unit-4 (7), grammar.js (8) — 32 more questions. Correct answers unchanged;
+every distractor now a same-register near-miss encoding a real confusion. The best
+diagnostics in this batch:
+
+- me'eimatai: "asking for a concluding deadline" (from-when vs until-when) and "asking
+  for the reason" (vs mai taama) — the two adjacent question-words a learner actually
+  mixes up.
+- dikhtiv (twice): "a rabbinic teaching is entering" — the verse-vs-baraita confusion
+  that matters halakhically — and "a practical sign is offered" (vs siman).
+- korin: "hearing Shema read aloud" — reciting vs hearing, a distinction with real
+  halakhic weight.
+- pesulah: "describes the structure's physical condition" — verdict vs description.
+- Evidence-weighing steps now tempt with real bad heuristics: "rank sources by age,"
+  "count the citations," "accept once the sign confirms."
+- Feedback upgraded throughout to teach the contrast the wrong answer revealed.
+
+Audit: all four 0 length-bias, 10/10. The ENTIRE Berakhot front-door chain (deep,
+units 2-5, grammar, gemara-toolkit, shas-literacy-checkpoint) now scores a perfect 10 —
+8 units at 10 corpus-wide, distribution {3:26, 4:7, 5:4, 6:6, 7:33, 8:7, 10:8}.
+Verification: 4/4 node --check, berakhot-unit-4 live end-to-end, suite 151/151.
+
+Wave 2 continues: first arcs next (halakha/chumash/tefillah/mussar/chassidus/history/
+widerworld + second/third foundations), then canon courses, then remaining Gemara arcs.
