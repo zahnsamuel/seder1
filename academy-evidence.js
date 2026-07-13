@@ -47,8 +47,40 @@ const firstMonth = [
   ['Canon connection', 'תּוֹרָה · תַּלְמוּד · תְּפִלָּה · מַעֲשֶׂה', 'canonical-reception', 'What is the first sequence for a new Jewish source?', 'Name its form and context, read its language, then trace its connections.'],
   ['Independent synthesis', 'חֲזָרָה · בֵּירוּר · הַשְׁוָאָה · הַדְרָכָה', 'independent-sugya-reading', 'How should a learner choose the next study move?', 'Use evidence to decide between retrieval, a new source, repair, or further guidance.']
 ].map(([citation, hebrew, skill, prompt, answer]) => ({ citation, hebrew, skill, prompt, answer }));
+const secondMonth = [
+  ['Berakhot 2a: opening question', 'תַּנָּא הֵיכָא קָאֵי', 'gemara-context-question', 'What does this Gemara question make you recover?', 'The prior context that makes the Mishnah’s opening question intelligible.'],
+  ['Genesis 22:1', 'וְהָאֱלֹהִים נִסָּה אֶת אַבְרָהָם', 'define-conceptual-term', 'Why clarify the word “test” before interpreting the narrative?', 'Different definitions create different questions about the same source.'],
+  ['Mishnah Shabbat 1:1', 'יְצִיאוֹת הַשַּׁבָּת שְׁתַּיִם שֶׁהֵן אַרְבַּע', 'shabbat-independent-map', 'What is the strongest map of this compact opening?', 'The action, people, domains, and how the cases are counted.'],
+  ['Berakhot delayed retrieval', 'מֵאֵימָתַי', 'mishnah-orientation', 'What must remain visible when returning to this opening?', 'The practical case before the later argument begins.'],
+  ['Independent source map', 'מַעֲשֶׂה · שְׁאֵלָה · רְאָיָה', 'independent-sugya-reading', 'What makes a map useful in a new source?', 'It names the case, question, evidence, and remaining uncertainty.'],
+  ['Pesachim 2a', 'מַאי אוֹר', 'pesachim-independent-map', 'What should a reader test about this word?', 'How its meaning changes the source’s time and legal case.'],
+  ['Kaddish', 'יִתְגַּדַּל וְיִתְקַדַּשׁ שְׁמֵהּ רַבָּא', 'liturgical-function', 'What should you identify before translating every word?', 'The prayer’s communal form of sanctification and address.'],
+  ['Eruvin 2a', 'מָבוֹי שֶׁהוּא גָבוֹהַּ לְמַעְלָה מֵעֶשְׂרִים אַמָּה', 'eruvin-independent-map', 'What must be joined to the number twenty?', 'The object, condition, response, and reason it matters.'],
+  ['Vocabulary retrieval', 'מִשְׁנָה · גְּמָרָא · סְבָרָא', 'source-signals', 'What does recognizing a genre word allow you to do?', 'Predict the source’s reading job, then verify it in context.'],
+  ['Sugya notebook', 'שְׁאֵלָה · קֻשְׁיָא · תֵּרוּץ', 'challenge-and-answer', 'What should a notebook preserve?', 'Which claim is pressured and how the response addresses it.'],
+  ['Bava Metzia 2a', 'שְׁנַיִם אוֹחֲזִין בְּטַלִּית', 'bava-metzia-independent-map', 'What is not yet proof in this case?', 'Each claimant’s assertion; it must remain distinct from evidence.'],
+  ['Exodus 20:12', 'כַּבֵּד אֶת אָבִיךָ וְאֶת אִמֶּךָ', 'canonical-reception', 'What does a responsible source chain add to this command?', 'Later categories and reasoning without replacing the verse’s voice.'],
+  ['Bava Kamma 2a', 'לֹא הֲרֵי הַשּׁוֹר כַּהֲרֵי הַמַּבְעֶה', 'bava-kamma-independent-map', 'What does the distinction make possible?', 'A shared principle that does not erase relevant differences.'],
+  ['Weekly retrieval: claims', 'טַעֲנָה · רְאָיָה', 'proof-role', 'What question separates a claim from evidence?', 'What support is offered and whether it answers the claim at hand.'],
+  ['Unseen source transfer', 'מָקוֹר חָדָשׁ · מַפָּה מוּכֶּרֶת', 'independent-sugya-reading', 'How should a familiar reading move meet a new source?', 'Carry the move forward while naming what the new source changes.'],
+  ['Mishnah Sukkah 1:1', 'סֻכָּה שֶׁהִיא גְבוֹהָה מֵעֶשְׂרִים אַמָּה פְּסוּלָה', 'sukkah-independent-map', 'What should follow the stated invalidity?', 'A question about purpose, reason, and proof-text role.'],
+  ['Jewish Thought: freedom', 'וְיָדַעְתָּ הַיּוֹם', 'identify-conceptual-claim', 'What must a conceptual reader state?', 'The source’s precise claim, not only its general topic.'],
+  ['Halakhic machloket', 'אֵלּוּ וָאֵלּוּ דִּבְרֵי אֱלֹהִים חַיִּים', 'canonical-reception', 'What does serious disagreement require?', 'Map each reason and context before asking how practice is decided.'],
+  ['Repair and retrieval', 'חֲזָרָה · בֵּירוּר', 'source-signals', 'What makes repair productive?', 'Returning to the missed move with a clear contrast and fresh evidence.'],
+  ['Independent reading', 'מָקוֹר · הֶקְשֵׁר · טַעַן', 'independent-sugya-reading', 'What belongs before a conclusion?', 'A source map, textual evidence, and an honest uncertainty.'],
+  ['Yavneh: Gittin 56b', 'תֵּן לִי יַבְנֶה וַחֲכָמֶיהָ', 'historical-context', 'What does context help you distinguish here?', 'A source’s narrative claim, its setting, and later historical interpretation.'],
+  ['Berakhot return', 'מֵאֵימָתַי קוֹרִין', 'mishnah-orientation', 'What does revisiting a familiar opening test?', 'Whether you can map its case before relying on recognition.'],
+  ['Ahavat Yisrael', 'וְאָהַבְתָּ לְרֵעֲךָ כָּמוֹךָ', 'conceptual-application', 'What is a text-grounded application?', 'Name the source’s claim and a modest practice without turning it into coercion.'],
+  ['Weekly retrieval: community', 'קוֹל · זִכָּרוֹן · מוֹסָד', 'historical-context', 'What should historical reading keep distinct?', 'Event, memory, voice, and institution.'],
+  ['Canon connection map', 'תּוֹרָה · תַּלְמוּד · תְּפִלָּה', 'canonical-reception', 'What connects distinct canon forms without flattening them?', 'A shared question alongside each source’s distinct role and setting.'],
+  ['Amidah', 'בָּרוּךְ אַתָּה ה׳', 'liturgical-function', 'What is the first move in reading a blessing?', 'Name whether it is praise, petition, thanks, or another form of address.'],
+  ['Psalm 23', 'ה׳ רֹעִי לֹא אֶחְסָר', 'source-signals', 'What does poetic parallel and image require?', 'Attention to voice, metaphor, and the relation between lines.'],
+  ['Shabbat return', 'הֶעָנִי עוֹמֵד בַּחוּץ', 'shabbat-independent-map', 'What must still be mapped in a return visit?', 'People, locations, action, and the boundary crossed.'],
+  ['Vocabulary transfer', 'רְאָיָה · קֻשְׁיָא · תֵּרוּץ', 'challenge-and-answer', 'Why retrieve these words in a new tractate?', 'To use their argumentative jobs, not merely recognize their sounds.'],
+  ['Source-map reflection', 'מַעֲשֶׂה · טַעַן · נִימוּק', 'independent-sugya-reading', 'What should a reflection add to a source map?', 'What the source established, what evidence supports it, and a next question.']
+].map(([citation, hebrew, skill, prompt, answer]) => ({ citation, hebrew, skill, prompt, answer }));
 const weeklyTransfer = { citation: 'Fresh related source', hebrew: 'מָקוֹר חָדָשׁ · שְׁאֵלָה מוּכֶּרֶת', prompt: 'You meet a related source in a different genre. What proves a reading habit has transferred?', answer: 'Use the same reading move while naming what is genuinely different in the new source.' };
-const item = day <= 30 ? firstMonth[day - 1] : bank[(day - 1) % bank.length];
+const item = day <= 30 ? firstMonth[day - 1] : day <= 60 ? secondMonth[day - 31] : bank[(day - 1) % bank.length];
 const questions = day % 7 === 0 ? [item, { ...item, ...weeklyTransfer, skill: 'independent-sugya-reading' }] : [item, { ...item, prompt: `Before drawing a conclusion from ${item.citation}, what must you do?`, answer: item.answer }];
 let index = 0;
 const shuffle = (choices) => choices.map((text, originalIndex) => ({ text, originalIndex })).sort(() => Math.random() - .5);

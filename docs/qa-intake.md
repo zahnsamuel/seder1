@@ -1216,3 +1216,11 @@ renders, correct primary + at most one lateral); suite 142/142.
   current-month map calculation), which had incorrectly triggered the generic learner-state
   fallback and left the course map blank. Live re-test confirmed the full month map renders
   with Day 1 mastered, Day 2 current, and later days locked.
+
+## 2026-07-13 — Codex: second-month source-specific evidence
+
+- Added dedicated Academy evidence cards for Days 31–60: Berakhot/Shabbat/Pesachim/Eruvin/
+  Bava Metzia/Bava Kamma returns, Akeidah, Kaddish, Sukkah, Halakhic disagreement, Yavneh,
+  Ahavat Yisrael, Amidah, Psalm 23, and connected retrieval/independent-reading sessions.
+- Each card names a concrete source and its matching reading move; weekly days retain the
+  required unfamiliar-source transfer map. Added citation coverage to the Academy tests.
