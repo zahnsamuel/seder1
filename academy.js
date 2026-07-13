@@ -1,45 +1,65 @@
 const learnerId = Seder.currentLearnerId();
 const $ = (selector) => document.querySelector(selector);
-const plan = [
+
+const firstMonthPlan = [
   ['Enter the page', 'language.html'], ['Hear a Torah source', 'source-reader.html?collection=shema'], ['Follow blessing language', 'source-reader.html?collection=blessings'], ['Gemara: question opens', 'tractate-mastery.html?tractate=berakhot'], ['Retrieve a source word', 'canon-vocabulary.html'], ['Prayer: name a function', 'canon-course.html?course=tefillah-six'], ['Freedom: identify a claim', 'canon-course.html?course=freedom-six'],
   ['Gemara: map people and domains', 'tractate-mastery.html?tractate=shabbat'], ['History: read context first', 'canon-course.html?course=history-six'], ['Weekly retrieval', 'weekly-review.html'], ['Covenant: memory and command', 'source-reader.html?collection=covenant'], ['Blessings: communal practice', 'canon-course.html?course=blessings-six'], ['Gemara: read a word-question', 'tractate-mastery.html?tractate=pesachim'], ['Retrieve and name a move', 'canon-vocabulary.html'], ['Responsibility: source and practice', 'canon-course.html?course=responsibility-six'],
   ['Unseen source check', 'independent-reading.html'], ['Gemara: measure and reason', 'tractate-mastery.html?tractate=eruvin'], ['Repair one uncertain move', 'mastery-loop.html'], ['Preserve a source reflection', 'sugya-notebook.html'], ['Weekly retrieval', 'weekly-review.html'], ['Gemara: validity and purpose', 'tractate-mastery.html?tractate=sukkah'], ['Freedom: revisit the tension', 'source-reader.html?collection=freedom'], ['Unseen source check', 'independent-reading.html'],
   ['Gemara: claims and evidence', 'tractate-mastery.html?tractate=bava-metzia'], ['Vocabulary retrieval', 'canon-vocabulary.html'], ['History and wider world', 'canon-course.html?course=history-six'], ['Gemara: categories and principle', 'tractate-mastery.html?tractate=bava-kamma'], ['Canon connection', 'course-dashboard.html'], ['Independent synthesis', 'independent-reading.html'], ['First-month review', 'weekly-review.html']
 ];
-const phases = [
-  { title: 'Enter the source', days: 'Days 1–7', copy: 'Decode the page, name voice and question, and meet Torah and prayer as living source forms.', link: 'language.html', milestone: 'I can orient to a Hebrew source and identify what kind of statement I am reading.', skills: ['hebrew-', 'mishnah-', 'berakhot-'] },
-  { title: 'Read an argument', days: 'Days 8–15', copy: 'Map a Mishnah case, follow a word-question, retrieve vocabulary, and connect legal reading to responsibility.', link: 'tractate-mastery.html?tractate=shabbat', milestone: 'I can map a case, a question, and a response without treating translation as a substitute for reading.', skills: ['shabbat-', 'pesachim-', 'tefillah-', 'responsibility-'] },
-  { title: 'Explain purpose', days: 'Days 16–23', copy: 'Use new sources to ask why a measure, practice, or claim matters—and begin to repair uncertainty yourself.', link: 'tractate-mastery.html?tractate=eruvin', milestone: 'I can connect a rule or form to the source-based purpose it serves.', skills: ['eruvin-', 'sukkah-', 'thought-', 'source-'] },
-  { title: 'Transfer and synthesize', days: 'Days 24–30', copy: 'Read claims, categories, and history together, then use unfamiliar sources to show what has genuinely transferred.', link: 'tractate-mastery.html?tractate=bava-metzia', milestone: 'I can enter an unfamiliar source, state what I see, name uncertainty, and choose a responsible next step.', skills: ['bava-', 'independent-', 'history-', 'comparative-'] }
+
+const continuationBlocks = [
+  ['Read a sugya across Shas', [['Gemara: deepen Berakhot’s opening', 'tractate-mastery.html?tractate=berakhot'], ['Chumash: the Akeidah as close reading', 'chumash-akeidah.html'], ['Gemara: map Shabbat’s case', 'tractate-mastery.html?tractate=shabbat'], ['Retrieval: return to the source moves', 'weekly-review.html'], ['Independent source map', 'independent-reading.html']]],
+  ['Words, cases, and time', [['Gemara: Pesachim’s contested word', 'tractate-mastery.html?tractate=pesachim'], ['Tefillah: read the Kaddish in depth', 'tefillah-kaddish.html'], ['Gemara: Eruvin’s measure and purpose', 'tractate-mastery.html?tractate=eruvin'], ['Vocabulary retrieval', 'canon-vocabulary.html'], ['Write a sugya notebook map', 'sugya-notebook.html']]],
+  ['Responsibility and disagreement', [['Gemara: competing claims in Bava Metzia', 'tractate-mastery.html?tractate=bava-metzia'], ['Halakha: honoring parents through a chain', 'halakha-honor-parents.html'], ['Gemara: Bava Kamma categories', 'tractate-mastery.html?tractate=bava-kamma'], ['Weekly retrieval', 'weekly-review.html'], ['Unseen source transfer', 'independent-reading.html']]],
+  ['Purpose and practice', [['Gemara: Sukkah’s validity question', 'tractate-mastery.html?tractate=sukkah'], ['Jewish Thought: freedom and responsibility', 'canon-course.html?course=freedom-six'], ['Halakha: read a machloket', 'halakha-machloket.html'], ['Repair an uncertain source move', 'mastery-loop.html'], ['Independent reading', 'independent-reading.html']]],
+  ['People, community, and memory', [['History: Yavneh as a worked case', 'history-yavneh.html'], ['Gemara: return to Berakhot with a map', 'tractate-mastery.html?tractate=berakhot'], ['Chassidus: Ahavat Yisrael as a source chain', 'chassidus-ahavat-yisrael.html'], ['Weekly retrieval', 'weekly-review.html'], ['Canon connection map', 'course-dashboard.html']]],
+  ['Prayer, poetry, and attention', [['Tefillah: the Amidah’s architecture', 'tefillah-amidah.html'], ['Chumash: poetry in Tehillim', 'chumash-tehillim.html'], ['Gemara: return to Shabbat’s categories', 'tractate-mastery.html?tractate=shabbat'], ['Vocabulary retrieval', 'canon-vocabulary.html'], ['Source map reflection', 'sugya-notebook.html']]],
+  ['A wider question, a Jewish answer', [['Judaism and the Wider World: encounter', 'widerworld-encounter.html'], ['Mussar: truth and disagreement', 'mussar-truth.html'], ['Gemara: return to Pesachim’s question', 'tractate-mastery.html?tractate=pesachim'], ['Weekly retrieval', 'weekly-review.html'], ['Unseen source transfer', 'independent-reading.html']]],
+  ['Forming a reader', [['Chassidus: simcha as disciplined reading', 'chassidus-simcha.html'], ['Mussar: anger and the middle path', 'mussar-anger.html'], ['Gemara: return to Bava Metzia', 'tractate-mastery.html?tractate=bava-metzia'], ['Repair and retrieve', 'mastery-loop.html'], ['Independent reading', 'independent-reading.html']]],
+  ['Evidence and independent practice', [['History: the Cairo Geniza as evidence', 'history-geniza.html'], ['Wider World: the mean, compared', 'widerworld-mean.html'], ['Gemara: return to Bava Kamma', 'tractate-mastery.html?tractate=bava-kamma'], ['Ninety-day retrieval', 'weekly-review.html'], ['Choose your next mastery loop', 'gemara-continuation.html']]],
+  ['Integration capstone', [['Gemara: an unfamiliar source', 'gemara-unseen-check.html'], ['Halakha: Chanukah’s two reasons', 'halakha-chanukah.html'], ['Read across the canon', 'course-dashboard.html'], ['Build your source portfolio', 'study-record.html'], ['Independent synthesis', 'independent-reading.html']]],
+  ['Durability and choice', [['Retrieve a source word', 'canon-vocabulary.html'], ['Gemara: choose a tractate continuation', 'gemara-continuation.html'], ['Mussar: responsibility in practice', 'canon-course.html?course=responsibility-six'], ['Weekly retrieval', 'weekly-review.html'], ['Map the next question', 'sugya-notebook.html']]],
+  ['Ninety-day synthesis', [['Gemara: independent reading check', 'gemara-unseen-check.html'], ['Jewish Thought: make a source connection', 'canon-course.html?course=freedom-six'], ['Canon mastery map', 'seder-curriculum.html'], ['Review what is due', 'weekly-review.html'], ['Choose the next ninety days', 'journey.html']]]
 ];
-const openedKey = `seder-30-day-${learnerId}`;
-const opened = new Set(JSON.parse(localStorage.getItem(openedKey) || '[]'));
+const plan = [...firstMonthPlan, ...continuationBlocks.flatMap(([, sessions]) => sessions)];
+
+const phaseSeeds = [
+  ['Enter the source', 1, 7, 'Decode the page, name voice and question, and meet Torah and prayer as living source forms.', 'language.html', 'I can orient to a Hebrew source and identify what kind of statement I am reading.', ['hebrew-', 'mishnah-', 'berakhot-']],
+  ['Read an argument', 8, 15, 'Map a Mishnah case, follow a word-question, retrieve vocabulary, and connect legal reading to responsibility.', 'tractate-mastery.html?tractate=shabbat', 'I can map a case, a question, and a response without treating translation as a substitute for reading.', ['shabbat-', 'pesachim-', 'tefillah-', 'responsibility-']],
+  ['Explain purpose', 16, 23, 'Use new sources to ask why a measure, practice, or claim matters—and begin to repair uncertainty yourself.', 'tractate-mastery.html?tractate=eruvin', 'I can connect a rule or form to the source-based purpose it serves.', ['eruvin-', 'sukkah-', 'thought-', 'source-']],
+  ['Transfer and synthesize', 24, 30, 'Read claims, categories, and history together, then use unfamiliar sources to show what has genuinely transferred.', 'tractate-mastery.html?tractate=bava-metzia', 'I can enter an unfamiliar source, state what I see, name uncertainty, and choose a responsible next step.', ['bava-', 'independent-', 'history-', 'comparative-']],
+  ['Read across Shas', 31, 37, 'Return to Berakhot, Shabbat, Pesachim, and Eruvin with stronger maps and connected canon sources.', 'tractate-mastery.html?tractate=berakhot', 'I can carry one source-reading move across distinct tractates and source forms.', ['berakhot-', 'shabbat-', 'pesachim-', 'eruvin-']],
+  ['Case, chain, and reason', 38, 45, 'Follow source chains, disagreements, and reasons without mistaking study for a personal ruling.', 'halakha-honor-parents.html', 'I can separate a case, its source layers, and the reason a later source adds.', ['halakha-', 'bava-', 'canonical-']],
+  ['Community and attention', 46, 52, 'Use history, prayer, and inner-life sources to read communities and practices with precision.', 'history-yavneh.html', 'I can locate a source in a community while preserving its textual and moral stakes.', ['history-', 'tefillah-', 'chassidus-']],
+  ['Comparison and formation', 53, 60, 'Compare traditions and ethical claims without flattening them, then test the moves in Gemara.', 'widerworld-encounter.html', 'I can compare two sources through a shared question and a meaningful difference.', ['widerworld-', 'mussar-', 'comparative-']],
+  ['Evidence and memory', 61, 67, 'Read archives, arguments, and historical testimony as evidence that must be interpreted.', 'history-geniza.html', 'I can say what a source is evidence for and what it cannot establish alone.', ['history-', 'source-', 'independent-']],
+  ['Independent source work', 68, 75, 'Build a source portfolio: map, retrieve, repair, and explain what transfers to unfamiliar material.', 'study-record.html', 'I can keep a durable record of what I read, why it matters, and what still needs work.', ['independent-', 'source-', 'lab-']],
+  ['Durability and choice', 76, 82, 'Return to weak moves with retrieval, then choose the next tractate or canon connection deliberately.', 'gemara-continuation.html', 'I can choose a next learning task from evidence rather than novelty alone.', ['review-', 'vocab-', 'gemara-']],
+  ['Synthesis and next horizon', 83, 90, 'Complete a fresh-source synthesis and set the next mastery horizon inside the longer canon journey.', 'journey.html', 'I can begin a new source independently, name uncertainty, and choose an accountable next question.', ['independent-', 'comparative-', 'canonical-']]
+];
+const phases = phaseSeeds.map(([title, start, end, copy, link, milestone, skills]) => ({ title, start, end, days: `Days ${start}–${end}`, copy, link, milestone, skills }));
+const openedKey = `seder-90-day-${learnerId}`;
+const opened = new Set(JSON.parse(localStorage.getItem(openedKey) || localStorage.getItem(`seder-30-day-${learnerId}`) || '[]'));
 function hasEvidence(learner, phase) { return Object.entries(learner.mastery || {}).filter(([id, score]) => score >= .34 && phase.skills.some((prefix) => id.startsWith(prefix))).length >= 2; }
-function currentDay() { const first = [...Array(30).keys()].find((index) => !opened.has(index + 1)); return first === undefined ? 30 : first + 1; }
+function currentDay() { const first = [...Array(plan.length).keys()].find((index) => !opened.has(index + 1)); return first === undefined ? plan.length : first + 1; }
 function openDay(day) { opened.add(day); localStorage.setItem(openedKey, JSON.stringify([...opened])); Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'daily_program_opened', day }) }).catch(() => {}); }
-function phaseForDay(day) { return phases[Math.min(3, Math.floor((day - 1) / 8))]; }
-function whyNext(day) {
-  if (day <= 7) return 'First learn how to enter a source: identify its language, voice, and kind of claim.';
-  if (day <= 15) return 'Now the same orientation habits become an argument map: case, question, and response.';
-  if (day <= 23) return 'This phase asks why a source matters and gives uncertainty a concrete repair path.';
-  return 'The final week asks you to transfer the habits to unfamiliar sources and connect them across the canon.';
-}
+function phaseForDay(day) { return phases.find((phase) => day >= phase.start && day <= phase.end) || phases.at(-1); }
+function whyNext(day) { return day <= 30 ? 'The first month establishes orientation, argument maps, purpose, and transfer.' : day <= 60 ? 'The second month carries those habits across Shas and into source chains, community, and comparison.' : 'The third month turns evidence, retrieval, and independent source work into a durable practice.'; }
+
 Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? response.json() : null).then((learner) => {
   const day = currentDay(), [title, url] = plan[day - 1];
   $('#xp').textContent = `${learner?.xp || 0} XP`;
   $('#placement').innerHTML = learner?.placement?.completedAt ? '<b>Starting point saved.</b> Your source evidence—not this placement alone—will determine what becomes secure.' : '<b>Choose a starting point first.</b> A short placement lets Seder begin at your actual reading level. <a href="placement.html">Take placement →</a>';
-  $('#todayCard').innerHTML = `<small>DAY ${day} OF 30 · ${opened.size} SESSIONS OPENED</small><h2>${title}</h2><p>${whyNext(day)}</p><p class="why-next"><b>Why this is next:</b> ${phaseForDay(day).milestone}</p><a id="openToday" href="${url}">Begin today’s source →</a>`;
+  $('#todayCard').innerHTML = `<small>DAY ${day} OF ${plan.length} · ${opened.size} SESSIONS OPENED</small><h2>${title}</h2><p>${whyNext(day)}</p><p class="why-next"><b>Why this is next:</b> ${phaseForDay(day).milestone}</p><a id="openToday" href="${url}">Begin today’s source →</a>`;
   $('#openToday').addEventListener('click', () => openDay(day));
-  $('#dayMap').innerHTML = plan.map(([sessionTitle, sessionUrl], index) => {
-    const sessionDay = index + 1;
-    const isOpened = opened.has(sessionDay);
-    const isCurrent = sessionDay === day && !isOpened;
-    const isAvailable = isOpened || isCurrent;
-    const state = isOpened ? 'opened' : isCurrent ? 'current' : 'upcoming';
-    const label = isOpened ? 'Resume' : isCurrent ? 'Begin' : 'Later';
+  const currentMonth = Math.min(2, Math.floor((day - 1) / 30));
+  $('#monthNav').innerHTML = ['Month 1 · Foundations', 'Month 2 · Deepening', 'Month 3 · Independence'].map((title, index) => `<article class="${index < currentMonth ? 'complete' : index === currentMonth ? 'current' : ''}"><small>${index < currentMonth ? '✓ COMPLETE' : index === currentMonth ? 'YOUR MONTH' : 'AHEAD'}</small><strong>${title}</strong><span>Days ${index * 30 + 1}–${(index + 1) * 30}</span></article>`).join('');
+  $('#dayMap').innerHTML = plan.slice(currentMonth * 30, currentMonth * 30 + 30).map(([sessionTitle, sessionUrl], monthIndex) => {
+    const sessionDay = currentMonth * 30 + monthIndex + 1, isOpened = opened.has(sessionDay), isCurrent = sessionDay === day && !isOpened, isAvailable = isOpened || isCurrent, state = isOpened ? 'opened' : isCurrent ? 'current' : 'upcoming', label = isOpened ? 'Resume' : isCurrent ? 'Begin' : 'Later';
     return `<li class="${state}"><span>DAY ${sessionDay}</span><strong>${sessionTitle}</strong><small>${phaseForDay(sessionDay).title}</small>${isAvailable ? `<a href="${sessionUrl}" data-day="${sessionDay}">${label} →</a>` : '<em>Unlocks in sequence</em>'}</li>`;
   }).join('');
   document.querySelectorAll('#dayMap a[data-day]').forEach((link) => link.addEventListener('click', () => openDay(Number(link.dataset.day))));
   $('#milestones').innerHTML = phases.map((phase, index) => `<article class="milestone ${hasEvidence(learner || {}, phase) ? 'ready' : ''}"><small>${hasEvidence(learner || {}, phase) ? 'EVIDENCE GROWING' : `MILESTONE ${index + 1}`}</small><h3>${phase.title}</h3><p>${phase.milestone}</p></article>`).join('');
-  $('#phases').innerHTML = phases.map((phase) => `<article class="phase"><strong>${phase.days}</strong><div><h3>${phase.title}</h3><p>${phase.copy}</p></div><a href="${phase.link}">Open phase →</a></article>`).join('');
+  $('#phases').innerHTML = phases.map((phase) => `<article class="phase ${day > phase.end ? 'complete' : ''}"><strong>${phase.days}</strong><div><h3>${phase.title}</h3><p>${phase.copy}</p></div><a href="${phase.link}">Open phase →</a></article>`).join('');
 }).catch(() => { $('#placement').textContent = 'Your learner record is unavailable; you can still open the first source.'; });

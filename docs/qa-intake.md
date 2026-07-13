@@ -1162,3 +1162,15 @@ renders, correct primary + at most one lateral); suite 142/142.
   returns the learner to the journey without turning review into a punitive gate.
 - Added regression coverage for the targeted retrieval route and advanced checkpoint
   coverage. Verification: full suite passes, 149 tests / 0 failures.
+
+## 2026-07-13 — Codex: 90-day learner academy
+
+- Extended the guided Academy from 30 to 90 sequenced daily sessions. Month 2 deepens
+  Gemara across Shas while integrating Chumash, Halakha, Tefillah, History, Chassidus,
+  Mussar, and Wider World units; Month 3 focuses on evidence, retrieval, portfolio work,
+  independent reading, and setting the learner's next mastery horizon.
+- The interface shows only the learner's current 30-day month, with completed/current/ahead
+  month signals, so the long runway does not become a 90-card wall. Existing 30-day local
+  progress migrates forward into the 90-day program automatically.
+- Verified every Academy route exists locally and updated the Academy regression contract.
+  Verification: full suite passes, 149 tests / 0 failures.
