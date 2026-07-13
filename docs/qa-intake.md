@@ -1304,3 +1304,38 @@ of the rotating tractate cycle. Verified live: fresh learner now sees the journe
 Suite 151/151. This is the strongest argument yet for the dry-run habit: the bug was
 invisible to the test suite (which checks file patterns and data, not DOM click paths)
 and sat on the single most-traveled page of the funnel.
+
+
+## 2026-07-13 — Claude: content sophistication program — standard, audit, Wave 1 batch 1
+
+Sam's directive: raise ALL ~100 content units to the sophistication of the recent ones,
+not just polish the new. Approach: codify the standard, measure everything, upgrade in
+ranked waves.
+
+- docs/content-standard.md: six scored dimensions (depth, production/typed, no
+  length-bias exploit, teaching feedback, boundary-where-lived, no duplicate options)
+  plus the two engine-enforced requirements (shuffle, verified citations + Sefaria
+  links). Definition of done: audit score >= 8 + live run + citations verified.
+
+- scripts/audit-content.mjs: parses every SederCourse unit file, all 36 labs, all 6
+  canon courses (91 units total) and scores them 0-10. Key systemic findings on first
+  run: (1) correct-answer-length bias is near-universal (~85% of MC questions — the
+  correct answer is longest by >1.5x the shortest distractor; a learner can pass by
+  always picking the longest option; the fix is substantive near-miss distractors, not
+  padding); (2) the 27 lab-only tractates are the thin tail (3 steps, no typed, full
+  bias); (3) 18 units had zero production checks. Also fixed an auditor blind spot:
+  labs store `kind` not `mode`, so their boundary steps (e.g. Sotah's) were invisible.
+
+- Wave 1 batch 1: appended a typed production check (targeting each unit's own anchor
+  Hebrew, all previously verified) to 8 zero-production units: mussar-arc (Micah 6:8),
+  mussar-truth (Exodus 23:7), chassidus-arc (Psalms 27:4), chassidus-ahavat-yisrael
+  (Leviticus 19:18), tefillah-arc (Modim), history-arc + widerworld-arc (Jeremiah 29:7 —
+  the shared anchor of both tracks), philosophy-questions (Deuteronomy 4:36). Scores
+  moved 5-6 -> 7-8; all 8 node --check clean; mussar-arc live-run end to end (typed step
+  fires, all credited, completion renders). Suite 151/151.
+
+Remaining waves (see content-standard.md): Wave 1 batch 2 = Berakhot chain
+(berakhot-deep, units 2-5, grammar, gemara-toolkit, shas-literacy) — Codex-authored,
+needs reading before editing; Wave 2 = distractor rewrites (~500 questions, retires the
+length-bias exploit, highest-traffic first); Wave 3 = lab deepening (27 labs, 3 -> 6+
+steps with typed + boundaries).
