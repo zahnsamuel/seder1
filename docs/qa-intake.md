@@ -1185,3 +1185,14 @@ renders, correct primary + at most one lateral); suite 142/142.
 - Enforced the gate server-side: direct requests to mark `academy-day-1` through
   `academy-day-90` complete are rejected unless both expected correct evidence contexts are
   already present. Verification: full suite passes, 151 tests / 0 failures.
+
+## 2026-07-13 — Codex: learner-produced Academy evidence
+
+- Weekly Academy transfer days now require a learner-authored source map after the two
+  source checks. The learner names a source feature, the move used, and a next question;
+  the server requires this saved artifact before the weekly day can be mastered.
+- Expanded the daily check rotation across Gemara, Torah/Halakha, history, comparative
+  reading, and independent-study source prompts, all tied to unique daily evidence contexts.
+- The Study Record now displays Academy days earned and weekly Academy source maps, so the
+  learner can see an accumulating portfolio rather than a mere attendance count.
+- Verification: full suite passes, 151 tests / 0 failures.

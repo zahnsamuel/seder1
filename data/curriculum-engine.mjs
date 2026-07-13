@@ -115,7 +115,9 @@ export async function canMasterJourneyStage(root, learner, stageId) {
   if (academyDay) {
     const day = Number(academyDay[1]);
     const correctContexts = new Set((learner.events || []).filter((event) => event.correct && (event.type === 'answer_submitted' || event.type === 'source_annotation') && event.sourceContext).map((event) => event.sourceContext));
-    return day >= 1 && day <= 90 && [1, 2].every((check) => correctContexts.has(`academy day ${day} check ${check}`));
+    const checksComplete = [1, 2].every((check) => correctContexts.has(`academy day ${day} check ${check}`));
+    const weeklyMapComplete = day % 7 !== 0 || (learner.events || []).some((event) => event.type === 'journey_artifact_saved' && event.artifactType === 'academy-source-maps' && event.artifactId === `academy-day-${day}` && String(event.note || '').trim().length >= 28);
+    return day >= 1 && day <= 90 && checksComplete && weeklyMapComplete;
   }
   const journey = await canonJourney(root);
   const phase = phases.find((item) => checkpointStage(item) === stageId);

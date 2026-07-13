@@ -11,6 +11,10 @@ test('academy days require two correct source checks before their mastery marker
   assert.equal(await canMasterJourneyStage(root, one, 'academy-day-1'), false);
   const two = { events: [...one.events, { type: 'answer_submitted', correct: true, sourceContext: 'academy day 1 check 2' }] };
   assert.equal(await canMasterJourneyStage(root, two, 'academy-day-1'), true);
+  const weeklyChecks = { events: [{ type: 'answer_submitted', correct: true, sourceContext: 'academy day 7 check 1' }, { type: 'answer_submitted', correct: true, sourceContext: 'academy day 7 check 2' }] };
+  assert.equal(await canMasterJourneyStage(root, weeklyChecks, 'academy-day-7'), false);
+  weeklyChecks.events.push({ type: 'journey_artifact_saved', artifactType: 'academy-source-maps', artifactId: 'academy-day-7', note: 'This source begins with a question; I mapped the claim and would compare its evidence in a new source.' });
+  assert.equal(await canMasterJourneyStage(root, weeklyChecks, 'academy-day-7'), true);
   assert.equal(await canMasterJourneyStage(root, two, 'academy-day-91'), false);
 });
 
@@ -20,5 +24,6 @@ test('academy makes daily source evidence, rather than opening a link, the unloc
   assert.match(academy, /Demonstrate today/);
   assert.match(evidence, /academy day \$\{day\} check/);
   assert.match(evidence, /stage_mastered/);
+  assert.match(evidence, /academy-source-maps/);
   assert.match(html, /EARN TOMORROW/);
 });

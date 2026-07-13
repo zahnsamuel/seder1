@@ -16,7 +16,7 @@ const bank = [
   { citation: 'Independent study protocol', hebrew: 'חֲזָרָה · בֵּירוּר · הַשְׁוָאָה · הַדְרָכָה', skill: 'independent-sugya-reading', prompt: 'How should a learner choose the next move?', answer: 'Use evidence to choose retrieval, a new source, repair, or further guidance.' }
 ];
 const weeklyTransfer = { prompt: 'You meet a new source in a different genre. What proves a reading habit has transferred?', answer: 'Use the same reading move while naming what is genuinely different in the new source.' };
-const item = bank[Math.min(11, Math.floor((day - 1) / 8))];
+const item = bank[(day - 1) % bank.length];
 const questions = day % 7 === 0 ? [item, { ...item, ...weeklyTransfer, skill: 'independent-sugya-reading' }] : [item, { ...item, prompt: `Before drawing a conclusion from ${item.citation}, what must you do?`, answer: item.answer }];
 let index = 0;
 const shuffle = (choices) => choices.map((text, originalIndex) => ({ text, originalIndex })).sort(() => Math.random() - .5);
@@ -34,6 +34,23 @@ async function answer(button, question) {
   const response = await Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'answer_submitted', skillId: question.skill, competency: 'sourceReasoning', sourceContext: `academy day ${day} check ${index + 1}`, correct }) });
   if (response.ok) $('#xp').textContent = `${(await response.json()).xp || 0} XP`;
   if (!correct) { setTimeout(render, 900); return; }
-  setTimeout(async () => { index++; if (index < questions.length) render(); else { const completion = await Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'stage_mastered', stageId: `academy-day-${day}` }) }); if (completion.ok) { $('#card').innerHTML = '<p class="count">DAY MASTERED</p><h2>Tomorrow is now available.</h2><p>You demonstrated the day’s reading move with two source checks. Your review rhythm will bring it back when it needs strengthening.</p>'; $('#return').hidden = false; } else $('#feedback').textContent = 'Both checks must be correct before today can be mastered. Review the source, then try again.'; } }, 800);
+  setTimeout(() => { index++; if (index < questions.length) render(); else if (day % 7 === 0) showMap(); else completeDay(); }, 800);
+}
+function showMap() {
+  const map = $('#map'), note = $('#mapNote'), save = $('#saveMap');
+  map.hidden = false;
+  note.value = localStorage.getItem(`seder:academy-map:${learnerId}:${day}`) || '';
+  const ready = () => { save.disabled = note.value.trim().length < 28; };
+  note.addEventListener('input', ready); ready(); note.focus();
+  save.addEventListener('click', async () => {
+    const text = note.value.trim(); if (text.length < 28) return;
+    localStorage.setItem(`seder:academy-map:${learnerId}:${day}`, text);
+    const saved = await Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'journey_artifact_saved', artifactType: 'academy-source-maps', artifactId: `academy-day-${day}`, note: text }) });
+    if (saved.ok) completeDay();
+  }, { once: true });
+}
+async function completeDay() {
+  const completion = await Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'stage_mastered', stageId: `academy-day-${day}` }) });
+  if (completion.ok) { $('#map').hidden = true; $('#card').innerHTML = '<p class="count">DAY MASTERED</p><h2>Tomorrow is now available.</h2><p>You demonstrated the day’s reading move with source evidence. Your review rhythm will bring it back when it needs strengthening.</p>'; $('#return').hidden = false; } else $('#feedback').textContent = 'The evidence for this day is incomplete. Review the source, then try again.';
 }
 if (!Number.isInteger(day) || day < 1 || day > 90) location.href = 'academy.html'; else Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? response.json() : Promise.reject()).then((learner) => { $('#xp').textContent = `${learner.xp || 0} XP`; $('#title').textContent = `Day ${day}: demonstrate today’s reading move.`; render(); }).catch(() => { location.href = 'academy.html'; });
