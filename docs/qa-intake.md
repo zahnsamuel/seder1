@@ -1236,3 +1236,41 @@ renders, correct primary + at most one lateral); suite 142/142.
   learner-authored source map, so completion continues to require demonstrated reading rather
   than attendance.
 - Verification: full suite passes, 151 tests / 0 failures.
+
+
+## 2026-07-13 — Claude: Codex-down contingency — full tree preserved, retrieval verified, Sefaria links shipped
+
+Codex went down with ~29 modified + 233 untracked files. Judgment calls made under Sam's
+delegation ("do the most without Codex, make good judgment calls"):
+
+1. PRESERVED CODEX'S WORK. Discovered Codex had prepared 14 run-*-commit.cmd batch
+   scripts this morning (10:33-12:44) — its own commit plan, written for Sam to execute,
+   never run. Executed their staging+commit steps in Codex's mtime order with attribution
+   trailers. Parser imperfections collapsed the batches into 2 commits (693c5d6 "Strengthen
+   learner mastery engine and hosted parity", b8de03a "Gate academy progress on source
+   evidence") instead of 14 — imperfect batching, zero loss; every modified file verified
+   committed. Then 7ed5e81 preserved all 233 remaining untracked files (pages, labs, data,
+   tests, and the spent .cmd scripts) as one batch. Excluded: .tmp-presentation/, .zztest,
+   outputs/ (artifacts). Pre-commit: node --check on 18 core dirty files (all OK), server
+   restarted onto the tree's code, smoke tests 200 on seder/router/apis. Post-commit:
+   suite 151/151 (Codex's committed tests included), tree clean for the first time this
+   session.
+
+2. ITEM 5 WAS ALREADY DONE. Codex implemented the subject-aware review fallback before
+   going down — data/curriculum-engine.mjs now carries the SUBJECT_RETRIEVAL design from
+   the assignment doc nearly verbatim, with test/subject-aware-retrieval.test.mjs covering
+   all 8 subjects including the new units' skill prefixes. Verified passing; live
+   /api/learners/demo/review-items returns 200. No action needed.
+
+3. SEFARIA DEEP LINKS (course-engine.js, now stable): conservative ref->URL mapper links
+   "Read the full source" on every step whose citation is unambiguous — Bavli daf (incl.
+   two-word tractates -> underscores), Tanakh ch:v (Psalm->Psalms normalized), Mishnah
+   x:y, Pirkei Avot x:y; first ref of multi-ref steps; method refs, en-dash ranges, and
+   Rambam refs deliberately stay unlinked rather than guessed. Verified live on
+   halakha-machloket (correct link/no-link decisions on all 10 steps) and 4 generated
+   URLs confirmed 200 on sefaria.org. Suite 151/151.
+
+Note for Codex on return: your 14 .cmd batch scripts are committed (spent — do not
+re-run; they would create empty commits or unwanted pushes). Item 0 is complete. The
+remaining open items from the assignment are Supabase verification (needs Sam) and the
+optional skill-graph registration.

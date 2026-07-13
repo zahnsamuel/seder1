@@ -45,7 +45,23 @@ function celebrateCheckpoint(container){
     eyebrow.appendChild(span);
   });
 }
-function renderCourse(){const step=config.steps[courseIndex];answered=false;$$('#count').textContent=`${courseIndex+1} / ${config.steps.length}`;$$('#bar').style.width=`${(courseIndex+1)/config.steps.length*100}%`;$$('#mode').textContent=step.mode;$$('#title').textContent=step.title;$$('#ref').textContent=step.ref;$$('#hebrew').textContent=step.hebrew;$$('#translation').textContent=step.translation;$$('#translation').hidden=Boolean(step.independent);$$('#translate').textContent=step.independent?'Show translation':'Hide translation';$$('#prompt').textContent=step.prompt;$$('#feedback').textContent='';$$('#continue').disabled=true;$$('#continue').textContent=courseIndex===config.steps.length-1?'Complete checkpoint →':'Continue →';const answers=$$('#answers');answers.innerHTML='';if(step.typed){renderTyped(step,answers)}else{shuffle(step.answers).forEach(({text,i})=>{const b=document.createElement('button');b.type='button';b.textContent=text;b.addEventListener('click',()=>answerCourse(b,i===step.correct,step));answers.appendChild(b)})}$$('#map').innerHTML=config.steps.map((item,i)=>`<li class="${i===courseIndex?'active':''} ${i<courseIndex?'done':''}">${item.short}</li>`).join('')}
+// Conservative ref -> Sefaria URL mapper: links only when the citation pattern is
+// unambiguous (Bavli daf, Tanakh chapter:verse, Mishnah, Pirkei Avot). Method refs,
+// ranges, and multi-source refs beyond the first stay unlinked rather than guessed.
+function sefariaUrl(ref){
+  if(!ref)return null;
+  const clean=String(ref).split('·')[0].trim();
+  let m=clean.match(/^Mishnah ([A-Za-z ]+?) (\d+):(\d+)$/);
+  if(m)return`https://www.sefaria.org/Mishnah_${m[1].trim().replace(/ /g,'_')}.${m[2]}.${m[3]}`;
+  m=clean.match(/^Pirkei Avot (\d+):(\d+)$/);
+  if(m)return`https://www.sefaria.org/Pirkei_Avot.${m[1]}.${m[2]}`;
+  m=clean.match(/^(Genesis|Exodus|Leviticus|Numbers|Deuteronomy|Psalms?|Proverbs|Job|Micah|Jeremiah|Hosea|Lamentations|Ezekiel|Isaiah) (\d+):(\d+)$/);
+  if(m)return`https://www.sefaria.org/${(m[1]==='Psalm'?'Psalms':m[1])}.${m[2]}.${m[3]}`;
+  m=clean.match(/^(Berakhot|Shabbat|Eruvin|Pesachim|Sukkah|Yoma|Taanit|Megillah|Ketubot|Nedarim|Nazir|Sotah|Gittin|Kiddushin|Bava Kamma|Bava Metzia|Bava Batra|Sanhedrin|Makkot|Shevuot|Chullin|Niddah) (\d+[ab])$/);
+  if(m)return`https://www.sefaria.org/${m[1].replace(/ /g,'_')}.${m[2]}`;
+  return null;
+}
+function renderCourse(){const step=config.steps[courseIndex];answered=false;$$('#count').textContent=`${courseIndex+1} / ${config.steps.length}`;$$('#bar').style.width=`${(courseIndex+1)/config.steps.length*100}%`;$$('#mode').textContent=step.mode;$$('#title').textContent=step.title;const sourceLink=sefariaUrl(step.ref);if(sourceLink){$$('#ref').innerHTML=`${step.ref} · <a href="${sourceLink}" target="_blank" rel="noopener" style="color:#276b68;font-weight:600">Read the full source ↗</a>`}else{$$('#ref').textContent=step.ref};$$('#hebrew').textContent=step.hebrew;$$('#translation').textContent=step.translation;$$('#translation').hidden=Boolean(step.independent);$$('#translate').textContent=step.independent?'Show translation':'Hide translation';$$('#prompt').textContent=step.prompt;$$('#feedback').textContent='';$$('#continue').disabled=true;$$('#continue').textContent=courseIndex===config.steps.length-1?'Complete checkpoint →':'Continue →';const answers=$$('#answers');answers.innerHTML='';if(step.typed){renderTyped(step,answers)}else{shuffle(step.answers).forEach(({text,i})=>{const b=document.createElement('button');b.type='button';b.textContent=text;b.addEventListener('click',()=>answerCourse(b,i===step.correct,step));answers.appendChild(b)})}$$('#map').innerHTML=config.steps.map((item,i)=>`<li class="${i===courseIndex?'active':''} ${i<courseIndex?'done':''}">${item.short}</li>`).join('')}
 function answerCourse(button,correct,step){if(answered)return;answered=true;document.querySelectorAll('#answers button').forEach(b=>b.disabled=true);button.classList.add(correct?'correct':'incorrect');$$('#feedback').textContent=(correct?'+10 XP. ':'+5 XP. ')+step.feedback;$$('#continue').disabled=false;recordCourseAnswer(step,correct)}
 function normalizeTyped(text){return String(text||'').trim().toLowerCase().replace(/[.,!?;:'"“”’]/g,'')}
 function renderTyped(step,container){
