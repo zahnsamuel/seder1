@@ -25,6 +25,7 @@ const deepenings = [
   ['widerworld-law-reason-arc', 'widerworld-encounter-arc', 'Wider World: read the tradition’s own charters of encounter', 'widerworld-encounter.html'],
   ['jewish-thought-question-atlas', 'jewish-thought-suffering', 'Jewish Thought: hold three voices on suffering', 'thought-suffering.html'],
   ['halakha-honor-parents-arc', 'halakha-machloket-arc', 'Halakha: read the dispute both sides won', 'halakha-machloket.html'],
+  ['halakha-machloket-arc', 'halakha-chanukah-arc', 'Halakha: follow a Chanukah machloket through two reasons', 'halakha-chanukah.html'],
   ['tefillah-kaddish-arc', 'tefillah-amidah-arc', 'Tefillah: enter the Amidah, arranged at Yavneh', 'tefillah-amidah.html'],
   ['mussar-truth-arc', 'mussar-anger-arc', 'Mussar: the trait the middle path refuses to balance', 'mussar-anger.html'],
   ['chumash-akeidah-arc', 'chumash-tehillim-arc', 'Chumash: read the line that says it twice', 'chumash-tehillim.html'],

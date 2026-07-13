@@ -18,6 +18,7 @@ const expectedPairs = [
   ['widerworld-law-reason-arc', 'widerworld-arc.js', 'widerworld-encounter-arc', 'widerworld-encounter.js', 'widerworld-encounter.html'],
   ['jewish-thought-question-atlas', 'philosophy-questions.js', 'jewish-thought-suffering', 'thought-suffering.js', 'thought-suffering.html'],
   ['halakha-honor-parents-arc', 'halakha-honor-parents.js', 'halakha-machloket-arc', 'halakha-machloket.js', 'halakha-machloket.html'],
+  ['halakha-machloket-arc', 'halakha-machloket.js', 'halakha-chanukah-arc', 'halakha-chanukah.js', 'halakha-chanukah.html'],
   ['tefillah-kaddish-arc', 'tefillah-kaddish.js', 'tefillah-amidah-arc', 'tefillah-amidah.js', 'tefillah-amidah.html'],
   ['mussar-truth-arc', 'mussar-truth.js', 'mussar-anger-arc', 'mussar-anger.js', 'mussar-anger.html'],
   ['chumash-akeidah-arc', 'chumash-akeidah.js', 'chumash-tehillim-arc', 'chumash-tehillim.js', 'chumash-tehillim.html'],
