@@ -691,3 +691,51 @@ issues on all 20 steps, shuffle observed live — widerworld first step rendered
 
 All five single-arc subjects now have a genuine second foundation. Every non-Gemara track
 ends in either a deeper companion unit or a Gemara lab — no more self-referential loops.
+
+
+## 2026-07-12 — Claude: completion-link topology normalized to hub-with-lateral-links
+
+Sam decided (docs/codex-assignment.md): Gemara remains the default mastery spine; each
+completed non-Gemara unit offers ONE primary next step returning toward the spine and AT
+MOST ONE optional lateral, only where it genuinely deepens the next move.
+
+Normalized shape now uniform across all 17 non-Gemara completion screens:
+- Primary (nextUrl): a Gemara arc/lab with a genuine source tie where one exists,
+  otherwise gemara-continuation.html (the spine hub, which self-adjusts to progress).
+- Lateral (one link embedded in completeCopy, rendered via innerHTML by course-engine.js):
+  the subject's deeper companion unit, or a cross-subject connection per Sam's examples.
+
+Changes (11 files, each a single-line diff, all confirmed clean of Codex work before
+staging; node --check passed on all):
+- mussar-arc, chassidus-arc: primary was canon-arc.html?track=... (near-duplicate rehash,
+  same class as the history/widerworld dead-end) -> gemara-continuation.html. Laterals
+  (mussar-truth / chassidus-ahavat-yisrael) already present.
+- history-arc, widerworld-arc: second units moved from primary slot to completeCopy
+  lateral; primary -> gemara-continuation.html. (Supersedes yesterday's wiring in 1468200.)
+- mussar-truth: primary chassidus-arc (lateral-as-primary) -> ketubot-arc.html — the unit
+  teaches Ketubot 17a, so the spine return is the very sugya studied. Chassidus moved to
+  lateral.
+- chassidus-ahavat-yisrael: primary was a backward loop to chassidus-arc -> shabbat-arc.html
+  (unit teaches Hillel on Shabbat 31a). Return-to-companion moved to lateral.
+- thought-suffering: primary was a backward loop to the atlas -> gemara-continuation.html;
+  atlas moved to lateral.
+- philosophy-questions: primary was seder.html (home, terminal) -> gemara-continuation.html;
+  thought-suffering lateral already present.
+- philosophy-unit-2: primary was the atlas -> gemara-continuation.html; atlas moved to
+  lateral.
+- history-yavneh: added lateral -> widerworld-encounter.html (Sam's example: History ->
+  Wider World; the unit itself raises Josephus writing for Rome).
+- widerworld-encounter: added lateral -> philosophy.html (Rambam's Shemonah Perakim rule
+  opens reason-and-revelation, the Jewish Thought field).
+
+Already compliant, untouched: halakha/chumash/tefillah first arcs (primary berakhot-arc +
+second-unit lateral), all five new second units' primaries (kiddushin / rosh-hashanah /
+gittin / nedarim labs, berakhot-arc).
+
+Consequence for Codex: canon-arc.html is now fully unreferenced (grep: only a comment in
+subject.js mentions it; its mussar/chassidus/history/widerworld tracks were its last live
+entries). Left in place — delete at leisure or repurpose.
+
+Verification: all 6 link targets exist on disk; topology audit greps show every primary
+landing on the spine; 122/122 tests pass (count grew from 121 — Codex added a test
+concurrently); node --check passed on all 11 edited files.
