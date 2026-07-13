@@ -1141,3 +1141,13 @@ renders, correct primary + at most one lateral); suite 142/142.
 - Kept the existing Daf retrieval intact for Gemara and unknown skills; no source review
   is orphaned.
 - Added coverage across all seven subject prefixes. Verification: 145 tests / 0 failures.
+
+## 2026-07-13 â€” Codex: earned-level transition
+
+- Completing the second checkpoint in each of the eight journey levels now leads to a
+  dedicated level-complete screen rather than an abrupt return to the full path.
+- The handoff names the reading moves established, counts the learner's recorded mastery
+  evidence for that level, previews the next level, and keeps review available. The final
+  level resolves into continued independent practice rather than inventing a ninth level.
+- Added a regression test for all eight final checkpoint routes and the completion-screen
+  evidence/next-action contract. Verification: full suite passes, 148 tests / 0 failures.

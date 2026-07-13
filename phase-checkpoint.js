@@ -40,6 +40,7 @@ const advancedCheckpoint = [
 ];
 let phase, answered = 0, correct = 0;
 const checkpointSkills = { 'phase-1': 'mishnah-orientation', 'phase-2': 'canonical-reception', 'phase-3': 'challenge-and-answer', 'phase-4': 'independent-sugya-reading', 'phase-5': 'canonical-reception', 'phase-6': 'bava-kamma-independent-map', 'phase-7': 'comparative-reading', 'phase-8': 'independent-sugya-reading' };
+const levelCompletionByFinalPhase = { 'phase-2': 1, 'phase-4': 2, 'phase-6': 3, 'phase-8': 4, 'phase-10': 5, 'phase-12': 6, 'phase-14': 7, 'phase-16': 8 };
 const shuffle = (items) => items.map((text, originalIndex) => ({ text, originalIndex })).sort(() => Math.random() - .5);
 Promise.all([Seder.api(`/api/learners/${learnerId}/journey`).then((r) => r.json()), Seder.api(`/api/learners/${learnerId}`).then((r) => r.json())]).then(([journey]) => {
   phase = journey.phases.find((item) => item.id === phaseId) || journey.nextCheckpoint;
@@ -57,4 +58,4 @@ Promise.all([Seder.api(`/api/learners/${learnerId}/journey`).then((r) => r.json(
     if (answered === questions.length) { document.querySelector('#continue').disabled = correct !== questions.length; document.querySelector('#feedback').textContent = correct === questions.length ? 'Checkpoint complete. The next phase is ready.' : 'Review the highlighted source moves, then revisit the completed canon moments before trying this checkpoint again.'; }
   }));
 });
-document.querySelector('#continue').addEventListener('click', async () => { const response = await Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'stage_mastered', stageId: phase.checkpointStage }) }); if (response.ok) location.href = 'journey.html'; });
+document.querySelector('#continue').addEventListener('click', async () => { const response = await Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'stage_mastered', stageId: phase.checkpointStage }) }); if (response.ok) { const level = levelCompletionByFinalPhase[phase.id]; location.href = level ? `level-complete.html?level=${level}` : 'journey.html'; } });
