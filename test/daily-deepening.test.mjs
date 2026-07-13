@@ -19,7 +19,11 @@ const expectedPairs = [
   ['jewish-thought-question-atlas', 'philosophy-questions.js', 'jewish-thought-suffering', 'thought-suffering.js', 'thought-suffering.html'],
   ['halakha-honor-parents-arc', 'halakha-honor-parents.js', 'halakha-machloket-arc', 'halakha-machloket.js', 'halakha-machloket.html'],
   ['tefillah-kaddish-arc', 'tefillah-kaddish.js', 'tefillah-amidah-arc', 'tefillah-amidah.js', 'tefillah-amidah.html'],
-  ['mussar-truth-arc', 'mussar-truth.js', 'mussar-anger-arc', 'mussar-anger.js', 'mussar-anger.html']
+  ['mussar-truth-arc', 'mussar-truth.js', 'mussar-anger-arc', 'mussar-anger.js', 'mussar-anger.html'],
+  ['chumash-akeidah-arc', 'chumash-akeidah.js', 'chumash-tehillim-arc', 'chumash-tehillim.js', 'chumash-tehillim.html'],
+  ['history-yavneh-arc', 'history-yavneh.js', 'history-geniza-arc', 'history-geniza.js', 'history-geniza.html'],
+  ['chassidus-ahavat-yisrael-arc', 'chassidus-ahavat-yisrael.js', 'chassidus-simcha-arc', 'chassidus-simcha.js', 'chassidus-simcha.html'],
+  ['widerworld-encounter-arc', 'widerworld-encounter.js', 'widerworld-mean-arc', 'widerworld-mean.js', 'widerworld-mean.html']
 ];
 
 test('daily router deepening map matches the stage IDs the unit files declare', async () => {

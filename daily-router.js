@@ -26,7 +26,11 @@ const deepenings = [
   ['jewish-thought-question-atlas', 'jewish-thought-suffering', 'Jewish Thought: hold three voices on suffering', 'thought-suffering.html'],
   ['halakha-honor-parents-arc', 'halakha-machloket-arc', 'Halakha: read the dispute both sides won', 'halakha-machloket.html'],
   ['tefillah-kaddish-arc', 'tefillah-amidah-arc', 'Tefillah: enter the Amidah, arranged at Yavneh', 'tefillah-amidah.html'],
-  ['mussar-truth-arc', 'mussar-anger-arc', 'Mussar: the trait the middle path refuses to balance', 'mussar-anger.html']
+  ['mussar-truth-arc', 'mussar-anger-arc', 'Mussar: the trait the middle path refuses to balance', 'mussar-anger.html'],
+  ['chumash-akeidah-arc', 'chumash-tehillim-arc', 'Chumash: read the line that says it twice', 'chumash-tehillim.html'],
+  ['history-yavneh-arc', 'history-geniza-arc', 'History: the archive nobody meant to keep', 'history-geniza.html'],
+  ['chassidus-ahavat-yisrael-arc', 'chassidus-simcha-arc', 'Chassidus: joy as a discipline, not a mood', 'chassidus-simcha.html'],
+  ['widerworld-encounter-arc', 'widerworld-mean-arc', 'Wider World: Rambam beside Aristotle, compared honestly', 'widerworld-mean.html']
 ];
 
 Promise.all([
