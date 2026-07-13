@@ -1,0 +1,31 @@
+{
+  "version": "1.0.0",
+  "title": "The Seder curriculum: from first source to independent study",
+  "principle": "This is one integrated journey. Gemara supplies the central reading-and-reasoning spine; Torah, prayer, halakha, thought, ethics, and history provide the other source worlds in which that literacy becomes real.",
+  "levels": [
+    {"id":"orientation","number":1,"title":"Enter the page","range":"Weeks 1–4","promise":"Orient to Hebrew and identify what kind of source is in front of you.","milestones":[
+      {"id":"page-orientation","title":"Read the page as a source","capability":"Identify a source voice, question signal, and cited text before translating every word.","evidencePrefixes":["hebrew-","source-signals","mishnah-"],"route":"academy.html","routeLabel":"Continue the first month"},
+      {"id":"first-sugya-map","title":"Map a first sugya","capability":"Separate a Mishnah case from the Gemara question and a source-based response.","evidencePrefixes":["berakhot-","gemara-context-","proof-role"],"route":"tractate-mastery.html?tractate=berakhot","routeLabel":"Read Berakhot"}
+    ]},
+    {"id":"fluency","number":2,"title":"Build source fluency","range":"Months 2–3","promise":"Use recurring language and source forms across more than one field of Jewish learning.","milestones":[
+      {"id":"language-repertoire","title":"Recognize the recurring signals","capability":"Predict whether a line is asking, citing, distinguishing, or responding before using English to check.","evidencePrefixes":["rabbinic-","sentence-","aramean-","language-"],"route":"language.html","routeLabel":"Build language tools"},
+      {"id":"torah-prayer-reading","title":"Read Torah and prayer as sources","capability":"Name address, claim, command, and response in Torah and liturgical passages.","evidencePrefixes":["tanakh-","tefillah-","liturgical-"],"route":"source-reader.html?collection=shema","routeLabel":"Read a Torah source"}
+    ]},
+    {"id":"argument","number":3,"title":"Read an argument","range":"Months 3–6","promise":"Follow the moves that make a sugya into an argument rather than a vocabulary list.","milestones":[
+      {"id":"case-and-distinction","title":"Map case, distinction, and response","capability":"Keep people, objects, boundaries, categories, and responses distinct in a legal source.","evidencePrefixes":["shabbat-","bava-metzia-","bava-kamma-"],"route":"flagship-daf-workbench.html?tractate=shabbat","routeLabel":"Map a visible Daf"},
+      {"id":"question-and-proof","title":"Follow question, proof, and answer","capability":"Explain the pressure created by a question and the precise work a proof text or response performs.","evidencePrefixes":["pesachim-","eruvin-","sukkah-","yoma-"],"route":"flagship-daf-workbench.html?tractate=pesachim","routeLabel":"Practice argument reading"}
+    ]},
+    {"id":"canon","number":4,"title":"Read the canon in conversation","range":"Months 6–9","promise":"See how law, prayer, thought, ethics, and history ask different questions with shared discipline.","milestones":[
+      {"id":"reception-and-boundary","title":"Trace source and reception","capability":"Follow a Torah source into later practice while distinguishing study from personal halakhic guidance.","evidencePrefixes":["halakha-","chumash-","blessings-"],"route":"canon-course.html?course=blessings-six","routeLabel":"Trace a source chain"},
+      {"id":"claim-and-context","title":"Hold claim and context together","capability":"Identify a conceptual claim or historical setting before treating a source as an answer to everything.","evidencePrefixes":["thought-","history-","mussar-","chassidus-"],"route":"canon-course.html?course=history-six","routeLabel":"Read context and claim"}
+    ]},
+    {"id":"synthesis","number":5,"title":"Synthesize without flattening","range":"Months 9–12","promise":"Compare sources responsibly, preserve difference, and state a real point of connection.","milestones":[
+      {"id":"responsible-comparison","title":"Compare interpretations","capability":"Give two readings their strongest form, name their difference, and make one bounded connection.","evidencePrefixes":["compare-","comparative-","bridge-","conceptual-"],"route":"course-dashboard.html","routeLabel":"Open canon connections"},
+      {"id":"transfer-evidence","title":"Transfer a reading habit","capability":"Recognize a learned move in a contrasting or unfamiliar source rather than only in its original lesson.","evidencePrefixes":["independent-","unseen-","repair-","lab-"],"route":"independent-reading.html","routeLabel":"Read an unfamiliar source"}
+    ]},
+    {"id":"independence","number":6,"title":"Study independently","range":"Ongoing","promise":"Enter an unfamiliar page, create a defensible first map, and know what to do with uncertainty.","milestones":[
+      {"id":"independent-sugya","title":"Read an unfamiliar sugya","capability":"Map a short unknown sugya, use translation to verify, and state one question worth pursuing.","evidencePrefixes":["independent-sugya-","gemara-unseen-","yoma-independent-"],"route":"gemara-unseen-check.html","routeLabel":"Try an unseen sugya"},
+      {"id":"self-directed-next-step","title":"Choose a responsible next step","capability":"Use retrieval, a source map, vocabulary support, and appropriate human resources without pretending uncertainty is mastery.","evidencePrefixes":["stage-","source_map_","capstone-","journey-"],"route":"daily-router.html","routeLabel":"Choose today’s next move"}
+    ]}
+  ]
+}

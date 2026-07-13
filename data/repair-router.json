@@ -1,0 +1,8 @@
+{"categories":[
+{"id":"vocabulary","skills":["hebrew-question-words","vocab-hear","vocab-bless"],"title":"Rebuild a source word","url":"canon-vocabulary.html","reason":"A reliable word signal will make the next source less opaque."},
+{"id":"source-function","skills":["liturgical-function","source-signals"],"title":"Rebuild source function","url":"pilot-repair.html?skill=liturgical-function","reason":"Name what the line is doing before interpreting it."},
+{"id":"source-chain","skills":["canonical-reception","halakha-guidance-boundary"],"title":"Rebuild a source chain","url":"pilot-repair.html?skill=canonical-reception","reason":"Trace how a source is received into a new setting or practice."},
+{"id":"conceptual-claim","skills":["identify-conceptual-claim","thought-argument","thought-comparison"],"title":"Rebuild conceptual reading","url":"pilot-repair.html?skill=identify-conceptual-claim","reason":"Distinguish a topic from a source-grounded claim and reason."},
+{"id":"historical-context","skills":["historical-context","history-context","history-audience"],"title":"Rebuild historical context","url":"pilot-repair.html?skill=historical-context","reason":"Locate speaker, audience, setting, and purpose before comparing sources."},
+{"id":"comparison","skills":["comparative-reading","responsibility-comparison"],"title":"Rebuild comparison","url":"canon-transfer.html","reason":"Practice naming connection and difference without flattening sources."}
+]}

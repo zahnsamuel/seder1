@@ -1,0 +1,72 @@
+{
+  "version": "1.0.0",
+  "title": "Hebrew and Aramaic for reading",
+  "principle": "Language is learned as a reading instrument: every form should help a learner make a better move in a real source.",
+  "stages": [
+    {
+      "id": "language-orientation",
+      "title": "Orient to the page",
+      "skillId": "hebrew-page-orientation",
+      "goal": "Recognize Hebrew direction, common marks, and the difference between a name, a question, and a source signal.",
+      "mastery": "Correctly classify three page signals in two separate source contexts.",
+      "sourceForms": ["Mishnah opening", "short Torah phrase"],
+      "items": [
+        {"kind":"PAGE ORIENTATION","hebrew":"מֵאֵימָתַי","transliteration":"me-eimatai — from when?","source":"Mishnah Berakhot 1:1 begins with this word.","prompt":"What should a reader expect after this word?","answers":["A question about a starting point in time.","A final ruling without an argument.","The name of a sage."],"correct":0},
+        {"kind":"PAGE ORIENTATION","hebrew":"וַיֹּאמֶר","transliteration":"vayomer — and he said","source":"Torah narratives commonly use this verb before speech.","prompt":"What is its basic job?","answers":["It introduces speech by a speaker.","It challenges a legal claim.","It ends a discussion."],"correct":0},
+        {"kind":"PAGE ORIENTATION","hebrew":"תָּנָא","transliteration":"tanna — a teaching was taught","source":"Gemara uses this signal when bringing a tannaitic teaching.","prompt":"What should you look for next?","answers":["A cited teaching that can clarify or test the discussion.","A page number.","A personal instruction to the learner."],"correct":0}
+      ]
+    },
+    {
+      "id": "question-and-source-signals",
+      "title": "Hear the argument signals",
+      "skillId": "hebrew-question-words",
+      "goal": "Recognize the small words that tell you a sugya is asking, citing, or objecting.",
+      "mastery": "Predict the next move after a signal in an unfamiliar mini-source.",
+      "sourceForms": ["Berakhot", "Eruvin", "Sukkah"],
+      "items": [
+        {"kind":"QUESTION SIGNAL","hebrew":"מַאי","transliteration":"mai — what? / what is the meaning?","source":"Gemara often stops and asks this about a word or statement.","prompt":"What reading move is being requested?","answers":["Clarify what a word or claim means.","Skip to the practical ruling.","Identify a new tractate."],"correct":0},
+        {"kind":"SOURCE SIGNAL","hebrew":"דִּכְתִיב","transliteration":"dikhtiv — as it is written","source":"A verse is about to enter the discussion as evidence.","prompt":"What should a reader expect next?","answers":["A biblical text used as evidence.","An unrelated story.","The final conclusion."],"correct":0},
+        {"kind":"OBJECTION SIGNAL","hebrew":"מֵיתִיבֵי","transliteration":"meitivei — they raise an objection","source":"A source puts pressure on an earlier claim.","prompt":"What is the source doing here?","answers":["Testing whether the preceding claim can stand.","Repeating the same claim for emphasis.","Naming a speaker."],"correct":0}
+      ]
+    },
+    {
+      "id": "phrase-templates",
+      "title": "Read reusable phrase templates",
+      "skillId": "rabbinic-phrase-recognition",
+      "goal": "Treat high-frequency phrases as meaningful units rather than isolated letters.",
+      "mastery": "Identify the argumentative job of a phrase before opening its translation.",
+      "sourceForms": ["baraita", "proof text", "distinction"],
+      "items": [
+        {"kind":"EVIDENCE PHRASE","hebrew":"תָּא שְׁמַע","transliteration":"ta shema — come and hear","source":"Gemara invites a source into the question under discussion.","prompt":"What is this phrase asking the reader to do?","answers":["Examine a source as possible evidence.","Stop the discussion.","Translate a word into another language."],"correct":0},
+        {"kind":"RESOLUTION PHRASE","hebrew":"לָא קַשְׁיָא","transliteration":"la kashya — it is not difficult","source":"A distinction may resolve an apparent conflict.","prompt":"What should you look for after this phrase?","answers":["A reason the two sources can both be true.","A completely new topic.","A list of names."],"correct":0},
+        {"kind":"INFERENCE PHRASE","hebrew":"שְׁמַע מִינָּהּ","transliteration":"shema minah — learn from it","source":"The discussion draws an inference from what has been established.","prompt":"What is happening now?","answers":["A conclusion is being drawn from the source.","A question about time is beginning.","A word is being pronounced."],"correct":0}
+      ]
+    },
+    {
+      "id": "sentence-roles",
+      "title": "Locate roles in a sentence",
+      "skillId": "sentence-role-mapping",
+      "goal": "Find the actor, action, object, and connector before attempting a polished translation.",
+      "mastery": "Give a role-map for two short Hebrew or Aramaic sentences.",
+      "sourceForms": ["Mishnah rule", "Gemara response"],
+      "items": [
+        {"kind":"SENTENCE ROLE","hebrew":"אָמַר רַבִּי","transliteration":"amar rabbi — Rabbi said","source":"A common attribution frame in rabbinic literature.","prompt":"Which role does the final word fill?","answers":["The speaker whose statement follows.","The object being discussed.","The source of an objection."],"correct":0},
+        {"kind":"SENTENCE ROLE","hebrew":"הָכִי קָאָמַר","transliteration":"hakhi ka'amar — this is what it means","source":"A Gemara response reframes how to read an earlier statement.","prompt":"What is the response doing?","answers":["Explaining the intended meaning of an earlier statement.","Introducing a biblical verse.","Ending all debate."],"correct":0},
+        {"kind":"CONNECTOR","hebrew":"אֶלָּא","transliteration":"ella — rather / but","source":"A compact turn in the line of reasoning.","prompt":"What should the reader watch for?","answers":["A correction or redirection in the argument.","A new speaker's name.","A date in the calendar."],"correct":0}
+      ]
+    },
+    {
+      "id": "applied-aramaic-reading",
+      "title": "Read an unfamiliar mini-sugya",
+      "skillId": "aramean-question-particles",
+      "goal": "Use signals, phrase templates, and sentence roles to make a first independent map of a short passage.",
+      "mastery": "Label a question, source, and answer move in an unfamiliar passage, then use translation to check rather than replace the map.",
+      "sourceForms": ["unseen Gemara mini-source", "cross-tractate review"],
+      "items": [
+        {"kind":"ARAMAIC QUESTION","hebrew":"אִיבַּעְיָא לְהוּ","transliteration":"ibaya lehu — they raised a question","source":"The Gemara introduces a focused inquiry for examination.","prompt":"What should a learner expect after this phrase?","answers":["A question that needs investigation.","A settled practical ruling.","A title for the tractate."],"correct":0},
+        {"kind":"RETURN SIGNAL","hebrew":"גּוּפָא","transliteration":"gufa — returning to the statement itself","source":"After a detour, the Gemara returns to study an earlier teaching.","prompt":"How should this change your map of the sugya?","answers":["Reconnect the present line to an earlier statement.","Assume the topic has changed completely.","Ignore the next source."],"correct":0},
+        {"kind":"RESPONSIBLE READING","hebrew":"קַשְׁיָא","transliteration":"kashya — a difficulty remains","source":"Some tensions remain open or require more study.","prompt":"What is the responsible move?","answers":["Keep the difficulty visible; do not pretend it has been solved.","Treat it as a personal legal ruling.","Skip directly to the next tractate."],"correct":0}
+      ]
+    }
+  ]
+}

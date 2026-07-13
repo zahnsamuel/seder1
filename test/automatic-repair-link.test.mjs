@@ -1,0 +1,2 @@
+import test from 'node:test'; import assert from 'node:assert/strict'; import { readFile } from 'node:fs/promises';
+test('lesson feedback automatically exposes the adaptive repair path after uncertainty', async () => { const source = await readFile(new URL('../seder-auth.js', import.meta.url), 'utf8'); assert.match(source, /enableAdaptiveRepairLinks/); assert.match(source, /mastery-loop\.html/); assert.match(source, /not yet\|almost/i); });

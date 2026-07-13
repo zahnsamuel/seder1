@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0",
+  "principle": "A tractate skill is revisited as guided mapping, deliberate practice, and a fresh-source transfer—not merely repeated as a quiz.",
+  "sequences": [
+    {"tractate":"berakhot","packets":[["1","Map the opening question","daf-workbench.html?tractate=berakhot"],["2","Trace a cited teaching and disagreement","berakhot-unit-5.html"],["3","Try an unfamiliar sugya","gemara-unseen-check.html"]]},
+    {"tractate":"shabbat","packets":[["1","Map people, domains, and action","flagship-daf-workbench.html?tractate=shabbat"],["2","Follow a topic shift and its reason","shabbat-arc.html"],["3","Try an unfamiliar sugya","gemara-unseen-check.html"]]},
+    {"tractate":"pesachim","packets":[["1","Map the contested opening word","flagship-daf-workbench.html?tractate=pesachim"],["2","Set a limit on open-ended concern","pesachim-arc.html"],["3","Try an unfamiliar sugya","gemara-unseen-check.html"]]},
+    {"tractate":"eruvin","packets":[["1","Map case, measure, and reason","flagship-daf-workbench.html?tractate=eruvin"],["2","Compare a boundary dispute","eruvin-arc.html"],["3","Try an unfamiliar sugya","gemara-unseen-check.html"]]},
+    {"tractate":"sukkah","packets":[["1","Map validity and proof text","flagship-daf-workbench.html?tractate=sukkah"],["2","Trace measure through purpose","sukkah-arc.html"],["3","Try an unfamiliar sugya","gemara-unseen-check.html"]]},
+    {"tractate":"yoma","packets":[["1","Map procedure, concern, and proof text","yoma-daf-workbench.html"],["2","Trace precaution, limit, and proof text","yoma-arc.html"],["3","Try an unfamiliar sugya","gemara-unseen-check.html"]]},
+    {"tractate":"bava","packets":[["1","Map competing claims","flagship-daf-workbench.html?tractate=bava-metzia"],["2","Test evidence and response","bava-metzia-arc.html"],["3","Try an unfamiliar sugya","gemara-unseen-check.html"]]},
+    {"tractate":"bava-kamma","packets":[["1","Map categories and distinctions","flagship-daf-workbench.html?tractate=bava-kamma"],["2","Trace category and shared principle","bava-kamma-arc.html"],["3","Try an unfamiliar sugya","gemara-unseen-check.html"]]}
+  ]
+}

@@ -1,0 +1,12 @@
+{"terms":[
+{"id":"hear","domain":"Torah & Tefillah","term":"שמע","meaning":"hear","job":"Calls a listener to attend; in Shema it begins a direct address.","prompt":"Type the English meaning of שמע.","accepted":["hear","listen"]},
+{"id":"bless","domain":"Halakha & Tefillah","term":"וברכת","meaning":"and you shall bless","job":"Names blessing as a response to receiving and being satisfied.","prompt":"Type the core action named by וברכת.","accepted":["bless","blessing"]},
+{"id":"heart","domain":"Torah & Thought","term":"לבבך","meaning":"your heart","job":"Signals inward attention or understanding, often joined to action.","prompt":"Type the body-word in לבבך.","accepted":["heart"]},
+{"id":"source","domain":"Halakha","term":"מקור","meaning":"source","job":"The text or tradition from which a later claim or practice is traced.","prompt":"Type the English meaning of מקור.","accepted":["source"]},
+{"id":"reasoning","domain":"Halakha & Gemara","term":"סברה","meaning":"reasoning","job":"A line of inference, distinct from a direct citation.","prompt":"Type the English meaning of סברה.","accepted":["reasoning","reason"]},
+{"id":"claim","domain":"Jewish Thought","term":"טענה","meaning":"claim","job":"A statement that says something interpretable and can be supported with reasons.","prompt":"Type the English meaning of טענה.","accepted":["claim"]},
+{"id":"concept","domain":"Jewish Thought","term":"מושג","meaning":"concept","job":"A defined idea that guides an interpretation or argument.","prompt":"Type the English meaning of מושג.","accepted":["concept"]},
+{"id":"community","domain":"History","term":"קהילה","meaning":"community","job":"A group whose institutions, practices, and setting shape how texts are lived.","prompt":"Type the English meaning of קהילה.","accepted":["community"]},
+{"id":"memory","domain":"History","term":"זכרון","meaning":"memory","job":"Evidence about how a community remembers as well as what it says occurred.","prompt":"Type the English meaning of זכרון.","accepted":["memory"]},
+{"id":"difference","domain":"Wider World","term":"הבדל","meaning":"difference","job":"The part of comparison that prevents two traditions or texts from being flattened together.","prompt":"Type the English meaning of הבדל.","accepted":["difference"]}
+]}

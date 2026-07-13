@@ -1,0 +1,1 @@
+.seder-typed{display:flex;gap:9px}.seder-typed input{flex:1;padding:14px 15px;border:1px solid #d8d0bd;background:#fff;color:#17231f;font:16px Georgia,serif}.seder-typed button{border:0;background:#1e4d43;color:#fff;padding:14px 16px;cursor:pointer;font:700 13px Arial,sans-serif}.seder-typed button:disabled{opacity:.5}@media(max-width:550px){.seder-typed{flex-direction:column}}

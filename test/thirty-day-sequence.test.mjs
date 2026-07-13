@@ -1,0 +1,2 @@
+import test from 'node:test'; import assert from 'node:assert/strict'; import { readFile } from 'node:fs/promises';
+test('first month intentionally interleaves Gemara, wider canon, retrieval, transfer, and review', async () => { const source = await readFile(new URL('../thirty-day.js', import.meta.url), 'utf8'); for (const text of ['tractate-mastery.html?tractate=berakhot','independent-reading.html','weekly-review.html','mastery-loop.html','sugya-notebook.html']) assert.match(source, new RegExp(text.replace(/[.?]/g, '\\$&'))); assert.match(source, /30 days opened/); });

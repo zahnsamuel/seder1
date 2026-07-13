@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "principle": "Every canon domain follows the same serious rhythm: encounter the full source, demonstrate a reading move, then use it in an unfamiliar source.",
+  "sequences": [
+    {"id":"torah","title":"Torah and covenant","guided":["Read a full source","source-reader.html?collection=covenant"],"practice":["Practice verse, voice, and interpretation","canon-practice-lab.html"],"transfer":["Read an unfamiliar Torah source","independent-reading.html"]},
+    {"id":"tefillah","title":"Tefillah","guided":["Read the Amidah in full lines","source-reader.html?collection=amidah"],"practice":["Practice praise, petition, and thanks","canon-practice-lab.html"],"transfer":["Read an unfamiliar prayer source","independent-reading.html"]},
+    {"id":"halakha","title":"Halakha","guided":["Trace blessing from Torah into practice","source-reader.html?collection=blessings"],"practice":["Practice a bounded source chain","canon-practice-lab.html"],"transfer":["Read an unfamiliar practice source","independent-reading.html"]},
+    {"id":"thought","title":"Jewish Thought","guided":["Read freedom and agency in source","source-reader.html?collection=freedom"],"practice":["Practice claims, terms, and disagreements","canon-practice-lab.html"],"transfer":["Read an unfamiliar conceptual source","independent-reading.html"]},
+    {"id":"history","title":"History and wider world","guided":["Read a source in its historical setting","source-reader.html?collection=exile"],"practice":["Practice context, audience, and institution","canon-practice-lab.html"],"transfer":["Read an unfamiliar historical source","independent-reading.html"]},
+    {"id":"character","title":"Mussar and Chassidus","guided":["Read responsibility and joy in source","source-reader.html?collection=responsibility"],"practice":["Practice careful moral application","canon-practice-lab.html"],"transfer":["Read an unfamiliar ethical source","independent-reading.html"]},
+    {"id":"wider-world","title":"Judaism and the wider world","guided":["Read community and setting in source","source-reader.html?collection=exile"],"practice":["Practice responsible comparison","canon-practice-lab.html"],"transfer":["Read an unfamiliar contextual source","independent-reading.html"]}
+  ]
+}

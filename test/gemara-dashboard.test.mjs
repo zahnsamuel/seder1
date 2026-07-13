@@ -1,0 +1,2 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';
+test('mastery map exposes a learner-facing Gemara dashboard',async()=>{const source=await readFile('mastery.js','utf8');for(const phrase of ['YOUR GEMARA DASHBOARD','Gemara Foundations','Civil Reasoning','Reviews due','gemara-foundations.html','civil-reasoning.html'])assert.match(source,new RegExp(phrase.replace(/[.?]/g,'\\$&')))});

@@ -1,0 +1,20 @@
+{
+  "version": "1.0.0",
+  "purpose": "A production contract for learner-facing source encounters. It protects accuracy, context, and the difference between study and personal ruling.",
+  "required": ["id", "reference", "primaryText", "translation", "genre", "learnerLevel", "learningObjective", "prerequisiteSkillIds", "languageSupport", "context", "assessment", "safetyBoundary", "review"],
+  "fields": {
+    "reference": "Exact work, chapter, folio, or section; a stable primary-text link where available.",
+    "primaryText": "Quoted Hebrew/Aramaic text, its edition or source, and any editorial normalization.",
+    "translation": "Plain-English translation tagged as literal, guided, or paraphrase; paraphrase must be marked.",
+    "genre": "Torah, Mishnah, Gemara, prayer, halakhic code, philosophy, history, or ethical text.",
+    "learnerLevel": "The assumed reading and conceptual background required for this encounter.",
+    "learningObjective": "One observable reading or reasoning move, not a vague topic label.",
+    "prerequisiteSkillIds": "Skill-graph IDs required to make the intended move.",
+    "languageSupport": "Glosses, transliteration policy, grammar note, and an accessible translation path.",
+    "context": "Speaker, setting, source relationship, and interpretive limits needed for a fair reading.",
+    "assessment": "One defensible best answer, rationale, plausible misconceptions, and a transfer or retrieval prompt.",
+    "safetyBoundary": "States when the encounter explains a text rather than gives personal halakhic, medical, or pastoral advice.",
+    "review": "Second source context, retrieval date or trigger, reviewer initials, and review status."
+  },
+  "releaseGates": ["primary-text-verified", "translation-checked", "context-checked", "assessment-reviewed", "accessibility-checked", "safety-boundary-checked"]
+}
