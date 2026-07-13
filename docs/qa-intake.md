@@ -1274,3 +1274,33 @@ Note for Codex on return: your 14 .cmd batch scripts are committed (spent — do
 re-run; they would create empty commits or unwanted pushes). Item 0 is complete. The
 remaining open items from the assignment are Supabase verification (needs Sam) and the
 optional skill-graph registration.
+
+
+## 2026-07-13 — Claude: new-learner dry run — P0 front-door bug found and fixed
+
+Walked the full funnel as a brand-new learner (fresh learner id, cleared localStorage):
+seder.html landing (clean, onboarding visible, coherent CTAs, no console errors) ->
+placement (completes, hands off correctly) -> integrated-path.html eight-week journey
+(week 1 Berakhot open, weeks 2-8 locked, correct gating) -> berakhot-arc (stage 1 open,
+rest locked) -> language.html first lesson.
+
+P0 FOUND: language.js answer() referenced `item.source`, but `item` was scoped inside
+render() — every answer click threw "Uncaught ReferenceError: item is not defined"
+mid-handler. The button got colored (that line ran first), then the handler died: no
+answer_submitted event ever posted (no XP, no mastery, no review scheduling from this
+page), feedback never rendered, Continue never enabled. Every new learner was hard-stuck
+on the first lesson of week one unless they reloaded. Reproduced deliberately (error
+captured, feedback empty, continue disabled), fixed by passing `item` through the click
+handler into answer() (and renaming the shadowing forEach param that camouflaged the
+bug), verified live: no errors, feedback renders, Continue enables, event recorded,
++10 XP. Swept all 8 files sharing the answer(button, ...) pattern — level-review.js and
+review.js pass item correctly; language.js was the only instance.
+
+FRICTION FIXED: daily-router's date-rotation fallback recommended "Ketubot" to a day-one
+learner (the rotation is level-blind). Added a brand-new branch: learners with zero
+completed stages are routed to integrated-path.html ("Continue your first week") instead
+of the rotating tractate cycle. Verified live: fresh learner now sees the journey.
+
+Suite 151/151. This is the strongest argument yet for the dry-run habit: the bug was
+invisible to the test suite (which checks file patterns and data, not DOM click paths)
+and sat on the single most-traveled page of the funnel.
