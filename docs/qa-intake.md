@@ -1224,3 +1224,15 @@ renders, correct primary + at most one lateral); suite 142/142.
   Ahavat Yisrael, Amidah, Psalm 23, and connected retrieval/independent-reading sessions.
 - Each card names a concrete source and its matching reading move; weekly days retain the
   required unfamiliar-source transfer map. Added citation coverage to the Academy tests.
+
+## 2026-07-13 — Codex: third-month source-specific evidence
+
+- Added dedicated Academy evidence cards for Days 61–90, completing the full 90-day path.
+  The final month moves from durable retrieval into unfamiliar Gemara, a Bava Kamma return,
+  Chanukah disagreement, Cairo Geniza and comparative-reading evidence, source-map practice,
+  portfolio reflection, and a deliberate next mastery horizon.
+- Verified the named classical references used in this month against Sefaria and added
+  regression coverage for the new evidence bank. Weekly transfer days retain their required
+  learner-authored source map, so completion continues to require demonstrated reading rather
+  than attendance.
+- Verification: full suite passes, 151 tests / 0 failures.
