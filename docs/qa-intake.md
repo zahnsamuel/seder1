@@ -650,3 +650,44 @@ topology decision) coordinated with Sam.
 Still open in this pass: real continuations for history-arc.js / widerworld-arc.js
 (their nextUrl currently points at canon-arc.html?track=..., which re-teaches the same
 Jeremiah 29:7 material — flagged as dead-end, replacement units are the next work item).
+
+
+## 2026-07-12 — Claude: second foundations for History and Wider World (beef-up pass, part 2)
+
+Closed the dead-end flagged in part 1: history-arc.js and widerworld-arc.js pointed their
+nextUrl at canon-arc.html?track=..., which re-teaches near-identical Jeremiah 29:7 material.
+Both now route to genuine second units that apply the first arc's abstract method to real
+primary sources.
+
+- history-yavneh.js/.html — the destruction of the Temple and founding of Yavneh as a
+  worked historical case: Gittin 55b (aKamtza uVar Kamtza — memory-claim vs chronicle),
+  Bavli redaction context (locate the voice), Gittin 56b "ten li Yavneh v'chachameha"
+  (foundation story), Josephus's rival self-attributed Vespasian prediction (comparing
+  accounts), Mishnah Rosh Hashanah 4:1 "mishecharav... hitkin" (legal source as
+  institutional evidence — different evidence-genre than narrative), Avot d'Rabbi Natan 4
+  + Hosea 6:6 (meaning rebuilt; reception as a dated historical event), and a historical-
+  judgment step (neither credulity nor dismissal). All sources verified via web search.
+  nextUrl: lab.html?tractate=gittin (lab confirmed present).
+
+- widerworld-encounter.js/.html — the tradition's own primary-source charters of
+  encounter: Eicha Rabbah 2:13 (chochma bagoyim ta'amin / Torah bagoyim al ta'amin —
+  verified), Nedarim 28a dina d'malkhuta dina with its limits (monetary matters,
+  equitable application — verified; Shmuel, 3rd c. Babylonia setting as the History move),
+  Rambam intro to Shemonah Perakim "accept the truth from whoever says it" plus his
+  stated practice of omitting attributions so true ideas would not be rejected (verified —
+  encounter as lived strategy, not slogan). Closing comparison: three genres, one
+  question, each opening + bounding. nextUrl: lab.html?tractate=nedarim (lab confirmed).
+
+nextUrl rewires (1-line diffs each, confirmed clean before staging): history-arc.js,
+widerworld-arc.js. Grep confirms zero remaining references to
+canon-arc.html?track=history|widerworld — those two canon-arc.js data tracks are now
+unreachable except by direct URL. Left in place (harmless, and canon-arc still serves
+chassidus/mussar tracks); Codex may delete the two stale track objects at leisure.
+
+Verification: both pages live-tested (10/10 steps render, RTL ok, structural check zero
+issues on all 20 steps, shuffle observed live — widerworld first step rendered order
+[1,0,2] — correct click credits +10 XP and enables Continue). Test suite: 121/121 pass
+(note: run from repo root; running node --test from elsewhere silently finds 0 tests).
+
+All five single-arc subjects now have a genuine second foundation. Every non-Gemara track
+ends in either a deeper companion unit or a Gemara lab — no more self-referential loops.
