@@ -111,6 +111,12 @@ export async function nextJourneyRecommendation(root, learner) {
 // Client-side locks are useful guidance, but completion is checked here as well so
 // a deep link cannot skip the source evidence and prerequisite canon moments.
 export async function canMasterJourneyStage(root, learner, stageId) {
+  const academyDay = /^academy-day-(\d{1,2})$/.exec(stageId || '');
+  if (academyDay) {
+    const day = Number(academyDay[1]);
+    const correctContexts = new Set((learner.events || []).filter((event) => event.correct && (event.type === 'answer_submitted' || event.type === 'source_annotation') && event.sourceContext).map((event) => event.sourceContext));
+    return day >= 1 && day <= 90 && [1, 2].every((check) => correctContexts.has(`academy day ${day} check ${check}`));
+  }
   const journey = await canonJourney(root);
   const phase = phases.find((item) => checkpointStage(item) === stageId);
   if (phase) return journey.sessions.slice(phase.start, phase.end + 1).every((session) => (learner.completedStages || []).includes(session.stageId));

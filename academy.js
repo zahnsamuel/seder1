@@ -42,22 +42,24 @@ const phases = phaseSeeds.map(([title, start, end, copy, link, milestone, skills
 const openedKey = `seder-90-day-${learnerId}`;
 const opened = new Set(JSON.parse(localStorage.getItem(openedKey) || localStorage.getItem(`seder-30-day-${learnerId}`) || '[]'));
 function hasEvidence(learner, phase) { return Object.entries(learner.mastery || {}).filter(([id, score]) => score >= .34 && phase.skills.some((prefix) => id.startsWith(prefix))).length >= 2; }
-function currentDay() { const first = [...Array(plan.length).keys()].find((index) => !opened.has(index + 1)); return first === undefined ? plan.length : first + 1; }
+function dayStage(day) { return `academy-day-${day}`; }
+function currentDay(completedStages) { const first = [...Array(plan.length).keys()].find((index) => !completedStages.has(dayStage(index + 1))); return first === undefined ? plan.length : first + 1; }
 function openDay(day) { opened.add(day); localStorage.setItem(openedKey, JSON.stringify([...opened])); Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'daily_program_opened', day }) }).catch(() => {}); }
 function phaseForDay(day) { return phases.find((phase) => day >= phase.start && day <= phase.end) || phases.at(-1); }
 function whyNext(day) { return day <= 30 ? 'The first month establishes orientation, argument maps, purpose, and transfer.' : day <= 60 ? 'The second month carries those habits across Shas and into source chains, community, and comparison.' : 'The third month turns evidence, retrieval, and independent source work into a durable practice.'; }
 
 Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? response.json() : null).then((learner) => {
-  const day = currentDay(), [title, url] = plan[day - 1];
+  const completedStages = new Set(learner?.completedStages || []);
+  const day = currentDay(completedStages), [title, url] = plan[day - 1];
   $('#xp').textContent = `${learner?.xp || 0} XP`;
   $('#placement').innerHTML = learner?.placement?.completedAt ? '<b>Starting point saved.</b> Your source evidence—not this placement alone—will determine what becomes secure.' : '<b>Choose a starting point first.</b> A short placement lets Seder begin at your actual reading level. <a href="placement.html">Take placement →</a>';
-  $('#todayCard').innerHTML = `<small>DAY ${day} OF ${plan.length} · ${opened.size} SESSIONS OPENED</small><h2>${title}</h2><p>${whyNext(day)}</p><p class="why-next"><b>Why this is next:</b> ${phaseForDay(day).milestone}</p><a id="openToday" href="${url}">Begin today’s source →</a>`;
+  $('#todayCard').innerHTML = `<small>DAY ${day} OF ${plan.length} · ${completedStages.size} MASTERY MARKERS</small><h2>${title}</h2><p>${whyNext(day)}</p><p class="why-next"><b>Why this is next:</b> ${phaseForDay(day).milestone}</p><div class="today-actions"><a id="openToday" href="${url}">1. Study today’s source →</a><a class="prove" href="academy-evidence.html?day=${day}">2. Demonstrate today’s move →</a></div><small class="mastery-note">Tomorrow opens after two source checks are correct. On Day 7, 14, and each weekly boundary, one check is an unfamiliar-source transfer.</small>`;
   $('#openToday').addEventListener('click', () => openDay(day));
   const currentMonth = Math.min(2, Math.floor((day - 1) / 30));
   $('#monthNav').innerHTML = ['Month 1 · Foundations', 'Month 2 · Deepening', 'Month 3 · Independence'].map((title, index) => `<article class="${index < currentMonth ? 'complete' : index === currentMonth ? 'current' : ''}"><small>${index < currentMonth ? '✓ COMPLETE' : index === currentMonth ? 'YOUR MONTH' : 'AHEAD'}</small><strong>${title}</strong><span>Days ${index * 30 + 1}–${(index + 1) * 30}</span></article>`).join('');
   $('#dayMap').innerHTML = plan.slice(currentMonth * 30, currentMonth * 30 + 30).map(([sessionTitle, sessionUrl], monthIndex) => {
-    const sessionDay = currentMonth * 30 + monthIndex + 1, isOpened = opened.has(sessionDay), isCurrent = sessionDay === day && !isOpened, isAvailable = isOpened || isCurrent, state = isOpened ? 'opened' : isCurrent ? 'current' : 'upcoming', label = isOpened ? 'Resume' : isCurrent ? 'Begin' : 'Later';
-    return `<li class="${state}"><span>DAY ${sessionDay}</span><strong>${sessionTitle}</strong><small>${phaseForDay(sessionDay).title}</small>${isAvailable ? `<a href="${sessionUrl}" data-day="${sessionDay}">${label} →</a>` : '<em>Unlocks in sequence</em>'}</li>`;
+    const isComplete = completedStages.has(dayStage(sessionDay)), isOpened = opened.has(sessionDay), isCurrent = sessionDay === day && !isComplete, isAvailable = isComplete || isCurrent, state = isComplete ? 'done' : isCurrent ? 'current' : isOpened ? 'studied' : 'upcoming', label = isComplete ? 'Revisit' : isCurrent ? 'Study source' : 'Later';
+    return `<li class="${state}"><span>DAY ${sessionDay}</span><strong>${sessionTitle}</strong><small>${isComplete ? 'MASTERY EVIDENCE RECORDED' : phaseForDay(sessionDay).title}</small>${isAvailable ? `<a href="${sessionUrl}" data-day="${sessionDay}">${label} →</a>${isCurrent ? `<a class="prove-link" href="academy-evidence.html?day=${sessionDay}">Demonstrate move →</a>` : ''}` : '<em>Unlocks after today’s evidence</em>'}</li>`;
   }).join('');
   document.querySelectorAll('#dayMap a[data-day]').forEach((link) => link.addEventListener('click', () => openDay(Number(link.dataset.day))));
   $('#milestones').innerHTML = phases.map((phase, index) => `<article class="milestone ${hasEvidence(learner || {}, phase) ? 'ready' : ''}"><small>${hasEvidence(learner || {}, phase) ? 'EVIDENCE GROWING' : `MILESTONE ${index + 1}`}</small><h3>${phase.title}</h3><p>${phase.milestone}</p></article>`).join('');

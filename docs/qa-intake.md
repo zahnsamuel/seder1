@@ -1174,3 +1174,14 @@ renders, correct primary + at most one lateral); suite 142/142.
   progress migrates forward into the 90-day program automatically.
 - Verified every Academy route exists locally and updated the Academy regression contract.
   Verification: full suite passes, 149 tests / 0 failures.
+
+## 2026-07-13 — Codex: Academy mastery gates
+
+- Replaced attendance-based Academy advancement with daily mastery markers. Opening a source
+  now records study activity only; the following day remains locked until the learner earns
+  two correct, source-grounded checks for the current day.
+- Added a dedicated daily evidence page with shuffled answers, retry after an incorrect
+  response, XP/evidence recording, and an unfamiliar-source transfer check every seventh day.
+- Enforced the gate server-side: direct requests to mark `academy-day-1` through
+  `academy-day-90` complete are rejected unless both expected correct evidence contexts are
+  already present. Verification: full suite passes, 151 tests / 0 failures.
