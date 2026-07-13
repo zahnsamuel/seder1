@@ -1339,3 +1339,27 @@ Remaining waves (see content-standard.md): Wave 1 batch 2 = Berakhot chain
 needs reading before editing; Wave 2 = distractor rewrites (~500 questions, retires the
 length-bias exploit, highest-traffic first); Wave 3 = lab deepening (27 labs, 3 -> 6+
 steps with typed + boundaries).
+
+
+## 2026-07-13 — Claude: Wave 1 complete — every reachable unit now has a production check
+
+Batch 2 appended typed recall steps to the nine remaining zero-production units, all
+Codex-authored, each read before editing, each typed target drawn from the unit's own
+verified Hebrew: berakhot-deep (me-eimatai korin et shema b'arvin), berakhot-unit-2
+(tahar yoma), berakhot-unit-3 (ta shema), berakhot-unit-4 (korin et shema),
+berakhot-unit-5 (meitivei), grammar (b'arvin), gemara-toolkit (ela), shas-literacy-
+checkpoint (shtayim shehen arba), philosophy.js (v'yadata hayom — Deut 4:39, the
+unit's own anchor).
+
+Audit movement: berakhot-unit-3/5 and philosophy 4 -> 7; unit-2/4 and grammar -> 8;
+berakhot-deep -> 9; shas-literacy-checkpoint -> 10 (first perfect score in the corpus).
+Post-Wave-1 distribution: {3:26, 4:7, 5:4, 6:6, 7:36, 8:10, 9:1, 10:1} — the 26 threes
+are the labs (Wave 3), the sevens are dominated by the length-bias dimension (Wave 2).
+The only remaining zero-typed unit is canon-arc, which is unreachable (no inbound
+links) and intentionally skipped.
+
+Verification: 9/9 node --check; berakhot-deep live end-to-end (10 steps incl. typed,
+all credited, completion renders); suite 151/151.
+
+Wave 2 begins next: distractor rewrites, highest-traffic first (berakhot chain, first
+arcs, canon courses). The auditor's longest-bias column is the progress meter.
