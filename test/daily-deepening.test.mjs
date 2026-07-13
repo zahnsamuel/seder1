@@ -16,7 +16,10 @@ const expectedPairs = [
   ['chassidus-joy-awe-arc', 'chassidus-arc.js', 'chassidus-ahavat-yisrael-arc', 'chassidus-ahavat-yisrael.js', 'chassidus-ahavat-yisrael.html'],
   ['history-community-arc', 'history-arc.js', 'history-yavneh-arc', 'history-yavneh.js', 'history-yavneh.html'],
   ['widerworld-law-reason-arc', 'widerworld-arc.js', 'widerworld-encounter-arc', 'widerworld-encounter.js', 'widerworld-encounter.html'],
-  ['jewish-thought-question-atlas', 'philosophy-questions.js', 'jewish-thought-suffering', 'thought-suffering.js', 'thought-suffering.html']
+  ['jewish-thought-question-atlas', 'philosophy-questions.js', 'jewish-thought-suffering', 'thought-suffering.js', 'thought-suffering.html'],
+  ['halakha-honor-parents-arc', 'halakha-honor-parents.js', 'halakha-machloket-arc', 'halakha-machloket.js', 'halakha-machloket.html'],
+  ['tefillah-kaddish-arc', 'tefillah-kaddish.js', 'tefillah-amidah-arc', 'tefillah-amidah.js', 'tefillah-amidah.html'],
+  ['mussar-truth-arc', 'mussar-truth.js', 'mussar-anger-arc', 'mussar-anger.js', 'mussar-anger.html']
 ];
 
 test('daily router deepening map matches the stage IDs the unit files declare', async () => {

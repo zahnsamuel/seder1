@@ -23,7 +23,10 @@ const deepenings = [
   ['chassidus-joy-awe-arc', 'chassidus-ahavat-yisrael-arc', 'Chassidus: read love of a fellow as a gateway', 'chassidus-ahavat-yisrael.html'],
   ['history-community-arc', 'history-yavneh-arc', 'History: work your questions on the year 70 and Yavneh', 'history-yavneh.html'],
   ['widerworld-law-reason-arc', 'widerworld-encounter-arc', 'Wider World: read the tradition’s own charters of encounter', 'widerworld-encounter.html'],
-  ['jewish-thought-question-atlas', 'jewish-thought-suffering', 'Jewish Thought: hold three voices on suffering', 'thought-suffering.html']
+  ['jewish-thought-question-atlas', 'jewish-thought-suffering', 'Jewish Thought: hold three voices on suffering', 'thought-suffering.html'],
+  ['halakha-honor-parents-arc', 'halakha-machloket-arc', 'Halakha: read the dispute both sides won', 'halakha-machloket.html'],
+  ['tefillah-kaddish-arc', 'tefillah-amidah-arc', 'Tefillah: enter the Amidah, arranged at Yavneh', 'tefillah-amidah.html'],
+  ['mussar-truth-arc', 'mussar-anger-arc', 'Mussar: the trait the middle path refuses to balance', 'mussar-anger.html']
 ];
 
 Promise.all([
