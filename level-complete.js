@@ -39,6 +39,7 @@ Promise.all([
   document.querySelector('#record').textContent = `${established} level skill${established === 1 ? '' : 's'} now have recorded mastery evidence. Return to them when review is due.`;
   const nextTitle = document.querySelector('#next-title');
   const begin = document.querySelector('#begin');
+  document.querySelector('#review').href = `level-review.html?level=${requestedLevel}`;
   if (level.next) {
     nextTitle.textContent = `Level ${requestedLevel + 1} · ${level.next}`;
     document.querySelector('#next-description').textContent = level.description;

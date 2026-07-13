@@ -38,6 +38,40 @@ const advancedCheckpoint = [
   ['What is the evidence of a durable reading habit?', ['You can use it on a new source while naming what the new source changes.', 'You remember one familiar answer.', 'You skip the source after recognizing its topic.'], 0],
   ['What makes independent source study responsible?', ['A clear map, evidence from the text, honest uncertainty, and an appropriate next question or resource.', 'A final conclusion without reading.', 'Treating study support as personal guidance.'], 0]
 ];
+const advancedPrompts = {
+  'phase-9': [
+    ['Berakhot 2a opens with a question about the Mishnah’s opening. Before solving it, what signal matters most?', ['The opening assumes a context the Gemara wants to recover.', 'The first word must be a final ruling.', 'The page is only asking for vocabulary.'], 0],
+    ['A prayer blessing begins “Blessed are You.” What is the first reading question?', ['What form of address and function this language performs.', 'Which later custom automatically follows.', 'How to turn it into a Gemara objection.'], 0]
+  ],
+  'phase-10': [
+    ['Two people hold one garment in Bava Metzia. What must your first source map keep separate?', ['The shared object, each claim, and the procedure that follows.', 'The claims, because they are automatically proof.', 'The later ruling, without the case.'], 0],
+    ['A Mishnah gives a measurement for an alleyway or sukkah. What makes the number meaningful?', ['Its object, stated condition, response, and reason.', 'Its numerical size alone.', 'Its resemblance to an unrelated measure.'], 0]
+  ],
+  'phase-11': [
+    ['A Gemara introduces a verse after making a claim. What question distinguishes evidence from assertion?', ['What claim the verse is being asked to support or clarify.', 'Whether the verse sounds familiar.', 'Whether a conclusion can be chosen before reading it.'], 0],
+    ['A historical text describes a community’s response to pressure. What can it be evidence for?', ['Both an event and the way that community remembered or framed it.', 'A neutral camera with no viewpoint.', 'A timeless rule without context.'], 0]
+  ],
+  'phase-12': [
+    ['An answer says two cases are not alike. What has it supplied?', ['A relevant distinction that limits the objection.', 'A refusal to answer the question.', 'Proof that categories never matter.'], 0],
+    ['Two thinkers use the word “freedom” differently. What should you map?', ['Each definition, supporting source, and the consequence of the difference.', 'Only which thinker is more familiar.', 'A single definition that makes them agree.'], 0]
+  ],
+  'phase-13': [
+    ['A Torah verse appears in the Siddur and later halakhic discussion. What does responsible reception preserve?', ['The verse’s original setting and each later role it takes on.', 'Only the newest use of the verse.', 'Only a translation detached from all contexts.'], 0],
+    ['Why trace a source through several later forms?', ['To see how a tradition receives and specifies a source without erasing earlier voices.', 'To replace the original source entirely.', 'To avoid reading the intervening sources.'], 0]
+  ],
+  'phase-14': [
+    ['What makes a comparison between a Jewish and another philosophical source responsible?', ['A shared question, each source’s setting, and a precise similarity and difference.', 'A stereotype about each tradition.', 'The assumption that resemblance erases difference.'], 0],
+    ['Two sources use the same image but for different purposes. What should a reader conclude first?', ['Shared language may still serve different claims and contexts.', 'They must teach exactly the same thing.', 'Neither source needs close reading.'], 0]
+  ],
+  'phase-15': [
+    ['You have mapped a Gemara case before. What shows the habit has transferred to a new source?', ['You use the map while naming what the new source changes.', 'You repeat an old answer without looking.', 'You assume every source has the same structure.'], 0],
+    ['A source feels familiar but you cannot explain its line of reasoning. What is the best next move?', ['Retrieve the case, claim, evidence, and uncertainty before continuing.', 'Claim mastery from recognition.', 'Skip the source for a conclusion.'], 0]
+  ],
+  'phase-16': [
+    ['What belongs in a responsible independent source map?', ['The source’s kind, its claim or move, textual evidence, and one honest uncertainty.', 'Only a personal reaction.', 'A final ruling without a map.'], 0],
+    ['After an unfamiliar source, how should a learner choose the next move?', ['Use the evidence to decide between retrieval, a new source, repair, or further guidance.', 'Choose whichever lesson is shortest.', 'Treat uncertainty as a reason to stop learning.'], 0]
+  ]
+};
 let phase, answered = 0, correct = 0;
 const checkpointSkills = { 'phase-1': 'mishnah-orientation', 'phase-2': 'canonical-reception', 'phase-3': 'challenge-and-answer', 'phase-4': 'independent-sugya-reading', 'phase-5': 'canonical-reception', 'phase-6': 'bava-kamma-independent-map', 'phase-7': 'comparative-reading', 'phase-8': 'independent-sugya-reading' };
 const levelCompletionByFinalPhase = { 'phase-2': 1, 'phase-4': 2, 'phase-6': 3, 'phase-8': 4, 'phase-10': 5, 'phase-12': 6, 'phase-14': 7, 'phase-16': 8 };
@@ -46,7 +80,7 @@ Promise.all([Seder.api(`/api/learners/${learnerId}/journey`).then((r) => r.json(
   phase = journey.phases.find((item) => item.id === phaseId) || journey.nextCheckpoint;
   if (!phase?.checkpointReady) { location.href = 'journey.html'; return; }
   document.querySelector('#title').textContent = `${phase.title}: demonstrate the connection.`;
-  const questions = prompts[phase.id] || advancedCheckpoint;
+  const questions = prompts[phase.id] || advancedPrompts[phase.id] || advancedCheckpoint;
   document.querySelector('#questions').innerHTML = questions.map(([prompt, choices], questionIndex) => `<article><b>CHECK ${questionIndex + 1}</b><h2>${prompt}</h2><div>${shuffle(choices).map(({ text, originalIndex }) => `<button data-question="${questionIndex}" data-choice="${originalIndex}">${text}</button>`).join('')}</div></article>`).join('');
   document.querySelectorAll('#questions button').forEach((button) => button.addEventListener('click', () => {
     const questionIndex = Number(button.dataset.question); if (button.parentElement.dataset.done) return; button.parentElement.dataset.done = 'true';

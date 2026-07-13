@@ -1151,3 +1151,14 @@ renders, correct primary + at most one lateral); suite 142/142.
   level resolves into continued independent practice rather than inventing a ninth level.
 - Added a regression test for all eight final checkpoint routes and the completion-screen
   evidence/next-action contract. Verification: full suite passes, 148 tests / 0 failures.
+
+## 2026-07-13 — Codex: advanced-level retrieval and source-specific checkpoints
+
+- Replaced the former generic checkpoint prompts for Levels 5–8 with level-specific
+  assessments of signals, cases, evidence, distinctions, reception, comparison, transfer,
+  and independent source navigation.
+- Added a three-move level retrieval screen from each completion handoff. It selects the
+  learner's least-secure recorded skills from that level, credits new source evidence, and
+  returns the learner to the journey without turning review into a punitive gate.
+- Added regression coverage for the targeted retrieval route and advanced checkpoint
+  coverage. Verification: full suite passes, 149 tests / 0 failures.
