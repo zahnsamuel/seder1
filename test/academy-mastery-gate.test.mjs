@@ -25,5 +25,7 @@ test('academy makes daily source evidence, rather than opening a link, the unloc
   assert.match(evidence, /academy day \$\{day\} check/);
   assert.match(evidence, /stage_mastered/);
   assert.match(evidence, /academy-source-maps/);
+  assert.match(evidence, /const firstMonth = \[/);
+  for (const citation of ['Berakhot 2a', 'Pesachim 2a', 'Eruvin 2a', 'Bava Metzia 2a', 'Bava Kamma 2a', 'Mishnah Sukkah 1:1']) assert.match(evidence, new RegExp(citation.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   assert.match(html, /EARN TOMORROW/);
 });

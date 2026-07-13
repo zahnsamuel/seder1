@@ -1196,3 +1196,13 @@ renders, correct primary + at most one lateral); suite 142/142.
 - The Study Record now displays Academy days earned and weekly Academy source maps, so the
   learner can see an accumulating portfolio rather than a mere attendance count.
 - Verification: full suite passes, 151 tests / 0 failures.
+
+## 2026-07-13 — Codex: first-month source-specific evidence
+
+- Replaced the rotating generic prompt for Academy Days 1–30 with a dedicated evidence
+  card for each day. Cards now name the day’s exact text or study protocol and assess the
+  corresponding reading move across Gemara, Torah, prayer, ethics, history, and comparison.
+- Weekly transfer checks now show a fresh related-source cue rather than relabeling the
+  original prompt, so the learner must carry the move into a new setting.
+- Added regression coverage for the first-month evidence bank’s flagship Gemara citations.
+  Verification: full suite passes, 151 tests / 0 failures.
