@@ -47,6 +47,38 @@ const firstMonth = [
   ['Canon connection', 'תּוֹרָה · תַּלְמוּד · תְּפִלָּה · מַעֲשֶׂה', 'canonical-reception', 'What is the first sequence for a new Jewish source?', 'Name its form and context, read its language, then trace its connections.'],
   ['Independent synthesis', 'חֲזָרָה · בֵּירוּר · הַשְׁוָאָה · הַדְרָכָה', 'independent-sugya-reading', 'How should a learner choose the next study move?', 'Use evidence to decide between retrieval, a new source, repair, or further guidance.']
 ].map(([citation, hebrew, skill, prompt, answer]) => ({ citation, hebrew, skill, prompt, answer }));
+const thirdMonth = [
+  ['Cairo Geniza study protocol', 'זִכָּרוֹן · עֵדוּת · רְאָיָה', 'historical-context', 'What must an archive reader ask first?', 'What this source is evidence for, whose voice it preserves, and what remains uncertain.'],
+  ['Maimonides, Deot 1:4', 'הַדֶּרֶךְ הַיְשָׁרָה', 'define-conceptual-term', 'What makes a conceptual term usable?', 'A precise definition and evidence for how the source uses it.'],
+  ['Bava Kamma 2a return', 'לֹא הֲרֵי הַשּׁוֹר', 'bava-kamma-independent-map', 'What does returning to a source test?', 'Whether the distinction and shared principle can be explained from the text.'],
+  ['Ninety-day retrieval', 'חֲזָרָה · רְאָיָה', 'source-signals', 'Why retrieve a source move after time has passed?', 'To make it available in a new context rather than merely familiar.'],
+  ['Gemara continuation', 'סוּגְיָא · מַסֶּכֶת · חֲזָרָה', 'independent-sugya-reading', 'What should choose the next tractate move?', 'Evidence of what is secure, uncertain, or ready for transfer.'],
+  ['Unfamiliar Gemara source', 'מֵיתִיבֵי · לָא קַשְׁיָא', 'challenge-and-answer', 'What should you find before evaluating an answer?', 'The earlier claim or case that the objection pressures.'],
+  ['Shabbat 21b', 'מַעֲלִין בַּקֹּדֶשׁ וְאֵין מוֹרִידִין', 'canonical-reception', 'What distinguishes two reasons for one practice?', 'The explanatory principle each reason supplies and the pattern it clarifies.'],
+  ['Canon connection protocol', 'מָקוֹר · הֶקְשֵׁר · טַעַן · נִימוּק', 'comparative-reading', 'What makes a cross-canon connection serious?', 'A shared question and a source-grounded difference in purpose or claim.'],
+  ['Study record', 'מַפָּה · חֲזָרָה · שְׁאֵלָה', 'independent-sugya-reading', 'What belongs in a learner portfolio?', 'Source maps, demonstrated moves, reviews due, and an honest next question.'],
+  ['Independent synthesis', 'מָקוֹר חָדָשׁ · טַעַן · רְאָיָה', 'independent-sugya-reading', 'What proves independent source reading?', 'A map supported by textual evidence and a named uncertainty.'],
+  ['Vocabulary retrieval', 'קֻשְׁיָא · תֵּרוּץ · רְאָיָה', 'challenge-and-answer', 'What is vocabulary retrieval for?', 'Using the words to identify an argument’s moves in a new source.'],
+  ['Tractate continuation', 'מִשְׁנָה · גְּמָרָא', 'mishnah-orientation', 'What is a disciplined way to enter a new tractate?', 'Map its first case before deciding what later discussion will prove.'],
+  ['Pirkei Avot 2:5 return', 'הִשְׁתַּדֵּל לִהְיוֹת אִישׁ', 'conceptual-application', 'What keeps ethical study serious?', 'A source, a real tension, and a modest practice rather than a slogan.'],
+  ['Weekly durability review', 'חֲזָרָה · בֵּירוּר', 'source-signals', 'What does a durable review ask?', 'Can you use the move again without relying on the original screen.'],
+  ['Sugya notebook', 'שְׁאֵלָה · רְאָיָה · קֻשְׁיָא · תֵּרוּץ', 'independent-sugya-reading', 'What should a notebook reveal?', 'How every line advances the argument and what remains to be checked.'],
+  ['Gemara unseen check', 'מַעֲשֶׂה · טַעֲנָה · רְאָיָה', 'independent-sugya-reading', 'What is the strongest first move with an unseen case?', 'Name its people or object, condition, open question, and evidence.'],
+  ['Freedom source connection', 'וְיָדַעְתָּ הַיּוֹם', 'identify-conceptual-claim', 'What should a learner compare between sources on freedom?', 'Their precise claims, terms, reasons, and contexts.'],
+  ['Long-term canon map', 'תּוֹרָה · תַּלְמוּד · תְּפִלָּה · מַעֲשֶׂה', 'canonical-reception', 'What does one integrated canon path preserve?', 'Connections between forms without treating their genres as identical.'],
+  ['Review calendar', 'חֲזָרָה · זְמַן · זִכָּרוֹן', 'source-signals', 'Why return to a due source move?', 'Retrieval makes evidence durable and reveals what needs repair.'],
+  ['Next ninety days', 'שְׁאֵלָה · הַדְרָכָה', 'independent-sugya-reading', 'How should a learner set the next horizon?', 'Choose a question and source path from recorded evidence, not novelty alone.'],
+  ['Geniza evidence return', 'עֵדוּת · פֵּרוּשׁ', 'historical-context', 'What distinction protects historical reasoning?', 'Evidence of an event is not identical to a later interpretation of it.'],
+  ['Comparison: the mean', 'מִדָּה · אֶמְצַע · הֶקְשֵׁר', 'comparative-reading', 'What prevents a comparison from flattening sources?', 'State the shared structure and the different foundations or aims.'],
+  ['Bava Kamma transfer', 'כְּלָל · חִלּוּק', 'bava-kamma-independent-map', 'What does a transferred category require?', 'Test whether the new case shares the relevant structure and where it differs.'],
+  ['Portfolio retrieval', 'מַפָּה · רְאָיָה · חֲזָרָה', 'independent-sugya-reading', 'What does a portfolio let a learner see?', 'What has been demonstrated, what is fading, and the next responsible move.'],
+  ['Independent source map', 'מָקוֹר · הֶקְשֵׁר · טַעַן', 'independent-sugya-reading', 'What must precede a personal reaction?', 'A map of the source’s own claim, evidence, and context.'],
+  ['Chanukah disagreement return', 'אֵלּוּ וָאֵלּוּ', 'canonical-reception', 'What does a machloket ask you to preserve?', 'Distinct reasons and source chains before a practical conclusion.'],
+  ['Unseen-source transfer', 'מַפָּה מוּכֶּרֶת · מָקוֹר חָדָשׁ', 'independent-sugya-reading', 'What is evidence of transfer?', 'Using a familiar move while naming the new source’s particular features.'],
+  ['Synthesis reflection', 'טַעַן · נִימוּק · שְׁאֵלָה', 'sourceReasoning', 'What makes a reflection accountable?', 'It names a claim, the source evidence, and a question that remains open.'],
+  ['Canon journey', 'תּוֹרָה · תַּלְמוּד · מַחֲשָׁבָה', 'canonical-reception', 'What is the learner ready to do after ninety days?', 'Enter a new source with a map, evidence, uncertainty, and a deliberate next move.'],
+  ['Next mastery horizon', 'חֲזָרָה · הַשְׁוָאָה · הַדְרָכָה', 'independent-sugya-reading', 'What is mastery at this stage?', 'Responsible independent navigation that still knows when to retrieve, compare, or seek guidance.']
+].map(([citation, hebrew, skill, prompt, answer]) => ({ citation, hebrew, skill, prompt, answer }));
 const secondMonth = [
   ['Berakhot 2a: opening question', 'תַּנָּא הֵיכָא קָאֵי', 'gemara-context-question', 'What does this Gemara question make you recover?', 'The prior context that makes the Mishnah’s opening question intelligible.'],
   ['Genesis 22:1', 'וְהָאֱלֹהִים נִסָּה אֶת אַבְרָהָם', 'define-conceptual-term', 'Why clarify the word “test” before interpreting the narrative?', 'Different definitions create different questions about the same source.'],
@@ -80,7 +112,7 @@ const secondMonth = [
   ['Source-map reflection', 'מַעֲשֶׂה · טַעַן · נִימוּק', 'independent-sugya-reading', 'What should a reflection add to a source map?', 'What the source established, what evidence supports it, and a next question.']
 ].map(([citation, hebrew, skill, prompt, answer]) => ({ citation, hebrew, skill, prompt, answer }));
 const weeklyTransfer = { citation: 'Fresh related source', hebrew: 'מָקוֹר חָדָשׁ · שְׁאֵלָה מוּכֶּרֶת', prompt: 'You meet a related source in a different genre. What proves a reading habit has transferred?', answer: 'Use the same reading move while naming what is genuinely different in the new source.' };
-const item = day <= 30 ? firstMonth[day - 1] : day <= 60 ? secondMonth[day - 31] : bank[(day - 1) % bank.length];
+const item = day <= 30 ? firstMonth[day - 1] : day <= 60 ? secondMonth[day - 31] : thirdMonth[day - 61];
 const questions = day % 7 === 0 ? [item, { ...item, ...weeklyTransfer, skill: 'independent-sugya-reading' }] : [item, { ...item, prompt: `Before drawing a conclusion from ${item.citation}, what must you do?`, answer: item.answer }];
 let index = 0;
 const shuffle = (choices) => choices.map((text, originalIndex) => ({ text, originalIndex })).sort(() => Math.random() - .5);
