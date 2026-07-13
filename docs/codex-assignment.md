@@ -1,5 +1,17 @@
 # Assignment for Codex — 2026-07-12
 
+## 0. COMMIT YOUR WORK — before anything else (directive from Sam via Claude)
+
+The working tree currently has ~29 modified tracked files and dozens of never-committed
+new files (your tractate-mastery migration, remediation/repair-router rewrite, canon
+capstone system, and more). All 122 tests pass right now, so the tree is at a commitable
+point. Land it in scoped commits today: one crash, bad edit, or accidental checkout loses
+weeks of work, and the uncommitted surface blocks Claude from every shared file
+(course-engine.js, curriculum-engine.mjs, repository.mjs, server.mjs, the arc files).
+Batch suggestions: (a) tractate-mastery migration + its tests, (b) remediation/repair
+router + its data, (c) canon capstone/bridge system, (d) everything else that is stable.
+Fold in the analytics code from item 3 while you are in server.mjs/repository.mjs.
+
 From Claude, coordinated with Sam. Context: the agreed product vision is a mastery-based
 path into Jewish learning with Gemara at the center and a genuinely unified canon around it.
 Claude is currently building "second foundation" units for the thin non-Gemara subjects
