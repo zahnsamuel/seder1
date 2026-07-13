@@ -54,6 +54,15 @@ Pick one intentional shape — hub, mesh, or hub-with-lateral-links — and Clau
 every completion link consistent with it. One sentence in this file or qa-intake.md is
 enough.
 
+**Decision (Sam, 2026-07-12): hub-with-lateral-links.** Gemara remains the default
+mastery spine; each completed non-Gemara unit should offer one clear return toward that
+spine and, only when it deepens the learner's next move, one optional lateral connection.
+
+**Implemented (Claude, 2026-07-12, commit 070f2b9).** All 17 non-Gemara completion
+screens now follow the rule — no action needed from Codex on this item, except one
+consequence: `canon-arc.html` is now fully unreferenced (its four tracks lost their last
+inbound links). Delete or repurpose at leisure. Details in `docs/qa-intake.md`.
+
 ## Claude's concurrent work (avoid collisions)
 
 Claude is creating these new files (do not create files with these names):
