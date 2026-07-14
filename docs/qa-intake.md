@@ -1549,3 +1549,38 @@ Scores: machloket 7 -> 10, amidah 7 -> 9, anger 7 -> 8 (its remaining audit flag
 sensitive-topic heuristic tripping on the unit id; the reflection and case steps carry
 the responsible-learning weight by design). Corpus: fifteen 10s, 7s down to 21.
 Verification: 3/3 node --check, mussar-anger live end-to-end, suite 151/151.
+
+
+## 2026-07-13 — Claude: Wave 3 begins — the unit-to-lab cliff, Kiddushin and Gittin first
+
+Highest-value call: the eight new units send learners into tractate labs as their PRIMARY
+next step, and those labs were the thinnest content in the app (3 steps, audit score 3).
+A learner finishing the polished Machloket unit landed on three taps. Wave 3 deepens the
+six destination labs first; this batch: kiddushin and gittin.
+
+- gittin lab 3 -> 6 steps: the existing step already taught Rava's reason (witness
+  availability); the extension completes the sugya's famous machloket — Rabbah's lishmah
+  concern (verified: Gittin 2a, "lefi she'ein bekiin lishmah"), a TWO REASONS ONE LAW
+  step on what a machloket about reasons (not rules) produces (edge-case outcomes; the
+  Gemara later has Rabbah accept Rava's concern and add his own — verified), and a
+  READ BACKWARD transfer step naming the lab's remedy-to-risk method explicitly.
+
+- kiddushin lab 3 -> 7 steps: completes the Mishnah's own structure (the three methods
+  b'chesef bishtar uv'viah; the two exits b'get uv'mitat habaal), adds the chapter-1 vs
+  chapter-2 language shift (ha'isha niknit vs ha'ish mekadesh — acquisition-language vs
+  consecration-language, verified as the Gemara's own discussion), and the kicha-kicha
+  gezeira shava from the field of Ephron (verified) — which also gives the gezeira shava
+  a second live appearance after gemara-middot. TRACE THE SOURCE feedback explicitly
+  blocks the wife-equals-field misreading.
+
+Both labs keep KEEP THE BOUNDARY as the final step (marriage/divorce sensitivity).
+Parity pass applied to the original steps' short distractors in the same batch.
+Scores 3 -> 6 each; the remaining gap to 8+ is structural — lab.js has no typed-step
+support, so no lab can currently earn the production points. That engine extension
+(mirroring course-engine's typed flow, one change benefiting all 36 labs) is the next
+Wave 3 investment, before the remaining four destination labs (nedarim, sotah, megillah,
+rosh-hashanah).
+
+Verification: JSON valid, boundary-last confirmed programmatically for both labs,
+kiddushin lab live end-to-end (7 lines on the working Daf, all steps credit, completion
+reached), suite 151/151.
