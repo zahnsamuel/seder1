@@ -25,6 +25,12 @@ test('every tractate on the Shas map has a concrete, source-linked entry experie
     assert.ok(lab.steps.length >= 3, `${tractate.title} needs at least orientation, a reading move, and transfer-ready practice`);
     for (const step of lab.steps) {
       assert.ok(step.hebrew && step.translation && step.prompt && step.feedback, `${tractate.title} has an incomplete source step`);
+      if (step.typed) {
+        // Typed production steps (lab.js renderTypedStep) carry an acceptable-answers
+        // list instead of multiple-choice options.
+        assert.ok(Array.isArray(step.acceptable) && step.acceptable.length >= 1, `${tractate.title} has a typed step without acceptable answers`);
+        continue;
+      }
       assert.ok(step.answers.length >= 3, `${tractate.title} needs plausible answer choices`);
       assert.ok(step.correct >= 0 && step.correct < step.answers.length, `${tractate.title} has an invalid answer key`);
     }
