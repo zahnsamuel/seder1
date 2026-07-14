@@ -1517,3 +1517,35 @@ diagnostic clauses (never filler), taking kaddish to 0/9 and 10/10.
 
 Scores: kaddish 7 -> 10, akeidah 7 -> 8, honor-parents 7 -> 8. Corpus: fourteen 10s,
 7s down to 23. Verification: 3/3 node --check, kaddish live end-to-end, suite 151/151.
+
+
+## 2026-07-13 — Claude: Wave 2 batch 6 — third foundations (Machloket, Amidah, Anger)
+
+~27 questions rewritten at length-parity from the start (batch-5 lesson applied — no
+follow-up pass needed). The diagnostics lean on adjacent-source confusions:
+
+- halakha-machloket: the three-year-dispute step tempts with "arguing for the honor of
+  victory" (Avot 5:17 says the opposite of these very houses) and "must wait for heaven"
+  (halakha is not in heaven — the Akhnai theme, which the feedback flags as coming);
+  the why-question step tempts with the actual lo-bashamayim challenge, explicitly
+  distinguished from this sugya's merit-question; elu-v'elu tempts with the
+  accuracy-reading and community-choice readings the line itself refuses; Eduyot step's
+  original draft distractor was replaced — "useful to a future court seeking to
+  overturn" is close to the Mishnah's own stated answer, so it was dropped for
+  procedural and vindication misreadings instead (accuracy outranks difficulty,
+  second application of the precedent).
+- tefillah-amidah: centrality step tempts with age-claim and obligation-claim readings
+  of "THE prayer"; the Yavneh step tempts with over-proceduralized authority and
+  memorial-composition readings; keva step tempts with a fabricated Eliezer-vs-Yavneh
+  dispute and an eras-distinction — both resolving the tension the Mishnah means to
+  leave standing; the personal-prayer step tempts with deficiency and margins readings.
+- mussar-anger: escalation step tempts with the literalist juridical reading (the text
+  says "in your eyes," not in court) and property-to-violence (the road runs to
+  surrender of will, hence idolatry); display-permission tempts with catharsis and
+  role-exemption — two modern-tempting misreadings; Avot 4:1 tempts with
+  calm-temperament-as-strength (kovesh means conquest, honoring struggle).
+
+Scores: machloket 7 -> 10, amidah 7 -> 9, anger 7 -> 8 (its remaining audit flag is the
+sensitive-topic heuristic tripping on the unit id; the reflection and case steps carry
+the responsible-learning weight by design). Corpus: fifteen 10s, 7s down to 21.
+Verification: 3/3 node --check, mussar-anger live end-to-end, suite 151/151.
