@@ -1419,3 +1419,39 @@ Verification: 4/4 node --check, berakhot-unit-4 live end-to-end, suite 151/151.
 
 Wave 2 continues: first arcs next (halakha/chumash/tefillah/mussar/chassidus/history/
 widerworld + second/third foundations), then canon courses, then remaining Gemara arcs.
+
+
+## 2026-07-13 — Claude: Wave 2 batch 3 — all six first arcs rewritten
+
+Diagnostic-distractor rewrites for the six non-Gemara entry arcs (~48 questions):
+halakha-arc, chumash-arc, tefillah-arc, mussar-arc, history-arc, widerworld-arc.
+Correct answers unchanged; every "obviously wrong" distractor replaced with a
+subject-appropriate near-miss. Highlights:
+
+- halakha-arc: Torah-verse step now tempts with "a fixed formula" and "a category
+  system" — exactly what the later layers add, testing whether the learner can keep the
+  layers apart; case-reasoning tempts with closest-match-in-the-codes and
+  always-follow-the-stricter, two real bad habits.
+- chumash-arc: v'ahavta tempts with promise/description readings (love-as-feeling);
+  reception steps tempt with "the Gemara supplies the clock times" and "the Mishnah
+  glosses word-by-word" — plausible category errors about what each layer does.
+- tefillah-arc: each liturgical-move step now tempts with the OTHER two moves applied to
+  the same theme (praise/petition/thanks confusions); modim feedback notes the same root
+  carries confession elsewhere.
+- mussar-arc: reflection step tempts with "resolve to try harder" and "balance against
+  recent successes to keep a score" — the two most common substitutes for actual Mussar
+  practice; tension step tempts with shyness-as-humility.
+- history-arc: memory step tempts with eyewitness-beats-later-account (proximity
+  fallacy) and facts-first-interpretation-later; comparison tempts with harmonization.
+- widerworld-arc: order-of-comparison step now offers two wrong ORDERS (line-by-line
+  first; shared-question first) — the method itself is the content being tested.
+
+Boundary steps in halakha/tefillah now tempt with self-psak ("provide the sources so
+learners reach their own rulings") and avoidance ("keep practical topics out") — the two
+opposite ways of erasing the boundary, replacing cartoon distractors.
+
+Audit: halakha/chumash/tefillah/widerworld 10/10; mussar/history 9 (residual flags are
+long-correct-answer artifacts; distractors substantive). Corpus: twelve 10s,
+distribution {3:26, 4:7, 5:4, 6:6, 7:29, 8:5, 9:2, 10:12}. Verification: 6/6 node
+--check; tefillah-arc live end-to-end (10 steps, typed fires, completion + lateral
+render); suite 151/151.
