@@ -43,6 +43,7 @@ function render() {
   $('#continue').disabled = true;
   $('#continue').textContent = index === lab.steps.length - 1 ? 'Complete lab →' : 'Continue to next line →';
   const answers = $('#answers'); answers.innerHTML = '';
+  if (step.typed) { renderTypedStep(step, answers); return; }
   step.answers.map((text, answerIndex) => ({ text, answerIndex })).sort(() => Math.random() - .5).forEach(({ text, answerIndex }) => {
     const button = document.createElement('button'); button.type = 'button'; button.textContent = text;
     button.addEventListener('click', () => {
@@ -63,6 +64,39 @@ function render() {
     });
     answers.appendChild(button);
   });
+}
+
+// Typed production steps: recall beats recognition. Mirrors course-engine.js's typed
+// flow; the expected answer is revealed after submission because the lab advances
+// forward (no retry loop, so no copy exploit).
+function normalizeTyped(text) { return String(text || '').trim().toLowerCase().replace(/[.,!?;:'"“”’]/g, ''); }
+function renderTypedStep(step, container) {
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'display:flex;gap:9px;margin-top:2px;';
+  const input = document.createElement('input');
+  input.type = 'text'; input.autocomplete = 'off'; input.spellcheck = false; input.placeholder = 'Type your answer…'; input.setAttribute('aria-label', 'Typed answer');
+  input.style.cssText = 'flex:1;padding:14px 15px;border:1px solid #d1d8d3;background:#fff;color:#273b43;font:500 14px Inter,Arial,sans-serif;';
+  const submit = document.createElement('button');
+  submit.type = 'button'; submit.textContent = 'Check answer';
+  submit.style.cssText = 'padding:14px 18px;border:0;background:#183b4e;color:#fff;font:600 14px Inter,Arial,sans-serif;cursor:pointer;';
+  const trigger = () => {
+    if (answered || !input.value.trim()) return;
+    answered = true;
+    const value = normalizeTyped(input.value);
+    const correct = (step.acceptable || []).some((candidate) => normalizeTyped(candidate) === value);
+    input.disabled = true; submit.disabled = true;
+    input.style.background = correct ? '#e0efe4' : '#f8e6e1';
+    if (correct) document.querySelector('.daf-line.selected')?.classList.add('solved');
+    xp += correct ? 10 : 5; updateXp(); celebrateXp();
+    const hint = correct ? '' : ` The expected answer was “${(step.acceptable || [''])[0]}.”`;
+    $('#feedback').textContent = `${correct ? '+10 XP. ' : '+5 XP. '}${step.feedback}${hint}`;
+    $('#continue').disabled = false;
+    Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'answer_submitted', skillId: `lab-${lab.id}-typed`, competency: 'translation', correct, sourceContext: lab.ref }) }).then((response) => response.ok ? response.json() : null).then((learner) => { if (learner) { xp = learner.xp; updateXp(); } }).catch(() => {});
+  };
+  submit.addEventListener('click', trigger);
+  input.addEventListener('keydown', (event) => { if (event.key === 'Enter') { event.preventDefault(); trigger(); } });
+  wrap.appendChild(input); wrap.appendChild(submit); container.appendChild(wrap);
+  setTimeout(() => input.focus(), 0);
 }
 
 $('#translate').addEventListener('click', () => { translationsVisible = !translationsVisible; $('#translate').textContent = translationsVisible ? 'Hide translation' : 'Show translation'; $('#translation-drawer').hidden = !translationsVisible; });

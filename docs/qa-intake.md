@@ -1584,3 +1584,26 @@ rosh-hashanah).
 Verification: JSON valid, boundary-last confirmed programmatically for both labs,
 kiddushin lab live end-to-end (7 lines on the working Daf, all steps credit, completion
 reached), suite 151/151.
+
+
+## 2026-07-13 — Claude: lab engine gains typed production steps; both deepened labs past bar
+
+- lab.js: added typed-step support mirroring course-engine.js — renderTypedStep with
+  normalize/compare against an acceptable list, Enter-key submit, XP + event POST
+  (skillId lab-<id>-typed, competency translation, sourceContext = lab ref so the
+  transfer-evidence bonus applies), daf-line solved marking. The expected answer IS
+  revealed on a miss here (unlike canon-course production gates) because labs advance
+  forward with no retry loop — no copy exploit exists. One engine change; all 36 labs
+  can now carry production checks.
+
+- kiddushin + gittin labs each gained a PRODUCTION CHECK step (typed recall of the lab's
+  own anchor line: ha'isha niknit b'shalosh drachim; b'fanai nichtav uv'fanai nechtam),
+  placed before the KEEP THE BOUNDARY step, which stays last.
+
+Audit: kiddushin lab 3 -> 9, gittin lab 3 -> 8 — the first labs past the done-bar.
+Verification: node --check clean, JSON valid, gittin lab live end-to-end in the browser
+including the new typed flow (7/7 credit, typed step accepts, continue enables,
+boundary last), suite 151/151.
+
+Remaining Wave 3 destinations: nedarim, sotah, megillah, rosh-hashanah (same treatment:
++3-4 verified sugya steps + typed + parity). Then the 21 non-destination labs in batches.
