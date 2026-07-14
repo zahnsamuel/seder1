@@ -1455,3 +1455,36 @@ long-correct-answer artifacts; distractors substantive). Corpus: twelve 10s,
 distribution {3:26, 4:7, 5:4, 6:6, 7:29, 8:5, 9:2, 10:12}. Verification: 6/6 node
 --check; tefillah-arc live end-to-end (10 steps, typed fires, completion + lateral
 render); suite 151/151.
+
+
+## 2026-07-13 — Claude: Wave 2 batch 4 — flagship Gemara arcs (Shabbat, Bava Metzia, Bava Kamma)
+
+Diagnostic-distractor rewrites for the three most-traveled tractate arcs (~28 questions).
+Legal content demanded extra care that near-misses stay WRONG while sounding learned:
+
+- shabbat-arc (10/10 bias -> 1/10, score 10): domains step tempts with ownership and
+  permitted/forbidden readings of inside/outside; the barber-Mishnah step tempts with
+  "applies the domains framework to the barbershop" and "introduces the exception" —
+  plausible continuity readings against the real topic-shift; Shabbat 9b reason step
+  tempts with dignity-of-the-hour and runs-into-Shabbat — plausible guessed reasons vs
+  the Gemara's stated one (lest he forget to pray). Transfer step now tests
+  skill-transfer vs label-transfer (carrying inside/outside to Eruvin is the trap).
+
+- bava-metzia-arc (7/8 -> 2/8, score 9): opening tempts with partnership-division and
+  finder-vs-owner abandonment (both live nearby in the tractate, neither is this case);
+  two-claims step tempts with "someone must be lying" — which the Gemara itself refuses;
+  mai-taama step reframed: the Gemara asks why to map a ruling's reach, not to discredit
+  it. Transfer step distinguishes carrying a habit from carrying conclusions.
+
+- bava-kamma-arc (8/9 -> 2/9, score 9): avot term tempts with severity-ranking and
+  sage-attribution; the counting distractor is honest — feedback notes the Gemara really
+  does meet 13-category teachings later; Torah-source step tempts with "laws in one
+  verse" and "narratives" (mishpatim are scattered laws); the claims-vs-categories
+  transfer step now offers the exact inverse order as the trap.
+
+Care taken to avoid arguably-correct distractors: dropped a draft "avot = written
+explicitly in the Torah" distractor because Bava Kamma 2a makes that definition
+genuinely defensible.
+
+Corpus: thirteen 10s, four 9s, 7s down to 26. Verification: 3/3 node --check,
+shabbat-arc live end-to-end (11 steps incl. typed, completion renders), suite 151/151.
