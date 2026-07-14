@@ -1488,3 +1488,32 @@ genuinely defensible.
 
 Corpus: thirteen 10s, four 9s, 7s down to 26. Verification: 3/3 node --check,
 shabbat-arc live end-to-end (11 steps incl. typed, completion renders), suite 151/151.
+
+
+## 2026-07-13 — Claude: Wave 2 batch 5 — second foundations (Honor, Akeidah, Kaddish)
+
+Diagnostic-distractor rewrites for the three most-traveled second-foundation units
+(~27 questions). These units carry rich interpretive content, so the near-misses are
+subtler than the signals batches:
+
+- halakha-honor-parents: Dama ben Netina step tempts with "financial loss is the outer
+  limit" and "exceptional piety beyond the law" — the two classic misreadings of
+  narrative-as-evidence; chain-comparison tempts with "the blessings chain is the
+  standard model" and "no Mishnah stage means a weaker foundation."
+- chumash-akeidah: narrator step tempts with "reassurance that softens the story" (the
+  test-disclosure makes it heavier, not lighter); ambiguity step now offers the two
+  RESOLUTIONS as distractors — each with a reason — so holding the ambiguity must be
+  chosen against genuinely tempting closures; reception step tempts with legal
+  derivation vs detachable homily around the Gemara's own memory-language.
+- tefillah-kaddish: paradox step's best distractor is TRUE but question-dissolving
+  ("the prayer predates its mourning role" — real history that answers the wrong
+  question); minyan step tempts with witnessing-for-the-dead and substitution readings
+  against the ten-who-answer-the-mourner.
+
+Process lesson logged for future batches: write distractors at length-parity from the
+start. The first pass of this batch had substantive-but-short distractors and the
+audit's parity trigger kept firing (kaddish 8/9); a follow-up pass extended each with
+diagnostic clauses (never filler), taking kaddish to 0/9 and 10/10.
+
+Scores: kaddish 7 -> 10, akeidah 7 -> 8, honor-parents 7 -> 8. Corpus: fourteen 10s,
+7s down to 23. Verification: 3/3 node --check, kaddish live end-to-end, suite 151/151.
