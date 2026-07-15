@@ -1,5 +1,7 @@
 const learnerId = Seder.currentLearnerId();
-const requestedLevel = Number(new URLSearchParams(location.search).get('level'));
+const requestedLevelParam = new URLSearchParams(location.search).get('level');
+if (requestedLevelParam === 'foundation-term') location.replace('second-foundation-term.html');
+const requestedLevel = Number(requestedLevelParam);
 
 const levels = [
   { title: 'Foundations', phases: ['phase-1', 'phase-2'], range: [0, 9], outcomes: ['Meet a Hebrew or rabbinic source before rushing to a conclusion.', 'Name a Mishnah’s case and the question the Gemara is asking.', 'Preserve a source’s original setting while tracing its later reception.'], next: 'Gemara reader', description: 'Now enter a sugya as a sequence of case, question, evidence, objection, and response.' },
