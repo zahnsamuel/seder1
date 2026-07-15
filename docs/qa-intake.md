@@ -1,5 +1,11 @@
 # QA intake and implementation log
 
+## 2026-07-15 — Codex: Bava Metzia Foundation Block 5 and Consolidation I
+
+- Added an earned Bava Metzia loop from claims-and-evidence source work into visible Daf mapping, retrieval, Bava Metzia-specific unseen transfer, an ethics-focused Canon Connection, and a cross-canon Consolidation I.
+- Consolidation I makes non-Gemara learning part of the next move: daily retrieval, Mussar responsibility, Tefillah reading, and Chumash/Jewish Thought context work each remain explicit routes alongside the Gemara spine.
+- Checked Mishnah Bava Metzia 1:1, Bava Metzia 2a, and Leviticus 19:18 on Sefaria. The block explicitly excludes resolution of real disputes and practical legal or halakhic advice.
+
 ## 2026-07-15 — Codex: Pesachim Foundation Block 4
 
 - Added an earned Pesachim loop from the time-and-action source trail into visible Daf mapping, retrieval, Pesachim-specific unseen transfer, a Canon Connection, and Bava Metzia.
