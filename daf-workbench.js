@@ -1,6 +1,6 @@
 const learnerId=Seder.currentLearnerId();
 const sources={
-berakhot:{title:'Opening Berakhot 2a',citation:'Mishnah Berakhot 1:1 · Berakhot 2a',description:'A Mishnah asks about evening Shema. The Gemara then asks what makes that opening intelligible and grounds it in a verse.',skill:'independent-sugya-reading',lines:[
+berakhot:{title:'Opening Berakhot 2a',citation:'Mishnah Berakhot 1:1 · Berakhot 2a',description:'A Mishnah asks about evening Shema. The Gemara then asks what makes that opening intelligible and grounds it in a verse.',skill:'daf-orientation',lines:[
 {hebrew:'מֵאֵימָתַי קוֹרִין אֶת שְׁמַע בְּעַרְבִית',translation:'From when do we recite Shema in the evening?',role:'Mishnah case',clue:'מֵאֵימָתַי is a question signal: “from when?”'},
 {hebrew:'תַּנָּא הֵיכָא קָאֵי דְּקָתָנֵי מֵאֵימָתַי',translation:'On what is the tanna standing, that he teaches: “From when?”',role:'Context question',clue:'The Gemara is not answering the Mishnah yet; it asks what prior context the Mishnah assumes.'},
 {hebrew:'תַּנָּא אַקְרָא קָאֵי, דִּכְתִיב',translation:'The Mishnah relies on a verse, as it is written.',role:'Textual grounding',clue:'דִּכְתִיב signals that a biblical verse is about to enter as evidence.'},

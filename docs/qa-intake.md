@@ -1933,3 +1933,9 @@ flow was live-tested on gittin, rosh-hashanah, and chullin earlier today.
 
 Audit: bava-batra 8, yoma 8, avodah-zarah 9. Corpus floor (score 3) down to 16.
 Distribution {3:16, 4:6, 5:4, 6:1, 7:20, 8:11, 9:18, 10:15}. Suite 170/170.
+
+## 2026-07-15 — Codex: Berakhot Foundation Year Block 1
+
+- Organized Berakhot as one earned ten-session foundation block: one visible next move, completed moves available for review, and later moves locked until their prerequisite evidence is earned.
+- Corrected the block gates to use skill IDs the linked units actually record, and repaired the unit-three handoff so independent reading leads into Mishnah grammar rather than leaving the block.
+- Replaced the unseen-sugya typing field with shuffled, source-grounded choices; the learner can still demonstrate transfer without having to type an answer.
