@@ -1803,3 +1803,8 @@ production gate + capstone unlock), suite 151/151.
 - Extended the same source-based mastery loop to Ketubot, Chullin, and Niddah: source map, written comparison, shuffled transfer, retrieval, and Canon Connection.
 - The Gemara journey now has three legible learning cohorts: Foundations (Berakhot, Shabbat, Yoma), Structures / Reasons / Disputes (Ketubot, Chullin, Niddah), and the flagship legal worlds.
 - Chullin and Niddah retain explicit boundaries: learners study source architecture and do not receive practical halakhic guidance. Sefaria verification completed for Ketubot 2a, Chullin 2a, Niddah 2a, Genesis 2:18, Deuteronomy 12:21, and Leviticus 19:15.
+## 2026-07-15 — Codex: guided Gemara path and cohort gates
+
+- The Gemara dashboard now gives the learner one explicit recommended next move, with a short explanation of the reading habit it develops.
+- Tractates now open in one earned sequence: each source-transfer demonstration opens the next tractate, and a complete cohort opens the next cohort. Earlier work remains reviewable; future work is visible as upcoming rather than presented as a choice overload.
+- Each gate is tied to learner-owned source-map, second-source, and transfer evidence rather than self-reported completion.
