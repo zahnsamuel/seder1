@@ -1853,3 +1853,27 @@ production gate + capstone unlock), suite 151/151.
 
 - Added an active comparison workspace to the source-mastery room: learners select the exact Source A line that the visible Source B supports, changes, or complicates.
 - The selected line remains visually paired with the displayed second source before the learner writes their explanation.
+
+
+## 2026-07-13 -- Claude: Wave 3 batch 4 -- Bava Kamma and Chullin labs deepened
+
+Two labs whose full arcs already route learners toward them, so sources were pre-verified
+in the arcs. Each 3 -> 6-7 steps with a typed production check; distractors at parity.
+
+- bava-kamma lab 3 -> 9 (7 steps): added the lo-harei differentiation step and the
+  tzad-hashaveh shared-principle step (the arc's core moves, now on the working Daf), a
+  typed recall of "arba'ah avot nezikin", and the categories-are-not-a-verdict boundary.
+- chullin lab 3 -> 9 (6 steps): completed the hakol/chutz-mecheresh-shoteh-vekatan rule
+  with its exception and the shema-yekalkelu functional reason (competence, not identity
+  -- tied back to the honor-parents functional-category move), a typed recall of "hakol
+  shochtin", and the study-not-psak boundary framed as the middle path between self-ruling
+  and avoidance.
+
+Note: Codex is active again -- it rerouted bava-kamma-arc and bava-metzia-arc nextUrls to
+flagship-daf-workbench.html. That touches the arc JS, not data/tractate-labs.json
+(confirmed git status shows only my change to the labs file), so no collision. The labs
+remain reachable via the Shas map and daily cycle regardless of the arc reroute.
+
+Audit: both labs 3 -> 9 (length-bias 0). Corpus distribution
+{3:19, 4:6, 5:4, 6:1, 7:20, 8:9, 9:17, 10:15}. Verification: JSON valid, chullin lab live
+end-to-end incl. typed step (6/6 credit, boundary last), suite green.
