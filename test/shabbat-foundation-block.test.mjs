@@ -13,5 +13,5 @@ test('Shabbat Block 2 gives learners an earned loop from source trail through Er
   for (const route of ['shabbat-arc.html', 'flagship-daf-workbench.html?tractate=shabbat', 'lab.html?tractate=shabbat', 'gemara-unseen-check.html?block=shabbat', 'canon-connection.html?tractate=shabbat', 'eruvin-arc.html']) assert.match(source, new RegExp(route.replace(/[.?]/g, '\\$&')));
   assert.match(source, /shabbat-unseen-transfer/);
   assert.match(source, /YOUR NEXT MOVE/);
-  assert.match(engine, /'shabbat-tractate-arc':'shabbat-mastery\.html'/);
+  assert.match(engine, /'shabbat-tractate-arc':\['shabbat-mastery\.html'/);
 });

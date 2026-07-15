@@ -1949,3 +1949,8 @@ Distribution {3:16, 4:6, 5:4, 6:1, 7:20, 8:11, 9:18, 10:15}. Suite 170/170.
 
 - Added an earned learner loop after the Shabbat source trail: interactive Daf mapping, retrieval practice, unseen-sugya transfer, Canon Connection, and a clear handoff into Eruvin.
 - The loop evaluates durable learner evidence: completed stage, correct workbench/lab/transfer events, and the saved Shabbat Canon Connection artifact.
+
+## 2026-07-15 — Codex: Eruvin Foundation Block 3
+
+- Added an earned Eruvin loop from the measured case into visible Daf mapping, retrieval, an Eruvin-specific unseen transfer, Canon Connection, and Pesachim.
+- Verified the block’s cited source pages on Sefaria: Mishnah Eruvin 1:1, Mishnah Eruvin 1:2, and Eruvin 2a. The study boundary explicitly excludes real-world eruv determination.
