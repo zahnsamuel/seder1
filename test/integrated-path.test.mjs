@@ -12,7 +12,8 @@ test('eight-week journey is learner-facing, sequential, and does not confuse sel
   assert.match(source, /Evidence: \$\{evidence\}/);
   assert.match(html, /mastery evidence separate from simply opening a page/);
   assert.match(css, /\.journey:before/);
-  assert.match(legacyPath, /url=integrated-path\.html/);
+  assert.match(legacyPath, /url=berakhot-deep\.html\?entry=placement/);
+  assert.match(legacyPath, /Opening your first Gemara lesson/);
   assert.match(landing, /href="integrated-path\.html"/);
   assert.equal(path.weeks.length, 8);
   for (const week of path.weeks) {

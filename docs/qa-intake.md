@@ -1715,3 +1715,14 @@ production gate + capstone unlock), suite 151/151.
 - Aligned the placement screen and entry copy to its actual 12 source checks. Live browser
   verification reached the placement screen from the clean landing path. Full suite: 154
   tests / 0 failures.
+
+## 2026-07-14 — Codex: placement-to-Gemara handoff
+
+- Placement now hands a learner directly into the guided Berakhot 2a lesson rather than
+  pausing at a broad curriculum map. The lesson keeps the Hebrew excerpt, in-place
+  translation control, source-specific feedback, XP, and an enabled Continue action in one
+  reading flow.
+- The eight-week journey remains available from the main navigation, but the first action
+  after placement now proves the product's central promise: a beginner can begin reading a
+  real opening sugya immediately.
+- Verification: full suite, 154 tests / 0 failures.
