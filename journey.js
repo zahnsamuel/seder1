@@ -67,3 +67,5 @@ Seder.api(`/api/learners/${learnerId}/journey`).then((response) => response.ok ?
   }).join('');
   return Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? response.json() : null).then((learner) => ({ journey, learner }));
 }).then(({ journey, learner }) => { renderFocus(journey, learner); if (learner) document.querySelector('#xp').textContent = `${learner.xp || 0} XP`; }).catch(() => {});
+
+const termTwoLink=document.createElement('a');termTwoLink.href='term-two-journey.html';termTwoLink.className='journey-term-two-link';termTwoLink.textContent='Continue into Second Foundation Term →';document.querySelector('main')?.appendChild(termTwoLink);

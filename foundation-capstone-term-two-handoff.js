@@ -1,0 +1,1 @@
+new MutationObserver(()=>document.querySelectorAll('a.continue[href="level-complete.html?level=foundation-term"]').forEach(link=>{link.href='term-two-journey.html';link.textContent='Enter Second Foundation Term →'})).observe(document.body,{childList:true,subtree:true});
