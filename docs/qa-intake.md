@@ -1651,3 +1651,24 @@ rosh-hashanah 9, suite 151/151. All six destination labs now past bar; fifteen 1
   The rest of the cycle deliberately interleaves deepening, retrieval, cross-canon transfer,
   and a learner-owned record rather than splitting the learner into disconnected tracks.
 - Verification: full suite passes, 152 tests / 0 failures.
+
+
+## 2026-07-13 -- Claude: Wave 2/canon courses -- all six six-session courses to 9/9
+
+The daily router sends new learners to these six courses, and they still carried curt
+strawman distractors (A court; A named rabbi; A historical date). Rewrote all 36 sessions'
+distractors into diagnostic near-misses at length parity, correct answers unchanged;
+skills, explanations, and the typed production gates preserved. Each course's explanations
+now name the contrast the wrong answer revealed.
+
+Highlights: shema-six session 1 tempts with the individual reciter and with God-as-
+addressee (both plausible for a prayer, both wrong for a verse that addresses Israel);
+freedom-six's argument-vs-topic step tempts with a topic label and an authority appeal --
+the two things students mistake for arguments; history-six and responsibility-six tempt
+with recruiting a verse for modern policy and with flattening-by-slogan, the real failure
+modes of comparative and historical reading.
+
+Audit: all six 6 -> 9 (length-bias 0/6 each). Corpus distribution
+{3:21, 4:6, 5:4, 6:1, 7:20, 8:9, 9:15, 10:15} -- the score-6 bucket is now nearly empty.
+Verification: all five JSONs valid, history-six live end-to-end (6 rewritten sessions +
+production gate + capstone unlock), suite 151/151.
