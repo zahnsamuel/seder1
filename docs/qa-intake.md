@@ -1793,3 +1793,13 @@ production gate + capstone unlock), suite 151/151.
 - Each encounter includes readable Hebrew, guided English, a direct Sefaria source link, shuffled answers, XP-bearing source-annotation evidence, and one appropriate onward route into the wider canon. It does not provide practical legal advice.
 - The connection only appears after the learner has completed the underlying transfer work; it is not a shortcut around Gemara evidence.
 - Verification: full suite, 161 tests / 0 failures; `git diff --check` clean.
+## 2026-07-14 — Codex: second Gemara mastery cohort
+
+- Added a complete source-to-transfer evidence loop for Berakhot, Shabbat, and Yoma: visible source mapping, a typed second-source comparison, an unseen-source transfer check, scheduled retrieval, and a Canon Connection.
+- Grouped the Gemara mastery dashboard into an earned Foundations cohort followed by the flagship legal-world cohort, so learners encounter a manageable progression rather than one undifferentiated list.
+- Source links were verified on Sefaria for Berakhot 2a, Shabbat 2a, Deuteronomy 6:7, Exodus 20:9–10, and Leviticus 16:29. The Shabbat and Yoma units retain explicit study-versus-practice boundaries.
+## 2026-07-14 — Codex: third Gemara mastery cohort
+
+- Extended the same source-based mastery loop to Ketubot, Chullin, and Niddah: source map, written comparison, shuffled transfer, retrieval, and Canon Connection.
+- The Gemara journey now has three legible learning cohorts: Foundations (Berakhot, Shabbat, Yoma), Structures / Reasons / Disputes (Ketubot, Chullin, Niddah), and the flagship legal worlds.
+- Chullin and Niddah retain explicit boundaries: learners study source architecture and do not receive practical halakhic guidance. Sefaria verification completed for Ketubot 2a, Chullin 2a, Niddah 2a, Genesis 2:18, Deuteronomy 12:21, and Leviticus 19:15.
