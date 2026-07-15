@@ -1897,6 +1897,10 @@ end-to-end incl. typed step (6/6 credit, boundary last), suite green.
 
 - Replaced the final Berakhot practice-lab text input with a shuffled translation choice that keeps the learner on the source line and retains the same repair path and mastery evidence.
 
+## 2026-07-15 — Codex: Foundations guided reading-plan check
+
+- Replaced the Foundations 25-word writing gate with a shuffled, source-grounded reading-plan choice. The same source evidence and Foundations artifact are recorded after the learner identifies the correct reading sequence.
+
 ## 2026-07-15 — Codex: Berakhot independent source check
 
 - Replaced the final Berakhot practice-lab text input with a shuffled translation choice that keeps the learner on the source line and retains the same repair path and mastery evidence.
