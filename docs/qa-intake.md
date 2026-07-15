@@ -1818,3 +1818,9 @@ production gate + capstone unlock), suite 151/151.
 - Completing a Canon Connection now opens an evidence-earned handoff rather than leaving the learner inside a detached wider-canon route.
 - The primary action continues to the newly opened next Gemara tractate; the associated wider-canon course remains a clearly optional deeper exploration.
 - The final current tractate returns the learner to the Gemara mastery journey for retrieval and extension.
+
+## 2026-07-15 — Codex: in-source language support for beginner Gemara learners
+
+- Added optional English visibility, click-to-inspect reading help, and concise transliteration, meaning, and reading-job cues directly above each shared cohort source map.
+- Learners can save an encountered key word to their private source vocabulary; it returns through the existing vocabulary recall page with an initial one-day interval.
+- The support is intentionally subordinate to source mapping: English is explicitly framed as a way to check a reading, not replace it. All six cohort tractates have three contextual aids.
