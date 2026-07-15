@@ -123,3 +123,9 @@ Seder.enableDeepLanguageSupport = () => {
 };
 new MutationObserver(Seder.enableDeepLanguageSupport).observe(document.documentElement, { childList: true, subtree: true, characterData: true });
 setTimeout(Seder.enableDeepLanguageSupport, 0);
+if (location.pathname.endsWith('/berakhot-deep.html') && !document.querySelector('script[data-berakhot-daf-rail]')) {
+  const script = document.createElement('script');
+  script.src = 'berakhot-daf-rail.js';
+  script.dataset.berakhotDafRail = 'true';
+  document.head.append(script);
+}

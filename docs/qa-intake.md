@@ -1726,3 +1726,14 @@ production gate + capstone unlock), suite 151/151.
   after placement now proves the product's central promise: a beginner can begin reading a
   real opening sugya immediately.
 - Verification: full suite, 154 tests / 0 failures.
+
+## 2026-07-14 — Codex: interactive Berakhot Daf rail
+
+- Added a readable, text-based Daf rail beside the first Berakhot 2a lesson. It keeps the
+  Mishnah, the Gemara's framing question, the scriptural signal, and the cited verse in one
+  visible source sequence rather than relying on a blurry page image.
+- The active lesson move highlights its related source line. Learners can also select any
+  line to see its transliteration and its role in the sugya, while the lesson's translation,
+  feedback, XP, and Continue action remain in the same reading flow.
+- Live browser QA confirmed correct Hebrew rendering, the active-line reading aid, and the
+  existing in-place source support. Full suite: 155 tests / 0 failures.
