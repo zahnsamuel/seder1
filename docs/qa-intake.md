@@ -1787,3 +1787,9 @@ production gate + capstone unlock), suite 151/151.
   retrieve, or continue its mastery loop.
 - Added a direct entry from the existing Mastery Map. Verification: full suite, 160 tests /
   0 failures.
+## 2026-07-14 — Codex: source-based Canon Connections
+
+- Added a short Canon Connection immediately after a learner completes a flagship Gemara transfer explanation. Each connection keeps the Gemara habit visible while introducing one relevant Torah source: freedom and ritual time (Pesachim), Shabbat covenant (Eruvin), embodied memory (Sukkah), ethics (Bava Metzia), or damage and restitution (Bava Kamma).
+- Each encounter includes readable Hebrew, guided English, a direct Sefaria source link, shuffled answers, XP-bearing source-annotation evidence, and one appropriate onward route into the wider canon. It does not provide practical legal advice.
+- The connection only appears after the learner has completed the underlying transfer work; it is not a shortcut around Gemara evidence.
+- Verification: full suite, 161 tests / 0 failures; `git diff --check` clean.
