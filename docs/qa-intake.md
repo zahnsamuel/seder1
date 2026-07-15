@@ -1982,4 +1982,9 @@ Distribution {3:16, 4:6, 5:4, 6:1, 7:20, 8:11, 9:18, 10:15}. Suite 170/170.
 ## 2026-07-15 — Codex: Eruvin Foundation Block 3
 
 - Added an earned Eruvin loop from the measured case into visible Daf mapping, retrieval, an Eruvin-specific unseen transfer, Canon Connection, and Pesachim.
+
+## 2026-07-15 — Codex: Foundation Capstone
+
+- Added a five-move, no-required-typing capstone after Integration III. Learners map a Gemara case, read Torah in context, repair a flattened Mussar reading, distinguish historical evidence from memory, and transfer the sequence to an unseen Mishnah.
+- Every move is Sefaria-linked, shuffles choices, records evidence, and shows the practical-guidance boundary. The full suite passes 185/185.
 - Verified the block’s cited source pages on Sefaria: Mishnah Eruvin 1:1, Mishnah Eruvin 1:2, and Eruvin 2a. The study boundary explicitly excludes real-world eruv determination.
