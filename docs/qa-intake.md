@@ -1,5 +1,10 @@
 # QA intake and implementation log
 
+## 2026-07-15 — Codex: Pesachim Foundation Block 4
+
+- Added an earned Pesachim loop from the time-and-action source trail into visible Daf mapping, retrieval, Pesachim-specific unseen transfer, a Canon Connection, and Bava Metzia.
+- Checked Mishnah Pesachim 1:1, Mishnah Pesachim 1:2, Pesachim 2a, and Exodus 12:14 on Sefaria. Its boundary keeps Passover practice and halakhic ruling outside Seder’s instructional scope.
+
 ## New content: second Chassidus arc, Ahavat Yisrael (2026-07-11)
 
 Third non-Gemara addition this session, applying the Yochai `source-sheet` skill's role-based curation method explicitly for the first time (foundational → dominant reading → counter-voice → applied), now that Claude has read access to the Yochai KG repo and its documented methodology (no live API key yet -- user will request one later; this uses the method, not live graph calls).
