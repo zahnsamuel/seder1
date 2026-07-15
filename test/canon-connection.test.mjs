@@ -7,6 +7,6 @@ test('flagship Gemara transfer opens a source-based connection into the wider ca
   assert.match(transfer, /canon-connection-link\.js/);
   assert.match(link, /canon-connection\.html\?tractate=/);
   for (const tractate of ['pesachim', 'eruvin', 'sukkah', 'bava-metzia', 'bava-kamma']) assert.match(source, new RegExp(`\\b${tractate}\\b`));
-  for (const phrase of ['Exodus 12:14', 'Exodus 31:16', 'Leviticus 23:43', 'Leviticus 19:18', 'Exodus 22:5', 'source_annotation']) assert.match(source, new RegExp(phrase.replace(/[.?]/g, '\\$&')));
+  for (const phrase of ['Exodus 12:14', 'Exodus 31:16', 'Leviticus 23:43', 'Leviticus 19:18', 'Exodus 22:5', 'source_annotation', 'artifactType: \'canon_connection\'']) assert.match(source, new RegExp(phrase.replace(/[.?]/g, '\\$&')));
   assert.match(page, /CONNECT THE SOURCES/);
 });

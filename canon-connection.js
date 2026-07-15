@@ -21,7 +21,11 @@ connection.answers.map((text, original) => ({ text, original })).sort(() => Math
     button.classList.add(correct ? 'correct' : 'incorrect'); $('#feedback').textContent = correct ? 'Connection recorded. You linked a Gemara reading habit to a Torah source without collapsing either one.' : 'Not yet. Return to the exact work each source performs before making the connection.';
     const response = await Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'source_annotation', skillId: `canon-connection-${tractate}`, competency: 'sourceReasoning', sourceContext: `${tractate} Torah canon connection`, correct }) });
     if (response.ok) { const learner = await response.json(); $('#xp').textContent = `${learner.xp} XP`; }
-    if (correct) { $('#continue').href = connection.next; $('#continue').hidden = false; }
+    if (correct) {
+      await Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'journey_artifact_saved', artifactType: 'canon_connection', artifactId: tractate }) });
+      $('#feedback').textContent = 'Canon Connection earned. You linked a Gemara reading habit to a Torah source without collapsing either one.';
+      $('#continue').href = connection.next; $('#continue').hidden = false;
+    }
   }); $('#answers').append(button);
 });
 Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? response.json() : null).then((learner) => { $('#xp').textContent = `${learner?.xp || 0} XP`; });

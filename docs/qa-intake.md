@@ -1808,3 +1808,8 @@ production gate + capstone unlock), suite 151/151.
 - The Gemara dashboard now gives the learner one explicit recommended next move, with a short explanation of the reading habit it develops.
 - Tractates now open in one earned sequence: each source-transfer demonstration opens the next tractate, and a complete cohort opens the next cohort. Earlier work remains reviewable; future work is visible as upcoming rather than presented as a choice overload.
 - Each gate is tied to learner-owned source-map, second-source, and transfer evidence rather than self-reported completion.
+## 2026-07-15 — Codex: Canon Connection mastery gate
+
+- Canon Connections now save durable `canon_connection` evidence after a learner correctly connects a Gemara reading habit with a wider Torah source.
+- The guided Gemara path now requires that evidence before it opens the next tractate or cohort. The dashboard visibly includes the Canon link as a sixth stage, alongside source mapping, comparison, transfer, and retrieval.
+- This makes the unified-canon model instructional rather than decorative: Gemara remains the spine, but every step also demonstrates a real link into the wider Jewish canon.
