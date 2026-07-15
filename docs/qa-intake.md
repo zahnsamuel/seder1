@@ -1836,3 +1836,9 @@ production gate + capstone unlock), suite 151/151.
 - Added Rosh Hashanah, Taanit, and Megillah as an earned fourth Gemara cohort: each has a visible primary source, optional in-text reading support, written second-source comparison, shuffled transfer check, scheduled retrieval, and Canon Connection.
 - Source links and excerpts were verified on Sefaria: Mishnah Rosh Hashanah 2:1, Mishnah Ta'anit 1:1, Mishnah Megillah 1:1, Deuteronomy 17:4, Deuteronomy 11:14, and Esther 9:28.
 - Rosh Hashanah, Taanit, and Megillah explicitly frame live-practice implications as source study rather than calendar or prayer instruction.
+
+## 2026-07-15 — Codex: public-time cohort retrieval closure
+
+- Added three shuffled Retrieval Room variants each for Rosh Hashanah, Taanit, and Megillah: evidence and procedure; disagreement and distinction; shared practice, place, and access.
+- Completing one of these retrieval sets now returns learners to the Gemara mastery journey rather than the unrelated Berakhot arc.
+- This closes the delayed-retrieval loop attached to the cohort’s source-transfer evidence.

@@ -716,6 +716,24 @@ const variantBank = {
   ]
 };
 
+Object.assign(variantBank,{
+  'roshHashanah-independent-map':[
+    {label:'PUBLIC EVIDENCE',hebrew:'עֵדוּת הַחֹדֶשׁ',translation:'Testimony about the new month.',prompt:'What must remain visible when you first map this public procedure?',answers:['Who brings evidence, who receives it, and what makes the testimony trustworthy.','Only the final date that results.','A private feeling about the new moon.'],correct:0,feedback:'Public procedure begins with the evidence relationship, not an outcome guessed in advance.'},
+    {label:'PUBLIC EVIDENCE',hebrew:'מִשֶּׁקִּלְקְלוּ · הִתְקִינוּ',translation:'After disruption · they instituted.',prompt:'What reading move does this pair of signals require?',answers:['Connect the stated disruption to the new procedure and ask what problem it addresses.','Treat the new procedure as an arbitrary detail.','Skip the earlier practice entirely.'],correct:0,feedback:'A procedural change becomes readable when you map the problem it answers.'},
+    {label:'TRANSFER',hebrew:'בָּרִאשׁוֹנָה · הִתְקִינוּ',translation:'At first · they instituted.',prompt:'An unfamiliar source contrasts an earlier practice with a later institution. What transfers from Rosh Hashanah?',answers:['Map the earlier practice, the disruption, and the repair before judging the change.','Assume the newer practice is automatically better without reading why.','Ignore the source of the change.'],correct:0,feedback:'The transferable habit is reading institutions through the reason a procedure changes.'}
+  ],
+  'taanit-independent-map':[
+    {label:'DISAGREEMENT MAP',hebrew:'מֵאֵימָתַי · רַבִּי אֱלִיעֶזֶר · רַבִּי יְהוֹשֻׁעַ',translation:'From when? · Rabbi Eliezer · Rabbi Yehoshua.',prompt:'What is the first disciplined map of this Mishnah?',answers:['The shared question and each named position before attempting to decide between them.','Which position feels most familiar.','A practical answer for a personal situation.'],correct:0,feedback:'A disagreement becomes legible only after every voice has been stated accurately.'},
+    {label:'DISTINCTION',hebrew:'לְהַזְכִּיר · לִשְׁאוֹל',translation:'To mention · to request.',prompt:'Why does this distinction matter inside the Taanit disagreement?',answers:['It shows that two related actions can have different timing and must not be collapsed.','It proves the speakers are discussing unrelated subjects.','It resolves every practical question automatically.'],correct:0,feedback:'Close reading often depends on holding two neighboring terms apart.'},
+    {label:'TRANSFER',hebrew:'שְׁנֵי מוּנָחִים קְרוֹבִים',translation:'Two related terms.',prompt:'An unfamiliar debate uses two related actions. What Taanit habit should return?',answers:['Define each action and preserve the distinction before comparing the speakers.','Assume related terms are interchangeable.','Choose one speaker before identifying the question.'],correct:0,feedback:'The habit is transferable: precise distinctions keep disagreement from being flattened.'}
+  ],
+  'megillah-independent-map':[
+    {label:'COMMUNAL MAP',hebrew:'מְגִלָּה נִקְרֵאת',translation:'The Megillah is read.',prompt:'Before reading the dates as a list, what should a learner identify?',answers:['The shared public practice that the different dates are organizing.','A separate unrelated practice for every date.','A personal instruction for today.'],correct:0,feedback:'A schedule is easier to read once you identify the common practice it structures.'},
+    {label:'PLACE AND ACCESS',hebrew:'כְּרַכִּין · כְּפָרִים · יוֹם הַכְּנִיסָה',translation:'Cities · villages · day of gathering.',prompt:'What does this cluster teach a careful reader to map?',answers:['How place and communal access shape one shared public observance.','Why each community has no relation to the others.','Which city is personally preferable.'],correct:0,feedback:'The Mishnah holds common practice and different community situations together.'},
+    {label:'TRANSFER',hebrew:'כְּלָל · הֶבְדֵּל מָקוֹם · הַתְאָמָה',translation:'Shared rule · place distinction · accommodation.',prompt:'An unfamiliar source changes a public practice for different communities. What Megillah habit transfers?',answers:['Map the common practice, the community distinction, and the accommodation’s purpose.','Treat variation as proof there is no coherent structure.','Apply the source directly to a personal case.'],correct:0,feedback:'Variation can be part of a coherent public structure rather than an exception to understanding.'}
+  ]
+});
+const returnTargets={'roshHashanah-independent-map':'gemara-mastery.html','taanit-independent-map':'gemara-mastery.html','megillah-independent-map':'gemara-mastery.html'};
 let set = [], index = 0, answered = false, xp = 0, learnerId = Seder.currentLearnerId();
 const $ = (s) => document.querySelector(s);
 const pretty = (id) => id.replace(/^lab-/, '').replaceAll('-', ' ');
@@ -786,6 +804,7 @@ $('#continue').addEventListener('click', () => {
   if (index < set.length - 1) { index++; render(); return; }
   Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'stage_mastered', stageId: 'retrieval-room' }) }).catch(() => {});
   $('.card').innerHTML = '<div class="card-top"><span>RETRIEVAL COMPLETE</span></div><h2>That skill is back in reach.</h2><p class="prompt">You retrieved a source move rather than merely seeing it again. Return to new learning while the connection is active.</p><a id="return" href="berakhot-arc.html">Return to the Berakhot arc →</a>';
+  const returnUrl = returnTargets[set[0]?.trueSkillId]; if (returnUrl) { $('#return').href = returnUrl; $('#return').textContent = 'Return to Gemara mastery journey →'; }
   $('.card').classList.add('seder-checkpoint-celebrate');
 });
 
