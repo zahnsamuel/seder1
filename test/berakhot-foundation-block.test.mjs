@@ -17,5 +17,6 @@ test('unseen Gemara check uses shuffled choices rather than required typing', as
   const source = await readFile(new URL('../gemara-unseen-check.js', import.meta.url), 'utf8');
   assert.doesNotMatch(source, /textarea/);
   assert.match(source, /sort\(\(\) => Math\.random\(\) - 0\.5\)/);
-  assert.match(source, /skillId: 'unseen-sugya-reading'/);
+  assert.match(source, /'unseen-sugya-reading'/);
+  assert.match(source, /const transferSkill/);
 });

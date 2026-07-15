@@ -1944,3 +1944,8 @@ Distribution {3:16, 4:6, 5:4, 6:1, 7:20, 8:11, 9:18, 10:15}. Suite 170/170.
 
 - Replaced the final typed-production wording and data in Shabbat, Pesachim, Eruvin, Sukkah, Bava Metzia, Bava Kamma, and Yoma with source-grounded guided choices. The shared engine shuffles every answer set at render time.
 - Verified the Shabbat block’s cited source pages on Sefaria: Mishnah Shabbat 1:1, Mishnah Shabbat 1:2, and Shabbat 9b. The block retains its explicit study-not-personal-ruling boundary.
+
+## 2026-07-15 — Codex: Shabbat Foundation Block 2
+
+- Added an earned learner loop after the Shabbat source trail: interactive Daf mapping, retrieval practice, unseen-sugya transfer, Canon Connection, and a clear handoff into Eruvin.
+- The loop evaluates durable learner evidence: completed stage, correct workbench/lab/transfer events, and the saved Shabbat Canon Connection artifact.
