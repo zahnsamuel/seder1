@@ -1640,3 +1640,14 @@ Verification: JSON valid, boundary-last confirmed for nedarim+sotah, rosh-hashan
 live end-to-end incl. typed step (7/7 credit), audit nedarim 8 / sotah 9 / megillah 9 /
 rosh-hashanah 9, suite 151/151. All six destination labs now past bar; fifteen 10s, nine
 9s corpus-wide.
+
+## 2026-07-14 — Codex: Academy graduation into the next mastery cycle
+
+- Replaced the Day 90 dead end with a dedicated, learner-facing graduation handoff. A learner
+  who has earned every Academy day now sees that the foundation is complete and can enter a
+  next mastery cycle or their study record directly from the Academy.
+- Added `academy-next.html`, which reads demonstrated mastery by broad evidence group and
+  recommends one next move: Gemara reasoning, source orientation, or a canon connection.
+  The rest of the cycle deliberately interleaves deepening, retrieval, cross-canon transfer,
+  and a learner-owned record rather than splitting the learner into disconnected tracks.
+- Verification: full suite passes, 152 tests / 0 failures.

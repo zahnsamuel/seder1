@@ -51,10 +51,15 @@ function whyNext(day) { return day <= 30 ? 'The first month establishes orientat
 Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? response.json() : null).then((learner) => {
   const completedStages = new Set(learner?.completedStages || []);
   const day = currentDay(completedStages), [title, url] = plan[day - 1];
+  const academyComplete = completedStages.size >= plan.length && plan.every((_, index) => completedStages.has(dayStage(index + 1)));
   $('#xp').textContent = `${learner?.xp || 0} XP`;
   $('#placement').innerHTML = learner?.placement?.completedAt ? '<b>Starting point saved.</b> Your source evidence—not this placement alone—will determine what becomes secure.' : '<b>Choose a starting point first.</b> A short placement lets Seder begin at your actual reading level. <a href="placement.html">Take placement →</a>';
-  $('#todayCard').innerHTML = `<small>DAY ${day} OF ${plan.length} · ${completedStages.size} MASTERY MARKERS</small><h2>${title}</h2><p>${whyNext(day)}</p><p class="why-next"><b>Why this is next:</b> ${phaseForDay(day).milestone}</p><div class="today-actions"><a id="openToday" href="${url}">1. Study today’s source →</a><a class="prove" href="academy-evidence.html?day=${day}">2. Demonstrate today’s move →</a></div><small class="mastery-note">Tomorrow opens after two source checks are correct. On Day 7, 14, and each weekly boundary, one check is an unfamiliar-source transfer.</small>`;
-  $('#openToday').addEventListener('click', () => openDay(day));
+  if (academyComplete) {
+    $('#todayCard').innerHTML = `<small>90 DAYS EARNED · ${completedStages.size} MASTERY MARKERS</small><h2>You have completed the Academy foundation.</h2><p>You now move from a fixed beginning into an evidence-led canon journey. Seder will recommend a next move from your demonstrated work, not from a separate track.</p><div class="today-actions"><a class="prove" href="academy-next.html">Choose my next mastery cycle →</a><a href="study-record.html">Open my study record →</a></div><small class="mastery-note">Completion is a beginning: retrieve what fades, deepen what is ready, and keep one accountable question in view.</small>`;
+  } else {
+    $('#todayCard').innerHTML = `<small>DAY ${day} OF ${plan.length} · ${completedStages.size} MASTERY MARKERS</small><h2>${title}</h2><p>${whyNext(day)}</p><p class="why-next"><b>Why this is next:</b> ${phaseForDay(day).milestone}</p><div class="today-actions"><a id="openToday" href="${url}">1. Study today’s source →</a><a class="prove" href="academy-evidence.html?day=${day}">2. Demonstrate today’s move →</a></div><small class="mastery-note">Tomorrow opens after two source checks are correct. On Day 7, 14, and each weekly boundary, one check is an unfamiliar-source transfer.</small>`;
+    $('#openToday').addEventListener('click', () => openDay(day));
+  }
   const currentMonth = Math.min(2, Math.floor((day - 1) / 30));
   $('#monthNav').innerHTML = ['Month 1 · Foundations', 'Month 2 · Deepening', 'Month 3 · Independence'].map((title, index) => `<article class="${index < currentMonth ? 'complete' : index === currentMonth ? 'current' : ''}"><small>${index < currentMonth ? '✓ COMPLETE' : index === currentMonth ? 'YOUR MONTH' : 'AHEAD'}</small><strong>${title}</strong><span>Days ${index * 30 + 1}–${(index + 1) * 30}</span></article>`).join('');
   $('#dayMap').innerHTML = plan.slice(currentMonth * 30, currentMonth * 30 + 30).map(([sessionTitle, sessionUrl], monthIndex) => {
