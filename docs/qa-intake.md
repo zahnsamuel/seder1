@@ -1893,6 +1893,14 @@ end-to-end incl. typed step (6/6 credit, boundary last), suite green.
 - Converted the shared front-door course engine, working-Daf lab engine, and six-session canon-course production gate to show shuffled source-grounded choices instead of asking learners to type an answer.
 - Existing typed data remains backward-compatible, but learner-facing progress now uses the same reading, distinction, retry, and evidence loop across Gemara and the wider canon.
 
+## 2026-07-15 — Codex: Berakhot independent source check
+
+- Replaced the final Berakhot practice-lab text input with a shuffled translation choice that keeps the learner on the source line and retains the same repair path and mastery evidence.
+
+## 2026-07-15 — Codex: Berakhot independent source check
+
+- Replaced the final Berakhot practice-lab text input with a shuffled translation choice that keeps the learner on the source line and retains the same repair path and mastery evidence.
+
 
 ## 2026-07-13 -- Claude: Wave 3 batch 5 -- Yoma, Bava Batra, Avodah Zarah labs
 
