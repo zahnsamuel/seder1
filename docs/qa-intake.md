@@ -1776,3 +1776,14 @@ production gate + capstone unlock), suite 151/151.
   the new reasoning move. The explanation is saved as a learner-owned artifact and recorded
   as source-annotation evidence before the next stage opens.
 - Verification: full suite, 159 tests / 0 failures.
+
+## 2026-07-14 — Codex: Gemara mastery journey dashboard
+
+- Added a dedicated learner-facing Gemara dashboard for Pesachim, Eruvin, Sukkah, Bava
+  Metzia, and Bava Kamma. Each tractate visibly moves through first source map, second
+  source explanation, contrasting-source transfer, and retrieval.
+- The dashboard reads saved learner artifacts and review state rather than showing a generic
+  progress bar. Every tractate has one next action: begin guided reading, deepen, transfer,
+  retrieve, or continue its mastery loop.
+- Added a direct entry from the existing Mastery Map. Verification: full suite, 160 tests /
+  0 failures.

@@ -1,4 +1,7 @@
 const learnerId = Seder.currentLearnerId();
+const gemaraProgressLink = document.createElement('p');
+gemaraProgressLink.innerHTML = '<a href="gemara-mastery.html" style="color:#276b68;font:600 13px Inter,sans-serif">See your Gemara mastery journey →</a>';
+document.querySelector('.hero').append(gemaraProgressLink);
 Seder.api(`/api/learners/${learnerId}/journey`).then((response) => response.ok ? response.json() : null).then((journey) => {
   if (!journey) return;
   const panel = document.createElement('section');
