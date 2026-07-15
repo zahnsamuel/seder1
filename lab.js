@@ -71,6 +71,12 @@ function render() {
 // forward (no retry loop, so no copy exploit).
 function normalizeTyped(text) { return String(text || '').trim().toLowerCase().replace(/[.,!?;:'"“”’]/g, ''); }
 function renderTypedStep(step, container) {
+  [step.translation, 'A question that the line raises but does not answer here.', 'A final ruling not stated in this line.'].map((text, answerIndex) => ({ text, answerIndex })).sort(() => Math.random() - .5).forEach(({ text, answerIndex }) => {
+    const button = document.createElement('button'); button.type = 'button'; button.textContent = text;
+    button.addEventListener('click', () => { if (answered) return; answered = true; const correct = answerIndex === 0; container.querySelectorAll('button').forEach((item) => item.disabled = true); button.classList.add(correct ? 'correct' : 'incorrect'); if (correct) document.querySelector('.daf-line.selected')?.classList.add('solved'); xp += correct ? 10 : 5; updateXp(); celebrateXp(); $('#feedback').textContent = `${correct ? '+10 XP. ' : '+5 XP. '}${step.feedback}`; $('#continue').disabled = false; Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'answer_submitted', skillId: `lab-${lab.id}-typed`, competency: 'translation', correct, sourceContext: lab.ref }) }).then((response) => response.ok ? response.json() : null).then((learner) => { if (learner) { xp = learner.xp; updateXp(); } }).catch(() => {}); });
+    container.appendChild(button);
+  });
+  return;
   const wrap = document.createElement('div');
   wrap.style.cssText = 'display:flex;gap:9px;margin-top:2px;';
   const input = document.createElement('input');

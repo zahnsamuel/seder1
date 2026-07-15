@@ -1888,6 +1888,11 @@ end-to-end incl. typed step (6/6 credit, boundary last), suite green.
 - Replaced typed production gates in the five flagship second-source deep readings and their contrasting-source transfer handoffs with retryable, shuffled explanation checks.
 - The learner now identifies the best account of a source’s new move and the transferable reading habit; success still writes the same durable source evidence and artifacts before the next step opens.
 
+## 2026-07-15 — Codex: no-required-typing shared engines
+
+- Converted the shared front-door course engine, working-Daf lab engine, and six-session canon-course production gate to show shuffled source-grounded choices instead of asking learners to type an answer.
+- Existing typed data remains backward-compatible, but learner-facing progress now uses the same reading, distinction, retry, and evidence loop across Gemara and the wider canon.
+
 
 ## 2026-07-13 -- Claude: Wave 3 batch 5 -- Yoma, Bava Batra, Avodah Zarah labs
 
