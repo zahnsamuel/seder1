@@ -1830,3 +1830,9 @@ production gate + capstone unlock), suite 151/151.
 - Added a learner-facing Daily Recall Queue that combines due personally saved source words with the existing due Gemara retrieval queue.
 - A correct typed word recall doubles its interval up to 30 days; a miss returns it tomorrow. The page names the source where each word was saved and awards normal learner XP through the existing event path.
 - Today now recommends this queue whenever either kind of recall is due, before new material, while retaining the usual study, transfer, and connection routine.
+
+## 2026-07-15 — Codex: public time, testimony, and reading cohort
+
+- Added Rosh Hashanah, Taanit, and Megillah as an earned fourth Gemara cohort: each has a visible primary source, optional in-text reading support, written second-source comparison, shuffled transfer check, scheduled retrieval, and Canon Connection.
+- Source links and excerpts were verified on Sefaria: Mishnah Rosh Hashanah 2:1, Mishnah Ta'anit 1:1, Mishnah Megillah 1:1, Deuteronomy 17:4, Deuteronomy 11:14, and Esther 9:28.
+- Rosh Hashanah, Taanit, and Megillah explicitly frame live-practice implications as source study rather than calendar or prayer instruction.

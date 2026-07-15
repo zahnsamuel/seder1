@@ -18,6 +18,7 @@ const cohorts = [
     { id: 'bava-kamma', title: 'Bava Kamma', focus: 'Categories, distinction, and shared principle', guided: 'bava-kamma-arc.html', deep: 'bava-kamma-deepening.html' }
   ] }
 ];
+cohorts.push({title:'PUBLIC TIME · TESTIMONY · READING',promise:'Read how communities make time and memory public',tractates:[{id:'roshHashanah',title:'Rosh Hashanah',focus:'Testimony, trust, and public procedure',guided:'cohort-source-mastery.html?tractate=roshHashanah',deep:'cohort-source-mastery.html?tractate=roshHashanah'},{id:'taanit',title:'Taanit',focus:'Disagreement and seasonal distinction',guided:'cohort-source-mastery.html?tractate=taanit',deep:'cohort-source-mastery.html?tractate=taanit'},{id:'megillah',title:'Megillah',focus:'Public reading, place, and communal memory',guided:'cohort-source-mastery.html?tractate=megillah',deep:'cohort-source-mastery.html?tractate=megillah'}]});
 const $ = (selector) => document.querySelector(selector);
 const stageCard = (title, complete, current, detail) => `<article class="stage ${complete ? 'done' : ''} ${current ? 'current' : ''}"><i></i><strong>${title}</strong><small>${complete ? 'Evidence earned' : current ? detail : 'Ahead'}</small></article>`;
 const labelFor = (count) => count >= 4 ? 'TRANSFER' : count >= 3 ? 'INDEPENDENT' : count >= 2 ? 'MAPPING' : 'GUIDED';
