@@ -1,5 +1,11 @@
 # QA intake and implementation log
 
+## 2026-07-15 — Codex: Sukkah Foundation Block 7
+
+- Added an earned Sukkah loop from measure-and-validity source work through visible Daf mapping, retrieval, fresh transfer, and a Canon Connection.
+- The completion bridge now makes the wider canon concrete: learners can deepen the structure-and-memory question through a Chumash reader and Chassidus on Simcha before continuing to Bava Kamma.
+- Checked Mishnah Sukkah 1:1, Mishnah Sukkah 1:2, Sukkah 2a, and Leviticus 23:43 on Sefaria. The block explicitly distinguishes source study from practical Sukkot guidance.
+
 ## 2026-07-15 — Codex: Earned Foundation Consolidation I
 
 - Replaced the static consolidation links with a five-move, source-grounded checkpoint: Berakhot question retrieval, Bava Metzia claims mapping, Mussar tension, Tefillah/Torah language, and fresh-source transfer into Sukkah.
