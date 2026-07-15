@@ -1607,3 +1607,36 @@ boundary last), suite 151/151.
 
 Remaining Wave 3 destinations: nedarim, sotah, megillah, rosh-hashanah (same treatment:
 +3-4 verified sugya steps + typed + parity). Then the 21 non-destination labs in batches.
+
+
+## 2026-07-13 -- Claude: Wave 3 batch 3 -- the four remaining destination labs
+
+Deepened nedarim, sotah, megillah, rosh-hashanah (the labs the new units route into as
+their primary next step). Each 3 -> 7-8 steps with a typed production check; all sources
+verified before writing; distractors written at length-parity, then a parity sweep on the
+originals' short options (batch-5 lesson, applied up front and in cleanup).
+
+- nedarim 3 -> 8: added the Rabbi Yochanan / Reish Lakish machloket on the origin of
+  kinuyim (foreign usage vs sages' coinage -- Nedarim 10a, verified), then the vow-to-
+  tax-collectors sugya and its dina d'malkhuta objection + resolution (unfixed-rate /
+  self-appointed collector -- Nedarim 28a, verified). The dina d'malkhuta step deliberately
+  ties back to the widerworld-encounter unit: charter there, legal machinery here.
+- sotah 3 -> 7: added the Gemara's aggadic opening (bat kol matching couples 40 days
+  before formation -- Sotah 2a, verified), the Nazir-juxtaposition tractate-order teaching,
+  and Sotah 14a imitatio Dei (clothe the naked) -- the exact sugya the widerworld-mean unit
+  stands on, met in its home. Boundary step stays last (sensitive tractate).
+- megillah 3 -> 7: walled-cities-from-Joshua anchor (why an anchor a millennium before the
+  Persian story), the two-dates-from-Esther-9 encoding, and the genizah rule later in the
+  tractate -- the practice that filled the Cairo Geniza (ties to history-geniza unit).
+- rosh-hashanah 3 -> 7: completed the four new years (Tishrei), the Tu BiShvat Shammai-
+  Hillel dispute, and RH 16a shofar-of-the-ram / akeidat Yitzchak -- the sugya the
+  chumash-akeidah unit promised.
+
+Design note logged: these four extensions lean on cross-unit ties, so a learner arriving
+from a foundation unit now meets its promised sugya in the tractate's own home -- the canon
+feels connected in both directions.
+
+Verification: JSON valid, boundary-last confirmed for nedarim+sotah, rosh-hashanah lab
+live end-to-end incl. typed step (7/7 credit), audit nedarim 8 / sotah 9 / megillah 9 /
+rosh-hashanah 9, suite 151/151. All six destination labs now past bar; fifteen 10s, nine
+9s corpus-wide.
