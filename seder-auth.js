@@ -129,3 +129,9 @@ if (location.pathname.endsWith('/berakhot-deep.html') && !document.querySelector
   script.dataset.berakhotDafRail = 'true';
   document.head.append(script);
 }
+if (/\/(pesachim|eruvin|sukkah|bava-metzia|bava-kamma)-arc\.html$/.test(location.pathname) && !document.querySelector('script[data-tractate-daf-rails]')) {
+  const script = document.createElement('script');
+  script.src = 'tractate-daf-rails.js';
+  script.dataset.tractateDafRails = 'true';
+  document.head.append(script);
+}

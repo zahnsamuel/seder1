@@ -1737,3 +1737,13 @@ production gate + capstone unlock), suite 151/151.
   feedback, XP, and Continue action remain in the same reading flow.
 - Live browser QA confirmed correct Hebrew rendering, the active-line reading aid, and the
   existing in-place source support. Full suite: 155 tests / 0 failures.
+
+## 2026-07-14 — Codex: flagship tractate Daf rails
+
+- Extended the interactive, readable Daf rail from Berakhot to Pesachim, Eruvin, Sukkah,
+  Bava Metzia, and Bava Kamma. Each rail is source-specific and maps the current lesson
+  mode to the relevant case, question, ruling, distinction, or source signal.
+- Learners can select any visible line for transliteration and a concise explanation of its
+  reading job; source translation, feedback, XP, and Continue remain in the active lesson.
+- Live browser QA verified Pesachim’s rail, readable Hebrew, and click-to-inspect reading
+  aid. Full suite: 156 tests / 0 failures.
