@@ -1887,3 +1887,32 @@ end-to-end incl. typed step (6/6 credit, boundary last), suite green.
 
 - Replaced typed production gates in the five flagship second-source deep readings and their contrasting-source transfer handoffs with retryable, shuffled explanation checks.
 - The learner now identifies the best account of a source’s new move and the transferable reading habit; success still writes the same durable source evidence and artifacts before the next step opens.
+
+
+## 2026-07-13 -- Claude: Wave 3 batch 5 -- Yoma, Bava Batra, Avodah Zarah labs
+
+Three major, widely-known floor labs, each 3 -> 6 steps with a typed production check;
+sources verified before writing; distractors at parity (one residual soft flag each on
+bava-batra/yoma, both still score 8).
+
+- bava-batra 3 -> 8: added the hezek re'iyah dispute (is being seen a legal harm? -- BB 2a,
+  verified) and the four-cubit height that is engineered to defeat exactly that sightline;
+  typed recall of "bonin et hakotel ba'emtza".
+- yoma 3 -> 8: added the derivation of the seven days from the milu'im / Leviticus 8:34
+  "ka'asher asah... tzivah" (one phrase read for both parah and Yom Kippur -- verified) and
+  the prepared backup priest that answers the stated risk; typed recall of "shema ye'era
+  bo pesul".
+- avodah-zarah 3 -> 9: added the tractate's famous eschatological opening (God brings the
+  Torah scroll, the nations claim reward, Rome answers "we built markets and bathhouses...
+  for Israel's sake" -- AZ 2a, verified) and what the Gemara does by voicing Rome's own
+  self-justification before testing it; typed recall of "lifnei eideihen shelosha yamim".
+  The existing historical-literacy framing (not commentary on any living faith) is
+  preserved.
+
+Note: browser classifier was temporarily unavailable at ship time, so this batch was
+verified structurally (JSON valid, all steps well-formed, typed step present, boundary/
+summary placement correct) rather than by a live click-through -- the identical lab typed-
+flow was live-tested on gittin, rosh-hashanah, and chullin earlier today.
+
+Audit: bava-batra 8, yoma 8, avodah-zarah 9. Corpus floor (score 3) down to 16.
+Distribution {3:16, 4:6, 5:4, 6:1, 7:20, 8:11, 9:18, 10:15}. Suite 170/170.
