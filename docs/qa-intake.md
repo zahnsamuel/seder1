@@ -1848,3 +1848,8 @@ production gate + capstone unlock), suite 151/151.
 - Replaced explanation-only comparison with a visible second-source panel across all nine shared source-mastery units.
 - Each panel provides Hebrew, optional English, a direct Sefaria link, and three learner-selectable relationship lenses before the written comparison.
 - The design keeps two sources legible in the same learning room, so comparison is anchored in text rather than a summary alone.
+
+## 2026-07-15 — Codex: active source-pair workspace
+
+- Added an active comparison workspace to the source-mastery room: learners select the exact Source A line that the visible Source B supports, changes, or complicates.
+- The selected line remains visually paired with the displayed second source before the learner writes their explanation.
