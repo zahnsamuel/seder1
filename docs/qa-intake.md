@@ -1641,6 +1641,16 @@ live end-to-end incl. typed step (7/7 credit), audit nedarim 8 / sotah 9 / megil
 rosh-hashanah 9, suite 151/151. All six destination labs now past bar; fifteen 10s, nine
 9s corpus-wide.
 
+## 2026-07-14 — Codex: Journey current-focus handoff
+
+- Added a learner-specific focus panel to the 100-move Canon Journey. It names the one
+  currently available source encounter, explains its reading purpose, shows progress, and
+  makes the retrieval obligation visible without forcing the learner to scan the whole map.
+- The Journey retains its earned-level structure below the focus panel. This makes progress
+  legible while preserving the central design: one connected canon path, with Gemara at its
+  reasoning spine rather than separate subject tracks.
+- Verification: full suite passes, 153 tests / 0 failures.
+
 ## 2026-07-14 — Codex: public Friday demo deployment readiness
 
 - Made the server bind to `0.0.0.0`, which preserves local use while allowing a container

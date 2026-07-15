@@ -40,6 +40,19 @@ function renderPhase(phase, nodes) {
   return `<section class="phase"><h3>${phase.title}</h3><p>${phaseGuides[phase.id] || 'A new set of source-reading moves.'}</p><small>${phaseNodes.length} source encounters · checkpoint required</small></section>${phaseNodes.map(renderNode).join('')}${checkpoint}`;
 }
 
+function renderFocus(journey, learner) {
+  const next = journey.nodes.find((node) => node.available && !node.complete);
+  const due = (learner?.reviewQueue || []).filter((item) => new Date(item.dueAt || 0).getTime() <= Date.now()).length;
+  if (!next) {
+    document.querySelector('#focus').innerHTML = `<span>YOUR CURRENT FOCUS</span><h2>The full journey is earned.</h2><p>Keep the repertoire durable by retrieving what fades, then choose a new source question from your record.</p><div><a class="focus-primary" href="weekly-review.html">Open retrieval →</a><a href="study-record.html">Open study record →</a></div>`;
+    return;
+  }
+  const nodeIndex = journey.nodes.indexOf(next);
+  const phase = journey.phases.find((item) => nodeIndex >= item.start && nodeIndex <= item.end);
+  const reviewCopy = due ? `${due} timely retrieval ${due === 1 ? 'is' : 'are'} due; take it after this source move.` : 'No retrieval is due first; this is the right new move.';
+  document.querySelector('#focus').innerHTML = `<span>YOUR CURRENT FOCUS</span><h2>${next.title}</h2><p>${next.summary}</p><small>${phase?.title || 'Canon journey'} · ${journey.completed} of ${journey.total} encounters earned · ${reviewCopy}</small><div><a class="focus-primary" href="canon-session.html?id=${encodeURIComponent(next.id)}">Continue this source →</a><a href="${due ? 'review.html' : 'weekly-review.html'}">${due ? 'Retrieve what is due →' : 'See retrieval rhythm →'}</a></div>`;
+}
+
 Seder.api(`/api/learners/${learnerId}/journey`).then((response) => response.ok ? response.json() : Promise.reject()).then((journey) => {
   document.querySelector('#progress').textContent = `${journey.completed} OF ${journey.total} CANON MOMENTS`;
   const byId = Object.fromEntries(journey.phases.map((phase) => [phase.id, phase]));
@@ -54,5 +67,5 @@ Seder.api(`/api/learners/${learnerId}/journey`).then((response) => response.ok ?
     if (index === active) return `<section class="level active"><div class="level-heading"><span>YOUR CURRENT LEVEL · ${index + 1} OF ${levels.length}</span><h2>${title}</h2><p>${level.promise}</p><small>${encounters} source encounters · complete both phase checkpoints to level up</small></div><div class="level-content">${phases.map((phase) => renderPhase(phase, journey.nodes)).join('')}</div></section>`;
     return `<article class="level locked"><span>LEVEL ${index + 1}</span><h2>${level.title}</h2><p>${level.promise}</p><small>${encounters} encounters · unlock by earning the level before it</small></article>`;
   }).join('');
-  return Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? response.json() : null);
-}).then((learner) => { if (learner) document.querySelector('#xp').textContent = `${learner.xp || 0} XP`; }).catch(() => {});
+  return Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? response.json() : null).then((learner) => ({ journey, learner }));
+}).then(({ journey, learner }) => { renderFocus(journey, learner); if (learner) document.querySelector('#xp').textContent = `${learner.xp || 0} XP`; }).catch(() => {});
