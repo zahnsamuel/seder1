@@ -1,0 +1,1 @@
+new MutationObserver(()=>{document.querySelectorAll('a[href="journey.html"]').forEach(a=>{if(a.closest('#feedback')){a.href='return-cycle-two.html';a.textContent='Begin Return Cycle →'}})}).observe(document.body,{childList:true,subtree:true});

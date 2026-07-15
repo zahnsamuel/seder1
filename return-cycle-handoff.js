@@ -1,0 +1,1 @@
+new MutationObserver(()=>{document.querySelectorAll('a[href="journey.html"]').forEach(a=>{if(a.closest('#feedback')){a.href='integration-three.html';a.textContent='Begin Integration III →'}})}).observe(document.body,{childList:true,subtree:true});
