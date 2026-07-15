@@ -1842,3 +1842,9 @@ production gate + capstone unlock), suite 151/151.
 - Added three shuffled Retrieval Room variants each for Rosh Hashanah, Taanit, and Megillah: evidence and procedure; disagreement and distinction; shared practice, place, and access.
 - Completing one of these retrieval sets now returns learners to the Gemara mastery journey rather than the unrelated Berakhot arc.
 - This closes the delayed-retrieval loop attached to the cohort’s source-transfer evidence.
+
+## 2026-07-15 — Codex: visible second-source comparison
+
+- Replaced explanation-only comparison with a visible second-source panel across all nine shared source-mastery units.
+- Each panel provides Hebrew, optional English, a direct Sefaria link, and three learner-selectable relationship lenses before the written comparison.
+- The design keeps two sources legible in the same learning room, so comparison is anchored in text rather than a summary alone.
