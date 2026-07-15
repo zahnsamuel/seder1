@@ -1824,3 +1824,9 @@ production gate + capstone unlock), suite 151/151.
 - Added optional English visibility, click-to-inspect reading help, and concise transliteration, meaning, and reading-job cues directly above each shared cohort source map.
 - Learners can save an encountered key word to their private source vocabulary; it returns through the existing vocabulary recall page with an initial one-day interval.
 - The support is intentionally subordinate to source mapping: English is explicitly framed as a way to check a reading, not replace it. All six cohort tractates have three contextual aids.
+
+## 2026-07-15 — Codex: daily recall queue
+
+- Added a learner-facing Daily Recall Queue that combines due personally saved source words with the existing due Gemara retrieval queue.
+- A correct typed word recall doubles its interval up to 30 days; a miss returns it tomorrow. The page names the source where each word was saved and awards normal learner XP through the existing event path.
+- Today now recommends this queue whenever either kind of recall is due, before new material, while retaining the usual study, transfer, and connection routine.
