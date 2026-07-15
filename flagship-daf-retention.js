@@ -22,7 +22,7 @@
     panel.prepend(note);
     const transfer = document.createElement('a');
     transfer.href = `flagship-transfer.html?tractate=${encodeURIComponent(tractate)}`;
-    transfer.textContent = 'Optional: test this move in a contrasting source →';
+    transfer.textContent = 'Next: prove this move in a contrasting source →';
     transfer.className = 'transfer-link';
     panel.append(transfer);
   }

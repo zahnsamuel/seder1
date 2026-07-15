@@ -1756,3 +1756,14 @@ production gate + capstone unlock), suite 151/151.
   to explain one transition in the sugya. It saves the source map and written explanation
   as learner-owned evidence before returning to the full mastery loop.
 - Verification: full suite, 157 tests / 0 failures.
+
+## 2026-07-14 — Codex: flagship transfer mastery loop
+
+- A completed flagship source map now frames contrasting-source work as the learner's next
+  mastery move, while retaining its 24-hour delayed retrieval schedule.
+- Successful transfer now requires a learner-owned sentence explaining the structural habit
+  carried into the unfamiliar source. That explanation is saved as a learning artifact;
+  transfer evidence continues to earn mastery and XP through a distinct source context.
+- A missed transfer no longer sends the learner to generic review. It links directly back
+  to the matching tractate's Daf map so the exact case-and-move skill can be rebuilt.
+- Verification: full suite, 158 tests / 0 failures.
