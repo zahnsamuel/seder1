@@ -1747,3 +1747,12 @@ production gate + capstone unlock), suite 151/151.
   reading job; source translation, feedback, XP, and Continue remain in the active lesson.
 - Live browser QA verified Pesachim’s rail, readable Hebrew, and click-to-inspect reading
   aid. Full suite: 156 tests / 0 failures.
+
+## 2026-07-14 — Codex: required flagship sugya-map handoffs
+
+- Standardized Pesachim, Eruvin, Sukkah, Bava Metzia, and Bava Kamma completion links.
+  Each now enters its matching flagship Daf workspace immediately after the source trail.
+- The workspace requires every visible source line to be classified, then asks the learner
+  to explain one transition in the sugya. It saves the source map and written explanation
+  as learner-owned evidence before returning to the full mastery loop.
+- Verification: full suite, 157 tests / 0 failures.
