@@ -1882,3 +1882,8 @@ end-to-end incl. typed step (6/6 credit, boundary last), suite green.
 
 - Replaced the required typed second-source comparison in shared Gemara source-mastery units with a shuffled, source-grounded explanation choice. Learners must first select a relevant Source A line; a missed choice can be retried, and the correct choice earns the same source-annotation evidence.
 - This keeps the intellectual work in the text pair without making keyboard fluency or blank-page writing a condition of early progress. Free-form notes may remain optional learner tools, never a mastery gate.
+
+## 2026-07-15 — Codex: flagship guided explanation checks
+
+- Replaced typed production gates in the five flagship second-source deep readings and their contrasting-source transfer handoffs with retryable, shuffled explanation checks.
+- The learner now identifies the best account of a source’s new move and the transferable reading habit; success still writes the same durable source evidence and artifacts before the next step opens.
