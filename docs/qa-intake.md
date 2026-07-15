@@ -1939,3 +1939,8 @@ Distribution {3:16, 4:6, 5:4, 6:1, 7:20, 8:11, 9:18, 10:15}. Suite 170/170.
 - Organized Berakhot as one earned ten-session foundation block: one visible next move, completed moves available for review, and later moves locked until their prerequisite evidence is earned.
 - Corrected the block gates to use skill IDs the linked units actually record, and repaired the unit-three handoff so independent reading leads into Mishnah grammar rather than leaving the block.
 - Replaced the unseen-sugya typing field with shuffled, source-grounded choices; the learner can still demonstrate transfer without having to type an answer.
+
+## 2026-07-15 — Codex: Guided checks across front-door Gemara
+
+- Replaced the final typed-production wording and data in Shabbat, Pesachim, Eruvin, Sukkah, Bava Metzia, Bava Kamma, and Yoma with source-grounded guided choices. The shared engine shuffles every answer set at render time.
+- Verified the Shabbat block’s cited source pages on Sefaria: Mishnah Shabbat 1:1, Mishnah Shabbat 1:2, and Shabbat 9b. The block retains its explicit study-not-personal-ruling boundary.
