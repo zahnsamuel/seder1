@@ -1,5 +1,11 @@
 # QA intake and implementation log
 
+## 2026-07-15 — Codex: Earned Foundation Consolidation I
+
+- Replaced the static consolidation links with a five-move, source-grounded checkpoint: Berakhot question retrieval, Bava Metzia claims mapping, Mussar tension, Tefillah/Torah language, and fresh-source transfer into Sukkah.
+- All checks shuffle their answers, record learner evidence, retain a study-not-advice boundary, and the final transfer writes a durable consolidation stage before the Sukkah handoff appears.
+- Checked Berakhot 2a, Pirkei Avot 1:18, Deuteronomy 6:7, and the existing Sukkah opening citation on Sefaria before shipping the checkpoint.
+
 ## 2026-07-15 — Codex: Bava Metzia Foundation Block 5 and Consolidation I
 
 - Added an earned Bava Metzia loop from claims-and-evidence source work into visible Daf mapping, retrieval, Bava Metzia-specific unseen transfer, an ethics-focused Canon Connection, and a cross-canon Consolidation I.
