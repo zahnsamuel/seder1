@@ -1690,3 +1690,28 @@ Audit: all six 6 -> 9 (length-bias 0/6 each). Corpus distribution
 {3:21, 4:6, 5:4, 6:1, 7:20, 8:9, 9:15, 10:15} -- the score-6 bucket is now nearly empty.
 Verification: all five JSONs valid, history-six live end-to-end (6 rewritten sessions +
 production gate + capstone unlock), suite 151/151.
+
+## 2026-07-14 — Codex: presentation front-door QA
+
+- Found that the Seder landing page still rendered the entire 100-moment canon map, despite
+  the dedicated Journey page already grouping it into eight earned levels. This made the
+  first screen read like a catalog rather than a course.
+- The landing page now shows only the current source move and its immediate neighbors, with
+  a clear link to the full eight-level journey. The header’s My Journey link also now opens
+  that earned-level view directly.
+- Live browser check: landing page presents four first moves for a new journey state and the
+  full-map link reaches `journey.html`. Full suite: 154 tests / 0 failures.
+
+## 2026-07-14 — Codex: first-learner presentation pass
+
+- Consolidated the 100-move canon journey from eight earned levels to six, preserving all
+  sixteen phases and their checkpoints. The home-page overview now uses the same six-level
+  language.
+- Added a clear fresh-learner route through the local learner-profile screen, so a Friday
+  demonstration can begin with empty evidence rather than a previous demo record.
+- Fixed a first-day routing flaw found in live QA: an unplaced learner could reach the daily
+  router and be sent into a rotating tractate. The router now makes placement the only new
+  learner action and hides retrieval, graph, and cross-canon panels until placement exists.
+- Aligned the placement screen and entry copy to its actual 12 source checks. Live browser
+  verification reached the placement screen from the clean landing path. Full suite: 154
+  tests / 0 failures.

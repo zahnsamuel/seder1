@@ -53,6 +53,7 @@ Promise.all([
   const day = Math.floor(Date.now() / 86400000);
   const [tractate, gemaraTitle] = gemaraCycle[day % gemaraCycle.length];
   const doneStages = new Set(learner.completedStages || []);
+  const needsPlacement = !learner.placement;
   const pendingDeepenings = deepenings.filter(([firstStage, secondStage]) => doneStages.has(firstStage) && !doneStages.has(secondStage));
   const deepening = pendingDeepenings.length && day % 3 === 2 ? pendingDeepenings[day % pendingDeepenings.length] : null;
   // A learner with no completed stages is at the very start: route them to their
@@ -62,8 +63,14 @@ Promise.all([
 
   let recommendation = category?.score > 0 ? category : vocabDue ? { title: 'Retrieve a source word', url: 'canon-vocabulary.html', reason: 'A word you met before is due for a brief retrieval. Recall keeps source reading available.' } : active ? { title: `Resume ${active.course.title}`, url: `canon-course.html?course=${active.course.id}&session=${active.first}`, reason: `Continue at session ${active.first + 1} of ${active.course.sessions.length}; your earlier source work is saved.` } : readyCapstone ? { title: `Capstone: ${readyCapstone.course.title}`, url: `canon-capstone.html?course=${readyCapstone.course.id}`, reason: 'You completed the source sequence. Now make an independent connection.' } : capstoned && transferDone < 5 ? { title: 'Read an unfamiliar source', url: 'independent-reading.html', reason: 'You have completed a course connection. Now prove that your reading habits transfer to a new text.' } : brandNew ? { title: 'Continue your first week', url: 'integrated-path.html', reason: 'You are at the start of the eight-week journey. Today’s work is your current week — the wider rotation begins once your first stage is complete.' } : deepening ? { title: deepening[2], url: deepening[3], reason: 'You finished this subject’s foundation, and its second unit is waiting. Deepen it today — the Gemara spine returns tomorrow.' } : { title: gemaraTitle, url: `tractate-mastery.html?tractate=${tractate}`, reason: 'Today’s core source work is a Gemara move. The wider canon will return in the next daily cycle.' };
 
+  if (needsPlacement) recommendation = { title: 'Find your starting point', url: 'placement.html', reason: 'Begin with a short source-based placement. It chooses a first Gemara move and a review rhythm without assigning a permanent level.' };
+  if (needsPlacement) {
+    document.querySelector('#mastery-status').hidden = true;
+    document.querySelector('#cross-canon').hidden = true;
+  }
   $('#title').textContent = recommendation.title;
   $('#reason').textContent = recommendation.reason;
   $('#primary').href = recommendation.url;
   $('#sequence').innerHTML = [['1', 'Recall', 'canon-vocabulary.html', 'Retrieve a source word.'], ['2', 'Study', recommendation.url, 'Follow the next adaptive step.'], ['3', 'Transfer', 'independent-reading.html', 'Read a source you have not rehearsed.'], ['4', 'Connect', 'course-dashboard.html', 'See course, bridge, and capstone evidence.']].map(([number, title, url, copy]) => `<article><small>${number}</small><h2>${title}</h2><p>${copy}</p><a href="${url}">Open &rarr;</a></article>`).join('');
+  if (needsPlacement) $('#sequence').innerHTML = `<article><small>1</small><h2>Starting point</h2><p>Answer twelve short source questions. Your path begins immediately after.</p><a href="placement.html">Begin placement &rarr;</a></article>`;
 }).catch(() => { $('#title').textContent = 'Begin today\'s Canon Studio'; $('#primary').href = 'daily-canon.html'; });

@@ -4,6 +4,7 @@
   function percent(value) { return `${Math.round((value || 0) * 100)}%`; }
   Promise.all([Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? response.json() : null), Seder.api(`/api/learners/${learnerId}/graph-practice`).then((response) => response.ok ? response.json() : null)])
     .then(([learner, graph]) => {
+      if (!learner?.placement) return;
       const practice = graph?.practice; if (!learner || !practice?.skill) return;
       const skill = practice.skill, evidence = learner.evidence || {}, mastery = learner.mastery || {};
       const prerequisites = (skill.prerequisites || []).map((id) => `<li class="${(mastery[id] || 0) >= .67 ? 'ready' : ''}">${id.replaceAll('-', ' ')} <b>${percent(mastery[id])}</b></li>`).join('') || '<li class="ready">This is a foundation skill.</li>';

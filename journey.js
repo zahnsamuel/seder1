@@ -21,12 +21,10 @@ const phaseGuides = {
 
 const levels = [
   { title: 'Foundations', phases: ['phase-1', 'phase-2'], promise: 'Open Hebrew sources, follow their first questions, and see the canon begin to connect.' },
-  { title: 'Gemara reader', phases: ['phase-3', 'phase-4'], promise: 'Map a sugya and connect its argument to other Jewish source forms.' },
-  { title: 'Return with precision', phases: ['phase-5', 'phase-6'], promise: 'Revisit foundations with sharper language, context, and cross-tractate reading.' },
-  { title: 'Independent orientation', phases: ['phase-7', 'phase-8'], promise: 'Compare responsibly and enter unfamiliar sources with an honest map.' },
-  { title: 'Question and case', phases: ['phase-9', 'phase-10'], promise: 'Turn small signals into accountable questions and precise case maps.' },
-  { title: 'Evidence and distinction', phases: ['phase-11', 'phase-12'], promise: 'Read arguments for their proof and find the distinction that matters.' },
-  { title: 'Reception and comparison', phases: ['phase-13', 'phase-14'], promise: 'Trace a source across later Jewish life and compare without flattening.' },
+  { title: 'Gemara reader', phases: ['phase-3', 'phase-4', 'phase-5'], promise: 'Map a sugya, connect its argument to other Jewish source forms, and return to foundations with precision.' },
+  { title: 'Canon navigator', phases: ['phase-6', 'phase-7', 'phase-8'], promise: 'Carry Gemara habits across Shas, compare responsibly, and enter unfamiliar sources with an honest map.' },
+  { title: 'Question, case, and evidence', phases: ['phase-9', 'phase-10', 'phase-11'], promise: 'Turn small signals into accountable questions, precise case maps, and evidence-led claims.' },
+  { title: 'Distinction and reception', phases: ['phase-12', 'phase-13', 'phase-14'], promise: 'Find the distinction that matters, trace a source through later life, and compare without flattening.' },
   { title: 'Transfer and independence', phases: ['phase-15', 'phase-16'], promise: 'Carry your reading habits into fresh sources and choose the next move yourself.' }
 ];
 
@@ -64,7 +62,7 @@ Seder.api(`/api/learners/${learnerId}/journey`).then((response) => response.ok ?
     const encounters = phases.reduce((total, phase) => total + phase.end - phase.start + 1, 0);
     const title = `LEVEL ${index + 1} · ${level.title}`;
     if (index < active || complete) return `<details class="level complete"><summary><span>✓ LEVEL ${index + 1}</span><strong>${level.title}</strong><small>${encounters} encounters mastered · Review</small></summary><p>${level.promise}</p><div class="level-content">${phases.map((phase) => renderPhase(phase, journey.nodes)).join('')}</div></details>`;
-    if (index === active) return `<section class="level active"><div class="level-heading"><span>YOUR CURRENT LEVEL · ${index + 1} OF ${levels.length}</span><h2>${title}</h2><p>${level.promise}</p><small>${encounters} source encounters · complete both phase checkpoints to level up</small></div><div class="level-content">${phases.map((phase) => renderPhase(phase, journey.nodes)).join('')}</div></section>`;
+    if (index === active) return `<section class="level active"><div class="level-heading"><span>YOUR CURRENT LEVEL · ${index + 1} OF ${levels.length}</span><h2>${title}</h2><p>${level.promise}</p><small>${encounters} source encounters · complete all ${phases.length} phase checkpoints to level up</small></div><div class="level-content">${phases.map((phase) => renderPhase(phase, journey.nodes)).join('')}</div></section>`;
     return `<article class="level locked"><span>LEVEL ${index + 1}</span><h2>${level.title}</h2><p>${level.promise}</p><small>${encounters} encounters · unlock by earning the level before it</small></article>`;
   }).join('');
   return Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? response.json() : null).then((learner) => ({ journey, learner }));
