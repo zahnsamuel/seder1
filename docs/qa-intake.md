@@ -1813,3 +1813,8 @@ production gate + capstone unlock), suite 151/151.
 - Canon Connections now save durable `canon_connection` evidence after a learner correctly connects a Gemara reading habit with a wider Torah source.
 - The guided Gemara path now requires that evidence before it opens the next tractate or cohort. The dashboard visibly includes the Canon link as a sixth stage, alongside source mapping, comparison, transfer, and retrieval.
 - This makes the unified-canon model instructional rather than decorative: Gemara remains the spine, but every step also demonstrates a real link into the wider Jewish canon.
+## 2026-07-15 — Codex: Canon Connection return handoff
+
+- Completing a Canon Connection now opens an evidence-earned handoff rather than leaving the learner inside a detached wider-canon route.
+- The primary action continues to the newly opened next Gemara tractate; the associated wider-canon course remains a clearly optional deeper exploration.
+- The final current tractate returns the learner to the Gemara mastery journey for retrieval and extension.

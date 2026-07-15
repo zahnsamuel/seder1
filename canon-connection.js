@@ -1,4 +1,7 @@
 const learnerId = Seder.currentLearnerId();
+const gemaraPath = [
+  ['berakhot', 'cohort-source-mastery.html?tractate=berakhot'], ['shabbat', 'cohort-source-mastery.html?tractate=shabbat'], ['yoma', 'cohort-source-mastery.html?tractate=yoma'], ['ketubot', 'cohort-source-mastery.html?tractate=ketubot'], ['chullin', 'cohort-source-mastery.html?tractate=chullin'], ['niddah', 'cohort-source-mastery.html?tractate=niddah'], ['pesachim', 'pesachim-deepening.html'], ['eruvin', 'eruvin-deepening.html'], ['sukkah', 'sukkah-deepening.html'], ['bava-metzia', 'bava-metzia-deepening.html'], ['bava-kamma', 'bava-kamma-deepening.html']
+];
 const connections = {
   ketubot: { title: 'Ketubot opens into covenantal partnership.', intro: 'Ketubot trained the learner to ask what social and institutional concerns a fixed form is designed to hold. Torah names human relationship as requiring a fitting counterpart, not a flat abstraction.', citation: 'Genesis 2:18', hebrew: 'לֹא טוֹב הֱיוֹת הָאָדָם לְבַדּוֹ אֶעֱשֶׂה לּוֹ עֵזֶר כְּנֶגְדּוֹ', translation: 'It is not good for the human to be alone; I will make a fitting counterpart.', url: 'https://www.sefaria.org/Genesis.2.18', prompt: 'What is the responsible connection between Ketubot’s schedule and this Torah source?', answers: ['Both invite attention to the human and institutional purposes forms are meant to serve, without making either source personal advice.', 'The verse settles every question raised in Ketubot automatically.', 'A fixed schedule has no relation to human concerns.'], correct: 0, next: 'canon-course.html?course=responsibility-six' },
   chullin: { title: 'Chullin opens into Torah’s source-based practice.', intro: 'Chullin trained attention to rule, exception, and a condition that reveals a source’s functional concern. Torah names slaughtering within a larger instruction, while real practice remains a question for qualified guidance.', citation: 'Deuteronomy 12:21', hebrew: 'וְזָבַחְתָּ מִבְּקָרְךָ וּמִצֹּאנְךָ אֲשֶׁר נָתַן ה׳ לְךָ כַּאֲשֶׁר צִוִּיתִךָ', translation: 'You may slaughter from your herd and flock as I have instructed you.', url: 'https://www.sefaria.org/Deuteronomy.12.21', prompt: 'How does this Torah source deepen the Chullin habit of rule, exception, and condition?', answers: ['It keeps a concrete practice attached to source and instruction, while the learner still has to read how the Mishnah structures its cases.', 'It makes the Mishnah’s distinctions unnecessary.', 'It provides sufficient personal guidance for a practical kashrut question.'], correct: 0, next: 'canon-course.html?course=responsibility-six' },
@@ -24,7 +27,13 @@ connection.answers.map((text, original) => ({ text, original })).sort(() => Math
     if (correct) {
       await Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'journey_artifact_saved', artifactType: 'canon_connection', artifactId: tractate }) });
       $('#feedback').textContent = 'Canon Connection earned. You linked a Gemara reading habit to a Torah source without collapsing either one.';
-      $('#continue').href = connection.next; $('#continue').hidden = false;
+      const index = gemaraPath.findIndex(([id]) => id === tractate), next = gemaraPath[index + 1];
+      const nextTitle = next && next[0].replace(/(^|-)\w/g, (letter) => letter.toUpperCase()).replace('-', ' ');
+      $('#journeyTitle').textContent = next ? `${nextTitle} is now open.` : 'You completed this Gemara path.';
+      $('#journeyCopy').textContent = next ? 'Carry this reading habit forward now, or take the optional wider-canon course when you want to deepen the connection.' : 'Return to the mastery journey to retrieve and extend what you have learned.';
+      $('#journeyNext').href = next ? next[1] : 'gemara-mastery.html';
+      $('#journeyNext').textContent = next ? `Continue to ${nextTitle} →` : 'Return to Gemara mastery journey →';
+      $('#continue').href = connection.next; $('#journeyHandoff').hidden = false;
     }
   }); $('#answers').append(button);
 });
