@@ -1877,3 +1877,8 @@ remain reachable via the Shas map and daily cycle regardless of the arc reroute.
 Audit: both labs 3 -> 9 (length-bias 0). Corpus distribution
 {3:19, 4:6, 5:4, 6:1, 7:20, 8:9, 9:17, 10:15}. Verification: JSON valid, chullin lab live
 end-to-end incl. typed step (6/6 credit, boundary last), suite green.
+
+## 2026-07-15 — Codex: guided source comparison
+
+- Replaced the required typed second-source comparison in shared Gemara source-mastery units with a shuffled, source-grounded explanation choice. Learners must first select a relevant Source A line; a missed choice can be retried, and the correct choice earns the same source-annotation evidence.
+- This keeps the intellectual work in the text pair without making keyboard fluency or blank-page writing a condition of early progress. Free-form notes may remain optional learner tools, never a mastery gate.
