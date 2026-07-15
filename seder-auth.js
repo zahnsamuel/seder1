@@ -135,3 +135,9 @@ if (/\/(pesachim|eruvin|sukkah|bava-metzia|bava-kamma)-arc\.html$/.test(location
   script.dataset.tractateDafRails = 'true';
   document.head.append(script);
 }
+if (/\/(pesachim|eruvin|sukkah|bava-metzia|bava-kamma)-deepening\.html$/.test(location.pathname) && !document.querySelector('script[data-second-source-production]')) {
+  const script = document.createElement('script');
+  script.src = 'second-source-production.js';
+  script.dataset.secondSourceProduction = 'true';
+  document.head.append(script);
+}

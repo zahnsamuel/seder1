@@ -1767,3 +1767,12 @@ production gate + capstone unlock), suite 151/151.
 - A missed transfer no longer sends the learner to generic review. It links directly back
   to the matching tractate's Daf map so the exact case-and-move skill can be rebuilt.
 - Verification: full suite, 158 tests / 0 failures.
+
+## 2026-07-14 — Codex: second-source production gates
+
+- The five flagship deep-reading units now end with a less-scaffolded production task that
+  asks learners to compare the opening source encounter with the deeper argument encounter.
+- Learners must write at least one complete comparison sentence naming both continuity and
+  the new reasoning move. The explanation is saved as a learner-owned artifact and recorded
+  as source-annotation evidence before the next stage opens.
+- Verification: full suite, 159 tests / 0 failures.
