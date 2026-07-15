@@ -1,5 +1,11 @@
 # QA intake and implementation log
 
+## 2026-07-15 — Codex: Bava Kamma Foundation Block 8
+
+- Added an earned Bava Kamma loop: categories-and-principle source work, visible Daf mapping, retrieval, unseen transfer, and a Canon Connection.
+- The post-connection bridge makes non-Gemara study an active next move: Halakha’s handling of disagreement and a wider responsibility course sit beside the return into Integration II.
+- Checked Mishnah Bava Kamma 1:1, Bava Kamma 2a, and Exodus 22:5 on Sefaria. The block explicitly excludes deciding real liability or halakhic questions.
+
 ## 2026-07-15 — Codex: Sukkah Foundation Block 7
 
 - Added an earned Sukkah loop from measure-and-validity source work through visible Daf mapping, retrieval, fresh transfer, and a Canon Connection.
