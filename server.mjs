@@ -444,4 +444,4 @@ createServer(async (request, response) => {
     logError(`${request.method} ${url.pathname}`, error);
     sendJson(response, 500, { error: error.message });
   }
-}).listen(port, '127.0.0.1', () => console.log(`Seder is running at http://127.0.0.1:${port}`));
+}).listen(port, '0.0.0.0', () => console.log(`Seder is running at http://127.0.0.1:${port}`));

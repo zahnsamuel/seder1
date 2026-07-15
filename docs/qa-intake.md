@@ -1641,6 +1641,14 @@ live end-to-end incl. typed step (7/7 credit), audit nedarim 8 / sotah 9 / megil
 rosh-hashanah 9, suite 151/151. All six destination labs now past bar; fifteen 10s, nine
 9s corpus-wide.
 
+## 2026-07-14 — Codex: public Friday demo deployment readiness
+
+- Made the server bind to `0.0.0.0`, which preserves local use while allowing a container
+  host to route public traffic to Seder. Added a Render Docker Blueprint using the existing
+  `/api/health` endpoint and a concise deployment guide.
+- The guide explicitly limits this to a presentation demo: without Supabase, local-mode
+  learner data is shared and not appropriate for an actual learner pilot.
+
 ## 2026-07-14 — Codex: Academy graduation into the next mastery cycle
 
 - Replaced the Day 90 dead end with a dedicated, learner-facing graduation handoff. A learner
