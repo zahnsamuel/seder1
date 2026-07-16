@@ -2090,3 +2090,23 @@ Note for Codex: lab.js is now aligned with the production principle. If you stil
 recognition-style check somewhere in labs, add it as its own explicit MC step (competency
 argument/sourceReasoning) rather than reinterpreting typed steps — per the principle,
 don't convert a translation-anchor recall into recognition.
+
+
+## 2026-07-15 -- Claude: floor labs Yevamot/Shevuot/Horayot deepened (all to 8)
+
+Three more Nashim/Nezikin floor labs, sources verified:
+- yevamot 3 -> 8: added the tzarat-ervah mechanism (yibum lifts only the brother's-widow
+  prohibition, so an ervah and her co-wife both drop out — the chapter's engine) + typed
+  recall of the fifteen-women opening.
+- shevuot 3 -> 8: filled in the shtayim-she'hen-arba oaths of bittui (I will/will not eat;
+  I ate/did not — two Torah cases extended to past and future) + typed recall of the
+  opening line. Reinforces the cross-tractate "two that are four" pattern shared with
+  Shabbat.
+- horayot 3 -> 8: added the scholar-who-knew-is-liable limit on reliance and the par
+  he'elem davar communal offering (the law's built-in admission that even the high court
+  can err) + typed recall of "patur mipnei shetala b'beit din."
+
+All distractors brought to length parity (my concept-step correct answers had run long;
+trimmed). Live-verified horayot end to end incl. the typed input rendering correctly under
+the Option-A lab.js. Score-3 floor now down to 10 labs (all Kodashim + Beitzah/Moed Katan).
+Suite green.
