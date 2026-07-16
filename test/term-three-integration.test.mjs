@@ -14,5 +14,5 @@ test('Term Three connects Niddah source work to an earned, source-based canon in
   assert.match(source, /sort\(\(\) => Math\.random\(\) - 0\.5\)/);
   assert.match(source, /stageId: 'term-three-disagreement-integration'/);
   assert.match(source, /niddah-transfer\.html/);
-  assert.match(transfer, /term-three-journey\.html/);
+  assert.match(transfer, /second-foundation-synthesis\.html/);
 });

@@ -2185,3 +2185,13 @@ Option-A text input, valid answer graded +10 with teaching feedback. Full suite 
 green (Codex's canonical mastery-route registry resolved the prior transient failure).
 Score-3 floor now down to 7 labs (remaining obscure Kodashim: Menachot, Bekhorot, Arakhin,
 Temurah, Keritot, Meilah, Tamid).
+
+## 2026-07-16 -- Codex: Foundation Synthesis checkpoint
+
+- Added an earned, source-first Foundation Synthesis after the Niddah transfer. It retrieves
+  distinct moves from Ketubot (reason), Chullin (scope), Niddah (voices), and Sanhedrin
+  (category/specification), then makes a bounded connection to Pirkei Avot 1:6 on charitable
+  judgment without flattening source distinctions.
+- Each source includes Hebrew, a short English orientation, a Sefaria deep link, shuffled
+  choices, learner events, and a study-only boundary. Completion returns to the next Gemara
+  source trail rather than ending the learner journey.
