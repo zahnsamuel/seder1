@@ -34,6 +34,20 @@ function foundationRecommendation(learner) {
   return terms.find((term) => !completed.has(term.stage)) || null;
 }
 
+function gemaraYearRecommendation(learner) {
+  const completed = new Set(learner.completedStages || []);
+  const terms = [
+    { title: 'Gemara Year · Term I: time, space, and practice', reason: 'Continue the first post-Foundation term by carrying your reading repertoire through concrete cases of domain, measure, time, and validity.', steps: [['shabbat-tractate-arc', 'Shabbat: map a legal case', 'shabbat-arc.html'], ['eruvin-tractate-arc', 'Eruvin: boundary and measure', 'eruvin-arc.html'], ['pesachim-tractate-arc', 'Pesachim: word, time, and source', 'pesachim-arc.html'], ['sukkah-tractate-arc', 'Sukkah: validity and purpose', 'sukkah-arc.html'], ['gemara-foundations-checkpoint', 'Gemara Foundations checkpoint', 'gemara-foundations.html']] },
+    { title: 'Gemara Year · Term II: claims, responsibility, and institutions', reason: 'Continue the civil-reasoning term: map claims, identify categories of responsibility, and read institutions through their stated reasons.', steps: [['bava-metzia-tractate-arc', 'Bava Metzia: claims and evidence', 'bava-metzia-arc.html'], ['bava-kamma-tractate-arc', 'Bava Kamma: categories of damage', 'bava-kamma-arc.html'], ['ketubot-tractate-arc', 'Ketubot: schedule and reason', 'ketubot-arc.html'], ['sanhedrin-tractate-arc', 'Sanhedrin: category and specification', 'sanhedrin-arc.html'], ['civil-reasoning-checkpoint', 'Civil Reasoning checkpoint', 'civil-reasoning.html']] },
+    { title: 'Gemara Year · Term III: rule and disagreement', reason: 'Complete the final term by tracing a rule through its exceptions, preserving disagreement, and transferring both habits across sources.', steps: [['chullin-tractate-arc', 'Chullin: rule and exception', 'chullin-arc.html'], ['niddah-tractate-arc', 'Niddah: three positions', 'niddah-arc.html'], ['gemara-year-synthesis', 'Gemara Year synthesis', 'gemara-year-synthesis.html']] }
+  ];
+  for (const term of terms) {
+    const step = term.steps.find(([stage]) => !completed.has(stage));
+    if (step) return { title: `${term.title} · ${step[1]}`, reason: term.reason, url: step[2] };
+  }
+  return null;
+}
+
 async function recommendFor(learner, { skipReview = false } = {}) {
   if (!learner.placement) return { kind: 'placement', title: 'Find your Gemara starting point', reason: 'A short source-based placement will identify what you already know and what to build next.', url: 'placement.html' };
   if (!skipReview) {
@@ -52,6 +66,8 @@ async function recommendFor(learner, { skipReview = false } = {}) {
   if (remediation) return { kind: 'remediation', ...remediation, url: 'remediation.html' };
   const foundationTerm = foundationRecommendation(learner);
   if (foundationTerm) return { kind: 'foundation-term', ...foundationTerm };
+  const gemaraYearTerm = gemaraYearRecommendation(learner);
+  if (gemaraYearTerm) return { kind: 'gemara-year-term', ...gemaraYearTerm };
   const graphPractice = await nextGraphPractice(root, learner);
   if (graphPractice) return { kind: 'graph-practice', title: graphPractice.skill.title, reason: graphPractice.reason, url: graphPractice.url, skill: graphPractice.skill, context: graphPractice.context, mastery: graphPractice.mastery };
   const journeyRecommendation = await nextJourneyRecommendation(root, learner);

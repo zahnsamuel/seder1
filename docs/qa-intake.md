@@ -2222,3 +2222,10 @@ Temurah, Keritot, Meilah, Tamid).
 - Added a four-source Gemara Year synthesis (Eruvin, Bava Kamma, Chullin, Niddah) with
   shuffled source-reasoning checks, Sefaria links, an explicit boundary, and a final Shas-map
   handoff.
+
+## 2026-07-16 -- Codex: Gemara Year daily routing
+
+- Extended both Today’s browser router and the server recommendation API through every
+  Gemara Year tractate and checkpoint. After Foundation Year, daily study now advances from
+  the earliest unfinished Gemara source trail rather than dropping into generic graph practice
+  or a rotating tractate.
