@@ -2238,6 +2238,15 @@ Temurah, Keritot, Meilah, Tamid).
 - The browser daily router, server recommendation API, and official advanced sequence now
   agree that Yoma precedes the Foundation checkpoint.
 
+## 2026-07-16 -- Codex: Rosh Hashanah full source trail
+
+- Expanded Rosh Hashanah from a lab entry into a nine-step Moed tractate arc: counted
+  categories, date-domain mapping, a disputed boundary, and the Gemara's public-record
+  question on Rosh Hashanah 2a.
+- Added a visible source workspace where learners classify seven source moves from the
+  Mishnah's field of dates through the Gemara's functional answer. The source presentation
+  includes an explicit study-only boundary for calendar, financial, and halakhic questions.
+
 ## 2026-07-16 -- Claude: last seven Kodashim labs to 8 (score-3 floor eliminated)
 
 Deepened the remaining obscure Kodashim labs from 3 steps to 5 -- each gains a

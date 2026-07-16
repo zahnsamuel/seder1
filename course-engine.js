@@ -13,7 +13,8 @@ const masteryRouteByStage={
   'chullin-tractate-arc':{tractate:'chullin',url:'flagship-daf-workbench.html?tractate=chullin',label:'Build the Chullin sugya map'},
   'niddah-tractate-arc':{tractate:'niddah',url:'flagship-daf-workbench.html?tractate=niddah',label:'Build the Niddah source map'},
   'sanhedrin-tractate-arc':{tractate:'sanhedrin',url:'flagship-daf-workbench.html?tractate=sanhedrin',label:'Build the Sanhedrin source map'},
-  'yoma-tractate-arc':{tractate:'yoma',url:'yoma-daf-workbench.html',label:'Open the Yoma source workspace'}
+  'yoma-tractate-arc':{tractate:'yoma',url:'yoma-daf-workbench.html',label:'Open the Yoma source workspace'},
+  'rosh-hashanah-tractate-arc':{tractate:'rosh-hashanah',url:'rosh-hashanah-daf-workbench.html',label:'Open the Rosh Hashanah source workspace'}
 };
 const masteryRoute=masteryRouteByStage[config.stage];
 if(masteryRoute){config.nextUrl=masteryRoute.url;config.nextLabel=masteryRoute.label;}
@@ -76,7 +77,7 @@ function sefariaUrl(ref){
   if(m)return`https://www.sefaria.org/Pirkei_Avot.${m[1]}.${m[2]}`;
   m=clean.match(/^(Genesis|Exodus|Leviticus|Numbers|Deuteronomy|Psalms?|Proverbs|Job|Micah|Jeremiah|Hosea|Lamentations|Ezekiel|Isaiah) (\d+):(\d+)$/);
   if(m)return`https://www.sefaria.org/${(m[1]==='Psalm'?'Psalms':m[1])}.${m[2]}.${m[3]}`;
-  m=clean.match(/^(Berakhot|Shabbat|Eruvin|Pesachim|Sukkah|Yoma|Taanit|Megillah|Ketubot|Nedarim|Nazir|Sotah|Gittin|Kiddushin|Bava Kamma|Bava Metzia|Bava Batra|Sanhedrin|Makkot|Shevuot|Chullin|Niddah) (\d+[ab])$/);
+  m=clean.match(/^(Berakhot|Shabbat|Eruvin|Pesachim|Sukkah|Yoma|Rosh Hashanah|Taanit|Megillah|Ketubot|Nedarim|Nazir|Sotah|Gittin|Kiddushin|Bava Kamma|Bava Metzia|Bava Batra|Sanhedrin|Makkot|Shevuot|Chullin|Niddah) (\d+[ab])$/);
   if(m)return`https://www.sefaria.org/${m[1].replace(/ /g,'_')}.${m[2]}`;
   return null;
 }
