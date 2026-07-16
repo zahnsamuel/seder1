@@ -2310,3 +2310,18 @@ not labs -- left for coordination with Codex on file ownership.
 
 - Connected Yoma, Rosh Hashanah, Megillah, and Taanit into an earned, one-current-move
   Moed chapter with a four-source synthesis checkpoint.
+
+## 2026-07-16 -- Claude: widerworld-mean subject unit 6 -> 10
+
+The comparative "mean, compared" unit had strong correct answers but nine weak
+strawman distractors (9/9 length-bias) and no boundary step despite a Sotah 14a
+citation. Rewrote all nine distractor pairs into plausible, length-parity
+near-misses (a real reader could be tempted by each), and added a RESPONSIBLE
+LEARNING step after the divergence: studying how the mean is constructed is
+analysis, while working on one's own middot or a real relationship belongs with a
+mentor, not a self-diagnosis from a lesson. Audit 6 -> 10 (0/10 length flags,
+boundary now present). Live-verified: page renders all 11 steps, answers shuffle,
+a correct answer scores +10 and advances, new distractors display. Suite 206/206.
+This was a safe solo target (my own file, clean in git). The two remaining sub-8
+units, canon-arc (4) and taanit-arc (6), are shared/Codex-owned .js files
+(taanit-arc is currently untracked in Codex's tree) -- left for coordination.
