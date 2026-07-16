@@ -46,3 +46,18 @@ test('graph practice recommends the earliest unmet reading dependency with a usa
   assert.equal(afterOrientation.skill.id, 'hebrew-question-words');
   assert.equal(afterOrientation.url, 'language.html');
 });
+
+test('graph practice includes source-specific non-Gemara course skills', async () => {
+  const graphReady = {
+    'hebrew-page-orientation': .9, 'hebrew-question-words': .9, 'source-signals': .9,
+    'rabbinic-phrase-recognition': .9, 'sentence-role-mapping': .9, 'aramean-question-particles': .9,
+    'mishnah-orientation': .9, 'gemara-context-question': .9, 'proof-role': .9,
+    'challenge-and-answer': .9, 'independent-sugya-reading': .9, 'identify-conceptual-claim': .9,
+    'define-conceptual-term': .9, 'compare-interpretations': .9, 'conceptual-application': .9
+  };
+  const next = await nextGraphPractice(root, learner({ mastery: graphReady }));
+  assert.equal(next.skill.id, 'halakha-honor-torah-kibud');
+  assert.equal(next.url, 'halakha-honor-parents.html');
+  const afterFirstSource = await nextGraphPractice(root, learner({ mastery: { ...graphReady, 'halakha-honor-torah-kibud': .9 } }));
+  assert.equal(afterFirstSource.skill.id, 'halakha-honor-two-verses');
+});

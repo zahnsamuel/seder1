@@ -2029,3 +2029,13 @@ consistent. No code change made pending that decision.
 - Added a regression test covering all nine stage-to-workbench mappings and source packets.
   Yoma is intentionally outside this Foundation cohort and remains on its advanced
   procedure-focused route pending a dedicated workbench packet.
+
+## 2026-07-16 -- Codex: adaptive graph coverage for deeper canon units
+
+- Added the 50 assessed source skills from the new Halakha, Chumash, Tefillah, History,
+  and Wider World units to the adaptive recommendation graph, preserving each unit's
+  internal skill sequence.
+- Each graph recommendation returns learners to the relevant source course rather than a
+  generic Gemara fallback. Translation-anchor steps remain translation-recall skills.
+- Kept `data/tractate-labs.json` out of this change because it contains separate uncommitted
+  work. Focused recommendation tests pass before the full-suite check.

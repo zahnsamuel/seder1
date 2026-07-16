@@ -1,6 +1,7 @@
 import { promises as fs } from 'node:fs';
 import { join } from 'node:path';
 import { advancedCanonSessions } from './advanced-canon-cycle.mjs';
+import { nonGemaraSkillGraph } from './non-gemara-skill-graph.mjs';
 
 let cachedJourney;
 let cachedGemaraSequence;
@@ -199,7 +200,8 @@ export async function remediationFor(root, learner) {
 export async function nextGraphPractice(root, learner) {
   const graph = JSON.parse(await fs.readFile(join(root, 'data', 'skill-graph.json'), 'utf8'));
   const mastery = learner.mastery || {};
-  const eligible = graph.skills.filter((skill) => (skill.prerequisites || []).every((id) => (mastery[id] || 0) >= .67));
+  const allSkills = [...graph.skills, ...nonGemaraSkillGraph];
+  const eligible = allSkills.filter((skill) => (skill.prerequisites || []).every((id) => (mastery[id] || 0) >= .67));
   const candidate = eligible.filter((skill) => (mastery[skill.id] || 0) < .85).sort((a, b) => (mastery[a.id] || 0) - (mastery[b.id] || 0))[0];
   if (!candidate) return null;
   const workbenchByContext = {
@@ -212,8 +214,8 @@ export async function nextGraphPractice(root, learner) {
     'Bava Metzia 2a': 'flagship-daf-workbench.html?tractate=bava-metzia'
   };
   const context = candidate.reviewContexts?.find((item) => workbenchByContext[item]) || candidate.reviewContexts?.[0];
-  const url = candidate.track === 'language'
+  const url = candidate.route || (candidate.track === 'language'
     ? 'language.html'
-    : workbenchByContext[context] || (candidate.track === 'thought' ? 'source-reader.html?collection=freedom' : 'cross-tractate.html');
+    : workbenchByContext[context] || (candidate.track === 'thought' ? 'source-reader.html?collection=freedom' : 'cross-tractate.html'));
   return { skill: candidate, context, url, reason: `Build ${candidate.title.toLowerCase()} before moving to the next dependent source skill.`, mastery: mastery[candidate.id] || 0 };
 }
