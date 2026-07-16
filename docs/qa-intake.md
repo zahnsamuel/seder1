@@ -2121,3 +2121,19 @@ is no longer a post-arc destination; it remains an optional dashboard/reference 
 
 Added a route-matrix test and updated the Foundation block tests to assert the canonical
 destination rather than the retired first-block handoff. Targeted route suite: 8/8 green.
+
+## 2026-07-16 -- Claude: floor labs Beitzah / Moed Katan / Zevachim to 8
+
+Deepened three score-3 floor labs with verified sugya content + a typed translation-anchor
+production check (Option-A style), each placed before any boundary step:
+Beitzah 2a (Beit Hillel forbids the festival-laid egg -- Rabbah's hachana vs Rav Nachman's
+nolad/muktzeh), Moed Katan 2a (davar ha'aved permits chol hamoed labor, capped by the
+tircha limit), Zevachim 2a (shelo lishman offerings are valid but uncredited, except pesach
+and chatat -- the lishmah thread back to the Gittin lab). Widened concept-step distractors
+to length parity (my correct answers had run 150-212 chars vs 30-90 char distractors);
+final audit 0/4 length flags on all three. Audit: beitzah 8, moed-katan 8, zevachim 8.
+Live-verified Beitzah end to end -- five-line daf renders, line 5 typed step renders the
+Option-A text input, valid answer graded +10 with teaching feedback. Full suite 191/191
+green (Codex's canonical mastery-route registry resolved the prior transient failure).
+Score-3 floor now down to 7 labs (remaining obscure Kodashim: Menachot, Bekhorot, Arakhin,
+Temurah, Keritot, Meilah, Tamid).
