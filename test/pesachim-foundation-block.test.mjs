@@ -14,5 +14,5 @@ test('Pesachim Block 4 gives learners an earned loop from source trail through B
   for (const route of ['pesachim-arc.html', 'flagship-daf-workbench.html?tractate=pesachim', 'lab.html?tractate=pesachim', 'gemara-unseen-check.html?block=pesachim', 'canon-connection.html?tractate=pesachim', 'bava-metzia-arc.html']) assert.match(source, new RegExp(route.replace(/[.?]/g, '\\$&')));
   assert.match(source, /pesachim-unseen-transfer/);
   assert.match(source, /YOUR NEXT MOVE/);
-  assert.match(engine, /'pesachim-tractate-arc':\['pesachim-mastery\.html'/);
+  assert.match(engine, /'pesachim-tractate-arc':\{tractate:'pesachim',url:'flagship-daf-workbench\.html\?tractate=pesachim'/);
 });

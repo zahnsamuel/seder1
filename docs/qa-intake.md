@@ -2110,3 +2110,14 @@ All distractors brought to length parity (my concept-step correct answers had ru
 trimmed). Live-verified horayot end to end incl. the typed input rendering correctly under
 the Option-A lab.js. Score-3 floor now down to 10 labs (all Kodashim + Beitzah/Moed Katan).
 Suite green.
+
+## 2026-07-16 -- Codex: canonical mastery-route registry
+
+Replaced the stacked post-arc route overrides in `course-engine.js` with one
+`masteryRouteByStage` registry. Every current tractate arc now resolves once to a visible
+source workspace: Berakhot uses its Daf workbench, Yoma its dedicated workspace, and the
+nine Foundation blocks use tractate-specific flagship workbenches. `tractate-mastery.html`
+is no longer a post-arc destination; it remains an optional dashboard/reference surface.
+
+Added a route-matrix test and updated the Foundation block tests to assert the canonical
+destination rather than the retired first-block handoff. Targeted route suite: 8/8 green.

@@ -9,7 +9,7 @@ test('Foundation tractate arcs share a tractate-specific Daf workbench handoff',
   ]);
   const tractates = ['shabbat', 'pesachim', 'eruvin', 'sukkah', 'bava-metzia', 'bava-kamma', 'ketubot', 'chullin', 'niddah'];
   for (const tractate of tractates) {
-    assert.match(engine, new RegExp(`'${tractate}-tractate-arc':'${tractate}'`));
+    assert.match(engine, new RegExp(`'${tractate}-tractate-arc':\\{tractate:'${tractate}',url:'flagship-daf-workbench\\.html\\?tractate=${tractate}'`));
     assert.ok(workbench.includes(`sources.${tractate}=`) || workbench.includes(`${tractate}: {`) || workbench.includes(`'${tractate}': {`), `workbench packet for ${tractate}`);
     assert.match(workbench, new RegExp(`lab\\.html\\?tractate=${tractate}`));
   }

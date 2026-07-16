@@ -1,12 +1,21 @@
 const config=window.SederCourse;
-const masteryLoopByStage={'shabbat-tractate-arc':'shabbat','pesachim-tractate-arc':'pesachim','eruvin-tractate-arc':'eruvin','sukkah-tractate-arc':'sukkah','bava-metzia-tractate-arc':'bava-metzia','bava-kamma-tractate-arc':'bava-kamma','yoma-tractate-arc':'yoma','berakhot-baraita-disagreement':'berakhot','ketubot-tractate-arc':'ketubot','chullin-tractate-arc':'chullin','niddah-tractate-arc':'niddah'};
-if(masteryLoopByStage[config.stage]){const tractate=masteryLoopByStage[config.stage];config.nextUrl=`tractate-mastery.html?tractate=${tractate}`;config.nextLabel=`Open the ${tractate.replace(/-/g,' ')} mastery loop`;}
-const earnedBlockHandoffByStage={'shabbat-tractate-arc':['shabbat-mastery.html','Continue through Shabbat Block 2'],'eruvin-tractate-arc':['eruvin-mastery.html','Continue through Eruvin Block 3'],'pesachim-tractate-arc':['pesachim-mastery.html','Continue through Pesachim Block 4'],'bava-metzia-tractate-arc':['bava-metzia-mastery.html','Continue through Bava Metzia Block 5'],'sukkah-tractate-arc':['sukkah-mastery.html','Continue through Sukkah Block 7'],'bava-kamma-tractate-arc':['bava-kamma-mastery.html','Continue through Bava Kamma Block 8']};
-if(earnedBlockHandoffByStage[config.stage]){[config.nextUrl,config.nextLabel]=earnedBlockHandoffByStage[config.stage];}
-// Foundation tractate arcs share one earned next move: map the opening source,
-// then enter targeted retrieval. The mastery dashboard remains a reference view.
-const flagshipWorkbenchByStage={'shabbat-tractate-arc':'shabbat','pesachim-tractate-arc':'pesachim','eruvin-tractate-arc':'eruvin','sukkah-tractate-arc':'sukkah','bava-metzia-tractate-arc':'bava-metzia','bava-kamma-tractate-arc':'bava-kamma','ketubot-tractate-arc':'ketubot','chullin-tractate-arc':'chullin','niddah-tractate-arc':'niddah'};
-if(flagshipWorkbenchByStage[config.stage]){const tractate=flagshipWorkbenchByStage[config.stage];config.nextUrl=`flagship-daf-workbench.html?tractate=${tractate}`;config.nextLabel=`Build the ${tractate.replace(/-/g,' ')} sugya map`;}
+// The canonical post-arc route registry. Arc files may retain descriptive fallbacks,
+// but a learner's earned next move is resolved here and nowhere else.
+const masteryRouteByStage={
+  'berakhot-baraita-disagreement':{tractate:'berakhot',url:'daf-workbench.html?tractate=berakhot',label:'Map the opening Berakhot source'},
+  'shabbat-tractate-arc':{tractate:'shabbat',url:'flagship-daf-workbench.html?tractate=shabbat',label:'Build the Shabbat sugya map'},
+  'eruvin-tractate-arc':{tractate:'eruvin',url:'flagship-daf-workbench.html?tractate=eruvin',label:'Build the Eruvin sugya map'},
+  'pesachim-tractate-arc':{tractate:'pesachim',url:'flagship-daf-workbench.html?tractate=pesachim',label:'Build the Pesachim sugya map'},
+  'sukkah-tractate-arc':{tractate:'sukkah',url:'flagship-daf-workbench.html?tractate=sukkah',label:'Build the Sukkah sugya map'},
+  'bava-metzia-tractate-arc':{tractate:'bava-metzia',url:'flagship-daf-workbench.html?tractate=bava-metzia',label:'Build the Bava Metzia sugya map'},
+  'bava-kamma-tractate-arc':{tractate:'bava-kamma',url:'flagship-daf-workbench.html?tractate=bava-kamma',label:'Build the Bava Kamma sugya map'},
+  'ketubot-tractate-arc':{tractate:'ketubot',url:'flagship-daf-workbench.html?tractate=ketubot',label:'Build the Ketubot sugya map'},
+  'chullin-tractate-arc':{tractate:'chullin',url:'flagship-daf-workbench.html?tractate=chullin',label:'Build the Chullin sugya map'},
+  'niddah-tractate-arc':{tractate:'niddah',url:'flagship-daf-workbench.html?tractate=niddah',label:'Build the Niddah source map'},
+  'yoma-tractate-arc':{tractate:'yoma',url:'yoma-daf-workbench.html',label:'Open the Yoma source workspace'}
+};
+const masteryRoute=masteryRouteByStage[config.stage];
+if(masteryRoute){config.nextUrl=masteryRoute.url;config.nextLabel=masteryRoute.label;}
 const courseLearner=Seder.currentLearnerId();
 const courseProgressKey=`seder-course-progress:${courseLearner}:${config.stage}`;
 const savedCourseIndex=Number(localStorage.getItem(courseProgressKey));

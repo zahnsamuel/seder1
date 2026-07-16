@@ -20,5 +20,5 @@ test('Bava Metzia Block 5 enters an earned cross-canon consolidation', async () 
   assert.match(consolidationEngine, /sukkah-arc\.html/);
   assert.match(consolidationEngine, /stageId: 'foundation-consolidation-one'/);
   assert.match(source, /bava-metzia-unseen-transfer/);
-  assert.match(engine, /'bava-metzia-tractate-arc':\['bava-metzia-mastery\.html'/);
+  assert.match(engine, /'bava-metzia-tractate-arc':\{tractate:'bava-metzia',url:'flagship-daf-workbench\.html\?tractate=bava-metzia'/);
 });
