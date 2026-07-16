@@ -2039,3 +2039,27 @@ consistent. No code change made pending that decision.
   generic Gemara fallback. Translation-anchor steps remain translation-recall skills.
 - Kept `data/tractate-labs.json` out of this change because it contains separate uncommitted
   work. Focused recommendation tests pass before the full-suite check.
+
+
+## 2026-07-15 -- Claude: floor labs Nazir/Taanit/Makkot deepened + lab.js render conflict flagged
+
+Deepened three non-destination floor labs (sources verified before writing):
+- taanit 3 -> 8: added the gevurot-geshamim/techiyat-hametim placement (why rain sits in
+  the resurrection blessing; Taanit 2a) + typed recall.
+- nazir 3 -> 9: added the three Numbers 6 restrictions (wine/hair/corpse) and the 30-day
+  default for an unspecified vow + typed recall of the kinuyim opening.
+- makkot 3 -> 8: added the ka'asher-zamam-v'lo-asah close reading (Makkot 2a: the reciprocal
+  law triggers on the scheme, not the deed) and the hazama-vs-hakhasha distinction + typed
+  recall of the Deut 19:19 source phrase.
+All distractors at parity; JSON valid; audit taanit 8 / nazir 9 / makkot 8.
+
+CONFLICT FLAGGED (not mine to resolve): Codex has shipped lab.js?v=3 (+ milestones.js),
+which now renders `typed:true` lab steps as auto-generated guided multiple-choice (correct
+answer + generic distractors "A question the line raises...", "A final ruling not stated
+here"). Verified it works end to end (credits, advances) — but it contradicts the
+production principle decided hours earlier, which places tractate labs in the typed-recall
+(translation) camp. Side effect: every lab typed step now shows "Typing an answer from
+memory..." feedback on a click interaction, which reads wrong. Needs a Sam/Codex decision:
+either lab.js honors typed recall for labs, or the principle is amended to put labs in the
+guided-check camp (in which case the lab typed-step feedback lines want a sweep). I left the
+lab DATA as typed:true (correct per the current principle) and did not touch lab.js.
