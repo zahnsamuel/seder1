@@ -2122,6 +2122,15 @@ is no longer a post-arc destination; it remains an optional dashboard/reference 
 Added a route-matrix test and updated the Foundation block tests to assert the canonical
 destination rather than the retired first-block handoff. Targeted route suite: 8/8 green.
 
+## 2026-07-16 -- Codex: adaptive graph reaches every non-Gemara source course
+
+Added the nine previously unrepresented Mussar, Chassidus, and later-foundation course
+sequences to `nonGemaraSkillGraph`. The graph now sees all 14 active non-Gemara courses:
+each later unit opens only after the prior unit's translation-anchor recall, while first
+Mussar and Chassidus units remain gated by conceptual-reading foundations. This gives
+`nextGraphPractice` a real route into those courses rather than merely recording their
+progress after a learner finds them elsewhere. Targeted curriculum-engine suite: 7/7 green.
+
 ## 2026-07-16 -- Claude: floor labs Beitzah / Moed Katan / Zevachim to 8
 
 Deepened three score-3 floor labs with verified sugya content + a typed translation-anchor

@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { resolve } from 'node:path';
 import { canMasterJourneyStage, journeyStatus, nextGemaraArc, nextGraphPractice } from '../data/curriculum-engine.mjs';
+import { nonGemaraSkillGraph } from '../data/non-gemara-skill-graph.mjs';
 
 const root = resolve('.');
 const learner = (overrides = {}) => ({ mastery: {}, completedStages: [], ...overrides });
@@ -60,4 +61,26 @@ test('graph practice includes source-specific non-Gemara course skills', async (
   assert.equal(next.url, 'halakha-honor-parents.html');
   const afterFirstSource = await nextGraphPractice(root, learner({ mastery: { ...graphReady, 'halakha-honor-torah-kibud': .9 } }));
   assert.equal(afterFirstSource.skill.id, 'halakha-honor-two-verses');
+});
+
+test('adaptive graph includes every later non-Gemara source sequence as an earned continuation', () => {
+  const continuations = {
+    'halakha-machloket-duration': ['halakha-honor-typed-recall', 'halakha-machloket.html'],
+    'chumash-tehillim-parallelism': ['chumash-akeidah-typed-recall', 'chumash-tehillim.html'],
+    'tefillah-amidah-center': ['tefillah-kaddish-typed-recall', 'tefillah-amidah.html'],
+    'mussar-truth-name': ['identify-conceptual-claim', 'mussar-truth.html'],
+    'mussar-anger-framework': ['mussar-truth-typed-recall', 'mussar-anger.html'],
+    'chassidus-ahavat-name': ['identify-conceptual-claim', 'chassidus-ahavat-yisrael.html'],
+    'chassidus-simcha-command': ['chassidus-ahavat-typed-recall', 'chassidus-simcha.html'],
+    'history-geniza-practice': ['history-yavneh-typed-recall', 'history-geniza.html'],
+    'widerworld-mean-source': ['widerworld-encounter-typed-recall', 'widerworld-mean.html']
+  };
+  for (const [id, [prerequisite, route]] of Object.entries(continuations)) {
+    const skill = nonGemaraSkillGraph.find((item) => item.id === id);
+    assert.ok(skill, `graph entry for ${id}`);
+    assert.deepEqual(skill.prerequisites, [prerequisite]);
+    assert.equal(skill.route, route);
+    const terminal = nonGemaraSkillGraph.find((item) => item.id === id.replace(/-[^-]+$/, '-typed-recall'));
+    assert.ok(terminal?.kind === 'translation-recall', `translation anchor for ${id}`);
+  }
 });
