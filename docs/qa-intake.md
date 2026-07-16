@@ -2229,3 +2229,11 @@ Temurah, Keritot, Meilah, Tamid).
   Gemara Year tractate and checkpoint. After Foundation Year, daily study now advances from
   the earliest unfinished Gemara source trail rather than dropping into generic graph practice
   or a rotating tractate.
+
+## 2026-07-16 -- Codex: Yoma promoted into the Gemara Year
+
+- Promoted the already-complete Yoma source trail from a mislabeled tractate lab to a
+  first-class Gemara Year Term I arc. Its recorded completion now leads directly to its
+  visible-source workspace, rather than the retired tractate-mastery loop.
+- The browser daily router, server recommendation API, and official advanced sequence now
+  agree that Yoma precedes the Foundation checkpoint.
