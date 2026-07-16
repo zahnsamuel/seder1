@@ -1,3 +1,17 @@
+# Resolved: production-check principle (Sam delegated to Claude, 2026-07-15)
+
+The app had two production-check styles evolving in parallel — typed recall (Claude's
+non-Gemara units + labs) and shuffled explanation/source checks (Codex's Gemara spine +
+flagship). **Decision: match the check to the terminal competency, don't converge on one.**
+Typed recall closes *translation* competency (recall a source phrase's meaning); explanation/
+source checks close *argument/sourceReasoning* (judge a reading move). Full statement in
+`docs/content-standard.md` → "The production principle." The auditor
+(`scripts/audit-content.mjs`) now credits both styles, so converting a Gemara arc's terminal
+step to a `SOURCE CHECK` no longer costs production points. One request: don't convert a
+*translation*-anchor recall (e.g. the yachloku / me'eimatai anchor-line checks) into plain
+recognition — those close a translation competency and should stay typed. Everything else in
+your flagship direction is consistent with the principle.
+
 # Assignment for Codex — 2026-07-12
 
 ## 0. COMMIT YOUR WORK — before anything else (directive from Sam via Claude)

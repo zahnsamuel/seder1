@@ -47,23 +47,28 @@ function analyze(u) {
     const distractors = s.answers.filter((_, i) => i !== s.correct);
     if (distractors.some((d) => d.length < 12)) thinDistractors++;
   }
-  const typed = steps.filter((s) => s.typed).length + (u.production ? 1 : 0);
+  // Production principle (2026-07-15): a unit earns production credit for a terminal
+  // check that PRODUCES, not merely recognizes — either a typed recall (produce the
+  // meaning; used where the terminal competency is translation) or a shuffled,
+  // retryable explanation/source check (produce a judgment about a reading move; used
+  // where the terminal competency is argument/sourceReasoning). Both count here.
+  const production = steps.filter((s) => s.typed || /PRODUCTION CHECK|SOURCE CHECK|EXPLANATION CHECK/i.test(s.mode || s.kind || '')).length + (u.production ? 1 : 0);
   const boundary = steps.some((s) => /RESPONSIBLE|BOUNDARY/i.test(s.mode || s.kind || '') || /boundary/i.test(s.skill || '') || /study is not|not a personal ruling|qualified guidance/i.test(s.feedback || ''));
   const needsBoundary = sensitive.test(u.id) || steps.some((s) => sensitive.test(s.ref || ''));
   const score =
     (steps.length >= 8 ? 2 : steps.length >= 6 ? 1 : 0) +
-    (typed > 0 ? 2 : 0) +
+    (production > 0 ? 2 : 0) +
     (mc.length ? Math.round(3 * (1 - correctLongest / mc.length)) : 3) +
     (mc.length ? (thinFeedback / mc.length < 0.2 ? 1 : 0) : 1) +
     (!needsBoundary || boundary ? 1 : 0) +
     (dupAnswers === 0 ? 1 : 0);
-  return { ...u, n: steps.length, typed, correctLongest, mcCount: mc.length, thinFeedback, thinDistractors, dupAnswers, boundary, needsBoundary, score };
+  return { ...u, n: steps.length, production, correctLongest, mcCount: mc.length, thinFeedback, thinDistractors, dupAnswers, boundary, needsBoundary, score };
 }
 
 const results = units.map(analyze).sort((a, b) => a.score - b.score);
-console.log('score | kind   | id                                | steps | typed | longest-bias | thin-fb | needs/has boundary');
+console.log('score | kind   | id                                | steps | prod  | longest-bias | thin-fb | needs/has boundary');
 for (const r of results) {
-  console.log(`${String(r.score).padStart(5)} | ${r.kind.padEnd(6)} | ${r.id.padEnd(33)} | ${String(r.n).padStart(5)} | ${String(r.typed).padStart(5)} | ${String(r.correctLongest).padStart(3)}/${String(r.mcCount).padEnd(8)} | ${String(r.thinFeedback).padStart(7)} | ${r.needsBoundary ? (r.boundary ? 'ok' : 'MISSING') : '-'}`);
+  console.log(`${String(r.score).padStart(5)} | ${r.kind.padEnd(6)} | ${r.id.padEnd(33)} | ${String(r.n).padStart(5)} | ${String(r.production).padStart(5)} | ${String(r.correctLongest).padStart(3)}/${String(r.mcCount).padEnd(8)} | ${String(r.thinFeedback).padStart(7)} | ${r.needsBoundary ? (r.boundary ? 'ok' : 'MISSING') : '-'}`);
 }
 console.log(`\n${results.length} content units audited. Max score 10.`);
 const buckets = {};
