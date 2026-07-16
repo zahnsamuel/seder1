@@ -2204,3 +2204,11 @@ Temurah, Keritot, Meilah, Tamid).
 - First Term completion now opens the Foundation Year map, Term Two’s capstone records an
   explicit checkpoint and hands into Term Three, and Term Three exposes the final Foundation
   Synthesis as its fifth earned step.
+
+## 2026-07-16 -- Codex: Foundation-aware daily recommendation
+
+- Today’s browser router and the server recommendation API now both recognize the earliest
+  unearned Foundation Year checkpoint. They prioritize the current Foundation Term after
+  placement, while preserving urgent retrieval and targeted remediation ahead of new study.
+- This makes Seder, Today, and Foundation Year agree on one next move instead of rotating a
+  learner into an unrelated tractate during an unfinished term.

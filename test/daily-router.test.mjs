@@ -13,3 +13,20 @@ test('daily Gemara rotation uses canonical source workbenches, not the retired d
   assert.match(source, /berakhot: 'daf-workbench\.html\?tractate=berakhot'/);
   assert.match(source, /recommendation\.url = gemaraWorkbenchUrl\[tractate\]/);
 });
+
+test('daily learning and the server recommendation agree on the current Foundation Year term', async () => {
+  const [router, server, foundationYear] = await Promise.all([
+    readFile(new URL('../daily-router.js', import.meta.url), 'utf8'),
+    readFile(new URL('../server.mjs', import.meta.url), 'utf8'),
+    readFile(new URL('../foundation-year.js', import.meta.url), 'utf8')
+  ]);
+  for (const stage of ['foundation-capstone', 'term-two-capstone', 'second-foundation-synthesis']) {
+    assert.match(router, new RegExp(stage));
+    assert.match(server, new RegExp(stage));
+    assert.match(foundationYear, new RegExp(stage));
+  }
+  assert.match(router, /foundationTerm = foundationTerms\.find/);
+  assert.match(router, /recommendation = foundationTerm/);
+  assert.match(server, /function foundationRecommendation/);
+  assert.match(server, /kind: 'foundation-term'/);
+});

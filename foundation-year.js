@@ -1,6 +1,6 @@
 const learnerId = Seder.currentLearnerId();
 const terms = [
-  { number: 'I', title: 'First Foundation Term', stage: 'foundation-capstone', url: 'foundation-capstone.html', action: 'Continue First Term →', summary: 'Map cases, questions, evidence, and reception across the canon.' },
+  { number: 'I', title: 'First Foundation Term', stage: 'foundation-capstone', url: 'integrated-path.html', action: 'Begin First Term →', summary: 'Map cases, questions, evidence, and reception across the canon.' },
   { number: 'II', title: 'Second Foundation Term', stage: 'term-two-capstone', url: 'second-foundation-term.html', action: 'Begin Second Term →', summary: 'Trace institutional reasons, exceptions, scope, and public responsibility.' },
   { number: 'III', title: 'Third Foundation Term', stage: 'second-foundation-synthesis', url: 'term-three-journey.html', action: 'Begin Third Term →', summary: 'Preserve disagreement, make a careful comparison, and transfer the habit.' }
 ];

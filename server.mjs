@@ -24,6 +24,16 @@ async function readJsonBody(request) {
   return JSON.parse(Buffer.concat(chunks).toString('utf8'));
 }
 
+function foundationRecommendation(learner) {
+  const completed = new Set(learner.completedStages || []);
+  const terms = [
+    { stage: 'foundation-capstone', title: 'Foundation Year · Term I: build the reading repertoire', reason: 'Begin with the connected source sequence that builds case mapping, question reading, evidence, and reception before its capstone.', url: 'integrated-path.html' },
+    { stage: 'term-two-capstone', title: 'Foundation Year · Term II: reason, scope, and responsibility', reason: 'Your first-term checkpoint is earned. Next, trace reasons, exceptions, and institutional responsibility through new sources.', url: 'second-foundation-term.html' },
+    { stage: 'second-foundation-synthesis', title: 'Foundation Year · Term III: disagreement and synthesis', reason: 'Your second-term checkpoint is earned. Now preserve distinct voices, compare carefully, and carry the habit into synthesis.', url: 'term-three-journey.html' }
+  ];
+  return terms.find((term) => !completed.has(term.stage)) || null;
+}
+
 async function recommendFor(learner, { skipReview = false } = {}) {
   if (!learner.placement) return { kind: 'placement', title: 'Find your Gemara starting point', reason: 'A short source-based placement will identify what you already know and what to build next.', url: 'placement.html' };
   if (!skipReview) {
@@ -40,6 +50,8 @@ async function recommendFor(learner, { skipReview = false } = {}) {
   }
   const remediation = await remediationFor(root, learner);
   if (remediation) return { kind: 'remediation', ...remediation, url: 'remediation.html' };
+  const foundationTerm = foundationRecommendation(learner);
+  if (foundationTerm) return { kind: 'foundation-term', ...foundationTerm };
   const graphPractice = await nextGraphPractice(root, learner);
   if (graphPractice) return { kind: 'graph-practice', title: graphPractice.skill.title, reason: graphPractice.reason, url: graphPractice.url, skill: graphPractice.skill, context: graphPractice.context, mastery: graphPractice.mastery };
   const journeyRecommendation = await nextJourneyRecommendation(root, learner);

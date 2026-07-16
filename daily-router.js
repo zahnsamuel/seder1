@@ -47,6 +47,13 @@ const deepenings = [
   ['chassidus-ahavat-yisrael-arc', 'chassidus-simcha-arc', 'Chassidus: joy as a discipline, not a mood', 'chassidus-simcha.html'],
   ['widerworld-encounter-arc', 'widerworld-mean-arc', 'Wider World: Rambam beside Aristotle, compared honestly', 'widerworld-mean.html']
 ];
+// Foundation Year is an earned three-term arc. It takes priority over rotation once
+// placement is complete, so every entry point gives the learner the same next move.
+const foundationTerms = [
+  { stage: 'foundation-capstone', title: 'Foundation Year · Term I: build the reading repertoire', url: 'integrated-path.html', reason: 'Begin with the connected source sequence that builds case mapping, question reading, evidence, and reception before its capstone.' },
+  { stage: 'term-two-capstone', title: 'Foundation Year · Term II: reason, scope, and responsibility', url: 'second-foundation-term.html', reason: 'Your first-term checkpoint is earned. Next, trace reasons, exceptions, and institutional responsibility through new sources.' },
+  { stage: 'second-foundation-synthesis', title: 'Foundation Year · Term III: disagreement and synthesis', url: 'term-three-journey.html', reason: 'Your second-term checkpoint is earned. Now preserve distinct voices, compare carefully, and carry the habit into synthesis.' }
+];
 
 Promise.all([
   Seder.api(`/api/learners/${learnerId}`).then((response) => response.json()),
@@ -76,9 +83,11 @@ Promise.all([
   // journey's current week, not the rotating tractate cycle (which could land a
   // day-one learner in the middle of Shas).
   const brandNew = doneStages.size === 0;
+  const foundationTerm = foundationTerms.find((term) => !doneStages.has(term.stage));
 
   let recommendation = category?.score > 0 ? category : personalDue || vocabDue ? { title: 'Complete your daily recall queue', url: 'daily-recall.html', reason: 'A saved source word or Gemara move is due now. Bring it back before beginning new material.' } : active ? { title: `Resume ${active.course.title}`, url: `canon-course.html?course=${active.course.id}&session=${active.first}`, reason: `Continue at session ${active.first + 1} of ${active.course.sessions.length}; your earlier source work is saved.` } : readyCapstone ? { title: `Capstone: ${readyCapstone.course.title}`, url: `canon-capstone.html?course=${readyCapstone.course.id}`, reason: 'You completed the source sequence. Now make an independent connection.' } : capstoned && transferDone < 5 ? { title: 'Read an unfamiliar source', url: 'independent-reading.html', reason: 'You have completed a course connection. Now prove that your reading habits transfer to a new text.' } : brandNew ? { title: 'Continue your first week', url: 'integrated-path.html', reason: 'You are at the start of the eight-week journey. Today’s work is your current week — the wider rotation begins once your first stage is complete.' } : deepening ? { title: deepening[2], url: deepening[3], reason: 'You finished this subject’s foundation, and its second unit is waiting. Deepen it today — the Gemara spine returns tomorrow.' } : { title: gemaraTitle, url: `tractate-mastery.html?tractate=${tractate}`, reason: 'Today’s core source work is a Gemara move. The wider canon will return in the next daily cycle.' };
 
+  if (!category?.score && !(personalDue || vocabDue) && foundationTerm) recommendation = foundationTerm;
   if (recommendation.url === `tractate-mastery.html?tractate=${tractate}`) recommendation.url = gemaraWorkbenchUrl[tractate];
   if (needsPlacement) recommendation = { title: 'Find your starting point', url: 'placement.html', reason: 'Begin with a short source-based placement. It chooses a first Gemara move and a review rhythm without assigning a permanent level.' };
   if (needsPlacement) {
