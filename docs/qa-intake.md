@@ -2305,3 +2305,8 @@ not labs -- left for coordination with Codex on file ownership.
   competing voices, stated reason, distinction, and the Gemara's placement question.
 - Added a dedicated visible source workspace with a study-only boundary. This is separate
   from Claude's modified tractate-lab data and does not stage that file.
+
+## 2026-07-16 -- Codex: Moed Expansion path
+
+- Connected Yoma, Rosh Hashanah, Megillah, and Taanit into an earned, one-current-move
+  Moed chapter with a four-source synthesis checkpoint.

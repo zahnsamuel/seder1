@@ -22,5 +22,6 @@ function render(learner) {
     const note = earned ? 'Term checkpoint earned · return through retrieval when a move begins to fade.' : current ? `Current next move: ${next[1]}.` : 'Earn the preceding Gemara Term to open this source world.';
     return `<article class="term ${state}"><span class="number">${earned ? '✓' : term.number}</span><div><small>GEMARA TERM ${term.number} · ${earned ? 'EARNED' : current ? 'CURRENT' : 'LOCKED'}</small><h2>${term.title}</h2><p>${term.summary}</p><p>${note}</p></div>${action}</article>`;
   }).join('') + (count === terms.length ? '<a class="term current" href="shas-map-v2.html"><span class="number">→</span><div><small>FULL SHAS</small><h2>Choose the next field of study</h2><p>You now have a durable opening repertoire for further tractates and deeper source work.</p></div><span>Open Shas map →</span></a>' : '');
+  if (count === terms.length) $('#terms').insertAdjacentHTML('beforeend', '<a class="term current" href="moed-expansion.html"><span class="number">+</span><div><small>EARNED EXPANSION</small><h2>Continue into Moed</h2><p>Carry your Gemara repertoire into procedure, calendar, public schedule, and timing disputes.</p></div><span>Open Moed Expansion</span></a>');
 }
 Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? response.json() : null).then(render).catch(() => render(null));

@@ -1,0 +1,4 @@
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import test from 'node:test';
+test('Moed Expansion gives one earned next move across four tractates and a synthesis',async()=>{const[page,script,synthesis]=await Promise.all(['moed-expansion.html','moed-expansion.js','moed-expansion-synthesis.js'].map(f=>readFile(f,'utf8')));for(const stage of['yoma-tractate-arc','rosh-hashanah-tractate-arc','megillah-tractate-arc','taanit-tractate-arc','moed-expansion-synthesis'])assert.match(script,new RegExp(stage));for(const skill of['moed-yoma-proof-transfer','moed-rosh-function-transfer','moed-megillah-community-transfer','moed-taanit-distinction-transfer'])assert.match(synthesis,new RegExp(skill));assert.match(synthesis,/sort\(\(\)=>Math\.random\(\)-\.5\)/);assert.match(page,/STUDY BOUNDARY/)});
