@@ -2040,6 +2040,16 @@ consistent. No code change made pending that decision.
 - Kept `data/tractate-labs.json` out of this change because it contains separate uncommitted
   work. Focused recommendation tests pass before the full-suite check.
 
+## 2026-07-16 -- Codex: learner-flow QA and course-resume repair
+
+- Live fresh-learner QA passed through profile creation, daily routing, placement, answer
+  progression, a Halakha source lesson, and its visible Continue action at a mobile viewport.
+- Found that the shared course engine lost its in-course position on reload while retaining
+  XP. It now saves the next source step locally per learner and course, then clears that
+  saved position after the earned checkpoint.
+- Restored actual text entry for `typed:true` translation-anchor checks. Argument and
+  source-reasoning checks remain shuffled choices; this follows the production principle.
+
 
 ## 2026-07-15 -- Claude: floor labs Nazir/Taanit/Makkot deepened + lab.js render conflict flagged
 

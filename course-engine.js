@@ -7,7 +7,10 @@ if(earnedBlockHandoffByStage[config.stage]){[config.nextUrl,config.nextLabel]=ea
 // then enter targeted retrieval. The mastery dashboard remains a reference view.
 const flagshipWorkbenchByStage={'shabbat-tractate-arc':'shabbat','pesachim-tractate-arc':'pesachim','eruvin-tractate-arc':'eruvin','sukkah-tractate-arc':'sukkah','bava-metzia-tractate-arc':'bava-metzia','bava-kamma-tractate-arc':'bava-kamma','ketubot-tractate-arc':'ketubot','chullin-tractate-arc':'chullin','niddah-tractate-arc':'niddah'};
 if(flagshipWorkbenchByStage[config.stage]){const tractate=flagshipWorkbenchByStage[config.stage];config.nextUrl=`flagship-daf-workbench.html?tractate=${tractate}`;config.nextLabel=`Build the ${tractate.replace(/-/g,' ')} sugya map`;}
-let courseIndex=0,answered=false,xp=0;const $$=s=>document.querySelector(s);const courseLearner=Seder.currentLearnerId();
+const courseLearner=Seder.currentLearnerId();
+const courseProgressKey=`seder-course-progress:${courseLearner}:${config.stage}`;
+const savedCourseIndex=Number(localStorage.getItem(courseProgressKey));
+let courseIndex=Number.isInteger(savedCourseIndex)&&savedCourseIndex>=0&&savedCourseIndex<config.steps.length?savedCourseIndex:0,answered=false,xp=0;const $$=s=>document.querySelector(s);
 function shuffle(list){return list.map((text,i)=>({text,i})).sort(()=>Math.random()-.5)}
 (function injectCelebrationStyles(){
   if(document.getElementById('seder-celebration-styles'))return;
@@ -71,9 +74,6 @@ function renderCourse(){const step=config.steps[courseIndex];answered=false;$$('
 function answerCourse(button,correct,step){if(answered)return;answered=true;document.querySelectorAll('#answers button').forEach(b=>b.disabled=true);button.classList.add(correct?'correct':'incorrect');$$('#feedback').textContent=(correct?'+10 XP. ':'+5 XP. ')+step.feedback;$$('#continue').disabled=false;recordCourseAnswer(step,correct)}
 function normalizeTyped(text){return String(text||'').trim().toLowerCase().replace(/[.,!?;:'"“”’]/g,'')}
 function renderTyped(step,container){
-  const correct=(step.acceptable||[step.translation])[0];
-  shuffle([correct,'A question that the source raises but does not answer here.','A final ruling not stated in this source line.']).forEach(({text,i})=>{const b=document.createElement('button');b.type='button';b.textContent=text;b.addEventListener('click',()=>answerCourse(b,i===0,step));container.appendChild(b)});
-  return;
   const wrap=document.createElement('div');wrap.className='seder-typed';
   const input=document.createElement('input');input.type='text';input.autocomplete='off';input.spellcheck=false;input.placeholder='Type your answer…';input.setAttribute('aria-label','Typed answer');
   const submit=document.createElement('button');submit.type='button';submit.textContent='Check answer';
@@ -97,5 +97,5 @@ function submitTyped(input,submit,step){
 }
 function recordCourseAnswer(step,correct){Seder.api(`/api/learners/${courseLearner}/events`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'answer_submitted',skillId:step.skill,competency:step.competency,correct,sourceContext:step.ref})}).then(r=>r.ok?r.json():null).then(l=>{if(l){xp=l.xp||xp;$$('#xp').textContent=`${xp} XP`;celebrateXp($$('#xp'),correct?10:5)}}).catch(()=>{})}
 $$('#translate').addEventListener('click',()=>{const el=$$('#translation');el.hidden=!el.hidden;$$('#translate').textContent=el.hidden?'Show translation':'Hide translation'});
-$$('#continue').addEventListener('click',()=>{if(!answered)return;if(courseIndex<config.steps.length-1){courseIndex++;renderCourse();return}$$('.lesson').innerHTML=`<section class="mastery"><span class="eyebrow">CHECKPOINT COMPLETE</span><h2>${config.completeTitle}</h2><p>${config.completeCopy}</p><a href="${config.nextUrl}">${config.nextLabel} →</a></section>`;celebrateCheckpoint($$('.mastery'));Seder.api(`/api/learners/${courseLearner}/events`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'stage_mastered',stageId:config.stage})}).catch(()=>{})});
+$$('#continue').addEventListener('click',()=>{if(!answered)return;if(courseIndex<config.steps.length-1){courseIndex++;localStorage.setItem(courseProgressKey,String(courseIndex));renderCourse();return}localStorage.removeItem(courseProgressKey);$$('.lesson').innerHTML=`<section class="mastery"><span class="eyebrow">CHECKPOINT COMPLETE</span><h2>${config.completeTitle}</h2><p>${config.completeCopy}</p><a href="${config.nextUrl}">${config.nextLabel} →</a></section>`;celebrateCheckpoint($$('.mastery'));Seder.api(`/api/learners/${courseLearner}/events`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'stage_mastered',stageId:config.stage})}).catch(()=>{})});
 Seder.api(`/api/learners/${courseLearner}`).then(r=>r.ok?r.json():null).then(l=>{if(l){xp=l.xp||0;$$('#xp').textContent=`${xp} XP`}}).catch(()=>{});renderCourse();
