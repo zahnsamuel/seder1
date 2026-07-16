@@ -2195,3 +2195,12 @@ Temurah, Keritot, Meilah, Tamid).
 - Each source includes Hebrew, a short English orientation, a Sefaria deep link, shuffled
   choices, learner events, and a study-only boundary. Completion returns to the next Gemara
   source trail rather than ending the learner journey.
+
+## 2026-07-16 -- Codex: Foundation Year path
+
+- Connected the first three Foundation Terms through a learner-facing Foundation Year map with
+  earned/current/locked states based on recorded term checkpoints. My Journey now links there
+  directly.
+- First Term completion now opens the Foundation Year map, Term Two’s capstone records an
+  explicit checkpoint and hands into Term Three, and Term Three exposes the final Foundation
+  Synthesis as its fifth earned step.

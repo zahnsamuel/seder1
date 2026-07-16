@@ -1,6 +1,6 @@
 const learnerId = Seder.currentLearnerId();
 const requestedLevelParam = new URLSearchParams(location.search).get('level');
-if (requestedLevelParam === 'foundation-term') location.replace('second-foundation-term.html');
+if (requestedLevelParam === 'foundation-term') location.replace('foundation-year.html');
 const requestedLevel = Number(requestedLevelParam);
 
 const levels = [
