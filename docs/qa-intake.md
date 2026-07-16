@@ -2276,3 +2276,25 @@ the score-3 bucket is gone entirely.
   community categories, an early-reading accommodation, and the Gemara's practical reason.
 - Added a visible workspace for mapping the source from public schedule through communal
   function, with a study-only boundary around present-day ritual and halakhic practice.
+
+## 2026-07-16 -- Claude: nine score-4/5 labs to 8 (Wave 3 lab-deepening complete)
+
+Deepened the last nine tractate labs from 3 steps to 5 -- each gains a reasoning
+step drawn from its own opening sugya plus a typed translation-anchor production
+check, with all distractors rewritten to length parity (0/4 flags on every one):
+- Shabbat: 'two that are four' unpacked (poor-person / householder); typed: hotza'ah.
+- Pesachim: the Gemara's 'or = day or evening?' ambiguity fixing the search time; typed: chametz.
+- Eruvin: the twenty-cubit crossbeam-perception reason (linked to Sukkah); typed: mavoi.
+- Bava Metzia: yachloku as possession-plus-oath, not a generic split; typed: yachloku.
+- Sukkah: the three reasons a too-tall sukkah is pasul, one shared purpose (linked to Eruvin); typed: pesulah.
+- Ketubot: the Wednesday wedding engineered around the Thursday court; typed: betulah.
+- Niddah (sensitive): chazakah as an abstract reasoning default; boundary step kept terminal; typed: chazakah.
+- Sanhedrin (sensitive): court size as a safeguard scaled to the stakes; boundary step kept terminal; typed: dinei nefashot.
+- Chagigah: cheresh/shoteh/katan excluded for lack of da'at (linked to Chullin); typed: katan.
+All nine audit at 8. Content stayed within already-verified in-repo anchors and
+bedrock opening-Mishnah / opening-sugya material (WebSearch still rate-limited).
+Both sensitive tractates keep their RESPONSIBLE-LEARNING boundary step last.
+Full suite 204/204 green. Every tractate lab now scores >= 8: Wave 3 lab-deepening
+is complete. Audit distribution now {4:1,6:1,7:22,8:36,9:19,10:15}; the only remaining
+sub-8 units are three shared .js unit/arc files (canon-arc, taanit-arc, widerworld-mean),
+not labs -- left for coordination with Codex on file ownership.
