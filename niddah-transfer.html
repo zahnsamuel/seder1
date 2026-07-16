@@ -1,1 +1,31 @@
-<!doctype html><html><head><meta charset="utf-8"><title>Seder · Three Positions Transfer</title><link rel="stylesheet" href="canon-labs.css"></head><body><main><p class="lesson-label">NIDDAH · UNSEEN TRANSFER</p><h1>Keep three voices visible.</h1><article class="source"><p class="citation">Mishnah Bava Kamma 2:1</p><p>A Mishnah distinguishes several categories and the consequences connected to each.</p><a href="https://www.sefaria.org/Mishnah_Bava_Kamma.2.1" target="_blank" rel="noopener">Read the source on Sefaria ↗</a></article><p class="prompt">What does the three-position habit ask you to do in this unfamiliar legal source?</p><div class="choices" id="a"></div><p id="f"></p><p class="lesson-label">STUDY BOUNDARY</p><p>This non-sensitive transfer exercise teaches source-reading only. It does not provide personal health, family, ritual, or legal guidance.</p></main><script>const x=['Name each category or position separately, identify what changes between them, then compare without treating them as identical.','Choose one category and erase the others.','Apply the result to a personal legal problem.'].map((t,i)=>({t,i})).sort(()=>Math.random()-.5);a.innerHTML=x.map(({t,i})=>`<button class="choice" data-i="${i}">${t}</button>`).join('');document.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>{const ok=+b.dataset.i===0;document.querySelectorAll('[data-i]').forEach(q=>q.disabled=true);f.innerHTML=ok?'<span class="feedback">+15 XP. You transferred careful distinction into a new legal world.</span><a class="continue" href="niddah-arc.html">Return to Niddah →</a>':'<button class="continue" onclick="location.reload()">Try again →</button>'})</script></body></html>
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Seder · Three Positions Transfer</title><link rel="stylesheet" href="canon-labs.css"></head>
+<body>
+  <main>
+    <p class="lesson-label">NIDDAH · UNSEEN TRANSFER</p>
+    <h1>Keep three voices visible.</h1>
+    <article class="source"><p class="citation">Mishnah Bava Kamma 2:1</p><p>A Mishnah distinguishes several categories and the consequences connected to each.</p><a href="https://www.sefaria.org/Mishnah_Bava_Kamma.2.1" target="_blank" rel="noopener">Read the source on Sefaria ↗</a></article>
+    <p class="prompt">What does the three-position habit ask you to do in this unfamiliar legal source?</p>
+    <div class="choices" id="answers"></div><p id="feedback"></p>
+    <p class="lesson-label">STUDY BOUNDARY</p>
+    <p>This non-sensitive transfer exercise teaches source-reading only. It does not provide personal health, family, ritual, or legal guidance.</p>
+  </main>
+  <script>
+    const options = [
+      'Name each category or position separately, identify what changes between them, then compare without treating them as identical.',
+      'Choose one category and erase the others.',
+      'Apply the result to a personal legal problem.'
+    ].map((text, index) => ({ text, index })).sort(() => Math.random() - 0.5);
+    const answers = document.querySelector('#answers');
+    answers.innerHTML = options.map(({ text, index }) => `<button class="choice" data-index="${index}">${text}</button>`).join('');
+    document.querySelectorAll('[data-index]').forEach((button) => button.addEventListener('click', () => {
+      const correct = Number(button.dataset.index) === 0;
+      document.querySelectorAll('[data-index]').forEach((item) => { item.disabled = true; });
+      document.querySelector('#feedback').innerHTML = correct
+        ? '<span class="feedback">+15 XP. You transferred careful distinction into a new legal world.</span><a class="continue" href="term-three-journey.html">Complete Term Three →</a>'
+        : '<button class="continue" onclick="location.reload()">Try again →</button>';
+    }));
+  </script>
+</body>
+</html>

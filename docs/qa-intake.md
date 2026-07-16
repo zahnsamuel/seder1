@@ -2143,6 +2143,20 @@ progress after a learner finds them elsewhere. Targeted curriculum-engine suite:
 - Added a regression test so the daily recommendation cannot quietly return to the retired
   dashboard route.
 
+## 2026-07-16 -- Codex: Term Three source-based canon integration
+
+- Kept the existing ten-step Niddah source trail as the Term Three Gemara anchor rather
+  than duplicating its sensitive material in a second course.
+- Added an earned four-source integration: Mishnah Niddah 1:1, Eruvin 13b, and Pirkei
+  Avot 4:1 build one transferable reading habit — preserve each voice, identify the
+  exact distinction, then compare responsibly. All choices shuffle at render time; no
+  typing is required.
+- Reworked the Term Three page into a visible source trail → Gemara practice → canon
+  integration → transfer sequence. The transfer now returns to the term rather than
+  looping a learner back into the already-completed Niddah source trail.
+- Verified cited references on Sefaria before writing; Term Three retains an explicit
+  study-only boundary for personal, health, family, ritual, and legal questions.
+
 ## 2026-07-16 -- Claude: floor labs Beitzah / Moed Katan / Zevachim to 8
 
 Deepened three score-3 floor labs with verified sugya content + a typed translation-anchor
