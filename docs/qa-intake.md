@@ -1988,3 +1988,29 @@ Distribution {3:16, 4:6, 5:4, 6:1, 7:20, 8:11, 9:18, 10:15}. Suite 170/170.
 - Added a five-move, no-required-typing capstone after Integration III. Learners map a Gemara case, read Torah in context, repair a flattened Mussar reading, distinguish historical evidence from memory, and transfer the sequence to an unseen Mishnah.
 - Every move is Sefaria-linked, shuffles choices, records evidence, and shows the practical-guidance boundary. The full suite passes 185/185.
 - Verified the block’s cited source pages on Sefaria: Mishnah Eruvin 1:1, Mishnah Eruvin 1:2, and Eruvin 2a. The study boundary explicitly excludes real-world eruv determination.
+
+
+## 2026-07-15 -- Claude: dry run of the migrated spine + coordination note
+
+Codex has migrated five arcs (bava-kamma, bava-metzia, eruvin, pesachim, sukkah) to
+flagship-daf-workbench.html and replaced typed production gates with shuffled explanation/
+source checks across the flagship path and several arcs (converting some of my typed steps
+to recognition, keeping the skill IDs). This is a deliberate, owner-endorsed design choice
+(commits authored under Sam's identity). I am staying off the arcs and flagship files
+while Codex is active there.
+
+Verification pass (read-only) on the current tree:
+- Sitewide link sweep: 147 html + 164 js scanned, zero broken local page links.
+- node --check clean on flagship-daf-workbench.js, flagship-transfer-mastery.js,
+  second-source-production.js.
+- Fresh-learner dry run (cleared storage, new learner id): landing renders with no JS
+  errors and now offers a "start with a fresh learner" CTA (addresses the old shared-demo
+  risk); flagship-daf-workbench loads Bava Kamma 2a as an interactive Sugya Map with no JS
+  errors; daily-router correctly routes a placement-less learner to placement.html.
+- Full suite 170/170 at last run.
+
+Open coordination question for Sam (unchanged, now sharper): the app now has two
+production-check philosophies -- typed recall (non-Gemara units + labs, mine) and
+shuffled explanation/source checks (Gemara spine + flagship, Codex). Both are defensible
+for their surface, but a one-line principle on which belongs where would let us make it
+consistent. No code change made pending that decision.
