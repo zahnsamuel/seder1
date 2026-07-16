@@ -2014,3 +2014,18 @@ production-check philosophies -- typed recall (non-Gemara units + labs, mine) an
 shuffled explanation/source checks (Gemara spine + flagship, Codex). Both are defensible
 for their surface, but a one-line principle on which belongs where would let us make it
 consistent. No code change made pending that decision.
+
+## 2026-07-16 -- Codex: unified Foundation tractate post-arc route
+
+- Chose the tractate-specific flagship Daf workbench as the canonical post-arc destination
+  for all nine Foundation tractates: Shabbat, Eruvin, Pesachim, Sukkah, Bava Metzia,
+  Bava Kamma, Ketubot, Chullin, and Niddah.
+- Added tractate-specific opening packets for Ketubot 2a, Chullin 2a, and Mishnah Niddah
+  1:1, each with a Sefaria source link, visible translation control, and line-role mapping.
+  The Niddah packet remains text-focused and does not offer practical guidance.
+- A completed source map now goes forward to the tractate's targeted practice set instead
+  of returning to the just-completed arc. `tractate-mastery.html` remains an optional
+  reference dashboard, not a competing post-arc route.
+- Added a regression test covering all nine stage-to-workbench mappings and source packets.
+  Yoma is intentionally outside this Foundation cohort and remains on its advanced
+  procedure-focused route pending a dedicated workbench packet.
