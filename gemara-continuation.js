@@ -5,11 +5,12 @@ const workbenchByStage = {
   'eruvin-tractate-arc': 'eruvin',
   'pesachim-tractate-arc': 'pesachim',
   'sukkah-tractate-arc': 'sukkah',
-  'bava-metzia-tractate-arc': 'bava',
+  'bava-metzia-tractate-arc': 'bava-metzia',
   'bava-kamma-tractate-arc': 'bava-kamma',
   'ketubot-tractate-arc': 'ketubot',
   'chullin-tractate-arc': 'chullin',
-  'niddah-tractate-arc': 'niddah'
+  'niddah-tractate-arc': 'niddah',
+  'sanhedrin-tractate-arc': 'sanhedrin'
 };
 Promise.all([
   Seder.api('/api/curriculum/advanced-gemara-sequence').then((response) => response.json()),

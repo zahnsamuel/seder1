@@ -2157,6 +2157,19 @@ progress after a learner finds them elsewhere. Targeted curriculum-engine suite:
 - Verified cited references on Sefaria before writing; Term Three retains an explicit
   study-only boundary for personal, health, family, ritual, and legal questions.
 
+## 2026-07-16 -- Codex: Sanhedrin full source trail
+
+- Promoted Sanhedrin from a one-step entry to a ten-step beginner tractate arc based on
+  Mishnah Sanhedrin 1:1 and Sanhedrin 2a: category → named cases → wording question →
+  “what are these?” reading proposal → source layer → transfer.
+- Added a Sanhedrin packet to the interactive flagship Daf workspace and registered the
+  post-arc mastery route, so completion follows the same source-workbench model as the
+  other Foundation arcs.
+- Added Sanhedrin to the Gemara continuation sequence and the Shas map’s full-arc route.
+  The terminal translation recall remains typed; argument and source-reasoning checks are
+  shuffled choices. All learner-facing court material retains an explicit study-only,
+  non-adjudicative boundary.
+
 ## 2026-07-16 -- Claude: floor labs Beitzah / Moed Katan / Zevachim to 8
 
 Deepened three score-3 floor labs with verified sugya content + a typed translation-anchor

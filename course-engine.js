@@ -12,6 +12,7 @@ const masteryRouteByStage={
   'ketubot-tractate-arc':{tractate:'ketubot',url:'flagship-daf-workbench.html?tractate=ketubot',label:'Build the Ketubot sugya map'},
   'chullin-tractate-arc':{tractate:'chullin',url:'flagship-daf-workbench.html?tractate=chullin',label:'Build the Chullin sugya map'},
   'niddah-tractate-arc':{tractate:'niddah',url:'flagship-daf-workbench.html?tractate=niddah',label:'Build the Niddah source map'},
+  'sanhedrin-tractate-arc':{tractate:'sanhedrin',url:'flagship-daf-workbench.html?tractate=sanhedrin',label:'Build the Sanhedrin source map'},
   'yoma-tractate-arc':{tractate:'yoma',url:'yoma-daf-workbench.html',label:'Open the Yoma source workspace'}
 };
 const masteryRoute=masteryRouteByStage[config.stage];
