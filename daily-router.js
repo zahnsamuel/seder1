@@ -12,6 +12,20 @@ const gemaraCycle = [
   ['chullin', 'Chullin: read a rule through its exception'],
   ['niddah', 'Niddah: hold a three-way dispute carefully']
 ];
+// Daily Gemara recommendations use the same source workspace as an earned tractate arc.
+// The older tractate-mastery dashboard remains a reference surface, not the next move.
+const gemaraWorkbenchUrl = {
+  berakhot: 'daf-workbench.html?tractate=berakhot',
+  shabbat: 'flagship-daf-workbench.html?tractate=shabbat',
+  pesachim: 'flagship-daf-workbench.html?tractate=pesachim',
+  eruvin: 'flagship-daf-workbench.html?tractate=eruvin',
+  sukkah: 'flagship-daf-workbench.html?tractate=sukkah',
+  'bava-metzia': 'flagship-daf-workbench.html?tractate=bava-metzia',
+  'bava-kamma': 'flagship-daf-workbench.html?tractate=bava-kamma',
+  ketubot: 'flagship-daf-workbench.html?tractate=ketubot',
+  chullin: 'flagship-daf-workbench.html?tractate=chullin',
+  niddah: 'flagship-daf-workbench.html?tractate=niddah'
+};
 // Second-foundation deepenings: [first arc stage, second unit stage, title, url].
 // When a learner has finished a subject's first arc but not its second unit, the
 // router offers the deepening every third day; the Gemara spine keeps the other days.
@@ -65,6 +79,7 @@ Promise.all([
 
   let recommendation = category?.score > 0 ? category : personalDue || vocabDue ? { title: 'Complete your daily recall queue', url: 'daily-recall.html', reason: 'A saved source word or Gemara move is due now. Bring it back before beginning new material.' } : active ? { title: `Resume ${active.course.title}`, url: `canon-course.html?course=${active.course.id}&session=${active.first}`, reason: `Continue at session ${active.first + 1} of ${active.course.sessions.length}; your earlier source work is saved.` } : readyCapstone ? { title: `Capstone: ${readyCapstone.course.title}`, url: `canon-capstone.html?course=${readyCapstone.course.id}`, reason: 'You completed the source sequence. Now make an independent connection.' } : capstoned && transferDone < 5 ? { title: 'Read an unfamiliar source', url: 'independent-reading.html', reason: 'You have completed a course connection. Now prove that your reading habits transfer to a new text.' } : brandNew ? { title: 'Continue your first week', url: 'integrated-path.html', reason: 'You are at the start of the eight-week journey. Today’s work is your current week — the wider rotation begins once your first stage is complete.' } : deepening ? { title: deepening[2], url: deepening[3], reason: 'You finished this subject’s foundation, and its second unit is waiting. Deepen it today — the Gemara spine returns tomorrow.' } : { title: gemaraTitle, url: `tractate-mastery.html?tractate=${tractate}`, reason: 'Today’s core source work is a Gemara move. The wider canon will return in the next daily cycle.' };
 
+  if (recommendation.url === `tractate-mastery.html?tractate=${tractate}`) recommendation.url = gemaraWorkbenchUrl[tractate];
   if (needsPlacement) recommendation = { title: 'Find your starting point', url: 'placement.html', reason: 'Begin with a short source-based placement. It chooses a first Gemara move and a review rhythm without assigning a permanent level.' };
   if (needsPlacement) {
     document.querySelector('#mastery-status').hidden = true;

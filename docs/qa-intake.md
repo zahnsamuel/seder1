@@ -2131,6 +2131,18 @@ Mussar and Chassidus units remain gated by conceptual-reading foundations. This 
 `nextGraphPractice` a real route into those courses rather than merely recording their
 progress after a learner finds them elsewhere. Targeted curriculum-engine suite: 7/7 green.
 
+## 2026-07-16 -- Codex: learner-flow QA and daily Gemara route repair
+
+- Live fresh-learner QA confirmed that the landing page can create a distinct local learner
+  profile and that placement deliberately hands a beginner straight to the guided Berakhot
+  2a source, with the eight-week journey still visible from the main navigation.
+- Corrected a remaining route inconsistency: daily Gemara rotation was still linking to the
+  retired `tractate-mastery.html` dashboard while earned tractate arcs use the canonical
+  interactive Daf workbenches. Daily rotation now uses those same tractate-specific
+  workspaces, including the dedicated Berakhot Daf workbench.
+- Added a regression test so the daily recommendation cannot quietly return to the retired
+  dashboard route.
+
 ## 2026-07-16 -- Claude: floor labs Beitzah / Moed Katan / Zevachim to 8
 
 Deepened three score-3 floor labs with verified sugya content + a typed translation-anchor
