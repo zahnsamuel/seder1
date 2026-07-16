@@ -2269,3 +2269,10 @@ opening-Mishnah content only. Live API serves all seven with the typed step inta
 Option-A typed renderer was live-verified end to end earlier this session (Beitzah).
 Full suite 202/202 green. Audit distribution now {4:6,5:4,6:1,7:21,8:26,9:19,10:15} --
 the score-3 bucket is gone entirely.
+
+## 2026-07-16 -- Codex: Megillah full source trail
+
+- Expanded Megillah from a lab into an eight-step source trail: a bounded reading window,
+  community categories, an early-reading accommodation, and the Gemara's practical reason.
+- Added a visible workspace for mapping the source from public schedule through communal
+  function, with a study-only boundary around present-day ritual and halakhic practice.

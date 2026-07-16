@@ -14,7 +14,8 @@ const masteryRouteByStage={
   'niddah-tractate-arc':{tractate:'niddah',url:'flagship-daf-workbench.html?tractate=niddah',label:'Build the Niddah source map'},
   'sanhedrin-tractate-arc':{tractate:'sanhedrin',url:'flagship-daf-workbench.html?tractate=sanhedrin',label:'Build the Sanhedrin source map'},
   'yoma-tractate-arc':{tractate:'yoma',url:'yoma-daf-workbench.html',label:'Open the Yoma source workspace'},
-  'rosh-hashanah-tractate-arc':{tractate:'rosh-hashanah',url:'rosh-hashanah-daf-workbench.html',label:'Open the Rosh Hashanah source workspace'}
+  'rosh-hashanah-tractate-arc':{tractate:'rosh-hashanah',url:'rosh-hashanah-daf-workbench.html',label:'Open the Rosh Hashanah source workspace'},
+  'megillah-tractate-arc':{tractate:'megillah',url:'megillah-daf-workbench.html',label:'Open the Megillah source workspace'}
 };
 const masteryRoute=masteryRouteByStage[config.stage];
 if(masteryRoute){config.nextUrl=masteryRoute.url;config.nextLabel=masteryRoute.label;}
