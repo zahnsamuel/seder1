@@ -2298,3 +2298,10 @@ Full suite 204/204 green. Every tractate lab now scores >= 8: Wave 3 lab-deepeni
 is complete. Audit distribution now {4:1,6:1,7:22,8:36,9:19,10:15}; the only remaining
 sub-8 units are three shared .js unit/arc files (canon-arc, taanit-arc, widerworld-mean),
 not labs -- left for coordination with Codex on file ownership.
+
+## 2026-07-16 -- Codex: Taanit full Gemara source trail
+
+- Added a seven-step Taanit tractate arc focused on timing disputes: shared question,
+  competing voices, stated reason, distinction, and the Gemara's placement question.
+- Added a dedicated visible source workspace with a study-only boundary. This is separate
+  from Claude's modified tractate-lab data and does not stage that file.
