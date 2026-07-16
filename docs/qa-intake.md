@@ -2237,3 +2237,26 @@ Temurah, Keritot, Meilah, Tamid).
   visible-source workspace, rather than the retired tractate-mastery loop.
 - The browser daily router, server recommendation API, and official advanced sequence now
   agree that Yoma precedes the Foundation checkpoint.
+
+## 2026-07-16 -- Claude: last seven Kodashim labs to 8 (score-3 floor eliminated)
+
+Deepened the remaining obscure Kodashim labs from 3 steps to 5 -- each gains a
+distinctive-principle step and a typed translation-anchor production check, plus
+full length-parity distractor rewrites:
+- Menachot: kemitzah shelo lishman (valid but uncredited), with the minchat chotei /
+  minchat kena'ot exception mirroring Zevachim's pesach/chatat; typed: shelo lishman.
+- Bekhorot: peter chamor, a non-Jew's partnership exempting from the firstborn status
+  (all-or-nothing sanctity); typed: patur.
+- Arakhin: erech (Torah's fixed valuation table) vs damim (market value); typed: erech.
+- Temurah: forbidden-yet-effective substitution, sanctity that will not lapse on
+  command so both animals stay holy; typed: temurah.
+- Keritot: the 36 karet count and the zadono-karet / shigegato-chatat pairing; typed: karet.
+- Meilah: validity vs sanctity, me'ilah liability surviving a disqualified-but-sacred
+  offering; typed: me'ilah.
+- Tamid: a near-dispute-free narrative tractate read as an ordered sequence; typed: tamid.
+All seven audit at 8 (0/4 length flags, typed production credited). WebSearch was rate-
+limited mid-batch, so these stayed within already-verified in-repo anchors and bedrock
+opening-Mishnah content only. Live API serves all seven with the typed step intact; the
+Option-A typed renderer was live-verified end to end earlier this session (Beitzah).
+Full suite 202/202 green. Audit distribution now {4:6,5:4,6:1,7:21,8:26,9:19,10:15} --
+the score-3 bucket is gone entirely.
