@@ -2212,3 +2212,13 @@ Temurah, Keritot, Meilah, Tamid).
   placement, while preserving urgent retrieval and targeted remediation ahead of new study.
 - This makes Seder, Today, and Foundation Year agree on one next move instead of rotating a
   learner into an unrelated tractate during an unfinished term.
+
+## 2026-07-16 -- Codex: Gemara Year path
+
+- Grouped the existing deep tractate arcs into three earned post-Foundation Gemara terms:
+  time/space/practice; claims/responsibility/institutions; and rule/disagreement.
+- Reused the Gemara Foundations and Civil Reasoning checkpoints as term gates. Civil Reasoning
+  now emits its durable checkpoint only when its earned completion screen appears.
+- Added a four-source Gemara Year synthesis (Eruvin, Bava Kamma, Chullin, Niddah) with
+  shuffled source-reasoning checks, Sefaria links, an explicit boundary, and a final Shas-map
+  handoff.

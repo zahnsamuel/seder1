@@ -9,12 +9,12 @@ function render(learner) {
   const completed = new Set(learner?.completedStages || []); const count = terms.filter((term) => completed.has(term.stage)).length;
   $('#xp').textContent = `${learner?.xp || 0} XP`; $('#meter').style.width = `${(count / terms.length) * 100}%`;
   $('#status').textContent = count === terms.length ? 'Foundation Year synthesis earned.' : `Term ${count + 1} is your current foundation.`;
-  $('#summary').textContent = count === terms.length ? 'You have evidence for reason, scope, disagreement, and cross-canon transfer. Continue into the next Gemara source trail, then return for retrieval.' : `${count} of ${terms.length} term checkpoints earned. One clear next move is open.`;
+  $('#summary').textContent = count === terms.length ? 'You have evidence for reason, scope, disagreement, and cross-canon transfer. Continue into the Gemara Year, then return for retrieval.' : `${count} of ${terms.length} term checkpoints earned. One clear next move is open.`;
   $('#terms').innerHTML = terms.map((term, index) => {
     const complete = completed.has(term.stage), current = !complete && index === count, state = complete ? 'complete' : current ? 'current' : 'locked';
     const note = complete ? 'Checkpoint earned · revisit when you want to strengthen the repertoire.' : current ? 'Your next connected term is ready.' : 'Earn the preceding term checkpoint to open this material.';
     const action = complete ? `<a href="${term.url}">Revisit →</a>` : current ? `<a href="${term.url}">${term.action}</a>` : '<span class="later">Later</span>';
     return `<article class="term ${state}"><span class="number">${complete ? '✓' : term.number}</span><div><small>TERM ${term.number} · ${complete ? 'EARNED' : current ? 'CURRENT' : 'LOCKED'}</small><h2>${term.title}</h2><p>${term.summary}</p><p>${note}</p></div>${action}</article>`;
-  }).join('') + (count === terms.length ? '<a class="term current" href="gemara-continuation.html"><span class="number">→</span><div><small>NEXT GEMARA SOURCE TRAIL</small><h2>Continue the spiral</h2><p>Use the Foundation Year repertoire in the next tractate, then retrieve it when it starts to fade.</p></div><span>Continue →</span></a>' : '');
+  }).join('') + (count === terms.length ? '<a class="term current" href="gemara-year.html"><span class="number">→</span><div><small>NEXT · GEMARA YEAR</small><h2>Carry the repertoire across Shas</h2><p>Enter the next three earned terms: time and space, civil reasoning, then rule and disagreement.</p></div><span>Open Gemara Year →</span></a>' : '');
 }
 Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? response.json() : null).then(render).catch(() => render(null));
