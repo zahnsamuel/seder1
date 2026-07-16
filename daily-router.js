@@ -59,12 +59,32 @@ const gemaraYearTerms = [
   { title: 'Gemara Year · Term II: claims, responsibility, and institutions', reason: 'Continue the civil-reasoning term: map claims, identify categories of responsibility, and read institutions through their stated reasons.', steps: [['bava-metzia-tractate-arc', 'Bava Metzia: claims and evidence', 'bava-metzia-arc.html'], ['bava-kamma-tractate-arc', 'Bava Kamma: categories of damage', 'bava-kamma-arc.html'], ['ketubot-tractate-arc', 'Ketubot: schedule and reason', 'ketubot-arc.html'], ['sanhedrin-tractate-arc', 'Sanhedrin: category and specification', 'sanhedrin-arc.html'], ['civil-reasoning-checkpoint', 'Civil Reasoning checkpoint', 'civil-reasoning.html']] },
   { title: 'Gemara Year · Term III: rule and disagreement', reason: 'Complete the final term by tracing a rule through its exceptions, preserving disagreement, and transferring both habits across sources.', steps: [['chullin-tractate-arc', 'Chullin: rule and exception', 'chullin-arc.html'], ['niddah-tractate-arc', 'Niddah: three positions', 'niddah-arc.html'], ['gemara-year-synthesis', 'Gemara Year synthesis', 'gemara-year-synthesis.html']] }
 ];
+// Moed opens only after the earned Gemara Year sequence. Yoma is intentionally
+// included in the Year, so its completed arc also counts as the first chapter here.
+const moedExpansionChapters = [
+  ['yoma-tractate-arc', 'Yoma: procedure, limit, and proof', 'yoma-arc.html'],
+  ['rosh-hashanah-tractate-arc', 'Rosh Hashanah: calendar and public record', 'rosh-hashanah-arc.html'],
+  ['megillah-tractate-arc', 'Megillah: public schedule and accommodation', 'megillah-arc.html'],
+  ['taanit-tractate-arc', 'Taanit: timing dispute and distinction', 'taanit-arc.html'],
+  ['moed-expansion-synthesis', 'Moed Expansion synthesis', 'moed-expansion-synthesis.html']
+];
 function nextGemaraYearMove(doneStages) {
   for (const term of gemaraYearTerms) {
     const step = term.steps.find(([stage]) => !doneStages.has(stage));
     if (step) return { title: `${term.title} · ${step[1]}`, url: step[2], reason: term.reason };
   }
   return null;
+}
+function nextMoedExpansionMove(doneStages) {
+  const gemaraYearComplete = gemaraYearTerms.every((term) => term.steps.every(([stage]) => doneStages.has(stage)));
+  if (!gemaraYearComplete) return null;
+  const chapter = moedExpansionChapters.find(([stage]) => !doneStages.has(stage));
+  if (!chapter) return null;
+  return {
+    title: `Moed Expansion · ${chapter[1]}`,
+    url: chapter[2],
+    reason: 'Your Gemara Year is complete. Extend the same source-reading habits through the calendar, public reading, and communal response.'
+  };
 }
 
 Promise.all([
@@ -97,10 +117,11 @@ Promise.all([
   const brandNew = doneStages.size === 0;
   const foundationTerm = foundationTerms.find((term) => !doneStages.has(term.stage));
   const gemaraYearMove = foundationTerm ? null : nextGemaraYearMove(doneStages);
+  const moedExpansionMove = foundationTerm || gemaraYearMove ? null : nextMoedExpansionMove(doneStages);
 
   let recommendation = category?.score > 0 ? category : personalDue || vocabDue ? { title: 'Complete your daily recall queue', url: 'daily-recall.html', reason: 'A saved source word or Gemara move is due now. Bring it back before beginning new material.' } : active ? { title: `Resume ${active.course.title}`, url: `canon-course.html?course=${active.course.id}&session=${active.first}`, reason: `Continue at session ${active.first + 1} of ${active.course.sessions.length}; your earlier source work is saved.` } : readyCapstone ? { title: `Capstone: ${readyCapstone.course.title}`, url: `canon-capstone.html?course=${readyCapstone.course.id}`, reason: 'You completed the source sequence. Now make an independent connection.' } : capstoned && transferDone < 5 ? { title: 'Read an unfamiliar source', url: 'independent-reading.html', reason: 'You have completed a course connection. Now prove that your reading habits transfer to a new text.' } : brandNew ? { title: 'Continue your first week', url: 'integrated-path.html', reason: 'You are at the start of the eight-week journey. Today’s work is your current week — the wider rotation begins once your first stage is complete.' } : deepening ? { title: deepening[2], url: deepening[3], reason: 'You finished this subject’s foundation, and its second unit is waiting. Deepen it today — the Gemara spine returns tomorrow.' } : { title: gemaraTitle, url: `tractate-mastery.html?tractate=${tractate}`, reason: 'Today’s core source work is a Gemara move. The wider canon will return in the next daily cycle.' };
 
-  if (!category?.score && !(personalDue || vocabDue) && (foundationTerm || gemaraYearMove)) recommendation = foundationTerm || gemaraYearMove;
+  if (!category?.score && !(personalDue || vocabDue) && (foundationTerm || gemaraYearMove || moedExpansionMove)) recommendation = foundationTerm || gemaraYearMove || moedExpansionMove;
   if (recommendation.url === `tractate-mastery.html?tractate=${tractate}`) recommendation.url = gemaraWorkbenchUrl[tractate];
   if (needsPlacement) recommendation = { title: 'Find your starting point', url: 'placement.html', reason: 'Begin with a short source-based placement. It chooses a first Gemara move and a review rhythm without assigning a permanent level.' };
   if (needsPlacement) {

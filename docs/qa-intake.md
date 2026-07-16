@@ -2311,6 +2311,12 @@ not labs -- left for coordination with Codex on file ownership.
 - Connected Yoma, Rosh Hashanah, Megillah, and Taanit into an earned, one-current-move
   Moed chapter with a four-source synthesis checkpoint.
 
+## 2026-07-16 -- Codex: Moed-aware daily recommendation
+
+- Daily learning now preserves its existing priority (placement, recall, remediation,
+  Foundation Year, then Gemara Year) and opens the next unearned Moed chapter only after
+  every Gemara Year stage is complete. Browser and server recommendations share the same order.
+
 ## 2026-07-16 -- Claude: widerworld-mean subject unit 6 -> 10
 
 The comparative "mean, compared" unit had strong correct answers but nine weak

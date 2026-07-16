@@ -48,6 +48,30 @@ function gemaraYearRecommendation(learner) {
   return null;
 }
 
+function moedExpansionRecommendation(learner) {
+  const completed = new Set(learner.completedStages || []);
+  const gemaraYearStages = [
+    'shabbat-tractate-arc', 'eruvin-tractate-arc', 'pesachim-tractate-arc', 'sukkah-tractate-arc', 'yoma-tractate-arc', 'gemara-foundations-checkpoint',
+    'bava-metzia-tractate-arc', 'bava-kamma-tractate-arc', 'ketubot-tractate-arc', 'sanhedrin-tractate-arc', 'civil-reasoning-checkpoint',
+    'chullin-tractate-arc', 'niddah-tractate-arc', 'gemara-year-synthesis'
+  ];
+  if (!gemaraYearStages.every((stage) => completed.has(stage))) return null;
+  const chapters = [
+    ['yoma-tractate-arc', 'Yoma: procedure, limit, and proof', 'yoma-arc.html'],
+    ['rosh-hashanah-tractate-arc', 'Rosh Hashanah: calendar and public record', 'rosh-hashanah-arc.html'],
+    ['megillah-tractate-arc', 'Megillah: public schedule and accommodation', 'megillah-arc.html'],
+    ['taanit-tractate-arc', 'Taanit: timing dispute and distinction', 'taanit-arc.html'],
+    ['moed-expansion-synthesis', 'Moed Expansion synthesis', 'moed-expansion-synthesis.html']
+  ];
+  const chapter = chapters.find(([stage]) => !completed.has(stage));
+  if (!chapter) return null;
+  return {
+    title: `Moed Expansion Â· ${chapter[1]}`,
+    reason: 'Your Gemara Year is complete. Extend the same source-reading habits through the calendar, public reading, and communal response.',
+    url: chapter[2]
+  };
+}
+
 async function recommendFor(learner, { skipReview = false } = {}) {
   if (!learner.placement) return { kind: 'placement', title: 'Find your Gemara starting point', reason: 'A short source-based placement will identify what you already know and what to build next.', url: 'placement.html' };
   if (!skipReview) {
@@ -68,6 +92,8 @@ async function recommendFor(learner, { skipReview = false } = {}) {
   if (foundationTerm) return { kind: 'foundation-term', ...foundationTerm };
   const gemaraYearTerm = gemaraYearRecommendation(learner);
   if (gemaraYearTerm) return { kind: 'gemara-year-term', ...gemaraYearTerm };
+  const moedExpansion = moedExpansionRecommendation(learner);
+  if (moedExpansion) return { kind: 'moed-expansion', ...moedExpansion };
   const graphPractice = await nextGraphPractice(root, learner);
   if (graphPractice) return { kind: 'graph-practice', title: graphPractice.skill.title, reason: graphPractice.reason, url: graphPractice.url, skill: graphPractice.skill, context: graphPractice.context, mastery: graphPractice.mastery };
   const journeyRecommendation = await nextJourneyRecommendation(root, learner);

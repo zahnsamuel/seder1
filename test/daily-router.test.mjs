@@ -47,3 +47,21 @@ test('daily learning and the server recommendation advance through Gemara Year o
   assert.match(server, /function gemaraYearRecommendation/);
   assert.match(server, /kind: 'gemara-year-term'/);
 });
+
+test('daily learning opens the earned Moed Expansion only after Gemara Year', async () => {
+  const [router, server, expansion] = await Promise.all([
+    readFile(new URL('../daily-router.js', import.meta.url), 'utf8'),
+    readFile(new URL('../server.mjs', import.meta.url), 'utf8'),
+    readFile(new URL('../moed-expansion.js', import.meta.url), 'utf8')
+  ]);
+  for (const stage of ['rosh-hashanah-tractate-arc', 'megillah-tractate-arc', 'taanit-tractate-arc', 'moed-expansion-synthesis']) {
+    assert.match(router, new RegExp(stage));
+    assert.match(server, new RegExp(stage));
+    assert.match(expansion, new RegExp(stage));
+  }
+  assert.match(router, /function nextMoedExpansionMove/);
+  assert.match(router, /gemaraYearComplete = gemaraYearTerms\.every/);
+  assert.match(router, /foundationTerm \|\| gemaraYearMove \|\| moedExpansionMove/);
+  assert.match(server, /function moedExpansionRecommendation/);
+  assert.match(server, /kind: 'moed-expansion'/);
+});
