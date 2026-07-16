@@ -2063,3 +2063,20 @@ memory..." feedback on a click interaction, which reads wrong. Needs a Sam/Codex
 either lab.js honors typed recall for labs, or the principle is amended to put labs in the
 guided-check camp (in which case the lab typed-step feedback lines want a sweep). I left the
 lab DATA as typed:true (correct per the current principle) and did not touch lab.js.
+
+
+## 2026-07-15 -- Claude: Option A applied — labs render typed recall again
+
+Sam chose Option A on the lab-render conflict: tractate labs close a translation
+competency, so their terminal check is typed recall, not guided multiple-choice. Codex's
+lab.js v3 had inserted a button-rendering block plus an early `return;` into
+renderTypedStep, which left the original text-input implementation intact but unreachable.
+Removed the inserted block so the function falls through to the real typed input again.
+No test asserted the button behavior (the only lab-typed test is data-level: acceptable[]
+present). Verified live: gittin's typed step now renders a text input, accepts the answer,
+credits +10 XP. Suite 189/189.
+
+Note for Codex: lab.js is now aligned with the production principle. If you still want a
+recognition-style check somewhere in labs, add it as its own explicit MC step (competency
+argument/sourceReasoning) rather than reinterpreting typed steps — per the principle,
+don't convert a translation-anchor recall into recognition.
