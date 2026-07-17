@@ -32,13 +32,17 @@ $('#export-data').addEventListener('click', async () => {
 $('#delete-profile').addEventListener('click', async () => {
   if (!currentId) return;
   const name = profiles.find((profile) => profile.id === currentId)?.profile?.displayName || currentId;
-  if (!confirm(`Delete "${name}" and all of this profile's learning data? This cannot be undone.`)) return;
+  const hostedDelete = Boolean(Seder.session?.access_token);
+  const confirmation = hostedDelete
+    ? `Delete "${name}" and all of this profile's learning data? This cannot be undone. Your secure sign-in identity and email address will remain.`
+    : `Delete "${name}" and all of this profile's learning data? This cannot be undone.`;
+  if (!confirm(confirmation)) return;
   $('#account-status').textContent = 'Deleting…';
   const response = await Seder.api(`/api/learners/${currentId}`, { method: 'DELETE' });
   const data = await response.json().catch(() => ({}));
   if (!response.ok) { $('#account-status').textContent = data.error || 'Could not delete this profile right now.'; return; }
   $('#account-status').textContent = data.note || 'Profile deleted.';
-  if (Seder.session?.access_token) { Seder.signOut(); return; }
+  if (hostedDelete) { alert('Your learning data has been deleted. Your secure sign-in identity remains; you will now be signed out.'); Seder.signOut(); return; }
   localStorage.removeItem(activeKey);
   load();
 });
@@ -46,6 +50,7 @@ $('#sign-out').addEventListener('click', () => Seder.signOut());
 if (Seder.session?.access_token) {
   $('#sign-out').hidden = false;
   $('#new-profile').hidden = true;
+  $('#delete-explainer').hidden = false;
   $('#profile-note').textContent = 'You are signed in to a secure learner account. Your mastery evidence, XP, and review rhythm are private to this account.';
 }
 function renderProfiles() { const active = localStorage.getItem(activeKey) || 'demo'; $('#profiles').innerHTML = profiles.map((profile) => `<button type="button" data-id="${profile.id}"><span>${profile.profile?.displayName || profile.id}</span><small>${profile.xp || 0} XP</small></button>`).join(''); $('#profiles').querySelectorAll('button').forEach((button) => button.addEventListener('click', () => selectProfile(button.dataset.id))); selectProfile(profiles.some((profile) => profile.id === active) ? active : profiles[0]?.id); }

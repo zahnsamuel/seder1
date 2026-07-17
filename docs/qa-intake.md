@@ -2644,3 +2644,10 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
   to sign-in with the interrupted local Seder URL preserved. The magic-link callback validates
   that return URL is same-origin before resuming it. Local development behavior is unchanged.
 - Full automated suite passes: 228/228.
+
+## 2026-07-17 -- Codex: honest hosted-data deletion
+
+- The hosted profile screen now distinguishes deletion of learning data from deletion of the
+  secure sign-in identity before confirmation and after success. This matches the RLS-backed
+  server behavior and avoids promising deletion of an Auth identity the app cannot remove.
+- Full automated suite passes: 229/229.
