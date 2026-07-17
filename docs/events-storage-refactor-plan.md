@@ -60,3 +60,17 @@ questions, and confirm `/insights` + `/pilot-analytics` still report identical a
 accuracy/capstone/streak numbers, and that stage mastery still gates correctly
 (`test/academy-mastery-gate.test.mjs` covers the logic; re-run end to end against real data).
 Do not ship 1–5 blind — this is the same hosted path that carried two silent ship-blockers.
+
+## Related finding (Claude, 2026-07-17) — read-modify-write is not atomic
+
+`recordHostedEvent` (`data/supabase-learner-repository.mjs`) does full-state read → mutate in
+memory → `putState` overwrite. It is **not** atomic, so two overlapping writes to the same learner
+can lose an update (last writer wins). This is realistic: a learner's `answer_submitted` POST can
+overlap the `journey_artifact_saved` autosave that `seder-auth.js` (`enableJourneyAutosave`) fires
+on `localStorage.setItem` — one reads state before the other's XP/mastery/events land, then writes
+it back, clobbering it. Symptoms would be occasional lost XP, a dropped review item, or a missing
+artifact — silent, hard to reproduce. Not fixed here: the right fix (server-side atomic updates or
+optimistic-concurrency retry on `updated_at`) changes hosted write behavior and must be live-tested,
+so it belongs with steps 1–5 above, not a blind local patch. Moving high-volume writes onto append-
+only `attempts` (step 1) already removes the worst of it for answer events; `learner_state` mutations
+(streak, artifacts, completed stages) would still want a compare-and-set.
