@@ -2505,6 +2505,14 @@ Result: 95 content units, distribution {8:43, 9:22, 10:30} -- no unit below 8. F
   storage or being reported as a server error. This is credential-free hardening; live account
   isolation verification is still required before a pilot. Full suite passes at 224/224.
 
+## 2026-07-17 -- Codex: hosted sign-in front door
+
+- Added a visible secure-sign-in entry to Seder's landing-page navigation. When a deployed
+  instance has Supabase configured and the visitor is unsigned, the primary action explicitly
+  leads to passwordless sign-in and explains why: private mastery, XP, and review evidence.
+- Local development is unchanged: the normal fresh-learner and local-profile workflow remains
+  available when Supabase is not configured. Full suite passes at 225/225.
+
 ## 2026-07-17 -- Claude: Supabase cutover readiness review (2 ship-blocking fixes)
 
 Credential-free review of the six migrations, RLS/isolation model, adapter, and the
