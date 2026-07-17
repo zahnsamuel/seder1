@@ -28,6 +28,7 @@ const masteryRouteByStage={
   ,'zevachim-tractate-arc':{tractate:'zevachim',url:'lab.html?tractate=zevachim',label:'Open the Zevachim source workspace'}
   ,'menachot-tractate-arc':{tractate:'menachot',url:'lab.html?tractate=menachot',label:'Open the Menachot source workspace'}
   ,'bekhorot-tractate-arc':{tractate:'bekhorot',url:'lab.html?tractate=bekhorot',label:'Open the Bekhorot source workspace'}
+  ,'arakhin-tractate-arc':{tractate:'arakhin',url:'lab.html?tractate=arakhin',label:'Open the Arakhin source workspace'}
 };
 const masteryRoute=masteryRouteByStage[config.stage];
 if(masteryRoute){config.nextUrl=masteryRoute.url;config.nextLabel=masteryRoute.label;}
