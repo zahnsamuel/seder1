@@ -22,8 +22,12 @@ function renderDaf() {
   const page = $('#daf-text'); page.innerHTML = '';
   lab.steps.forEach((step, stepIndex) => {
     const line = document.createElement('button'); line.type = 'button'; line.className = `daf-line ${stepIndex === index ? 'selected' : ''} ${stepIndex < index ? 'solved' : ''}`;
-    line.textContent = step.hebrew;
-    line.setAttribute('aria-label', `Study line ${stepIndex + 1}: ${step.hebrew}`);
+    // English positional context stays in English; the Hebrew carries lang="he" so a screen
+    // reader pronounces it as Hebrew rather than with English phonetics (was buried in an
+    // English aria-label, which mispronounced the source line).
+    const pos = document.createElement('span'); pos.className = 'sr-only'; pos.textContent = `Study line ${stepIndex + 1}: `;
+    const heb = document.createElement('span'); heb.lang = 'he'; heb.setAttribute('dir', 'rtl'); heb.textContent = step.hebrew;
+    line.append(pos, heb);
     line.addEventListener('click', () => selectLine(stepIndex));
     page.appendChild(line);
   });
