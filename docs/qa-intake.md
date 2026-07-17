@@ -2420,6 +2420,20 @@ Result: 95 content units, distribution {8:43, 9:22, 10:30} -- no unit below 8. F
   and keeps transliteration and English beside the active Hebrew/Aramaic excerpt.
 - No browser-console warnings or errors appeared on the front door, placement, or Berakhot flow.
 
+## 2026-07-17 -- Codex: Foundation-to-Gemara regression pass
+
+- Live-verified `foundation-year.html`: first-time learners see one open Term I and two
+  intentionally locked later terms, with a clear handoff into the eight-week integrated path.
+- Live-verified `gemara-year.html`: the post-Foundation path groups source arcs into three
+  earned terms, and exposes only the first ready tractate move in the current term.
+- Live-verified `daily-router.html`: after learner state resolves, a learner with no evidence
+  is sent to placement rather than into an advanced source. (The brief "Preparing today's study"
+  loading state resolves correctly.)
+- Live-verified `chumash-arc.html`: the source, translation, reading support, shuffled choice
+  check, and visible disabled-until-answered Continue control all render as expected.
+- Focused regression suite passed: 7/7 for Foundation Year, Gemara Year, and daily-router
+  behavior. No learner-facing break was found in this pass.
+
 ## 2026-07-17 -- Claude: Supabase cutover readiness review (2 ship-blocking fixes)
 
 Credential-free review of the six migrations, RLS/isolation model, adapter, and the
