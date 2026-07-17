@@ -39,7 +39,8 @@ function gemaraYearRecommendation(learner) {
   const terms = [
     { title: 'Gemara Year · Term I: time, space, and practice', reason: 'Continue the first post-Foundation term by carrying your reading repertoire through concrete cases of domain, measure, time, validity, and source-grounded preparation.', steps: [['shabbat-tractate-arc', 'Shabbat: map a legal case', 'shabbat-arc.html'], ['eruvin-tractate-arc', 'Eruvin: boundary and measure', 'eruvin-arc.html'], ['pesachim-tractate-arc', 'Pesachim: word, time, and source', 'pesachim-arc.html'], ['sukkah-tractate-arc', 'Sukkah: validity and purpose', 'sukkah-arc.html'], ['yoma-tractate-arc', 'Yoma: procedure, limit, and proof', 'yoma-arc.html'], ['gemara-foundations-checkpoint', 'Gemara Foundations checkpoint', 'gemara-foundations.html']] },
     { title: 'Gemara Year · Term II: claims, responsibility, and institutions', reason: 'Continue the civil-reasoning term: map claims, identify categories of responsibility, and read institutions through their stated reasons.', steps: [['bava-metzia-tractate-arc', 'Bava Metzia: claims and evidence', 'bava-metzia-arc.html'], ['bava-kamma-tractate-arc', 'Bava Kamma: categories of damage', 'bava-kamma-arc.html'], ['ketubot-tractate-arc', 'Ketubot: schedule and reason', 'ketubot-arc.html'], ['sanhedrin-tractate-arc', 'Sanhedrin: category and specification', 'sanhedrin-arc.html'], ['civil-reasoning-checkpoint', 'Civil Reasoning checkpoint', 'civil-reasoning.html']] },
-    { title: 'Gemara Year · Term III: rule and disagreement', reason: 'Complete the final term by tracing a rule through its exceptions, preserving disagreement, and transferring both habits across sources.', steps: [['chullin-tractate-arc', 'Chullin: rule and exception', 'chullin-arc.html'], ['niddah-tractate-arc', 'Niddah: three positions', 'niddah-arc.html'], ['gemara-year-synthesis', 'Gemara Year synthesis', 'gemara-year-synthesis.html']] }
+    { title: 'Gemara Year · Term III: rule and disagreement', reason: 'Trace a rule through its exceptions and preserve disagreement before taking those reading habits into a new legal field.', steps: [['chullin-tractate-arc', 'Chullin: rule and exception', 'chullin-arc.html'], ['niddah-tractate-arc', 'Niddah: three positions', 'niddah-arc.html']] },
+    { title: 'Gemara Year · Term IV: speech, status, and transfer', reason: 'Read how language creates a legal category, how a default gives it shape, and how a reading move transfers across tractates without erasing their differences.', steps: [['moed-katan-tractate-arc', 'Moed Katan: rule and bounded exception', 'moed-katan-arc.html'], ['nedarim-tractate-arc', 'Nedarim: legal speech and function', 'nedarim-arc.html'], ['nazir-tractate-arc', 'Nazir: carry the language move across', 'nazir-arc.html'], ['gemara-year-synthesis', 'Gemara Year synthesis', 'gemara-year-synthesis.html']] }
   ];
   for (const term of terms) {
     const step = term.steps.find(([stage]) => !completed.has(stage));
@@ -53,7 +54,7 @@ function moedExpansionRecommendation(learner) {
   const gemaraYearStages = [
     'shabbat-tractate-arc', 'eruvin-tractate-arc', 'pesachim-tractate-arc', 'sukkah-tractate-arc', 'yoma-tractate-arc', 'gemara-foundations-checkpoint',
     'bava-metzia-tractate-arc', 'bava-kamma-tractate-arc', 'ketubot-tractate-arc', 'sanhedrin-tractate-arc', 'civil-reasoning-checkpoint',
-    'chullin-tractate-arc', 'niddah-tractate-arc', 'gemara-year-synthesis'
+    'chullin-tractate-arc', 'niddah-tractate-arc', 'moed-katan-tractate-arc', 'nedarim-tractate-arc', 'nazir-tractate-arc', 'gemara-year-synthesis'
   ];
   if (!gemaraYearStages.every((stage) => completed.has(stage))) return null;
   const chapters = [

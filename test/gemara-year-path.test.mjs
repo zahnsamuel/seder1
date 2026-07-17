@@ -11,7 +11,7 @@ test('Gemara Year groups existing tractate arcs into earned terms and closes in 
     readFile(new URL('../seder-auth.js', import.meta.url), 'utf8'),
     readFile(new URL('../foundation-year.js', import.meta.url), 'utf8')
   ]);
-  for (const stage of ['shabbat-tractate-arc', 'eruvin-tractate-arc', 'pesachim-tractate-arc', 'sukkah-tractate-arc', 'yoma-tractate-arc', 'gemara-foundations-checkpoint', 'bava-metzia-tractate-arc', 'bava-kamma-tractate-arc', 'ketubot-tractate-arc', 'sanhedrin-tractate-arc', 'civil-reasoning-checkpoint', 'chullin-tractate-arc', 'niddah-tractate-arc', 'gemara-year-synthesis']) assert.match(script, new RegExp(stage));
+  for (const stage of ['shabbat-tractate-arc', 'eruvin-tractate-arc', 'pesachim-tractate-arc', 'sukkah-tractate-arc', 'yoma-tractate-arc', 'gemara-foundations-checkpoint', 'bava-metzia-tractate-arc', 'bava-kamma-tractate-arc', 'ketubot-tractate-arc', 'sanhedrin-tractate-arc', 'civil-reasoning-checkpoint', 'chullin-tractate-arc', 'niddah-tractate-arc', 'moed-katan-tractate-arc', 'nedarim-tractate-arc', 'nazir-tractate-arc', 'gemara-year-synthesis']) assert.match(script, new RegExp(stage));
   assert.match(year, /STUDY BOUNDARY/);
   assert.match(synthesis, /sort\(\(\) => Math\.random\(\) - \.5\)/);
   assert.match(synthesis, /stageId: 'gemara-year-synthesis'/);

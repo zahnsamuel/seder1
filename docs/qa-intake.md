@@ -2703,6 +2703,13 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
 - Added the Shas-map route, canonical workspace handoff, and regression coverage.
 - Verification: full automated suite passes, 236 tests / 0 failures.
 
+### 2026-07-17 — Gemara Year Term IV integration (Codex)
+- The new Moed Katan, Nedarim, and Nazir arcs are now an earned fourth Gemara Year term,
+  rather than optional map-only material.
+- Daily routing, the server-side recommendation, and the advanced Gemara continuation agree
+  on this term; Moed Expansion stays locked until its synthesis is earned.
+- Verification: full automated suite passes, 236 tests / 0 failures.
+
 ## 2026-07-17 -- Codex: hosted deep-link recovery
 
 - Any protected learner page opened directly without a valid hosted session now follows the same

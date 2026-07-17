@@ -37,7 +37,7 @@ test('daily learning and the server recommendation advance through Gemara Year o
     readFile(new URL('../server.mjs', import.meta.url), 'utf8'),
     readFile(new URL('../gemara-year.js', import.meta.url), 'utf8')
   ]);
-  for (const stage of ['shabbat-tractate-arc', 'eruvin-tractate-arc', 'pesachim-tractate-arc', 'sukkah-tractate-arc', 'yoma-tractate-arc', 'gemara-foundations-checkpoint', 'bava-metzia-tractate-arc', 'bava-kamma-tractate-arc', 'ketubot-tractate-arc', 'sanhedrin-tractate-arc', 'civil-reasoning-checkpoint', 'chullin-tractate-arc', 'niddah-tractate-arc', 'gemara-year-synthesis']) {
+  for (const stage of ['shabbat-tractate-arc', 'eruvin-tractate-arc', 'pesachim-tractate-arc', 'sukkah-tractate-arc', 'yoma-tractate-arc', 'gemara-foundations-checkpoint', 'bava-metzia-tractate-arc', 'bava-kamma-tractate-arc', 'ketubot-tractate-arc', 'sanhedrin-tractate-arc', 'civil-reasoning-checkpoint', 'chullin-tractate-arc', 'niddah-tractate-arc', 'moed-katan-tractate-arc', 'nedarim-tractate-arc', 'nazir-tractate-arc', 'gemara-year-synthesis']) {
     assert.match(router, new RegExp(stage));
     assert.match(server, new RegExp(stage));
     assert.match(year, new RegExp(stage));

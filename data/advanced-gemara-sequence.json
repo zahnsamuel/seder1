@@ -12,6 +12,9 @@
     {"stageId":"ketubot-tractate-arc","title":"Enter Ketubot: schedule and institutional reason","reason":"Trace a fixed detail to its real reason, then weigh it against a second value the same reason has to balance.","url":"ketubot-arc.html"},
     {"stageId":"chullin-tractate-arc","title":"Enter Chullin: a rule read through its exception","reason":"Follow a broad rule, its narrowing exception, and the condition that reopens it.","url":"chullin-arc.html"},
     {"stageId":"niddah-tractate-arc","title":"Enter Niddah: a three-way dispute, held carefully","reason":"Track three distinct positions in a live machloket without flattening any of them.","url":"niddah-arc.html"},
-    {"stageId":"sanhedrin-tractate-arc","title":"Enter Sanhedrin: category, wording, and purpose","reason":"Read a Mishnah’s category and examples closely enough to follow the Gemara’s question about why the wording specifies both.","url":"sanhedrin-arc.html"}
+    {"stageId":"sanhedrin-tractate-arc","title":"Enter Sanhedrin: category, wording, and purpose","reason":"Read a Mishnah’s category and examples closely enough to follow the Gemara’s question about why the wording specifies both.","url":"sanhedrin-arc.html"},
+    {"stageId":"moed-katan-tractate-arc","title":"Enter Moed Katan: rule and bounded exception","reason":"Read a permitted exception through the default restraint, threatened loss, and source limit that keep the exception from swallowing the rule.","url":"moed-katan-arc.html"},
+    {"stageId":"nedarim-tractate-arc","title":"Enter Nedarim: legal speech and function","reason":"Ask what an utterance does in context, then trace competing accounts of its legal force.","url":"nedarim-arc.html"},
+    {"stageId":"nazir-tractate-arc","title":"Enter Nazir: transfer legal speech into status","reason":"Carry the Nedarim reading move into a new status while preserving what changes in the new tractate.","url":"nazir-arc.html"}
   ]
 }
