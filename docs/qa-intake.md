@@ -2659,6 +2659,13 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
   then distinguish hazama from ordinary contradiction before transferring the map.
 - Full automated suite passes: 230/230.
 
+## 2026-07-17 -- Codex: Shevuot cross-tractate source arc
+
+- Promoted Shevuot from an opening lab into a full source trail and workspace. The unit uses its
+  repeated “two that are four” form to teach legitimate transfer from Shabbat while requiring the
+  learner to preserve Shevuot's distinct subject and derivation.
+- Full automated suite passes: 231/231.
+
 ## 2026-07-17 -- Codex: hosted deep-link recovery
 
 - Any protected learner page opened directly without a valid hosted session now follows the same
