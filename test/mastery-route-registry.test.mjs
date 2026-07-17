@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { access, readFile } from 'node:fs/promises';
 
 const catalog = JSON.parse(await readFile(new URL('../data/gemara-tractates.json', import.meta.url), 'utf8'));
 
@@ -38,5 +38,6 @@ test('every post-entry tractate in the Shas catalog has a canonical mastery hand
     const match = source.match(pattern);
     assert.ok(match, `missing canonical route for ${tractate.title}`);
     assert.match(match[1], /(?:flagship-daf-workbench|daf-workbench|yoma-daf-workbench|rosh-hashanah-daf-workbench|megillah-daf-workbench|taanit-daf-workbench|makkot-daf-workbench|shevuot-daf-workbench|lab)\.html/);
+    await access(new URL(`../${match[1].split('?')[0]}`, import.meta.url));
   }
 });
