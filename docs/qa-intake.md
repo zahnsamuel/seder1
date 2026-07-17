@@ -2682,6 +2682,13 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
   checks, so it clears the project content-standard floor without padding its learning sequence.
 - Verification: full automated suite passes, 233 tests / 0 failures.
 
+### 2026-07-17 â€” Moed Katan source-arc expansion (Codex)
+- Verified Mishnah Moed Katan 1:1 and Moed Katan 2a against Sefaria before building the arc.
+- Promoted Moed Katan from its opening lab to an eight-step source trail: default restraint,
+  threatened loss, limiting detail, responsible-learning boundary, and transfer.
+- Added the Shas-map route, canonical workspace handoff, and regression coverage.
+- Verification: full automated suite passes, 234 tests / 0 failures.
+
 ## 2026-07-17 -- Codex: hosted deep-link recovery
 
 - Any protected learner page opened directly without a valid hosted session now follows the same
