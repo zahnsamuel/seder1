@@ -2487,6 +2487,15 @@ Result: 95 content units, distribution {8:43, 9:22, 10:30} -- no unit below 8. F
 - This makes profile selection a real re-entry point rather than a generic link to a separate
   session screen. Full suite passes at 222/222.
 
+## 2026-07-17 -- Codex: daily-entry coherence
+
+- Consolidated learner-facing “Today” navigation on `daily-router.html`, the evidence-led
+  daily recommendation surface. Early source pages that still contain legacy `today.html`
+  links are normalized by the shared learner script; profile and My Path now use the same
+  canonical route directly.
+- This preserves the older session page for direct access while removing competing entry points
+  from the learner experience. Full suite passes at 223/223.
+
 ## 2026-07-17 -- Claude: Supabase cutover readiness review (2 ship-blocking fixes)
 
 Credential-free review of the six migrations, RLS/isolation model, adapter, and the

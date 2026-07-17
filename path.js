@@ -16,7 +16,7 @@ Promise.all([
   const today = document.querySelector('.today');
   today.querySelector('div').innerHTML = `<span>NEXT BEST STEP</span><strong>${recommendation.title}</strong><small>${recommendation.reason}</small>`;
   const action = today.querySelector('a'); action.href = recommendation.url; action.textContent = recommendation.kind === 'placement' ? 'Find my starting point →' : 'Start this step →';
-  const daily = document.querySelector('.intro .primary'); daily.href = 'today.html'; daily.textContent = recommendation.kind === 'placement' ? 'Begin my starting session →' : 'Begin today’s session →';
+  const daily = document.querySelector('.intro .primary'); daily.href = 'daily-router.html'; daily.textContent = recommendation.kind === 'placement' ? 'Begin my starting session →' : 'Begin today’s session →';
   if (review.due.length) {
     document.querySelector('#review-section').hidden = false;
     document.querySelector('#review-count').textContent = `${review.due.length} READY NOW`;

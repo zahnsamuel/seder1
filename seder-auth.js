@@ -91,6 +91,12 @@ Seder.applyMobileStudyStyles = () => { if (document.querySelector('#seder-mobile
 Seder.applyMobileStudyStyles();
 Seder.applyAccessibilityStyles = () => { if (document.querySelector('#seder-accessibility-styles')) return; const style=document.createElement('style'); style.id='seder-accessibility-styles'; style.textContent=':focus-visible{outline:3px solid #b88028!important;outline-offset:3px}button,input,select,textarea{font:inherit}button:disabled{cursor:not-allowed}'; document.head.append(style); };
 Seder.applyAccessibilityStyles();
+// Keep all learner-facing “Today” links on the evidence-led daily router. Several
+// early source pages predate that router and still contain a static today.html link;
+// rewriting those links here prevents two competing daily-entry experiences.
+if (!location.pathname.endsWith('/today.html')) {
+  document.querySelectorAll('a[href="today.html"]').forEach((link) => { link.href = 'daily-router.html'; });
+}
 if (location.pathname.endsWith('/civil-reasoning.html') && !document.querySelector('script[data-civil-reasoning-year-gate]')) {
   const script = document.createElement('script');
   script.src = 'civil-reasoning-year-gate.js';
