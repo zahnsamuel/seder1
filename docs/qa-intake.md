@@ -2343,6 +2343,12 @@ not labs -- left for coordination with Codex on file ownership.
   alternatives about memory, archive selection, and evidence. Both now meet the 8/10 floor
   while preserving their existing sources, typed translation checks, and historical-method focus.
 
+## 2026-07-16 -- Codex: Megillah schedule-quality pass
+
+- Strengthened the opening Megillah schedule checks with plausible near-misses about category,
+  bounded range, and communal explanation. The source arc now meets the 8/10 quality floor
+  without changing its verified Megillah 2a content or its study-only boundary.
+
 ## 2026-07-16 -- Claude: widerworld-mean subject unit 6 -> 10
 
 The comparative "mean, compared" unit had strong correct answers but nine weak
