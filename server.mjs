@@ -120,7 +120,7 @@ async function learnerAccess(request, requestedId) {
       error.statusCode = 401;
       throw error;
     }
-    if (requestedId && requestedId !== user.id) throw new Error('You can only access your own learner record.');
+    if (requestedId && requestedId !== user.id) { const error = new Error('You can only access your own learner record.'); error.statusCode = 403; throw error; }
     return { hosted: true, user, token, id: user.id };
   }
   return { hosted: false, id: requestedId || 'demo' };
