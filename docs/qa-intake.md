@@ -2361,6 +2361,12 @@ not labs -- left for coordination with Codex on file ownership.
   qualification near-misses. The source arc now meets the 8/10 quality floor while retaining
   its practical-halakhah boundary and existing source sequence.
 
+## 2026-07-17 -- Codex: Niddah dispute-quality pass
+
+- Strengthened Niddah’s opening three-position dispute with substantive alternatives that
+  preserve distinct measuring rules. The source arc now meets the 8/10 quality floor while
+  retaining its explicit responsible-learning boundary, study-only framing, and typed recall.
+
 ## 2026-07-16 -- Claude: widerworld-mean subject unit 6 -> 10
 
 The comparative "mean, compared" unit had strong correct answers but nine weak
