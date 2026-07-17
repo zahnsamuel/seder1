@@ -2543,3 +2543,41 @@ judgment/product call better made by Sam or Codex:
    learnerAccess should 401 on tokenless learner endpoints when supabaseConfig().configured.
 
 Recommend Sam/Codex decide #2 (product) and schedule #1 (architecture) post-pilot.
+
+## 2026-07-17 -- Claude: resolved the two hosted-path decisions (investigated, no pre-pilot change)
+
+Both flagged items were investigated end to end. Conclusion: neither warrants a pre-pilot code
+change, and the original flags somewhat overstated them.
+
+**#2 tokenless -> local store: WORKING AS DESIGNED, low risk. Decision: leave as-is.**
+- Tokenless->local is intentional: `profile.js:42` deliberately injects a 'demo' profile when
+  Supabase is configured but the user is not signed in (a try-before-sign-in demo).
+- Not a vulnerability: local learners all live in ONE `data/learners.json` keyed by id (no
+  per-id file, so no path traversal); new-profile ids are server-generated + sanitized
+  (`repository.mjs:144`, not client-supplied); local data is unauthenticated demo data with no
+  real PII. Real accounts are in Supabase under RLS. Residual = anon users share/read demo
+  profiles + can grow the demo file. Acceptable for a private pilot.
+- Lever if wanted: to make prod sign-in-only, add a 401 for tokenless learner endpoints when
+  `supabaseConfig().configured` in `server.mjs` learnerAccess. This intentionally removes the
+  anon demo, so it is a product choice, not a bug fix.
+
+**#1 events unbounded growth: real but POST-PILOT. Low severity at pilot scale; safe fix is
+non-trivial.**
+- Pilot-scale severity is low: `learner_state.events` grows ~1 entry per answer; a few thousand
+  answers is a few hundred KB of JSONB in one row.
+- A safe fix is not small because `events` has mixed consumers: set-membership / dedup-safe
+  (curriculum-engine `canMasterJourneyStage` lines 118/120/135; `server.mjs:406`) AND
+  counting/aggregation / dedup-UNsafe (`server.mjs:376` capstone count, `:395` local analytics,
+  `:359/:369` answer tallies). Dedup-on-write would silently change analytics/capstone numbers;
+  a FIFO cap could age out mastery evidence for a still-incomplete early stage.
+- Recommended post-pilot approach: derive `canMasterJourneyStage`'s correct-context sets from
+  the existing `attempts` table (already one row per answer, already RLS-scoped) and drop the
+  events JSONB, updating the counting consumers; keep a small bounded events window only if a
+  consumer still needs recency. Note local mode has no attempts table (only learners.json), so
+  the refactor must handle both storage models. Spans a new migration + supabase-learner-
+  repository + curriculum-engine + repository.mjs + server.mjs, and needs live Supabase to test
+  -- do it when credentials exist, not blind right after two hosted ship-blocker fixes.
+
+Net: both decisions resolved with evidence; no code change this pass. Either is actionable on
+request -- the #2 sign-in-only one-liner (removes the demo), or the #1 refactor once creds allow
+live testing.
