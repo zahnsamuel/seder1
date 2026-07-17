@@ -134,19 +134,29 @@ async function isolationReads() {
 // B's view, so 0 rows should change. Any returned row = B modified A's data.
 async function isolationWrite() {
   console.log("\nIsolation write - learner B must NOT modify learner A's learner_state");
-  const sentinel = -424242; // xp check is >= 0, so this can never be a real value
+  // The sentinel MUST be a valid xp value (>= 0). learner_state has CHECK (xp >= 0),
+  // so a negative value would be rejected by that constraint even if RLS let the write
+  // through -- the script would see a 4xx and record a false "rejected" pass, masking a
+  // real leak. With a valid value, RLS is the only thing that can stop B writing A's
+  // row, which is exactly what this checks. If it leaks, A's xp is changed on purpose
+  // (test project) so the failure is unmissable.
+  const sentinel = 987654321;
   const res = await rest(`/rest/v1/learner_state?user_id=eq.${UUID_A}`, {
     token: TOKEN_B,
     method: 'PATCH',
     body: { xp: sentinel },
     prefer: 'return=representation'
   });
+  const modified = Array.isArray(res.data) ? res.data.filter((r) => r && r.xp === sentinel).length : 0;
+  if (modified > 0) {
+    record(false, "B writing A's learner_state", `LEAK: B modified ${modified} of A's row(s)`);
+    return;
+  }
   if (res.status >= 400) {
     record(true, "B writing A's learner_state", `rejected with status ${res.status}`);
     return;
   }
-  const rows = Array.isArray(res.data) ? res.data.length : 0;
-  record(rows === 0, "B writing A's learner_state", rows === 0 ? 'no rows affected (RLS filtered)' : `LEAK: B modified ${rows} of A's row(s)`);
+  record(true, "B writing A's learner_state", 'no rows affected (RLS filtered)');
 }
 
 // ---- Step 7 (optional): the app-layer guard must also reject cross-account access. ----

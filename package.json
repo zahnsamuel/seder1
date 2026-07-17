@@ -6,6 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node server.mjs",
-    "test": "node --test"
+    "test": "node --test",
+    "audit": "node scripts/audit-content.mjs",
+    "verify:isolation": "node scripts/verify-account-isolation.mjs"
   }
 }
