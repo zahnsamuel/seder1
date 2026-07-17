@@ -15,3 +15,18 @@ const niddahSteps=window.SederCourse.steps;
 niddahSteps[0].answers=['The tractate begins in the middle of a live disagreement about how far back a period of uncertainty should reach.','The Mishnah introduces Shammai’s words only to dismiss them before any other position can be considered.','The named position is the settled rule, so the reader need not track a dispute or its measuring point.'];
 niddahSteps[1].answers=['Shammai measures uncertainty from the moment of discovery forward; Hillel measures it backward to the last time she checked, however long ago that was.','Hillel agrees with Shammai’s measuring point but supplies a different label for the same temporal rule.','Hillel removes uncertainty from the discussion, so no point in time needs to be measured at all.'];
 niddahSteps[2].answers=['A structured middle position that uses whichever of the two measures is shorter, rather than simply picking one side.','An exact repetition of Beit Hillel’s position, expressed through a different calculation of the same interval.','A refusal to measure the uncertainty at all because the original question is treated as unanswerable.'];
+
+// [rebalance] distractor lengths evened so the correct answer is not the longest option
+window.SederCourse.steps[1].answers[2]="Hillel removes all uncertainty from the discussion, so that no point in time ever needs to be measured at all.";
+window.SederCourse.steps[3].answers[1]="Picking out whichever one of the positions happens to sound simplest and quietly ignoring the other two.";
+window.SederCourse.steps[3].answers[2]="Concluding that Tannaitic disputes like this one are simply never worth tracking in any real detail.";
+window.SederCourse.steps[4].answers[1]="Assume that both of the lines must be the very same Mishnah, since they discuss the same tractate.";
+window.SederCourse.steps[4].answers[2]="Ignore the citation entirely, on the assumption that exact chapter and verse never really matter.";
+window.SederCourse.steps[5].answers[1]="The presumption simply makes the entire opening dispute irrelevant and altogether beside the point.";
+window.SederCourse.steps[5].answers[2]="The two of them flatly contradict one another and so cannot possibly both be true at the same time.";
+window.SederCourse.steps[6].answers[1]="Use the Mishnah's stated positions to try to answer a real, personal question directly and on one's own.";
+window.SederCourse.steps[6].answers[2]="Avoid studying the tractate entirely, simply because its subject matter happens to be a sensitive one.";
+window.SederCourse.steps[7].answers[1]="Machlokot always have one plainly correct side that all the other named sages involved simply missed.";
+window.SederCourse.steps[7].answers[2]="Once a single machloket has been understood, all of the others across Shas work in an identical way.";
+window.SederCourse.steps[8].answers[1]="Pick out whichever of the fragments happens to be the shortest and treat that one as the ruling.";
+window.SederCourse.steps[8].answers[2]="Assume that all three of the fragments are really saying the same thing in slightly different words.";

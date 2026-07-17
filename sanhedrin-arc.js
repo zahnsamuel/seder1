@@ -13,3 +13,19 @@ window.SederCourse={stage:'sanhedrin-tractate-arc',completeTitle:'You can read a
 // Alternatives preserve the distinction between category, court number, and practical authority.
 const sanhedrinSteps=window.SederCourse.steps;
 sanhedrinSteps[0].answers=['A broad case category together with the court number the Mishnah assigns to it.','A personal instruction for resolving a present-day dispute without locating the Mishnah’s category.','A claim that every legal matter is identical, regardless of category or assigned court number.'];
+
+// [rebalance] distractor lengths evened so the correct answer is not the longest option
+window.SederCourse.steps[1].answers[1]="As proof that robbery and injury simply cannot be counted as monetary cases at all.";
+window.SederCourse.steps[1].answers[2]="As a brand-new personal ruling that entirely replaces the Mishnah's own opening phrase.";
+window.SederCourse.steps[2].answers[1]="Whether robbery and injury are just ordinary Hebrew words with no legal weight.";
+window.SederCourse.steps[2].answers[2]="Whether a learner is permitted to decide an actual court case from this one page.";
+window.SederCourse.steps[3].answers[1]="Are robbery and injury ever genuinely important subjects to study at all?";
+window.SederCourse.steps[3].answers[2]="Which one of the litigants ought to win a robbery case that is brought today?";
+window.SederCourse.steps[4].answers[1]="It simply erases the first phrase entirely, as though it were meaningless.";
+window.SederCourse.steps[4].answers[2]="It turns the whole Mishnah into a direct instruction meant for a modern court.";
+window.SederCourse.steps[6].answers[1]="Which particular present-day dispute the cited verse is supposed to settle right away.";
+window.SederCourse.steps[6].answers[2]="Whether the cited verse ends up making the Mishnah itself entirely unnecessary.";
+window.SederCourse.steps[7].answers[1]="Use an ancient court text directly to try to decide a learner's own real-life legal dispute today.";
+window.SederCourse.steps[7].answers[2]="Avoid all court texts entirely, on the grounds that they can never be studied responsibly at all.";
+window.SederCourse.steps[8].answers[1]="Assume that every category-list anywhere means exactly what this one in Sanhedrin means.";
+window.SederCourse.steps[8].answers[2]="Skip the source entirely, on the assumption that categories are only vocabulary lists.";

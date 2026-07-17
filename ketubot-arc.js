@@ -13,3 +13,17 @@ window.SederCourse={stage:'ketubot-tractate-arc',completeTitle:'You can now read
 const ketubotSteps=window.SederCourse.steps;
 ketubotSteps[0].answers=['A fixed schedule for two different kinds of marriage, stated before any reason is given.','A list of required witnesses arranged by day, rather than a schedule that differentiates two categories.','A biblical teaching about marriage that the Mishnah quotes without creating an institutional timetable.'];
 ketubotSteps[1].answers=['Why this particular day serves some purpose the Mishnah has not yet explained.','How the Hebrew name for Wednesday was spelled by the court that heard marriage claims.','Whether the Mishnah contains a copying error rather than an institutional reason for the day.'];
+
+// [rebalance] distractor lengths evened so the correct answer is not the longest option
+window.SederCourse.steps[2].answers[1]="It proves that the Mishnah is entirely unrelated to courts or their sittings at all.";
+window.SederCourse.steps[2].answers[2]="It shows that the courts of that era never once sat on any fixed schedule.";
+window.SederCourse.steps[3].answers[1]="The Gemara has no real interest in the bride's own experience of the wedding at all, only in the court's own sitting schedule.";
+window.SederCourse.steps[3].answers[2]="Sunday weddings were simply forbidden outright by the law, which is the only real reason another day of the week was chosen.";
+window.SederCourse.steps[4].answers[1]="A single final ruling stated flatly, with no surrounding discussion of it at all.";
+window.SederCourse.steps[4].answers[2]="A Torah verse that is simply followed by an entirely unrelated narrative story.";
+window.SederCourse.steps[5].answers[1]="Use the Mishnah directly to try to answer a real, live question about someone's actual marriage.";
+window.SederCourse.steps[5].answers[2]="Avoid the tractate altogether simply on the grounds that its subject matter is a sensitive one.";
+window.SederCourse.steps[6].answers[1]="That every single measurement stated in the Mishnah is essentially just decorative.";
+window.SederCourse.steps[6].answers[2]="That the reasons standing behind Mishnaic details can never really be recovered at all.";
+window.SederCourse.steps[7].answers[1]="Assume that the fixed wedding schedule needs no explanation of any real kind at all.";
+window.SederCourse.steps[7].answers[2]="Guess at the reason yourself before ever reading the Gemara's own stated answer.";

@@ -14,3 +14,18 @@ window.SederCourse={stage:'chullin-tractate-arc',completeTitle:'You can now read
 const chullinSteps=window.SederCourse.steps;
 chullinSteps[0].answers=['A broad statement about who may validly perform an action.','A festival narrative that happens to mention an action but does not state its legal scope.','A courtyard measurement whose dimensions determine whether the action is valid.'];
 chullinSteps[1].answers=['Who is really included, and whether any exceptions are about to qualify it.','Which following page will repeat the same word without changing the scope of the statement.','Whether the word should be treated as a verse rather than as broad language in a Mishnah.'];
+
+// [rebalance] distractor lengths evened so the correct answer is not the longest option
+window.SederCourse.steps[2].answers[1]="It cancels the entire opening rule completely and leaves nothing at all in its place.";
+window.SederCourse.steps[2].answers[2]="It adds three more categories of people who may now always validly slaughter.";
+window.SederCourse.steps[3].answers[1]="A concern that in the end has nothing at all to do with the act of slaughter itself.";
+window.SederCourse.steps[3].answers[2]="A concern that applies fully and equally to every single person, with no exceptions at all.";
+window.SederCourse.steps[4].answers[1]="The original exception clause was simply a mistake, one that this later line quietly erases altogether.";
+window.SederCourse.steps[4].answers[2]="Supervision by others has no legal effect whatsoever on whether the act itself may validly be performed.";
+window.SederCourse.steps[5].answers[1]="A single final ruling stated just once, with no further discussion of it at all.";
+window.SederCourse.steps[5].answers[2]="Three entirely unrelated statements placed next to one another purely by accident.";
+window.SederCourse.steps[6].answers[2]="Avoid the topic altogether simply because it happens to concern difficult matters of practical law.";
+window.SederCourse.steps[7].answers[1]="That every single legal detail is purely decorative and carries no underlying reason of its very own at all.";
+window.SederCourse.steps[7].answers[2]="That the reasons standing behind the rules can essentially never be recovered from the plain text itself.";
+window.SederCourse.steps[8].answers[1]="Assume that the broad rule simply applies everywhere with no exceptions of any kind at all.";
+window.SederCourse.steps[8].answers[2]="Memorize only the English translation without ever tracking the Hebrew structure at all.";
