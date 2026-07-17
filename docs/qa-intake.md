@@ -2317,6 +2317,14 @@ not labs -- left for coordination with Codex on file ownership.
   Foundation Year, then Gemara Year) and opens the next unearned Moed chapter only after
   every Gemara Year stage is complete. Browser and server recommendations share the same order.
 
+## 2026-07-16 -- Codex: Canon and Taanit source-quality pass
+
+- Replaced answer-length cues in the Chassidus canon arc and Taanit source arc with
+  substantive, plausible near-misses that diagnose specific reading errors.
+- Added a terminal SOURCE CHECK to the Chassidus arc; both units now score 9/10 in
+  `scripts/audit-content.mjs` (zero length-bias flags). Re-verified the retained anchors:
+  Psalms 27:4 and Taanit 2a on Sefaria.
+
 ## 2026-07-16 -- Claude: widerworld-mean subject unit 6 -> 10
 
 The comparative "mean, compared" unit had strong correct answers but nine weak
