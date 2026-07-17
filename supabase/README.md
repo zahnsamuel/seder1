@@ -42,6 +42,14 @@ This is a sound design on paper, but **it has not been exercised against a live 
 7. Through the running app itself (not raw REST), sign in as learner B and call `GET /api/learners/UUID_A` with B's session. Expected: a 400/error from the `learnerAccess` check ("You can only access your own learner record"), confirming the app-layer guard also holds, independent of RLS.
 8. Only once all of the above come back empty/rejected, mark "RLS policy tests pass" in the cutover checklist below as actually verified, not just present in migration files.
 
+**Automated runner.** Steps 3–7 are scripted in `scripts/verify-account-isolation.mjs`. Do steps 1–2 manually (create the two accounts, create some data for A, grab both access tokens and UUIDs), then run the script once with those values in the environment — it checks every table for read leaks, attempts a cross-account write, optionally exercises the app-layer guard, and exits non-zero if anything leaks. It also preflights that each token really belongs to its claimed UUID, so an expired or swapped token can't produce a vacuous pass.
+
+```
+# PowerShell (one line): set the six vars, then run
+$env:SUPABASE_URL="https://xxxx.supabase.co"; $env:SUPABASE_ANON_KEY="<anon>"; $env:TOKEN_A="<a>"; $env:TOKEN_B="<b>"; $env:UUID_A="<a-uuid>"; $env:UUID_B="<b-uuid>"; node scripts/verify-account-isolation.mjs
+# add $env:APP_URL="http://127.0.0.1:4180" to also run step 7 against the live app
+```
+
 ## Account deletion boundary
 
 `DELETE /api/learners/:id` (hosted mode) erases every row of a learner's data — profile, mastery state, attempts, reviews, placement, sessions — using the learner's own access token, scoped by the RLS policies above. It does **not** delete the `auth.users` row itself (the sign-in identity/email), because that requires Supabase's admin API and a service-role key, which this server intentionally never holds server-side (see `data/supabase-adapter.mjs`). A learner who wants their sign-in credential fully removed needs that done through Supabase directly (dashboard, admin API from a trusted context, or a support request) — reflect this honestly in any privacy copy or deletion-confirmation UI rather than promising full account erasure.
