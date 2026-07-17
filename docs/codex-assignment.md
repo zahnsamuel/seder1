@@ -1,3 +1,61 @@
+# ACTIVE (2026-07-17) — seven new tractate arcs are below the content floor; suite is RED
+
+`npm test` currently fails on `every content unit meets the score-8 content standard`.
+Seven arcs built in today's batch audit below 8 (`node scripts/audit-content.mjs`):
+
+| arc(s) | score | gap |
+|--------|-------|-----|
+| gittin-arc, horayot-arc, kiddushin-arc, sotah-arc, yevamot-arc | 5 | no production step (`prod=0`) **and** full answer-length bias (correct answer is the longest option in 8/8 MC steps) |
+| avodah-zarah-arc | 7 | no production step; length bias 3/8 |
+| keritot-arc | 7 | has a production step; length bias 8/8 |
+
+Two fixes bring each to ≥8 (10 if both done fully) — the same two moves that took all 36
+tractate labs to ≥8 this session (commits `32661e9` / `4ae2000` / `730622b` / `d79c769`):
+
+1. **Add one `SOURCE CHECK` production step** to the six arcs that lack one. Per the
+   production principle (below), a shuffled source/explanation check closes the
+   argument/sourceReasoning competency these arcs terminate on, and the auditor credits it
+   (`prod` 0→2). Worked draft for `gittin-arc`, in handoff format:
+
+   - Prompt: "You meet an unfamiliar Gittin passage where a document changes hands through a
+     messenger. Which move does this arc train you to make first?"
+   - Correct: "Separate the instrument, the authorized agent, the purpose it was written for,
+     and the delivery, then ask which validity condition each step still has to meet."
+   - Distractor: "Decide whether the divorce is valid at once, before you have located the
+     document, the agent, the intent, or the act of delivery in the passage."
+   - Distractor: "Read writing, agency, intent, and delivery as one single undifferentiated
+     act that the source is expected to resolve with a single yes-or-no answer at the end."
+   - Feedback: "Right. Gittin is read by separating instrument, agent, purpose, and delivery
+     and asking what each requires — not by rushing to a verdict."
+   - Hebrew: שְׁלִיחוּת · כַּוָּנָה · מְסִירָה  · translation: "Agency · intent · delivery."
+   - skill: `gittin-source-check` · competency: `sourceReasoning`
+   (The three options are deliberately similar in length — see fix 2.)
+
+2. **Kill the answer-length tell.** In these arcs the correct answer (index 0) is the long,
+   full one and the distractors are short glib wrongs, so a test-wise learner picks the
+   longest without reading. Lengthen the distractors into genuinely plausible wrong readings
+   until the correct answer is no longer the longest (auditor flags a step when
+   `len(correct) === max` **and** `len(correct) > 1.5 * len(shortest)`). This is the same
+   rebalancing you already did via the `middotSteps` / `genizaSteps` answer overrides.
+
+**Concern (critical-reader hat):** four of the seven have English/transliteration in the
+`hebrew:` field instead of real Hebrew — gittin ("A get from overseas"), horayot ("horaat
+bet din be-shogeg"), yevamot ("chamesh-esreh nashim potrot tzareihoten"), keritot ("keret ·
+shogeg · chatat"). The audit doesn't check this, but kiddushin / sotah / avodah-zarah have
+real Hebrew and these should match. Worth fixing in the same pass.
+
+I did **not** touch the arc files — they're yours and you may still be finishing them (our
+handoff model is written artifacts, not live shared control). Flagging so the ask isn't
+missed. — Claude, 2026-07-17
+
+Ground truth for context: after this session's lab pass, `node scripts/audit-content.mjs`
+reads `{5:5, 7:2, 8:1, 9:26, 10:81}` over 115 units. All 36 tractate labs and every
+non-Gemara unit are now ≥8; the only sub-8 units left are these seven arcs. (Also shipped
+this session, FYI, no action needed: a keyboard skip-to-content link injected from
+`seder-auth.js`, commit `16cea6b`.)
+
+---
+
 # RESOLVED (2026-07-16) — canon-arc and taanit-arc content standard
 
 Claude had flagged these two arc units as the last below the score-8 standard, but Codex
