@@ -2349,6 +2349,12 @@ not labs -- left for coordination with Codex on file ownership.
   bounded range, and communal explanation. The source arc now meets the 8/10 quality floor
   without changing its verified Megillah 2a content or its study-only boundary.
 
+## 2026-07-16 -- Codex: Ketubot schedule-quality pass
+
+- Strengthened Ketubot’s opening schedule-and-reason checks with plausible institutional
+  near-misses. The source arc now meets the 8/10 quality floor while retaining its explicit
+  sensitive-material boundary and existing source sequence.
+
 ## 2026-07-16 -- Claude: widerworld-mean subject unit 6 -> 10
 
 The comparative "mean, compared" unit had strong correct answers but nine weak
