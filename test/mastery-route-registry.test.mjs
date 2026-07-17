@@ -2,6 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 
+const catalog = JSON.parse(await readFile(new URL('../data/gemara-tractates.json', import.meta.url), 'utf8'));
+
 test('every current tractate arc resolves through one canonical visible-source registry', async () => {
   const source = await readFile(new URL('../course-engine.js', import.meta.url), 'utf8');
   const routes = {
@@ -23,5 +25,18 @@ test('every current tractate arc resolves through one canonical visible-source r
   assert.doesNotMatch(source, /const earnedBlockHandoffByStage/);
   for (const [stage, url] of Object.entries(routes)) {
     assert.match(source, new RegExp(`'${stage}':\\{[^}]*url:'${url.replace(/[.?]/g,'\\$&')}'`));
+  }
+});
+
+test('every post-entry tractate in the Shas catalog has a canonical mastery handoff', async () => {
+  const source = await readFile(new URL('../course-engine.js', import.meta.url), 'utf8');
+  const arcs = catalog.tractates.filter((tractate) => tractate.stage === 'tractate-arc');
+  assert.equal(arcs.length, 36);
+  for (const tractate of arcs) {
+    const stage = `${tractate.labId}-tractate-arc`;
+    const pattern = new RegExp(`'${stage}':\\{tractate:'${tractate.labId}',url:'([^']+)'`);
+    const match = source.match(pattern);
+    assert.ok(match, `missing canonical route for ${tractate.title}`);
+    assert.match(match[1], /(?:flagship-daf-workbench|daf-workbench|yoma-daf-workbench|rosh-hashanah-daf-workbench|megillah-daf-workbench|taanit-daf-workbench|makkot-daf-workbench|shevuot-daf-workbench|lab)\.html/);
   }
 });
