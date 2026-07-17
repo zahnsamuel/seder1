@@ -2419,3 +2419,31 @@ Result: 95 content units, distribution {8:43, 9:22, 10:30} -- no unit below 8. F
   advances the source trail from 2/10 to 3/10, moves the active Daf focus to the Gemara question,
   and keeps transliteration and English beside the active Hebrew/Aramaic excerpt.
 - No browser-console warnings or errors appeared on the front door, placement, or Berakhot flow.
+
+## 2026-07-17 -- Claude: Supabase cutover readiness review (2 ship-blocking fixes)
+
+Credential-free review of the six migrations, RLS/isolation model, adapter, and the
+hosted learner repository against the runbook. RLS design is sound (auth.uid() on every
+table, verified-token app layer, no service-role key server-side). Two ship-blocking
+defects found and fixed:
+
+1. `data/supabase-adapter.mjs` sent only `Prefer: return=representation`. The repository's
+   `on_conflict=` writes (learner_state, review_items, placement_results) are upserts, which
+   PostgREST only merges when Prefer includes `resolution=merge-duplicates`; otherwise the
+   conflicting row 409s. Because `handle_new_user()` pre-creates the learner_state row at
+   signup, the FIRST hosted event already conflicts -- so every hosted write would have
+   failed. Fixed: supabaseRest now adds `resolution=merge-duplicates` automatically for any
+   `on_conflict=` path, and leaves plain inserts (attempts) untouched. Added
+   `test/supabase-adapter-upsert.test.mjs` to guard both cases (no live creds to test E2E).
+
+2. `supabase/README.md` setup + description listed migrations 001-005 but omitted
+   `006_hosted_learning_parity.sql`, which adds six learner_state columns
+   (mastery_updated_at, struggles, events, total_answered, daily_streak, last_study_date)
+   that the hosted upsert writes on every event. An operator following the runbook would
+   have shipped a schema missing those columns. Added 006 to both the description and the
+   run order, plus a note that 001 is run-once (its create policy/table statements are not
+   idempotent) while 002 is the intentional re-runnable backfill.
+
+Schema/app column match is otherwise complete across all six migrations. Full suite 218/218.
+Still requires the user's live-project isolation test (README "Account isolation verification")
+before real learner data -- unchanged, that needs credentials.
