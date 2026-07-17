@@ -2716,6 +2716,13 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
 - Added the Shas-map route, canonical workspace handoff, and regression coverage.
 - Verification: full automated suite passes, 238 tests / 0 failures.
 
+### 2026-07-17 — Zevachim Kodashim source-arc expansion (Codex)
+- Verified Mishnah Zevachim 1:1 and Zevachim 2a against Sefaria before building the arc.
+- Promoted Zevachim into an eight-step source trail that teaches validity versus fulfilled
+  obligation, the scope of intention, and an independent two-outcome reading map.
+- Added the Shas-map route, canonical workspace handoff, and regression coverage.
+- Verification: full automated suite passes, 239 tests / 0 failures.
+
 ### 2026-07-17 — Gemara Year Term IV integration (Codex)
 - The new Moed Katan, Nedarim, and Nazir arcs are now an earned fourth Gemara Year term,
   rather than optional map-only material.
