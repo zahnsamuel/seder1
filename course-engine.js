@@ -19,6 +19,7 @@ const masteryRouteByStage={
   'taanit-tractate-arc':{tractate:'taanit',url:'taanit-daf-workbench.html',label:'Open the Taanit source workspace'}
   ,'makkot-tractate-arc':{tractate:'makkot',url:'makkot-daf-workbench.html',label:'Open the Makkot source workspace'}
   ,'shevuot-tractate-arc':{tractate:'shevuot',url:'shevuot-daf-workbench.html',label:'Open the Shevuot source workspace'}
+  ,'bava-batra-tractate-arc':{tractate:'bava-batra',url:'lab.html?tractate=bava-batra',label:'Open the Bava Batra source workspace'}
 };
 const masteryRoute=masteryRouteByStage[config.stage];
 if(masteryRoute){config.nextUrl=masteryRoute.url;config.nextLabel=masteryRoute.label;}

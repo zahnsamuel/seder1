@@ -2666,6 +2666,12 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
   learner to preserve Shevuot's distinct subject and derivation.
 - Full automated suite passes: 231/231.
 
+## 2026-07-17 -- Codex: Bava Batra shared-space source arc
+
+- Promoted Bava Batra into a full source trail: partners, a shared obligation, privacy as the
+  Gemara's stated concern, and the measure that answers it. The completion hands into the existing
+  visible Bava Batra source workspace.
+
 ## 2026-07-17 -- Codex: hosted deep-link recovery
 
 - Any protected learner page opened directly without a valid hosted session now follows the same
