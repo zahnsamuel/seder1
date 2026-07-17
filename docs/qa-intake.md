@@ -2496,6 +2496,15 @@ Result: 95 content units, distribution {8:43, 9:22, 10:30} -- no unit below 8. F
 - This preserves the older session page for direct access while removing competing entry points
   from the learner experience. Full suite passes at 223/223.
 
+## 2026-07-17 -- Codex: hosted authentication boundary
+
+- Chose the production-safe hosted-mode behavior: once Supabase is configured, learner API
+  requests must include a valid authenticated session. They no longer fall through to the shared
+  local `demo` learner, while local development retains its demo/profile workflow.
+- Invalid or missing hosted sessions now return a clear 401 response instead of using local
+  storage or being reported as a server error. This is credential-free hardening; live account
+  isolation verification is still required before a pilot. Full suite passes at 224/224.
+
 ## 2026-07-17 -- Claude: Supabase cutover readiness review (2 ship-blocking fixes)
 
 Credential-free review of the six migrations, RLS/isolation model, adapter, and the

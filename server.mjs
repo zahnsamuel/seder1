@@ -105,8 +105,19 @@ async function recommendFor(learner, { skipReview = false } = {}) {
 
 async function learnerAccess(request, requestedId) {
   const token = request.headers.authorization?.replace(/^Bearer\s+/i, '');
-  if (token && supabaseConfig().configured) {
-    const user = await verifySupabaseAccessToken(token);
+  if (supabaseConfig().configured) {
+    if (!token) {
+      const error = new Error('A sign-in session is required in hosted mode.');
+      error.statusCode = 401;
+      throw error;
+    }
+    let user;
+    try { user = await verifySupabaseAccessToken(token); }
+    catch (cause) {
+      const error = new Error(cause.message || 'Your sign-in session is not valid.');
+      error.statusCode = 401;
+      throw error;
+    }
     if (requestedId && requestedId !== user.id) throw new Error('You can only access your own learner record.');
     return { hosted: true, user, token, id: user.id };
   }
@@ -496,6 +507,6 @@ createServer(async (request, response) => {
     createReadStream(target).pipe(response);
   } catch (error) {
     logError(`${request.method} ${url.pathname}`, error);
-    sendJson(response, 500, { error: error.message });
+    sendJson(response, error.statusCode || 500, { error: error.message });
   }
 }).listen(port, '0.0.0.0', () => console.log(`Seder is running at http://127.0.0.1:${port}`));

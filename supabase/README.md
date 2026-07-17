@@ -15,6 +15,10 @@
 
 ## Account isolation verification
 
+When `SUPABASE_URL` and `SUPABASE_ANON_KEY` are configured, Seder's learner API requires a
+valid Supabase bearer token. The shared local/demo learner is deliberately available only in
+local-development mode; hosted deployments do not fall back to it for unsigned requests.
+
 Code-review summary (2026-07-12): the isolation model has three independent layers, so a single missed check anywhere doesn't leak data.
 
 1. **`data/supabase-adapter.mjs`** never holds or uses a service-role key. Every REST call (`supabaseRest`) authenticates as `apikey: <anon key>` + `Authorization: Bearer <the signed-in learner's own access token>` — never a server-side admin credential.
