@@ -10,4 +10,5 @@ test('capstones remain course-specific, require all course moves, and use guided
   assert.match(js, /canon-course\.html\?course=\$\{cap\.id\}/);
   assert.match(js, /judgment !== 'context'/);
   assert.doesNotMatch(html, /textarea/i);
+  assert.match(js, /gemara-continuation\.html/);
 });

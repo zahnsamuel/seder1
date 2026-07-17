@@ -2446,6 +2446,18 @@ Result: 95 content units, distribution {8:43, 9:22, 10:30} -- no unit below 8. F
   action is present, and no browser-console warnings or errors appeared.
 - Full test suite passed: 218/218.
 
+## 2026-07-17 -- Codex: completed-state return-loop pass
+
+- Confirmed the Gemara Year and daily-routing contracts open Moed Expansion only after the full
+  Gemara Year is earned; focused route tests passed for Foundation, Gemara Year, and Moed.
+- Fixed the canon bridge's stale instruction that asked learners to "write" an independent
+  capstone. It now correctly names the guided capstone that precedes the bridge.
+- Fixed the terminal non-Gemara capstone dead end: after the final canon sequence, learners now
+  receive a visible return to `gemara-continuation.html`, preserving the hub-with-lateral-links
+  topology.
+- Live-verified the locked bridge state and its capstone return link; no browser-console warnings
+  or errors appeared. Full suite remains green: 218/218.
+
 ## 2026-07-17 -- Claude: Supabase cutover readiness review (2 ship-blocking fixes)
 
 Credential-free review of the six migrations, RLS/isolation model, adapter, and the

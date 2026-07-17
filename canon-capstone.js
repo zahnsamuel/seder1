@@ -63,7 +63,7 @@ Promise.all([
     const bridge = bridgeByCourse[cap.id];
     $('#feedback').innerHTML = bridge
       ? `Independent connection recorded. You compared two named sources through a ${move} reading move. <a href="canon-bridge.html?bridge=${bridge}">Carry it into the next canon bridge →</a>`
-      : 'Independent connection recorded. You have completed the final current canon capstone.';
+      : 'Independent connection recorded. You have completed the current canon sequence. <a href="gemara-continuation.html">Return to your Gemara path →</a>';
     try {
       await Seder.api(`/api/learners/${learnerId}/events`, {
         method: 'POST',
