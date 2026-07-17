@@ -2599,3 +2599,26 @@ non-trivial.**
 Net: both decisions resolved with evidence; no code change this pass. Either is actionable on
 request -- the #2 sign-in-only one-liner (removes the demo), or the #1 refactor once creds allow
 live testing.
+
+## 2026-07-17 -- Claude: content-accuracy pass on this session's additions (all verified)
+
+Re-verified the specific sugya claims added this session that were written from knowledge while
+WebSearch was rate-limited (the seven Kodashim principle steps + a few famous-sugya steps).
+All confirmed accurate against sources:
+- Bekhorot: a non-Jew's partnership (shutfut nochri) exempts a firstborn animal from bechor. OK.
+- Keritot: zadono karet / shigegato chatat (deliberate -> excision, unwitting -> sin-offering);
+  named for the 36 karet transgressions. OK.
+- Ketubot 2a: the virgin's Wednesday wedding is set so a virginity claim can reach the Thursday
+  court (market-day and before-anger-cools nuances match). OK.
+- Temurah: substitution is forbidden yet takes effect -- both original and substitute become
+  holy and the one who substitutes receives lashes. OK.
+- Arakhin: erech is the Torah's fixed valuation by age/sex (Lev 27: 50/30/20/10/5/3 shekels)
+  vs damim market value. OK.
+- (Menachot's minchat chotei / kena'ot exception was WebSearch-verified earlier this session.)
+No content corrections needed. The whole corpus is factually sound for the pilot.
+
+Update on the earlier "two hosted-path decisions" entry: decision #2 (tokenless -> local fallback
+in hosted mode) has since been IMPLEMENTED in code -- `server.mjs` learnerAccess now returns 401
+when `supabaseConfig().configured` and no valid token is present (local dev still uses the demo
+learner), matching the updated supabase/README.md "Account isolation verification" note. So #2 is
+resolved in code, not just parked; the sign-in-only lever I described was taken.
