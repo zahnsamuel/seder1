@@ -22,7 +22,9 @@ Seder.api = async (url, options = {}, retried = false) => {
   if (Seder.session?.access_token) headers.set('Authorization', `Bearer ${Seder.session.access_token}`);
   const response = await fetch(url, { ...options, headers });
   if (response.status === 401 && !retried && await Seder.refreshSession()) return Seder.api(url, options, true);
-  if (response.status === 401 && Seder.session?.access_token && !location.pathname.endsWith('/sign-in.html')) {
+  const config = await Seder.config();
+  const hosted = config.supabaseUrl && config.supabaseAnonKey;
+  if (response.status === 401 && hosted && !location.pathname.endsWith('/sign-in.html')) {
     localStorage.removeItem(authKey);
     Seder.session = null;
     const signIn = new URL('sign-in.html', location.origin);

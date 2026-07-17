@@ -7,6 +7,9 @@ test('an expired hosted session returns a learner to sign-in and then to the int
   assert.match(auth, /reason', 'session-expired/);
   assert.match(auth, /signIn\.searchParams\.set\('next'/);
   assert.match(auth, /localStorage\.removeItem\(authKey\)/);
+  assert.match(auth, /const config = await Seder\.config\(\)/);
+  assert.match(auth, /const hosted = config\.supabaseUrl && config\.supabaseAnonKey/);
+  assert.match(auth, /response\.status === 401 && hosted/);
   assert.match(auth, /new URL\(next, location\.origin\)/);
   assert.match(auth, /safeNext\?\.origin === location\.origin/);
   assert.match(auth, /nextUrl \|\|= new URLSearchParams\(location\.search\)\.get\('next'\)/);

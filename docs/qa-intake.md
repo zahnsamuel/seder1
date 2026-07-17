@@ -2651,3 +2651,10 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
   secure sign-in identity before confirmation and after success. This matches the RLS-backed
   server behavior and avoids promising deletion of an Auth identity the app cannot remove.
 - Full automated suite passes: 229/229.
+
+## 2026-07-17 -- Codex: hosted deep-link recovery
+
+- Any protected learner page opened directly without a valid hosted session now follows the same
+  secure sign-in-and-return flow as an expired session. This closes the gap between the landing
+  page's sign-in front door and bookmarked learning URLs, while local development remains open.
+- Full automated suite passes: 229/229.
