@@ -2461,3 +2461,32 @@ defects found and fixed:
 Schema/app column match is otherwise complete across all six migrations. Full suite 218/218.
 Still requires the user's live-project isolation test (README "Account isolation verification")
 before real learner data -- unchanged, that needs credentials.
+
+## 2026-07-17 -- Claude: hosted-path deeper review (2 findings to decide, not unilaterally fixed)
+
+After fixing the two ship-blockers, traced the rest of the hosted flow (server.mjs
+learnerAccess / event / delete handlers, health, the repository). The app-layer isolation
+guard is correct: learnerAccess (server.mjs:110) throws if a URL learner id != the verified
+token's user id. Two items remain that are deliberately NOT changed here because each is a
+judgment/product call better made by Sam or Codex:
+
+1. **learner_state.events grows unbounded (scalability).** recordHostedEvent pushes every
+   event onto learner.events (supabase-learner-repository.mjs:67) and putState rewrites the
+   entire JSONB array on every write (line 50) -- O(n) per write, O(n^2) over a learner's
+   history, duplicating data the `attempts` table already stores row-per-attempt. Fine for a
+   small private pilot; needs attention before scale. NOT capped here because
+   curriculum-engine's canMasterJourneyStage reads the full events history to detect stage
+   mastery, so a naive cap would silently break mastery gating. A real fix means moving events
+   to their own table (or deriving mastery from `attempts`) -- an architectural change.
+
+2. **Tokenless learner-API calls fall through to the local store even when Supabase is
+   configured.** learnerAccess (server.mjs:108-113): if no bearer token, it returns
+   {hosted:false, id: requestedId||'demo'} and serves the local file repository. Real hosted
+   learner data stays RLS-protected (not leaked), but on a production host an unauthenticated
+   caller could read/write the shared local 'demo' learner and create arbitrary local learner
+   files on disk (junk/disk-abuse, not a cross-account breach). Whether to reject tokenless
+   learner calls in hosted mode is a product decision -- it depends on whether the no-sign-in
+   demo experience is meant to exist on the production deployment. If prod requires sign-in,
+   learnerAccess should 401 on tokenless learner endpoints when supabaseConfig().configured.
+
+Recommend Sam/Codex decide #2 (product) and schedule #1 (architecture) post-pilot.
