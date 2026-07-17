@@ -74,7 +74,20 @@ Seder.sendMagicLink = async (email, displayName, nextUrl = '') => {
   const response = await fetch(`${config.supabaseUrl}/auth/v1/otp`, { method: 'POST', headers: { apikey: config.supabaseAnonKey, 'Content-Type': 'application/json' }, body: JSON.stringify({ email, create_user: true, data: { display_name: displayName || undefined }, options: { emailRedirectTo: returnUrl.href } }) });
   if (!response.ok) throw new Error('We could not send that sign-in link. Please try again.');
 };
-Seder.signOut = () => { localStorage.removeItem(authKey); Seder.session = null; location.href = 'seder.html'; };
+Seder.signOut = async () => {
+  const session = Seder.session;
+  const config = await Seder.config();
+  if (session?.access_token && config.supabaseUrl && config.supabaseAnonKey) {
+    await fetch(`${config.supabaseUrl}/auth/v1/logout`, {
+      method: 'POST',
+      headers: { apikey: config.supabaseAnonKey, Authorization: `Bearer ${session.access_token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ scope: 'local' })
+    }).catch(() => {});
+  }
+  localStorage.removeItem(authKey);
+  Seder.session = null;
+  location.href = 'seder.html';
+};
 window.Seder = Seder;
 Seder.finishMagicLink();
 Seder.enableJourneyAutosave();

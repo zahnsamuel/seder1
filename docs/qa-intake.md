@@ -2658,3 +2658,10 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
   secure sign-in-and-return flow as an expired session. This closes the gap between the landing
   page's sign-in front door and bookmarked learning URLs, while local development remains open.
 - Full automated suite passes: 229/229.
+
+## 2026-07-17 -- Codex: revoke the active hosted session on sign-out
+
+- Secure sign-out now asks Supabase Auth to end the current device's session before clearing
+  browser storage and returning to Seder. The local scope preserves a learner's sessions on
+  other devices while making shared-device sign-out real rather than cosmetic.
+- Full automated suite passes: 229/229.
