@@ -11,3 +11,21 @@ window.SederCourse={stage:'sukkah-tractate-arc',completeTitle:'You can now read 
 {short:'Independent case map',mode:'INDEPENDENT READ',title:'Map the case on your own',ref:'Sukkah 2a reading checkpoint',hebrew:'סֻכָּה · לְמַעְלָה מֵעֶשְׂרִים אַמָּה · פְּסוּלָה',translation:'Sukkah · higher than twenty cubits · it is invalid.',independent:true,prompt:'What is the first independent-reading move with this case?',answers:['Identify the structure, its measurement, and the ruling that follows before asking why.','Guess the ruling from the first word alone.','Assume the case has already been fully explained.'],correct:0,skill:'sukkah-independent-map',competency:'sourceReasoning',feedback:'You can now enter a measure-and-validity sugya with a concrete map.'},
 {short:'Choose the meaning',mode:'SOURCE CHECK',title:'Recall, don’t just recognize',ref:'Sukkah reasoning habit',hebrew:'מַאי טַעְמָא',translation:'What is the reason?',independent:true,prompt:'What kind of question does this phrase introduce?',answers:['A question seeking the reason for a rule.','A question naming the person in a case.','A question setting the calendar date of a practice.'],correct:0,skill:'sukkah-typed-recall',competency:'translation',feedback:'You can recognize a reason-question and distinguish it from questions about people or timing.'}
 ]};
+
+// [rebalance] distractor lengths evened so the correct answer is not the longest option
+window.SederCourse.steps[1].answers[1]="It simply names the person who happened to build the sukkah in the first place.";
+window.SederCourse.steps[1].answers[2]="It has no real effect at all on the particular ruling that then follows it.";
+window.SederCourse.steps[2].answers[1]="The name of the particular festival that the structure is actually used for.";
+window.SederCourse.steps[2].answers[2]="Whether or not the structure in question has ever once been rebuilt before.";
+window.SederCourse.steps[4].answers[1]="Who was it that built the very first sukkah in all of history?";
+window.SederCourse.steps[4].answers[2]="Which one of all of these words is by far the easiest to translate?";
+window.SederCourse.steps[5].answers[1]="A firm decision to simply discard one of the two conflicting sources outright.";
+window.SederCourse.steps[5].answers[2]="A mere translation exercise that is entirely unrelated to the actual disagreement.";
+window.SederCourse.steps[6].answers[1]="A plain repeat of the very same height rule, only stated in somewhat different words.";
+window.SederCourse.steps[6].answers[2]="An entirely unrelated case that happens to concern a completely different festival.";
+window.SederCourse.steps[7].answers[1]="The Sages actually agree in secret with Rabbi Eliezer and are only phrasing the very same position differently.";
+window.SederCourse.steps[7].answers[2]="The dispute in the end has nothing whatsoever to do with the actual question of what makes a given sukkah valid.";
+window.SederCourse.steps[8].answers[1]="A question that is then followed directly by an entirely unrelated answer to it.";
+window.SederCourse.steps[8].answers[2]="Two separate facts that have merely been placed side by side by sheer coincidence.";
+window.SederCourse.steps[9].answers[1]="Try to guess the final ruling from nothing more than the very first word of the case.";
+window.SederCourse.steps[9].answers[2]="Assume that the case in front of you has already been completely and fully explained.";

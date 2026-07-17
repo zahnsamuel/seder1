@@ -11,3 +11,20 @@ window.SederCourse={stage:'pesachim-tractate-arc',completeTitle:'You can now rea
 {short:'Independent reading',mode:'INDEPENDENT READ',title:'Map the case on your own',ref:'Pesachim 2a reading checkpoint',hebrew:'אור לארבעה עשר · לאור הנר · בודקין',translation:'On the eve of the fourteenth · by the light of a lamp · one searches.',independent:true,prompt:'What is the first independent-reading move with this case?',answers:['Separate the action, its time, and the tool used to perform it before asking why.','Guess the ruling from the first word alone.','Assume the case has already been fully explained.'],correct:0,skill:'pesachim-independent-map',competency:'sourceReasoning',feedback:'You can now enter a time-and-action sugya with a concrete map.'},
 {short:'Choose the meaning',mode:'SOURCE CHECK',title:'Recall, don’t just recognize',ref:'Mishnah Pesachim 1:1',hebrew:'אור',translation:'Light / the eve.',independent:true,prompt:'Which meaning fits this opening word in the source?',answers:['Light / the eve.','A courtyard boundary.','A final legal ruling.'],correct:0,skill:'pesachim-typed-recall',competency:'translation',feedback:'You can recognize the word’s meaning from the source, rather than merely guess from a familiar topic.'}
 ]};
+
+// [rebalance] distractor lengths evened so the correct answer is not the longest option
+window.SederCourse.steps[1].answers[1]="It never appears anywhere else across the whole of the Mishnah, so its meaning cannot be checked.";
+window.SederCourse.steps[1].answers[2]="It has exactly one single possible meaning that stays fixed in every context it ever appears in.";
+window.SederCourse.steps[3].answers[2]="Can we simply ignore the word altogether, since the action itself already seems perfectly clear?";
+window.SederCourse.steps[4].answers[1]="Reasons are only ever asked for in those cases where the Mishnah's own wording is genuinely confusing.";
+window.SederCourse.steps[4].answers[2]="The question must mean that the Mishnah itself is somehow mistaken or simply incorrect on this point.";
+window.SederCourse.steps[5].answers[1]="To cancel out and completely overturn the Mishnah's stated ruling in its entirety.";
+window.SederCourse.steps[5].answers[2]="To introduce a completely unrelated festival and the separate laws that govern it.";
+window.SederCourse.steps[6].answers[1]="Whether searching for chametz is genuinely required at all in the very first place.";
+window.SederCourse.steps[6].answers[2]="What particular time of the day the search for chametz is supposed to begin at.";
+window.SederCourse.steps[7].answers[1]="A plain statement that the search for chametz can somehow never actually come to a definite end, no matter what a person does.";
+window.SederCourse.steps[7].answers[2]="An entirely separate rule that bears no real connection whatsoever to the weasel case the Mishnah has just been raising.";
+window.SederCourse.steps[8].answers[1]="Assume that every single tractate makes use of this exact same pair of words in the very same way.";
+window.SederCourse.steps[8].answers[2]="Ignore location entirely, on the grounds that Pesachim is concerned with time rather than with space.";
+window.SederCourse.steps[9].answers[1]="Try to guess the final ruling from nothing more than the very first word of the case.";
+window.SederCourse.steps[9].answers[2]="Assume that the case in front of you has already been completely and fully explained.";

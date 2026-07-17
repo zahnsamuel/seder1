@@ -12,3 +12,19 @@ window.SederCourse={stage:'eruvin-tractate-arc',completeTitle:'You can now read 
 {short:'Independent case map',mode:'INDEPENDENT READ',title:'Map the case on your own',ref:'Eruvin 2a reading checkpoint',hebrew:'מָבוֹי · לְמַעְלָה מֵעֶשְׂרִים אַמָּה · יְמַעֵט',translation:'Alleyway · higher than twenty cubits · one should lower it.',independent:true,prompt:'What is the first independent-reading move with this case?',answers:['Identify the object, its measurement, and the response the measurement requires.','Guess the ruling from the first word alone.','Assume the case has already been fully explained.'],correct:0,skill:'eruvin-independent-map',competency:'sourceReasoning',feedback:'You can now enter a measurement-based sugya with a concrete map.'},
 {short:'Choose the meaning',mode:'SOURCE CHECK',title:'Recall, don’t just recognize',ref:'Mishnah Eruvin 1:1 · Eruvin 2a',hebrew:'אַמַּאי?',translation:'Why?',independent:true,prompt:'What question does this word ask?',answers:['Why?','From when?','Who is obligated?'],correct:0,skill:'eruvin-typed-recall',competency:'translation',feedback:'You can recognize this question signal in a new source without needing to produce it from a blank field.'}
 ]};
+
+// [rebalance] distractor lengths evened so the correct answer is not the longest option
+window.SederCourse.steps[0].answers[2]="A final, settled ruling that has no underlying case attached to it at all.";
+window.SederCourse.steps[1].answers[1]="Because an ordinary alleyway carries no real legal significance of its own.";
+window.SederCourse.steps[1].answers[2]="Because the word in question only ever appears one single time in the Mishnah.";
+window.SederCourse.steps[2].answers[1]="Only the final word by itself, entirely without the case that actually produced it.";
+window.SederCourse.steps[2].answers[2]="Whether or not the alleyway in question happens to have a name of its very own.";
+window.SederCourse.steps[3].answers[1]="A simple list of several unrelated alleyways with nothing at all tying them together.";
+window.SederCourse.steps[3].answers[2]="A flat prohibition that comes with no stated reason and no response of any kind.";
+window.SederCourse.steps[4].answers[2]="Reasons are essentially never given for any of the measurements found in the Mishnah.";
+window.SederCourse.steps[5].answers[1]="The very end of the discussion, with no further text coming after it at all.";
+window.SederCourse.steps[5].answers[2]="A completely new and altogether unrelated Mishnah on an entirely different subject.";
+window.SederCourse.steps[8].answers[2]="Skip right over the measurement and go looking only for the final ruling itself.";
+window.SederCourse.steps[9].answers[2]="Avoid teaching the measurements at all, simply in order to prevent any practical questions from ever arising.";
+window.SederCourse.steps[10].answers[1]="Try to guess the final ruling from nothing more than the very first word of the case.";
+window.SederCourse.steps[10].answers[2]="Assume that the case in front of you has already been completely and fully explained.";
