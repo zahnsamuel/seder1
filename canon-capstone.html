@@ -1,1 +1,24 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Seder · Course Capstone</title><link rel="stylesheet" href="canon-labs.css"></head><body><header><a href="daily-router.html">← Today in Seder</a><span>COURSE CAPSTONE</span><a href="notebook.html">Notebook</a></header><main><section class="hero"><p>INDEPENDENT CONNECTION</p><h1 id="title">Loading capstone…</h1><div>Use four sources, not a memorized answer. A strong explanation identifies what persists, what changes, and why the setting matters.</div></section><section class="lesson"><div id="sources"></div><p id="prompt" class="prompt"></p><label class="lesson-label" for="source-one">FIRST SOURCE YOU WILL USE</label><input id="source-one" class="capstone-input" placeholder="For example: Deuteronomy 6:4"><label class="lesson-label" for="source-two">SECOND SOURCE YOU WILL USE</label><input id="source-two" class="capstone-input" placeholder="For example: Mishnah Berakhot 1:1"><label class="lesson-label" for="move">READING MOVE</label><select id="move" class="capstone-input"><option value="">Choose the move you are making…</option><option value="function">Explain what each source is doing.</option><option value="reception">Trace how a source is received in a later setting.</option><option value="comparison">Compare continuity and difference.</option><option value="context">Show how setting changes the question.</option></select><textarea id="response" placeholder="Write 2–4 source-grounded sentences that name the sources, make a claim, and explain one connection or difference…"></textarea><button id="submit" class="continue">Submit independent explanation</button><p id="feedback"></p></section></main><script src="seder-auth.js?v=2"></script><script src="canon-capstone.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Seder · Course Capstone</title>
+  <link rel="stylesheet" href="canon-labs.css">
+</head>
+<body>
+  <header><a href="daily-router.html">← Today in Seder</a><span>COURSE CAPSTONE</span><a href="notebook.html">Notebook</a></header>
+  <main>
+    <section class="hero"><p>INDEPENDENT CONNECTION</p><h1 id="title">Loading capstone…</h1><div>Use the sources in front of you, not a memorized answer. A strong comparison names what persists, what changes, and why setting matters.</div></section>
+    <section class="lesson">
+      <div id="sources"></div><p id="prompt" class="prompt"></p>
+      <label class="lesson-label" for="source-one">FIRST SOURCE TO COMPARE</label><select id="source-one" class="capstone-input"><option value="">Choose a source…</option></select>
+      <label class="lesson-label" for="source-two">SECOND SOURCE TO COMPARE</label><select id="source-two" class="capstone-input"><option value="">Choose a different source…</option></select>
+      <label class="lesson-label" for="move">READING MOVE</label><select id="move" class="capstone-input"><option value="">Choose the move you are making…</option><option value="function">Explain what each source is doing.</option><option value="reception">Trace how a source is received in a later setting.</option><option value="comparison">Compare continuity and difference.</option><option value="context">Show how setting changes the question.</option></select>
+      <fieldset id="judgment"><legend class="lesson-label">COMPARISON CHECK</legend><label><input type="radio" name="judgment" value="context">Name a real connection and difference, then ask how each source's setting shapes it.</label><label><input type="radio" name="judgment" value="identical">Treat sources from different settings as interchangeable if they share one word.</label><label><input type="radio" name="judgment" value="rank">Choose a winner before identifying what either source is doing.</label></fieldset>
+      <button id="submit" class="continue">Record independent connection</button><p id="feedback"></p>
+    </section>
+  </main>
+  <script src="seder-auth.js?v=2"></script><script src="canon-capstone.js"></script>
+</body>
+</html>

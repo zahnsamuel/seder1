@@ -2434,6 +2434,18 @@ Result: 95 content units, distribution {8:43, 9:22, 10:30} -- no unit below 8. F
 - Focused regression suite passed: 7/7 for Foundation Year, Gemara Year, and daily-router
   behavior. No learner-facing break was found in this pass.
 
+## 2026-07-17 -- Codex: guided capstone production checks
+
+- Replaced the remaining required long-form writing gates in the flagship tractate capstone and
+  six-session canon capstone with guided, source-based decisions. Learners now select a case or
+  two named sources, identify the relevant reading move, and distinguish responsible reasoning
+  from a shortcut before recording mastery.
+- Private notes remain available elsewhere in Seder, but no prose response is required to move
+  through these mastery gates.
+- Live-rendered the revised Berakhot tractate capstone: all choices are visible, the submit
+  action is present, and no browser-console warnings or errors appeared.
+- Full test suite passed: 218/218.
+
 ## 2026-07-17 -- Claude: Supabase cutover readiness review (2 ship-blocking fixes)
 
 Credential-free review of the six migrations, RLS/isolation model, adapter, and the

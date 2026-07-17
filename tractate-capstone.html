@@ -1,1 +1,25 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Seder · Tractate capstone</title><link rel="stylesheet" href="canon-labs.css"></head><body><header><a href="gemara-continuation.html">← Gemara path</a><span>TRACTATE CAPSTONE</span><a href="daf-notebook.html">Notebook</a></header><main><section class="hero"><p>INDEPENDENT SUGYA READING</p><h1 id="title">Loading capstone…</h1><div id="description">Make your reasoning visible: case, move, evidence, and boundary.</div></section><section class="lesson"><article class="source"><div id="source-title" class="citation"></div><p id="source-prompt" class="line-note"></p></article><label class="lesson-label" for="case">CASE OR FACT PATTERN</label><textarea id="case" placeholder="Name the people, object, time, place, measurement, or condition that creates the question."></textarea><label class="lesson-label" for="move">GEMARA READING MOVE</label><select id="move"><option value="">Choose a move…</option><option value="question">Question or pressure</option><option value="distinction">Distinction between cases or positions</option><option value="evidence">Verse, source, or cited teaching as evidence</option><option value="response">Response or ruling attached to a case</option><option value="category">Category or shared principle</option></select><label class="lesson-label" for="explanation">SOURCE-GROUNDED EXPLANATION</label><textarea id="explanation" placeholder="In 3–5 sentences, explain how the case, move, and evidence work together. State one uncertainty or study boundary where appropriate."></textarea><button id="submit" class="continue">Submit tractate reading</button><p id="feedback"></p></section></main><script src="seder-auth.js?v=2"></script><script src="tractate-capstone.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Seder · Tractate capstone</title>
+  <link rel="stylesheet" href="canon-labs.css">
+</head>
+<body>
+  <header><a href="gemara-continuation.html">← Gemara path</a><span>TRACTATE CAPSTONE</span><a href="daf-notebook.html">Notebook</a></header>
+  <main>
+    <section class="hero"><p>INDEPENDENT SUGYA READING</p><h1 id="title">Loading capstone…</h1><div id="description">Make your reasoning visible: case, move, evidence, and boundary.</div></section>
+    <section class="lesson">
+      <article class="source"><div id="source-title" class="citation"></div><p id="source-prompt" class="line-note"></p></article>
+      <label class="lesson-label" for="case">CASE OR FACT PATTERN</label>
+      <select id="case"><option value="">Choose what to map…</option><option value="people-and-roles">People, roles, and their relation</option><option value="time-place-or-measure">Time, place, measure, or stated condition</option><option value="claims-or-positions">Competing claims or named positions</option><option value="rule-and-exception">A rule, exception, or qualifying detail</option></select>
+      <label class="lesson-label" for="move">GEMARA READING MOVE</label>
+      <select id="move"><option value="">Choose a move…</option><option value="question">Question or pressure</option><option value="distinction">Distinction between cases or positions</option><option value="evidence">Verse, source, or cited teaching as evidence</option><option value="response">Response or ruling attached to a case</option><option value="category">Category or shared principle</option></select>
+      <fieldset id="judgment"><legend class="lesson-label">SOURCE-GROUNDED JUDGMENT</legend><label><input type="radio" name="judgment" value="separate">Keep the case, the reading move, and the evidence distinct before drawing a conclusion.</label><label><input type="radio" name="judgment" value="shortcut">Treat a familiar outcome as enough, even if the source has not shown its reasoning.</label><label><input type="radio" name="judgment" value="flatten">Collapse differences between cases so the source has only one possible meaning.</label></fieldset>
+      <button id="submit" class="continue">Record tractate reading</button><p id="feedback"></p>
+    </section>
+  </main>
+  <script src="seder-auth.js?v=2"></script><script src="tractate-capstone.js"></script>
+</body>
+</html>
