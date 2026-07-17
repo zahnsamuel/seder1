@@ -2479,6 +2479,14 @@ Result: 95 content units, distribution {8:43, 9:22, 10:30} -- no unit below 8. F
   at 221/221. The profile handoff was also visually checked without creating or changing a
   learner profile.
 
+## 2026-07-17 -- Codex: returning-learner resume routing
+
+- The profile screen now reads the selected learner’s actual placement state before showing the
+  primary action. Learners without a placement are sent to the starting-point check; learners
+  with one are sent to the adaptive daily router, which chooses their current evidence-led move.
+- This makes profile selection a real re-entry point rather than a generic link to a separate
+  session screen. Full suite passes at 222/222.
+
 ## 2026-07-17 -- Claude: Supabase cutover readiness review (2 ship-blocking fixes)
 
 Credential-free review of the six migrations, RLS/isolation model, adapter, and the
