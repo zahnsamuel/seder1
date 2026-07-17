@@ -35,6 +35,7 @@ const masteryRouteByStage={
   ,'tamid-tractate-arc':{tractate:'tamid',url:'lab.html?tractate=tamid',label:'Open the Tamid source workspace'}
   ,'avodah-zarah-tractate-arc':{tractate:'avodah-zarah',url:'lab.html?tractate=avodah-zarah',label:'Open the Avodah Zarah source workspace'}
   ,'horayot-tractate-arc':{tractate:'horayot',url:'lab.html?tractate=horayot',label:'Open the Horayot source workspace'}
+  ,'yevamot-tractate-arc':{tractate:'yevamot',url:'lab.html?tractate=yevamot',label:'Open the Yevamot source workspace'}
 };
 const masteryRoute=masteryRouteByStage[config.stage];
 if(masteryRoute){config.nextUrl=masteryRoute.url;config.nextLabel=masteryRoute.label;}
