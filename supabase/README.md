@@ -8,7 +8,7 @@
 
 1. Create a Supabase project in the intended production region.
 2. Configure email confirmation and the chosen sign-in methods in Supabase Auth.
-3. Run `migrations/001_learner_mastery.sql`, then `002_learner_state_insert_policy.sql`, then `003_source_evidence.sql`, then `004_delete_own_data.sql`, then `005_learning_artifacts.sql`, then `006_hosted_learning_parity.sql`, in that order, using the SQL editor or Supabase CLI. Run each migration exactly once on a fresh project (001's `create policy`/`create table` statements are not written to be idempotent on re-run; 002 is the one intentionally re-runnable backfill).
+3. Run `migrations/001_learner_mastery.sql`, then `002_learner_state_insert_policy.sql`, then `003_source_evidence.sql`, then `004_delete_own_data.sql`, then `005_learning_artifacts.sql`, then `006_hosted_learning_parity.sql`, in that order, using the SQL editor or Supabase CLI. Run each migration exactly once on a fresh project (001's `create policy`/`create table` statements are not written to be idempotent on re-run; 002 is the one intentionally re-runnable backfill). `007_attempt_event_type.sql` is safe additive groundwork for a planned refactor (see `docs/events-storage-refactor-plan.md`); it does no harm to run now and the app runs with or without it — the current app does not yet read the new column.
 4. Add the project URL and anon key to the deployment environment as `SUPABASE_URL` and `SUPABASE_ANON_KEY`. Keep the service-role key server-only.
 5. In Auth > URL Configuration, add the production app URL and `http://127.0.0.1:4180` during local development. Enable email magic-link sign-in.
 6. Verify account isolation before any real learner data is at risk — see "Account isolation verification" below.

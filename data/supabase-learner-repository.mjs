@@ -92,7 +92,7 @@ export async function recordHostedEvent(user, accessToken, event) {
       Object.assign(item, { dueAt: new Date(Date.now() + delay * 3600000).toISOString(), reason: correct ? 'A second retrieval will help make this skill durable.' : 'Revisit this source move while it is still fresh.', attempts: (item.attempts || 0) + 1 });
       if (!existing) learner.reviewQueue.push(item);
     } else learner.reviewQueue = learner.reviewQueue.filter((item) => item.skillId !== skillId);
-    await supabaseRest('attempts', { accessToken, method: 'POST', body: { user_id: learner.id, skill_id: skillId, competency, correct, source_context: event.sourceContext || null } });
+    await supabaseRest('attempts', { accessToken, method: 'POST', body: { user_id: learner.id, skill_id: skillId, competency, correct, source_context: event.sourceContext || null, type: event.type } });
     await putReview(learner, skillId, accessToken);
   }
   if (event.type === 'stage_mastered' && !learner.completedStages.includes(event.stageId)) learner.completedStages.push(event.stageId);
