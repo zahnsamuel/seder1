@@ -2689,6 +2689,13 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
 - Added the Shas-map route, canonical workspace handoff, and regression coverage.
 - Verification: full automated suite passes, 234 tests / 0 failures.
 
+### 2026-07-17 — Nedarim source-arc expansion (Codex)
+- Verified Mishnah Nedarim 1:1 and Nedarim 2a against Sefaria before building the arc.
+- Promoted Nedarim from its existing lab into an eight-step source trail that separates utterance,
+  context, legal function, competing accounts, category limits, and live-practice boundaries.
+- Added the Shas-map route, canonical workspace handoff, and regression coverage.
+- Verification: full automated suite passes, 235 tests / 0 failures.
+
 ## 2026-07-17 -- Codex: hosted deep-link recovery
 
 - Any protected learner page opened directly without a valid hosted session now follows the same
