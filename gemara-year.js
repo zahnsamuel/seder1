@@ -27,4 +27,21 @@ function render(learner) {
   }).join('') + (count === terms.length ? '<a class="term current" href="shas-map-v2.html"><span class="number">→</span><div><small>FULL SHAS</small><h2>Choose the next field of study</h2><p>You now have a durable opening repertoire for further tractates and deeper source work.</p></div><span>Open Shas map →</span></a>' : '');
   if (count === terms.length) $('#terms').insertAdjacentHTML('beforeend', '<a class="term current" href="moed-expansion.html"><span class="number">+</span><div><small>EARNED EXPANSION</small><h2>Continue into Moed</h2><p>Carry your Gemara repertoire into procedure, calendar, public schedule, and timing disputes.</p></div><span>Open Moed Expansion</span></a>');
 }
-Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? response.json() : null).then(render).catch(() => render(null));
+function renderFullSequence(learner, sequence) {
+  const done = new Set(learner?.completedStages || []);
+  const steps = sequence?.steps || [];
+  const nextIndex = Math.max(0, steps.findIndex((step) => !done.has(step.stageId)));
+  const next = steps[nextIndex] || steps[steps.length - 1];
+  $('#sequence-summary').textContent = next
+    ? `${done.size} source moves recorded. Your next suggested move is ${next.title}.`
+    : 'Your full tractate sequence is complete.';
+  $('#sequence-list').innerHTML = steps.map((step, index) => {
+    const state = done.has(step.stageId) ? 'complete' : index === nextIndex ? 'current' : 'upcoming';
+    const marker = state === 'complete' ? '✓' : index + 1;
+    return `<li class="sequence-${state}"><span>${marker}</span><a href="${step.url}">${step.title}</a></li>`;
+  }).join('');
+}
+Promise.all([
+  Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? response.json() : null).catch(() => null),
+  fetch('data/advanced-gemara-sequence.json').then((response) => response.ok ? response.json() : null).catch(() => null)
+]).then(([learner, sequence]) => { render(learner); renderFullSequence(learner, sequence); });
