@@ -2406,3 +2406,16 @@ to standard by Codex in the same window. All are clean subject-unit .js files; t
 
 Result: 95 content units, distribution {8:43, 9:22, 10:30} -- no unit below 8. Full suite
 216/216 green. The entire Seder content corpus now meets the docs/content-standard.md bar.
+
+## 2026-07-17 -- Codex: live learner-flow verification
+
+- Verified the local learner front door at `/`: the new learner state shows a clear placement CTA,
+  a visible six-level / 100-moment journey, and links to daily study, the full journey, Shas,
+  Chumash, Jewish Thought, and the wider-world track.
+- Verified `placement.html`: it opens with a twelve-check, cross-canon starting-point flow and
+  presents the first Hebrew-decoding check with visible answer choices.
+- Verified the live Berakhot 2a mastery flow from the actual learner page: selecting the correct
+  answer awards XP, enables the visible `Continue →` control directly beneath the answers,
+  advances the source trail from 2/10 to 3/10, moves the active Daf focus to the Gemara question,
+  and keeps transliteration and English beside the active Hebrew/Aramaic excerpt.
+- No browser-console warnings or errors appeared on the front door, placement, or Berakhot flow.
