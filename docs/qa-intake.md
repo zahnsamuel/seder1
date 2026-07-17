@@ -2458,6 +2458,16 @@ Result: 95 content units, distribution {8:43, 9:22, 10:30} -- no unit below 8. F
 - Live-verified the locked bridge state and its capstone return link; no browser-console warnings
   or errors appeared. Full suite remains green: 218/218.
 
+## 2026-07-17 -- Codex: presentation-ready front door
+
+- Added a compact, first-time-viewer learning-loop panel to the landing page: Start (placement),
+  Read (interactive Berakhot Daf), Prove (Gemara mastery evidence), and Continue (the integrated
+  six-level journey). Each card is a direct route into the real product rather than a mockup.
+- Updated the hero's secondary action to reveal that flow immediately.
+- Live-rendered the panel at the local front door; all four routes and the new anchor render
+  correctly with no browser-console warnings or errors.
+- Full suite passed: 219/219.
+
 ## 2026-07-17 -- Claude: Supabase cutover readiness review (2 ship-blocking fixes)
 
 Credential-free review of the six migrations, RLS/isolation model, adapter, and the
