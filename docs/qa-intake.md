@@ -2331,6 +2331,12 @@ not labs -- left for coordination with Codex on file ownership.
   near-miss answers rather than length-based cues. Daf Literacy now audits 10/10 and Independent
   Read 9/10; both retain their existing sources, translation recall, and shuffled rendering.
 
+## 2026-07-16 -- Codex: Reasoning-arc distractor pass
+
+- Reworked the Chassidus joy-and-awe arc with substantive interpretive near-misses; it now
+  audits 10/10. Strengthened the most exposed inference checks in Gemara Middot without
+  changing the source, legal boundary, or correct reasoning; it now meets the 8/10 floor.
+
 ## 2026-07-16 -- Claude: widerworld-mean subject unit 6 -> 10
 
 The comparative "mean, compared" unit had strong correct answers but nine weak
