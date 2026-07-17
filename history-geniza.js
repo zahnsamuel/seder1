@@ -14,3 +14,19 @@ window.SederCourse={stage:'history-geniza-arc',completeTitle:'You can now read a
 const genizaSteps=window.SederCourse.steps;
 genizaSteps[0].answers=['An accumulation: rooms of retired paper, preserved by piety rather than by any archivist’s plan.','A rule that preserves sacred names but leaves no material record once worn texts are disposed of.','A ban on ordinary writing that prevents later readers from finding letters, contracts, or other documents.'];
 genizaSteps[1].answers=['Its failure to be emptied preserved a continuous, unfiltered paper record of a community across nearly a millennium.','Its careful clearing and burial preserved only a selected set of canonical texts for later historians.','Its librarians organized each fragment by genre, producing a deliberately curated archive of community life.'];
+
+// [rebalance] distractor lengths evened so the correct answer is not the longest option
+window.SederCourse.steps[2].answers[1]="Nothing at all, since a discovery is simply a neutral factual event that happens outside the flow of history and its disputes.";
+window.SederCourse.steps[2].answers[2]="Only the narrow physical question of what the fragments happened to weigh and how much shelf space they took up in the room.";
+window.SederCourse.steps[3].answers[1]="Because everyday shopping lists are somehow treated as holier and more revealing than the scriptural texts themselves are.";
+window.SederCourse.steps[3].answers[2]="Because the letters and documents later turned out to be clever modern forgeries rather than genuine medieval papers.";
+window.SederCourse.steps[4].answers[1]="Between sources that are simply true and those that are simply false, each one neatly sorted into the one pile or the other.";
+window.SederCourse.steps[4].answers[2]="Between evidence that is merely old and evidence that is merely new, divided up only by the date on which each item was written.";
+window.SederCourse.steps[5].answers[1]="One dramatic, singular document is always worth far more to a working historian than many thousands of ordinary ones.";
+window.SederCourse.steps[5].answers[2]="That the scattered fragments essentially organized and interpreted themselves once they had all been gathered together.";
+window.SederCourse.steps[6].answers[1]="Proof that rabbinic literature is essentially worthless and can be safely discarded by any serious modern historian.";
+window.SederCourse.steps[6].answers[2]="Nothing of any real value, since the ordinary details of everyday life are not truly the proper subject of history.";
+window.SederCourse.steps[7].answers[1]="Trust only the physical residue of the Geniza and discard the community's own remembered stories about itself entirely.";
+window.SederCourse.steps[7].answers[2]="Trust only the community's own remembered memory and discard the accidental physical residue the Geniza preserved.";
+window.SederCourse.steps[8].answers[1]="Three entirely unrelated historical curiosities that happen to sit near one another but share no real connection.";
+window.SederCourse.steps[8].answers[2]="A deliberately curated canon of texts, carefully assembled and edited by many generations of scribes and librarians.";

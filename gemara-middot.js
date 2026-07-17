@@ -18,3 +18,20 @@ middotSteps[1].answers=['Infer that if a lenient case carries a given rule, a mo
 middotSteps[2].answers=['If an ordinary father’s rebuke earns seven days of shame, a far greater rebuke from God should reasonably require at least that much.','The verse compares two punishments but refuses to draw any inference from the greater case.','The verse offers a family image without making a claim about the relation between cases.'];
 middotSteps[2].answers[2]='The verse offers a family image without making a claim about the relation between the two cases it names.';
 middotSteps[4].answers=['It takes a rule clearly stated for one case and extends it to other cases that share the same underlying reason.','It requires every law to be restated in full for each later case before the rule can apply.','It only functions when a law appears exactly in four separate verses with identical wording.'];
+
+// [rebalance] distractor lengths evened so the correct answer is not the longest option
+window.SederCourse.steps[0].answers[1]="A single fixed ruling that settles only one specific case and derives nothing further at all from it.";
+window.SederCourse.steps[0].answers[2]="A historical account of the life and the teachings of Rabbi Yishmael and his many rabbinic colleagues.";
+window.SederCourse.steps[1].answers[1]="Treat any two laws as fully identical whenever one of them merely seems more severe than the other, ignoring the reasoning that links them.";
+window.SederCourse.steps[1].answers[2]="Create an entirely new legal rule of one's own without first tracing the relation between the two cases the Torah actually states.";
+window.SederCourse.steps[3].answers[1]="It proves that any two verses which happen to share even ordinary, common words must therefore carry one and the same meaning.";
+window.SederCourse.steps[3].answers[2]="It cancels or overrides any law that simply happens to appear more than once across different passages of the Torah.";
+window.SederCourse.steps[6].answers[1]="The order of the general and the specific terms makes no real difference to the conclusion the reader finally reaches.";
+window.SederCourse.steps[7].answers[1]="It always produces the exact same result as the simpler klal u'frat pattern does, adding nothing genuinely new to it.";
+window.SederCourse.steps[7].answers[2]="It cancels both the opening general statement and the specific example, leaving behind no operative rule at all.";
+window.SederCourse.steps[8].answers[1]="The Mishnah and the middot must always be using the exact identical technical procedure, with no distinction between them at all.";
+window.SederCourse.steps[8].answers[2]="Shared language between two different sources always means that the one source is directly quoting the other word for word.";
+window.SederCourse.steps[9].answers[1]="Encourage learners to go ahead and derive their own new halakhic rulings directly from these tools, treating recognition as full mastery.";
+window.SederCourse.steps[9].answers[2]="Avoid teaching these reasoning tools at all, on the grounds that they belong strictly to expert use and have no place in a beginner's course.";
+window.SederCourse.steps[10].answers[1]="Assume that all thirteen of the reasoning tools always produce the very same kind of conclusion as one another.";
+window.SederCourse.steps[10].answers[2]="Skip over the reasoning entirely and jump straight ahead to whatever ruling the text happens to state at the end.";
