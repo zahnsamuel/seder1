@@ -2637,3 +2637,10 @@ in hosted mode) has since been IMPLEMENTED in code -- `server.mjs` learnerAccess
 when `supabaseConfig().configured` and no valid token is present (local dev still uses the demo
 learner), matching the updated supabase/README.md "Account isolation verification" note. So #2 is
 resolved in code, not just parked; the sign-in-only lever I described was taken.
+
+## 2026-07-17 -- Codex: hosted session recovery
+
+- A hosted learner whose access and refresh tokens can no longer be used is now safely returned
+  to sign-in with the interrupted local Seder URL preserved. The magic-link callback validates
+  that return URL is same-origin before resuming it. Local development behavior is unchanged.
+- Full automated suite passes: 228/228.

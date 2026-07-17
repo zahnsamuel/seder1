@@ -22,6 +22,14 @@ Seder.api = async (url, options = {}, retried = false) => {
   if (Seder.session?.access_token) headers.set('Authorization', `Bearer ${Seder.session.access_token}`);
   const response = await fetch(url, { ...options, headers });
   if (response.status === 401 && !retried && await Seder.refreshSession()) return Seder.api(url, options, true);
+  if (response.status === 401 && Seder.session?.access_token && !location.pathname.endsWith('/sign-in.html')) {
+    localStorage.removeItem(authKey);
+    Seder.session = null;
+    const signIn = new URL('sign-in.html', location.origin);
+    signIn.searchParams.set('reason', 'session-expired');
+    signIn.searchParams.set('next', `${location.pathname}${location.search}${location.hash}`);
+    location.replace(`${signIn.pathname}${signIn.search}`);
+  }
   return response;
 };
 Seder.currentLearnerId = () => Seder.session?.user?.id || localStorage.getItem('seder-active-learner') || 'demo';
@@ -49,12 +57,19 @@ Seder.finishMagicLink = () => {
   const session = { access_token: accessToken, refresh_token: fragment.get('refresh_token'), user: { id: userId } };
   localStorage.setItem(authKey, JSON.stringify(session)); Seder.session = session;
   history.replaceState({}, '', `${location.pathname}${location.search}`);
+  const next = new URLSearchParams(location.search).get('next');
+  let safeNext = null;
+  try { safeNext = next && new URL(next, location.origin); } catch (_) {}
+  if (safeNext?.origin === location.origin && safeNext.pathname !== '/sign-in.html') location.replace(`${safeNext.pathname}${safeNext.search}${safeNext.hash}`);
   return true;
 };
-Seder.sendMagicLink = async (email, displayName) => {
+Seder.sendMagicLink = async (email, displayName, nextUrl = '') => {
   const config = await Seder.config();
   if (!config.supabaseUrl || !config.supabaseAnonKey) throw new Error('Secure sign-in has not been configured for this environment.');
-  const response = await fetch(`${config.supabaseUrl}/auth/v1/otp`, { method: 'POST', headers: { apikey: config.supabaseAnonKey, 'Content-Type': 'application/json' }, body: JSON.stringify({ email, create_user: true, data: { display_name: displayName || undefined }, options: { emailRedirectTo: `${location.origin}/seder.html` } }) });
+  nextUrl ||= new URLSearchParams(location.search).get('next') || '';
+  const returnUrl = new URL('seder.html', location.origin);
+  if (nextUrl) returnUrl.searchParams.set('next', nextUrl);
+  const response = await fetch(`${config.supabaseUrl}/auth/v1/otp`, { method: 'POST', headers: { apikey: config.supabaseAnonKey, 'Content-Type': 'application/json' }, body: JSON.stringify({ email, create_user: true, data: { display_name: displayName || undefined }, options: { emailRedirectTo: returnUrl.href } }) });
   if (!response.ok) throw new Error('We could not send that sign-in link. Please try again.');
 };
 Seder.signOut = () => { localStorage.removeItem(authKey); Seder.session = null; location.href = 'seder.html'; };
