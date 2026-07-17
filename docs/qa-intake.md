@@ -2709,6 +2709,13 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
 - The shared Daf Workbench now hands Moed Katan, Nedarim, and Nazir to their canonical labs.
 - Verification: full automated suite passes, 237 tests / 0 failures.
 
+### 2026-07-17 — Chagigah historically careful source-arc expansion (Codex)
+- Verified Mishnah Chagigah 1:1 and Chagigah 2a against Sefaria before building the arc.
+- Replaced a thin opening lab with an eight-step trail that teaches rule, exception, scope, and
+  historical context without turning ancient classifications into modern personal judgments.
+- Added the Shas-map route, canonical workspace handoff, and regression coverage.
+- Verification: full automated suite passes, 238 tests / 0 failures.
+
 ### 2026-07-17 — Gemara Year Term IV integration (Codex)
 - The new Moed Katan, Nedarim, and Nazir arcs are now an earned fourth Gemara Year term,
   rather than optional map-only material.

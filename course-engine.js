@@ -24,6 +24,7 @@ const masteryRouteByStage={
   ,'moed-katan-tractate-arc':{tractate:'moed-katan',url:'lab.html?tractate=moed-katan',label:'Open the Moed Katan source workspace'}
   ,'nedarim-tractate-arc':{tractate:'nedarim',url:'lab.html?tractate=nedarim',label:'Open the Nedarim source workspace'}
   ,'nazir-tractate-arc':{tractate:'nazir',url:'lab.html?tractate=nazir',label:'Open the Nazir source workspace'}
+  ,'chagigah-tractate-arc':{tractate:'chagigah',url:'lab.html?tractate=chagigah',label:'Open the Chagigah source workspace'}
 };
 const masteryRoute=masteryRouteByStage[config.stage];
 if(masteryRoute){config.nextUrl=masteryRoute.url;config.nextLabel=masteryRoute.label;}
