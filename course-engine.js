@@ -38,6 +38,7 @@ const masteryRouteByStage={
   ,'yevamot-tractate-arc':{tractate:'yevamot',url:'lab.html?tractate=yevamot',label:'Open the Yevamot source workspace'}
   ,'sotah-tractate-arc':{tractate:'sotah',url:'lab.html?tractate=sotah',label:'Open the Sotah source workspace'}
   ,'gittin-tractate-arc':{tractate:'gittin',url:'lab.html?tractate=gittin',label:'Open the Gittin source workspace'}
+  ,'kiddushin-tractate-arc':{tractate:'kiddushin',url:'lab.html?tractate=kiddushin',label:'Open the Kiddushin source workspace'}
 };
 const masteryRoute=masteryRouteByStage[config.stage];
 if(masteryRoute){config.nextUrl=masteryRoute.url;config.nextLabel=masteryRoute.label;}
