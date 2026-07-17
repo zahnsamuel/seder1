@@ -2703,6 +2703,12 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
 - Added the Shas-map route, canonical workspace handoff, and regression coverage.
 - Verification: full automated suite passes, 236 tests / 0 failures.
 
+### 2026-07-17 — Advanced-continuation workspace coherence (Codex)
+- Added the three Term IV stages to the continuation map so its visible workspace link never
+  resolves an undefined tractate parameter.
+- The shared Daf Workbench now hands Moed Katan, Nedarim, and Nazir to their canonical labs.
+- Verification: full automated suite passes, 237 tests / 0 failures.
+
 ### 2026-07-17 — Gemara Year Term IV integration (Codex)
 - The new Moed Katan, Nedarim, and Nazir arcs are now an earned fourth Gemara Year term,
   rather than optional map-only material.
