@@ -17,11 +17,12 @@
         <div class="account-actions">
           <button type="button" id="export-data">Export my data</button>
           <button type="button" id="delete-profile" class="delete-btn">Delete this profile</button>
+          <button type="button" id="sign-out" hidden>Sign out</button>
         </div>
         <p id="account-status" aria-live="polite" class="account-status"></p>
       </section>
     </section>
-    <p class="note">This is a local development profile system. Production Seder will use authenticated accounts and a secure database.</p>
+    <p id="profile-note" class="note">This is a local development profile system. Production Seder will use authenticated accounts and a secure database.</p>
   </main>
   <script src="seder-auth.js?v=1"></script>
   <script src="profile.js?v=3"></script>

@@ -2513,6 +2513,13 @@ Result: 95 content units, distribution {8:43, 9:22, 10:30} -- no unit below 8. F
 - Local development is unchanged: the normal fresh-learner and local-profile workflow remains
   available when Supabase is not configured. Full suite passes at 225/225.
 
+## 2026-07-17 -- Codex: secure-account sign-out
+
+- Completed the hosted account loop on the profile screen: signed-in learners see a clear
+  sign-out action, accurate account privacy copy, and no local-profile creation form that would
+  conflict with their secure identity. Local profiles retain their existing workflow.
+- Full automated suite passes: 226/226.
+
 ## 2026-07-17 -- Claude: Supabase cutover readiness review (2 ship-blocking fixes)
 
 Credential-free review of the six migrations, RLS/isolation model, adapter, and the
