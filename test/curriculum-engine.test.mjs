@@ -84,3 +84,15 @@ test('adaptive graph includes every later non-Gemara source sequence as an earne
     assert.ok(terminal?.kind === 'translation-recall', `translation anchor for ${id}`);
   }
 });
+
+test('every non-Gemara graph skill remains reachable and routed', () => {
+  const ids = new Set(nonGemaraSkillGraph.map((skill) => skill.id));
+  assert.ok(nonGemaraSkillGraph.length >= 100);
+  for (const skill of nonGemaraSkillGraph) {
+    assert.ok(skill.route, `missing learner route for ${skill.id}`);
+    assert.ok(skill.sourceForms?.length, `missing source context for ${skill.id}`);
+    for (const prerequisite of skill.prerequisites || []) {
+      assert.ok(ids.has(prerequisite) || ['source-signals', 'identify-conceptual-claim', 'compare-interpretations'].includes(prerequisite), `missing prerequisite ${prerequisite} for ${skill.id}`);
+    }
+  }
+});
