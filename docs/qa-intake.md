@@ -2337,6 +2337,12 @@ not labs -- left for coordination with Codex on file ownership.
   audits 10/10. Strengthened the most exposed inference checks in Gemara Middot without
   changing the source, legal boundary, or correct reasoning; it now meets the 8/10 floor.
 
+## 2026-07-16 -- Codex: History evidence-quality pass
+
+- Strengthened the opening historical judgments in the Yavneh and Geniza arcs with plausible
+  alternatives about memory, archive selection, and evidence. Both now meet the 8/10 floor
+  while preserving their existing sources, typed translation checks, and historical-method focus.
+
 ## 2026-07-16 -- Claude: widerworld-mean subject unit 6 -> 10
 
 The comparative "mean, compared" unit had strong correct answers but nine weak
