@@ -2468,6 +2468,17 @@ Result: 95 content units, distribution {8:43, 9:22, 10:30} -- no unit below 8. F
   correctly with no browser-console warnings or errors.
 - Full suite passed: 219/219.
 
+## 2026-07-17 -- Codex: fresh-learner placement handoff
+
+- Fixed the first-time learner detour: the landing-page fresh-learner action now carries an
+  explicit placement intent. Creating that local learner profile immediately opens the
+  starting-point check rather than leaving a new learner on the profile screen.
+- Added plain-language expectation-setting on the profile form: placement takes about three
+  minutes and selects a starting point rather than a permanent level.
+- Added a focused contract test for the profile-to-placement handoff; the full suite passes
+  at 221/221. The profile handoff was also visually checked without creating or changing a
+  learner profile.
+
 ## 2026-07-17 -- Claude: Supabase cutover readiness review (2 ship-blocking fixes)
 
 Credential-free review of the six migrations, RLS/isolation model, adapter, and the

@@ -1,4 +1,5 @@
 const activeKey = 'seder-active-learner';
+const requestedNext = new URLSearchParams(location.search).get('next');
 let profiles = [];
 let currentId = null;
 const $ = (selector) => document.querySelector(selector);
@@ -39,5 +40,6 @@ $('#delete-profile').addEventListener('click', async () => {
 });
 function renderProfiles() { const active = localStorage.getItem(activeKey) || 'demo'; $('#profiles').innerHTML = profiles.map((profile) => `<button type="button" data-id="${profile.id}"><span>${profile.profile?.displayName || profile.id}</span><small>${profile.xp || 0} XP</small></button>`).join(''); $('#profiles').querySelectorAll('button').forEach((button) => button.addEventListener('click', () => selectProfile(button.dataset.id))); selectProfile(profiles.some((profile) => profile.id === active) ? active : profiles[0]?.id); }
 async function load() { const data = await Seder.api('/api/profiles').then((response) => response.json()); profiles = data.profiles; if (!Seder.session?.access_token && !profiles.some((profile) => profile.id === 'demo')) profiles.unshift({ id: 'demo', profile: { displayName: 'Demo learner' }, xp: 0 }); renderProfiles(); }
-$('#new-profile').addEventListener('submit', async (event) => { event.preventDefault(); const form = event.currentTarget; const displayName = new FormData(form).get('displayName'); $('#status').textContent = 'Creating profile…'; const response = await fetch('/api/profiles', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ displayName }) }); const data = await response.json(); if (!response.ok) { $('#status').textContent = data.error; return; } profiles.push(data.learner); form.reset(); $('#status').textContent = 'Profile created.'; renderProfiles(); selectProfile(data.learner.id); });
+$('#new-profile').addEventListener('submit', async (event) => { event.preventDefault(); const form = event.currentTarget; const displayName = new FormData(form).get('displayName'); $('#status').textContent = 'Creating profile…'; const response = await fetch('/api/profiles', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ displayName }) }); const data = await response.json(); if (!response.ok) { $('#status').textContent = data.error; return; } profiles.push(data.learner); form.reset(); renderProfiles(); await selectProfile(data.learner.id); if (requestedNext === 'placement') { $('#status').textContent = 'Profile ready. Opening your starting-point check…'; location.href = 'placement.html'; return; } $('#status').textContent = 'Profile created.'; });
+if (requestedNext === 'placement') { $('#create-profile').textContent = 'Create profile and find my starting point'; }
 load();

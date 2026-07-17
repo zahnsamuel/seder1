@@ -8,7 +8,7 @@ test('the Seder front door previews the current journey instead of rendering all
   assert.match(html, /Open the full six-level journey/);
   assert.match(html, /href="journey\.html"/);
   assert.match(html, /Start with a fresh learner/);
-  assert.match(html, /href="profile\.html"/);
+  assert.match(html, /href="profile\.html\?next=placement"/);
   assert.match(script, /const journeyPreview/);
   assert.match(script, /journeyPreview\(journey\.nodes\)/);
 });
