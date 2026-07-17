@@ -2387,3 +2387,22 @@ a correct answer scores +10 and advances, new distractors display. Suite 206/206
 This was a safe solo target (my own file, clean in git). The two remaining sub-8
 units, canon-arc (4) and taanit-arc (6), are shared/Codex-owned .js files
 (taanit-arc is currently untracked in Codex's tree) -- left for coordination.
+
+## 2026-07-17 -- Claude: polish score-7 subject units to standard (corpus now all >=8)
+
+Closed out the last content-quality gap. Every unit sitting at score 7 shared one
+defect: strong, long correct answers paired with short strawman distractors (the
+"longest answer is correct" tell -> full length-bias flags). Rewrote every distractor
+into a substantive, length-parity near-miss that diagnoses a specific misreading, and
+trimmed overlong correct answers toward parity where needed. No steps, citations, or
+boundary steps changed; correct answers preserved (only trimmed for length).
+
+Units brought from 7 to 10 by Claude: philosophy, philosophy-unit-2, philosophy-questions,
+thought-suffering, halakha-chanukah, mussar-truth, chumash-tehillim, chassidus-ahavat-yisrael,
+chassidus-simcha, widerworld-encounter, aggadata-oven-of-akhnai (plus history-yavneh, whose
+edit Codex swept into commit 777107c). history-geniza, canon-arc, and taanit-arc were brought
+to standard by Codex in the same window. All are clean subject-unit .js files; the tractate
+-arc files (chullin/ketubot/megillah/niddah/sanhedrin-arc) were left to Codex's domain.
+
+Result: 95 content units, distribution {8:43, 9:22, 10:30} -- no unit below 8. Full suite
+216/216 green. The entire Seder content corpus now meets the docs/content-standard.md bar.
