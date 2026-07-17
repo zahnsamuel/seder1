@@ -10,3 +10,16 @@ window.SederCourse={stage:'yoma-tractate-arc',completeTitle:'You can now read pr
 {short:'Transfer responsibly',mode:'INDEPENDENT READ',title:'Read preparation without turning it into advice',ref:'Yoma source-transfer checkpoint',hebrew:'הכנה · חשש · גבול · מקור',translation:'Preparation · concern · limit · source.',independent:true,prompt:'In an unfamiliar source about a preparation procedure, what is the best first map?',answers:['Name the role, procedure, stated concern, any limit on precaution, and the source offered for it.','Assume the procedure tells you what to do personally.','Reduce the source to a single Hebrew word.'],correct:0,skill:'yoma-independent-map',competency:'sourceReasoning',feedback:'You can now read a procedure as a structured argument while keeping study distinct from personal guidance.'},
 {short:'Choose the source question',mode:'SOURCE CHECK',title:'Recall the Gemara’s question',ref:'Yoma 2a',hebrew:'מנא הני מילי',translation:'From where are these matters derived?',independent:true,prompt:'What does this question seek?',answers:['The textual basis from which the matters are derived.','The person who first performed the procedure.','The final practical ruling for a modern case.'],correct:0,skill:'yoma-typed-recall',competency:'translation',feedback:'You can recognize when Gemara asks for the textual basis of an established procedure.'}
 ]};
+
+// [rebalance] distractor lengths evened so the correct answer is not the longest option
+window.SederCourse.steps[1].answers[1]="It tells us that each and every priest performs the entire service himself.";
+window.SederCourse.steps[1].answers[2]="It removes any need to go on and read the rest of the Mishnah at all.";
+window.SederCourse.steps[2].answers[1]="It proves that the originally assigned priest is essentially unimportant.";
+window.SederCourse.steps[2].answers[2]="It cancels the seven-day preparation requirement altogether.";
+window.SederCourse.steps[4].answers[1]="It flatly denies that any preparation at all is ever really needed.";
+window.SederCourse.steps[4].answers[2]="It says the High Priest will simply never face any risk at all.";
+window.SederCourse.steps[5].answers[1]="An entirely new schedule laid out for the day of Yom Kippur.";
+window.SederCourse.steps[5].answers[2]="A convenient reason to ignore the Mishnah's stated procedure.";
+window.SederCourse.steps[7].answers[2]="It simply abandons the shared verse right after first citing it.";
+window.SederCourse.steps[8].answers[1]="Assume that the procedure is telling you personally what you must do.";
+window.SederCourse.steps[8].answers[2]="Reduce the entire cited source down to just a single Hebrew word.";

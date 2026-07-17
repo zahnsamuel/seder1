@@ -12,3 +12,17 @@ window.SederCourse={stage:'megillah-tractate-arc',completeTitle:'You can now rea
 const megillahSteps=window.SederCourse.steps;
 megillahSteps[0].answers=['The source establishes a bounded reading window whose different dates will need explanation.','The source names several dates but leaves each community free to choose any date without a category.','The source lists a bounded set of dates while treating them as separate observances rather than one schedule.'];
 megillahSteps[1].answers=['It marks that the range is deliberate and bounded, not an open-ended choice.','It requires every community to read on the same date, regardless of the categories the Mishnah names.','It makes the range optional, so no date needs a source-based explanation or communal context.'];
+
+// [rebalance] distractor lengths evened so the correct answer is not the longest option
+window.SederCourse.steps[2].answers[1]="Only the single number fifteen and nothing else at all that surrounds it.";
+window.SederCourse.steps[2].answers[2]="A modern-day binding ruling that applies to every walled city today.";
+window.SederCourse.steps[3].answers[1]="A flat rejection of every single one of the dates the Mishnah has listed.";
+window.SederCourse.steps[3].answers[2]="A merely personal suggestion offered without any communal context at all.";
+window.SederCourse.steps[4].answers[1]="Whether the Megillah even exists as a text in the very first place.";
+window.SederCourse.steps[4].answers[2]="A convenient way to simply ignore the Mishnah's stated schedule entirely.";
+window.SederCourse.steps[5].answers[1]="The early reading date somehow makes the whole observance less important.";
+window.SederCourse.steps[5].answers[2]="The schedule has no real connection to communal life of any kind at all.";
+window.SederCourse.steps[6].answers[1]="Assume that the stated exception simply erases the main rule it was carved out of.";
+window.SederCourse.steps[6].answers[2]="Treat the source as though it were a piece of individual, personal advice.";
+window.SederCourse.steps[7].answers[1]="Whichever one of the dates happens to be the easiest to choose today.";
+window.SederCourse.steps[7].answers[2]="A good enough reason to simply stop mapping the rest of the Mishnah.";

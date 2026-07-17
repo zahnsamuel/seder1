@@ -9,3 +9,17 @@ window.SederCourse={stage:'rosh-hashanah-tractate-arc',completeTitle:'You can no
 {short:'Map the source',mode:'INDEPENDENT READ',title:'Keep category, boundary, and function together',ref:'Rosh Hashanah source-transfer checkpoint',hebrew:'מנין · תחום · תאריך · תכלית',translation:'Count · domain · date · purpose.',independent:true,prompt:'What is the best first map for an unfamiliar source that gives several dates?',answers:['Name the categories, connect each date to its domain, then ask what function the boundary serves.','Choose the most familiar date and ignore the rest.','Treat every date as a separate personal instruction.'],correct:0,skill:'rosh-hashanah-independent-map',competency:'sourceReasoning',feedback:'You can now read calendar language as a structured legal map while keeping the study text distinct from practical guidance.'},
 {short:'Choose the question',mode:'SOURCE CHECK',title:'Recall the Gemara’s move',ref:'Rosh Hashanah 2a',hebrew:'למאי הלכתא?',translation:'For what legal purpose?',independent:true,prompt:'When Gemara asks “for what legal purpose?”, what should you look for next?',answers:['The function the stated rule or category performs in its source setting.','A personal instruction for today.','A reason to disregard the Mishnah’s wording.'],correct:0,skill:'rosh-hashanah-question-function',competency:'translation',feedback:'Good. This question signals that the Gemara is seeking the function of a stated category.'}
 ]};
+
+// [rebalance] distractor lengths evened so the correct answer is not the longest option
+window.SederCourse.steps[0].answers[1]="Four competing names for one and the very same identical calendar date.";
+window.SederCourse.steps[0].answers[2]="A simple story that has no legal categories in it to map at all.";
+window.SederCourse.steps[3].answers[1]="Tishrei's own new year somehow makes all of the other new years disappear.";
+window.SederCourse.steps[3].answers[2]="Every single date in the Mishnah serves only one narrow purpose.";
+window.SederCourse.steps[4].answers[1]="All of the earlier categories in the Mishnah were simply mistakes.";
+window.SederCourse.steps[4].answers[2]="The Mishnah at this point no longer cares about dates at all.";
+window.SederCourse.steps[5].answers[1]="Which particular king was the very first one to celebrate the festival.";
+window.SederCourse.steps[5].answers[2]="Whether a new year has any legal categories attached to it at all.";
+window.SederCourse.steps[7].answers[1]="Choose whichever date is the most familiar one and simply ignore all the rest.";
+window.SederCourse.steps[7].answers[2]="Treat every one of the dates as a separate, personal instruction for the reader.";
+window.SederCourse.steps[8].answers[1]="A direct personal instruction that is meant for the reader today.";
+window.SederCourse.steps[8].answers[2]="A convenient reason to disregard the Mishnah's actual wording.";
