@@ -2355,6 +2355,12 @@ not labs -- left for coordination with Codex on file ownership.
   near-misses. The source arc now meets the 8/10 quality floor while retaining its explicit
   sensitive-material boundary and existing source sequence.
 
+## 2026-07-17 -- Codex: Chullin scope-quality pass
+
+- Strengthened Chullin’s opening rule-and-exception checks with plausible scope and
+  qualification near-misses. The source arc now meets the 8/10 quality floor while retaining
+  its practical-halakhah boundary and existing source sequence.
+
 ## 2026-07-16 -- Claude: widerworld-mean subject unit 6 -> 10
 
 The comparative "mean, compared" unit had strong correct answers but nine weak
