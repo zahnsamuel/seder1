@@ -2652,6 +2652,13 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
   server behavior and avoids promising deletion of an Auth identity the app cannot remove.
 - Full automated suite passes: 229/229.
 
+## 2026-07-17 -- Codex: Makkot source-based tractate arc
+
+- Promoted Makkot from an opening-Mishnah lab into a full, bounded source trail and visible
+  workspace. Learners now work from category, to Torah source, to the Gemara's precise wording,
+  then distinguish hazama from ordinary contradiction before transferring the map.
+- Full automated suite passes: 230/230.
+
 ## 2026-07-17 -- Codex: hosted deep-link recovery
 
 - Any protected learner page opened directly without a valid hosted session now follows the same
