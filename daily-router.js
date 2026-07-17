@@ -67,6 +67,7 @@ const moedExpansionChapters = [
   ['rosh-hashanah-tractate-arc', 'Rosh Hashanah: calendar and public record', 'rosh-hashanah-arc.html'],
   ['megillah-tractate-arc', 'Megillah: public schedule and accommodation', 'megillah-arc.html'],
   ['taanit-tractate-arc', 'Taanit: timing dispute and distinction', 'taanit-arc.html'],
+  ['chagigah-tractate-arc', 'Chagigah: rule, exception, and historical context', 'chagigah-arc.html'],
   ['moed-expansion-synthesis', 'Moed Expansion synthesis', 'moed-expansion-synthesis.html']
 ];
 function nextGemaraYearMove(doneStages) {

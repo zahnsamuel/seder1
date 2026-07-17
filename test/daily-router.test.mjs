@@ -54,7 +54,7 @@ test('daily learning opens the earned Moed Expansion only after Gemara Year', as
     readFile(new URL('../server.mjs', import.meta.url), 'utf8'),
     readFile(new URL('../moed-expansion.js', import.meta.url), 'utf8')
   ]);
-  for (const stage of ['rosh-hashanah-tractate-arc', 'megillah-tractate-arc', 'taanit-tractate-arc', 'moed-expansion-synthesis']) {
+  for (const stage of ['rosh-hashanah-tractate-arc', 'megillah-tractate-arc', 'taanit-tractate-arc', 'chagigah-tractate-arc', 'moed-expansion-synthesis']) {
     assert.match(router, new RegExp(stage));
     assert.match(server, new RegExp(stage));
     assert.match(expansion, new RegExp(stage));
