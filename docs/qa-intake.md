@@ -2676,6 +2676,11 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
 
 - Promoted Beitzah into a full Moed source trail: timing, two Tannaitic voices, nolad, and the
   distinction between a ruling and competing explanations of its scope.
+- Added regression coverage for the new arc so its source trail, boundary, and Shas-map route do
+  not silently regress.
+- Expanded Beitzah to eight source moves, including category-to-case fit and reason-to-consequence
+  checks, so it clears the project content-standard floor without padding its learning sequence.
+- Verification: full automated suite passes, 233 tests / 0 failures.
 
 ## 2026-07-17 -- Codex: hosted deep-link recovery
 
