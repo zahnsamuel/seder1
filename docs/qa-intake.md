@@ -2672,6 +2672,11 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
   Gemara's stated concern, and the measure that answers it. The completion hands into the existing
   visible Bava Batra source workspace.
 
+## 2026-07-17 -- Codex: Beitzah category-and-reason source arc
+
+- Promoted Beitzah into a full Moed source trail: timing, two Tannaitic voices, nolad, and the
+  distinction between a ruling and competing explanations of its scope.
+
 ## 2026-07-17 -- Codex: hosted deep-link recovery
 
 - Any protected learner page opened directly without a valid hosted session now follows the same
