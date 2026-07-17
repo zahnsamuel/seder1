@@ -2325,6 +2325,12 @@ not labs -- left for coordination with Codex on file ownership.
   `scripts/audit-content.mjs` (zero length-bias flags). Re-verified the retained anchors:
   Psalms 27:4 and Taanit 2a on Sefaria.
 
+## 2026-07-16 -- Codex: Gateway reader distractor pass
+
+- Upgraded the two first-reader gateways, Daf Literacy and Independent Read, with substantive
+  near-miss answers rather than length-based cues. Daf Literacy now audits 10/10 and Independent
+  Read 9/10; both retain their existing sources, translation recall, and shuffled rendering.
+
 ## 2026-07-16 -- Claude: widerworld-mean subject unit 6 -> 10
 
 The comparative "mean, compared" unit had strong correct answers but nine weak
