@@ -30,6 +30,7 @@ const masteryRouteByStage={
   ,'bekhorot-tractate-arc':{tractate:'bekhorot',url:'lab.html?tractate=bekhorot',label:'Open the Bekhorot source workspace'}
   ,'arakhin-tractate-arc':{tractate:'arakhin',url:'lab.html?tractate=arakhin',label:'Open the Arakhin source workspace'}
   ,'temurah-tractate-arc':{tractate:'temurah',url:'lab.html?tractate=temurah',label:'Open the Temurah source workspace'}
+  ,'keritot-tractate-arc':{tractate:'keritot',url:'lab.html?tractate=keritot',label:'Open the Keritot source workspace'}
 };
 const masteryRoute=masteryRouteByStage[config.stage];
 if(masteryRoute){config.nextUrl=masteryRoute.url;config.nextLabel=masteryRoute.label;}
