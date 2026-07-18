@@ -1,3 +1,9 @@
+# FYI (2026-07-17, evening) — adaptive skill graph now covers the whole corpus
+
+All 822 assessed skill IDs are now in the merged graph (`skill-graph.json` + `non-gemara-skill-graph.mjs` + new generated `content-skill-graph.mjs`), so `nextGraphPractice` can recommend any content unit, not just the 152 previously registered skills (commit `c65ed80`). **One workflow change for you:** when you add or rename assessed `skill:` IDs in content, run `npm run graph:build` and commit the regenerated `data/content-skill-graph.mjs` alongside — `test/skill-graph-coverage.test.mjs` fails with exactly that instruction if the graph drifts. Your item-4 "optional graph coverage" ask from 2026-07-15 is now closed.
+
+---
+
 # ACTIVE (2026-07-17) — seven new tractate arcs are below the content floor; suite is RED
 
 `npm test` currently fails on `every content unit meets the score-8 content standard`.
