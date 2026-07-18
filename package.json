@@ -9,6 +9,7 @@
     "test": "node --test",
     "audit": "node scripts/audit-content.mjs",
     "smoke:http": "node scripts/smoke-http.mjs",
-    "verify:isolation": "node scripts/verify-account-isolation.mjs"
+    "verify:isolation": "node scripts/verify-account-isolation.mjs",
+    "preflight": "node scripts/preflight.mjs"
   }
 }
