@@ -1,3 +1,15 @@
+# CLOSED (2026-07-18) — arc Hebrew: done by you, three small defects fixed by Claude
+
+Your override-block fixes landed real Hebrew in all four flagged arcs — the escalation below
+is resolved. Three small defects in those fixes were corrected directly (clean tree, tiny
+diffs): (1) horayot's pushed SOURCE CHECK step had mojibake separators (`Â·`); (2) keritot's
+translations still read "principal categories" after the Hebrew was corrected to כְּרֵתוֹת —
+now "thirty-six excisions"; (3) keritot's distractor fix appended one identical boilerplate
+sentence to every wrong answer, which is a stronger tell than the length bias it removed —
+replaced with per-step near-miss pairs in your own horayot pattern. All four arcs audit 10
+with 0 length-bias flags. (Note: while verifying, your in-flight `path.html` edit is
+currently failing `test/integrated-path.test.mjs` — assuming you're mid-rework there.)
+
 # ASK (2026-07-18) — two additions to your in-flight daily-router session panel
 
 You're mid-edit on `daily-router.js`/`.html` adding the timed session plan (nice structure —

@@ -8,7 +8,9 @@ window.SederCourse={stage:'keritot-tractate-arc',completeTitle:'You can now dist
 {short:'Keep the boundary',mode:'RESPONSIBLE LEARNING',title:'Historical atonement categories',ref:'Seder Keritot boundary',hebrew:'lilmod · lehavin · lishol',translation:'to learn · to understand · to ask',prompt:'What is the responsible use of these offering sources?',answers:['Study their categories and reasoning as historical textual literacy, not as current ritual instruction.','Treat the ancient offering system as a present-day procedure.','Avoid the legal reasoning because the Temple setting is historical.'],correct:0,skill:'keritot-learning-boundary',competency:'sourceReasoning',feedback:'Serious study honors the precision of the source while distinguishing historical sacrificial law from present practice.'},
 {short:'Transfer',mode:'SOURCE CHECK',title:'Map liability with care',ref:'Keritot transfer checkpoint',hebrew:'maaseh · yedi·ah · chiyuv · kaparah',translation:'act · knowledge · liability · atonement',independent:true,prompt:'What is the best first map for a new Keritot case?',answers:['Name the act, establish knowledge and intention, identify the liability, then test the prescribed atonement and its limits.','Choose an offering first and infer the person’s mental state afterward.','Treat liability, knowledge, and atonement as interchangeable labels.'],correct:0,skill:'keritot-independent-map',competency:'sourceReasoning',feedback:'You can now read Keritot by tracking act, mental state, liability, atonement, and boundary in order.'}]};
 window.SederCourse.steps[0].hebrew='שְׁלֹשִׁים וְשֵׁשׁ כְּרֵתוֹת בַּתּוֹרָה';
+window.SederCourse.steps[0].translation='Thirty-six excisions are in the Torah.';
 window.SederCourse.steps[1].hebrew='שְׁלֹשִׁים וְשֵׁשׁ כְּרֵתוֹת';
+window.SederCourse.steps[1].translation='Thirty-six excisions.';
 window.SederCourse.steps[2].hebrew='יְדִיעָה · שְׁגָגָה · מֵזִיד';
 window.SederCourse.steps[3].hebrew='חִיּוּב · כַּפָּרָה · קָרְבָּן';
 window.SederCourse.steps[4].hebrew='מַאי טַעְמָא · מִנַּיִן';
@@ -16,9 +18,16 @@ window.SederCourse.steps[5].hebrew='סָפֵק · יְדִיעָה · תִּינ
 window.SederCourse.steps[6].hebrew='לִלְמוֹד · לְהָבִין · לִשְׁאוֹל';
 window.SederCourse.steps[7].hebrew='מַעֲשֶׂה · יְדִיעָה · חִיּוּב · כַּפָּרָה';
 // Keep the recognition alternatives substantive enough to test a real near-miss,
-// not reward the shortest distractor. These prompts preserve the same legal
-// categories while making the contrast explicit for a new learner.
-window.SederCourse.steps.forEach((step) => {
-  if (!Array.isArray(step.answers) || typeof step.correct !== 'number') return;
-  step.answers = step.answers.map((answer, index) => index === step.correct ? answer : `${answer} This would skip the source's stated condition and therefore misclassify the case.`);
-});
+// not reward the shortest distractor. Each pair elaborates that step's own wrong
+// reading (the horayot near-miss pattern); a shared boilerplate suffix would hand
+// the learner a stronger tell than the length bias it was meant to remove.
+const keritotNearMisses=[
+['It assigns one identical penalty to every mistake, so the difference between deliberate and inadvertent action does no legal work.','It opens with a narrative list that carries no legal categories, so the count of transgressions has no bearing on liability.'],
+['The count is only a mnemonic device for memorization, with no interpretive force about which acts belong inside the category.','Every prohibited act in the Torah automatically joins the same count, so the number thirty-six marks no real boundary at all.'],
+['Knowledge never changes the legal analysis, since the act alone settles both the liability and the path of atonement.','Any act called accidental receives the same consequence even when the person knew the rule, so mental state is not a legal fact.'],
+['The offering itself determines whether the act was prohibited, so atonement defines liability rather than following from it.','Once liability is established a person may choose any offering, since the Torah does not match specific offerings to cases.'],
+['Replace the verse with a modern intuition about intent, since present moral judgment outweighs the source\'s exact wording.','Ignore the wording because the counted list is self-explanatory and needs no scriptural basis to control the case.'],
+['Whether one offering must cover every possible knowledge state, since conditions like doubt cannot change the legal path.','Whether uncertainty can be ignored once an act is named, because the initial classification settles every later question.'],
+['Treat the ancient offering system as a present-day procedure that a modern reader could carry out from these sources.','Avoid the legal reasoning entirely because the Temple setting is historical and therefore has nothing to teach a reader.'],
+['Choose an offering first and infer the person\'s mental state afterward, letting the atonement determine what the act must have been.','Treat liability, knowledge, and atonement as interchangeable labels for one idea that any of the three can stand in for.']];
+keritotNearMisses.forEach((pair,i)=>{const step=window.SederCourse.steps[i];step.answers[1]=pair[0];step.answers[2]=pair[1];});
