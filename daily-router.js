@@ -1,5 +1,13 @@
 const learnerId = Seder.currentLearnerId();
 const $ = (selector) => document.querySelector(selector);
+function renderSessionPlan(primaryUrl, needsPlacement = false) {
+  const steps = needsPlacement
+    ? [['1', '10 min', 'Placement', 'Find the right starting point before new material.', 'placement.html']]
+    : [['1', '5 min', 'Recall', 'Bring back source words and Gemara moves due today.', 'daily-recall.html'], ['2', '15 min', 'Study', 'Work through the selected source with the Daf or source text visible.', primaryUrl], ['3', '5 min', 'Transfer', 'Use the reading habit on a fresh question or passage.', 'independent-reading.html'], ['4', 'Optional', 'Connect', 'See how this move returns to the wider Jewish canon.', 'course-dashboard.html']];
+  const target = $('#session-steps');
+  if (!target) return;
+  target.innerHTML = steps.map(([number, time, title, copy, url], index) => `<article class="session-step ${index === 1 && !needsPlacement ? 'is-primary' : ''}"><span class="session-time">${number} · ${time}</span><h3>${title}</h3><p>${copy}</p><a href="${url}">Open →</a></article>`).join('');
+}
 const gemaraCycle = [
   ['berakhot', 'Berakhot: begin to read the sugya'],
   ['shabbat', 'Shabbat: map a legal case'],
@@ -131,6 +139,7 @@ Promise.all([
   if (!category?.score && !(personalDue || vocabDue) && (foundationTerm || gemaraYearMove || moedExpansionMove)) recommendation = foundationTerm || gemaraYearMove || moedExpansionMove;
   if (recommendation.url === `tractate-mastery.html?tractate=${tractate}`) recommendation.url = gemaraWorkbenchUrl[tractate];
   if (needsPlacement) recommendation = { title: 'Find your starting point', url: 'placement.html', reason: 'Begin with a short source-based placement. It chooses a first Gemara move and a review rhythm without assigning a permanent level.' };
+  renderSessionPlan(recommendation.url, needsPlacement);
   if (needsPlacement) {
     document.querySelector('#mastery-status').hidden = true;
     document.querySelector('#cross-canon').hidden = true;
