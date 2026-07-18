@@ -2,6 +2,7 @@ import { promises as fs } from 'node:fs';
 import { join } from 'node:path';
 import { advancedCanonSessions } from './advanced-canon-cycle.mjs';
 import { nonGemaraSkillGraph } from './non-gemara-skill-graph.mjs';
+import { contentSkillGraph } from './content-skill-graph.mjs';
 
 let cachedJourney;
 let cachedGemaraSequence;
@@ -200,7 +201,7 @@ export async function remediationFor(root, learner) {
 export async function nextGraphPractice(root, learner) {
   const graph = JSON.parse(await fs.readFile(join(root, 'data', 'skill-graph.json'), 'utf8'));
   const mastery = learner.mastery || {};
-  const allSkills = [...graph.skills, ...nonGemaraSkillGraph];
+  const allSkills = [...graph.skills, ...nonGemaraSkillGraph, ...contentSkillGraph];
   const eligible = allSkills.filter((skill) => (skill.prerequisites || []).every((id) => (mastery[id] || 0) >= .67));
   const candidate = eligible.filter((skill) => (mastery[skill.id] || 0) < .85).sort((a, b) => (mastery[a.id] || 0) - (mastery[b.id] || 0))[0];
   if (!candidate) return null;
