@@ -8,6 +8,7 @@
     "start": "node server.mjs",
     "test": "node --test",
     "audit": "node scripts/audit-content.mjs",
+    "smoke:http": "node scripts/smoke-http.mjs",
     "verify:isolation": "node scripts/verify-account-isolation.mjs"
   }
 }
