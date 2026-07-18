@@ -10,6 +10,23 @@ Promise.all([
   Seder.api(`/api/learners/${learnerId}/recommendation`).then((response) => response.ok ? response.json() : Promise.reject()),
   Seder.api(`/api/learners/${learnerId}/review`).then((response) => response.ok ? response.json() : Promise.reject())
 ]).then(([learner, decision, review]) => {
+  const completed = new Set(learner.completedStages || []);
+  const stageState = {
+    source: completed.size > 0,
+    sugya: [...completed].some((stage) => /berakhot|shabbat|pesachim/.test(stage)),
+    foundation: ['foundation-capstone', 'term-two-capstone', 'second-foundation-synthesis'].some((stage) => completed.has(stage)),
+    canon: completed.size >= 5,
+    transfer: [...completed].some((stage) => /independent|transfer|capstone/.test(stage)),
+    reader: completed.size >= 12
+  };
+  let activeMilestone = false;
+  document.querySelectorAll('.path button[data-stage]').forEach((button) => {
+    const done = stageState[button.dataset.stage];
+    button.classList.toggle('done', done);
+    button.classList.toggle('active', !done && !activeMilestone);
+    if (!done && !activeMilestone) { button.setAttribute('aria-current', 'step'); activeMilestone = true; }
+    else button.removeAttribute('aria-current');
+  });
   xp.textContent = `${learner.xp || 0} XP`;
   localStorage.setItem(key, JSON.stringify({ ...saved, xp: learner.xp || 0 }));
   const recommendation = decision.recommendation;
