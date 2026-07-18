@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seder · Demo Walkthrough</title>
+  <style>
+    :root{--navy:#173b57;--blue:#3f8cff;--gold:#b88737;--paper:#fcfbf7;--muted:#687680;--line:#d9dfdf}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:#24343d;font:16px/1.5 Inter,Arial,sans-serif}
+    header{padding:28px 8%;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}header a{color:var(--navy);font:600 24px Georgia,serif;text-decoration:none}header span{color:var(--gold);font-size:11px;font-weight:700;letter-spacing:.08em}
+    main{max-width:1100px;margin:auto;padding:64px 8% 80px}.eyebrow{color:var(--gold);font-size:11px;font-weight:700;letter-spacing:.1em}.hero{display:flex;justify-content:space-between;gap:40px;align-items:end}.hero h1{max-width:700px;margin:12px 0;color:var(--navy);font:600 clamp(38px,6vw,64px)/1.04 Georgia,serif}.hero p{max-width:650px;color:var(--muted);font-size:20px}.badge{padding:18px 20px;min-width:220px;background:#eef4f8;border-left:4px solid var(--blue);color:var(--navy);font-weight:700}.badge small{display:block;margin-top:5px;color:var(--muted);font-weight:400}
+    .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:52px 0 28px}.step{display:flex;flex-direction:column;min-height:180px;padding:20px;background:white;border:1px solid var(--line);text-decoration:none;color:inherit}.step:hover,.step:focus{border-color:var(--blue);box-shadow:0 4px 18px #173b5718}.step b{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--blue);color:white}.step strong{margin-top:18px;color:var(--navy);font-size:18px}.step small{margin-top:7px;color:var(--muted)}.note{margin-top:32px;padding:20px 24px;background:#f5efe2;border-left:4px solid var(--gold)}.note strong{color:var(--navy)}footer{padding:24px 8%;border-top:1px solid var(--line);color:var(--muted);font-size:13px}@media(max-width:800px){.hero{display:block}.badge{margin-top:25px}.steps{grid-template-columns:1fr 1fr}}@media(max-width:480px){.steps{grid-template-columns:1fr}main{padding-top:40px}}
+  </style>
+</head>
+<body>
+  <header><a href="seder.html">Seder</a><span>PRESENTATION WALKTHROUGH</span></header>
+  <main>
+    <section class="hero"><div><div class="eyebrow">A RELIABLE WAY TO SHOW THE PRODUCT</div><h1>From “I don’t know where to begin” to a first Daf.</h1><p>Use this hub to walk through the learner experience in the same order a beginner encounters it. Each step opens the real Seder surface.</p></div><div class="badge">7-minute story<small>Landing → Placement → Today → Daf → My Path</small></div></section>
+    <section class="steps" aria-label="Demo steps">
+      <a class="step" href="seder.html"><b>1</b><strong>Landing</strong><small>One integrated Jewish learning path.</small></a>
+      <a class="step" href="placement.html"><b>2</b><strong>Placement</strong><small>A short, low-stakes starting signal.</small></a>
+      <a class="step" href="daily-router.html"><b>3</b><strong>Today</strong><small>A focused 25-minute daily seder.</small></a>
+      <a class="step" href="daf-workbench.html?tractate=berakhot"><b>4</b><strong>First Daf</strong><small>Source, Hebrew, translation, question.</small></a>
+      <a class="step" href="path.html"><b>5</b><strong>My Path</strong><small>Evidence-based progress and next move.</small></a>
+    </section>
+    <div class="note"><strong>Presenter cue:</strong> show the learner experience first, then explain the engine behind it: diagnose → teach → retrieve → transfer → repair. If the live server fails, this page still gives you the exact narrative and links to the prepared deck.</div>
+  </main>
+  <footer>Seder · Demo mode is a walkthrough of the local product, not a separate learner account.</footer>
+</body>
+</html>

@@ -52,7 +52,7 @@ if (!health) {
     `persistence: ${health.persistence}${health.persistence === 'supabase-ready' ? '' : ' — a real pilot must run in hosted mode, not local (shared demo learner)'}`);
   // smoke a few learner-facing routes
   const routes = [
-    '/seder.html', '/sign-in.html', '/placement.html', '/daily-router.html', '/path.html',
+    '/seder.html', '/demo.html', '/sign-in.html', '/placement.html', '/daily-router.html', '/path.html',
     '/lab.html?tractate=shabbat', '/profile.html', '/privacy.html', '/terms.html', '/support.html'
   ];
   const bad = [];
