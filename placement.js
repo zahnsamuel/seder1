@@ -43,8 +43,27 @@ function render() {
   const answers = $('#answers'); answers.innerHTML = '';
   shuffle(check.answers).forEach(({ text, originalIndex }) => { const button = document.createElement('button'); button.type = 'button'; button.textContent = text; button.addEventListener('click', () => { scores[check.skill] = originalIndex === check.correct ? 1 : .25; if (index < checks.length - 1) { index += 1; render(); } else complete(); }); answers.appendChild(button); });
 }
+function renderResults() {
+  const groups = [
+    ['Language foundation', ['hebrew-decoding', 'language-baseline']],
+    ['Text and argument', ['mishnah-orientation', 'gemara-moves', 'proof-texts']],
+    ['Jewish canon', ['halakha-torah-directive', 'tanakh-address-claim', 'thought-identify-claim']],
+    ['Wider orientation', ['liturgical-function', 'historical-context', 'comparative-reading', 'conceptual-application']]
+  ];
+  $('#placement-results').hidden = false;
+  $('.placement-shell').hidden = true;
+  $('.intro').hidden = true;
+  $('#results-copy').textContent = 'This is a starting profile, not a permanent level. Seder will use it to choose your first source and review rhythm.';
+  $('#results-grid').innerHTML = groups.map(([label, skills]) => {
+    const total = skills.reduce((sum, skill) => sum + (scores[skill] || 0), 0);
+    const percent = Math.round(total / skills.length * 100);
+    const level = percent >= 80 ? 'Ready to extend' : percent >= 50 ? 'Build this next' : 'Start here';
+    return `<article><span>${label}</span><strong>${level}</strong><small>${percent}% signal</small></article>`;
+  }).join('');
+  $('#status').textContent = 'STARTING PROFILE READY';
+}
 function complete() {
   $('#status').textContent = 'SAVING YOUR STARTING POINT';
-  Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'placement_completed', scores }) }).then((response) => response.ok ? response.json() : Promise.reject()).then(() => { location.href = 'path.html?v=6'; }).catch(() => { $('#status').textContent = 'Placement could not be saved.'; });
+  Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'placement_completed', scores }) }).then((response) => response.ok ? response.json() : Promise.reject()).then(() => renderResults()).catch(() => { $('#status').textContent = 'Placement could not be saved.'; });
 }
 render();
