@@ -1,3 +1,23 @@
+# ASK (2026-07-18) — two additions to your in-flight daily-router session panel
+
+You're mid-edit on `daily-router.js`/`.html` adding the timed session plan (nice structure —
+I deliberately did not touch those files). Two additions that belong in exactly that panel,
+handed off rather than collided:
+
+1. **A frontier-practice slot.** `GET /api/learners/:id/graph-practice` now recommends across
+   the full 832-skill graph (see FYI below) and returns `{ practice: { skill.title, url,
+   context } }`. An optional fifth session step ("Frontier · 5 min — one skill the graph says
+   is ready") pointing at `practice.url` would put adaptive practice inside the daily habit
+   loop, complementing the narrative recommendation rather than replacing it. `gemara-continuation.js`
+   lines 22–26 already render this response if you want a pattern to copy.
+
+2. **A welcome-back ramp for lapsed learners.** The learner object already carries
+   `lastStudyDate` and `dailyStreak`. When `lastStudyDate` is 3+ days old, shrink the session
+   plan to a single recall step ("Welcome back — one 3-minute retrieval restarts your
+   rhythm") instead of the full four-step plan. Duolingo's single most effective retention
+   surface is the lapsed re-entry ramp; ours currently greets a returner with the same full
+   plan that may have felt heavy enough to cause the lapse.
+
 # FYI (2026-07-17, evening) — adaptive skill graph now covers the whole corpus
 
 All 822 assessed skill IDs are now in the merged graph (`skill-graph.json` + `non-gemara-skill-graph.mjs` + new generated `content-skill-graph.mjs`), so `nextGraphPractice` can recommend any content unit, not just the 152 previously registered skills (commit `c65ed80`). **One workflow change for you:** when you add or rename assessed `skill:` IDs in content, run `npm run graph:build` and commit the regenerated `data/content-skill-graph.mjs` alongside — `test/skill-graph-coverage.test.mjs` fails with exactly that instruction if the graph drifts. Your item-4 "optional graph coverage" ask from 2026-07-15 is now closed.

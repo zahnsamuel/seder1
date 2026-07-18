@@ -15,6 +15,18 @@
 - A learner can always see the next action after answering.
 - Review items return at the scheduled interval and a learner understands why.
 
+## Retention infrastructure (post-pilot decision)
+
+- The app is installable as a PWA (manifest + service worker injected via `seder-auth.js`;
+  installed icons show a due-review badge where the platform supports it). Static pages work
+  offline after first visit; learner data is intentionally never cached.
+- **Email nudges need a provider decision** (e.g. Resend/Postmark/SES) before they can exist:
+  the server intentionally holds no mail credentials today. When a provider is chosen, the
+  hook point is the due-review count already computed in `/api/learners/:id/pilot-analytics`
+  (`reviewDue`) — a daily digest per learner is a small job once sending exists. Do not build
+  sending infrastructure before the pilot proves which nudge (if any) learners need; at pilot
+  scale (5–10 learners) the guide nudging personally outperforms any automation.
+
 ## Before public launch
 
 - Configure HTTPS and a production domain.

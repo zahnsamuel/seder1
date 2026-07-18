@@ -1,0 +1,14 @@
+{
+  "name": "Seder — Your Jewish Learning Journey",
+  "short_name": "Seder",
+  "description": "A mastery-learning path into Gemara and the wider Jewish canon: daily recall, guided source reading, and spaced review.",
+  "id": "seder-learning",
+  "start_url": "daily-router.html?source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#173b57",
+  "theme_color": "#173b57",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

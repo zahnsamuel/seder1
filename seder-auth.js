@@ -138,6 +138,29 @@ Seder.applySkipLink = () => {
   document.body.prepend(link);
 };
 if (document.body) Seder.applySkipLink(); else document.addEventListener('DOMContentLoaded', Seder.applySkipLink);
+// PWA: manifest + theme color + service worker, injected here so all learner-path pages
+// become installable without editing every HTML file. sw.js never caches /api/ responses.
+Seder.enablePwa = () => {
+  if (!document.querySelector('link[rel="manifest"]')) { const link = document.createElement('link'); link.rel = 'manifest'; link.href = 'manifest.webmanifest'; document.head.append(link); }
+  if (!document.querySelector('meta[name="theme-color"]')) { const meta = document.createElement('meta'); meta.name = 'theme-color'; meta.content = '#173b57'; document.head.append(meta); }
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+};
+Seder.enablePwa();
+// Installed-app badge: show the due-review count on the home-screen icon (supported
+// platforms only). Throttled via sessionStorage so ordinary page loads skip the extra call.
+Seder.updateAppBadge = async () => {
+  if (!('setAppBadge' in navigator)) return;
+  const last = Number(sessionStorage.getItem('seder-badge-at') || 0);
+  if (Date.now() - last < 600000) return;
+  sessionStorage.setItem('seder-badge-at', String(Date.now()));
+  try {
+    const response = await Seder.api(`/api/learners/${Seder.currentLearnerId()}/pilot-analytics`);
+    if (!response.ok) return;
+    const { reviewDue } = await response.json();
+    if (reviewDue > 0) navigator.setAppBadge(reviewDue); else navigator.clearAppBadge();
+  } catch { /* badge is best-effort */ }
+};
+setTimeout(Seder.updateAppBadge, 0);
 // Keep all learner-facing “Today” links on the evidence-led daily router. Several
 // early source pages predate that router and still contain a static today.html link;
 // rewriting those links here prevents two competing daily-entry experiences.
