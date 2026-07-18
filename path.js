@@ -19,6 +19,9 @@ Promise.all([
     transfer: [...completed].some((stage) => /independent|transfer|capstone/.test(stage)),
     reader: completed.size >= 12
   };
+  const establishedMilestones = Object.values(stageState).filter(Boolean).length;
+  const pathStatus = document.querySelector('#path-status');
+  if (pathStatus) pathStatus.textContent = `${establishedMilestones} of 6 milestones established · evidence, not self-report, moves this path forward.`;
   let activeMilestone = false;
   document.querySelectorAll('.path button[data-stage]').forEach((button) => {
     const done = stageState[button.dataset.stage];

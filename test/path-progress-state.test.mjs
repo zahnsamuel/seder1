@@ -9,5 +9,7 @@ test('My Path milestones are keyed to learner evidence', () => {
   for (const stage of ['source', 'sugya', 'foundation', 'canon', 'transfer', 'reader']) assert.match(html, new RegExp(`data-stage="${stage}"`));
   assert.match(js, /completedStages/);
   assert.match(js, /stageState/);
+  assert.match(html, /id="path-status"/);
+  assert.match(js, /milestones established/);
   assert.match(js, /aria-current/);
 });
