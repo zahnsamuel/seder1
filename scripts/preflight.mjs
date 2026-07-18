@@ -51,7 +51,10 @@ if (!health) {
   add('Persistence is hosted (supabase-ready)', health.persistence === 'supabase-ready' ? 'pass' : 'fail',
     `persistence: ${health.persistence}${health.persistence === 'supabase-ready' ? '' : ' — a real pilot must run in hosted mode, not local (shared demo learner)'}`);
   // smoke a few learner-facing routes
-  const routes = ['/seder.html', '/sign-in.html', '/placement.html', '/daily-router.html', '/lab.html?tractate=shabbat'];
+  const routes = [
+    '/seder.html', '/sign-in.html', '/placement.html', '/daily-router.html', '/path.html',
+    '/lab.html?tractate=shabbat', '/profile.html', '/privacy.html', '/terms.html', '/support.html'
+  ];
   const bad = [];
   for (const r of routes) {
     try { const res = await fetch(`${base}${r}`, { signal: AbortSignal.timeout(4000) }); if (!res.ok) bad.push(`${r}=${res.status}`); }
