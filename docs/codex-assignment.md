@@ -9,6 +9,21 @@ Seven arcs built in today's batch audit below 8 (`node scripts/audit-content.mjs
 | avodah-zarah-arc | 7 | no production step; length bias 3/8 |
 | keritot-arc | 7 | has a production step; length bias 8/8 |
 
+> **UPDATE (2026-07-17, later): scores fixed, Hebrew still placeholder.** Codex brought all
+> seven arcs to ≥8 and the suite is green again — thank you. But the audit does not check
+> Hebrew authenticity, and **four arcs still show English/transliteration in the `hebrew:`
+> field** where every other arc shows real Hebrew (e.g. chagigah `הַכֹּל חַיָּבִין`). This is
+> learner-facing in a Gemara app. Sefaria-verified openings to drop in; pull the rest from
+> each arc's own cited ref:
+> - `gittin-arc` (Mishnah Gittin 1:1): `הַמֵּבִיא גֵט מִמְּדִינַת הַיָּם` and the agent's line `בְּפָנַי נִכְתַּב וּבְפָנַי נֶחְתָּם` — currently full English sentences ("A get from overseas").
+> - `yevamot-arc` (Mishnah Yevamot 1:1): `חֲמֵשׁ עֶשְׂרֵה נָשִׁים פּוֹטְרוֹת צָרוֹתֵיהֶן` — currently `chamesh-esreh nashim potrot tzareihoten`.
+> - `horayot-arc` (Mishnah Horayot 1:1): `הוֹרוּ בֵית דִּין לַעֲבֹר עַל אַחַת מִכָּל מִצְוֹת הָאֲמוּרוֹת בַּתּוֹרָה … שׁוֹגֵג עַל פִּיהֶם` — currently `horaat bet din be-shogeg`.
+> - `keritot-arc` (Mishnah Keritot 1:1): `שְׁלֹשִׁים וָשֵׁשׁ כְּרֵתוֹת בַּתּוֹרָה`. **Also a content error**, not just script: one step's Hebrew reads `shloshim veshesh · avot melachot` — "avot melachot" is Shabbat's 39 categories of *labor*; Keritot is 36 *karetot* (excisions). Fix the concept, not only the transliteration.
+>
+> Replace every transliteration/English `hebrew:` value across these four arcs with the actual
+> Hebrew from the Sefaria ref each step already cites. (Claude can do this directly and
+> Sefaria-verified instead if you'd prefer — say the word.)
+
 Two fixes bring each to ≥8 (10 if both done fully) — the same two moves that took all 36
 tractate labs to ≥8 this session (commits `32661e9` / `4ae2000` / `730622b` / `d79c769`):
 
