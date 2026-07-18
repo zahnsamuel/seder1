@@ -74,6 +74,15 @@ if (!health) {
     } catch { missingTrust.push(route); }
   }
   add('Trust pages contain required learner promises', missingTrust.length === 0 ? 'pass' : 'fail', missingTrust.length === 0 ? `${trustPages.length}/${trustPages.length} checked` : `incomplete: ${missingTrust.join(', ')}`);
+  const a11yRoutes = ['/seder.html', '/sign-in.html', '/placement.html', '/daily-router.html', '/path.html', '/profile.html'];
+  const a11yBad = [];
+  for (const route of a11yRoutes) {
+    try {
+      const text = await (await fetch(`${base}${route}`, { signal: AbortSignal.timeout(4000) })).text();
+      if (!/<html[^>]+lang=["'][^"']+/.test(text) || !/<meta[^>]+name=["']viewport["']/.test(text) || !/<title>[^<]+<\/title>/.test(text)) a11yBad.push(route);
+    } catch { a11yBad.push(route); }
+  }
+  add('Accessible document basics', a11yBad.length === 0 ? 'pass' : 'fail', a11yBad.length === 0 ? `${a11yRoutes.length}/${a11yRoutes.length} checked` : `missing metadata: ${a11yBad.join(', ')}`);
 }
 
 // --- Manual gates (cannot be auto-verified here) ---
