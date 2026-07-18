@@ -9,6 +9,14 @@ window.SederCourse={stage:'horayot-tractate-arc',completeTitle:'You can now read
 {short:'Transfer the map',mode:'INDEPENDENT READ',title:'Map an institutional mistake',ref:'Horayot transfer checkpoint',hebrew:'reshut · taat · הסתמכות · tikun',translation:'Authority · error · reliance · repair.',independent:true,prompt:'What is the best first map for an unfamiliar institutional ruling?',answers:['Identify authority, jurisdiction, type of error, who relied on it, and what correction follows.','Begin with a verdict about whether institutions are trustworthy.','Treat every mistaken ruling as intentional wrongdoing.'],correct:0,skill:'horayot-independent-map',competency:'sourceReasoning',feedback:'You can now read Horayot through authority, reliance, responsibility, and repair.'}
 ]};
 const horayotSteps=window.SederCourse.steps;
+horayotSteps[0].hebrew='הוֹרוּ בֵּית דִּין לַעֲבוֹר עַל אַחַת מִכָּל מִצְוֹת הָאֲמוּרוֹת בַּתּוֹרָה';
+horayotSteps[1].hebrew='בֵּית דִּין הַגָּדוֹל';
+horayotSteps[2].hebrew='וְעָשָׂה הָעָם עַל פִּיהֶם';
+horayotSteps[3].hebrew='מַאי טַעְמָא דְּשָׁגְגוּ';
+horayotSteps[4].hebrew='בֵּית דִּין · צִבּוּר · יָחִיד';
+horayotSteps[5].hebrew='הוֹדָאָה · תְּשׁוּבָה · תִּקּוּן';
+horayotSteps[6].hebrew='לִמּוּד הִיסְטוֹרִי · לֹא הוֹרָאָה לְמַעֲשֶׂה';
+horayotSteps[7].hebrew='רְשׁוּת · טָעוּת · הִסְתַּמְּכוּת · תִּקּוּן';
 horayotSteps.push({short:'Explain correction',mode:'SOURCE CHECK',title:'Produce the institutional map',ref:'Horayot transfer checkpoint',hebrew:'הוראה Â· סמכות Â· הסתמכות Â· תיקון',translation:'Ruling Â· authority Â· reliance Â· correction.',independent:true,prompt:'Which explanation best transfers Horayot’s reading method to a new institutional error?',answers:['Identify the authority and jurisdiction, describe the error and reliance, then specify what source-grounded correction follows.','Begin by defending or condemning the institution, then treat the factual error and public reliance as details that cannot change the verdict.','Treat the discovery of an error as enough to assign blame, without distinguishing who ruled, who relied, or what repair the source requires.'],correct:0,skill:'horayot-source-transfer-check',competency:'sourceReasoning',feedback:'This source check makes you produce Horayot’s sequence of authority, error, reliance, and repair rather than merely recognize its vocabulary.'});
 const horayotNearMisses=[
 ['It treats every disagreement as a court error, without distinguishing an authorized institutional ruling from an individual’s mistaken judgment.','It treats an unintentional ruling as consequence-free, leaving no room for the tractate’s analysis of authority, reliance, and atonement.'],

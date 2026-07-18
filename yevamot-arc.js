@@ -10,6 +10,14 @@ window.SederCourse={stage:'yevamot-tractate-arc',completeTitle:'You can now map 
 ]};
 // Production/source checks: near-misses preserve the real relationship-law distinctions.
 const yevamotSteps=window.SederCourse.steps;
+yevamotSteps[0].hebrew='חֲמֵשׁ עֶשְׂרֵה נָשִׁים פּוֹטְרוֹת צָרוֹתֵיהֶן';
+yevamotSteps[1].hebrew='יִבּוּם אוֹ חֲלִיצָה';
+yevamotSteps[2].hebrew='פּוֹטְרוֹת צָרוֹתֵיהֶן';
+yevamotSteps[3].hebrew='אִיסּוּרֵי עֲרָיוֹת';
+yevamotSteps[4].hebrew='מַאי טַעְמָא';
+yevamotSteps[5].hebrew='וְחָלְצָה נַעֲלוֹ מֵעַל רַגְלוֹ';
+yevamotSteps[6].hebrew='לִמּוּד הִיסְטוֹרִי, לֹא הוֹרָאָה לְמַעֲשֶׂה';
+yevamotSteps[7].hebrew='קִנְיָן · אִיסּוּר · חוֹבָה · פְּטוֹר';
 yevamotSteps[0].answers[1]='The Mishnah treats every family relationship as identical, so the counted list does not organize a legal exemption mechanism.';
 yevamotSteps[0].answers[2]='The list is only a narrative opening with no legal work, rather than a structured account of which relationships block obligation.';
 yevamotSteps[1].answers[1]='The two terms are interchangeable modern labels with no distinction in how the defined obligation is resolved.';
