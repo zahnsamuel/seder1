@@ -61,6 +61,19 @@ if (!health) {
     catch (e) { bad.push(`${r}=${e.name}`); }
   }
   add('Key learner routes serve 200', bad.length === 0 ? 'pass' : 'fail', bad.length === 0 ? `${routes.length}/${routes.length} ok` : `failing: ${bad.join(', ')}`);
+  const trustPages = [
+    ['/privacy.html', ['Learner privacy', 'export', 'delete']],
+    ['/terms.html', ['Terms of use', 'halakhic rulings', 'support']],
+    ['/support.html', ['Support', 'mailto:', 'Data requests']]
+  ];
+  const missingTrust = [];
+  for (const [route, markers] of trustPages) {
+    try {
+      const text = await (await fetch(`${base}${route}`, { signal: AbortSignal.timeout(4000) })).text();
+      if (markers.some((marker) => !text.toLowerCase().includes(marker.toLowerCase()))) missingTrust.push(route);
+    } catch { missingTrust.push(route); }
+  }
+  add('Trust pages contain required learner promises', missingTrust.length === 0 ? 'pass' : 'fail', missingTrust.length === 0 ? `${trustPages.length}/${trustPages.length} checked` : `incomplete: ${missingTrust.join(', ')}`);
 }
 
 // --- Manual gates (cannot be auto-verified here) ---
