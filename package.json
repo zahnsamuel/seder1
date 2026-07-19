@@ -11,6 +11,7 @@
     "smoke:http": "node scripts/smoke-http.mjs",
     "verify:isolation": "node scripts/verify-account-isolation.mjs",
     "preflight": "node scripts/preflight.mjs",
-    "graph:build": "node scripts/build-skill-graph.mjs"
+    "graph:build": "node scripts/build-skill-graph.mjs",
+    "check:links": "node scripts/check-source-links.mjs"
   }
 }
