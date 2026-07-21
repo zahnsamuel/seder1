@@ -46,6 +46,20 @@ export function tagFor(step, genre) {
   const m = (step.mode || '').toUpperCase();
   const has = (re) => re.test(m);
 
+  // L1/L2 — dedicated 0->1 orientation & signal moves. These bedrock micro-skills are the
+  // PRIMARY move only in purpose-built foundation units (foundation-reading-orientation), never
+  // in the source-reading arcs, where they are folded into larger argument/reading moves. Their
+  // modes are distinctive tokens no arc uses, and they sit first so the general rules below don't
+  // capture them (e.g. \bQUESTION\b -> arg-objection, \bBOUNDARY\b -> resp-name-limits).
+  if (has(/PAGE GEOGRAPHY/)) return 'fnd-orient-page-geography';
+  if (has(/UNIT BOUNDARY/)) return 'fnd-orient-unit-boundary';
+  if (has(/ASK OR TELL/)) return 'fnd-orient-question-present';
+  if (has(/SPEAKER MAP/)) return 'fnd-orient-speaker';
+  if (has(/QUESTION WORDS/)) return 'fnd-signal-question-words';
+  if (has(/CONNECTOR SIGNAL/)) return 'fnd-signal-connectors';
+  if (has(/QUOTATION SIGNAL/)) return 'fnd-signal-quotation';
+  if (has(/NAME FORMULA/)) return 'fnd-signal-name-formulas';
+
   // L8 — practice & responsibility
   if (has(/PRESERVE|ELU|\bTENSION\b/)) return 'fnd-resp-preserve-disagreement';
   if (has(/AGENCY LIMIT|REPRESENTATION LIMIT|TESTIMONY LIMIT|\bLIMITS\b|LIMITING PRINCIPLE/)) return 'fnd-resp-name-limits';
