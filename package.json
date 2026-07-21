@@ -2,7 +2,7 @@
   "name": "seder",
   "version": "0.1.0",
   "private": true,
-  "description": "Seder: a mastery-learning platform for Gemara, Chumash, Halakha, and Jewish Thought.",
+  "description": "Seder · Jewish Learning Academy: an opinionated, skills-based path from Jewish-learning insecurity to Jewish literacy, taught across the canon.",
   "type": "module",
   "scripts": {
     "start": "node server.mjs",
@@ -12,6 +12,8 @@
     "verify:isolation": "node scripts/verify-account-isolation.mjs",
     "preflight": "node scripts/preflight.mjs",
     "graph:build": "node scripts/build-skill-graph.mjs",
+    "graph:foundation": "node scripts/check-foundation-graph.mjs",
+    "map:foundation": "node scripts/build-foundation-content-map.mjs",
     "check:links": "node scripts/check-source-links.mjs"
   }
 }

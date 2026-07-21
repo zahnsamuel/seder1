@@ -24,6 +24,17 @@ try {
   add('Content standard — every unit ≥ 8', 'fail', `audit threw: ${err.message}`);
 }
 
+// --- Gate: foundational skill graph is structurally sound (no server needed) ---
+try {
+  const out = execFileSync(process.execPath, ['scripts/check-foundation-graph.mjs'], { cwd: '.', encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+  const count = (out.match(/skills (\d+)/) || [])[1];
+  add('Foundational skill graph integrity', 'pass', `${count || 'all'} skills: ids/prereqs/cycles/reachability/contract ok`);
+} catch (err) {
+  const out = `${err.stdout || ''}${err.stderr || ''}`;
+  const first = (out.match(/^  x .+$/m) || [])[0]?.trim();
+  add('Foundational skill graph integrity', 'fail', first || 'check-foundation-graph.mjs reported errors');
+}
+
 // --- Gate: automated test suite ---
 try {
   const out = execFileSync(process.execPath, ['--test'], { cwd: '.', encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });

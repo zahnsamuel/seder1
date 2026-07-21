@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "source": "data/pilot-foundations.json",
+  "graph": "data/foundation-skill-graph.json",
+  "purpose": "First Academy source slice mapped to transferable foundational skills.",
+  "units": [
+    {"contentUnitId":"pilot-language","title":"A question opens the page","foundationSkillIds":["fnd-signal-question-words","fnd-orient-question-present"],"role":"first language signal"},
+    {"contentUnitId":"pilot-torah","title":"Hear, Israel","foundationSkillIds":["fnd-orient-source-type","fnd-context-who-audience","fnd-arg-claim"],"role":"direct address and claim"},
+    {"contentUnitId":"pilot-tefillah","title":"A verse becomes a practice","foundationSkillIds":["fnd-context-genre-expectations","fnd-role-text-vs-commentary"],"role":"source reception and function"},
+    {"contentUnitId":"pilot-halakha","title":"Trace a command into practice","foundationSkillIds":["fnd-resp-learning-vs-ruling","fnd-role-ruling-vs-discussion","fnd-arg-evidence-role"],"role":"source chain with boundary"},
+    {"contentUnitId":"pilot-thought","title":"Name the claim","foundationSkillIds":["fnd-arg-claim","fnd-arg-unresolved"],"role":"conceptual claim"},
+    {"contentUnitId":"pilot-character","title":"The kind of person who learns","foundationSkillIds":["fnd-resp-name-limits","fnd-compare-strongest-form"],"role":"responsible application"},
+    {"contentUnitId":"pilot-history-world","title":"Context and comparison","foundationSkillIds":["fnd-context-when-where","fnd-context-who-audience","fnd-compare-scope"],"role":"historical setting and comparison"}
+  ],
+  "firstSession": {
+    "durationMinutes": 20,
+    "steps": [
+      {"minutes":3,"mode":"retrieve","label":"Bring back the question signal","skillId":"fnd-signal-question-words"},
+      {"minutes":7,"mode":"encounter","label":"Read one source in its own setting","skillId":"fnd-orient-source-type"},
+      {"minutes":5,"mode":"demonstrate","label":"Name the source’s claim and audience","skillId":"fnd-arg-claim"},
+      {"minutes":3,"mode":"transfer","label":"Carry the move into a second genre","skillId":"fnd-context-genre-expectations"},
+      {"minutes":2,"mode":"orient","label":"See what changed and choose the next move","skillId":"fnd-agency-choose-next"}
+    ]
+  }
+}

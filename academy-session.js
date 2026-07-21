@@ -49,4 +49,29 @@ async function choose(button) {
 }
 
 $('#continue').addEventListener('click', () => { location.href = 'daily-router.html'; });
-fetch('data/foundation-skill-graph.json').then((response) => response.json()).then((graph) => { skill = graph.skills.find((item) => item.id === skillId) || fallback; render(); }).catch(render);
+
+// Surface real content that exercises this foundational skill (from the generated
+// foundation-content map), so the graph routes the learner to actual sources — not only the
+// synthetic session. Prefers distinct genres; stays hidden when the skill has no content yet.
+function renderRealContent(map) {
+  const rows = map?.bySkill?.[skillId] || [];
+  if (!rows.length) return;
+  const seenUnit = new Set();
+  const units = rows.filter((row) => !seenUnit.has(row.unit) && seenUnit.add(row.unit));
+  const picks = [];
+  const genres = new Set();
+  for (const row of units) { if (!genres.has(row.genre)) { genres.add(row.genre); picks.push(row); } if (picks.length >= 3) break; }
+  for (const row of units) { if (picks.length >= 3) break; if (!picks.includes(row)) picks.push(row); }
+  $('#real-content-list').innerHTML = picks.map((row) =>
+    `<li><a href="${escapeHtml(row.route)}">${escapeHtml(row.label)}</a><span>${escapeHtml(row.genre)} · ${escapeHtml(row.ref)}</span></li>`).join('');
+  $('#real-content').hidden = false;
+}
+
+Promise.all([
+  fetch('data/foundation-skill-graph.json').then((response) => (response.ok ? response.json() : null)).catch(() => null),
+  fetch('data/foundation-content-map.json').then((response) => (response.ok ? response.json() : null)).catch(() => null)
+]).then(([graph, map]) => {
+  skill = graph?.skills.find((item) => item.id === skillId) || fallback;
+  render();
+  renderRealContent(map);
+});
