@@ -2,11 +2,18 @@ const learnerId = Seder.currentLearnerId();
 const foundationSkill = new URLSearchParams(location.search).get('foundationSkill');
 const $ = (selector) => document.querySelector(selector);
 function renderSessionPlan(primaryUrl, needsPlacement = false, isFoundation = false, minutes = 20) {
+  const lapsed = Boolean(window.__academyLapsed);
+  const frontier = window.__academyFrontier;
   const steps = needsPlacement
     ? [['1', '10 min', 'Placement', 'Find the right starting point before new material.', 'placement.html']]
+    : lapsed
+      ? [['1', '3 min', 'Welcome back', 'One small retrieval restarts your rhythm. No catch-up required.', 'daily-recall.html']]
     : isFoundation
       ? [['1', '3 min', 'Retrieve', 'Bring back the last source-reading move.', 'daily-recall.html'], ['2', '7 min', 'Encounter', 'Read one source in its own setting.', primaryUrl], ['3', '5 min', 'Demonstrate', 'Show the move with a guided choice.', primaryUrl], ['4', '3 min', 'Transfer', 'Carry the move into a second genre.', 'independent-reading.html'], ['5', '2 min', 'Orient', 'See what changed and choose the next move.', primaryUrl]]
       : [['1', '5 min', 'Recall', 'Bring back source words and Gemara moves due today.', 'daily-recall.html'], ['2', '15 min', 'Study', 'Work through the selected source with the Daf or source text visible.', primaryUrl], ['3', '5 min', 'Transfer', 'Use the reading habit on a fresh question or passage.', 'independent-reading.html'], ['4', 'Optional', 'Connect', 'See how this move returns to the wider Jewish canon.', 'course-dashboard.html']];
+  if (!needsPlacement && !lapsed && frontier?.skill && frontier.url) {
+    steps.push(['5', '5 min', 'Frontier', `Practice ${frontier.skill.title} in ${frontier.context || 'a new source'}.`, frontier.url]);
+  }
   const target = $('#session-steps');
   if (!target) return;
   target.innerHTML = steps.map(([number, time, title, copy, url], index) => `<article class="session-step ${index === 1 && !needsPlacement ? 'is-primary' : ''}"><span class="session-time">${number} · ${time}</span><h3>${title}</h3><p>${copy}</p><a href="${url}">Open →</a></article>`).join('');
@@ -110,8 +117,9 @@ function nextMoedExpansionMove(doneStages) {
 Promise.all([
   Seder.api(`/api/learners/${learnerId}`).then((response) => response.json()),
   fetch('/api/curriculum/repair-router').then((response) => response.json()),
-  fetch('/api/curriculum/canon-six-session-courses').then((response) => response.json())
-]).then(([learner, router, courses]) => {
+  fetch('/api/curriculum/canon-six-session-courses').then((response) => response.json()),
+  fetch(`/api/learners/${learnerId}/graph-practice`).then((response) => response.ok ? response.json() : { practice: null }).catch(() => ({ practice: null }))
+]).then(([learner, router, courses, graph]) => {
   const struggles = learner.struggles || {};
   const category = router.categories.map((item) => ({ ...item, score: item.skills.reduce((total, skill) => total + (struggles[skill] || 0), 0) })).sort((a, b) => b.score - a.score)[0];
   const vocabDue = (learner.reviewQueue || []).find((item) => String(item.skillId || '').startsWith('vocab-'));
@@ -149,13 +157,16 @@ Promise.all([
     recommendation = { title: 'Academy Foundation · one focused skill', url: `academy-session.html?skill=${encodeURIComponent(requestedFoundation)}`, reason: 'A short, source-based session builds one transferable learning move at a time.', foundation: true, skillId: requestedFoundation };
   }
   const rhythmMinutes = { daily: 20, 'three-times-weekly': 20, weekly: 30 }[learner.rhythm] || 20;
+  const daysSinceStudy = learner.lastStudyDate ? Math.floor((Date.now() - new Date(learner.lastStudyDate).getTime()) / 86400000) : null;
+  const recoveryWindow = learner.rhythm === 'weekly' ? 8 : learner.rhythm === 'three-times-weekly' ? 4 : 3;
+  window.__academyLapsed = daysSinceStudy !== null && daysSinceStudy >= recoveryWindow;
+  window.__academyFrontier = graph.practice || null;
   renderSessionPlan(recommendation.url, needsPlacement, Boolean(recommendation.foundation), rhythmMinutes);
   const rhythmLabels = { daily: '20 minutes daily', 'three-times-weekly': '20 minutes, three times a week', weekly: '30 minutes weekly' };
   const rhythmLabel = $('#rhythm-label');
   const rhythmCopy = $('#rhythm-copy');
   if (rhythmLabel) rhythmLabel.textContent = `${rhythmLabels[learner.rhythm] || '20 minutes daily'} · ${learner.dailyStreak || 0} day streak`;
   if (rhythmCopy) {
-    const daysSinceStudy = learner.lastStudyDate ? Math.floor((Date.now() - new Date(learner.lastStudyDate).getTime()) / 86400000) : null;
     const recoveryWindow = learner.rhythm === 'weekly' ? 8 : learner.rhythm === 'three-times-weekly' ? 4 : 2;
     rhythmCopy.textContent = daysSinceStudy !== null && daysSinceStudy >= recoveryWindow
       ? 'You have room to return. One small session today is enough to restart the rhythm.'
