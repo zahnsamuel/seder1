@@ -15,6 +15,7 @@ function render() {
   $('#source-ref').textContent = context.ref;
   $('#source-setting').textContent = `Genre: ${context.genre}. Read this source window for the shape of the move, not for total mastery.`;
   $('#teaching-move').textContent = skill.teachingMove;
+  $('#source-link').href = `https://www.sefaria.org/search?q=${encodeURIComponent(context.ref)}&tab=texts`;
   const check = skill.checks?.[0] || fallback.checks[0];
   $('#check-title').textContent = check;
   const choices = [

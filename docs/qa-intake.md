@@ -2792,6 +2792,9 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
   foundational capabilities, and links directly to the next prerequisite-ready Academy skill.
 - This turns progress reflection into a continuation of the learning loop rather than a separate
   analytics page.
+- Academy foundation sessions now show the selected graph skill's exact source reference and a
+  direct Sefaria lookup link, keeping the learner anchored in a real text while the guided check
+  teaches the transferable move.
 - Updated the presentation-flow regression assertion to the canonical “The Jewish Learning
   Academy” product name as the landing page rebrand landed.
 - Verification: full automated suite passes, 288 tests / 0 failures.
