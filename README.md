@@ -1,6 +1,6 @@
-# Seder — a mastery-learning platform for Torah study
+# Jewish Learning Academy — a mastery-learning platform for Jewish study
 
-Seder combines Math Academy-style mastery learning (spaced review, decay-aware retrieval, evidence-based skill tracking) with Duolingo-style engagement (streaks, XP, short checkpointed sessions) and applies it to Jewish learning: Gemara, Chumash & Tanakh, Halakha, Jewish Thought, Tefillah, Chassidus, Mussar, and Jewish History. It takes a learner from an 8-question placement check through beginner sessions to independent, unscaffolded source reading, tracking real skill mastery the whole way rather than just lesson completion.
+Jewish Learning Academy combines Math Academy-style mastery learning (spaced review, decay-aware retrieval, evidence-based skill tracking) with Duolingo-style engagement (streaks, XP, short checkpointed sessions) and applies it to Jewish learning: Gemara, Chumash & Tanakh, Halakha, Jewish Thought, Tefillah, Chassidus, Mussar, and Jewish History. It takes a learner from an 8-question placement check through beginner sessions to independent, unscaffolded source reading, tracking real skill mastery the whole way rather than just lesson completion.
 
 ## Run it
 
