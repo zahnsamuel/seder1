@@ -60,6 +60,10 @@ Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? respons
     $('#todayCard').innerHTML = `<small>DAY ${day} OF ${plan.length} · ${completedStages.size} MASTERY MARKERS</small><h2>${title}</h2><p>${whyNext(day)}</p><p class="why-next"><b>Why this is next:</b> ${phaseForDay(day).milestone}</p><div class="today-actions"><a id="openToday" href="${url}">1. Study today’s source →</a><a class="prove" href="academy-evidence.html?day=${day}">2. Demonstrate today’s move →</a></div><small class="mastery-note">Tomorrow opens after two source checks are correct. On Day 7, 14, and each weekly boundary, one check is an unfamiliar-source transfer.</small>`;
     $('#openToday').addEventListener('click', () => openDay(day));
   }
+  // The 90-day map, milestones, and phases were removed from the hub (mentor reset: don't show the
+  // whole curriculum map up front). Guard so their absence never trips the .catch error state; the
+  // full map lives on seder-curriculum.html.
+  if ($('#dayMap')) {
   const currentMonth = Math.min(2, Math.floor((day - 1) / 30));
   $('#monthNav').innerHTML = ['Month 1 · Foundations', 'Month 2 · Deepening', 'Month 3 · Independence'].map((title, index) => `<article class="${index < currentMonth ? 'complete' : index === currentMonth ? 'current' : ''}"><small>${index < currentMonth ? '✓ COMPLETE' : index === currentMonth ? 'YOUR MONTH' : 'AHEAD'}</small><strong>${title}</strong><span>Days ${index * 30 + 1}–${(index + 1) * 30}</span></article>`).join('');
   $('#dayMap').innerHTML = plan.slice(currentMonth * 30, currentMonth * 30 + 30).map(([sessionTitle, sessionUrl], monthIndex) => {
@@ -69,4 +73,5 @@ Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? respons
   document.querySelectorAll('#dayMap a[data-day]').forEach((link) => link.addEventListener('click', () => openDay(Number(link.dataset.day))));
   $('#milestones').innerHTML = phases.map((phase, index) => `<article class="milestone ${hasEvidence(learner || {}, phase) ? 'ready' : ''}"><small>${hasEvidence(learner || {}, phase) ? 'EVIDENCE GROWING' : `MILESTONE ${index + 1}`}</small><h3>${phase.title}</h3><p>${phase.milestone}</p></article>`).join('');
   $('#phases').innerHTML = phases.map((phase) => `<article class="phase ${day > phase.end ? 'complete' : ''}"><strong>${phase.days}</strong><div><h3>${phase.title}</h3><p>${phase.copy}</p></div><a href="${phase.link}">Open phase →</a></article>`).join('');
+  }
 }).catch((error) => { console.error('Academy learner state failed to render.', error); $('#placement').textContent = 'Your learner record is unavailable; you can still open the first source.'; });
