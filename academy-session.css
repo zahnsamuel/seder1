@@ -1,0 +1,16 @@
+:root { color-scheme: light; --ink:#18221d; --muted:#647269; --line:#d8e0d7; --paper:#f7faf5; --accent:#27624b; --warm:#efe6d0; }
+* { box-sizing:border-box; }
+body { margin:0; color:var(--ink); background:var(--paper); font:16px/1.55 Inter, system-ui, sans-serif; }
+header { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:1.1rem 6vw; border-bottom:1px solid var(--line); background:#fff; font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; }
+header a { color:var(--accent); text-decoration:none; font-weight:700; } header span { color:var(--muted); }
+main { max-width:960px; margin:0 auto; padding:5rem 6vw 6rem; }
+.hero { max-width:720px; } .eyebrow,.label { color:var(--accent); font-size:.72rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+h1,h2 { font-family:Georgia, serif; line-height:1.1; } h1 { margin:.6rem 0 1rem; font-size:clamp(2.3rem,6vw,4.6rem); } h2 { margin:.4rem 0 1rem; font-size:1.65rem; }
+#statement { font-size:1.25rem; max-width:60ch; } .why { color:var(--muted); max-width:62ch; }
+.session-grid { display:grid; grid-template-columns:1.35fr .85fr; gap:1.25rem; margin:3rem 0 1.25rem; }
+.source-card,.rhythm,.check { background:#fff; border:1px solid var(--line); border-radius:18px; padding:1.5rem; box-shadow:0 8px 24px #183a2410; }
+.source-card { background:linear-gradient(135deg,#fff,#f1f6ed); } .move { border-left:4px solid var(--accent); padding-left:1rem; font-weight:600; }
+.rhythm ol { margin:1.1rem 0 0; padding-left:1.4rem; } .rhythm li { padding:.55rem 0; border-bottom:1px solid var(--line); } .rhythm li:last-child { border:0; }
+.choices { display:grid; gap:.7rem; } .choice { width:100%; text-align:left; border:1px solid var(--line); border-radius:12px; background:#fff; color:var(--ink); padding:1rem; cursor:pointer; font:inherit; } .choice:hover,.choice:focus-visible { border-color:var(--accent); outline:3px solid #27624b22; } .choice.correct { border-color:#2e8058; background:#e7f4e9; } .choice.incorrect { border-color:#b65b4e; background:#fff0ed; }
+#feedback { min-height:1.6em; color:var(--muted); } #continue { border:0; border-radius:999px; padding:.85rem 1.2rem; background:var(--accent); color:#fff; font-weight:700; cursor:pointer; } #continue:disabled { opacity:.45; cursor:not-allowed; }
+@media (max-width:700px) { header span { display:none; } main { padding-top:3rem; } .session-grid { grid-template-columns:1fr; } }

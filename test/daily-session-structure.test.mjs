@@ -8,5 +8,5 @@ test('Today presents a focused daily seder with adaptive session roles', async (
   assert.match(html, /TODAY'S SEDER · 25 MINUTES/);
   assert.match(html, /id="session-steps"/);
   for (const role of ['Recall', 'Study', 'Transfer', 'Connect']) assert.match(js, new RegExp(role));
-  assert.match(js, /renderSessionPlan\(recommendation\.url, needsPlacement\)/);
+  assert.match(js, /renderSessionPlan\(recommendation\.url, needsPlacement(?:, Boolean\(recommendation\.foundation\))?\)/);
 });

@@ -74,8 +74,30 @@ function moedExpansionRecommendation(learner) {
   };
 }
 
+function academyFoundationRecommendation(learner) {
+  const scores = learner.foundationScores || {};
+  if (!Object.keys(scores).length || learner.foundationGraduated) return null;
+  const sequence = [
+    ['fnd-orient-source-type', 'Orient to a Jewish source', 'Start by recognizing what kind of source you are looking at.'],
+    ['fnd-signal-question-words', 'Find the question signal', 'A recurring Hebrew signal gives you a foothold in the first source.'],
+    ['fnd-orient-question-present', 'Notice when a source is asking', 'Separate a question from a statement before trying to solve it.'],
+    ['fnd-arg-claim', 'Name the source’s claim', 'Practice identifying what a source is actually saying.'],
+    ['fnd-arg-evidence-role', 'Match evidence to a claim', 'Learn to point to the line that makes an argument move.'],
+    ['fnd-context-who-audience', 'Find the source’s audience', 'Ask who is being addressed before applying a source.'],
+    ['fnd-resp-learning-vs-ruling', 'Keep study and ruling distinct', 'Read halakhic sources seriously without mistaking literacy for personal guidance.'],
+    ['fnd-compare-scope', 'Compare sources responsibly', 'Name what is shared while preserving each source’s scope and difference.'],
+    ['fnd-indep-first-pass', 'Make a first pass through a new source', 'Carry the reading move into an unfamiliar short passage.'],
+    ['fnd-agency-choose-next', 'Choose your next learning move', 'Use your evidence to decide what to study next.']
+  ];
+  const next = sequence.find(([skill]) => Math.max(scores[skill] || 0, learner.mastery?.[skill] || 0) < .67);
+  if (!next) return null;
+  return { kind: 'academy-foundation', title: `Academy Foundation · ${next[1]}`, reason: next[2], url: `daily-router.html?foundationSkill=${encodeURIComponent(next[0])}`, skillId: next[0], foundation: true };
+}
+
 async function recommendFor(learner, { skipReview = false } = {}) {
   if (!learner.placement) return { kind: 'placement', title: 'Find your Gemara starting point', reason: 'A short source-based placement will identify what you already know and what to build next.', url: 'placement.html' };
+  const academyFoundation = academyFoundationRecommendation(learner);
+  if (academyFoundation) return academyFoundation;
   if (!skipReview) {
     // A skill that reaches strong raw mastery (>= .85) is dropped from the formal
     // spaced-repetition queue for good (see repository.mjs recordLearnerEvent), so

@@ -2743,3 +2743,14 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
   browser storage and returning to Seder. The local scope preserves a learner's sessions on
   other devices while making shared-device sign-out real rather than cosmetic.
 - Full automated suite passes: 229/229.
+
+## 2026-07-20 -- Codex: graph-driven Academy foundation session
+
+- The skills-first roadmap now has a real daily handoff: `daily-router.html?foundationSkill=...`
+  opens a focused 20-minute Academy session built from `data/foundation-skill-graph.json`.
+- The session presents one source context, a transferable teaching move, five timed roles, and
+  a guided choice with no required typing. A correct or incorrect response records learner
+  evidence through the existing event API and returns to Today for the next adaptive move.
+- The server recommendation now treats foundation placement evidence and ordinary mastery
+  evidence together, so repeated source work can advance the learner through the skill sequence.
+- Verification: full automated suite passes, 285 tests / 0 failures.

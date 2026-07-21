@@ -1,9 +1,12 @@
 const learnerId = Seder.currentLearnerId();
+const foundationSkill = new URLSearchParams(location.search).get('foundationSkill');
 const $ = (selector) => document.querySelector(selector);
-function renderSessionPlan(primaryUrl, needsPlacement = false) {
+function renderSessionPlan(primaryUrl, needsPlacement = false, isFoundation = false) {
   const steps = needsPlacement
     ? [['1', '10 min', 'Placement', 'Find the right starting point before new material.', 'placement.html']]
-    : [['1', '5 min', 'Recall', 'Bring back source words and Gemara moves due today.', 'daily-recall.html'], ['2', '15 min', 'Study', 'Work through the selected source with the Daf or source text visible.', primaryUrl], ['3', '5 min', 'Transfer', 'Use the reading habit on a fresh question or passage.', 'independent-reading.html'], ['4', 'Optional', 'Connect', 'See how this move returns to the wider Jewish canon.', 'course-dashboard.html']];
+    : isFoundation
+      ? [['1', '3 min', 'Retrieve', 'Bring back the last source-reading move.', 'daily-recall.html'], ['2', '7 min', 'Encounter', 'Read one source in its own setting.', primaryUrl], ['3', '5 min', 'Demonstrate', 'Show the move with a guided choice.', primaryUrl], ['4', '3 min', 'Transfer', 'Carry the move into a second genre.', 'independent-reading.html'], ['5', '2 min', 'Orient', 'See what changed and choose the next move.', primaryUrl]]
+      : [['1', '5 min', 'Recall', 'Bring back source words and Gemara moves due today.', 'daily-recall.html'], ['2', '15 min', 'Study', 'Work through the selected source with the Daf or source text visible.', primaryUrl], ['3', '5 min', 'Transfer', 'Use the reading habit on a fresh question or passage.', 'independent-reading.html'], ['4', 'Optional', 'Connect', 'See how this move returns to the wider Jewish canon.', 'course-dashboard.html']];
   const target = $('#session-steps');
   if (!target) return;
   target.innerHTML = steps.map(([number, time, title, copy, url], index) => `<article class="session-step ${index === 1 && !needsPlacement ? 'is-primary' : ''}"><span class="session-time">${number} · ${time}</span><h3>${title}</h3><p>${copy}</p><a href="${url}">Open →</a></article>`).join('');
@@ -139,7 +142,11 @@ Promise.all([
   if (!category?.score && !(personalDue || vocabDue) && (foundationTerm || gemaraYearMove || moedExpansionMove)) recommendation = foundationTerm || gemaraYearMove || moedExpansionMove;
   if (recommendation.url === `tractate-mastery.html?tractate=${tractate}`) recommendation.url = gemaraWorkbenchUrl[tractate];
   if (needsPlacement) recommendation = { title: 'Find your starting point', url: 'placement.html', reason: 'Begin with a short source-based placement. It chooses a first Gemara move and a review rhythm without assigning a permanent level.' };
-  renderSessionPlan(recommendation.url, needsPlacement);
+  const requestedFoundation = !needsPlacement && foundationSkill ? foundationSkill : null;
+  if (requestedFoundation) {
+    recommendation = { title: 'Academy Foundation · one focused skill', url: `academy-session.html?skill=${encodeURIComponent(requestedFoundation)}`, reason: 'A short, source-based session builds one transferable learning move at a time.', foundation: true, skillId: requestedFoundation };
+  }
+  renderSessionPlan(recommendation.url, needsPlacement, Boolean(recommendation.foundation));
   if (needsPlacement) {
     document.querySelector('#mastery-status').hidden = true;
     document.querySelector('#cross-canon').hidden = true;
