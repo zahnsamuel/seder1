@@ -7,4 +7,6 @@ test('weekly review turns learner evidence into recall and connection prompts', 
   assert.match(js, /RELIABLE SKILLS/);
   assert.match(js, /ONE CONNECTION TO CARRY FORWARD/);
   assert.match(js, /reviewQueue/);
+  assert.match(js, /foundation-skill-graph\.json/);
+  assert.match(js, /nextFoundation/);
 });

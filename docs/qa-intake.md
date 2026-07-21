@@ -2784,3 +2784,14 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
   message after a missed cadence window. The recovery copy invites one small session rather than
   framing a missed day as failure.
 - Verification: rhythm routing and recovery checks pass; the full suite remains green.
+
+## 2026-07-20 -- Codex: make weekly progress visible
+
+- Today now links to Weekly Review as the fifth optional step in the daily rhythm.
+- Weekly Review reads the canonical foundation graph and learner evidence, reports secure
+  foundational capabilities, and links directly to the next prerequisite-ready Academy skill.
+- This turns progress reflection into a continuation of the learning loop rather than a separate
+  analytics page.
+- Updated the presentation-flow regression assertion to the canonical “The Jewish Learning
+  Academy” product name as the landing page rebrand landed.
+- Verification: full automated suite passes, 288 tests / 0 failures.
