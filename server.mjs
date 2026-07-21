@@ -455,6 +455,7 @@ async function handleApi(request, response, url) {
   const todayMatch = url.pathname.match(/^\/api\/learners\/([a-zA-Z0-9_-]+)\/today$/);
   if (request.method === 'GET' && todayMatch) {
     const { learner } = await readLearner(request, todayMatch[1]);
+    const rhythmMinutes = { daily: 20, 'three-times-weekly': 20, weekly: 30 }[learner.rhythm] || 20;
     const review = reviewStatus(learner);
     const recommendation = await recommendFor(learner);
     const steps = [];
@@ -470,7 +471,7 @@ async function handleApi(request, response, url) {
         steps.push({ type: 'review', label: 'Retrieve', title: recommendation.title, reason: recommendation.reason, minutes: 3, url: 'review.html' });
       }
       const newLearning = recommendation.kind === 'review' ? await recommendFor(learner, { skipReview: true }) : recommendation;
-      steps.push({ type: 'new', label: 'New learning', title: newLearning.title, reason: newLearning.reason, minutes: 7, url: newLearning.url });
+      steps.push({ type: 'new', label: 'New learning', title: newLearning.title, reason: newLearning.reason, minutes: Math.max(7, rhythmMinutes - (review.due.length ? 3 : 0) - 2), url: newLearning.url });
       steps.push({ type: 'mastery', label: 'Close the loop', title: 'Return to your path', reason: 'See what changed and what is ready next.', minutes: 2, url: 'mastery.html' });
     }
     const fading = decayingSkills(learner);

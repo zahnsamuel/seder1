@@ -2772,3 +2772,11 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
 - This makes the Academy promise operational: the graph chooses what to learn, while the learner
   chooses a cadence they can actually keep.
 - Verification: targeted placement, rhythm, and repository checks pass.
+
+## 2026-07-20 -- Codex: honor rhythm in daily sessions
+
+- The saved rhythm now changes the daily session's planned learning duration: 20 minutes for
+  daily or three-times-weekly learners, and 30 minutes for weekly learners. The next skill and
+  evidence gates remain unchanged, so cadence changes time—not standards.
+- Today displays the active duration and the server's `/today` plan uses the same value, keeping
+  the client and hosted recommendation aligned.

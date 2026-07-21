@@ -1,7 +1,7 @@
 const learnerId = Seder.currentLearnerId();
 const foundationSkill = new URLSearchParams(location.search).get('foundationSkill');
 const $ = (selector) => document.querySelector(selector);
-function renderSessionPlan(primaryUrl, needsPlacement = false, isFoundation = false) {
+function renderSessionPlan(primaryUrl, needsPlacement = false, isFoundation = false, minutes = 20) {
   const steps = needsPlacement
     ? [['1', '10 min', 'Placement', 'Find the right starting point before new material.', 'placement.html']]
     : isFoundation
@@ -10,6 +10,8 @@ function renderSessionPlan(primaryUrl, needsPlacement = false, isFoundation = fa
   const target = $('#session-steps');
   if (!target) return;
   target.innerHTML = steps.map(([number, time, title, copy, url], index) => `<article class="session-step ${index === 1 && !needsPlacement ? 'is-primary' : ''}"><span class="session-time">${number} · ${time}</span><h3>${title}</h3><p>${copy}</p><a href="${url}">Open →</a></article>`).join('');
+  const duration = $('#session-duration');
+  if (duration) duration.textContent = isFoundation ? '20' : String(minutes);
 }
 const gemaraCycle = [
   ['berakhot', 'Berakhot: begin to read the sugya'],
@@ -146,7 +148,8 @@ Promise.all([
   if (requestedFoundation) {
     recommendation = { title: 'Academy Foundation · one focused skill', url: `academy-session.html?skill=${encodeURIComponent(requestedFoundation)}`, reason: 'A short, source-based session builds one transferable learning move at a time.', foundation: true, skillId: requestedFoundation };
   }
-  renderSessionPlan(recommendation.url, needsPlacement, Boolean(recommendation.foundation));
+  const rhythmMinutes = { daily: 20, 'three-times-weekly': 20, weekly: 30 }[learner.rhythm] || 20;
+  renderSessionPlan(recommendation.url, needsPlacement, Boolean(recommendation.foundation), rhythmMinutes);
   if (needsPlacement) {
     document.querySelector('#mastery-status').hidden = true;
     document.querySelector('#cross-canon').hidden = true;
