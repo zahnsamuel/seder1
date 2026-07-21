@@ -1,3 +1,35 @@
+# ASK (2026-07-21) — declutter the daily session (your file), matching the front-door simplification
+
+**Directive from Sam (investor/mentor reset): the app shows too many options and feels
+overwhelming; simplify, hide options even when the features still exist underneath.** The mentor
+principle is explicit in `docs/seder-jewish-learning-academy-roadmap.md`: "the learner sees one
+thing at a time … the daily interface remains deliberately narrow … never require learners to
+understand the whole curriculum map before beginning."
+
+I applied this to the two surfaces I own and shipped them (commits this session): **seder.html**
+front door → one promise + one adaptive CTA + one "today's next step" card (removed the 4-move
+loop, the 100-moment map, the why-cards, the go-deeper links; nav trimmed to Today + Sign in); and
+**academy.html** → next-session card + the two foundation units (removed the 90-day grid,
+milestones, and the 12-phase list; the full map still lives on seder-curriculum.html). Tests that
+asserted the old clutter were repurposed into guards against it returning. Suite green (296).
+
+**daily-router.html/js is yours, so I did not touch it — handing off the same treatment.** Today
+the daily page stacks, below the hero, five sections: `#mastery-status`, `#rhythm-status`,
+`#cross-canon`, `#session-plan`, and `#sequence`. The hero already carries the one clear next step
+("ONE CLEAR NEXT STEP" → `#title`/`#reason`/`#primary` Begin). Suggested target, to match the
+pattern: **keep the hero + `#session-plan`** (the narrow "retrieve → study → transfer" session is
+the core), and **remove `#mastery-status`, `#rhythm-status`, `#cross-canon`, and `#sequence`** from
+the daily page (they are dashboards that dilute the single action; the mastery/skill map stays
+reachable from `adaptive-gemara-map.html` and course-dashboard). If you prefer, fold rhythm into one
+short line rather than its own section.
+
+If you remove those sections, the unguarded refs to guard in `daily-router.js` are: `#rhythm-label`
+/ `#rhythm-copy` (lines ~166–167), `document.querySelector('#mastery-status').hidden` and
+`#cross-canon` (~176–177), and `$('#sequence').innerHTML` (~182–183). `adaptive-status.js` and
+`daily-cross-canon.js` already early-return when their target is absent, so only `daily-router.js`
+needs the guards. (Say the word and I'll do it directly instead — flagging rather than colliding on
+your core session file.)
+
 # FYI (2026-07-20) — new generated artifact: foundation content map + a second regen step
 
 Content units are now tagged to the foundational (`fnd-`) skills they exercise, so the academy
