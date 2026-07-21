@@ -11,4 +11,6 @@ test('My Path is a real integrated learner dashboard', () => {
   assert.match(html, /id="review-section"/);
   assert.match(html, /aria-label="Integrated mastery milestones"/);
   assert.match(html, /daily-router\.html/);
+  assert.match(html, /id="skill-progress"/);
+  assert.match(html, /CAPABILITY GRAPH/);
 });

@@ -4,12 +4,14 @@ const saved = JSON.parse(localStorage.getItem(key) || '{}');
 const xp = document.querySelector('#xp');
 xp.textContent = `${saved.xp || 0} XP`;
 const readableSkill = (skill) => skill.replace(/^lab-/, '').replaceAll('-', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
+const escapeHtml = (value) => String(value || '').replace(/[&<>"']/g, (char) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
 
 Promise.all([
   Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? response.json() : Promise.reject()),
   Seder.api(`/api/learners/${learnerId}/recommendation`).then((response) => response.ok ? response.json() : Promise.reject()),
-  Seder.api(`/api/learners/${learnerId}/review`).then((response) => response.ok ? response.json() : Promise.reject())
-]).then(([learner, decision, review]) => {
+  Seder.api(`/api/learners/${learnerId}/review`).then((response) => response.ok ? response.json() : Promise.reject()),
+  fetch('data/foundation-skill-graph.json').then((response) => response.json())
+]).then(([learner, decision, review, graph]) => {
   const completed = new Set(learner.completedStages || []);
   const stageState = {
     source: completed.size > 0,
@@ -32,6 +34,19 @@ Promise.all([
   });
   xp.textContent = `${learner.xp || 0} XP`;
   localStorage.setItem(key, JSON.stringify({ ...saved, xp: learner.xp || 0 }));
+  const foundationScores = learner.foundationScores || {};
+  const mastery = learner.mastery || {};
+  const skills = graph.skills || [];
+  const secure = skills.filter((skill) => Math.max(foundationScores[skill.id] || 0, mastery[skill.id] || 0) >= .67);
+  const nextSkill = skills.find((skill) => Math.max(foundationScores[skill.id] || 0, mastery[skill.id] || 0) < .67 && (skill.prerequisites || []).every((prerequisite) => Math.max(foundationScores[prerequisite] || 0, mastery[prerequisite] || 0) >= .67)) || skills.find((skill) => Math.max(foundationScores[skill.id] || 0, mastery[skill.id] || 0) < .67);
+  const skillCard = document.querySelector('#skill-progress-card');
+  if (skillCard && nextSkill) {
+    const layer = graph.layers?.find((item) => item.n === nextSkill.layer);
+    skillCard.innerHTML = `<div><span>LAYER ${nextSkill.layer} · ${escapeHtml(layer?.title || 'FOUNDATION')}</span><strong>${escapeHtml(nextSkill.title)}</strong><small>${secure.length} of ${skills.length} foundational skills secure · ${escapeHtml(nextSkill.statement)}</small></div><a href="academy-session.html?skill=${encodeURIComponent(nextSkill.id)}">Practice →</a>`;
+    document.querySelector('#skill-progress-copy').textContent = `Your evidence places you in ${escapeHtml(layer?.title || 'the next foundation layer')}. One capability is ready to practice now.`;
+  } else if (skillCard) {
+    skillCard.innerHTML = '<strong>Foundation skills established. Choose a new source to transfer them.</strong><a href="independent-reading.html">Transfer →</a>';
+  }
   const recommendation = decision.recommendation;
   const today = document.querySelector('.today');
   today.querySelector('div').innerHTML = `<span>NEXT BEST STEP</span><strong>${recommendation.title}</strong><small>${recommendation.reason}</small>`;

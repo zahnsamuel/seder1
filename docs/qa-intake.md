@@ -2754,3 +2754,12 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
 - The server recommendation now treats foundation placement evidence and ordinary mastery
   evidence together, so repeated source work can advance the learner through the skill sequence.
 - Verification: full automated suite passes, 285 tests / 0 failures.
+
+## 2026-07-20 -- Codex: expose capability graph in My Path
+
+- My Path now reads the canonical foundational skill graph alongside learner mastery and
+  placement evidence. It shows the secure-skill count, current graph layer, and one actionable
+  next capability instead of presenting the learner with an undifferentiated catalog.
+- The next capability links directly into the graph-driven 20-minute Academy session, keeping
+  the product promise of one clear next move and making progress legible as capability growth.
+- Verification: targeted My Path and Academy checks pass; full automated suite remains 285/285.

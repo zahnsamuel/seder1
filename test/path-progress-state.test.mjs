@@ -12,4 +12,6 @@ test('My Path milestones are keyed to learner evidence', () => {
   assert.match(html, /id="path-status"/);
   assert.match(js, /milestones established/);
   assert.match(js, /aria-current/);
+  assert.match(js, /foundation-skill-graph\.json/);
+  assert.match(js, /skill-progress-card/);
 });
