@@ -12,9 +12,10 @@ test('every wider-canon domain has guided reading, deliberate practice, and tran
 });
 
 test('course dashboard and daily path surface a canon mastery rhythm and a Gemara connection', async () => {
-  const [dashboard, sequence, daily, connection] = await Promise.all(['course-dashboard.html', 'canon-source-sequences.js', 'daily-router.html', 'daily-cross-canon.js'].map((file) => readFile(new URL(`../${file}`, import.meta.url), 'utf8')));
+  // The cross-canon connections were removed from the simplified daily page; the connection data
+  // still lives in daily-cross-canon.js and the mastery rhythm on the course dashboard.
+  const [dashboard, sequence, connection] = await Promise.all(['course-dashboard.html', 'canon-source-sequences.js', 'daily-cross-canon.js'].map((file) => readFile(new URL(`../${file}`, import.meta.url), 'utf8')));
   assert.match(dashboard, /source-sequences/);
   assert.match(sequence, /Read → practice → transfer/);
-  assert.match(daily, /cross-canon/);
   for (const phrase of ['Berakhot and Shema', 'Shabbat and responsibility', 'Eruvin and Tefillah']) assert.match(connection, new RegExp(phrase));
 });

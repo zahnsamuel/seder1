@@ -172,13 +172,10 @@ Promise.all([
       ? 'You have room to return. One small session today is enough to restart the rhythm.'
       : 'Keep the next move small and let consistency build the path.';
   }
-  if (needsPlacement) {
-    document.querySelector('#mastery-status').hidden = true;
-    document.querySelector('#cross-canon').hidden = true;
-  }
+  // The daily page was simplified to the hero (one clear next step) + the session plan; the
+  // mastery-status, cross-canon, and 5-step sequence dashboards were removed (mentor reset). The
+  // hero + session plan are populated below; the removed sections are no longer referenced.
   $('#title').textContent = recommendation.title;
   $('#reason').textContent = recommendation.reason;
   $('#primary').href = recommendation.url;
-  $('#sequence').innerHTML = [['1', 'Recall', 'daily-recall.html', 'Bring back source words and Gemara moves due today.'], ['2', 'Study', recommendation.url, 'Follow the next adaptive step.'], ['3', 'Transfer', 'independent-reading.html', 'Read a source you have not rehearsed.'], ['4', 'Connect', 'course-dashboard.html', 'See course, bridge, and capstone evidence.'], ['5', 'Reflect', 'weekly-review.html', 'See what became reliable and choose next week’s first move.']].map(([number, title, url, copy]) => `<article><small>${number}</small><h2>${title}</h2><p>${copy}</p><a href="${url}">Open &rarr;</a></article>`).join('');
-  if (needsPlacement) $('#sequence').innerHTML = `<article><small>1</small><h2>Starting point</h2><p>Answer twelve short source questions. Your path begins immediately after.</p><a href="placement.html">Begin placement &rarr;</a></article>`;
 }).catch(() => { $('#title').textContent = 'Begin today\'s Canon Studio'; $('#primary').href = 'daily-canon.html'; });
