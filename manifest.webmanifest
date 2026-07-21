@@ -1,6 +1,6 @@
 {
-  "name": "Seder — Your Jewish Learning Journey",
-  "short_name": "Seder",
+  "name": "Jewish Learning Academy",
+  "short_name": "JLA",
   "description": "A mastery-learning path into Gemara and the wider Jewish canon: daily recall, guided source reading, and spaced review.",
   "id": "seder-learning",
   "start_url": "daily-router.html?source=pwa",

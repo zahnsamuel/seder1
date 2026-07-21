@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 
 test('PWA manifest is valid and installable-shaped', async () => {
   const manifest = JSON.parse(await readFile(new URL('../manifest.webmanifest', import.meta.url), 'utf8'));
-  assert.equal(manifest.short_name, 'Seder');
+  assert.equal(manifest.short_name, 'JLA');
   assert.ok(manifest.start_url.startsWith('daily-router.html'), 'the installed app should open on the daily habit loop');
   assert.equal(manifest.display, 'standalone');
   assert.ok(manifest.icons.length >= 1 && manifest.icons[0].src === 'icon.svg');

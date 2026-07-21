@@ -1,5 +1,5 @@
 // Minimal, safe service worker: network-first with cache fallback for same-origin GET
-// pages/assets, so an installed Seder reopens offline on previously visited pages.
+// pages/assets, so an installed Jewish Learning Academy reopens offline on previously visited pages.
 // Never touches /api/ (learner data must always be live) or cross-origin requests.
 const CACHE = 'seder-static-v1';
 

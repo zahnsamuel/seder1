@@ -15,7 +15,7 @@ const prompts = {
   ],
   'phase-4': [
     ['You meet an unfamiliar Jewish source. What is the strongest reading sequence?', ['Name the genre and context, read its language, map its claim or move, then trace connections.', 'Start by choosing a practical ruling.', 'Treat every source as a Gemara argument.'], 0],
-    ['What does independent learning mean in Seder?', ['Responsible source navigation, including knowing when further guidance and community matter.', 'Never asking another reader for help.', 'Having a final answer immediately.'], 0]
+    ['What does independent learning mean in Jewish Learning Academy?', ['Responsible source navigation, including knowing when further guidance and community matter.', 'Never asking another reader for help.', 'Having a final answer immediately.'], 0]
   ],
   'phase-5': [
     ['A source quotes a verse or another authority. What should a careful reader do first?', ['Identify what kind of source has entered and the argumentative job it is being asked to do.', 'Assume the discussion is over.', 'Skip directly to a personal conclusion.'], 0],

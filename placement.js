@@ -129,8 +129,8 @@ function renderResults() {
   const rec = recommendation;
   $('#results-title').textContent = rec && rec.title ? `Start here: ${rec.title}` : 'Your starting profile is ready.';
   $('#results-copy').textContent = rec && rec.statement
-    ? `${rec.statement} ${rec.why} This is a starting profile, not a permanent level — The Jewish Learning Academy uses it to choose your first source and review rhythm.`
-    : 'This is a starting profile, not a permanent level. The Jewish Learning Academy uses it to choose your first source and review rhythm.';
+    ? `${rec.statement} ${rec.why} This is a starting profile, not a permanent level — Jewish Learning Academy uses it to choose your first source and review rhythm.`
+    : 'This is a starting profile, not a permanent level. Jewish Learning Academy uses it to choose your first source and review rhythm.';
   const secure = layerProfile.filter((layer) => layer.status === 'Secure').map((layer) => layer.title.toLowerCase());
   const canDo = $('#results-cando');
   if (canDo) canDo.textContent = secure.length
@@ -149,7 +149,7 @@ function renderResults() {
     try {
       const response = await Seder.api(`/api/learners/${learnerId}/events`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ type:'learning_rhythm_set', rhythm }) });
       if (!response.ok) throw new Error('rhythm');
-      $('#rhythm-status').textContent = 'Rhythm saved. Seder will keep the next move small and consistent.';
+      $('#rhythm-status').textContent = 'Rhythm saved. The Academy will keep the next move small and consistent.';
     } catch { $('#rhythm-status').textContent = 'Rhythm will stay on this device until your account is available.'; }
   }));
 }

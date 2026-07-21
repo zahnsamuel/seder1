@@ -13,7 +13,7 @@ test('Sanhedrin is a full, source-grounded tractate arc with a safe mastery hand
     readFile(new URL('../sanhedrin-foundation.html', import.meta.url), 'utf8'),
     readFile(new URL('../gemara-continuation.js', import.meta.url), 'utf8')
   ]);
-  for (const phrase of ['Sanhedrin 2a', 'Mishnah Sanhedrin 1:1', 'Seder learning boundary', 'typed:true', 'sanhedrin-transfer-map']) assert.match(arc, new RegExp(phrase));
+  for (const phrase of ['Sanhedrin 2a', 'Mishnah Sanhedrin 1:1', 'Jewish Learning Academy learning boundary', 'typed:true', 'sanhedrin-transfer-map']) assert.match(arc, new RegExp(phrase));
   assert.match(html, /course-engine\.js/);
   assert.match(registry, /'sanhedrin-tractate-arc':\{tractate:'sanhedrin',url:'flagship-daf-workbench\.html\?tractate=sanhedrin'/);
   assert.match(workbench, /sources\.sanhedrin=/);
