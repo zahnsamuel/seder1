@@ -8,7 +8,10 @@ const js = fs.readFileSync('placement.js', 'utf8');
 test('placement exposes a readable starting profile before My Path', () => {
   assert.match(html, /id="placement-results"/);
   assert.match(html, /id="results-grid"/);
-  assert.match(html, /Continue to My Path/);
+  // One clear next action on the results screen (mentor reset): begin with the recommended skill.
+  // The redundant "Continue to My Path" secondary CTA was removed.
+  assert.match(html, /Begin with this skill/);
+  assert.doesNotMatch(html, /Continue to My Path/);
   assert.match(js, /function renderResults\(\)/);
   assert.match(js, /STARTING PROFILE READY/);
   assert.match(js, /then\(\(\) => renderResults\(\)\)/);
