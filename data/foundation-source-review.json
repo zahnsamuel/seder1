@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "purpose": "Scholarly review register for the first ten Academy graph skills; link presence is not a substitute for primary-text review.",
+  "overallStatus": "awaiting-human-scholar-review",
+  "reviewGates": ["primary-text-verified", "translation-checked", "context-checked", "assessment-reviewed", "accessibility-checked", "safety-boundary-checked"],
+  "skills": [
+    {
+      "skillId": "fnd-orient-source-type",
+      "sourceContexts": [
+        {"ref": "Deuteronomy 6:4", "genre": "torah", "sefariaUrl": "https://www.sefaria.org/Deuteronomy.6.4?lang=bi", "linkStatus": "page-confirmed"},
+        {"ref": "Mishnah Berakhot 1:1", "genre": "mishnah", "sefariaUrl": "https://www.sefaria.org/Mishnah_Berakhot.1.1?lang=bi", "linkStatus": "page-confirmed"},
+        {"ref": "Kaddish", "genre": "tefillah", "sefariaUrl": "https://www.sefaria.org/search?q=Kaddish&tab=texts", "linkStatus": "search-link"}
+      ],
+      "reviewStatus": "awaiting-human-scholar-review"
+    },
+    {
+      "skillId": "fnd-orient-page-geography",
+      "sourceContexts": [
+        {"ref": "Talmud Berakhot 2a (Vilna page)", "genre": "gemara", "sefariaUrl": "https://www.sefaria.org/Berakhot.2a?lang=bi", "linkStatus": "page-confirmed"},
+        {"ref": "Chumash with Rashi, Genesis 22", "genre": "torah", "sefariaUrl": "https://www.sefaria.org/Genesis.22?lang=bi", "linkStatus": "page-confirmed"}
+      ],
+      "reviewStatus": "awaiting-human-scholar-review"
+    },
+    {"skillId":"fnd-orient-speaker","sourceContexts":[{"ref":"Pirkei Avot 1:1","genre":"thought","sefariaUrl":"https://www.sefaria.org/search?q=Pirkei%20Avot%201%3A1&tab=texts"},{"ref":"Gemara Berakhot 2a","genre":"gemara","sefariaUrl":"https://www.sefaria.org/Berakhot.2a?lang=bi"}],"reviewStatus":"awaiting-human-scholar-review"},
+    {"skillId":"fnd-orient-unit-boundary","sourceContexts":[{"ref":"Mishnah Berakhot 1:1","genre":"mishnah","sefariaUrl":"https://www.sefaria.org/Mishnah_Berakhot.1.1?lang=bi"},{"ref":"Psalm 19","genre":"torah","sefariaUrl":"https://www.sefaria.org/Psalms.19?lang=bi"}],"reviewStatus":"awaiting-human-scholar-review"},
+    {"skillId":"fnd-orient-question-present","sourceContexts":[{"ref":"Gemara Berakhot 2a","genre":"gemara","sefariaUrl":"https://www.sefaria.org/Berakhot.2a?lang=bi"},{"ref":"Job 38","genre":"torah","sefariaUrl":"https://www.sefaria.org/Job.38?lang=bi"}],"reviewStatus":"awaiting-human-scholar-review"},
+    {"skillId":"fnd-signal-known-words","sourceContexts":[{"ref":"Amidah, opening blessing","genre":"tefillah","sefariaUrl":"https://www.sefaria.org/search?q=Amidah%20opening%20blessing&tab=texts"},{"ref":"Gemara Berakhot 2a","genre":"gemara","sefariaUrl":"https://www.sefaria.org/Berakhot.2a?lang=bi"},{"ref":"Genesis 22","genre":"torah","sefariaUrl":"https://www.sefaria.org/Genesis.22?lang=bi"}],"reviewStatus":"awaiting-human-scholar-review"},
+    {"skillId":"fnd-signal-question-words","sourceContexts":[{"ref":"Gemara Berakhot 2a","genre":"gemara","sefariaUrl":"https://www.sefaria.org/Berakhot.2a?lang=bi"},{"ref":"Mishnah Pesachim 1:1","genre":"mishnah","sefariaUrl":"https://www.sefaria.org/Mishnah_Pesachim.1.1?lang=bi"}],"reviewStatus":"awaiting-human-scholar-review"},
+    {"skillId":"fnd-signal-connectors","sourceContexts":[{"ref":"Gemara Berakhot 2b","genre":"gemara","sefariaUrl":"https://www.sefaria.org/Berakhot.2b?lang=bi"},{"ref":"Rambam, Hilchot Deot 1:4","genre":"halakha","sefariaUrl":"https://www.sefaria.org/Mishneh_Torah%2C_Human_Dispositions.1.4?lang=bi"}],"reviewStatus":"awaiting-human-scholar-review"},
+    {"skillId":"fnd-signal-quotation","sourceContexts":[{"ref":"Gemara Berakhot 2a (verse citations)","genre":"gemara","sefariaUrl":"https://www.sefaria.org/Berakhot.2a?lang=bi"},{"ref":"Kiddushin 31b (honoring parents chain)","genre":"halakha","sefariaUrl":"https://www.sefaria.org/Kiddushin.31b?lang=bi"}],"reviewStatus":"awaiting-human-scholar-review"},
+    {"skillId":"fnd-signal-name-formulas","sourceContexts":[{"ref":"Mishnah Berakhot 1:1","genre":"mishnah","sefariaUrl":"https://www.sefaria.org/Mishnah_Berakhot.1.1?lang=bi"},{"ref":"Gemara Shabbat 55a","genre":"gemara","sefariaUrl":"https://www.sefaria.org/Shabbat.55a?lang=bi"}],"reviewStatus":"awaiting-human-scholar-review"}
+  ]
+}

@@ -2795,6 +2795,10 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
 - Academy foundation sessions now show the selected graph skill's exact source reference and a
   direct Sefaria lookup link, keeping the learner anchored in a real text while the guided check
   teaches the transferable move.
+- Created `data/foundation-source-review.json` for the first ten graph skills. Four canonical
+  Sefaria pages were directly confirmed during this pass; the register deliberately keeps every
+  skill at `awaiting-human-scholar-review` until primary text, translation, context, assessment,
+  accessibility, and safety gates receive a human sign-off.
 - Updated the presentation-flow regression assertion to the canonical “The Jewish Learning
   Academy” product name as the landing page rebrand landed.
 - Verification: full automated suite passes, 288 tests / 0 failures.
