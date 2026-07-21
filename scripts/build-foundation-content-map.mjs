@@ -60,6 +60,20 @@ export function tagFor(step, genre) {
   if (has(/QUOTATION SIGNAL/)) return 'fnd-signal-quotation';
   if (has(/NAME FORMULA/)) return 'fnd-signal-name-formulas';
 
+  // L3-L10 — the independent learner's own moves. Like the orientation micro-skills above, these
+  // are the PRIMARY move only in a purpose-built unit (foundation-independent-reading), never in
+  // the source-reading arcs, where they are means to an argument rather than the object of study.
+  // Distinctive modes, placed first so the general rules below don't capture them (e.g.
+  // \bQUESTION\b -> arg-objection would otherwise swallow "ASK A QUESTION").
+  if (has(/TRANSLATION CHOICE/)) return 'fnd-role-translation-gap';
+  if (has(/\bRESTATE\b/)) return 'fnd-case-restate';
+  if (has(/STEELMAN|STRONGEST FORM/)) return 'fnd-compare-strongest-form';
+  if (has(/WHEN TO ASK/)) return 'fnd-resp-when-to-ask';
+  if (has(/PREDICT THEN CHECK/)) return 'fnd-indep-use-translation-to-check';
+  if (has(/ASK A QUESTION/)) return 'fnd-agency-ask-question';
+  if (has(/USE A TOOL|SOURCE TOOL/)) return 'fnd-agency-use-tools';
+  if (has(/CHOOSE NEXT|NEXT MOVE/)) return 'fnd-agency-choose-next';
+
   // L8 — practice & responsibility
   if (has(/PRESERVE|ELU|\bTENSION\b/)) return 'fnd-resp-preserve-disagreement';
   if (has(/AGENCY LIMIT|REPRESENTATION LIMIT|TESTIMONY LIMIT|\bLIMITS\b|LIMITING PRINCIPLE/)) return 'fnd-resp-name-limits';
