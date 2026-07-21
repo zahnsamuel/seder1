@@ -16,6 +16,8 @@ const defaultLearner = (id) => ({
   completedStages: [],
   reviewQueue: [],
   placement: null,
+  foundationScores: {},
+  rhythm: null,
   artifacts: {},
   events: [],
   dailyStreak: 0,
@@ -53,7 +55,7 @@ function withWriteLock(root, fn) {
 function normalizedLearner(learner) {
   if (!learner) return null;
   const base = defaultLearner(learner.id);
-  const merged = { ...base, ...learner, profile: { ...base.profile, ...(learner.profile || {}) }, competencies: { ...base.competencies, ...(learner.competencies || {}) }, evidence: { ...(learner.evidence || {}) }, masteryUpdatedAt: { ...(learner.masteryUpdatedAt || {}) }, struggles: { ...(learner.struggles || {}) }, artifacts: { ...(learner.artifacts || {}) }, reviewQueue: normalizedReviewQueue(learner.reviewQueue) };
+  const merged = { ...base, ...learner, profile: { ...base.profile, ...(learner.profile || {}) }, competencies: { ...base.competencies, ...(learner.competencies || {}) }, evidence: { ...(learner.evidence || {}) }, masteryUpdatedAt: { ...(learner.masteryUpdatedAt || {}) }, struggles: { ...(learner.struggles || {}) }, artifacts: { ...(learner.artifacts || {}) }, foundationScores: { ...(learner.foundationScores || {}) }, reviewQueue: normalizedReviewQueue(learner.reviewQueue) };
   merged.decayedMastery = decayedMasteryMap(merged.mastery, merged.masteryUpdatedAt);
   return merged;
 }
@@ -212,8 +214,10 @@ async function recordLearnerEventUnlocked(root, id, event) {
     learner.artifacts[event.artifactType] = [...items];
   }
   if (event.type === 'goal_set') learner.goal = event.goal || null;
+  if (event.type === 'learning_rhythm_set' && ['daily', 'three-times-weekly', 'weekly'].includes(event.rhythm)) learner.rhythm = event.rhythm;
   if (event.type === 'placement_completed') {
     learner.placement = { completedAt: recorded.at, scores: event.scores || {} };
+    learner.foundationScores = { ...(learner.foundationScores || {}), ...(event.foundationScores || {}) };
     learner.masteryUpdatedAt ||= {};
     Object.entries(event.scores || {}).forEach(([skillId, score]) => {
       learner.mastery[skillId] = Math.max(learner.mastery[skillId] || 0, Math.min(1, Number(score) || 0));

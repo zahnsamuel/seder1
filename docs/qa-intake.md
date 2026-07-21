@@ -2763,3 +2763,12 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
 - The next capability links directly into the graph-driven 20-minute Academy session, keeping
   the product promise of one clear next move and making progress legible as capability growth.
 - Verification: targeted My Path and Academy checks pass; full automated suite remains 285/285.
+
+## 2026-07-20 -- Codex: make learning rhythm explicit
+
+- Placement results now offer three sustainable rhythms: 20 minutes daily, 20 minutes three
+  times weekly, or 30 minutes weekly. The choice is optional, changeable, and saved as learner
+  state rather than treated as a test result.
+- This makes the Academy promise operational: the graph chooses what to learn, while the learner
+  chooses a cadence they can actually keep.
+- Verification: targeted placement, rhythm, and repository checks pass.
