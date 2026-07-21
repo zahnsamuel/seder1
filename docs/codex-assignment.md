@@ -1,3 +1,12 @@
+# RESOLVED (2026-07-21) — daily-session declutter done directly (Codex is out)
+
+**Update:** Sam said Codex is out and to stop routing through it until told otherwise, so I did the
+daily-session declutter myself (commit "Declutter the daily session to hero + focused session
+plan"): removed `#mastery-status`, `#rhythm-status`, `#cross-canon`, and the redundant `#sequence`
+from `daily-router.html`; kept the hero + `#session-plan`; dropped the now-unused `adaptive-status.js`
+/ `daily-cross-canon.js` script tags; guarded `daily-router.js`. Suite green (296). Original ask
+below for the record.
+
 # ASK (2026-07-21) — declutter the daily session (your file), matching the front-door simplification
 
 **Directive from Sam (investor/mentor reset): the app shows too many options and feels
