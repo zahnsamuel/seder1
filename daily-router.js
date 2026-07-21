@@ -150,6 +150,17 @@ Promise.all([
   }
   const rhythmMinutes = { daily: 20, 'three-times-weekly': 20, weekly: 30 }[learner.rhythm] || 20;
   renderSessionPlan(recommendation.url, needsPlacement, Boolean(recommendation.foundation), rhythmMinutes);
+  const rhythmLabels = { daily: '20 minutes daily', 'three-times-weekly': '20 minutes, three times a week', weekly: '30 minutes weekly' };
+  const rhythmLabel = $('#rhythm-label');
+  const rhythmCopy = $('#rhythm-copy');
+  if (rhythmLabel) rhythmLabel.textContent = `${rhythmLabels[learner.rhythm] || '20 minutes daily'} · ${learner.dailyStreak || 0} day streak`;
+  if (rhythmCopy) {
+    const daysSinceStudy = learner.lastStudyDate ? Math.floor((Date.now() - new Date(learner.lastStudyDate).getTime()) / 86400000) : null;
+    const recoveryWindow = learner.rhythm === 'weekly' ? 8 : learner.rhythm === 'three-times-weekly' ? 4 : 2;
+    rhythmCopy.textContent = daysSinceStudy !== null && daysSinceStudy >= recoveryWindow
+      ? 'You have room to return. One small session today is enough to restart the rhythm.'
+      : 'Keep the next move small and let consistency build the path.';
+  }
   if (needsPlacement) {
     document.querySelector('#mastery-status').hidden = true;
     document.querySelector('#cross-canon').hidden = true;

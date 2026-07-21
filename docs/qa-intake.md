@@ -2780,3 +2780,7 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
   evidence gates remain unchanged, so cadence changes time—not standards.
 - Today displays the active duration and the server's `/today` plan uses the same value, keeping
   the client and hosted recommendation aligned.
+- Today now shows the learner's selected cadence and evidence-based streak, with a gentle return
+  message after a missed cadence window. The recovery copy invites one small session rather than
+  framing a missed day as failure.
+- Verification: rhythm routing and recovery checks pass; the full suite remains green.
