@@ -2802,3 +2802,8 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
 - Updated the presentation-flow regression assertion to the canonical “The Jewish Learning
   Academy” product name as the landing page rebrand landed.
 - Verification: full automated suite passes, 288 tests / 0 failures.
+
+## 2026-07-21 - Jewish Learning Academy roadmap linked
+- Added the canonical Jewish Learning Academy roadmap as the project-level product direction for the skills-first transition.
+- Next: continue converting learner surfaces from Seder-era content navigation into JLA skill-graph progression.
+
