@@ -161,12 +161,6 @@ Seder.updateAppBadge = async () => {
   } catch { /* badge is best-effort */ }
 };
 setTimeout(Seder.updateAppBadge, 0);
-// Keep all learner-facing “Today” links on the evidence-led daily router. Several
-// early source pages predate that router and still contain a static today.html link;
-// rewriting those links here prevents two competing daily-entry experiences.
-if (!location.pathname.endsWith('/today.html')) {
-  document.querySelectorAll('a[href="today.html"]').forEach((link) => { link.href = 'daily-router.html'; });
-}
 if (location.pathname.endsWith('/civil-reasoning.html') && !document.querySelector('script[data-civil-reasoning-year-gate]')) {
   const script = document.createElement('script');
   script.src = 'civil-reasoning-year-gate.js';
