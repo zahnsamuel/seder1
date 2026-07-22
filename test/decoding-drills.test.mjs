@@ -13,8 +13,8 @@ test('decoding manifest and lesson content agree, and cover the built bands', ()
   const manifest = drills.bands.flatMap((b) => b.lessons);
   for (const id of manifest) assert.ok(lessonIds.has(id), `manifest lesson "${id}" has no content`);
   for (const id of lessonIds) assert.ok(manifest.includes(id), `lesson "${id}" is not placed in any band`);
-  assert.ok(manifest.length >= 4, `expected >=4 built lessons, got ${manifest.length}`);
-  assert.deepEqual(drills.bands.map((b) => b.id), ['0.1', '0.2']);
+  assert.ok(manifest.length >= 6, `expected >=6 built lessons, got ${manifest.length}`);
+  assert.deepEqual(drills.bands.map((b) => b.id), ['0.1', '0.2', '0.3']);
 });
 
 test('every decoding item is a well-formed glyph-card multiple-choice question', () => {

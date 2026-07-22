@@ -8,7 +8,8 @@
 window.DecodingDrills = {
   bands: [
     { id: '0.1', title: 'Letters', lessons: ['letters-1', 'letters-2', 'letters-3'] },
-    { id: '0.2', title: 'Vowels', lessons: ['vowels-1'] }
+    { id: '0.2', title: 'Vowels', lessons: ['vowels-1', 'vowels-2'] },
+    { id: '0.3', title: 'Blending', lessons: ['blending-1'] }
   ],
   lessons: {
     'letters-1': {
@@ -65,6 +66,33 @@ window.DecodingDrills = {
         { glyph: 'בּוּ', short: 'u', say: 'בּוּ', prompt: 'A vav with a dot in its middle marks the vowel here. What sound?', answers: ['“u” — shuruk — so בּוּ is “boo.”', '“o.”', '“i.”'], correct: 0, feedback: 'Shuruk (וּ) says “u.” Kubutz — three diagonal dots (ֻ) — also says “u.”' },
         { glyph: 'בִּ', short: 'spot i', prompt: 'A single dot sits directly under a letter. Which vowel is it?', answers: ['Chirik — “i.”', 'Cholam — “o.”', 'Shuruk — “u.”'], correct: 0, feedback: 'Position matters: one dot beneath = chirik = “i”; a dot at the upper left = cholam = “o.”' },
         { glyph: 'שָׁלוֹם', short: 'read it', say: 'שָׁלוֹם', prompt: 'Now read a whole word: shin-“a”, lamed, vav-“o”, mem. What is it?', answers: ['“Shalom” — peace, and hello.', '“Shesh.”', '“Melech.”'], correct: 0, feedback: 'שָׁלוֹם = “shalom.” You just blended consonants and vowels into a real word — the whole point.' }
+      ]
+    },
+    'vowels-2': {
+      band: '0.2', bandLabel: 'VOWELS · LESSON 2', title: 'Shva, reduced vowels, and the “o” kamatz.',
+      intro: 'Three vowels that trip up beginners: the shva (sometimes sounded, sometimes silent), the reduced chataf vowels under the throat-letters, and the kamatz that says “o.”',
+      items: [
+        { glyph: 'בְּ', short: 'shva na', say: 'בְּרֵאשִׁית', prompt: 'These two vertical dots are a shva. At the START of a word, what does it do?', answers: ['It sounds — a very short “e” (shva na). So בְּ at a word’s start is “be.”', 'It is always completely silent, everywhere.', 'It makes a long “oo.”'], correct: 0, feedback: 'A shva (ְ) is sounded — a quick “e” — at the start of a word or as the second of two shvas. Elsewhere it is silent.' },
+        { glyph: 'מַלְכָּה', short: 'shva nach', say: 'מַלְכָּה', prompt: 'Read מַלְכָּה. The shva under the lamed sits in the middle of the word — is it sounded or silent?', answers: ['Silent — it closes the syllable “mal,” so the word is “mal-ka.”', 'Sounded — “ma-le-ka.”', 'It makes the lamed silent.'], correct: 0, feedback: 'Here the shva is nach (silent): it closes “mal,” giving mal-ka. Rule of thumb: an opening shva sounds, a shva closing a syllable is silent.' },
+        { glyph: 'אֲ', short: 'chataf', say: 'אֲנִי', prompt: 'Under a throat-letter (alef, hey, chet, ayin) a shva can pair with a tiny vowel — a chataf. What does אֲ sound like?', answers: ['A short “a” — the chataf-patach is a hurried “a.”', 'A long “oo.”', 'Silent.'], correct: 0, feedback: 'Chataf vowels (ֲ ֱ ֳ) are reduced, hurried versions of a, e, o, found under the gutturals. Read the vowel — just short.' },
+        { glyph: 'כָּל', short: 'kamatz katan', say: 'כָּל', prompt: 'You learned kamatz (ָ) says “a.” But in כָּל the same mark says “o” — a kamatz katan. What is the word?', answers: ['“Kol” — meaning “all” or “every.”', '“Kal.”', '“Kul.”'], correct: 0, feedback: 'In some short closed syllables a kamatz says “o” (kamatz katan): כָּל is “kol.” Learn the common words as anchors.' },
+        { glyph: 'בְּ', short: 'spot shva', prompt: 'Which mark is a shva — a very short “e” or a silent syllable-closer?', answers: ['These two vertical dots (ְ).', 'A single dot beneath — that is chirik, “i.”', 'A T-shape — that is kamatz, “a.”'], correct: 0, feedback: 'Two vertical dots = shva. One dot beneath = chirik (“i”); a T-shape = kamatz (“a”). Watch the shapes.' },
+        { glyph: 'שְׁמַע', short: 'read shema', say: 'שְׁמַע', prompt: 'Read שְׁמַע: shin-shva, mem-“a”, ayin. What is it?', answers: ['“Shema” — the word that opens the Shema (“Hear”).', '“Shma-a.”', '“Shalom.”'], correct: 0, feedback: 'שְׁמַע = “shema” (“hear”). The opening shva is na — a quick “e” — giving she-ma.' },
+        { glyph: 'אֱמֶת', short: 'read emet', say: 'אֱמֶת', prompt: 'Read אֱמֶת: alef with a chataf-“e”, mem-“e”, tav. What is it?', answers: ['“Emet” — truth.', '“Amat.”', '“Umut.”'], correct: 0, feedback: 'אֱמֶת = “emet” (“truth”). The chataf-segol under the alef is a short “e.”' }
+      ]
+    },
+    'blending-1': {
+      band: '0.3', bandLabel: 'BLENDING · LESSON 1', title: 'Blend syllables into words.',
+      intro: 'Now put letters and vowels together: open and closed syllables, a doubling dot, and reading real multi-syllable words — ending on the first word of the Torah.',
+      items: [
+        { glyph: 'מָ', short: 'open', say: 'מָ', prompt: 'A consonant plus a vowel makes an open syllable. Read מָ: mem + “a.”', answers: ['“ma.”', '“am.”', '“mo.”'], correct: 0, feedback: 'Consonant + vowel = an open syllable. מָ = “ma.” Say the consonant, then slide into the vowel.' },
+        { glyph: 'מָן', short: 'closed', say: 'מָן', prompt: 'Add a consonant after the vowel to close the syllable. Read מָן: “ma” + n.', answers: ['“man.”', '“ma-na.”', '“nam.”'], correct: 0, feedback: 'A closed syllable ends in a consonant: מָן = “man.” Build the open syllable, then add the closing sound.' },
+        { glyph: 'תּוֹרָה', short: 'read torah', say: 'תּוֹרָה', prompt: 'Read תּוֹרָה one syllable at a time: “to” + “ra” (the final hey is silent).', answers: ['“Torah” — the Torah.', '“Tarot.”', '“Ruth.”'], correct: 0, feedback: 'תּוֹרָה = “Torah.” Break at each vowel: to-rah. A plain final hey is silent.' },
+        { glyph: 'אַבָּא', short: 'doubling', say: 'אַבָּא', prompt: 'Read אַבָּא. The dot inside the second letter, after a vowel, doubles it. What is the word?', answers: ['“Abba” — “dad” — the doubled bet splits it ab-ba.', '“Aba,” with one b.', '“Ava.”'], correct: 0, feedback: 'A dagesh after a vowel doubles the letter (dagesh chazak): אַבָּא = “ab-ba” — it closes one syllable and opens the next.' },
+        { glyph: 'בְּרָכָה', short: 'shva blend', say: 'בְּרָכָה', prompt: 'Read בְּרָכָה. The opening shva is a quick “e.”', answers: ['“Bracha” (be-ra-cha) — a blessing.', '“Brack.”', '“Barcha.”'], correct: 0, feedback: 'בְּרָכָה = “bracha” (be-ra-cha). The opening shva na is a quick “e,” then the syllables blend.' },
+        { glyph: 'מִצְוָה', short: 'read mitzvah', say: 'מִצְוָה', prompt: 'Read מִצְוָה: “mi” + tz (a silent shva closes it) + “vah.”', answers: ['“Mitzvah” — a commandment.', '“Mitzava.”', '“Matzah.”'], correct: 0, feedback: 'מִצְוָה = “mitzvah.” The shva under the tzadi is silent, closing “mitz,” then “vah.”' },
+        { glyph: 'רוּחַ', short: 'furtive patach', say: 'רוּחַ', prompt: 'Read רוּחַ. The patach under the final chet is said BEFORE it (a furtive patach).', answers: ['“Ruach” — spirit or wind — ru-ach, not ru-cha.', '“Rucha.”', '“Roach.”'], correct: 0, feedback: 'A patach under a final chet, ayin, or hey is furtive — pronounced before the letter: רוּחַ = “ru-ach.”' },
+        { glyph: 'בְּרֵאשִׁית', short: 'first word', say: 'בְּרֵאשִׁית', prompt: 'Read the first word of the Torah, בְּרֵאשִׁית: be-re-shit.', answers: ['“Bereishit” — “In the beginning.”', '“Barashut.”', '“Beit-reishit.”'], correct: 0, feedback: 'בְּרֵאשִׁית = “Bereishit,” the Torah’s first word. You just decoded a multi-syllable vocalized word from scratch — the goal of the ladder.' }
       ]
     }
   }
