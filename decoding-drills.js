@@ -14,6 +14,22 @@ window.DecodingDrills = {
     { id: '0.5', title: 'Fluency', lessons: ['fluency-1'] },
     { id: '0.6', title: 'Unvocalized', lessons: ['unvocalized-1'] }
   ],
+  // Which dec- ladder skills (data/hebrew-decoding-ladder.json) each lesson exercises. This wires
+  // the drills to the skill graph and drives spaced review: completing/reviewing a lesson reschedules
+  // its skills (decoding-engine.js), and the index surfaces lessons whose skills have come due. Kept
+  // out of the server source-review queue on purpose — decoding is reviewed by re-drilling glyphs,
+  // not with a source-reading prompt. Cross-checked against the dataset in test/decoding-drills.test.mjs.
+  lessonSkills: {
+    'letters-1': ['dec-letters-group-1', 'dec-dagesh-pairs', 'dec-lookalikes', 'dec-gutturals'],
+    'letters-2': ['dec-letters-group-2', 'dec-dagesh-pairs'],
+    'letters-3': ['dec-letters-group-3', 'dec-gutturals', 'dec-dagesh-pairs', 'dec-shin-sin', 'dec-final-forms'],
+    'vowels-1': ['dec-vowel-a', 'dec-vowel-e', 'dec-vowel-i', 'dec-vowel-o', 'dec-vowel-u'],
+    'vowels-2': ['dec-shva', 'dec-chataf', 'dec-kamatz-katan'],
+    'blending-1': ['dec-blend-open', 'dec-blend-closed', 'dec-multisyllable', 'dec-dagesh-chazak', 'dec-shva-blend', 'dec-furtive-patach'],
+    'sight-1': ['dec-prefix-letters', 'dec-function-words', 'dec-object-marker', 'dec-divine-names', 'dec-aramaic-particles'],
+    'fluency-1': ['dec-read-vocalized-phrase', 'dec-self-correct', 'dec-read-full-verse'],
+    'unvocalized-1': ['dec-known-word-no-vowels', 'dec-supply-vowels', 'dec-read-unvocalized']
+  },
   lessons: {
     'letters-1': {
       band: '0.1', bandLabel: 'LETTERS · LESSON 1', title: 'Meet your first Hebrew letters.',

@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 
 // Load the browser drills file (window.DecodingDrills = {...}) in a minimal sandbox.
 const src = await readFile(new URL('../decoding-drills.js', import.meta.url), 'utf8');
@@ -15,6 +16,17 @@ test('decoding manifest and lesson content agree, and cover the built bands', ()
   for (const id of lessonIds) assert.ok(manifest.includes(id), `lesson "${id}" is not placed in any band`);
   assert.ok(manifest.length >= 9, `expected >=9 built lessons, got ${manifest.length}`);
   assert.deepEqual(drills.bands.map((b) => b.id), ['0.1', '0.2', '0.3', '0.4', '0.5', '0.6']);
+});
+
+test('every lesson is wired to real ladder skills for spaced review', () => {
+  const ladder = JSON.parse(readFileSync(new URL('../data/hebrew-decoding-ladder.json', import.meta.url), 'utf8'));
+  const skillIds = new Set(ladder.skills.map((s) => s.id));
+  const manifest = drills.bands.flatMap((b) => b.lessons);
+  for (const id of manifest) {
+    const skills = drills.lessonSkills[id];
+    assert.ok(Array.isArray(skills) && skills.length, `lesson "${id}" has no lessonSkills for review scheduling`);
+    for (const s of skills) assert.ok(skillIds.has(s), `lesson "${id}" references "${s}", which is not a decoding-ladder skill`);
+  }
 });
 
 test('every decoding item is a well-formed glyph-card multiple-choice question', () => {
