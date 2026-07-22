@@ -63,8 +63,8 @@ $('#continue').addEventListener('click', () => {
   localStorage.removeItem(progressKey);
   const done = readDone(); done.add(lessonId); localStorage.setItem(doneKey, JSON.stringify([...done]));
   const next = order[order.indexOf(lessonId) + 1];
-  const cta = next ? `<a href="decoding-lesson.html?lesson=${next}">Next lesson →</a>` : '<a href="hebrew-decoding.html">Back to the ladder →</a>';
-  $('.lesson').innerHTML = `<section class="mastery"><span class="eyebrow">LESSON COMPLETE</span><h2>${drill.title || 'Lesson complete.'}</h2><p>Your progress is saved. ${next ? 'The next lesson builds on what you just learned.' : 'You have reached the end of the built lessons — more bands are on the way.'}</p>${cta}</section>`;
+  const cta = next ? `<a href="decoding-lesson.html?lesson=${next}">Next lesson →</a>` : '<a href="foundation-reading-orientation.html">Begin Reading Orientation →</a>';
+  $('.lesson').innerHTML = `<section class="mastery"><span class="eyebrow">${next ? 'LESSON COMPLETE' : 'YOU CAN READ HEBREW'}</span><h2>${drill.title || 'Lesson complete.'}</h2><p>Your progress is saved. ${next ? 'The next lesson builds on what you just learned.' : 'You have finished the decoding ladder — you can read Hebrew and begin an unvocalized line. Next comes learning to read a source: orientation.'}</p>${cta}</section>`;
 });
 if ($('#band-title')) $('#band-title').textContent = drill.title || '';
 decRender();

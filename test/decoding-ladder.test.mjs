@@ -12,8 +12,8 @@ test('hebrew decoding ladder is structurally sound', () => {
 
 test('decoding ladder bands and skills are coherent', () => {
   const bandIds = ladder.bands.map((b) => b.id);
-  assert.deepEqual(bandIds, ['0.1', '0.2', '0.3', '0.4'], 'ladder covers Bands 0.1-0.4');
-  assert.ok(ladder.skills.length >= 25, `expected >=25 skills, got ${ladder.skills.length}`);
+  assert.deepEqual(bandIds, ['0.1', '0.2', '0.3', '0.4', '0.5', '0.6'], 'ladder covers all six bands');
+  assert.ok(ladder.skills.length >= 30, `expected >=30 skills, got ${ladder.skills.length}`);
   for (const s of ladder.skills) {
     assert.match(s.id, /^dec-/, `${s.id} must be a dec- id`);
     assert.ok(bandIds.includes(s.band), `${s.id} sits in a declared band`);
