@@ -10,10 +10,10 @@ test('hebrew decoding ladder is structurally sound', () => {
   assert.deepEqual(errors, [], `decoding ladder has structural errors:\n${errors.join('\n')}`);
 });
 
-test('decoding ladder has the v1 bands and a coherent shape', () => {
+test('decoding ladder bands and skills are coherent', () => {
   const bandIds = ladder.bands.map((b) => b.id);
-  assert.deepEqual(bandIds, ['0.1', '0.2', '0.3'], 'v1 covers Bands 0.1-0.3');
-  assert.ok(ladder.skills.length >= 20, `expected >=20 skills, got ${ladder.skills.length}`);
+  assert.deepEqual(bandIds, ['0.1', '0.2', '0.3', '0.4'], 'ladder covers Bands 0.1-0.4');
+  assert.ok(ladder.skills.length >= 25, `expected >=25 skills, got ${ladder.skills.length}`);
   for (const s of ladder.skills) {
     assert.match(s.id, /^dec-/, `${s.id} must be a dec- id`);
     assert.ok(bandIds.includes(s.band), `${s.id} sits in a declared band`);

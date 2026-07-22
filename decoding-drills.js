@@ -9,7 +9,8 @@ window.DecodingDrills = {
   bands: [
     { id: '0.1', title: 'Letters', lessons: ['letters-1', 'letters-2', 'letters-3'] },
     { id: '0.2', title: 'Vowels', lessons: ['vowels-1', 'vowels-2'] },
-    { id: '0.3', title: 'Blending', lessons: ['blending-1'] }
+    { id: '0.3', title: 'Blending', lessons: ['blending-1'] },
+    { id: '0.4', title: 'Sight words', lessons: ['sight-1'] }
   ],
   lessons: {
     'letters-1': {
@@ -93,6 +94,20 @@ window.DecodingDrills = {
         { glyph: 'מִצְוָה', short: 'read mitzvah', say: 'מִצְוָה', prompt: 'Read מִצְוָה: “mi” + tz (a silent shva closes it) + “vah.”', answers: ['“Mitzvah” — a commandment.', '“Mitzava.”', '“Matzah.”'], correct: 0, feedback: 'מִצְוָה = “mitzvah.” The shva under the tzadi is silent, closing “mitz,” then “vah.”' },
         { glyph: 'רוּחַ', short: 'furtive patach', say: 'רוּחַ', prompt: 'Read רוּחַ. The patach under the final chet is said BEFORE it (a furtive patach).', answers: ['“Ruach” — spirit or wind — ru-ach, not ru-cha.', '“Rucha.”', '“Roach.”'], correct: 0, feedback: 'A patach under a final chet, ayin, or hey is furtive — pronounced before the letter: רוּחַ = “ru-ach.”' },
         { glyph: 'בְּרֵאשִׁית', short: 'first word', say: 'בְּרֵאשִׁית', prompt: 'Read the first word of the Torah, בְּרֵאשִׁית: be-re-shit.', answers: ['“Bereishit” — “In the beginning.”', '“Barashut.”', '“Beit-reishit.”'], correct: 0, feedback: 'בְּרֵאשִׁית = “Bereishit,” the Torah’s first word. You just decoded a multi-syllable vocalized word from scratch — the goal of the ladder.' }
+      ]
+    },
+    'sight-1': {
+      band: '0.4', bandLabel: 'SIGHT WORDS · LESSON 1', title: 'The little words you will see everywhere.',
+      intro: 'Some words are so common you should know them at a glance, not sound them out — the one-letter prefixes, a handful of function words, the divine Name, and the Gemara’s workhorse particle.',
+      items: [
+        { glyph: 'הַיּוֹם', short: 'the (ה)', say: 'הַיּוֹם', prompt: 'A single letter can attach to the front of a word. The prefix הַ means “the.” In הַיּוֹם, what is happening?', answers: ['הַ means “the,” attached to “yom” (day) — so הַיּוֹם is “the day” (and “today”).', 'הַ is a separate word, “ha.”', 'הַ turns the word into a question.'], correct: 0, feedback: 'The prefix הַ (“the”) attaches directly to the next word: הַיּוֹם = “the day.”' },
+        { glyph: 'וְאָב', short: 'and (ו)', say: 'וְאָב', prompt: 'The prefix וְ means “and.” Read וְאָב.', answers: ['“ve’av” — “and a father”; the ו attaches “and” to the word.', 'A separate word, “vav.”', '“or a father.”'], correct: 0, feedback: 'The prefix וְ (or וּ) means “and,” always attached to the front of the next word.' },
+        { glyph: 'לְ', short: 'prefixes', prompt: 'Small prefix letters carry prepositions: בְּ (“in”), כְּ (“like”), מִ (“from”), and this one, לְ. What does לְ mean?', answers: ['“to” or “for.”', '“from.”', '“the.”'], correct: 0, feedback: 'Learn the prefix family: בְּ in, כְּ like, לְ to/for, מִ from. Each attaches to the front of a word.' },
+        { glyph: 'אֶת', short: 'et (את)', say: 'אֶת', prompt: 'This tiny word, אֶת, appears constantly but has no English translation. What is its job?', answers: ['It marks the definite direct object — the “what” of the verb — and is simply not translated.', 'It means “eat.”', 'It means “the.”'], correct: 0, feedback: 'אֶת flags a definite direct object. You read it and move on; it has no English word of its own.' },
+        { glyph: 'כִּי', short: 'ki (כי)', say: 'כִּי', prompt: 'Read this very common word by sight: כִּי. It usually means…', answers: ['“because,” “that,” or “for” — a frequent connector.', '“yes.”', '“king.”'], correct: 0, feedback: 'כִּי is a workhorse connector: “because,” “that,” “for.” Knowing it on sight speeds up reading.' },
+        { glyph: 'לֹא', short: 'lo (לא)', say: 'לֹא', prompt: 'Read לֹא — you will meet it constantly.', answers: ['“lo” — “no” or “not.”', '“lu.”', '“el.”'], correct: 0, feedback: 'לֹא = “no / not.” The cholam over the lamed gives “lo”; the alef is silent.' },
+        { glyph: 'יְהוָה', short: 'the Name', prompt: 'This four-letter Name of God is not read the way it is spelled. How is it read aloud?', answers: ['As “Adonai” (“my Lord”) — the Name is not pronounced as written, out of reverence (many say “Hashem” in casual reference).', 'Exactly by its letters.', 'It is skipped in silence.'], correct: 0, feedback: 'The four-letter Name (יהוה) is read “Adonai” in prayer and study, not pronounced as spelled — a literacy and reverence convention.' },
+        { glyph: 'דְּ', short: 'de (דְּ)', say: 'דְּ', prompt: 'In the Gemara (Aramaic) the prefix דְּ is everywhere. It roughly means…', answers: ['“that,” “of,” or “which” — it links clauses, like a Hebrew שֶׁ.', '“the.”', '“and.”'], correct: 0, feedback: 'The Aramaic prefix דְּ means “that / of / which” — the connective glue of a sugya. Spotting it early helps you follow the Gemara.' }
       ]
     }
   }
