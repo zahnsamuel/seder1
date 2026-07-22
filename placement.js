@@ -162,4 +162,28 @@ async function complete() {
   layerProfile = analysis.layerProfile;
   Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'placement_completed', scores, foundationScores, recommendedSkill: recommendation ? recommendation.id : null }) }).then((response) => response.ok ? response.json() : Promise.reject()).then(() => renderResults()).catch(() => { $('#status').textContent = 'Placement could not be saved.'; });
 }
-render();
+// Decoding screener: placement's checks assume the learner can read the Hebrew, so a true
+// non-reader is gated here and routed to the decoding ladder first. A single read-check plus an
+// explicit "I can't read yet" escape; a wrong answer offers the ladder but keeps a "continue
+// anyway" path so a mis-tap never traps a reader.
+const screener = { answers: ['Shalom', 'Melech', 'Bayit'], correct: 0 };
+function startPlacement() {
+  const scr = $('#screener'); if (scr) scr.hidden = true;
+  const shell = $('.placement-shell'); if (shell) shell.hidden = false;
+  render();
+}
+function renderScreener() {
+  const box = $('#screener-answers');
+  if (!box) { startPlacement(); return; }
+  box.innerHTML = '';
+  shuffle(screener.answers).forEach(({ text, originalIndex }) => {
+    const button = document.createElement('button'); button.type = 'button'; button.textContent = text;
+    button.addEventListener('click', () => {
+      if (originalIndex === screener.correct) { startPlacement(); return; }
+      box.innerHTML = '<p class="screener-note" style="line-height:1.55">The letters look like they are still new — the best place to start is learning to read them, then placement will mean more. <a href="hebrew-decoding.html">Start the reading ladder →</a></p><button type="button" id="screener-continue" style="margin-top:10px">I do know Hebrew — continue placement</button>';
+      const cont = $('#screener-continue'); if (cont) cont.addEventListener('click', startPlacement);
+    });
+    box.appendChild(button);
+  });
+}
+renderScreener();
