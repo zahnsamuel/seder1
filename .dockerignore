@@ -1,0 +1,21 @@
+# Keep the Render/Docker image lean: the server (server.mjs) serves the root *.html/js/css,
+# data/, and yochai-adapter.mjs at runtime — everything below is dev-only and never served.
+.git
+.gitignore
+.gitattributes
+node_modules
+test
+docs
+.claude
+.github
+outputs
+.tmp-presentation
+.tmp-*
+*.output
+run-*.cmd
+*.log
+.DS_Store
+AGENTS.md
+Dockerfile
+.dockerignore
+render.yaml
