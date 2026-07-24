@@ -2843,3 +2843,10 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
 - Evidence merging preserves the strongest demonstrated state and the learner's original earned
   date, preventing a later miss from erasing real progress.
 - Verification: five focused capability-evidence tests pass.
+
+## 2026-07-24 - Codex: evaluate JLA graduation from evidence
+
+- Added a six-level graduation evaluator driven by the Foundation capability transcript.
+- Introduced-only evidence never advances a learner; earned, stable, and transfer-ready evidence
+  count, and every result names the next missing capability rather than exposing a vague percent.
+- Verification: six focused graduation-evaluator tests pass.
