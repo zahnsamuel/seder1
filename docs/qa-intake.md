@@ -2858,3 +2858,11 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
 - Kept this as a pure adapter for now: the existing path UI reads the older 45-skill score graph,
   while JLA capability transcripts need a persistence field before browser wiring is honest.
 - Verification: three focused JLA path-progress tests pass.
+
+## 2026-07-24 - Codex: route placement into JLA graduation levels
+
+- Added a placement result contract that turns domain signals into a six-level starting point,
+  strong and growth domains, a bounded learning rhythm, and one first useful Academy session.
+- The first session prioritizes the weakest represented domain at the learner's actual level;
+  Gemara is available but is not treated as every learner's automatic destination.
+- Verification: five focused JLA placement-router tests pass.
