@@ -2850,3 +2850,11 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
 - Introduced-only evidence never advances a learner; earned, stable, and transfer-ready evidence
   count, and every result names the next missing capability rather than exposing a vague percent.
 - Verification: six focused graduation-evaluator tests pass.
+
+## 2026-07-24 - Codex: project JLA graduation progress for My Path
+
+- Added a My Path projection that turns the graduation evaluation into a current level, next
+  level, earned I-can list, one next capability, and current-level progress.
+- Kept this as a pure adapter for now: the existing path UI reads the older 45-skill score graph,
+  while JLA capability transcripts need a persistence field before browser wiring is honest.
+- Verification: three focused JLA path-progress tests pass.
