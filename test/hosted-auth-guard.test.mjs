@@ -125,3 +125,38 @@ test('learner A CAN access its own record (the guard allows the owner; 200)', as
   const learner = await res.json();
   assert.equal(learner.id, 'uuid-a');
 });
+
+// DELETE and export are the destructive / exfiltration vectors — a cross-account leak here is
+// worse than a read. The guard must block both before deleteHostedLearnerData / the export body
+// is ever reached (a 403 proves it short-circuited in learnerAccess, touching no data).
+
+test('an unsigned DELETE is rejected (401) — no data erased without auth', async () => {
+  const res = await fetch(`${base}/api/learners/uuid-a`, { method: 'DELETE' });
+  assert.equal(res.status, 401);
+});
+
+test("learner B cannot DELETE learner A's data (403)", async () => {
+  const res = await fetch(`${base}/api/learners/uuid-a`, { method: 'DELETE', headers: { Authorization: 'Bearer token-b' } });
+  assert.equal(res.status, 403);
+  const body = await res.json();
+  assert.match(body.error, /only access your own/i);
+});
+
+test('learner A CAN delete its own data (owner allowed; 200)', async () => {
+  const res = await fetch(`${base}/api/learners/uuid-a`, { method: 'DELETE', headers: { Authorization: 'Bearer token-a' } });
+  assert.equal(res.status, 200);
+  const body = await res.json();
+  assert.equal(body.deleted, true);
+});
+
+test("learner B cannot EXPORT learner A's data (403)", async () => {
+  const res = await fetch(`${base}/api/learners/uuid-a/export`, { headers: { Authorization: 'Bearer token-b' } });
+  assert.equal(res.status, 403);
+});
+
+test('learner A CAN export its own data (owner allowed; 200)', async () => {
+  const res = await fetch(`${base}/api/learners/uuid-a/export`, { headers: { Authorization: 'Bearer token-a' } });
+  assert.equal(res.status, 200);
+  const learner = await res.json();
+  assert.equal(learner.id, 'uuid-a');
+});
