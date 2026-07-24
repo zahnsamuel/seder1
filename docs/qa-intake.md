@@ -2835,3 +2835,11 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
 - Session loading is keyed by skill, shuffles guided choices, and omits answer keys and grading
   feedback from the learner payload; grading happens through a separate evaluator.
 - Verification: five focused Academy session tests pass.
+
+## 2026-07-24 - Codex: record Academy capability evidence
+
+- Added source-backed capability evidence with introduced, earned, stable, and transfer-ready
+  states plus status-appropriate review dates.
+- Evidence merging preserves the strongest demonstrated state and the learner's original earned
+  date, preventing a later miss from erasing real progress.
+- Verification: five focused capability-evidence tests pass.
