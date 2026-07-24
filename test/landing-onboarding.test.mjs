@@ -14,5 +14,5 @@ test('landing page makes daily study and the learner journey explicit', async ()
 
 test('first-time orientation explains the mastery loop and can be dismissed', async () => {
   const source = await readFile(new URL('../onboarding.js', import.meta.url), 'utf8');
-  for (const phrase of ['WELCOME TO SEDER', 'See why it is next', 'Return until it transfers', 'seder-onboarding-seen-v1', 'Got it']) assert.match(source, new RegExp(phrase));
+  for (const phrase of ['WELCOME TO THE ACADEMY', 'See why it is next', 'Return until it transfers', 'seder-onboarding-seen-v1', 'Got it']) assert.match(source, new RegExp(phrase));
 });
