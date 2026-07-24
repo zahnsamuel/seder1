@@ -37,6 +37,24 @@ the DOM directly. Results:
   `span[lang="he"][dir="rtl"]`, so the source line is announced as Hebrew. (`lab.js`)
 - **`civil-reasoning.html`** `#hebrew` element was the one course page missing `lang="he"`; added.
 
+## Color-contrast pass (WCAG 1.4.3) — 2026-07-24 (Claude)
+
+The 2026-07-17 pass verified keyboard, reflow, RTL, and labels but **not color contrast**.
+Measured computed foreground/background ratios in-browser across the core funnel and fixed every
+text element below AA (4.5:1 normal, 3:1 large). Two systemic offenders, repeated in each page's
+own stylesheet: small-caps **gold eyebrow labels** (`#b88028`/`#b98a39`, ~2.8–3.4:1) and borderline
+**muted body text** (`#657078`/`#657080`, ~4.4:1). Darkened each token to clear ≥4.6:1, preserving
+hue. Also fixed a regression from the My Path simplification: the "Start review" button rendered
+teal-on-navy (1.9:1) because `.review-card a` overrode `.primary`'s white — forced white text
+(now 11.8:1).
+
+Verified **0 contrast failures** on all six core surfaces: `seder`, `sign-in`, `placement`,
+`daily-router`, `academy-session`, `path`. Files: path.css, seder.css, onboarding.css,
+placement.css, canon-labs.css, sign-in.html.
+
+**Not yet swept:** content pages driven by `deep-course.css` (labs/arcs) carry the same gold/muted
+tokens and likely fail — a follow-up (larger blast radius, out of this pass's core-funnel scope).
+
 ## Remaining pre-release QA
 
 - Test screen-reader labeling with NVDA or VoiceOver on landing, language ladder, Source Reader, Daf Workbench, repair, and account controls. (The 2026-07-17 pass verified structure/labels programmatically; real AT speech output still wants a human check.)
