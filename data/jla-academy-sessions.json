@@ -1,0 +1,70 @@
+[
+  {
+    "skillId": "source-family-001",
+    "graduationLevel": "source-explorer",
+    "title": "Recognize the source before interpreting it",
+    "sourceWindow": {
+      "sourceRef": "Genesis 1:1",
+      "sourceUrl": "https://www.sefaria.org/Genesis.1.1",
+      "hebrew": "בְּרֵאשִׁית בָּרָא אֱלֹהִים",
+      "translation": "In the beginning God created",
+      "context": "This is the opening verse of the Torah, presented as a verse rather than a rabbinic case or discussion."
+    },
+    "teachingMove": "Before asking what a source means, name its family. Genre tells you what kinds of questions will help.",
+    "prompt": "Which first move best orients you to this source?",
+    "choices": [
+      {
+        "id": "name-family",
+        "text": "Identify it as a Torah verse, then notice its speaker, action, and setting."
+      },
+      {
+        "id": "seek-ruling",
+        "text": "Treat it as a final halakhic ruling and look immediately for a practical verdict."
+      },
+      {
+        "id": "map-dispute",
+        "text": "Treat it as a Gemara debate and divide its words into challenge and response."
+      }
+    ],
+    "correctChoiceId": "name-family",
+    "feedback": {
+      "correct": "Yes. Naming the source family gives you the right reading moves without asking you to know everything first.",
+      "incorrect": "Start with genre: this is a Torah verse. Then ask verse-shaped questions about speaker, action, scene, and repeated language."
+    },
+    "evidencePreview": "I can recognize a Jewish source family before I interpret it."
+  },
+  {
+    "skillId": "mishnah-case-001",
+    "graduationLevel": "text-reader",
+    "title": "Find the case before the ruling",
+    "sourceWindow": {
+      "sourceRef": "Mishnah Berakhot 1:1",
+      "sourceUrl": "https://www.sefaria.org/Mishnah_Berakhot.1.1",
+      "hebrew": "מֵאֵימָתַי קוֹרִין אֶת שְׁמַע בְּעַרְבִין",
+      "translation": "From when may one recite Shema in the evenings?",
+      "context": "The Mishnah opens by defining a concrete case: the permitted time for evening Shema."
+    },
+    "teachingMove": "A Mishnah often becomes readable when you separate the situation being governed from the ruling about it.",
+    "prompt": "What is the case this Mishnah asks you to locate?",
+    "choices": [
+      {
+        "id": "evening-window",
+        "text": "A person needs to know when the evening window for reciting Shema begins."
+      },
+      {
+        "id": "prayer-authorship",
+        "text": "A person needs to decide who first composed every word of the prayer."
+      },
+      {
+        "id": "historical-setting",
+        "text": "A person needs to reconstruct the political history of the Second Temple."
+      }
+    ],
+    "correctChoiceId": "evening-window",
+    "feedback": {
+      "correct": "Right. The case is the evening recitation window; the following positions define its boundary.",
+      "incorrect": "Return to the opening question. The case is practical and bounded: when evening Shema may begin."
+    },
+    "evidencePreview": "I can identify the case a Mishnah is governing."
+  }
+]

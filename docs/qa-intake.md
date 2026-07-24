@@ -2827,3 +2827,11 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
 - Every recommendation carries the target skill, graduation level, Academy session URL, and
   learner-facing evidence statement needed by downstream surfaces.
 - Verification: six focused JLA Today router tests pass.
+
+## 2026-07-24 - Codex: make Academy sessions skill-driven
+
+- Added initial Academy session contracts for source-family recognition and locating a Mishnah's
+  case, each anchored to a confirmed Sefaria page.
+- Session loading is keyed by skill, shuffles guided choices, and omits answer keys and grading
+  feedback from the learner payload; grading happens through a separate evaluator.
+- Verification: five focused Academy session tests pass.
