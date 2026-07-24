@@ -1,0 +1,62 @@
+[
+  {
+    "id": "source-navigation",
+    "title": "Source Navigation",
+    "learnerPromise": "I can tell what kind of Jewish source I am looking at and how to orient inside it."
+  },
+  {
+    "id": "hebrew-text-signals",
+    "title": "Hebrew & Text Signals",
+    "learnerPromise": "I can notice Hebrew anchors, repeated words, and structure cues that make a text readable."
+  },
+  {
+    "id": "torah-tanakh-literacy",
+    "title": "Torah / Tanakh Literacy",
+    "learnerPromise": "I can read biblical passages for scene, command, narrative, repetition, and interpretation."
+  },
+  {
+    "id": "mishnah-literacy",
+    "title": "Mishnah Literacy",
+    "learnerPromise": "I can identify case, ruling, dispute, category, and boundary in a Mishnah."
+  },
+  {
+    "id": "gemara-moves",
+    "title": "Gemara Moves",
+    "learnerPromise": "I can follow questions, answers, challenges, proofs, distinctions, rejections, and conclusions."
+  },
+  {
+    "id": "halakha-reasoning",
+    "title": "Halakha Reasoning",
+    "learnerPromise": "I can distinguish source, ruling, custom, application, and responsible practical boundaries."
+  },
+  {
+    "id": "midrash-aggadah",
+    "title": "Midrash & Aggadah",
+    "learnerPromise": "I can see how rabbinic texts interpret verses, tell stories, and form meaning."
+  },
+  {
+    "id": "jewish-thought",
+    "title": "Jewish Thought",
+    "learnerPromise": "I can follow claims, questions, arguments, metaphors, and spiritual or ethical implications."
+  },
+  {
+    "id": "tefillah-siddur-literacy",
+    "title": "Tefillah / Siddur Literacy",
+    "learnerPromise": "I can orient in prayer and recognize blessing structure, prayer moves, and source echoes."
+  },
+  {
+    "id": "jewish-history-canon-formation",
+    "title": "Jewish History & Canon Formation",
+    "learnerPromise": "I can place texts and figures in broad historical context without reducing Torah to history."
+  },
+  {
+    "id": "jewish-life-practice",
+    "title": "Jewish Life & Practice",
+    "learnerPromise": "I can recognize Jewish practice categories and ask better questions in Jewish spaces."
+  },
+  {
+    "id": "study-habits",
+    "title": "Study Habits & Metacognition",
+    "learnerPromise": "I can build rhythm, recover after gaps, use feedback, and see progress as growing capability."
+  }
+]

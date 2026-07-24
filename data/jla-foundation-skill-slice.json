@@ -1,0 +1,194 @@
+[
+  {
+    "id": "source-family-001",
+    "domain": "source-navigation",
+    "title": "Recognize a Jewish source family",
+    "graduationLevel": "source-explorer",
+    "prerequisites": [],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "citation-001",
+    "domain": "source-navigation",
+    "title": "Read a simple source citation",
+    "graduationLevel": "canon-navigator",
+    "prerequisites": ["source-family-001"],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "source-commentary-001",
+    "domain": "source-navigation",
+    "title": "Distinguish source from commentary",
+    "graduationLevel": "canon-navigator",
+    "prerequisites": ["source-family-001"],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "hebrew-anchor-001",
+    "domain": "hebrew-text-signals",
+    "title": "Notice a Hebrew anchor",
+    "graduationLevel": "source-explorer",
+    "prerequisites": [],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "repeated-language-001",
+    "domain": "hebrew-text-signals",
+    "title": "Recognize repeated language",
+    "graduationLevel": "text-reader",
+    "prerequisites": ["hebrew-anchor-001"],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "tanakh-speaker-scene-001",
+    "domain": "torah-tanakh-literacy",
+    "title": "Identify speaker and scene in Tanakh",
+    "graduationLevel": "text-reader",
+    "prerequisites": ["source-family-001"],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "tanakh-narrative-command-001",
+    "domain": "torah-tanakh-literacy",
+    "title": "Distinguish narrative from command",
+    "graduationLevel": "text-reader",
+    "prerequisites": ["tanakh-speaker-scene-001"],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "mishnah-case-001",
+    "domain": "mishnah-literacy",
+    "title": "Identify the case in a Mishnah",
+    "graduationLevel": "text-reader",
+    "prerequisites": ["source-family-001"],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "mishnah-ruling-001",
+    "domain": "mishnah-literacy",
+    "title": "Identify the ruling in a Mishnah",
+    "graduationLevel": "text-reader",
+    "prerequisites": ["mishnah-case-001"],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "mishnah-dispute-001",
+    "domain": "mishnah-literacy",
+    "title": "Identify a dispute in a Mishnah",
+    "graduationLevel": "learning-move-apprentice",
+    "prerequisites": ["mishnah-case-001", "mishnah-ruling-001"],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "gemara-question-001",
+    "domain": "gemara-moves",
+    "title": "Identify a Gemara question",
+    "graduationLevel": "learning-move-apprentice",
+    "prerequisites": ["mishnah-case-001"],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "gemara-answer-001",
+    "domain": "gemara-moves",
+    "title": "Identify a Gemara answer",
+    "graduationLevel": "learning-move-apprentice",
+    "prerequisites": ["gemara-question-001"],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "gemara-challenge-001",
+    "domain": "gemara-moves",
+    "title": "Recognize a Gemara challenge",
+    "graduationLevel": "learning-move-apprentice",
+    "prerequisites": ["gemara-question-001", "gemara-answer-001"],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "halakha-source-ruling-001",
+    "domain": "halakha-reasoning",
+    "title": "Distinguish source from halakhic ruling",
+    "graduationLevel": "learning-move-apprentice",
+    "prerequisites": ["source-commentary-001"],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "halakha-boundary-001",
+    "domain": "halakha-reasoning",
+    "title": "Recognize a practical-halakhic boundary",
+    "graduationLevel": "connected-learner",
+    "prerequisites": ["halakha-source-ruling-001"],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "midrash-verse-001",
+    "domain": "midrash-aggadah",
+    "title": "Identify what verse a Midrash is reading",
+    "graduationLevel": "learning-move-apprentice",
+    "prerequisites": ["tanakh-speaker-scene-001"],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "midrash-move-001",
+    "domain": "midrash-aggadah",
+    "title": "Identify a midrashic interpretive move",
+    "graduationLevel": "learning-move-apprentice",
+    "prerequisites": ["midrash-verse-001"],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "thought-claim-001",
+    "domain": "jewish-thought",
+    "title": "Identify the central claim in Jewish Thought",
+    "graduationLevel": "text-reader",
+    "prerequisites": ["source-family-001"],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "tefillah-blessing-001",
+    "domain": "tefillah-siddur-literacy",
+    "title": "Recognize blessing structure",
+    "graduationLevel": "text-reader",
+    "prerequisites": ["hebrew-anchor-001"],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "tefillah-prayer-move-001",
+    "domain": "tefillah-siddur-literacy",
+    "title": "Distinguish praise, request, and thanks in prayer",
+    "graduationLevel": "text-reader",
+    "prerequisites": ["tefillah-blessing-001"],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "history-canon-order-001",
+    "domain": "jewish-history-canon-formation",
+    "title": "Place Torah, Mishnah, Gemara, and Rishonim in broad order",
+    "graduationLevel": "canon-navigator",
+    "prerequisites": ["source-family-001"],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "life-practice-category-001",
+    "domain": "jewish-life-practice",
+    "title": "Distinguish halakha, minhag, value, and memory",
+    "graduationLevel": "connected-learner",
+    "prerequisites": ["source-family-001"],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "habit-recovery-001",
+    "domain": "study-habits",
+    "title": "Recover after missing a learning day",
+    "graduationLevel": "independent-beginner",
+    "prerequisites": [],
+    "checkType": "guided-choice"
+  },
+  {
+    "id": "habit-transfer-001",
+    "domain": "study-habits",
+    "title": "Transfer one learned skill to a new source",
+    "graduationLevel": "independent-beginner",
+    "prerequisites": ["source-family-001", "hebrew-anchor-001"],
+    "checkType": "guided-choice"
+  }
+]

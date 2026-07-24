@@ -2807,3 +2807,15 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
 - Added the canonical Jewish Learning Academy roadmap as the project-level product direction for the skills-first transition.
 - Next: continue converting learner surfaces from Seder-era content navigation into JLA skill-graph progression.
 
+
+## 2026-07-24 - Codex: add the JLA architecture backbone
+
+- Defined six learner-facing graduation levels, twelve core Jewish-literacy domains, and an
+  initial 24-skill Foundation slice spanning the canon.
+- The slice is deliberately capability-first and includes Torah/Tanakh, Mishnah, Gemara,
+  Halakha, Midrash/Aggadah, Jewish Thought, Tefillah, Jewish history, Jewish life, Hebrew
+  signals, source navigation, and study habits.
+- Added integrity checks for counts, identifiers, prerequisites, graduation mappings,
+  guided-choice assessment, and broad non-Gemara coverage.
+- Verification: the five focused architecture tests pass. The full suite has one unrelated
+  pre-existing drift failure: `foundation-content-map.json is in sync with content + rubric`.

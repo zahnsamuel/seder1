@@ -1,0 +1,75 @@
+[
+  {
+    "id": "source-explorer",
+    "order": 1,
+    "title": "Source Explorer",
+    "promise": "I can open a guided Jewish source without freezing.",
+    "requiredDomains": ["source-navigation", "study-habits"],
+    "unlocks": "canon-navigator"
+  },
+  {
+    "id": "canon-navigator",
+    "order": 2,
+    "title": "Canon Navigator",
+    "promise": "I can identify what kind of Jewish text I am seeing and where it sits in the canon.",
+    "requiredDomains": [
+      "source-navigation",
+      "torah-tanakh-literacy",
+      "mishnah-literacy",
+      "jewish-history-canon-formation"
+    ],
+    "unlocks": "text-reader"
+  },
+  {
+    "id": "text-reader",
+    "order": 3,
+    "title": "Text Reader",
+    "promise": "I can find the case, claim, question, scene, or prayer move in a Jewish text.",
+    "requiredDomains": [
+      "hebrew-text-signals",
+      "torah-tanakh-literacy",
+      "mishnah-literacy",
+      "tefillah-siddur-literacy"
+    ],
+    "unlocks": "learning-move-apprentice"
+  },
+  {
+    "id": "learning-move-apprentice",
+    "order": 4,
+    "title": "Learning-Move Apprentice",
+    "promise": "I can name what a source is doing: asking, answering, proving, interpreting, ruling, or applying.",
+    "requiredDomains": [
+      "gemara-moves",
+      "halakha-reasoning",
+      "midrash-aggadah",
+      "jewish-thought"
+    ],
+    "unlocks": "connected-learner"
+  },
+  {
+    "id": "connected-learner",
+    "order": 5,
+    "title": "Connected Learner",
+    "promise": "I can connect one Jewish source to another region of the canon.",
+    "requiredDomains": [
+      "source-navigation",
+      "jewish-thought",
+      "jewish-life-practice",
+      "jewish-history-canon-formation"
+    ],
+    "unlocks": "independent-beginner"
+  },
+  {
+    "id": "independent-beginner",
+    "order": 6,
+    "title": "Independent Beginner",
+    "promise": "I can continue learning with a visible capability profile and a sustainable rhythm.",
+    "requiredDomains": [
+      "study-habits",
+      "source-navigation",
+      "hebrew-text-signals",
+      "jewish-life-practice"
+    ],
+    "unlocks": "post-foundation-pathway"
+  }
+]
