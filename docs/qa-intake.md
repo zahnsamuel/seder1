@@ -2819,3 +2819,11 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
   guided-choice assessment, and broad non-Gemara coverage.
 - Verification: the five focused architecture tests pass. The full suite has one unrelated
   pre-existing drift failure: `foundation-content-map.json is in sync with content + rubric`.
+
+## 2026-07-24 - Codex: route Today through the JLA Foundation frontier
+
+- Added a pure JLA Today selector with an explicit priority order: missed-day recovery, due
+  review, prerequisite-ready frontier work, transfer practice, then a safe Foundation fallback.
+- Every recommendation carries the target skill, graduation level, Academy session URL, and
+  learner-facing evidence statement needed by downstream surfaces.
+- Verification: six focused JLA Today router tests pass.
