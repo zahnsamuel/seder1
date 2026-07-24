@@ -88,6 +88,10 @@ export function tagFor(step, genre) {
   if (has(/SHAS LITERACY/)) return 'fnd-indep-first-pass';
 
   // L2 — text signals / translation recall
+  // Reading the grammatical skeleton (find the verb, map the clause) is a distinct move from
+  // sight-reading a word bank; carve it out of the fat known-words bucket (graph 0.2.0). Keyed on
+  // the GRAMMAR TOOL / SENTENCE MAP modes already in content; ordered before the known-words catch.
+  if (has(/GRAMMAR TOOL|SENTENCE MAP/)) return 'fnd-signal-sentence-structure';
   if (step.typed || step.competency === 'translation' || has(/TRANSLATION ANCHOR|KEY WORD|GRAMMAR|SENTENCE MAP|SOURCE LANGUAGE|AMBIGUOUS WORD|\bCONNECTOR\b|\bLANGUAGE\b|SOURCE SIGNAL/)) return 'fnd-signal-known-words';
 
   // L6 — comparison

@@ -144,6 +144,24 @@
       "durability": "foundation"
     },
     {
+      "id": "fnd-signal-sentence-structure",
+      "layer": 2,
+      "title": "Read the grammatical skeleton of a sentence",
+      "statement": "You can find the action, its subject, and the shape of a sentence before you know every word.",
+      "prerequisites": ["fnd-signal-known-words"],
+      "sourceContexts": [
+        {"ref": "Mishnah Berakhot 1:1 (find the verb and its subject)", "genre": "mishnah"},
+        {"ref": "Genesis 22:1 (the sentence skeleton before the vocabulary)", "genre": "torah"},
+        {"ref": "Rambam, Hilchot Deot 1:1 (map a legal sentence's clauses)", "genre": "halakha"}
+      ],
+      "teachingMove": "Before translating every word, find the action word, then ask who does it and what clause frames it — read the skeleton first.",
+      "checks": ["Point to the main action in a sentence and name what it acts on."],
+      "transfer": "Map the skeleton of a sentence in a genre you did not practice.",
+      "repair": "Strip the sentence to its verb alone, then add back one piece at a time.",
+      "graduationThreshold": "transfer",
+      "durability": "core"
+    },
+    {
       "id": "fnd-signal-question-words",
       "layer": 2,
       "title": "Recognize question-signal words",
