@@ -32,11 +32,11 @@
     #berakhot-daf-rail{align-self:start;padding:18px;background:#f4f0e6;border-top:3px solid #b88028;color:#1f3036}
     #berakhot-daf-rail>span,#berakhot-daf-rail small{color:#276b68;font:10px 'DM Mono',monospace;letter-spacing:.08em}
     #berakhot-daf-rail h2{margin:7px 0;color:#183b4e;font:600 25px Fraunces,Georgia,serif}
-    .daf-rail-intro{margin:0 0 14px;color:#637178;font-size:12px;line-height:1.5}
+    .daf-rail-intro{margin:0 0 14px;color:#5d6a71;font-size:12px;line-height:1.5}
     .daf-lines{display:grid;gap:7px}.daf-lines button{padding:10px;border:1px solid #ded6c8;background:#fffdf8;color:#183b4e;text-align:left;cursor:pointer}
     .daf-lines button.active{border-color:#276b68;background:#e4f0e8;box-shadow:inset 3px 0 #276b68}
     .daf-lines small{display:block;margin-bottom:5px}.daf-lines b{display:block;font:500 18px/1.45 'Noto Sans Hebrew',sans-serif}
-    #daf-detail{margin-top:14px;padding-top:12px;border-top:1px solid #d8d0c2;color:#637178;font-size:12px;line-height:1.55}
+    #daf-detail{margin-top:14px;padding-top:12px;border-top:1px solid #d8d0c2;color:#5d6a71;font-size:12px;line-height:1.55}
     #daf-detail p{margin:6px 0}#daf-detail i{color:#183b4e}
     @media(min-width:1000px){.course-layout{grid-template-columns:210px 270px minmax(0,720px)}}
     @media(max-width:999px){#berakhot-daf-rail{grid-column:1/-1}.course-layout{grid-template-columns:220px minmax(0,1fr)}}

@@ -52,8 +52,14 @@ Verified **0 contrast failures** on all six core surfaces: `seder`, `sign-in`, `
 `daily-router`, `academy-session`, `path`. Files: path.css, seder.css, onboarding.css,
 placement.css, canon-labs.css, sign-in.html.
 
-**Not yet swept:** content pages driven by `deep-course.css` (labs/arcs) carry the same gold/muted
-tokens and likely fail — a follow-up (larger blast radius, out of this pass's core-funnel scope).
+**Content-page sweep — 2026-07-24 (Claude), follow-up now done.** Extended the contrast fix to the
+full content set (arcs, deep units, labs, daf-workbench). Darkened `--gold`/`--muted` tokens across
+~43 stylesheets, then hardcoded mid-tone `color:` values across CSS, and finally the mid-tone color
+injected inline by the shared daf-rail components (`tractate-daf-rails.js`, `berakhot-daf-rail.js`,
+`goals.html`). Now unified to a consistent AA palette (gold ≈ `#8a601e`, muted ≈ `#5d6a71`).
+Verified **0 contrast failures** on arc, deep unit, lab, and daf-workbench pages, with core-funnel
+pages re-checked for no regression. The daf-workbench "Record my reading" button (white on grey) is
+a **disabled** control — WCAG-exempt (1.4.3), left as-is. ~60 files touched; suite 311 green.
 
 ## Remaining pre-release QA
 
