@@ -15,3 +15,12 @@ test('My Path milestones are keyed to learner evidence', () => {
   assert.match(js, /foundation-skill-graph\.json/);
   assert.match(js, /skill-progress-card/);
 });
+
+test('My Path caps the retention preview instead of dumping every due card', () => {
+  // One thing at a time: a learner can have 100+ skills due. The review section shows a few
+  // previews plus a single way into the review session, not one linked card per due skill.
+  // Guards against the overwhelming full-list dump returning.
+  assert.match(js, /review\.due\.slice\(/);
+  assert.match(js, /Start review/);
+  assert.doesNotMatch(js, /Review this skill/);
+});

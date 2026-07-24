@@ -55,7 +55,14 @@ Promise.all([
   if (review.due.length) {
     document.querySelector('#review-section').hidden = false;
     document.querySelector('#review-count').textContent = `${review.due.length} READY NOW`;
-    document.querySelector('#review-list').innerHTML = review.due.map((item) => `<article class="review-card"><div><span>RETRIEVAL REVIEW</span><strong>${readableSkill(item.skillId)}</strong><small>${item.reason}</small></div><a href="review.html">Review this skill →</a></article>`).join('');
+    // One thing at a time: show a few due skills for texture, then a single way in. The review
+    // session (review.html) walks the full queue one at a time, strongest need first — listing
+    // every due card here just overwhelms (and each card linked to the same place anyway).
+    const preview = review.due.slice(0, 3);
+    const remaining = review.due.length - preview.length;
+    const previewCards = preview.map((item) => `<article class="review-card"><div><span>RETRIEVAL REVIEW</span><strong>${readableSkill(item.skillId)}</strong><small>${item.reason}</small></div></article>`).join('');
+    const startCard = `<article class="review-card review-start"><div><span>RETENTION SESSION</span><strong>${remaining > 0 ? `And ${remaining} more ready to bring back` : 'Bring these back'}</strong><small>Your review session revisits them one at a time, strongest need first.</small></div><a class="primary" href="review.html">Start review →</a></article>`;
+    document.querySelector('#review-list').innerHTML = previewCards + startCard;
   }
 }).catch(() => {});
 
