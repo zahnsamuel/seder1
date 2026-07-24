@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "name": "Seder · The Jewish Learning Academy — Foundational Skill Graph",
   "principle": "Skills are the product; content is the vehicle. Each skill is a transferable reading capability that a learner can carry from one genre of the Jewish canon to another. Foundational-skill IDs (prefixed fnd-) are deliberately separate from content-unit IDs so that any source can teach any skill.",
   "promise": {
@@ -381,6 +381,60 @@
       "transfer": "Retell an unseen short passage from another genre.",
       "repair": "Retell just the first half, check it, then add the rest.",
       "graduationThreshold": "secure",
+      "durability": "core"
+    },
+    {
+      "id": "fnd-case-category",
+      "layer": 4,
+      "title": "Classify the case into a category",
+      "statement": "You can name the legal or conceptual category a case falls under and why.",
+      "prerequisites": ["fnd-case-what-happens"],
+      "sourceContexts": [
+        {"ref": "Mishnah Bava Kamma 1:1 (the primary categories of damage)", "genre": "mishnah"},
+        {"ref": "Rambam, Hilchot Nizkei Mamon 1:1 (avot and toladot)", "genre": "halakha"},
+        {"ref": "Orchot Tzaddikim (naming the middah a deed belongs to)", "genre": "mussar"}
+      ],
+      "teachingMove": "Ask what named category this case is an instance of; sort the particular under the general before reasoning further.",
+      "checks": ["Given a case, name the category it belongs to and one feature that places it there."],
+      "transfer": "Classify an unseen case from a genre you did not practice.",
+      "repair": "List the candidate categories and test the case against each one's defining feature.",
+      "graduationThreshold": "transfer",
+      "durability": "core"
+    },
+    {
+      "id": "fnd-case-procedure",
+      "layer": 4,
+      "title": "Follow the order of a procedure",
+      "statement": "You can put the steps of a procedure in order and say why the order matters.",
+      "prerequisites": ["fnd-case-what-happens"],
+      "sourceContexts": [
+        {"ref": "Yoma 33a (the fixed order of the daily Temple service)", "genre": "gemara"},
+        {"ref": "The order of the weekday Amidah blessings", "genre": "tefillah"},
+        {"ref": "Rambam, Hilchot Tefillin 4 (the sequence of donning tefillin)", "genre": "halakha"}
+      ],
+      "teachingMove": "Number the steps as an ordered list, then ask which steps could not swap places without breaking the procedure.",
+      "checks": ["Put the steps of a procedure in order and flag one step whose position is fixed."],
+      "transfer": "Order the steps of an unfamiliar procedure from another genre.",
+      "repair": "Retell the procedure as 'first…, then…, then…' and check each 'then' against the source.",
+      "graduationThreshold": "secure",
+      "durability": "core"
+    },
+    {
+      "id": "fnd-case-obligation",
+      "layer": 4,
+      "title": "Identify who is obligated and who is exempt",
+      "statement": "You can say who a rule obligates, who it exempts, and on what ground.",
+      "prerequisites": ["fnd-case-what-happens"],
+      "sourceContexts": [
+        {"ref": "Mishnah Berakhot 3:3 (exemption from time-bound mitzvot)", "genre": "mishnah"},
+        {"ref": "Rambam, Hilchot Berakhot 1 (obligation and exemption in blessings)", "genre": "halakha"},
+        {"ref": "Kiddushin 29a (a father's and the community's obligations)", "genre": "gemara"}
+      ],
+      "teachingMove": "For each party in the case ask: obligated, exempt, or forbidden — and what fact decides it.",
+      "checks": ["Name who is obligated and who is exempt in a case, with the deciding ground for each."],
+      "transfer": "Sort obligation and exemption in an unseen case from another genre.",
+      "repair": "List the parties, attach 'must / need not / may not' to each, and name the reason.",
+      "graduationThreshold": "transfer",
       "durability": "core"
     },
 

@@ -105,6 +105,13 @@ export function tagFor(step, genre) {
   if (has(/ROLE MAP|ROLE DISTINCTION|WITNESS DISTINCTION|AUTHORITY MAP|CONSENT AND AGENCY/)) return 'fnd-case-actors';
   if (has(/VALIDITY CONDITION|CONDITION MAP|\bEXCEPTION\b|LIMITING DETAIL|RULE AND EXCEPTION|CATEGORY LIMIT|STATUS EFFECT/)) return 'fnd-case-what-changes';
   if (has(/CASE MAP|CASE REASONING|REASONING MAP|CLAIM MAP|DISPUTE MAP|\bSITUATION\b/)) return 'fnd-case-uncertainty';
+  // Finer case moves split out of the old fat fnd-case-what-happens bucket (graph 0.2.0). Each
+  // keys on distinctive tokens ALREADY present in content, so the split is content-honest and
+  // stays contained to steps that previously fell to what-happens. Order before the general
+  // catch below so the precise skill claims its steps first.
+  if (has(/LEGAL CATEGORY|CATEGORY ORIENTATION|CATEGORY MAP/)) return 'fnd-case-category';
+  if (has(/PROCEDURE MAP|DELIVERY MAP|RITUAL PROCEDURE|PROCEDURE AND RISK/)) return 'fnd-case-procedure';
+  if (has(/OBLIGATION MAP|SHARED OBLIGATION|EXEMPTION LOGIC/)) return 'fnd-case-obligation';
   if (has(/\bCASE\b|FACT PATTERN|CATEGORY|PROCEDURE|DELIVERY|OBLIGATION|EXEMPTION/)) return 'fnd-case-what-happens';
 
   // L5 — argument tracking
