@@ -2874,3 +2874,11 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
 - The capstone passes at 80% and emits an explicit `foundation-graduate` status plus a learner
   capability statement; otherwise it returns an evidence-led review state.
 - Verification: six focused JLA Foundation capstone tests pass.
+
+## 2026-07-28 - Codex: define post-Foundation JLA pathways
+
+- Added seven real post-Foundation destinations across Jewish life, Chumash/Tanakh, Tefillah,
+  history, Jewish Thought, Halakha, and Gemara.
+- Recommendations respond to learner interests, strengths, and growth domains. Gemara remains a
+  powerful laboratory and can be chosen explicitly, but is not the no-signal default destiny.
+- Verification: five focused pathway and route-integrity tests pass.

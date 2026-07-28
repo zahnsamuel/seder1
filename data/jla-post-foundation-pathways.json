@@ -1,0 +1,65 @@
+[
+  {
+    "id": "jewish-life-calendar",
+    "title": "Jewish Life & Calendar",
+    "promise": "Use the calendar, practices, and communal vocabulary to feel oriented in Jewish life.",
+    "route": "course-dashboard.html",
+    "domains": ["jewish-life-practice", "tefillah-siddur-literacy"],
+    "interestTags": ["practice", "holidays", "community"],
+    "defaultPriority": 1
+  },
+  {
+    "id": "chumash-tanakh-reader",
+    "title": "Chumash & Tanakh Reader",
+    "promise": "Read biblical scenes, commands, repetition, and interpretation with growing independence.",
+    "route": "chumash-arc.html",
+    "domains": ["torah-tanakh-literacy", "hebrew-text-signals"],
+    "interestTags": ["torah", "tanakh", "bible"],
+    "defaultPriority": 2
+  },
+  {
+    "id": "tefillah-literacy",
+    "title": "Tefillah Literacy",
+    "promise": "Open the siddur with structure, source echoes, and a clearer sense of what prayer is doing.",
+    "route": "tefillah-arc.html",
+    "domains": ["tefillah-siddur-literacy", "hebrew-text-signals"],
+    "interestTags": ["prayer", "siddur", "synagogue"],
+    "defaultPriority": 3
+  },
+  {
+    "id": "jewish-history-canon",
+    "title": "Jewish History & Canon",
+    "promise": "Place texts, communities, and turning points in context without flattening Torah into history.",
+    "route": "history-arc.html",
+    "domains": ["jewish-history-canon-formation", "source-navigation"],
+    "interestTags": ["history", "canon", "community"],
+    "defaultPriority": 4
+  },
+  {
+    "id": "jewish-thought-inner-life",
+    "title": "Jewish Thought & Inner Life",
+    "promise": "Follow Jewish arguments about meaning, ethics, responsibility, and the inner life.",
+    "route": "philosophy.html",
+    "domains": ["jewish-thought", "midrash-aggadah"],
+    "interestTags": ["thought", "ethics", "meaning"],
+    "defaultPriority": 5
+  },
+  {
+    "id": "halakha-foundations",
+    "title": "Halakha Foundations",
+    "promise": "Trace source, ruling, custom, and responsible practical boundaries.",
+    "route": "halakha-arc.html",
+    "domains": ["halakha-reasoning", "jewish-life-practice"],
+    "interestTags": ["halakha", "practice", "law"],
+    "defaultPriority": 6
+  },
+  {
+    "id": "gemara-lab",
+    "title": "Gemara Lab",
+    "promise": "Use Gemara as a laboratory for questions, challenges, proofs, distinctions, and transfer.",
+    "route": "gemara-year.html",
+    "domains": ["gemara-moves", "mishnah-literacy"],
+    "interestTags": ["gemara", "talmud", "argument"],
+    "defaultPriority": 7
+  }
+]
