@@ -2882,3 +2882,11 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
 - Recommendations respond to learner interests, strengths, and growth domains. Gemara remains a
   powerful laboratory and can be chosen explicitly, but is not the no-signal default destiny.
 - Verification: five focused pathway and route-integrity tests pass.
+
+## 2026-07-28 - Codex: add JLA pilot feedback instruments
+
+- Added a behavioral observation sheet, a short learner survey, and quantitative pilot success
+  criteria focused on the 0-to-1 promise, cognitive load, dignity, confidence, rhythm, and return.
+- Pilot gates preserve hosted account isolation, source review, human trust-page review, and
+  stop-and-repair rules for learner harm or repeated confusion.
+- Verification: three focused pilot-document guard tests pass.
