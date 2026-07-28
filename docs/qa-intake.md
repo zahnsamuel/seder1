@@ -2866,3 +2866,11 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
 - The first session prioritizes the weakest represented domain at the learner's actual level;
   Gemara is available but is not treated as every learner's automatic destination.
 - Verification: five focused JLA placement-router tests pass.
+
+## 2026-07-28 - Codex: add the JLA Foundation graduation capstone
+
+- Added an evidence-gated capstone: Foundation-complete learners are eligible, as are learners
+  with at least 80% Independent Beginner progress.
+- The capstone passes at 80% and emits an explicit `foundation-graduate` status plus a learner
+  capability statement; otherwise it returns an evidence-led review state.
+- Verification: six focused JLA Foundation capstone tests pass.
