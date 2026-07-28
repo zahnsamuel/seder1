@@ -9,18 +9,33 @@ import {
 const sessions = JSON.parse(
   await readFile(new URL('../data/jla-academy-sessions.json', import.meta.url), 'utf8')
 );
+const slice = JSON.parse(
+  await readFile(new URL('../data/jla-foundation-skill-slice.json', import.meta.url), 'utf8')
+);
 
-test('initial Academy sessions teach source-family and Mishnah-case capabilities', () => {
-  assert.deepEqual(
-    sessions.map(({ skillId }) => skillId),
-    ['source-family-001', 'mishnah-case-001']
-  );
+test('every Academy session is well formed and maps to a real graduation skill', () => {
+  const sliceById = new Map(slice.map((skill) => [skill.id, skill]));
   for (const session of sessions) {
+    const skill = sliceById.get(session.skillId);
+    assert.ok(skill, `session ${session.skillId} has no matching graduation-slice skill`);
+    assert.equal(session.graduationLevel, skill.graduationLevel, `${session.skillId}: level disagrees with the slice`);
     assert.ok(session.sourceWindow.sourceRef);
     assert.match(session.sourceWindow.sourceUrl, /^https:\/\/www\.sefaria\.org\//);
     assert.ok(session.teachingMove);
     assert.match(session.evidencePreview, /^I can /);
+    // A real guided check: a prompt, distinct choices, and a correct id that exists among them.
+    assert.ok(session.prompt);
+    const ids = session.choices.map(({ id }) => id);
+    assert.equal(new Set(ids).size, ids.length, `${session.skillId}: duplicate choice ids`);
+    assert.ok(ids.includes(session.correctChoiceId), `${session.skillId}: correctChoiceId not among choices`);
+    assert.ok(session.feedback.correct && session.feedback.incorrect, `${session.skillId}: missing feedback`);
   }
+});
+
+test('every graduation-slice skill has an Academy session (full coverage)', () => {
+  const authored = new Set(sessions.map(({ skillId }) => skillId));
+  const uncovered = slice.map(({ id }) => id).filter((id) => !authored.has(id));
+  assert.deepEqual(uncovered, [], `graduation skills without an Academy session: ${uncovered.join(', ')}`);
 });
 
 test('Academy session loads by skill and does not leak its answer key', () => {

@@ -66,5 +66,753 @@
       "incorrect": "Return to the opening question. The case is practical and bounded: when evening Shema may begin."
     },
     "evidencePreview": "I can identify the case a Mishnah is governing."
+  },
+  {
+    "skillId": "citation-001",
+    "graduationLevel": "canon-navigator",
+    "title": "Read a citation as an address",
+    "sourceWindow": {
+      "sourceRef": "Rashi on Genesis 1:1",
+      "sourceUrl": "https://www.sefaria.org/Rashi_on_Genesis.1.1",
+      "hebrew": "רַשִׁ״י עַל בְּרֵאשִׁית א׳:א׳",
+      "translation": "Rashi on Genesis 1:1",
+      "context": "A citation is an address: it names a work, sometimes a commentator, and an exact location."
+    },
+    "teachingMove": "Read a citation like an address — the work, then the chapter and verse or page, and who is speaking.",
+    "prompt": "What does the citation “Rashi on Genesis 1:1” point you to?",
+    "choices": [
+      {
+        "id": "prayer",
+        "text": "A prayer that is recited before studying the book of Genesis."
+      },
+      {
+        "id": "comment",
+        "text": "Rashi's commentary on the first verse of the book of Genesis."
+      },
+      {
+        "id": "tractate",
+        "text": "The opening mishnah of a Talmudic tractate named Genesis."
+      }
+    ],
+    "correctChoiceId": "comment",
+    "feedback": {
+      "correct": "Right — the citation names a commentator (Rashi) and the exact verse (Genesis 1:1) he is explaining.",
+      "incorrect": "Read the citation as an address: it names a commentator and the verse he explains, not a prayer or a tractate."
+    },
+    "evidencePreview": "I can read a simple source citation and say what it points to."
+  },
+  {
+    "skillId": "source-commentary-001",
+    "graduationLevel": "canon-navigator",
+    "title": "Tell the source apart from its commentary",
+    "sourceWindow": {
+      "sourceRef": "Genesis 1:1 with Rashi",
+      "sourceUrl": "https://www.sefaria.org/Genesis.1.1",
+      "hebrew": "בְּרֵאשִׁית בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ",
+      "translation": "In the beginning God created the heavens and the earth",
+      "context": "In a printed Chumash the Torah verse sits in the center; Rashi's words printed around it are a later explanation."
+    },
+    "teachingMove": "Before trusting a reading, ask which words are the source itself and which are a commentator explaining it.",
+    "prompt": "On the page, which is the source and which is the commentary?",
+    "choices": [
+      {
+        "id": "verse-source",
+        "text": "The Torah verse is the source; Rashi's words beside it are later commentary."
+      },
+      {
+        "id": "rashi-source",
+        "text": "Rashi's comment is the source, and the Torah verse explains Rashi."
+      },
+      {
+        "id": "same-author",
+        "text": "The verse and Rashi were written together by the same author."
+      }
+    ],
+    "correctChoiceId": "verse-source",
+    "feedback": {
+      "correct": "Yes. The verse is the primary source; a commentator like Rashi writes centuries later to explain it.",
+      "incorrect": "The Torah verse is the source. Rashi lived far later and writes to explain the verse, not the reverse."
+    },
+    "evidencePreview": "I can tell a source apart from the commentary printed around it."
+  },
+  {
+    "skillId": "hebrew-anchor-001",
+    "graduationLevel": "source-explorer",
+    "title": "Anchor a Hebrew line on a word you know",
+    "sourceWindow": {
+      "sourceRef": "Genesis 1:3",
+      "sourceUrl": "https://www.sefaria.org/Genesis.1.3",
+      "hebrew": "וַיֹּאמֶר אֱלֹהִים יְהִי אוֹר וַיְהִי אוֹר",
+      "translation": "And God said, “Let there be light,” and there was light",
+      "context": "The word וַיֹּאמֶר, “and He said,” opens many verses in the Torah's creation account."
+    },
+    "teachingMove": "Anchor a Hebrew line by finding one word you can recognize, then read outward from it.",
+    "prompt": "Which recurring Hebrew word anchors this verse as an act of divine speech?",
+    "choices": [
+      {
+        "id": "vayomer",
+        "text": "וַיֹּאמֶר — “and He said,” marking that God is speaking."
+      },
+      {
+        "id": "eretz",
+        "text": "אֶרֶץ — “land,” naming where the action happens."
+      },
+      {
+        "id": "laila",
+        "text": "לַיְלָה — “night,” setting the time of the verse."
+      }
+    ],
+    "correctChoiceId": "vayomer",
+    "feedback": {
+      "correct": "Right. וַיֹּאמֶר, “and He said,” is the anchor — it recurs through creation and signals divine speech.",
+      "incorrect": "Look for the word that means “and He said”: וַיֹּאמֶר. The other two words do not appear in this verse."
+    },
+    "evidencePreview": "I can notice a familiar Hebrew word and use it to anchor my reading."
+  },
+  {
+    "skillId": "repeated-language-001",
+    "graduationLevel": "text-reader",
+    "title": "Read repeated language as a signal",
+    "sourceWindow": {
+      "sourceRef": "Genesis 1",
+      "sourceUrl": "https://www.sefaria.org/Genesis.1",
+      "hebrew": "וַיַּרְא אֱלֹהִים כִּי טוֹב",
+      "translation": "And God saw that it was good",
+      "context": "This phrase repeats after several stages of creation in Genesis 1."
+    },
+    "teachingMove": "When a phrase repeats, treat the repetition as a signal that the text wants you to notice a pattern.",
+    "prompt": "What does the repetition of “And God saw that it was good” signal?",
+    "choices": [
+      {
+        "id": "pattern",
+        "text": "A deliberate refrain marking each stage of creation as good."
+      },
+      {
+        "id": "error",
+        "text": "A scribal mistake that accidentally copied the same line twice."
+      },
+      {
+        "id": "dispute",
+        "text": "A disagreement between two rabbis about the correct wording."
+      }
+    ],
+    "correctChoiceId": "pattern",
+    "feedback": {
+      "correct": "Yes. The repeated refrain is a pattern — it frames each stage of creation as good, on purpose.",
+      "incorrect": "Repetition here is deliberate, not an error or a dispute. The refrain marks each creation stage as good."
+    },
+    "evidencePreview": "I can recognize repeated language and read it as a deliberate signal."
+  },
+  {
+    "skillId": "tanakh-speaker-scene-001",
+    "graduationLevel": "text-reader",
+    "title": "Name the speaker and the scene",
+    "sourceWindow": {
+      "sourceRef": "Genesis 3:9",
+      "sourceUrl": "https://www.sefaria.org/Genesis.3.9",
+      "hebrew": "וַיִּקְרָא ה׳ אֱלֹהִים אֶל הָאָדָם וַיֹּאמֶר לוֹ אַיֶּכָּה",
+      "translation": "And the LORD God called to the man and said to him, “Where are you?”",
+      "context": "This verse comes just after the man and woman eat from the tree in the garden."
+    },
+    "teachingMove": "Before interpreting a narrative verse, name who is speaking and where the scene takes place.",
+    "prompt": "Who is speaking, and in what scene?",
+    "choices": [
+      {
+        "id": "god-garden",
+        "text": "God is speaking to the man in the garden, after the eating."
+      },
+      {
+        "id": "man-god",
+        "text": "The man is calling out to God to ask where God has gone."
+      },
+      {
+        "id": "moses-sinai",
+        "text": "Moses is speaking to the whole people at Mount Sinai."
+      }
+    ],
+    "correctChoiceId": "god-garden",
+    "feedback": {
+      "correct": "Right. God calls to the man in the garden; the scene follows the eating from the tree.",
+      "incorrect": "Read the speaker: “the LORD God called to the man.” God is speaking, in the garden, not Moses at Sinai."
+    },
+    "evidencePreview": "I can identify the speaker and the scene in a Tanakh verse."
+  },
+  {
+    "skillId": "tanakh-narrative-command-001",
+    "graduationLevel": "text-reader",
+    "title": "Tell narrative from command",
+    "sourceWindow": {
+      "sourceRef": "Exodus 20:8",
+      "sourceUrl": "https://www.sefaria.org/Exodus.20.8",
+      "hebrew": "זָכוֹר אֶת יוֹם הַשַּׁבָּת לְקַדְּשׁוֹ",
+      "translation": "Remember the Sabbath day, to keep it holy",
+      "context": "This line appears among the Ten Commandments given at Sinai."
+    },
+    "teachingMove": "Ask whether a verse is telling what happened (narrative) or telling you to do something (command).",
+    "prompt": "Is this verse narrative or command?",
+    "choices": [
+      {
+        "id": "command",
+        "text": "A command — it instructs the listener to remember and sanctify the Sabbath."
+      },
+      {
+        "id": "narrative",
+        "text": "A narrative — it reports that the people once remembered the Sabbath."
+      },
+      {
+        "id": "question",
+        "text": "A question — it asks whether the Sabbath ought to be kept."
+      }
+    ],
+    "correctChoiceId": "command",
+    "feedback": {
+      "correct": "Yes. “Remember… to keep it holy” is an instruction — a command, not a report of past events.",
+      "incorrect": "The verb “Remember… keep it holy” instructs the listener. That makes it a command, not narrative or a question."
+    },
+    "evidencePreview": "I can tell whether a Torah verse is narrative or command."
+  },
+  {
+    "skillId": "mishnah-ruling-001",
+    "graduationLevel": "text-reader",
+    "title": "Locate the ruling in a Mishnah",
+    "sourceWindow": {
+      "sourceRef": "Mishnah Berakhot 1:1",
+      "sourceUrl": "https://www.sefaria.org/Mishnah_Berakhot.1.1",
+      "hebrew": "עַד חֲצוֹת, דִּבְרֵי רַבִּי אֱלִיעֶזֶר",
+      "translation": "Until midnight — the words of Rabbi Eliezer",
+      "context": "After asking from when the evening Shema may be recited, the Mishnah states a limit."
+    },
+    "teachingMove": "Once you have found the case a Mishnah governs, look for the ruling: the answer or limit it sets.",
+    "prompt": "What ruling does this line state?",
+    "choices": [
+      {
+        "id": "midnight",
+        "text": "The evening Shema may be recited until midnight."
+      },
+      {
+        "id": "who-wrote",
+        "text": "Rabbi Eliezer composed the words of the Shema prayer."
+      },
+      {
+        "id": "forbidden",
+        "text": "Reciting the Shema in the evening is entirely forbidden."
+      }
+    ],
+    "correctChoiceId": "midnight",
+    "feedback": {
+      "correct": "Right. The ruling is a time limit: evening Shema may be said until midnight, per Rabbi Eliezer.",
+      "incorrect": "The ruling is the limit the Mishnah sets — “until midnight” — not who authored the prayer or a prohibition."
+    },
+    "evidencePreview": "I can identify the ruling a Mishnah states."
+  },
+  {
+    "skillId": "mishnah-dispute-001",
+    "graduationLevel": "learning-move-apprentice",
+    "title": "Spot a dispute between positions",
+    "sourceWindow": {
+      "sourceRef": "Mishnah Berakhot 1:3",
+      "sourceUrl": "https://www.sefaria.org/Mishnah_Berakhot.1.3",
+      "hebrew": "בֵּית שַׁמַּאי אוֹמְרִים... וּבֵית הִלֵּל אוֹמְרִים כָּל אָדָם קוֹרֵא כְּדַרְכּוֹ",
+      "translation": "Beit Shammai say… and Beit Hillel say: everyone may recite in their usual way",
+      "context": "The Mishnah records how one should be positioned when reciting the evening Shema."
+    },
+    "teachingMove": "When two names or schools are each introduced by “say,” expect a dispute — two positions on one question.",
+    "prompt": "What tells you this Mishnah records a dispute?",
+    "choices": [
+      {
+        "id": "two-schools",
+        "text": "Two schools, Beit Shammai and Beit Hillel, each give a different ruling."
+      },
+      {
+        "id": "one-ruling",
+        "text": "A single agreed ruling is stated by everyone together."
+      },
+      {
+        "id": "story",
+        "text": "It tells a story of a debate that was never resolved into positions."
+      }
+    ],
+    "correctChoiceId": "two-schools",
+    "feedback": {
+      "correct": "Yes. “Beit Shammai say… Beit Hillel say” presents two opposing positions — the signature of a dispute.",
+      "incorrect": "Two schools are each introduced with “say,” giving opposing rulings. That structure is a dispute."
+    },
+    "evidencePreview": "I can identify a dispute between positions in a Mishnah."
+  },
+  {
+    "skillId": "gemara-question-001",
+    "graduationLevel": "learning-move-apprentice",
+    "title": "Find the Gemara's question",
+    "sourceWindow": {
+      "sourceRef": "Berakhot 2a",
+      "sourceUrl": "https://www.sefaria.org/Berakhot.2a",
+      "hebrew": "תָּנָא הֵיכָא קָאֵי דְּקָתָנֵי מֵאֵימָתַי",
+      "translation": "On what does the tanna stand, that he teaches “from when”?",
+      "context": "The Gemara opens by questioning why the Mishnah begins with the word “from when.”"
+    },
+    "teachingMove": "Find the Gemara's question first — it usually asks why the Mishnah said what it said.",
+    "prompt": "What move is the Gemara making here?",
+    "choices": [
+      {
+        "id": "asking",
+        "text": "It is asking a question: why does the Mishnah begin this way?"
+      },
+      {
+        "id": "ruling",
+        "text": "It is issuing a final legal ruling on when to recite Shema."
+      },
+      {
+        "id": "praising",
+        "text": "It is praising the tanna for his careful wording."
+      }
+    ],
+    "correctChoiceId": "asking",
+    "feedback": {
+      "correct": "Right. The Gemara is questioning the Mishnah's opening — “on what does the tanna stand?” is a question.",
+      "incorrect": "This is a question, not a ruling or praise: the Gemara asks why the Mishnah opens with “from when.”"
+    },
+    "evidencePreview": "I can identify a question the Gemara is asking."
+  },
+  {
+    "skillId": "gemara-answer-001",
+    "graduationLevel": "learning-move-apprentice",
+    "title": "Find the Gemara's answer",
+    "sourceWindow": {
+      "sourceRef": "Berakhot 2a",
+      "sourceUrl": "https://www.sefaria.org/Berakhot.2a",
+      "hebrew": "אַקְּרָא קָאֵי",
+      "translation": "He stands on a verse",
+      "context": "In answer to why the Mishnah begins with “from when,” the Gemara says the tanna relies on a verse."
+    },
+    "teachingMove": "After the question, look for the answer — often a short phrase that resolves what was asked.",
+    "prompt": "What does this short phrase do in the sugya?",
+    "choices": [
+      {
+        "id": "answers",
+        "text": "It answers the question: the tanna is relying on a verse of the Torah."
+      },
+      {
+        "id": "new-question",
+        "text": "It raises a brand-new, unrelated question about prayer."
+      },
+      {
+        "id": "refuses",
+        "text": "It records a sage refusing to answer the question at all."
+      }
+    ],
+    "correctChoiceId": "answers",
+    "feedback": {
+      "correct": "Yes. “He stands on a verse” answers the question — the Mishnah's wording rests on Scripture.",
+      "incorrect": "This phrase resolves the question: the tanna relies on a verse. It is an answer, not a new question."
+    },
+    "evidencePreview": "I can identify an answer the Gemara gives to its question."
+  },
+  {
+    "skillId": "gemara-challenge-001",
+    "graduationLevel": "learning-move-apprentice",
+    "title": "Hear a challenge coming",
+    "sourceWindow": {
+      "sourceRef": "Berakhot 2b",
+      "sourceUrl": "https://www.sefaria.org/Berakhot.2b",
+      "hebrew": "מֵיתִיבֵי",
+      "translation": "They raise an objection",
+      "context": "The word מֵיתִיבֵי signals that a source is about to be cited against a stated position."
+    },
+    "teachingMove": "Learn the signal words: מֵיתִיבֵי warns you a challenge is coming, not agreement.",
+    "prompt": "What does the word מֵיתִיבֵי signal is coming next?",
+    "choices": [
+      {
+        "id": "objection",
+        "text": "A challenge: a source is cited to object to the stated position."
+      },
+      {
+        "id": "agreement",
+        "text": "A proof that everyone already agrees with the position."
+      },
+      {
+        "id": "blessing",
+        "text": "A blessing recited before continuing to study."
+      }
+    ],
+    "correctChoiceId": "objection",
+    "feedback": {
+      "correct": "Right. מֵיתִיבֵי, “they raise an objection,” signals an incoming challenge from a cited source.",
+      "incorrect": "מֵיתִיבֵי means “they object.” It flags a challenge to the position, not agreement or a blessing."
+    },
+    "evidencePreview": "I can recognize a Gemara challenge from its signal word."
+  },
+  {
+    "skillId": "halakha-source-ruling-001",
+    "graduationLevel": "learning-move-apprentice",
+    "title": "Separate the verse from the ruling it grounds",
+    "sourceWindow": {
+      "sourceRef": "Deuteronomy 6:7",
+      "sourceUrl": "https://www.sefaria.org/Deuteronomy.6.7",
+      "hebrew": "וְדִבַּרְתָּ בָּם... בְּשָׁכְבְּךָ וּבְקוּמֶךָ",
+      "translation": "And you shall speak of them… when you lie down and when you rise up",
+      "context": "From this verse the halakha derives an obligation to recite the Shema evening and morning."
+    },
+    "teachingMove": "Keep the source verse and the practical ruling separate: the verse is Scripture; the ruling is what the law derives from it.",
+    "prompt": "Which is the source, and which is the derived halakhic ruling?",
+    "choices": [
+      {
+        "id": "verse-source",
+        "text": "The verse is the source; “recite Shema morning and evening” is the derived ruling."
+      },
+      {
+        "id": "ruling-source",
+        "text": "“Recite Shema twice daily” is itself the Torah verse, word for word."
+      },
+      {
+        "id": "no-link",
+        "text": "The verse and the practice of reciting Shema are unrelated."
+      }
+    ],
+    "correctChoiceId": "verse-source",
+    "feedback": {
+      "correct": "Yes. The verse is Scripture; the obligation to say Shema morning and evening is the ruling derived from it.",
+      "incorrect": "The verse (“when you lie down and rise up”) is the source; the twice-daily obligation is derived from it, not identical to it."
+    },
+    "evidencePreview": "I can distinguish a Torah source from the halakhic ruling derived from it."
+  },
+  {
+    "skillId": "halakha-boundary-001",
+    "graduationLevel": "connected-learner",
+    "title": "See the line a halakha draws",
+    "sourceWindow": {
+      "sourceRef": "Mishnah Berakhot 1:1",
+      "sourceUrl": "https://www.sefaria.org/Mishnah_Berakhot.1.1",
+      "hebrew": "מֵאֵימָתַי קוֹרִין אֶת שְׁמַע בְּעַרְבִין",
+      "translation": "From when may one recite the Shema in the evenings?",
+      "context": "The Mishnah fixes a practical window: when the obligation begins and when it ends."
+    },
+    "teachingMove": "Notice where a halakha draws a line in time or space — the boundary is often the practical heart of the rule.",
+    "prompt": "What kind of boundary is this Mishnah drawing?",
+    "choices": [
+      {
+        "id": "time-window",
+        "text": "A boundary in time: the window during which evening Shema may be said."
+      },
+      {
+        "id": "who-may",
+        "text": "A boundary of persons: which people are allowed to pray at all."
+      },
+      {
+        "id": "place",
+        "text": "A boundary of place: the only city where Shema may be recited."
+      }
+    ],
+    "correctChoiceId": "time-window",
+    "feedback": {
+      "correct": "Right. The rule sets a time boundary — the window for evening Shema — which is where the practice lives.",
+      "incorrect": "“From when… in the evenings” fixes a time window, not a limit on who may pray or where."
+    },
+    "evidencePreview": "I can recognize the practical boundary a halakha draws."
+  },
+  {
+    "skillId": "midrash-verse-001",
+    "graduationLevel": "learning-move-apprentice",
+    "title": "Find the verse a Midrash is reading",
+    "sourceWindow": {
+      "sourceRef": "Genesis 1:26",
+      "sourceUrl": "https://www.sefaria.org/Genesis.1.26",
+      "hebrew": "נַעֲשֶׂה אָדָם בְּצַלְמֵנוּ כִּדְמוּתֵנוּ",
+      "translation": "Let us make man in our image, after our likeness",
+      "context": "A midrash notices the plural “let us make” and asks whom God is addressing."
+    },
+    "teachingMove": "First find the exact word or verse a midrash is reading before you weigh what it says about it.",
+    "prompt": "Which verse is this midrash reading?",
+    "choices": [
+      {
+        "id": "gen-126",
+        "text": "Genesis 1:26 — “Let us make man,” with its striking plural."
+      },
+      {
+        "id": "shema",
+        "text": "The Shema, “Hear O Israel,” from the book of Deuteronomy."
+      },
+      {
+        "id": "exodus",
+        "text": "The splitting of the sea in the book of Exodus."
+      }
+    ],
+    "correctChoiceId": "gen-126",
+    "feedback": {
+      "correct": "Right. The midrash is reading Genesis 1:26 — the plural “let us make man” is what it questions.",
+      "incorrect": "The midrash quotes “Let us make man” — Genesis 1:26 — not the Shema or the Exodus story."
+    },
+    "evidencePreview": "I can identify which verse a Midrash is reading."
+  },
+  {
+    "skillId": "midrash-move-001",
+    "graduationLevel": "learning-move-apprentice",
+    "title": "Name the midrashic move",
+    "sourceWindow": {
+      "sourceRef": "Genesis 1:26",
+      "sourceUrl": "https://www.sefaria.org/Genesis.1.26",
+      "hebrew": "נַעֲשֶׂה אָדָם",
+      "translation": "Let us make man",
+      "context": "The midrash fastens on the plural verb “let us make” and draws meaning from it."
+    },
+    "teachingMove": "Name the interpretive move: a midrash often builds meaning from an odd word, a plural, or an extra letter.",
+    "prompt": "What interpretive move is the midrash making?",
+    "choices": [
+      {
+        "id": "plural",
+        "text": "It reads meaning into the plural “let us,” asking whom God consults."
+      },
+      {
+        "id": "counts",
+        "text": "It counts how many times the chapter is recited in daily prayer."
+      },
+      {
+        "id": "translates",
+        "text": "It simply translates the verse into Aramaic with no comment."
+      }
+    ],
+    "correctChoiceId": "plural",
+    "feedback": {
+      "correct": "Yes. The move is to notice the unusual plural “let us make” and derive meaning from it.",
+      "incorrect": "The midrash builds on the odd plural “let us make.” That noticing is the interpretive move."
+    },
+    "evidencePreview": "I can name a midrashic interpretive move."
+  },
+  {
+    "skillId": "thought-claim-001",
+    "graduationLevel": "text-reader",
+    "title": "Find the central claim",
+    "sourceWindow": {
+      "sourceRef": "Pirkei Avot 1:14",
+      "sourceUrl": "https://www.sefaria.org/Pirkei_Avot.1.14",
+      "hebrew": "אִם אֵין אֲנִי לִי, מִי לִי? וּכְשֶׁאֲנִי לְעַצְמִי, מָה אֲנִי?",
+      "translation": "If I am not for myself, who is for me? And when I am only for myself, what am I?",
+      "context": "Hillel states two short lines held in tension with each other."
+    },
+    "teachingMove": "In a text of Jewish thought, find the central claim before the examples or objections.",
+    "prompt": "What is Hillel's central claim?",
+    "choices": [
+      {
+        "id": "balance",
+        "text": "A person must take responsibility for themselves and also for others."
+      },
+      {
+        "id": "selfish",
+        "text": "A person should care only about themselves and no one else."
+      },
+      {
+        "id": "timing",
+        "text": "A person should never make a decision without waiting a full year."
+      }
+    ],
+    "correctChoiceId": "balance",
+    "feedback": {
+      "correct": "Right. Hillel holds both lines together: care for yourself, but do not live for yourself alone.",
+      "incorrect": "The two lines balance each other — self-responsibility and responsibility to others — not selfishness or delay."
+    },
+    "evidencePreview": "I can identify the central claim in a text of Jewish thought."
+  },
+  {
+    "skillId": "tefillah-blessing-001",
+    "graduationLevel": "text-reader",
+    "title": "Recognize the shape of a blessing",
+    "sourceWindow": {
+      "sourceRef": "Berakhot 40b",
+      "sourceUrl": "https://www.sefaria.org/Berakhot.40b",
+      "hebrew": "כָּל בְּרָכָה שֶׁאֵין בָּהּ שֵׁם וּמַלְכוּת אֵינָהּ בְּרָכָה",
+      "translation": "Any blessing that lacks God's name and kingship is not a blessing",
+      "context": "The Talmud defines what every blessing must contain: God's name and a mention of divine kingship."
+    },
+    "teachingMove": "Learn the fixed shape of a blessing — “Blessed are You, LORD… King of the universe” — so you can recognize it anywhere.",
+    "prompt": "According to this rule, what must a blessing contain?",
+    "choices": [
+      {
+        "id": "name-kingship",
+        "text": "God's name and a mention of kingship (…LORD… King of the universe)."
+      },
+      {
+        "id": "persons-name",
+        "text": "The name of the person who is reciting the blessing."
+      },
+      {
+        "id": "date",
+        "text": "The exact date and time at which it is being said."
+      }
+    ],
+    "correctChoiceId": "name-kingship",
+    "feedback": {
+      "correct": "Right. A blessing needs God's name and kingship — the fixed frame “Blessed are You, LORD… King of the universe.”",
+      "incorrect": "The rule names two required parts: God's name and kingship, not the speaker's name or the date."
+    },
+    "evidencePreview": "I can recognize the fixed structure of a blessing."
+  },
+  {
+    "skillId": "tefillah-prayer-move-001",
+    "graduationLevel": "text-reader",
+    "title": "Sort praise, request, and thanks",
+    "sourceWindow": {
+      "sourceRef": "Berakhot 34a",
+      "sourceUrl": "https://www.sefaria.org/Berakhot.34a",
+      "hebrew": "מוֹדִים אֲנַחְנוּ לָךְ",
+      "translation": "We give thanks to You",
+      "context": "This line opens the Modim paragraph of the Amidah, one of prayer's three basic kinds."
+    },
+    "teachingMove": "Sort prayer into its basic moves: praise of God, requests, and thanks — each has its own tone.",
+    "prompt": "Which move of prayer is “We give thanks to You”?",
+    "choices": [
+      {
+        "id": "thanks",
+        "text": "Thanks — gratitude for what has been given."
+      },
+      {
+        "id": "request",
+        "text": "Request — asking God for something not yet received."
+      },
+      {
+        "id": "complaint",
+        "text": "Complaint — protesting against a hardship."
+      }
+    ],
+    "correctChoiceId": "thanks",
+    "feedback": {
+      "correct": "Right. “We give thanks to You” is the prayer's move of thanks, distinct from praise or request.",
+      "incorrect": "“We give thanks” expresses gratitude — the move of thanks, not a request or a complaint."
+    },
+    "evidencePreview": "I can distinguish praise, request, and thanks in prayer."
+  },
+  {
+    "skillId": "history-canon-order-001",
+    "graduationLevel": "canon-navigator",
+    "title": "Order the layers of the canon",
+    "sourceWindow": {
+      "sourceRef": "Pirkei Avot 1:1",
+      "sourceUrl": "https://www.sefaria.org/Pirkei_Avot.1.1",
+      "hebrew": "מֹשֶׁה קִבֵּל תּוֹרָה מִסִּינַי וּמְסָרָהּ לִיהוֹשֻׁעַ",
+      "translation": "Moses received the Torah from Sinai and transmitted it to Joshua",
+      "context": "The Mishnah opens by tracing a chain of transmission across the generations."
+    },
+    "teachingMove": "Hold a rough timeline: Torah, then Mishnah, then Gemara, then the Rishonim — earlier layers are quoted by later ones.",
+    "prompt": "Which ordering of the canon is correct, earliest to latest?",
+    "choices": [
+      {
+        "id": "correct-order",
+        "text": "Torah, then Mishnah, then Gemara, then the Rishonim."
+      },
+      {
+        "id": "reversed",
+        "text": "The Rishonim, then Gemara, then Mishnah, then Torah."
+      },
+      {
+        "id": "scrambled",
+        "text": "Gemara, then Torah, then the Rishonim, then Mishnah."
+      }
+    ],
+    "correctChoiceId": "correct-order",
+    "feedback": {
+      "correct": "Right. Torah comes first, then the Mishnah, then the Gemara, then the medieval Rishonim.",
+      "incorrect": "The canon builds forward in time: Torah, Mishnah, Gemara, Rishonim — later layers quote earlier ones."
+    },
+    "evidencePreview": "I can place Torah, Mishnah, Gemara, and Rishonim in broad order."
+  },
+  {
+    "skillId": "life-practice-category-001",
+    "graduationLevel": "connected-learner",
+    "title": "Sort law, custom, value, and memory",
+    "sourceWindow": {
+      "sourceRef": "Exodus 20:8",
+      "sourceUrl": "https://www.sefaria.org/Exodus.20.8",
+      "hebrew": "זָכוֹר אֶת יוֹם הַשַּׁבָּת לְקַדְּשׁוֹ",
+      "translation": "Remember the Sabbath day, to keep it holy",
+      "context": "Around a single practice like Shabbat sit different kinds of claim: law, custom, value, and memory."
+    },
+    "teachingMove": "When you meet a practice, sort the claim: is it halakha (obligation), minhag (custom), a value, or a memory?",
+    "prompt": "“Remember the Sabbath day to keep it holy” is stated here as which kind of claim?",
+    "choices": [
+      {
+        "id": "halakha",
+        "text": "Halakha — a binding obligation commanded in the Torah."
+      },
+      {
+        "id": "minhag",
+        "text": "Minhag — a local custom that varies by community."
+      },
+      {
+        "id": "memory-only",
+        "text": "A personal memory with no obligation attached to it."
+      }
+    ],
+    "correctChoiceId": "halakha",
+    "feedback": {
+      "correct": "Right. Commanded in the Torah, keeping Shabbat is halakha — a binding obligation, not merely a custom or memory.",
+      "incorrect": "As a Torah commandment, this is halakha — an obligation — not a custom (minhag) or a private memory."
+    },
+    "evidencePreview": "I can distinguish halakha, minhag, value, and memory."
+  },
+  {
+    "skillId": "habit-recovery-001",
+    "graduationLevel": "independent-beginner",
+    "title": "Return to the work after a gap",
+    "sourceWindow": {
+      "sourceRef": "Pirkei Avot 2:16",
+      "sourceUrl": "https://www.sefaria.org/Pirkei_Avot.2.16",
+      "hebrew": "לֹא עָלֶיךָ הַמְּלָאכָה לִגְמֹר, וְלֹא אַתָּה בֶן חוֹרִין לִבָּטֵל מִמֶּנָּה",
+      "translation": "It is not your duty to finish the work, but neither are you free to desist from it",
+      "context": "Rabbi Tarfon frames learning as ongoing work you return to, not a task you must complete at once."
+    },
+    "teachingMove": "After a missed day, return to the work rather than abandoning it — consistency beats completion.",
+    "prompt": "What does this teaching suggest after you miss a day of learning?",
+    "choices": [
+      {
+        "id": "return",
+        "text": "Return to the work; you need not finish it all, only not abandon it."
+      },
+      {
+        "id": "quit",
+        "text": "Since you cannot finish it, it is better to stop learning entirely."
+      },
+      {
+        "id": "restart",
+        "text": "You must begin the entire curriculum over again from the start."
+      }
+    ],
+    "correctChoiceId": "return",
+    "feedback": {
+      "correct": "Right. You are not required to finish, but you are not free to quit — so you return and continue.",
+      "incorrect": "The teaching says not to desist: you return to the work after a gap rather than quitting or restarting everything."
+    },
+    "evidencePreview": "I can recover after missing a learning day."
+  },
+  {
+    "skillId": "habit-transfer-001",
+    "graduationLevel": "independent-beginner",
+    "title": "Carry a skill into a new source",
+    "sourceWindow": {
+      "sourceRef": "Pirkei Avot 4:1",
+      "sourceUrl": "https://www.sefaria.org/Pirkei_Avot.4.1",
+      "hebrew": "אֵיזֶהוּ חָכָם? הַלּוֹמֵד מִכָּל אָדָם",
+      "translation": "Who is wise? One who learns from every person",
+      "context": "Ben Zoma defines wisdom as the ability to learn from any source, not only familiar ones."
+    },
+    "teachingMove": "Take a move you learned in one place and try it on a new, unfamiliar source — that is transfer.",
+    "prompt": "How does this teaching describe a skilled learner?",
+    "choices": [
+      {
+        "id": "from-all",
+        "text": "One who can carry learning into every new person and source."
+      },
+      {
+        "id": "one-teacher",
+        "text": "One who learns from only a single approved teacher."
+      },
+      {
+        "id": "memorizes",
+        "text": "One who memorizes facts but never applies them elsewhere."
+      }
+    ],
+    "correctChoiceId": "from-all",
+    "feedback": {
+      "correct": "Right. Learning from every person is transfer — carrying a skill into new and unfamiliar sources.",
+      "incorrect": "Ben Zoma praises learning from everyone — applying skills to new sources — not sticking to one teacher or rote memory."
+    },
+    "evidencePreview": "I can transfer one learned skill to a new source."
   }
 ]

@@ -3,6 +3,7 @@ const params = new URLSearchParams(location.search);
 const skillId = params.get('skill') || 'fnd-orient-source-type';
 const $ = (selector) => document.querySelector(selector);
 const escapeHtml = (value) => String(value || '').replace(/[&<>"']/g, (char) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
+const shuffle = (items) => { const result = items.slice(); for (let i = result.length - 1; i > 0; i -= 1) { const j = Math.floor(Math.random() * (i + 1)); [result[i], result[j]] = [result[j], result[i]]; } return result; };
 const fallback = { id: skillId, title: 'Make one transferable learning move', statement: 'You can make the move described by the source skill.', sourceContexts: [{ ref: 'A short Jewish source', genre: 'source' }], teachingMove: 'Name what you notice before trying to solve the whole text.', checks: ['Name the move and point to the part of the source that supports it.'], transfer: 'Carry the same move into a second genre.' };
 let skill = fallback;
 let answered = false;
@@ -86,23 +87,28 @@ function renderJlaSession(session, domain) {
     sourceRef: session.sourceWindow.sourceRef,
     sourceUrl: session.sourceWindow.sourceUrl
   };
-  const window = session.sourceWindow;
+  const sourceWindow = session.sourceWindow;
   $('#title').textContent = session.title;
   $('#statement').textContent = session.evidencePreview;
   $('#why').textContent = session.teachingMove;
-  $('#source-ref').textContent = window.sourceRef;
-  $('#source-setting').textContent = window.context || 'Read this source window for the shape of the move, not for total mastery.';
+  $('#source-ref').textContent = sourceWindow.sourceRef;
+  if (sourceWindow.hebrew) { const el = $('#source-hebrew'); el.textContent = sourceWindow.hebrew; el.hidden = false; }
+  if (sourceWindow.translation) { const el = $('#source-translation'); el.textContent = sourceWindow.translation; el.hidden = false; }
+  $('#source-setting').textContent = sourceWindow.context || 'Read this source window for the shape of the move, not for total mastery.';
   $('#teaching-move').textContent = session.teachingMove;
-  $('#source-link').href = window.sourceUrl;
+  $('#source-link').href = sourceWindow.sourceUrl;
   $('#check-title').textContent = session.prompt;
   $('#steps').innerHTML = [
     ['3 min', 'Retrieve', 'Bring back a familiar source signal.'],
-    ['7 min', 'Encounter', `Read ${escapeHtml(window.sourceRef)} in its setting.`],
+    ['7 min', 'Encounter', `Read ${escapeHtml(sourceWindow.sourceRef)} in its setting.`],
     ['5 min', 'Demonstrate', 'Choose the learner move that fits the skill.'],
     ['3 min', 'Transfer', 'Carry this move into another source family.'],
     ['2 min', 'Orient', 'Notice what changed and choose the next move.']
   ].map(([time, label, copy]) => `<li><strong>${time} · ${label}</strong><br>${copy}</li>`).join('');
-  $('#choices').innerHTML = session.choices.map((choice) =>
+  // Shuffle so the correct choice is not always the authored first option (a position tell).
+  // chooseJla compares by choice id, not index, so order is purely presentational.
+  const choices = shuffle(session.choices);
+  $('#choices').innerHTML = choices.map((choice) =>
     `<button class="choice" type="button" data-choice-id="${escapeHtml(choice.id)}">${escapeHtml(choice.text)}</button>`).join('');
   document.querySelectorAll('.choice').forEach((button) => button.addEventListener('click', () => chooseJla(button, session)));
 }
