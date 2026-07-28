@@ -2890,3 +2890,9 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
 - Pilot gates preserve hosted account isolation, source review, human trust-page review, and
   stop-and-repair rules for learner harm or repeated confusion.
 - Verification: three focused pilot-document guard tests pass.
+
+## 2026-07-28 - Codex: restore generated Foundation map integrity
+
+- Regenerated `data/foundation-content-map.json` with the canonical builder after the detached
+  baseline exposed drift: 119 units and all 49 foundational skills now have mapped content.
+- Verification: full required suite passes, 360 tests / 0 failures.
