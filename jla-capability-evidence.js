@@ -74,4 +74,29 @@ export function mergeCapabilityEvidence(existing = [], incoming) {
   return existing.map((item, index) => (index === priorIndex ? merged : item));
 }
 
+export function recordAcademyCapabilityEvent(existing = [], event, at = new Date()) {
+  if (!event?.jlaCapability || !event.skillId || !event.domain || !event.graduationLevel) {
+    throw new Error('Academy capability event is missing its JLA mapping.');
+  }
+  const prior = existing.find(({ skillId }) => skillId === event.skillId);
+  const priorIsSecure = prior && STATUS_STRENGTH[prior.status] >= STATUS_STRENGTH.earned;
+  const incoming = recordCapabilityEvidence({
+    skill: {
+      id: event.skillId,
+      title: event.skillTitle || event.skillId,
+      domain: event.domain,
+      graduationLevel: event.graduationLevel
+    },
+    session: {
+      evidencePreview: event.evidenceStatement,
+      sourceWindow: { sourceRef: event.sourceRef, sourceUrl: event.sourceUrl }
+    },
+    correct: Boolean(event.correct),
+    demonstrationCount: priorIsSecure ? 2 : 1,
+    isTransfer: Boolean(event.correct) && Boolean(prior?.sourceRef) && prior.sourceRef !== event.sourceRef,
+    now: at instanceof Date ? at : new Date(at)
+  });
+  return mergeCapabilityEvidence(existing, incoming);
+}
+
 export { STATUS_STRENGTH };

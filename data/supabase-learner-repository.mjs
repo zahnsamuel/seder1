@@ -1,7 +1,8 @@
 import { supabaseRest } from './supabase-adapter.mjs';
+import { recordAcademyCapabilityEvent } from '../jla-capability-evidence.js';
 
 const competencies = { recognition: 0, translation: 0, argument: 0, sourceReasoning: 0 };
-const empty = (id, displayName = 'Learner') => ({ id, xp: 0, mastery: {}, evidence: {}, masteryUpdatedAt: {}, struggles: {}, competencies: { ...competencies }, profile: { displayName }, completedStages: [], reviewQueue: [], placement: null, artifacts: {}, events: [], dailyStreak: 0, lastStudyDate: null, totalAnswered: 0, updatedAt: new Date().toISOString() });
+const empty = (id, displayName = 'Learner') => ({ id, xp: 0, mastery: {}, evidence: {}, masteryUpdatedAt: {}, struggles: {}, competencies: { ...competencies }, profile: { displayName }, completedStages: [], reviewQueue: [], placement: null, artifacts: {}, capabilityEvidence: [], events: [], dailyStreak: 0, lastStudyDate: null, totalAnswered: 0, updatedAt: new Date().toISOString() });
 const encode = (value) => encodeURIComponent(value);
 
 function competencyFor(event) {
@@ -94,6 +95,11 @@ export async function recordHostedEvent(user, accessToken, event) {
     } else learner.reviewQueue = learner.reviewQueue.filter((item) => item.skillId !== skillId);
     await supabaseRest('attempts', { accessToken, method: 'POST', body: { user_id: learner.id, skill_id: skillId, competency, correct, source_context: event.sourceContext || null, type: event.type } });
     await putReview(learner, skillId, accessToken);
+  }
+  if (event.type === 'answer_submitted' && event.jlaCapability) {
+    learner.capabilityEvidence = recordAcademyCapabilityEvent(learner.capabilityEvidence || [], event, new Date(recorded.at));
+    learner.artifacts ||= {};
+    learner.artifacts.jlaCapabilityEvidence = learner.capabilityEvidence;
   }
   if (event.type === 'stage_mastered' && !learner.completedStages.includes(event.stageId)) learner.completedStages.push(event.stageId);
   if (event.type === 'journey_artifact_saved' && event.artifactType && event.artifactId) {

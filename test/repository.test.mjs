@@ -91,6 +91,54 @@ describe('recordLearnerEvent: answer_submitted', () => {
   });
 });
 
+describe('recordLearnerEvent: JLA capability evidence', () => {
+  const academyEvent = (overrides = {}) => ({
+    type: 'answer_submitted',
+    skillId: 'mishnah-case-001',
+    correct: true,
+    jlaCapability: true,
+    domain: 'mishnah-literacy',
+    graduationLevel: 'text-reader',
+    skillTitle: 'Identify the case in a Mishnah',
+    evidenceStatement: 'I can identify the case a Mishnah is governing.',
+    sourceRef: 'Mishnah Berakhot 1:1',
+    sourceUrl: 'https://www.sefaria.org/Mishnah_Berakhot.1.1',
+    ...overrides
+  });
+
+  test('an answer carrying a JLA mapping records capability evidence that round-trips', async () => {
+    const learner = await createLearner(root, 'Learner F');
+    const updated = await recordLearnerEvent(root, learner.id, academyEvent());
+    assert.equal(updated.capabilityEvidence.length, 1);
+    assert.equal(updated.capabilityEvidence[0].skillId, 'mishnah-case-001');
+    assert.equal(updated.capabilityEvidence[0].status, 'earned');
+    assert.equal(updated.capabilityEvidence[0].graduationLevel, 'text-reader');
+    // Mirrored into artifacts so it survives readers that normalize from either field.
+    assert.deepEqual(updated.artifacts.jlaCapabilityEvidence, updated.capabilityEvidence);
+    // Persisted: a fresh read reconstructs the same evidence.
+    const reread = await getLearner(root, learner.id);
+    assert.deepEqual(reread.capabilityEvidence, updated.capabilityEvidence);
+  });
+
+  test('a repeat on a new source advances the same skill to transfer-ready, not a duplicate', async () => {
+    const learner = await createLearner(root, 'Learner G');
+    await recordLearnerEvent(root, learner.id, academyEvent());
+    const updated = await recordLearnerEvent(root, learner.id, academyEvent({
+      sourceRef: 'Mishnah Peah 1:1', sourceUrl: 'https://www.sefaria.org/Mishnah_Peah.1.1'
+    }));
+    assert.equal(updated.capabilityEvidence.length, 1);
+    assert.equal(updated.capabilityEvidence[0].status, 'transfer-ready');
+  });
+
+  test('an ordinary answer without a JLA mapping records no capability evidence', async () => {
+    const learner = await createLearner(root, 'Learner H');
+    const updated = await recordLearnerEvent(root, learner.id, {
+      type: 'answer_submitted', skillId: 'skill-x', correct: true
+    });
+    assert.deepEqual(updated.capabilityEvidence, []);
+  });
+});
+
 describe('recordLearnerEvent: evidence and the multi-context transfer bonus', () => {
   test('a single source context grants the base mastery gain only', async () => {
     const learner = await createLearner(root, 'Learner F');

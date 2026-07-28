@@ -1,6 +1,7 @@
 import { existsSync, promises as fs } from 'node:fs';
 import { join } from 'node:path';
 import { decayedMasteryMap, freshnessOf } from './mastery-decay.mjs';
+import { recordAcademyCapabilityEvent } from '../jla-capability-evidence.js';
 
 const learnerFile = (root) => join(root, 'data', 'learners.json');
 const defaultLearner = (id) => ({
@@ -55,7 +56,7 @@ function withWriteLock(root, fn) {
 function normalizedLearner(learner) {
   if (!learner) return null;
   const base = defaultLearner(learner.id);
-  const merged = { ...base, ...learner, profile: { ...base.profile, ...(learner.profile || {}) }, competencies: { ...base.competencies, ...(learner.competencies || {}) }, evidence: { ...(learner.evidence || {}) }, masteryUpdatedAt: { ...(learner.masteryUpdatedAt || {}) }, struggles: { ...(learner.struggles || {}) }, artifacts: { ...(learner.artifacts || {}) }, foundationScores: { ...(learner.foundationScores || {}) }, reviewQueue: normalizedReviewQueue(learner.reviewQueue) };
+  const merged = { ...base, ...learner, profile: { ...base.profile, ...(learner.profile || {}) }, competencies: { ...base.competencies, ...(learner.competencies || {}) }, evidence: { ...(learner.evidence || {}) }, masteryUpdatedAt: { ...(learner.masteryUpdatedAt || {}) }, struggles: { ...(learner.struggles || {}) }, artifacts: { ...(learner.artifacts || {}) }, foundationScores: { ...(learner.foundationScores || {}) }, capabilityEvidence: [...(learner.capabilityEvidence || learner.artifacts?.jlaCapabilityEvidence || [])], reviewQueue: normalizedReviewQueue(learner.reviewQueue) };
   merged.decayedMastery = decayedMasteryMap(merged.mastery, merged.masteryUpdatedAt);
   return merged;
 }
@@ -206,6 +207,10 @@ async function recordLearnerEventUnlocked(root, id, event) {
     } else if (event.correct && learner.mastery[event.skillId] >= .67) {
       learner.reviewQueue = learner.reviewQueue.filter((item) => item.skillId !== event.skillId);
     }
+  }
+  if (event.type === 'answer_submitted' && event.jlaCapability) {
+    learner.capabilityEvidence = recordAcademyCapabilityEvent(learner.capabilityEvidence, event, new Date(recorded.at));
+    learner.artifacts.jlaCapabilityEvidence = learner.capabilityEvidence;
   }
   if (event.type === 'stage_mastered' && !learner.completedStages.includes(event.stageId)) learner.completedStages.push(event.stageId);
   if (event.type === 'journey_artifact_saved' && event.artifactType && event.artifactId) {
