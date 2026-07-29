@@ -6,7 +6,7 @@ import { callYochaiTool } from './yochai-adapter.mjs';
 import { createLearner, decayingSkills, deleteLearner, getLearner, listLearners, listLearnersFull, recordLearnerEvent, reviewStatus } from './data/repository.mjs';
 import { supabaseConfig, verifySupabaseAccessToken } from './data/supabase-adapter.mjs';
 import { deleteHostedLearnerData, getHostedLearner, recordHostedEvent } from './data/supabase-learner-repository.mjs';
-import { initSqlite, sqliteEnabled, issueToken, verifyToken, revokeTokens } from './data/sqlite-store.mjs';
+import { initSqlite, sqliteEnabled, issueToken, verifyToken, revokeTokens, closeSqlite } from './data/sqlite-store.mjs';
 import { canMasterJourneyStage, canonJourney, journeyStatus, nextGemaraArc, nextGraphPractice, nextJourneyRecommendation, remediationFor, sourceReviewItems } from './data/curriculum-engine.mjs';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
@@ -582,3 +582,9 @@ createServer(async (request, response) => {
     sendJson(response, error.statusCode || 500, { error: error.message });
   }
 }).listen(port, '0.0.0.0', () => console.log(`Seder is running at http://127.0.0.1:${port}`));
+
+// Close SQLite cleanly on the SIGTERM/SIGINT a host sends on redeploy, so the WAL is
+// checkpointed into the main .db file (a clean, consistent snapshot to back up).
+for (const signal of ['SIGTERM', 'SIGINT']) {
+  process.on(signal, () => { try { closeSqlite(); } catch { /* best effort */ } process.exit(0); });
+}
