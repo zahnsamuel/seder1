@@ -28,6 +28,7 @@ for (const file of files) {
   for (const m of text.matchAll(/https:\/\/www\.sefaria\.org\/([^"'\\ )<`$?#]+)/g)) {
     if (!m[1] || /[{}]/.test(m[1])) continue; // template-literal fragments, not real links
     if (text[m.index + m[0].length] === '$') continue; // generator prefix like .../Mishnah_${...}
+    if (m[1] === 'search') continue; // /search?q=... is a valid Sefaria navigation page, not a text reference to validate
     if (!literal.has(m[1])) literal.set(m[1], new Set());
     literal.get(m[1]).add(file);
   }
