@@ -6,10 +6,14 @@ import { callYochaiTool } from './yochai-adapter.mjs';
 import { createLearner, decayingSkills, deleteLearner, getLearner, listLearners, listLearnersFull, recordLearnerEvent, reviewStatus } from './data/repository.mjs';
 import { supabaseConfig, verifySupabaseAccessToken } from './data/supabase-adapter.mjs';
 import { deleteHostedLearnerData, getHostedLearner, recordHostedEvent } from './data/supabase-learner-repository.mjs';
+import { initSqlite, sqliteEnabled, issueToken, verifyToken, revokeTokens } from './data/sqlite-store.mjs';
 import { canMasterJourneyStage, canonJourney, journeyStatus, nextGemaraArc, nextGraphPractice, nextJourneyRecommendation, remediationFor, sourceReviewItems } from './data/curriculum-engine.mjs';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const port = Number(process.env.PORT || 4180);
+// Hosted pilot persistence: point SEDER_DB at a SQLite file to store learners there and turn
+// on per-learner bearer-token auth (see data/sqlite-store.mjs). Unset = local JSON dev store.
+if (process.env.SEDER_DB) initSqlite(process.env.SEDER_DB);
 const mime = { '.html': 'text/html; charset=utf-8', '.js': 'application/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.svg': 'image/svg+xml', '.webmanifest': 'application/manifest+json; charset=utf-8' };
 
 function sendJson(response, status, body) {
@@ -129,6 +133,16 @@ async function recommendFor(learner, { skipReview = false } = {}) {
 
 async function learnerAccess(request, requestedId) {
   const token = request.headers.authorization?.replace(/^Bearer\s+/i, '');
+  if (sqliteEnabled()) {
+    // Hosted SQLite mode: the learner id comes ONLY from the verified token, never from the
+    // URL, and a request for anyone else's id is refused. This app-layer check is the account
+    // isolation guarantee here (SQLite has no row-level security).
+    if (!token) { const error = new Error('A sign-in session is required.'); error.statusCode = 401; throw error; }
+    const owner = verifyToken(token);
+    if (!owner) { const error = new Error('Your sign-in session is not valid.'); error.statusCode = 401; throw error; }
+    if (requestedId && requestedId !== owner.id) { const error = new Error('You can only access your own learner record.'); error.statusCode = 403; throw error; }
+    return { hosted: false, authed: true, id: owner.id };
+  }
   if (supabaseConfig().configured) {
     if (!token) {
       const error = new Error('A sign-in session is required in hosted mode.');
@@ -155,7 +169,7 @@ async function readLearner(request, id) {
 
 async function handleApi(request, response, url) {
   if (url.pathname === '/api/health') {
-    sendJson(response, 200, { status: 'ok', yochai: process.env.YOCHAI_API_KEY ? 'configured' : 'demo-mode', persistence: supabaseConfig().configured ? 'supabase-ready' : 'local-development' });
+    sendJson(response, 200, { status: 'ok', yochai: process.env.YOCHAI_API_KEY ? 'configured' : 'demo-mode', persistence: sqliteEnabled() ? 'sqlite-ready' : supabaseConfig().configured ? 'supabase-ready' : 'local-development' });
     return true;
   }
   if (request.method === 'GET' && url.pathname === '/api/public-config') {
@@ -164,11 +178,28 @@ async function handleApi(request, response, url) {
     return true;
   }
   if (request.method === 'GET' && url.pathname === '/api/auth/session') {
-    if (!supabaseConfig().configured) { sendJson(response, 503, { error: 'Supabase sign-in is not configured yet.' }); return true; }
     const token = request.headers.authorization?.replace(/^Bearer\s+/i, '');
+    if (sqliteEnabled()) {
+      const owner = token && verifyToken(token);
+      if (!owner) { sendJson(response, 401, { error: 'A sign-in session is required.' }); return true; }
+      sendJson(response, 200, { user: { id: owner.id } });
+      return true;
+    }
+    if (!supabaseConfig().configured) { sendJson(response, 503, { error: 'Supabase sign-in is not configured yet.' }); return true; }
     if (!token) { sendJson(response, 401, { error: 'A sign-in session is required.' }); return true; }
     try { sendJson(response, 200, { user: await verifySupabaseAccessToken(token) }); }
     catch (error) { sendJson(response, 401, { error: error.message }); }
+    return true;
+  }
+  // Hosted SQLite mode: claim a learner and receive a bearer token (kept client-side). This is
+  // the sign-up for the token model — no password, no external auth service.
+  if (request.method === 'POST' && url.pathname === '/api/auth/signup') {
+    if (!sqliteEnabled()) { sendJson(response, 503, { error: 'Token sign-up is not enabled in this environment.' }); return true; }
+    const body = await readJsonBody(request);
+    if (!body.displayName?.trim()) { sendJson(response, 400, { error: 'Enter a name to start learning.' }); return true; }
+    const learner = await createLearner(root, body.displayName.trim());
+    const token = issueToken(learner.id);
+    sendJson(response, 201, { id: learner.id, token, learner });
     return true;
   }
   if (url.pathname === '/api/curriculum/canon-journey') {
@@ -334,6 +365,7 @@ async function handleApi(request, response, url) {
       sendJson(response, 200, { deleted: true, note: 'Your learning data was deleted. This does not remove your sign-in identity; contact support for that.' });
     } else {
       const existed = await deleteLearner(root, access.id);
+      if (sqliteEnabled()) revokeTokens(access.id);
       if (existed) sendJson(response, 200, { deleted: true });
       else sendJson(response, 404, { error: 'Learner profile not found.' });
     }

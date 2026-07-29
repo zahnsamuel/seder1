@@ -2,6 +2,7 @@ import { existsSync, promises as fs } from 'node:fs';
 import { join } from 'node:path';
 import { decayedMasteryMap, freshnessOf } from './mastery-decay.mjs';
 import { recordAcademyCapabilityEvent } from '../jla-capability-evidence.js';
+import { sqliteEnabled, readAll as sqliteReadAll, writeAll as sqliteWriteAll } from './sqlite-store.mjs';
 
 const learnerFile = (root) => join(root, 'data', 'learners.json');
 const defaultLearner = (id) => ({
@@ -27,13 +28,18 @@ const defaultLearner = (id) => ({
   updatedAt: new Date().toISOString(),
 });
 
+// Storage seam. When the SQLite store is initialized (hosted pilot mode) the whole learner
+// map is read from / written to SQLite; otherwise it is the local development JSON file.
+// All the event/mastery logic below is identical either way — only the backing store moves.
 async function readLearners(root) {
+  if (sqliteEnabled()) return sqliteReadAll();
   const file = learnerFile(root);
   if (!existsSync(file)) return {};
   return JSON.parse(await fs.readFile(file, 'utf8'));
 }
 
 async function writeLearners(root, learners) {
+  if (sqliteEnabled()) { sqliteWriteAll(learners); return; }
   await fs.writeFile(learnerFile(root), JSON.stringify(learners, null, 2), 'utf8');
 }
 
