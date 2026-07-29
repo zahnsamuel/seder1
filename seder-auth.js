@@ -30,6 +30,19 @@ Seder.signUp = async (displayName) => {
   localStorage.setItem(authKey, JSON.stringify(Seder.session));
   return { id };
 };
+// Restore a token-mode account from its recovery code (the bearer token). The learner keeps this
+// code because it is the ONLY way back into a token account on a new device or after clearing this
+// browser — there is no email/password to fall back on.
+Seder.recoverWithToken = async (code) => {
+  const token = String(code || '').trim();
+  if (!token) throw new Error('Enter your recovery code.');
+  const response = await fetch('/api/auth/session', { headers: { Authorization: `Bearer ${token}` } });
+  if (!response.ok) throw new Error('That recovery code was not recognized. Check for extra spaces and try again.');
+  const { user } = await response.json();
+  Seder.session = { access_token: token, user: { id: user.id } };
+  localStorage.setItem(authKey, JSON.stringify(Seder.session));
+  return { id: user.id };
+};
 Seder.api = async (url, options = {}, retried = false) => {
   const headers = new Headers(options.headers || {});
   if (Seder.session?.access_token) headers.set('Authorization', `Bearer ${Seder.session.access_token}`);
