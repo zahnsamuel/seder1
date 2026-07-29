@@ -346,7 +346,7 @@
     "sourceWindow": {
       "sourceRef": "Berakhot 2a",
       "sourceUrl": "https://www.sefaria.org/Berakhot.2a",
-      "hebrew": "תָּנָא הֵיכָא קָאֵי דְּקָתָנֵי מֵאֵימָתַי",
+      "hebrew": "תַּנָּא הֵיכָא קָאֵי דְּקָתָנֵי מֵאֵימָתַי",
       "translation": "On what does the tanna stand, that he teaches “from when”?",
       "context": "The Gemara opens by questioning why the Mishnah begins with the word “from when.”"
     },
@@ -412,14 +412,14 @@
     "graduationLevel": "learning-move-apprentice",
     "title": "Hear a challenge coming",
     "sourceWindow": {
-      "sourceRef": "Berakhot 2b",
-      "sourceUrl": "https://www.sefaria.org/Berakhot.2b",
-      "hebrew": "מֵיתִיבֵי",
+      "sourceRef": "Berakhot 10b",
+      "sourceUrl": "https://www.sefaria.org/Berakhot.10b",
+      "hebrew": "מֵיתִיבִי",
       "translation": "They raise an objection",
-      "context": "The word מֵיתִיבֵי signals that a source is about to be cited against a stated position."
+      "context": "The word מֵיתִיבִי signals that a source is about to be cited against a stated position."
     },
-    "teachingMove": "Learn the signal words: מֵיתִיבֵי warns you a challenge is coming, not agreement.",
-    "prompt": "What does the word מֵיתִיבֵי signal is coming next?",
+    "teachingMove": "Learn the signal words: מֵיתִיבִי warns you a challenge is coming, not agreement.",
+    "prompt": "What does the word מֵיתִיבִי signal is coming next?",
     "choices": [
       {
         "id": "objection",
@@ -436,8 +436,8 @@
     ],
     "correctChoiceId": "objection",
     "feedback": {
-      "correct": "Right. מֵיתִיבֵי, “they raise an objection,” signals an incoming challenge from a cited source.",
-      "incorrect": "מֵיתִיבֵי means “they object.” It flags a challenge to the position, not agreement or a blessing."
+      "correct": "Right. מֵיתִיבִי, “they raise an objection,” signals an incoming challenge from a cited source.",
+      "incorrect": "מֵיתִיבִי means “they object.” It flags a challenge to the position, not agreement or a blessing."
     },
     "evidencePreview": "I can recognize a Gemara challenge from its signal word."
   },
@@ -448,7 +448,7 @@
     "sourceWindow": {
       "sourceRef": "Deuteronomy 6:7",
       "sourceUrl": "https://www.sefaria.org/Deuteronomy.6.7",
-      "hebrew": "וְדִבַּרְתָּ בָּם... בְּשָׁכְבְּךָ וּבְקוּמֶךָ",
+      "hebrew": "וְדִבַּרְתָּ בָּם... וּבְשׇׁכְבְּךָ וּבְקוּמֶךָ",
       "translation": "And you shall speak of them… when you lie down and when you rise up",
       "context": "From this verse the halakha derives an obligation to recite the Shema evening and morning."
     },
@@ -618,16 +618,16 @@
     "sourceWindow": {
       "sourceRef": "Berakhot 40b",
       "sourceUrl": "https://www.sefaria.org/Berakhot.40b",
-      "hebrew": "כָּל בְּרָכָה שֶׁאֵין בָּהּ שֵׁם וּמַלְכוּת אֵינָהּ בְּרָכָה",
-      "translation": "Any blessing that lacks God's name and kingship is not a blessing",
-      "context": "The Talmud defines what every blessing must contain: God's name and a mention of divine kingship."
+      "hebrew": "כׇּל בְּרָכָה שֶׁאֵין בָּהּ מַלְכוּת אֵינָהּ בְּרָכָה",
+      "translation": "Any blessing that lacks [God's] kingship is not a blessing",
+      "context": "Rabbi Yoḥanan states a requirement every blessing must meet: it must mention God's kingship (…King of the universe). A companion rule adds God's name."
     },
     "teachingMove": "Learn the fixed shape of a blessing — “Blessed are You, LORD… King of the universe” — so you can recognize it anywhere.",
     "prompt": "According to this rule, what must a blessing contain?",
     "choices": [
       {
         "id": "name-kingship",
-        "text": "God's name and a mention of kingship (…LORD… King of the universe)."
+        "text": "A mention of God's kingship (…King of the universe)."
       },
       {
         "id": "persons-name",
@@ -640,8 +640,8 @@
     ],
     "correctChoiceId": "name-kingship",
     "feedback": {
-      "correct": "Right. A blessing needs God's name and kingship — the fixed frame “Blessed are You, LORD… King of the universe.”",
-      "incorrect": "The rule names two required parts: God's name and kingship, not the speaker's name or the date."
+      "correct": "Right. This rule requires kingship — the frame “…King of the universe” (a companion rule adds God's name).",
+      "incorrect": "The rule requires a mention of God's kingship, not the speaker's name or the date."
     },
     "evidencePreview": "I can recognize the fixed structure of a blessing."
   },
@@ -652,30 +652,30 @@
     "sourceWindow": {
       "sourceRef": "Berakhot 34a",
       "sourceUrl": "https://www.sefaria.org/Berakhot.34a",
-      "hebrew": "מוֹדִים אֲנַחְנוּ לָךְ",
-      "translation": "We give thanks to You",
-      "context": "This line opens the Modim paragraph of the Amidah, one of prayer's three basic kinds."
+      "hebrew": "אֶמְצָעִיּוֹת דּוֹמֶה לְעֶבֶד שֶׁמְבַקֵּשׁ פְּרָס מֵרַבּוֹ",
+      "translation": "The middle [blessings] are like a servant requesting a reward from his master",
+      "context": "Rabbi Ḥanina compares the Amidah's three parts to a servant: first praise, then request, then thanks and leave-taking."
     },
     "teachingMove": "Sort prayer into its basic moves: praise of God, requests, and thanks — each has its own tone.",
-    "prompt": "Which move of prayer is “We give thanks to You”?",
+    "prompt": "Rabbi Ḥanina likens the middle blessings to a servant requesting a reward. Which move of prayer is that?",
     "choices": [
-      {
-        "id": "thanks",
-        "text": "Thanks — gratitude for what has been given."
-      },
       {
         "id": "request",
         "text": "Request — asking God for something not yet received."
       },
       {
-        "id": "complaint",
-        "text": "Complaint — protesting against a hardship."
+        "id": "praise",
+        "text": "Praise — extolling God, asking for nothing."
+      },
+      {
+        "id": "thanks",
+        "text": "Thanks — gratitude for what has already been given."
       }
     ],
-    "correctChoiceId": "thanks",
+    "correctChoiceId": "request",
     "feedback": {
-      "correct": "Right. “We give thanks to You” is the prayer's move of thanks, distinct from praise or request.",
-      "incorrect": "“We give thanks” expresses gratitude — the move of thanks, not a request or a complaint."
+      "correct": "Right. The middle blessings are the request — a servant asking a reward. Praise opens the Amidah; thanks closes it.",
+      "incorrect": "Rabbi Ḥanina calls the middle blessings a servant's request. Praise comes first; thanks comes last."
     },
     "evidencePreview": "I can distinguish praise, request, and thanks in prayer."
   },
