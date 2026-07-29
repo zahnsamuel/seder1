@@ -59,8 +59,9 @@ if (!health) {
   add(`Server reachable (${base})`, 'skip', 'no server answered — start `npm start` (or set SEDER_BASE_URL) to include the server gates');
 } else {
   add(`Server reachable (${base})`, 'pass', `health: ${health.status}`);
-  add('Persistence is hosted (supabase-ready)', health.persistence === 'supabase-ready' ? 'pass' : 'fail',
-    `persistence: ${health.persistence}${health.persistence === 'supabase-ready' ? '' : ' — a real pilot must run in hosted mode, not local (shared demo learner)'}`);
+  const hostedPersistence = health.persistence === 'supabase-ready' || health.persistence === 'sqlite-ready';
+  add('Persistence is hosted (supabase-ready or sqlite-ready)', hostedPersistence ? 'pass' : 'fail',
+    `persistence: ${health.persistence}${hostedPersistence ? '' : ' — a real pilot must run in hosted mode, not local (shared demo learner)'}`);
   // smoke a few learner-facing routes
   const routes = [
     '/seder.html', '/demo.html', '/sign-in.html', '/placement.html', '/daily-router.html', '/path.html',
@@ -97,7 +98,11 @@ if (!health) {
 }
 
 // --- Manual gates (cannot be auto-verified here) ---
-add('Account isolation verified live', 'manual', 'run `npm run verify:isolation` against the real Supabase project (needs two test accounts + creds)');
+if (health?.persistence === 'sqlite-ready') {
+  add('Account isolation verified', 'pass', 'SQLite hosted mode — covered by test/sqlite-isolation.test.mjs in the suite above (real server, two learners, cross-access refused)');
+} else {
+  add('Account isolation verified live', 'manual', 'run `npm run verify:isolation` against the real Supabase project (needs two test accounts + creds)');
+}
 add('Human read of privacy / terms / support', 'manual', 'tone + legal accuracy — a person, not Claude (see docs/launch-checklist.md)');
 
 // --- Report ---

@@ -1,8 +1,21 @@
+# Hosted pilot on Render. The SQLite database lives on a persistent disk so learner data
+# survives restarts and deploys. NOTE: persistent disks require a paid instance type — the
+# free plan has ephemeral storage and would lose every learner on redeploy. Keep the plan on a
+# paid tier (e.g. starter) before relying on this for a real pilot.
 services:
   - type: web
     name: seder-demo
     runtime: docker
-    plan: free
+    plan: starter
     region: oregon
     healthCheckPath: /api/health
     autoDeployTrigger: commit
+    envVars:
+      # Setting SEDER_DB puts the server in hosted SQLite mode: per-learner bearer-token auth
+      # and account isolation (see data/sqlite-store.mjs and server.mjs learnerAccess).
+      - key: SEDER_DB
+        value: /data/seder.db
+    disk:
+      name: seder-data
+      mountPath: /data
+      sizeGB: 1
