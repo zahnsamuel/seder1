@@ -1,6 +1,9 @@
 // Public Supabase sign-in client. The anon key is safe to expose; row-level security protects learner data.
 const Seder = window.Seder || {};
 const authKey = 'seder-auth-session-v1';
+// Pages a never-signed-in visitor may view without being bounced to sign-in. Interior pages
+// still redirect a 401 into sign-in (carrying a return path) so shared deep links prompt sign-up.
+const publicPages = new Set(['/', '/index.html', '/seder.html', '/sign-in.html', '/privacy.html', '/terms.html', '/support.html']);
 Seder.session = JSON.parse(localStorage.getItem(authKey) || 'null');
 Seder.config = async () => {
   if (Seder._config) return Seder._config;
@@ -34,7 +37,7 @@ Seder.api = async (url, options = {}, retried = false) => {
   if (response.status === 401 && !retried && await Seder.refreshSession()) return Seder.api(url, options, true);
   const config = await Seder.config();
   const requiresAuth = config.mode === 'token' || (config.supabaseUrl && config.supabaseAnonKey);
-  if (response.status === 401 && requiresAuth && !location.pathname.endsWith('/sign-in.html')) {
+  if (response.status === 401 && requiresAuth && !publicPages.has(location.pathname)) {
     localStorage.removeItem(authKey);
     Seder.session = null;
     const signIn = new URL('sign-in.html', location.origin);
