@@ -14,6 +14,19 @@ const port = Number(process.env.PORT || 4180);
 // Hosted pilot persistence: point SEDER_DB at a SQLite file to store learners there and turn
 // on per-learner bearer-token auth (see data/sqlite-store.mjs). Unset = local JSON dev store.
 if (process.env.SEDER_DB) initSqlite(process.env.SEDER_DB);
+
+// Best-effort per-IP throttle on the open sign-up endpoint so a public deploy can't be flooded
+// with junk accounts. In-memory (resets on restart), which is fine at pilot scale.
+const signupHits = new Map();
+function signupRateLimited(ip, max = 8, windowMs = 3600000) {
+  const now = Date.now();
+  const hits = (signupHits.get(ip) || []).filter((t) => now - t < windowMs);
+  if (hits.length >= max) { signupHits.set(ip, hits); return true; }
+  hits.push(now);
+  signupHits.set(ip, hits);
+  return false;
+}
+const clientIp = (request) => (request.headers['x-forwarded-for'] || '').split(',')[0].trim() || request.socket?.remoteAddress || 'unknown';
 const mime = { '.html': 'text/html; charset=utf-8', '.js': 'application/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.svg': 'image/svg+xml', '.webmanifest': 'application/manifest+json; charset=utf-8' };
 
 function sendJson(response, status, body) {
@@ -196,6 +209,7 @@ async function handleApi(request, response, url) {
   // the sign-up for the token model — no password, no external auth service.
   if (request.method === 'POST' && url.pathname === '/api/auth/signup') {
     if (!sqliteEnabled()) { sendJson(response, 503, { error: 'Token sign-up is not enabled in this environment.' }); return true; }
+    if (signupRateLimited(clientIp(request))) { sendJson(response, 429, { error: 'Too many sign-ups from here just now. Please wait a few minutes and try again.' }); return true; }
     const body = await readJsonBody(request);
     if (!body.displayName?.trim()) { sendJson(response, 400, { error: 'Enter a name to start learning.' }); return true; }
     const learner = await createLearner(root, body.displayName.trim());

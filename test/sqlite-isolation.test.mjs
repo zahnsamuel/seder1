@@ -136,6 +136,16 @@ test('B reading its OWN record works and is empty of A\'s data (200)', async () 
   assert.equal(learner.xp, 0, 'B has none of A\'s xp');
 });
 
+test('the sign-up endpoint rate-limits a burst (429 past the per-IP cap, never 500)', async () => {
+  // `before` already used 2 of the cap; keep signing up until the throttle trips.
+  let got429 = false;
+  for (let i = 0; i < 20 && !got429; i++) {
+    const r = await fetch(`${base}/api/auth/signup`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ displayName: `Burst ${i}` }) });
+    if (r.status === 429) got429 = true; else assert.equal(r.status, 201, 'pre-cap sign-ups succeed');
+  }
+  assert.ok(got429, 'expected a 429 once the per-IP sign-up cap is exceeded');
+});
+
 test('A can delete its own data (owner allowed; 200), and its token is then revoked', async () => {
   const del = await fetch(`${base}/api/learners/${A.id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${A.token}` } });
   assert.equal(del.status, 200);
