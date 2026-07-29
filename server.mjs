@@ -174,7 +174,8 @@ async function handleApi(request, response, url) {
   }
   if (request.method === 'GET' && url.pathname === '/api/public-config') {
     const config = supabaseConfig();
-    sendJson(response, 200, { supabaseUrl: config.url || null, supabaseAnonKey: config.anonKey || null });
+    const mode = sqliteEnabled() ? 'token' : config.configured ? 'supabase' : 'local';
+    sendJson(response, 200, { mode, supabaseUrl: config.url || null, supabaseAnonKey: config.anonKey || null });
     return true;
   }
   if (request.method === 'GET' && url.pathname === '/api/auth/session') {

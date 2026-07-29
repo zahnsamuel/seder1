@@ -17,14 +17,24 @@ Seder.refreshSession = async () => {
   localStorage.setItem(authKey, JSON.stringify(Seder.session));
   return true;
 };
+// Token mode (SQLite hosted): claim a learner and keep the bearer token client-side. Reuses the
+// same session shape as the Supabase path, so Seder.api and currentLearnerId work unchanged.
+Seder.signUp = async (displayName) => {
+  const response = await fetch('/api/auth/signup', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ displayName }) });
+  if (!response.ok) { const body = await response.json().catch(() => ({})); throw new Error(body.error || 'We could not start your learner account. Please try again.'); }
+  const { id, token } = await response.json();
+  Seder.session = { access_token: token, user: { id } };
+  localStorage.setItem(authKey, JSON.stringify(Seder.session));
+  return { id };
+};
 Seder.api = async (url, options = {}, retried = false) => {
   const headers = new Headers(options.headers || {});
   if (Seder.session?.access_token) headers.set('Authorization', `Bearer ${Seder.session.access_token}`);
   const response = await fetch(url, { ...options, headers });
   if (response.status === 401 && !retried && await Seder.refreshSession()) return Seder.api(url, options, true);
   const config = await Seder.config();
-  const hosted = config.supabaseUrl && config.supabaseAnonKey;
-  if (response.status === 401 && hosted && !location.pathname.endsWith('/sign-in.html')) {
+  const requiresAuth = config.mode === 'token' || (config.supabaseUrl && config.supabaseAnonKey);
+  if (response.status === 401 && requiresAuth && !location.pathname.endsWith('/sign-in.html')) {
     localStorage.removeItem(authKey);
     Seder.session = null;
     const signIn = new URL('sign-in.html', location.origin);
