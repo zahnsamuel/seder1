@@ -7,6 +7,7 @@ import { createLearner, decayingSkills, deleteLearner, getLearner, listLearners,
 import { supabaseConfig, verifySupabaseAccessToken } from './data/supabase-adapter.mjs';
 import { deleteHostedLearnerData, getHostedLearner, recordHostedEvent } from './data/supabase-learner-repository.mjs';
 import { initSqlite, sqliteEnabled, issueToken, verifyToken, revokeTokens, closeSqlite } from './data/sqlite-store.mjs';
+import { loadJlaAcademySession, checkJlaAcademyChoice } from './jla-academy-session.js';
 import { canMasterJourneyStage, canonJourney, journeyStatus, nextGemaraArc, nextGraphPractice, nextJourneyRecommendation, remediationFor, sourceReviewItems } from './data/curriculum-engine.mjs';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
@@ -535,6 +536,46 @@ async function handleApi(request, response, url) {
     sendJson(response, 200, { title: sessionTitle, totalMinutes: steps.reduce((total, step) => total + step.minutes, 0), xp: learner.xp, dailyStreak: learner.dailyStreak || 0, totalAnswered: learner.totalAnswered || 0, fadingCount: fading.length, steps });
     return true;
   }
+  // JLA academy session, served with the answer key stripped and choices shuffled — the client
+  // never receives correctChoiceId or the feedback text. Scoring is authoritative at /answer below.
+  const jlaSessionMatch = url.pathname.match(/^\/api\/jla\/academy-session\/([a-zA-Z0-9-]+)$/);
+  if (request.method === 'GET' && jlaSessionMatch) {
+    const sessions = JSON.parse(await fs.readFile(join(root, 'data', 'jla-academy-sessions.json'), 'utf8'));
+    let session;
+    try { session = loadJlaAcademySession({ skillId: jlaSessionMatch[1], sessions }); }
+    catch { sendJson(response, 404, { error: 'No Academy session for that skill.' }); return true; }
+    const slice = JSON.parse(await fs.readFile(join(root, 'data', 'jla-foundation-skill-slice.json'), 'utf8'));
+    sendJson(response, 200, { ...session, domain: slice.find((s) => s.id === jlaSessionMatch[1])?.domain || null });
+    return true;
+  }
+  // Score a JLA academy answer server-side and record the graduation evidence for the authenticated
+  // learner. correctness is computed here (not trusted from the client), and the JLA capability
+  // mapping is derived from the shipped session + skill slice, not sent by the browser.
+  const jlaAnswerMatch = url.pathname.match(/^\/api\/jla\/academy-session\/([a-zA-Z0-9-]+)\/answer$/);
+  if (request.method === 'POST' && jlaAnswerMatch) {
+    const skillId = jlaAnswerMatch[1];
+    const sessions = JSON.parse(await fs.readFile(join(root, 'data', 'jla-academy-sessions.json'), 'utf8'));
+    const session = sessions.find((s) => s.skillId === skillId);
+    if (!session) { sendJson(response, 404, { error: 'No Academy session for that skill.' }); return true; }
+    const body = await readJsonBody(request);
+    let result;
+    try { result = checkJlaAcademyChoice({ skillId, choiceId: body.choiceId, sessions }); }
+    catch { sendJson(response, 400, { error: 'Unknown choice for this session.' }); return true; }
+    const slice = JSON.parse(await fs.readFile(join(root, 'data', 'jla-foundation-skill-slice.json'), 'utf8'));
+    const domain = slice.find((s) => s.id === skillId)?.domain || null;
+    const access = await learnerAccess(request);
+    const event = {
+      type: 'answer_submitted', skillId, foundationSkillId: skillId, correct: result.correct,
+      competency: 'sourceReasoning', sourceContext: session.sourceWindow.sourceRef,
+      jlaCapability: Boolean(domain), domain, graduationLevel: session.graduationLevel,
+      skillTitle: session.title, evidenceStatement: session.evidencePreview,
+      sourceRef: session.sourceWindow.sourceRef, sourceUrl: session.sourceWindow.sourceUrl
+    };
+    if (access.hosted) await recordHostedEvent(access.user, access.token, event);
+    else await recordLearnerEvent(root, access.id, event);
+    sendJson(response, 201, { correct: result.correct, feedback: result.feedback, evidenceStatement: result.evidencePreview });
+    return true;
+  }
   const eventMatch = url.pathname.match(/^\/api\/learners\/([a-zA-Z0-9_-]+)\/events$/);
   if (request.method === 'POST' && eventMatch) {
     const event = await readJsonBody(request);
@@ -588,6 +629,10 @@ createServer(async (request, response) => {
   try {
     if (url.pathname.startsWith('/api/') && await handleApi(request, response, url)) return;
     const relativePath = url.pathname === '/' ? 'seder.html' : url.pathname.slice(1);
+    // The academy answer key must not be reachable over HTTP — it is served only via the
+    // key-stripped /api/jla/academy-session endpoint. (Tests and the link checker read it from
+    // the filesystem, not the network, so this does not affect them.)
+    if (relativePath === 'data/jla-academy-sessions.json') { response.writeHead(404); response.end('Not found'); return; }
     const target = normalize(join(root, relativePath));
     if (!target.startsWith(root) || !existsSync(target)) { response.writeHead(404); response.end('Not found'); return; }
     response.writeHead(200, { 'Content-Type': mime[extname(target)] || 'application/octet-stream', 'Cache-Control': 'no-store' });

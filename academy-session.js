@@ -3,15 +3,9 @@ const params = new URLSearchParams(location.search);
 const skillId = params.get('skill') || 'fnd-orient-source-type';
 const $ = (selector) => document.querySelector(selector);
 const escapeHtml = (value) => String(value || '').replace(/[&<>"']/g, (char) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
-const shuffle = (items) => { const result = items.slice(); for (let i = result.length - 1; i > 0; i -= 1) { const j = Math.floor(Math.random() * (i + 1)); [result[i], result[j]] = [result[j], result[i]]; } return result; };
 const fallback = { id: skillId, title: 'Make one transferable learning move', statement: 'You can make the move described by the source skill.', sourceContexts: [{ ref: 'A short Jewish source', genre: 'source' }], teachingMove: 'Name what you notice before trying to solve the whole text.', checks: ['Name the move and point to the part of the source that supports it.'], transfer: 'Carry the same move into a second genre.' };
 let skill = fallback;
 let answered = false;
-// Set when this session is a JLA graduation-slice skill (present in jla-academy-sessions.json).
-// Its presence is what turns a plain answer into recorded capability evidence: the fields here
-// are spread onto the answer_submitted event, and the repository records/merges them into the
-// learner's capabilityEvidence, which drives graduation progress in My Path.
-let jlaMapping = null;
 
 function render() {
   $('#title').textContent = skill.title;
@@ -73,20 +67,10 @@ function renderRealContent(map) {
   $('#real-content').hidden = false;
 }
 
-// A JLA graduation-slice session: renders the designed source window, real choices, and
-// per-choice feedback from jla-academy-sessions.json, and (via jlaMapping) emits recordable
-// capability evidence. domain comes from the skill slice, the source of truth for it.
-function renderJlaSession(session, domain) {
-  jlaMapping = {
-    jlaCapability: true,
-    skillId: session.skillId,
-    domain,
-    graduationLevel: session.graduationLevel,
-    skillTitle: session.title,
-    evidenceStatement: session.evidencePreview,
-    sourceRef: session.sourceWindow.sourceRef,
-    sourceUrl: session.sourceWindow.sourceUrl
-  };
+// A JLA graduation-slice session (fetched from the server with the answer key stripped): renders
+// the designed source window and real, pre-shuffled choices. Answers go to the server, which
+// scores them and records the graduation evidence — see chooseJla.
+function renderJlaSession(session) {
   const sourceWindow = session.sourceWindow;
   $('#title').textContent = session.title;
   $('#statement').textContent = session.evidencePreview;
@@ -105,10 +89,8 @@ function renderJlaSession(session, domain) {
     ['3 min', 'Transfer', 'Carry this move into another source family.'],
     ['2 min', 'Orient', 'Notice what changed and choose the next move.']
   ].map(([time, label, copy]) => `<li><strong>${time} · ${label}</strong><br>${copy}</li>`).join('');
-  // Shuffle so the correct choice is not always the authored first option (a position tell).
-  // chooseJla compares by choice id, not index, so order is purely presentational.
-  const choices = shuffle(session.choices);
-  $('#choices').innerHTML = choices.map((choice) =>
+  // Choices arrive already shuffled from the server, with the answer key stripped.
+  $('#choices').innerHTML = session.choices.map((choice) =>
     `<button class="choice" type="button" data-choice-id="${escapeHtml(choice.id)}">${escapeHtml(choice.text)}</button>`).join('');
   document.querySelectorAll('.choice').forEach((button) => button.addEventListener('click', () => chooseJla(button, session)));
 }
@@ -116,32 +98,28 @@ function renderJlaSession(session, domain) {
 async function chooseJla(button, session) {
   if (answered) return;
   answered = true;
-  const correct = button.dataset.choiceId === session.correctChoiceId;
-  button.classList.add(correct ? 'correct' : 'incorrect');
-  if (!correct) {
-    const right = document.querySelector(`.choice[data-choice-id="${session.correctChoiceId}"]`);
-    if (right) right.classList.add('correct');
-  }
-  $('#feedback').textContent = correct ? session.feedback.correct : session.feedback.incorrect;
   document.querySelectorAll('.choice').forEach((item) => { item.disabled = true; });
   $('#continue').disabled = false;
   try {
-    await Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'answer_submitted', correct, competency: 'sourceReasoning', sourceContext: session.sourceWindow.sourceRef, foundationSkillId: session.skillId, ...jlaMapping }) });
-  } catch { $('#feedback').textContent += ' Your result is ready locally; it will sync when your account is available.'; }
+    // The server scores the choice, records the graduation evidence, and returns the feedback —
+    // correctness is never computed or asserted by the client.
+    const response = await Seder.api(`/api/jla/academy-session/${encodeURIComponent(session.skillId)}/answer`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ choiceId: button.dataset.choiceId }) });
+    const result = await response.json();
+    button.classList.add(result.correct ? 'correct' : 'incorrect');
+    $('#feedback').textContent = result.feedback || (result.correct ? 'Good. You made the move visible in one source window.' : 'Not quite — carry the move into the next source and try again.');
+  } catch { $('#feedback').textContent = 'Your result is ready locally; it will sync when your account is available.'; }
 }
 
+// Ask the server for the JLA academy session (answer key stripped, choices pre-shuffled). If this
+// skill has one, render it and let the server score answers; otherwise fall back to the
+// foundation-graph render.
 Promise.all([
+  fetch(`/api/jla/academy-session/${encodeURIComponent(skillId)}`).then((response) => (response.ok ? response.json() : null)).catch(() => null),
   fetch('data/foundation-skill-graph.json').then((response) => (response.ok ? response.json() : null)).catch(() => null),
-  fetch('data/foundation-content-map.json').then((response) => (response.ok ? response.json() : null)).catch(() => null),
-  fetch('data/jla-academy-sessions.json').then((response) => (response.ok ? response.json() : null)).catch(() => null),
-  fetch('data/jla-foundation-skill-slice.json').then((response) => (response.ok ? response.json() : null)).catch(() => null)
-]).then(([graph, map, sessions, slice]) => {
-  const jlaSession = (sessions || []).find((item) => item.skillId === skillId);
-  const domain = jlaSession ? (slice || []).find((item) => item.id === skillId)?.domain : null;
-  // Only emit capability evidence when the JLA mapping is complete (session + domain); otherwise
-  // fall back to the foundation-graph render so a missing domain can never 500 the event write.
-  if (jlaSession && domain) {
-    renderJlaSession(jlaSession, domain);
+  fetch('data/foundation-content-map.json').then((response) => (response.ok ? response.json() : null)).catch(() => null)
+]).then(([jlaSession, graph, map]) => {
+  if (jlaSession && jlaSession.sourceWindow) {
+    renderJlaSession(jlaSession);
   } else {
     skill = graph?.skills.find((item) => item.id === skillId) || fallback;
     render();
