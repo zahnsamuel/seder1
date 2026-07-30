@@ -470,6 +470,15 @@ async function handleApi(request, response, url) {
       sendJson(response, 200, { available: false, reason: 'Aggregate analytics only works in local/demo mode. In hosted mode, row-level security correctly prevents this server from reading across learners without a service-role key it does not hold.' });
       return true;
     }
+    // In hosted SQLite mode this endpoint reads across ALL learners, so it must be gated by an
+    // operator admin token (SEDER_ADMIN_TOKEN). Without one set, cohort reporting stays off rather
+    // than exposing learner aggregates publicly. Local/demo mode (no hosting) stays open.
+    if (sqliteEnabled()) {
+      const admin = process.env.SEDER_ADMIN_TOKEN;
+      if (!admin) { sendJson(response, 403, { error: 'Operator analytics is disabled: set SEDER_ADMIN_TOKEN to enable cross-learner reporting.' }); return true; }
+      const token = request.headers.authorization?.replace(/^Bearer\s+/i, '');
+      if (token !== admin) { sendJson(response, 401, { error: 'Operator (admin) authorization required.' }); return true; }
+    }
     const learners = await listLearnersFull(root);
     const tractateGraph = JSON.parse(await fs.readFile(join(root, 'data', 'gemara-tractates.json'), 'utf8'));
     const totalLearners = learners.length;

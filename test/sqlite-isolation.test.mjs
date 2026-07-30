@@ -136,6 +136,13 @@ test('B reading its OWN record works and is empty of A\'s data (200)', async () 
   assert.equal(learner.xp, 0, 'B has none of A\'s xp');
 });
 
+test('operator analytics is OFF when no admin token is configured (403, not a public leak)', async () => {
+  // This server was started without SEDER_ADMIN_TOKEN, so cross-learner reporting must be disabled.
+  const res = await fetch(`${base}/api/admin/analytics`);
+  assert.equal(res.status, 403);
+  assert.match((await res.json()).error, /SEDER_ADMIN_TOKEN|disabled/i);
+});
+
 test('the sign-up endpoint rate-limits a burst (429 past the per-IP cap, never 500)', async () => {
   // `before` already used 2 of the cap; keep signing up until the throttle trips.
   let got429 = false;

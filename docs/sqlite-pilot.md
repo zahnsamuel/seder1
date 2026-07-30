@@ -64,6 +64,27 @@ This is the pilot's isolation gate and it runs with no external service.
 - Restore access at `sign-in.html` → "Have a recovery code? Restore your account".
 - Sign-up is rate-limited per IP (8/hour) to keep the open endpoint from being flooded.
 
+## Operator dashboard (cohort analytics)
+
+Unlike the Supabase path (where row-level security stops the server reading across learners),
+SQLite mode can report cohort-wide progress. It is gated by an operator token so it is never
+public:
+
+```
+SEDER_ADMIN_TOKEN=<a long random string>
+```
+
+Then read the aggregate (totals, per-tractate engagement, stage completion, top struggles):
+
+```bash
+curl -H "Authorization: Bearer $SEDER_ADMIN_TOKEN" https://your-app.example/api/admin/analytics
+```
+
+Without `SEDER_ADMIN_TOKEN` set, the endpoint returns 403 (reporting off, no leak). A learner's
+own token does not unlock it. Per-learner metrics that matter for the pilot — return (streak,
+lastActivityAt), repair (repairsAttempted, needsRepair), and transfer (independentAttempts,
+independentAccuracy) — are on `GET /api/learners/:id/pilot-analytics`.
+
 ## Operating notes
 
 - **Back up the `.db` file** on a schedule — it is the entire learner dataset. WAL mode writes
