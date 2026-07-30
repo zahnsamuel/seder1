@@ -1,5 +1,10 @@
 # Seder pilot readiness gate
 
+> **Current pilot path (2026-07-29): SQLite hosted mode.** The account-isolation gate is met by the
+> embedded SQLite path (per-learner token auth + app-layer isolation, verified by
+> `test/sqlite-isolation.test.mjs`) — no Supabase needed. See **[sqlite-pilot.md](sqlite-pilot.md)**.
+> Supabase references below apply only if you choose that backend.
+
 Before inviting the first learner cohort, confirm:
 
 - Supabase migrations 001–005 are applied and `/api/health` reports `supabase-ready`.

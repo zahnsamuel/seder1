@@ -1,5 +1,11 @@
 # Seder launch checklist
 
+> **Current pilot path (2026-07-29): SQLite hosted mode.** The account-isolation gate is now met by
+> the embedded SQLite path — per-learner token auth + app-layer isolation, verified end-to-end by
+> `test/sqlite-isolation.test.mjs`, with no Supabase project required. See
+> **[sqlite-pilot.md](sqlite-pilot.md)** for the current deploy/operate steps. The Supabase-specific
+> items below apply only if you choose that backend instead.
+
 ## Before a private pilot
 
 - Set `SUPABASE_URL` and `SUPABASE_ANON_KEY` in the hosting environment. Never set them in browser source or commit a `.env` file.

@@ -18,7 +18,7 @@ if (process.env.SEDER_DB) initSqlite(process.env.SEDER_DB);
 // Best-effort per-IP throttle on the open sign-up endpoint so a public deploy can't be flooded
 // with junk accounts. In-memory (resets on restart), which is fine at pilot scale.
 const signupHits = new Map();
-function signupRateLimited(ip, max = 8, windowMs = 3600000) {
+function signupRateLimited(ip, max = Number(process.env.SEDER_SIGNUP_LIMIT) || 8, windowMs = 3600000) {
   const now = Date.now();
   const hits = (signupHits.get(ip) || []).filter((t) => now - t < windowMs);
   if (hits.length >= max) { signupHits.set(ip, hits); return true; }
@@ -182,7 +182,7 @@ async function readLearner(request, id) {
 
 async function handleApi(request, response, url) {
   if (url.pathname === '/api/health') {
-    sendJson(response, 200, { status: 'ok', yochai: process.env.YOCHAI_API_KEY ? 'configured' : 'demo-mode', persistence: sqliteEnabled() ? 'sqlite-ready' : supabaseConfig().configured ? 'supabase-ready' : 'local-development' });
+    sendJson(response, 200, { status: 'ok', yochai: process.env.YOCHAI_API_KEY ? 'configured' : 'demo-mode', persistence: sqliteEnabled() ? 'sqlite-ready' : supabaseConfig().configured ? 'supabase-ready' : 'local-development', commit: process.env.RENDER_GIT_COMMIT || process.env.SEDER_COMMIT || null });
     return true;
   }
   if (request.method === 'GET' && url.pathname === '/api/public-config') {
