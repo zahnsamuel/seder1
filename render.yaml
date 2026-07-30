@@ -15,6 +15,11 @@ services:
       # and account isolation (see data/sqlite-store.mjs and server.mjs learnerAccess).
       - key: SEDER_DB
         value: /data/seder.db
+      # Operator (admin) token for the cohort analytics dashboard. Set it in the Render
+      # dashboard, not here — sync:false keeps the secret out of the repo. Leave unset to keep
+      # cross-learner reporting off.
+      - key: SEDER_ADMIN_TOKEN
+        sync: false
     disk:
       name: seder-data
       mountPath: /data

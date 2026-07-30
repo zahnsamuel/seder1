@@ -69,3 +69,15 @@ test('with the admin token, the operator sees cross-learner aggregates', async (
   assert.ok(data.totalLearners >= 1, 'cohort has the signed-up learner');
   assert.ok(data.totalAttempts >= 1, 'the recorded answer is counted');
 });
+
+test('full flow over HTTP on SQLite: a JLA answer records graduation evidence + shows in analytics', async () => {
+  const rec = await fetch(`${base}/api/learners/${learner.id}/events`, {
+    method: 'POST', headers: { Authorization: `Bearer ${learner.token}`, 'content-type': 'application/json' },
+    body: JSON.stringify({ type: 'answer_submitted', skillId: 'source-family-001', correct: true, jlaCapability: true, domain: 'source-navigation', graduationLevel: 'source-explorer', skillTitle: 'Recognize a source', evidenceStatement: 'I can recognize a source.', sourceRef: 'Genesis 1:1', sourceUrl: 'https://www.sefaria.org/Genesis.1.1' })
+  });
+  assert.equal(rec.status, 201);
+  const me = await (await fetch(`${base}/api/learners/${learner.id}`, { headers: { Authorization: `Bearer ${learner.token}` } })).json();
+  assert.ok((me.capabilityEvidence || []).some((e) => e.skillId === 'source-family-001' && e.status === 'earned'), 'graduation evidence persisted over HTTP');
+  const pa = await (await fetch(`${base}/api/learners/${learner.id}/pilot-analytics`, { headers: { Authorization: `Bearer ${learner.token}` } })).json();
+  assert.ok(pa.attempts >= 2, 'pilot-analytics counts the answers');
+});
