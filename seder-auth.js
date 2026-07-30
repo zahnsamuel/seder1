@@ -129,7 +129,13 @@ Seder.enhanceDafWorkbench = () => {
   panel.querySelector('#save-daf-note').addEventListener('click', () => { const note = panel.querySelector('#daf-note').value.trim(); if (!note || !context) return; Seder.api(`/api/learners/${Seder.currentLearnerId()}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'note_saved', sourceContext: context, note }) }).then(() => { panel.querySelector('#daf-note-status').textContent = 'Saved to your private learning record.'; }).catch(() => { panel.querySelector('#daf-note-status').textContent = 'Saved locally in this session.'; }); });
 };
 setTimeout(Seder.enhanceDafWorkbench, 0);
+// Answer-feedback panels (#feedback / .feedback) update their text after a learner answers, but
+// most content pages declare them without aria-live, so screen readers never announce the result
+// (WCAG 4.1.3). Enforce a polite live region from this shared script — one fix for the whole
+// corpus, including feedback nodes created dynamically (this runs on load and on every mutation).
+Seder.ensureLiveFeedback = () => document.querySelectorAll('#feedback, .feedback').forEach((el) => { if (!el.hasAttribute('aria-live')) el.setAttribute('aria-live', 'polite'); });
 Seder.enableAdaptiveRepairLinks = () => {
+  Seder.ensureLiveFeedback();
   document.querySelectorAll('#feedback').forEach((feedback) => {
     if (feedback.dataset.sederRepair || !/not yet|almost/i.test(feedback.textContent)) return;
     feedback.dataset.sederRepair = 'true';
