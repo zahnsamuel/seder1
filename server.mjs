@@ -579,6 +579,12 @@ process.on('unhandledRejection', (reason) => logError('unhandledRejection', reas
 
 createServer(async (request, response) => {
   const url = new URL(request.url, `http://${request.headers.host}`);
+  // Baseline security headers on every response (safe/non-breaking: no CSP, since the app uses
+  // inline scripts). setHeader persists through the writeHead calls in the handlers below.
+  response.setHeader('X-Content-Type-Options', 'nosniff');
+  response.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  response.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  response.setHeader('Strict-Transport-Security', 'max-age=15552000');
   try {
     if (url.pathname.startsWith('/api/') && await handleApi(request, response, url)) return;
     const relativePath = url.pathname === '/' ? 'seder.html' : url.pathname.slice(1);

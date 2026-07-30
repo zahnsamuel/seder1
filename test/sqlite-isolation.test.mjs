@@ -91,6 +91,13 @@ test('an unsigned request is rejected (401)', async () => {
   assert.equal(res.status, 401);
 });
 
+test('every response carries baseline security headers', async () => {
+  const res = await fetch(`${base}/api/health`);
+  assert.equal(res.headers.get('x-content-type-options'), 'nosniff');
+  assert.equal(res.headers.get('x-frame-options'), 'SAMEORIGIN');
+  assert.match(res.headers.get('referrer-policy') || '', /strict-origin/);
+});
+
 test('an invalid token is rejected (401)', async () => {
   const res = await fetch(`${base}/api/learners/${A.id}`, { headers: { Authorization: 'Bearer not-a-real-token' } });
   assert.equal(res.status, 401);
