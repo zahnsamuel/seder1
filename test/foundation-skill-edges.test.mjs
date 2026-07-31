@@ -68,6 +68,15 @@ test('pedagogical rationales are null — they are educator-authored, never fabr
   for (const e of edges.filter((e) => e.type === 'prerequisite')) assert.equal(e.rationale, null);
 });
 
+test('every prerequisite edge carries a proposed encompassing weight (Math Academy Way)', () => {
+  for (const e of edges.filter((e) => e.type === 'prerequisite')) {
+    assert.ok(e.encompassing, `${e.from}->${e.to} has an encompassing weight`);
+    assert.ok(e.encompassing.weight >= 0 && e.encompassing.weight <= 1, 'weight is a fraction');
+    // The default is a proposed first pass, not an expert-set value — kept honest for the audit.
+    assert.equal(e.encompassing.status, 'pending-expert');
+  }
+});
+
 test('the reported counts match the actual edges', () => {
   const tally = edges.reduce((acc, e) => ({ ...acc, [e.type]: (acc[e.type] || 0) + 1 }), {});
   assert.deepEqual(edgeLayer.counts, tally);

@@ -29,7 +29,15 @@ const edges = [];
 // be learned before from is at least secure." This is exactly the graph adjacency, now typed.
 for (const skill of graph.skills) {
   for (const prerequisite of skill.prerequisites || []) {
-    edges.push({ from: prerequisite, to: skill.id, type: 'prerequisite', rationale: null });
+    edges.push({
+      from: prerequisite, to: skill.id, type: 'prerequisite', rationale: null,
+      // Encompassing (The Math Academy Way): practicing `to` (the advanced skill) implicitly reviews
+      // `from` (the simpler prerequisite). MA sets encompassing weights ALONG direct prerequisites and
+      // lets repetition flow propagate the rest; a full weight (1) along the direct edge is the
+      // proposed first pass, refined by a domain expert in the audit — asserted-pending, like the
+      // rationale. The FIRe review engine (data/knowledge-graph.mjs) reads these weights.
+      encompassing: { weight: 1, basis: 'default-full-along-direct-prerequisite', status: 'pending-expert' }
+    });
   }
 }
 

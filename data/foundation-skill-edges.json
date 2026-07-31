@@ -15,445 +15,815 @@
       "from": "fnd-orient-source-type",
       "to": "fnd-orient-page-geography",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-orient-source-type",
       "to": "fnd-orient-speaker",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-orient-page-geography",
       "to": "fnd-orient-unit-boundary",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-orient-speaker",
       "to": "fnd-orient-question-present",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-orient-source-type",
       "to": "fnd-signal-known-words",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-signal-known-words",
       "to": "fnd-signal-sentence-structure",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-signal-known-words",
       "to": "fnd-signal-question-words",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-orient-question-present",
       "to": "fnd-signal-question-words",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-signal-known-words",
       "to": "fnd-signal-connectors",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-signal-connectors",
       "to": "fnd-signal-quotation",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-signal-known-words",
       "to": "fnd-signal-name-formulas",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-orient-speaker",
       "to": "fnd-signal-name-formulas",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-orient-page-geography",
       "to": "fnd-role-text-vs-commentary",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-signal-quotation",
       "to": "fnd-role-text-vs-commentary",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-signal-known-words",
       "to": "fnd-role-translation-gap",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-signal-question-words",
       "to": "fnd-role-question-vs-answer",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-orient-question-present",
       "to": "fnd-role-question-vs-answer",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-role-question-vs-answer",
       "to": "fnd-role-example",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-role-question-vs-answer",
       "to": "fnd-role-ruling-vs-discussion",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-signal-name-formulas",
       "to": "fnd-case-actors",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-role-example",
       "to": "fnd-case-actors",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-case-actors",
       "to": "fnd-case-what-happens",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-case-what-happens",
       "to": "fnd-case-uncertainty",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-role-ruling-vs-discussion",
       "to": "fnd-case-uncertainty",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-case-uncertainty",
       "to": "fnd-case-what-changes",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-case-what-happens",
       "to": "fnd-case-restate",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-case-what-happens",
       "to": "fnd-case-category",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-case-what-happens",
       "to": "fnd-case-procedure",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-case-what-happens",
       "to": "fnd-case-obligation",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-role-question-vs-answer",
       "to": "fnd-arg-claim",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-case-restate",
       "to": "fnd-arg-claim",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-signal-quotation",
       "to": "fnd-arg-evidence-role",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-arg-claim",
       "to": "fnd-arg-evidence-role",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-arg-claim",
       "to": "fnd-arg-objection",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-signal-connectors",
       "to": "fnd-arg-objection",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-arg-objection",
       "to": "fnd-arg-response",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-arg-evidence-role",
       "to": "fnd-arg-response",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-arg-response",
       "to": "fnd-arg-unresolved",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-arg-claim",
       "to": "fnd-compare-shared-question",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-compare-shared-question",
       "to": "fnd-compare-divergence",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-arg-response",
       "to": "fnd-compare-divergence",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-compare-divergence",
       "to": "fnd-compare-strongest-form",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-compare-divergence",
       "to": "fnd-compare-scope",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-case-what-changes",
       "to": "fnd-compare-scope",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-orient-source-type",
       "to": "fnd-context-when-where",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-context-when-where",
       "to": "fnd-context-who-audience",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-case-actors",
       "to": "fnd-context-who-audience",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-orient-source-type",
       "to": "fnd-context-genre-expectations",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-role-ruling-vs-discussion",
       "to": "fnd-context-genre-expectations",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-context-who-audience",
       "to": "fnd-context-evidence-kind",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-role-ruling-vs-discussion",
       "to": "fnd-resp-learning-vs-ruling",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-context-genre-expectations",
       "to": "fnd-resp-learning-vs-ruling",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-compare-strongest-form",
       "to": "fnd-resp-preserve-disagreement",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-resp-learning-vs-ruling",
       "to": "fnd-resp-name-limits",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-arg-unresolved",
       "to": "fnd-resp-name-limits",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-resp-learning-vs-ruling",
       "to": "fnd-resp-when-to-ask",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-arg-response",
       "to": "fnd-indep-first-pass",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-role-text-vs-commentary",
       "to": "fnd-indep-first-pass",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-signal-connectors",
       "to": "fnd-indep-first-pass",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-indep-first-pass",
       "to": "fnd-indep-map-lines",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-case-restate",
       "to": "fnd-indep-map-lines",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-indep-map-lines",
       "to": "fnd-indep-use-translation-to-check",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-role-translation-gap",
       "to": "fnd-indep-use-translation-to-check",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-indep-map-lines",
       "to": "fnd-indep-carry-across-genre",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-compare-shared-question",
       "to": "fnd-indep-carry-across-genre",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-context-genre-expectations",
       "to": "fnd-indep-carry-across-genre",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-arg-unresolved",
       "to": "fnd-agency-ask-question",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-case-uncertainty",
       "to": "fnd-agency-ask-question",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-role-text-vs-commentary",
       "to": "fnd-agency-use-tools",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-indep-use-translation-to-check",
       "to": "fnd-agency-use-tools",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-resp-name-limits",
       "to": "fnd-agency-record-uncertainty",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-agency-ask-question",
       "to": "fnd-agency-record-uncertainty",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-agency-record-uncertainty",
       "to": "fnd-agency-choose-next",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-indep-carry-across-genre",
       "to": "fnd-agency-choose-next",
       "type": "prerequisite",
-      "rationale": null
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
     },
     {
       "from": "fnd-orient-source-type",
