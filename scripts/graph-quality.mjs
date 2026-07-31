@@ -15,6 +15,8 @@ const contentMap = read('data/foundation-content-map.json');
 const academySessions = read('data/jla-academy-sessions.json');
 const slice = read('data/jla-foundation-skill-slice.json');
 const gradMap = read('data/graduation-skill-map.json').map;
+let edgeLayer = null;
+try { edgeLayer = read('data/foundation-skill-edges.json'); } catch { /* typed-edge layer is optional; report reflects its absence */ }
 
 const skills = graph.skills;
 const byId = new Map(skills.map((s) => [s.id, s]));
@@ -22,13 +24,14 @@ const pct = (n, d) => (d ? Math.round((n / d) * 100) : 0);
 const bar = (n, d) => { const p = pct(n, d); const filled = Math.round(p / 10); return `[${'#'.repeat(filled)}${'.'.repeat(10 - filled)}] ${p}%`; };
 
 // --- Edges ---
-let edgeTotal = 0, edgesTyped = 0, edgesWithRationale = 0;
-for (const s of skills) for (const p of s.prerequisites || []) {
-  edgeTotal += 1;
-  // A typed edge would be an object { from/type/rationale }; the current graph uses bare id strings.
-  if (typeof p === 'object' && p.type) edgesTyped += 1;
-  if (typeof p === 'object' && p.rationale) edgesWithRationale += 1;
-}
+// The graph adjacency is bare prerequisite id strings; the typed-edge layer
+// (data/foundation-skill-edges.json, built by scripts/build-skill-edges.mjs) materializes it as
+// typed { from, to, type, rationale } edges. Rationales stay null until the educator audit (§3).
+const edgeTotal = skills.reduce((n, s) => n + (s.prerequisites || []).length, 0);
+const layerEdges = edgeLayer?.edges || [];
+const edgesTyped = layerEdges.filter((e) => e.type === 'prerequisite').length;
+const edgesWithRationale = layerEdges.filter((e) => e.type === 'prerequisite' && e.rationale).length;
+const assessedByEdges = layerEdges.filter((e) => e.type === 'assessed-by').length;
 
 // --- Out-degree (dependents) for hub detection ---
 const dependents = new Map(skills.map((s) => [s.id, 0]));
@@ -84,8 +87,9 @@ console.log(`  skills defined ..................... ${skills.length}   (target f
 console.log(`  every skill has capability states .. ${graph.masteryScale ? 'yes (emerging/secure/transfer)' : 'no'}`);
 
 H('Edge semantics (step 4 — typed edges + rationale)');
-console.log(`  edges typed ........................ ${bar(edgesTyped, edgeTotal)}  (${edgesTyped}/${edgeTotal})`);
-console.log(`  edges with pedagogical rationale ... ${bar(edgesWithRationale, edgeTotal)}  (${edgesWithRationale}/${edgeTotal})`);
+console.log(`  edges typed ........................ ${bar(edgesTyped, edgeTotal)}  (${edgesTyped}/${edgeTotal}${edgeLayer ? ', data/foundation-skill-edges.json' : ' — edge layer not built'})`);
+console.log(`  edges with pedagogical rationale ... ${bar(edgesWithRationale, edgeTotal)}  (${edgesWithRationale}/${edgeTotal}; educator-authored in the audit, not fabricated)`);
+console.log(`  assessed-by edges (skill -> item) .. ${assessedByEdges}  (graph skill linked to an authored academy item)`);
 console.log(`  over-connected hubs (>${HUB} dependents) ${hubs.length ? hubs.map(([id, d]) => `${id}(${d})`).join(', ') : 'none'}`);
 
 H('Layer 2 — Content graph (step 8 — >=3 contexts, >=2 source families)');
@@ -105,7 +109,7 @@ H('Layers 4-5 — Learner model + sequencing (not in the static graph)');
 console.log('  probabilistic knowledge estimates .. none (mastery is a running score in the repository)');
 console.log('  item difficulty / discrimination ... none (needs pilot response data)');
 console.log('  empirical edge validation .......... none (needs pilot data: do prereqs predict learning?)');
-console.log('  explainable next-step (step 13) .... not surfaced (recommendation logic exists; no A->B->C reason shown)');
+console.log('  explainable next-step (step 13) .... BUILT (data/recommendation-why.mjs: every recommendation carries because -> build -> unlocks; graph-grounded where edges exist)');
 
 H('Readiness scorecard (v0.1 -> adaptive graph)');
 const layerReady = { 'Skill ontology': 'PROTOTYPE (49/~150)', 'Content graph': `PARTIAL (${ctx2fam}/${skills.length} span >=2 families)`, 'Assessment graph': `EARLY (${items3}/${skills.length} item banks, ${withNamedMisconceptions} misconception models)`, 'Learner model': 'ELEMENTARY (running score, no probabilities)', 'Sequencing policy': 'ELEMENTARY (rules; not explainable/adaptive)' };

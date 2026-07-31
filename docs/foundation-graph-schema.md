@@ -91,8 +91,17 @@ graph changes (§6).
 
 ## 3. Typed edges (step 4)
 
-Today every edge is a bare prerequisite id with **no type and no rationale** (0/74 typed). The
-schema requires a typed, rationalized edge:
+The graph JSON still carries adjacency as bare prerequisite id strings (the runtime reads them), but
+the **typed-edge layer is now built**: `data/foundation-skill-edges.json`
+(`npm run graph:edges`, `scripts/build-skill-edges.mjs`) materializes **74 `prerequisite` + 18
+`assessed-by` = 92 typed edges** derived from existing data. It never fabricates: `rationale` is
+`null` on every edge (pending the audit — see below), and the judgment edges
+(`supports`/`transfers-to`/`misconception-of`/`repaired-by`) are intentionally absent until then.
+`taught-by` is not duplicated — it already lives in `data/foundation-content-map.json` (§2.2). A test
+(`test/foundation-skill-edges.test.mjs`) guards that the prerequisite edges mirror the graph exactly
+(no drift) and that nothing judgment-based was invented during the freeze.
+
+The schema requires a typed, rationalized edge:
 ```
 { from: skillId, to: skillId, type: EDGE_TYPE, rationale: "why an educator asserts this" }
 ```
@@ -167,7 +176,9 @@ with a `capabilityEvidence` remap) become safe.
 1. **Freeze** (this doc). ✅
 2. **Formalize schema** (this doc). ✅
 3. **Node classes** defined (§2). ✅
-4. **Typed edges** schema defined (§3); rationales authored during the audit.
+4. **Typed edges** — schema (§3) and the derivable structure **built**
+   (`data/foundation-skill-edges.json`: 74 `prerequisite` + 18 `assessed-by`, typed); rationales and
+   the judgment edges are authored during the audit. ✅ (structure)
 5. **Educator audit** — 3–5 educators from different non-Haredi settings review the 49 skills and
    write edge rationales. *Needs people; cannot be done in software.*
 6. **Missing-step repair** — split nodes where the audit finds too-large jumps.
@@ -178,6 +189,9 @@ with a `capabilityEvidence` remap) become safe.
 11. **Capability-state UI** — retire %/XP/level language.
 12. **Graph-quality gates** — `scripts/graph-quality.mjs` (this is step 12). ✅
 13. **Explainable recommendations** — surface "you see this because you have A, need B, B unlocks C."
+    ✅ `data/recommendation-why.mjs`: every recommendation carries a structured `{ because, build,
+    unlocks }` with a machine-readable `basis`, graph-grounded where typed edges exist (prerequisite/
+    sequence). Rendered on My Path and the front door.
 14. **Six-week pilot** — the only source of difficulty, discrimination, knowledge estimates, decay,
     and empirical edge validation. *Needs learners.*
 15. **Calibrate, then expand** toward several hundred skills and a K–12 simulation.
