@@ -13,3 +13,8 @@
 .cap-chip.cap-transferable{background:#e2ebf1;color:#26506a;border-color:#c6d9e4}
 .cap-chip.cap-durable{background:#efe6d3;color:var(--gold);border-color:#e3d3b2}
 .cap-chip.cap-none{background:transparent;border-style:dashed;font-weight:500;color:var(--muted)}
+
+/* Explainable recommendation — why this next move, grounded in the graph */
+.skill-progress-card .why-next{margin:10px 0 0;padding-top:9px;border-top:1px dashed var(--line);color:var(--muted);font-size:12px;line-height:1.5}
+.skill-progress-card .why-next span{display:inline-block;margin-right:6px;color:var(--teal);font:10px 'DM Mono';letter-spacing:.06em}
+.skill-progress-card .why-next b{color:var(--navy);font-weight:600}

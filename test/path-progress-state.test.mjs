@@ -16,6 +16,19 @@ test('My Path milestones are keyed to learner evidence', () => {
   assert.match(js, /skill-progress-card/);
 });
 
+test('My Path explains why the next skill, grounded in the graph', () => {
+  // Step 13: the recommendation is explainable — it names the secured move it builds on and the
+  // move it unlocks (you can do A -> build B -> which opens C), computed from the real graph edges,
+  // not a static blurb.
+  assert.match(js, /why-next/);
+  assert.match(js, /Builds on/);
+  assert.match(js, /it unlocks/);
+  // Unlocks are the graph successors: skills that list this skill as a prerequisite.
+  assert.match(js, /prerequisites \|\| \[\]\)\.includes\(skill\.id\)/);
+  // And the "builds on" side is the learner's own secured prerequisites, not any prerequisite.
+  assert.match(js, /\.filter\(\(s\) => s && isSecure\(s\.id\)\)/);
+});
+
 test('My Path caps the retention preview instead of dumping every due card', () => {
   // One thing at a time: a learner can have 100+ skills due. The review section shows a few
   // previews plus a single way into the review session, not one linked card per due skill.

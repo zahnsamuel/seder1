@@ -44,13 +44,27 @@ Promise.all([
   const foundationScores = learner.foundationScores || {};
   const mastery = learner.mastery || {};
   const skills = graph.skills || [];
+  const isSecure = (id) => Math.max(foundationScores[id] || 0, mastery[id] || 0) >= .67;
   // One next move, in plain words — no raw "N of 49 secure" fraction to collide with the
   // capability chips above (which count a different id space) or discourage a new learner.
-  const nextSkill = skills.find((skill) => Math.max(foundationScores[skill.id] || 0, mastery[skill.id] || 0) < .67 && (skill.prerequisites || []).every((prerequisite) => Math.max(foundationScores[prerequisite] || 0, mastery[prerequisite] || 0) >= .67)) || skills.find((skill) => Math.max(foundationScores[skill.id] || 0, mastery[skill.id] || 0) < .67);
+  const nextSkill = skills.find((skill) => !isSecure(skill.id) && (skill.prerequisites || []).every(isSecure)) || skills.find((skill) => !isSecure(skill.id));
+  // Explainable recommendation: ground the "why this next" in the graph — the secured move it
+  // builds on and the move it unlocks. (You can do A → build B now → which opens C.)
+  const explainNextSkill = (skill) => {
+    const secured = (skill.prerequisites || []).map((id) => skills.find((s) => s.id === id)).filter((s) => s && isSecure(s.id));
+    const unlocks = skills.filter((s) => (s.prerequisites || []).includes(skill.id));
+    const have = secured.length
+      ? `Builds on <b>${escapeHtml(secured[0].title)}</b>, which you’ve secured`
+      : 'Your first reading move — nothing has to come before it';
+    const opens = unlocks.length
+      ? `it unlocks <b title="${escapeHtml(unlocks[0].statement || '')}">${escapeHtml(unlocks[0].title)}</b>`
+      : 'it completes this layer';
+    return `${have}, and ${opens}.`;
+  };
   const skillCard = document.querySelector('#skill-progress-card');
   if (skillCard && nextSkill) {
     const layer = graph.layers?.find((item) => item.n === nextSkill.layer);
-    skillCard.innerHTML = `<div><span>LAYER ${nextSkill.layer} · ${escapeHtml(layer?.title || 'FOUNDATION')}</span><strong>${escapeHtml(nextSkill.title)}</strong><small>${escapeHtml(nextSkill.statement)}</small></div><a href="academy-session.html?skill=${encodeURIComponent(nextSkill.id)}">Practice →</a>`;
+    skillCard.innerHTML = `<div><span>LAYER ${nextSkill.layer} · ${escapeHtml(layer?.title || 'FOUNDATION')}</span><strong>${escapeHtml(nextSkill.title)}</strong><small>${escapeHtml(nextSkill.statement)}</small><p class="why-next"><span>WHY NOW</span>${explainNextSkill(nextSkill)}</p></div><a href="academy-session.html?skill=${encodeURIComponent(nextSkill.id)}">Practice →</a>`;
     document.querySelector('#skill-progress-copy').textContent = `Your evidence places you in ${escapeHtml(layer?.title || 'the next foundation layer')}. One capability is ready to practice now.`;
   } else if (skillCard) {
     skillCard.innerHTML = '<strong>Foundation skills established. Choose a new source to transfer them.</strong><a href="independent-reading.html">Transfer →</a>';
