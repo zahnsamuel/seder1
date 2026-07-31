@@ -1,0 +1,36 @@
+{
+  "generatedBy": "hand-authored (Claude), 2026-07-29 — PROPOSED, pending educator review",
+  "purpose": "The first named id-space migration (docs/foundation-graph-schema.md §6). It maps the graduation-slice / academy-session id space (source-family-001 …) onto the frozen fnd-* foundation graph, so authored, server-scored assessment items line up with the ontology. It is a translation layer, not a rename: the slice ids are unchanged, so no learner record is re-keyed yet; this makes graph coverage computable and surfaces where the graph has no home for a graduation skill.",
+  "authority": "NOT authoritative. The pairings and confidences are one reviewer's proposal; educators confirm or correct them during the audit (plan step 5). Do not treat an 'approximate' or 'clear' link as a validated pedagogical claim.",
+  "confidenceScale": {
+    "clear": "the graduation skill is essentially the graph move",
+    "approximate": "related — a genre-specific instance or a near neighbour of the graph move",
+    "unmapped": "no current graph equivalent; a graph audit / expansion candidate"
+  },
+  "map": {
+    "source-family-001":            { "graphSkill": "fnd-orient-source-type",        "confidence": "clear",       "note": "recognize the genre/family of a source" },
+    "citation-001":                 { "graphSkill": null,                            "confidence": "unmapped",    "note": "reading a citation as an address is a navigation meta-skill with no graph node" },
+    "source-commentary-001":        { "graphSkill": "fnd-role-text-vs-commentary",   "confidence": "clear",       "note": "primary text vs commentary" },
+    "hebrew-anchor-001":            { "graphSkill": "fnd-signal-known-words",        "confidence": "approximate", "note": "anchoring on a recognized high-frequency word" },
+    "repeated-language-001":        { "graphSkill": null,                            "confidence": "unmapped",    "note": "recognizing repetition/emphasis as a signal — no graph signal node for it" },
+    "tanakh-speaker-scene-001":     { "graphSkill": "fnd-orient-speaker",            "confidence": "clear",       "note": "identify the speaker; 'scene' extends it" },
+    "tanakh-narrative-command-001": { "graphSkill": null,                            "confidence": "unmapped",    "note": "narrative-vs-command mode; graph has asking-vs-telling but not this axis" },
+    "mishnah-case-001":             { "graphSkill": "fnd-case-what-happens",         "confidence": "clear",       "note": "identify the case the Mishnah governs" },
+    "mishnah-ruling-001":           { "graphSkill": "fnd-role-ruling-vs-discussion", "confidence": "approximate", "note": "locate the ruling within the Mishnah" },
+    "mishnah-dispute-001":          { "graphSkill": "fnd-compare-divergence",        "confidence": "clear",       "note": "spotting two positions = naming where readings diverge" },
+    "gemara-question-001":          { "graphSkill": "fnd-role-question-vs-answer",   "confidence": "clear",       "note": "label the line as a question" },
+    "gemara-answer-001":            { "graphSkill": "fnd-arg-response",              "confidence": "clear",       "note": "follow the response to the question" },
+    "gemara-challenge-001":         { "graphSkill": "fnd-arg-objection",             "confidence": "clear",       "note": "mark the objection" },
+    "halakha-source-ruling-001":    { "graphSkill": "fnd-role-ruling-vs-discussion", "confidence": "approximate", "note": "separate the source text from the derived ruling" },
+    "halakha-boundary-001":         { "graphSkill": "fnd-resp-name-limits",          "confidence": "approximate", "note": "a practical boundary is the limit of the rule" },
+    "midrash-verse-001":            { "graphSkill": "fnd-signal-quotation",          "confidence": "clear",       "note": "identify the verse a Midrash cites" },
+    "midrash-move-001":             { "graphSkill": null,                            "confidence": "unmapped",    "note": "midrashic/aggadic interpretive move — the graph is argument-shaped and under-covers midrash (reduce-Gemara-dominance gap)" },
+    "thought-claim-001":            { "graphSkill": "fnd-arg-claim",                 "confidence": "clear",       "note": "state the central claim" },
+    "tefillah-blessing-001":        { "graphSkill": "fnd-signal-name-formulas",      "confidence": "approximate", "note": "a blessing formula is a fixed liturgical formula" },
+    "tefillah-prayer-move-001":     { "graphSkill": null,                            "confidence": "unmapped",    "note": "praise/request/thanks is a tefillah-specific move with no graph node" },
+    "history-canon-order-001":      { "graphSkill": "fnd-context-when-where",        "confidence": "clear",       "note": "ordering the canon by era = placing sources in time" },
+    "life-practice-category-001":   { "graphSkill": "fnd-case-category",             "confidence": "approximate", "note": "classify a practice into halakha/minhag/value/memory" },
+    "habit-recovery-001":           { "graphSkill": null,                            "confidence": "unmapped",    "note": "study-habit / rhythm, not a reading skill; outside the graph" },
+    "habit-transfer-001":           { "graphSkill": "fnd-indep-carry-across-genre",  "confidence": "clear",       "note": "transfer a move to a new source = carry it across genres" }
+  }
+}

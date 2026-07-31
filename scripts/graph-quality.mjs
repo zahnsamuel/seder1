@@ -14,6 +14,7 @@ const graph = read('data/foundation-skill-graph.json');
 const contentMap = read('data/foundation-content-map.json');
 const academySessions = read('data/jla-academy-sessions.json');
 const slice = read('data/jla-foundation-skill-slice.json');
+const gradMap = read('data/graduation-skill-map.json').map;
 
 const skills = graph.skills;
 const byId = new Map(skills.map((s) => [s.id, s]));
@@ -48,10 +49,17 @@ for (const s of skills) {
 let items3 = 0, items1 = 0;
 for (const s of skills) { const n = (s.checks || []).length; if (n >= 3) items3 += 1; if (n >= 1) items1 += 1; }
 
-// Authored assessment items live in jla-academy-sessions.json, but keyed by the SLICE id space
-// (source-family-001…), not the fnd-* graph ids — so measure how many GRAPH skills actually have
-// an authored, scorable item today.
-const academyForGraphSkill = skills.filter((s) => academySessions.some((a) => a.skillId === s.id)).length;
+// Authored assessment items live in jla-academy-sessions.json on the SLICE id space
+// (source-family-001…). The graduation-skill map (data/graduation-skill-map.json) links those to
+// fnd-* graph skills, so we can now measure how many GRAPH skills have an authored, scorable item.
+const authoredSliceSkills = new Set(academySessions.map((a) => a.skillId));
+const coveredGraphSkills = new Set();
+let linkedGrad = 0, unmappedGrad = 0;
+for (const [gradId, entry] of Object.entries(gradMap)) {
+  if (entry.graphSkill) { linkedGrad += 1; if (authoredSliceSkills.has(gradId) && byId.has(entry.graphSkill)) coveredGraphSkills.add(entry.graphSkill); }
+  else unmappedGrad += 1;
+}
+const academyForGraphSkill = coveredGraphSkills.size;
 
 // --- Misconception models (step: named misconceptions, not a single repair string) ---
 const withRepairString = skills.filter((s) => typeof s.repair === 'string' && s.repair.trim()).length;
@@ -88,7 +96,8 @@ console.log(`  skills with mapped real content .... ${bar(skillsWithContent, ski
 H('Layer 3 — Assessment graph (steps 9, 10 — item bank + transfer)');
 console.log(`  skills with an authored item bank (>=3) ${bar(items3, skills.length)}  (${items3}/${skills.length})`);
 console.log(`  skills with >=1 canonical check .... ${bar(items1, skills.length)}  (${items1}/${skills.length})`);
-console.log(`  GRAPH skills with a scorable academy item ${bar(academyForGraphSkill, skills.length)}  (${academyForGraphSkill}/${skills.length}) — the 24 authored items key off the SLICE id space, not fnd-*`);
+console.log(`  GRAPH skills with a scorable authored item ${bar(academyForGraphSkill, skills.length)}  (${academyForGraphSkill}/${skills.length}, via the graduation-skill map)`);
+console.log(`  graduation skills linked to the graph  ${bar(linkedGrad, linkedGrad + unmappedGrad)}  (${linkedGrad}/${linkedGrad + unmappedGrad}; ${unmappedGrad} unmapped = graph audit/expansion candidates)`);
 console.log(`  skills with named misconception models  ${bar(withNamedMisconceptions, skills.length)}  (${withNamedMisconceptions}/${skills.length}; ${withRepairString}/${skills.length} have a single repair string)`);
 console.log(`  skills with an authored transfer item .. ${bar(withTransferItem, skills.length)}  (${withTransferItem}/${skills.length}; ${withTransferString}/${skills.length} have transfer language)`);
 

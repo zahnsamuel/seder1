@@ -144,9 +144,20 @@ The graph is a living artifact; learner records reference it. Rules:
 - **Semantic versions.** `MAJOR` = skills added/removed/re-scoped or edges changed (needs a
   migration); `MINOR` = content/assessment/rationale added; `PATCH` = copy fixes.
 - **Named migrations.** Any `MAJOR` ships a migration mapping old skill ids → new, so existing
-  `capabilityEvidence` is preserved or remapped, never silently dropped. The first named migration
-  is **unify the `fnd-*` graph ids and the `source-family-001` slice ids into one space** so authored
-  items and the ontology line up.
+  `capabilityEvidence` is preserved or remapped, never silently dropped.
+
+**Migration 001 — graduation/academy id space → graph (BUILT, translation layer).**
+`data/graduation-skill-map.json` links each of the 24 graduation-slice / academy skills
+(`source-family-001` …) to its `fnd-*` graph skill. It is a **translation layer, not a rename**:
+slice ids are unchanged, so no learner record is re-keyed — the safe, reversible first step. It
+makes graph coverage computable (`npm run graph:quality`) and, honestly, records that the two
+taxonomies do **not** map 1:1: **18/24 link to the graph** (12 clear, 6 approximate), **17/49 graph
+skills gain a scorable authored item** (up from 0), and **6 graduation skills have no graph home** —
+citation-reading, repetition, narrative-vs-command, a midrashic move, a prayer move, and a study
+habit. Several of those are the reduce-Gemara-dominance gap: the graph is argument-shaped and
+under-covers midrash/tefillah. The pairings are **proposed, not authoritative** — educators confirm
+or correct them in the audit, and only after that does a *rename* (re-keying slice ids to `fnd-*`,
+with a `capabilityEvidence` remap) become safe.
 - **Freeze gate.** No `MAJOR` during a freeze except reviewed audit output.
 - **Quality gate.** `scripts/check-foundation-graph.mjs` (structural) must stay green;
   `scripts/graph-quality.mjs` (this readiness report) is tracked over time, not required to pass.
