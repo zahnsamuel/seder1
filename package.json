@@ -15,6 +15,7 @@
     "graph:foundation": "node scripts/check-foundation-graph.mjs",
     "ladder:check": "node scripts/check-decoding-ladder.mjs",
     "map:foundation": "node scripts/build-foundation-content-map.mjs",
-    "check:links": "node scripts/check-source-links.mjs"
+    "check:links": "node scripts/check-source-links.mjs",
+    "graph:quality": "node scripts/graph-quality.mjs"
   }
 }
