@@ -59,7 +59,14 @@ family        derived source family (tanakh | rabbinic | halakhic | liturgical |
 ```
 Today these are inline `sourceContexts` on the skill; the content map is the reverse index.
 **Requirement (step 8):** every foundational skill has **≥3 contexts spanning ≥2 families**.
-Current: only 6/49 have ≥3 contexts (45/49 already span ≥2 families).
+
+**Built:** `data/foundation-content-contexts.json` (`npm run graph:contexts`,
+`scripts/build-content-contexts.mjs`) promotes contexts into this first-class node class, merging the
+curated inline `sourceContexts` (family-diverse) with the content map (context-rich), deduped by
+`ref` with provenance in `sources`. It invents no references. This lifts step-8 coverage from **6/49
+→ 41/49**; the remaining **8** skills (mostly Layer-1 orientation and Layer-10 agency moves) are
+listed in the file's `shortfall` and need real sources authored — never padded. `test/foundation-
+content-contexts.test.mjs` guards that every context traces to a real source.
 
 ### 2.3 Assessment item (layer 3) — *new node class*
 ```

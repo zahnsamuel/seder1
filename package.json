@@ -14,6 +14,7 @@
     "graph:build": "node scripts/build-skill-graph.mjs",
     "graph:foundation": "node scripts/check-foundation-graph.mjs",
     "graph:edges": "node scripts/build-skill-edges.mjs",
+    "graph:contexts": "node scripts/build-content-contexts.mjs",
     "ladder:check": "node scripts/check-decoding-ladder.mjs",
     "map:foundation": "node scripts/build-foundation-content-map.mjs",
     "check:links": "node scripts/check-source-links.mjs",

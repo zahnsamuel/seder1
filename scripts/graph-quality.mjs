@@ -40,12 +40,26 @@ const HUB = 5;
 const hubs = [...dependents.entries()].filter(([, d]) => d > HUB).sort((a, b) => b[1] - a[1]);
 
 // --- Content contexts per skill (step 8: >=3 contexts spanning >=2 source families) ---
+// Measured from the content-context layer (data/foundation-content-contexts.json, §2.2) when built —
+// it merges the inline sourceContexts and the content map into first-class contexts. Falls back to
+// the sparse inline field if the layer is absent.
 const family = (genre) => ({ torah: 'tanakh', mishnah: 'rabbinic', gemara: 'rabbinic', halakha: 'halakhic', tefillah: 'liturgical', thought: 'thought', mussar: 'thought', chassidus: 'thought', history: 'historical' }[genre] || genre);
-let ctx3 = 0, ctx2fam = 0;
-for (const s of skills) {
-  const contexts = s.sourceContexts || [];
-  if (contexts.length >= 3) ctx3 += 1;
-  if (new Set(contexts.map((c) => family(c.genre))).size >= 2) ctx2fam += 1;
+let contextLayer = null;
+try { contextLayer = read('data/foundation-content-contexts.json'); } catch { /* content-context layer optional */ }
+let ctx3 = 0, ctx2fam = 0, ctxBoth = 0;
+if (contextLayer) {
+  for (const p of Object.values(contextLayer.perSkill)) {
+    if (p.contexts >= 3) ctx3 += 1;
+    if (p.families >= 2) ctx2fam += 1;
+    if (p.meetsStep8) ctxBoth += 1;
+  }
+} else {
+  for (const s of skills) {
+    const contexts = s.sourceContexts || [];
+    if (contexts.length >= 3) ctx3 += 1;
+    if (new Set(contexts.map((c) => family(c.genre))).size >= 2) ctx2fam += 1;
+    if (contexts.length >= 3 && new Set(contexts.map((c) => family(c.genre))).size >= 2) ctxBoth += 1;
+  }
 }
 
 // --- Assessment items per skill (step 10: an item bank, not one canonical check) ---
@@ -93,6 +107,7 @@ console.log(`  assessed-by edges (skill -> item) .. ${assessedByEdges}  (graph s
 console.log(`  over-connected hubs (>${HUB} dependents) ${hubs.length ? hubs.map(([id, d]) => `${id}(${d})`).join(', ') : 'none'}`);
 
 H('Layer 2 — Content graph (step 8 — >=3 contexts, >=2 source families)');
+console.log(`  skills meeting step 8 (>=3 ctx & >=2 fam) ${bar(ctxBoth, skills.length)}  (${ctxBoth}/${skills.length}${contextLayer ? ', data/foundation-content-contexts.json' : ' — context layer not built'})`);
 console.log(`  skills with >=3 source contexts .... ${bar(ctx3, skills.length)}  (${ctx3}/${skills.length})`);
 console.log(`  skills spanning >=2 source families  ${bar(ctx2fam, skills.length)}  (${ctx2fam}/${skills.length})`);
 console.log(`  skills with mapped real content .... ${bar(skillsWithContent, skills.length)}  (${skillsWithContent}/${skills.length})`);
@@ -112,7 +127,7 @@ console.log('  empirical edge validation .......... none (needs pilot data: do p
 console.log('  explainable next-step (step 13) .... BUILT (data/recommendation-why.mjs: every recommendation carries because -> build -> unlocks; graph-grounded where edges exist)');
 
 H('Readiness scorecard (v0.1 -> adaptive graph)');
-const layerReady = { 'Skill ontology': 'PROTOTYPE (49/~150)', 'Content graph': `PARTIAL (${ctx2fam}/${skills.length} span >=2 families)`, 'Assessment graph': `EARLY (${items3}/${skills.length} item banks, ${withNamedMisconceptions} misconception models)`, 'Learner model': 'ELEMENTARY (running score, no probabilities)', 'Sequencing policy': 'ELEMENTARY (rules; not explainable/adaptive)' };
+const layerReady = { 'Skill ontology': 'PROTOTYPE (49/~150)', 'Content graph': `PARTIAL (${ctxBoth}/${skills.length} meet step 8; ${skills.length - ctxBoth} need real sources)`, 'Assessment graph': `EARLY (${items3}/${skills.length} item banks, ${withNamedMisconceptions} misconception models)`, 'Learner model': 'ELEMENTARY (running score, no probabilities)', 'Sequencing policy': 'ELEMENTARY (rules; not explainable/adaptive)' };
 for (const [k, v] of Object.entries(layerReady)) console.log(`  ${k.padEnd(18)} ${v}`);
 console.log('\nThis is a v0.1 prototype by design. Freeze, formalize (docs/foundation-graph-schema.md),');
 console.log('educator-audit, then expand — see the schema doc for the governance sequence.');
