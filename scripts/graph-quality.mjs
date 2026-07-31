@@ -19,6 +19,8 @@ let edgeLayer = null;
 try { edgeLayer = read('data/foundation-skill-edges.json'); } catch { /* typed-edge layer is optional; report reflects its absence */ }
 let itemLayer = null;
 try { itemLayer = read('data/foundation-assessment-items.json'); } catch { /* assessment-item layer is optional */ }
+let kpLayer = null;
+try { kpLayer = read('data/foundation-knowledge-points.json'); } catch { /* knowledge-point layer is optional */ }
 
 const skills = graph.skills;
 const byId = new Map(skills.map((s) => [s.id, s]));
@@ -101,6 +103,7 @@ console.log(`graph ${graph.version} · ${skills.length} skills · ${edgeTotal} e
 H('Layer 1 — Skill ontology (what can be learned)');
 console.log(`  skills defined ..................... ${skills.length}   (target for v1: ~150 before ~300)`);
 console.log(`  every skill has capability states .. ${graph.masteryScale ? 'yes (emerging/secure/transfer)' : 'no'}`);
+console.log(`  knowledge points (scaffolded sub-steps) ${kpLayer ? `${kpLayer.coverage.knowledgePoints} across ${kpLayer.coverage.skills} skills (data/foundation-knowledge-points.json; ${kpLayer.kpTemplate.join('->')}; ${kpLayer.coverage.keyPrerequisitesProposed} key-prereq links, pending-expert)` : 'not built'}`);
 
 H('Edge semantics (step 4 — typed edges + rationale)');
 console.log(`  edges typed ........................ ${bar(edgesTyped, edgeTotal)}  (${edgesTyped}/${edgeTotal}${edgeLayer ? ', data/foundation-skill-edges.json' : ' — edge layer not built'})`);

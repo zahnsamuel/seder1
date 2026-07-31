@@ -17,6 +17,7 @@
     "graph:edges": "node scripts/build-skill-edges.mjs",
     "graph:contexts": "node scripts/build-content-contexts.mjs",
     "graph:items": "node scripts/build-assessment-items.mjs",
+    "graph:kp": "node scripts/build-knowledge-points.mjs",
     "ladder:check": "node scripts/check-decoding-ladder.mjs",
     "map:foundation": "node scripts/build-foundation-content-map.mjs",
     "check:links": "node scripts/check-source-links.mjs",
