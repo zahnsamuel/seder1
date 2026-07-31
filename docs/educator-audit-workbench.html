@@ -261,11 +261,15 @@ function refresh(){
 }
 
 // ---- export ----
-document.getElementById('export').addEventListener('click',()=>{
+document.getElementById('export').addEventListener('click',async ()=>{
   const out={ workbench:'jla-educator-audit', graphVersion:DATA.graphVersion, exportedAt:new Date().toISOString(),
     edgeRationales:state.rationales, encompassingWeights:state.weights, misconceptions:state.misconceptions, coverageDecisions:state.gaps };
-  const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'});
-  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`jla-audit-${DATA.graphVersion}-${new Date().toISOString().slice(0,10)}.json`; a.click(); URL.revokeObjectURL(a.href);
+  const json=JSON.stringify(out,null,2);
+  let via='';
+  try{ const blob=new Blob([json],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`jla-audit-${DATA.graphVersion}-${new Date().toISOString().slice(0,10)}.json`; a.click(); URL.revokeObjectURL(a.href); via='downloaded'; }catch(e){}
+  // Clipboard fallback so the export still works where a sandboxed viewer blocks downloads.
+  try{ await navigator.clipboard.writeText(json); via = via ? via+' + copied' : 'copied to clipboard'; }catch(e){}
+  const s=document.getElementById('saved'); s.textContent = via ? ('exported — '+via) : 'export ready (select all in a saved copy)'; setTimeout(()=>s.textContent='',2600);
 });
 
 drawMap(); cards(); gaps(); refresh();
