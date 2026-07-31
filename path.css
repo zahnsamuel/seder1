@@ -3,3 +3,13 @@
 .skill-progress{max-width:860px;margin:25px auto;padding:23px 24px;background:#eef4ef;border:1px solid #c9d9cd}.skill-progress h2{margin:7px 0;color:var(--navy);font:500 26px Fraunces,serif}.skill-progress p{margin:0;color:var(--muted);font-size:13px}.skill-progress-card{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:18px;padding:16px;background:#fff;border:1px solid #d7e2d9}.skill-progress-card span{display:block;color:var(--teal);font:10px 'DM Mono';letter-spacing:.06em}.skill-progress-card strong{display:block;margin-top:5px;color:var(--navy);font:500 19px Fraunces,serif}.skill-progress-card small{display:block;margin-top:4px;color:var(--muted);font-size:12px}.skill-progress-card a{color:var(--teal);font:600 12px Inter;white-space:nowrap}
 
 .review-card.review-start a{color:#fff}
+
+/* Capability chips — the shared learner-facing states, at a glance (matches the front door) */
+.cap-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.cap-chip{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border-radius:999px;font:600 12px/1 Inter,sans-serif;background:#eef1ec;color:var(--muted);border:1px solid var(--line)}
+.cap-chip b{font-weight:800;color:var(--navy)}
+.cap-chip.cap-emerging{background:#f6f0e1;color:#7a6120;border-color:#e6dabb}
+.cap-chip.cap-secure{background:#e2efe6;color:var(--teal);border-color:#c6ddca}
+.cap-chip.cap-transferable{background:#e2ebf1;color:#26506a;border-color:#c6d9e4}
+.cap-chip.cap-durable{background:#efe6d3;color:var(--gold);border-color:#e3d3b2}
+.cap-chip.cap-none{background:transparent;border-style:dashed;font-weight:500;color:var(--muted)}

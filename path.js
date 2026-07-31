@@ -1,8 +1,6 @@
-const key = 'seder-course-progress-v1';
 const learnerId = Seder.currentLearnerId();
-const saved = JSON.parse(localStorage.getItem(key) || '{}');
 const xp = document.querySelector('#xp');
-xp.textContent = `${saved.xp || 0} XP`;
+xp.textContent = '';
 const readableSkill = (skill) => skill.replace(/^lab-/, '').replaceAll('-', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
 const escapeHtml = (value) => String(value || '').replace(/[&<>"']/g, (char) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
 
@@ -32,17 +30,27 @@ Promise.all([
     if (!done && !activeMilestone) { button.setAttribute('aria-current', 'step'); activeMilestone = true; }
     else button.removeAttribute('aria-current');
   });
-  xp.textContent = `${learner.xp || 0} XP`;
-  localStorage.setItem(key, JSON.stringify({ ...saved, xp: learner.xp || 0 }));
+  // Header and capability graph speak in capabilities, not XP: what the learner can now do.
+  const capabilityCounts = Seder.summarizeCapabilities(learner.capabilityEvidence);
+  const onOwn = capabilityCounts.secure + capabilityCounts.transferable + capabilityCounts.durable;
+  xp.textContent = onOwn ? `${onOwn} on your own` : '';
+  const capChips = document.querySelector('#capChips');
+  if (capChips) {
+    const order = ['emerging', 'secure', 'transferable', 'durable'];
+    const chips = order.filter((state) => capabilityCounts[state] > 0)
+      .map((state) => `<span class="cap-chip cap-${state}"><b>${capabilityCounts[state]}</b> ${Seder.capabilityStates[state].label}</span>`).join('');
+    capChips.innerHTML = chips || '<span class="cap-chip cap-none">No capabilities demonstrated yet — start below.</span>';
+  }
   const foundationScores = learner.foundationScores || {};
   const mastery = learner.mastery || {};
   const skills = graph.skills || [];
-  const secure = skills.filter((skill) => Math.max(foundationScores[skill.id] || 0, mastery[skill.id] || 0) >= .67);
+  // One next move, in plain words — no raw "N of 49 secure" fraction to collide with the
+  // capability chips above (which count a different id space) or discourage a new learner.
   const nextSkill = skills.find((skill) => Math.max(foundationScores[skill.id] || 0, mastery[skill.id] || 0) < .67 && (skill.prerequisites || []).every((prerequisite) => Math.max(foundationScores[prerequisite] || 0, mastery[prerequisite] || 0) >= .67)) || skills.find((skill) => Math.max(foundationScores[skill.id] || 0, mastery[skill.id] || 0) < .67);
   const skillCard = document.querySelector('#skill-progress-card');
   if (skillCard && nextSkill) {
     const layer = graph.layers?.find((item) => item.n === nextSkill.layer);
-    skillCard.innerHTML = `<div><span>LAYER ${nextSkill.layer} · ${escapeHtml(layer?.title || 'FOUNDATION')}</span><strong>${escapeHtml(nextSkill.title)}</strong><small>${secure.length} of ${skills.length} foundational skills secure · ${escapeHtml(nextSkill.statement)}</small></div><a href="academy-session.html?skill=${encodeURIComponent(nextSkill.id)}">Practice →</a>`;
+    skillCard.innerHTML = `<div><span>LAYER ${nextSkill.layer} · ${escapeHtml(layer?.title || 'FOUNDATION')}</span><strong>${escapeHtml(nextSkill.title)}</strong><small>${escapeHtml(nextSkill.statement)}</small></div><a href="academy-session.html?skill=${encodeURIComponent(nextSkill.id)}">Practice →</a>`;
     document.querySelector('#skill-progress-copy').textContent = `Your evidence places you in ${escapeHtml(layer?.title || 'the next foundation layer')}. One capability is ready to practice now.`;
   } else if (skillCard) {
     skillCard.innerHTML = '<strong>Foundation skills established. Choose a new source to transfer them.</strong><a href="independent-reading.html">Transfer →</a>';
