@@ -218,5 +218,9 @@ export async function nextGraphPractice(root, learner) {
   const url = candidate.route || (candidate.track === 'language'
     ? 'language.html'
     : workbenchByContext[context] || (candidate.track === 'thought' ? 'source-reader.html?collection=freedom' : 'cross-tractate.html'));
-  return { skill: candidate, context, url, reason: `Build ${candidate.title.toLowerCase()} before moving to the next dependent source skill.`, mastery: mastery[candidate.id] || 0 };
+  // Graph-derived explanation beats: the secured prerequisite this builds on, and the dependent
+  // skill it unlocks (a skill that lists this candidate as a prerequisite).
+  const builtOn = (candidate.prerequisites || []).map((id) => allSkills.find((skill) => skill.id === id)).find((skill) => skill && (mastery[skill.id] || 0) >= .67);
+  const unlocks = allSkills.find((skill) => (skill.prerequisites || []).includes(candidate.id));
+  return { skill: candidate, context, url, reason: `Build ${candidate.title.toLowerCase()} before moving to the next dependent source skill.`, mastery: mastery[candidate.id] || 0, builtOn: builtOn?.title || null, unlocks: unlocks?.title || null };
 }

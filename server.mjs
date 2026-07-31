@@ -9,6 +9,7 @@ import { deleteHostedLearnerData, getHostedLearner, recordHostedEvent } from './
 import { initSqlite, sqliteEnabled, issueToken, verifyToken, revokeTokens, closeSqlite } from './data/sqlite-store.mjs';
 import { loadJlaAcademySession, checkJlaAcademyChoice } from './jla-academy-session.js';
 import { canMasterJourneyStage, canonJourney, journeyStatus, nextGemaraArc, nextGraphPractice, nextJourneyRecommendation, remediationFor, sourceReviewItems } from './data/curriculum-engine.mjs';
+import { explainRecommendation, whySentence } from './data/recommendation-why.mjs';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const port = Number(process.env.PORT || 4180);
@@ -107,12 +108,18 @@ function academyFoundationRecommendation(learner) {
     ['fnd-indep-first-pass', 'Make a first pass through a new source', 'Carry the reading move into an unfamiliar short passage.'],
     ['fnd-agency-choose-next', 'Choose your next learning move', 'Use your evidence to decide what to study next.']
   ];
-  const next = sequence.find(([skill]) => Math.max(scores[skill] || 0, learner.mastery?.[skill] || 0) < .67);
-  if (!next) return null;
-  return { kind: 'academy-foundation', title: `Academy Foundation · ${next[1]}`, reason: next[2], url: `daily-router.html?foundationSkill=${encodeURIComponent(next[0])}`, skillId: next[0], foundation: true };
+  const nextIndex = sequence.findIndex(([skill]) => Math.max(scores[skill] || 0, learner.mastery?.[skill] || 0) < .67);
+  if (nextIndex === -1) return null;
+  const next = sequence[nextIndex];
+  // Explanation beats: the prior move in the sequence (if the learner has secured it) and the one
+  // this unlocks next, so the recommendation can say what it builds on and what it opens.
+  const prior = nextIndex > 0 ? sequence[nextIndex - 1] : null;
+  const priorSecured = prior && Math.max(scores[prior[0]] || 0, learner.mastery?.[prior[0]] || 0) >= .67;
+  const upcoming = sequence[nextIndex + 1] || null;
+  return { kind: 'academy-foundation', title: `Academy Foundation · ${next[1]}`, reason: next[2], url: `daily-router.html?foundationSkill=${encodeURIComponent(next[0])}`, skillId: next[0], foundation: true, builtOn: priorSecured ? prior[1] : null, unlocks: upcoming ? upcoming[1] : null };
 }
 
-async function recommendFor(learner, { skipReview = false } = {}) {
+async function chooseRecommendation(learner, { skipReview = false } = {}) {
   if (!learner.placement) return { kind: 'placement', title: 'Find your Gemara starting point', reason: 'A short source-based placement will identify what you already know and what to build next.', url: 'placement.html' };
   const academyFoundation = academyFoundationRecommendation(learner);
   if (academyFoundation) return academyFoundation;
@@ -126,7 +133,7 @@ async function recommendFor(learner, { skipReview = false } = {}) {
     const due = reviewStatus(learner).due;
     if (due.length) return { kind: 'review', title: 'Retrieve a skill before it fades', reason: 'Mastery grows through timely retrieval, especially after an uncertain answer.', url: 'review.html' };
     const badlyFaded = decayingSkills(learner).filter((skill) => skill.freshness === 'faded');
-    if (badlyFaded.length) return { kind: 'review', title: 'Refresh a skill that has faded', reason: `${badlyFaded.length === 1 ? 'A previously mastered skill has' : `${badlyFaded.length} previously mastered skills have`} faded well below their peak. A quick retrieval restores it faster than relearning from scratch.`, url: 'review.html' };
+    if (badlyFaded.length) return { kind: 'review', decayTriggered: true, title: 'Refresh a skill that has faded', reason: `${badlyFaded.length === 1 ? 'A previously mastered skill has' : `${badlyFaded.length} previously mastered skills have`} faded well below their peak. A quick retrieval restores it faster than relearning from scratch.`, url: 'review.html' };
   }
   const remediation = await remediationFor(root, learner);
   if (remediation) return { kind: 'remediation', ...remediation, url: 'remediation.html' };
@@ -137,12 +144,23 @@ async function recommendFor(learner, { skipReview = false } = {}) {
   const moedExpansion = moedExpansionRecommendation(learner);
   if (moedExpansion) return { kind: 'moed-expansion', ...moedExpansion };
   const graphPractice = await nextGraphPractice(root, learner);
-  if (graphPractice) return { kind: 'graph-practice', title: graphPractice.skill.title, reason: graphPractice.reason, url: graphPractice.url, skill: graphPractice.skill, context: graphPractice.context, mastery: graphPractice.mastery };
+  if (graphPractice) return { kind: 'graph-practice', title: graphPractice.skill.title, reason: graphPractice.reason, url: graphPractice.url, skill: graphPractice.skill, context: graphPractice.context, mastery: graphPractice.mastery, builtOn: graphPractice.builtOn, unlocks: graphPractice.unlocks };
   const journeyRecommendation = await nextJourneyRecommendation(root, learner);
   if (journeyRecommendation) return journeyRecommendation;
   const gemaraArc = await nextGemaraArc(root, learner);
   if (gemaraArc) return { kind: 'gemara-arc', ...gemaraArc };
   return { kind: 'shas-map', title: 'Choose your next Shas practice field', reason: 'Your current foundations are ready for broader tractate exploration.', url: 'shas-map-v2.html' };
+}
+
+// Every recommendation carries a structured, learner-facing `why` (explainRecommendation): the
+// evidence that makes it the right move now, and what it unlocks. Kept as a thin wrapper so the
+// selection logic above stays focused on choosing, and every return path is explained uniformly.
+async function recommendFor(learner, options = {}) {
+  const recommendation = await chooseRecommendation(learner, options);
+  recommendation.why = explainRecommendation(recommendation, learner);
+  // Pre-render the one-line sentence server-side so every client shares one phrasing source.
+  recommendation.why.sentence = whySentence(recommendation.why);
+  return recommendation;
 }
 
 async function learnerAccess(request, requestedId) {
@@ -516,7 +534,7 @@ async function handleApi(request, response, url) {
     const review = reviewStatus(learner);
     const recommendation = await recommendFor(learner);
     const steps = [];
-    if (recommendation.kind === 'placement') steps.push({ type: 'placement', label: 'Starting point', title: recommendation.title, reason: recommendation.reason, minutes: 5, url: recommendation.url });
+    if (recommendation.kind === 'placement') steps.push({ type: 'placement', label: 'Starting point', title: recommendation.title, reason: recommendation.reason, why: recommendation.why, minutes: 5, url: recommendation.url });
     else {
       if (review.due.length) {
         review.due.slice(0, 1).forEach((item) => steps.push({ type: 'review', label: 'Retrieve', title: `Review ${item.skillId.replace(/^lab-/, '').replaceAll('-', ' ')}`, reason: item.reason, minutes: 3, url: 'review.html' }));
@@ -528,7 +546,7 @@ async function handleApi(request, response, url) {
         steps.push({ type: 'review', label: 'Retrieve', title: recommendation.title, reason: recommendation.reason, minutes: 3, url: 'review.html' });
       }
       const newLearning = recommendation.kind === 'review' ? await recommendFor(learner, { skipReview: true }) : recommendation;
-      steps.push({ type: 'new', label: 'New learning', title: newLearning.title, reason: newLearning.reason, minutes: Math.max(7, rhythmMinutes - (review.due.length ? 3 : 0) - 2), url: newLearning.url });
+      steps.push({ type: 'new', label: 'New learning', title: newLearning.title, reason: newLearning.reason, why: newLearning.why, minutes: Math.max(7, rhythmMinutes - (review.due.length ? 3 : 0) - 2), url: newLearning.url });
       steps.push({ type: 'mastery', label: 'Close the loop', title: 'Return to your path', reason: 'See what changed and what is ready next.', minutes: 2, url: 'mastery.html' });
     }
     const fading = decayingSkills(learner);

@@ -31,7 +31,8 @@ Promise.all([
     el.innerHTML=chips||'<span class="cap-chip cap-none">No capabilities demonstrated yet — start below.</span>';
   });
   set('#todayTitle',el=>el.textContent=placement?decision.recommendation.title:'Today in Jewish Learning Academy');
-  set('#todayCopy',el=>el.textContent=placement?decision.recommendation.reason:'One clear next step: repair what is fragile, then build the next source move.');
+  // Grounded "why this, now" from the server (recommendation.why), shared across surfaces.
+  set('#todayCopy',el=>el.textContent=decision.recommendation.why?.sentence||(placement?decision.recommendation.reason:'One clear next step: repair what is fragile, then build the next source move.'));
   set('#nextAction',el=>{el.href=placement?decision.recommendation.url:'daily-router.html';el.textContent=placement?'Find my starting point →':'See today’s next step →';});
 }).catch(()=>{});
 }
