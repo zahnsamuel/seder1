@@ -11,6 +11,7 @@ import { loadJlaAcademySession, checkJlaAcademyChoice } from './jla-academy-sess
 import { canMasterJourneyStage, canonJourney, journeyStatus, nextGemaraArc, nextGraphPractice, nextJourneyRecommendation, remediationFor, sourceReviewItems } from './data/curriculum-engine.mjs';
 import { explainRecommendation, whySentence } from './data/recommendation-why.mjs';
 import { foundationRecommendation, gemaraYearRecommendation, moedExpansionRecommendation } from './data/term-recommendations.mjs';
+import { keyPrerequisiteRemediation } from './data/knowledge-graph.mjs';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const port = Number(process.env.PORT || 4180);
@@ -70,6 +71,26 @@ function academyFoundationRecommendation(learner) {
   return { kind: 'academy-foundation', title: `Academy Foundation · ${next[1]}`, reason: next[2], url: `daily-router.html?foundationSkill=${encodeURIComponent(next[0])}`, skillId: next[0], foundation: true, builtOn: priorSecured ? prior[1] : null, unlocks: upcoming ? upcoming[1] : null };
 }
 
+// Build the Math-Academy-Way key-prerequisite remediation from the knowledge-point layer: a struggled
+// skill routes to a review of the foundation its knowledge points most directly use.
+let cachedKpLayer = null, cachedGraphSkills = null;
+async function keyPrerequisiteRemediationFor(root, learner) {
+  if (!cachedKpLayer) cachedKpLayer = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-knowledge-points.json'), 'utf8'));
+  const result = keyPrerequisiteRemediation({ knowledgePoints: cachedKpLayer.knowledgePoints, struggles: learner.struggles, mastery: learner.mastery });
+  if (!result) return null;
+  if (!cachedGraphSkills) cachedGraphSkills = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-skill-graph.json'), 'utf8')).skills;
+  const titleOf = (id) => cachedGraphSkills.find((s) => s.id === id)?.title || id;
+  return {
+    skillId: result.keyPrerequisite,
+    strugglingSkill: result.strugglingSkill,
+    count: result.count,
+    title: `Shore up the foundation: ${titleOf(result.keyPrerequisite)}`,
+    reason: `You have hit ${result.count} snags on “${titleOf(result.strugglingSkill)}.” The move it leans on most — ${titleOf(result.keyPrerequisite)} — is worth a quick review before you try again.`,
+    url: `academy-session.html?skill=${encodeURIComponent(result.keyPrerequisite)}`,
+    repairMode: 'key-prerequisite-review'
+  };
+}
+
 async function chooseRecommendation(learner, { skipReview = false } = {}) {
   if (!learner.placement) return { kind: 'placement', title: 'Find your Gemara starting point', reason: 'A short source-based placement will identify what you already know and what to build next.', url: 'placement.html' };
   const academyFoundation = academyFoundationRecommendation(learner);
@@ -86,6 +107,11 @@ async function chooseRecommendation(learner, { skipReview = false } = {}) {
     const badlyFaded = decayingSkills(learner).filter((skill) => skill.freshness === 'faded');
     if (badlyFaded.length) return { kind: 'review', decayTriggered: true, title: 'Refresh a skill that has faded', reason: `${badlyFaded.length === 1 ? 'A previously mastered skill has' : `${badlyFaded.length} previously mastered skills have`} faded well below their peak. A quick retrieval restores it faster than relearning from scratch.`, url: 'review.html' };
   }
+  // Math-Academy-Way targeted remediation: repeated struggle on a foundation skill routes to a
+  // review of the KEY PREREQUISITE its knowledge points lean on most (strengthen the foundation
+  // before re-drilling), ahead of the generic repair-router remediation.
+  const keyPrereqRemediation = await keyPrerequisiteRemediationFor(root, learner);
+  if (keyPrereqRemediation) return { kind: 'remediation', ...keyPrereqRemediation };
   const remediation = await remediationFor(root, learner);
   if (remediation) return { kind: 'remediation', ...remediation, url: 'remediation.html' };
   const foundationTerm = foundationRecommendation(learner);

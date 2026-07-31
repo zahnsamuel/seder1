@@ -48,6 +48,12 @@ test('remediation names the struggle count when present', () => {
   assert.equal(explainRecommendation({ kind: 'remediation', title: 'Strengthen X' }).basis, 'fragile-skill');
 });
 
+test('key-prerequisite remediation is explained as a foundation review (Math Academy Way)', () => {
+  const why = explainRecommendation({ kind: 'remediation', title: 'Shore up the foundation: Find the question signal', count: 2, repairMode: 'key-prerequisite-review' });
+  assert.equal(why.basis, 'kp-key-prerequisite');
+  assert.match(why.because, /2 snags on the move this one supports/);
+});
+
 test('whySentence reads cleanly with and without an unlocks beat', () => {
   assert.equal(whySentence({ because: 'you’ve secured A', unlocks: 'C' }), 'Because you’ve secured A, it unlocks C.');
   assert.equal(whySentence({ because: 'this is a foundational move', unlocks: null }), 'Because this is a foundational move.');

@@ -86,6 +86,28 @@ function encompassesTransitively(encompasses, advanced, simpler) {
   return false;
 }
 
+// Math-Academy-Way targeted remediation: "If a student ever fails a lesson twice at the same
+// knowledge point, we automatically provide remedial reviews on the key prerequisites." With only
+// skill-level struggle tracking available, a struggled skill stands in for its failed practice KP;
+// remediation targets that KP's KEY PREREQUISITE (the foundation the move leans on most) rather than
+// re-drilling the skill. Skips a foundation the learner already holds strongly (reviewing it wouldn't
+// help — the difficulty is elsewhere) and falls through. Pure; the server builds the recommendation.
+//   knowledgePoints : data/foundation-knowledge-points.json's `knowledgePoints`
+//   struggles       : learner.struggles (skillId -> count)
+//   mastery         : learner.mastery (skillId -> 0..1)
+export function keyPrerequisiteRemediation({ knowledgePoints, struggles = {}, mastery = {}, threshold = 2, strongMastery = 0.85 }) {
+  const struggling = Object.entries(struggles).filter(([, n]) => n >= threshold).sort((a, b) => b[1] - a[1]);
+  for (const [skillId, count] of struggling) {
+    // The practice KP's key prerequisite is the proximate move the skill most directly uses.
+    const practiceKp = knowledgePoints.find((k) => k.skill === skillId && k.kind === 'practice');
+    const keyPrerequisite = practiceKp?.keyPrerequisite;
+    if (keyPrerequisite && (mastery[keyPrerequisite] || 0) < strongMastery) {
+      return { strugglingSkill: skillId, count, keyPrerequisite };
+    }
+  }
+  return null;
+}
+
 // FIRe: the smallest set of skills to actually practice so that every due-for-review skill is either
 // practiced directly or implicitly reviewed by a fully-encompassing advanced skill that is also due.
 // Returns { practice, covered } where `covered` maps each dropped due skill to the skill that

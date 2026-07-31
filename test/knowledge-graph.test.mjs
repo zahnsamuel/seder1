@@ -1,10 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { knowledgeFrontier, learningPath, encompassingReviewSet } from '../data/knowledge-graph.mjs';
+import { knowledgeFrontier, learningPath, encompassingReviewSet, keyPrerequisiteRemediation } from '../data/knowledge-graph.mjs';
 
 const graph = JSON.parse(readFileSync(new URL('../data/foundation-skill-graph.json', import.meta.url), 'utf8'));
 const edges = JSON.parse(readFileSync(new URL('../data/foundation-skill-edges.json', import.meta.url), 'utf8')).edges;
+const knowledgePoints = JSON.parse(readFileSync(new URL('../data/foundation-knowledge-points.json', import.meta.url), 'utf8')).knowledgePoints;
 const prereqsOf = new Map(graph.skills.map((s) => [s.id, s.prerequisites || []]));
 
 test('a new learner sits at the graph roots (the initial knowledge frontier)', () => {
@@ -70,6 +71,26 @@ test('FIRe collapses a due prerequisite chain to the single most-advanced task',
   assert.equal(Object.keys(covered).length, 2, 'the two simpler skills are covered implicitly');
   // Nothing is both practiced and silently dropped.
   for (const id of practice) assert.ok(!(id in covered));
+});
+
+test('MA remediation routes a struggled skill to its knowledge points’ key prerequisite', () => {
+  const skill = graph.skills.find((s) => (s.prerequisites || []).length && knowledgePoints.some((k) => k.skill === s.id && k.kind === 'practice' && k.keyPrerequisite));
+  const practiceKey = knowledgePoints.find((k) => k.skill === skill.id && k.kind === 'practice').keyPrerequisite;
+  const r = keyPrerequisiteRemediation({ knowledgePoints, struggles: { [skill.id]: 2 }, mastery: {} });
+  assert.equal(r.strugglingSkill, skill.id);
+  assert.equal(r.keyPrerequisite, practiceKey, 'targets the practice KP’s key prerequisite (the proximate foundation)');
+  assert.equal(r.count, 2);
+});
+
+test('MA remediation skips a foundation the learner already holds, and low struggle', () => {
+  const skill = 'fnd-role-question-vs-answer';
+  const key = knowledgePoints.find((k) => k.skill === skill && k.kind === 'practice').keyPrerequisite;
+  // Foundation already strong -> reviewing it would not help -> fall through.
+  assert.equal(keyPrerequisiteRemediation({ knowledgePoints, struggles: { [skill]: 2 }, mastery: { [key]: 0.9 } }), null);
+  // Below the twice-failed threshold -> no remediation yet.
+  assert.equal(keyPrerequisiteRemediation({ knowledgePoints, struggles: { [skill]: 1 }, mastery: {} }), null);
+  // Nothing struggled -> nothing to remediate.
+  assert.equal(keyPrerequisiteRemediation({ knowledgePoints, struggles: {}, mastery: {} }), null);
 });
 
 test('FIRe practices every due skill that nothing else encompasses', () => {

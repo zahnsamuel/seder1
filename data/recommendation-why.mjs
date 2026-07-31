@@ -28,6 +28,16 @@ export function explainRecommendation(rec, learner = {}) {
         ? { basis: 'decay', because: 'a skill you mastered has faded below its peak', build, unlocks: 'durable recall, restored faster than relearning' }
         : { basis: 'spaced-review', because: 'a skill is due for retrieval, especially after an uncertain answer', build, unlocks: 'recall that lasts' };
     case 'remediation':
+      // Math-Academy-Way targeted remediation: routed to the key prerequisite a struggled skill leans
+      // on (data/knowledge-graph.mjs keyPrerequisiteRemediation), not the struggled skill itself.
+      if (rec.repairMode === 'key-prerequisite-review') {
+        return {
+          basis: 'kp-key-prerequisite',
+          because: `you have hit ${rec.count} snag${rec.count === 1 ? '' : 's'} on the move this one supports`,
+          build,
+          unlocks: 'the move it was blocking'
+        };
+      }
       return {
         basis: 'fragile-skill',
         because: rec.count ? `this move has felt uncertain ${rec.count} times` : 'a source move is fragile',
