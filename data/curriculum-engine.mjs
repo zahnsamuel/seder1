@@ -45,7 +45,12 @@ export async function canonJourney(root) {
 export async function nextGemaraArc(root, learner) {
   if (!cachedGemaraSequence) cachedGemaraSequence = JSON.parse(await fs.readFile(join(root, 'data', 'advanced-gemara-sequence.json'), 'utf8'));
   const completed = new Set(learner.completedStages || []);
-  return cachedGemaraSequence.steps.find((step) => !completed.has(step.stageId)) || null;
+  const steps = cachedGemaraSequence.steps;
+  const index = steps.findIndex((step) => !completed.has(step.stageId));
+  if (index === -1) return null;
+  // Name the prior arc step this one builds on, so the explanation is concrete.
+  const prior = index > 0 ? steps[index - 1] : null;
+  return { ...steps[index], builtOn: prior ? prior.title : null };
 }
 
 function skillsReady(learner, requirements = []) {
@@ -101,12 +106,16 @@ export async function nextJourneyRecommendation(root, learner) {
   const status = await journeyStatus(root, learner);
   if (!status.next) return null;
   const next = status.next;
+  // The most recent completed session before this one — the specific canon move it builds on.
+  const nextPosition = status.nodes.findIndex((node) => node.stageId === next.stageId);
+  const priorComplete = nextPosition > 0 ? status.nodes.slice(0, nextPosition).reverse().find((node) => node.complete) : null;
   return {
     kind: 'canon-session',
     title: next.title,
     reason: `${next.lens} is the next shared tool in your connected canon journey.`,
     url: `canon-session.html?id=${encodeURIComponent(next.id)}`,
-    session: next
+    session: next,
+    builtOn: priorComplete ? priorComplete.title : null
   };
 }
 

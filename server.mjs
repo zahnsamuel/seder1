@@ -10,6 +10,7 @@ import { initSqlite, sqliteEnabled, issueToken, verifyToken, revokeTokens, close
 import { loadJlaAcademySession, checkJlaAcademyChoice } from './jla-academy-session.js';
 import { canMasterJourneyStage, canonJourney, journeyStatus, nextGemaraArc, nextGraphPractice, nextJourneyRecommendation, remediationFor, sourceReviewItems } from './data/curriculum-engine.mjs';
 import { explainRecommendation, whySentence } from './data/recommendation-why.mjs';
+import { foundationRecommendation, gemaraYearRecommendation, moedExpansionRecommendation } from './data/term-recommendations.mjs';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const port = Number(process.env.PORT || 4180);
@@ -41,56 +42,6 @@ async function readJsonBody(request) {
   for await (const chunk of request) chunks.push(chunk);
   if (!chunks.length) return {};
   return JSON.parse(Buffer.concat(chunks).toString('utf8'));
-}
-
-function foundationRecommendation(learner) {
-  const completed = new Set(learner.completedStages || []);
-  const terms = [
-    { stage: 'foundation-capstone', title: 'Foundation Year · Term I: build the reading repertoire', reason: 'Begin with the connected source sequence that builds case mapping, question reading, evidence, and reception before its capstone.', url: 'integrated-path.html' },
-    { stage: 'term-two-capstone', title: 'Foundation Year · Term II: reason, scope, and responsibility', reason: 'Your first-term checkpoint is earned. Next, trace reasons, exceptions, and institutional responsibility through new sources.', url: 'second-foundation-term.html' },
-    { stage: 'second-foundation-synthesis', title: 'Foundation Year · Term III: disagreement and synthesis', reason: 'Your second-term checkpoint is earned. Now preserve distinct voices, compare carefully, and carry the habit into synthesis.', url: 'term-three-journey.html' }
-  ];
-  return terms.find((term) => !completed.has(term.stage)) || null;
-}
-
-function gemaraYearRecommendation(learner) {
-  const completed = new Set(learner.completedStages || []);
-  const terms = [
-    { title: 'Gemara Year · Term I: time, space, and practice', reason: 'Continue the first post-Foundation term by carrying your reading repertoire through concrete cases of domain, measure, time, validity, and source-grounded preparation.', steps: [['shabbat-tractate-arc', 'Shabbat: map a legal case', 'shabbat-arc.html'], ['eruvin-tractate-arc', 'Eruvin: boundary and measure', 'eruvin-arc.html'], ['pesachim-tractate-arc', 'Pesachim: word, time, and source', 'pesachim-arc.html'], ['sukkah-tractate-arc', 'Sukkah: validity and purpose', 'sukkah-arc.html'], ['yoma-tractate-arc', 'Yoma: procedure, limit, and proof', 'yoma-arc.html'], ['gemara-foundations-checkpoint', 'Gemara Foundations checkpoint', 'gemara-foundations.html']] },
-    { title: 'Gemara Year · Term II: claims, responsibility, and institutions', reason: 'Continue the civil-reasoning term: map claims, identify categories of responsibility, and read institutions through their stated reasons.', steps: [['bava-metzia-tractate-arc', 'Bava Metzia: claims and evidence', 'bava-metzia-arc.html'], ['bava-kamma-tractate-arc', 'Bava Kamma: categories of damage', 'bava-kamma-arc.html'], ['ketubot-tractate-arc', 'Ketubot: schedule and reason', 'ketubot-arc.html'], ['sanhedrin-tractate-arc', 'Sanhedrin: category and specification', 'sanhedrin-arc.html'], ['civil-reasoning-checkpoint', 'Civil Reasoning checkpoint', 'civil-reasoning.html']] },
-    { title: 'Gemara Year · Term III: rule and disagreement', reason: 'Trace a rule through its exceptions and preserve disagreement before taking those reading habits into a new legal field.', steps: [['chullin-tractate-arc', 'Chullin: rule and exception', 'chullin-arc.html'], ['niddah-tractate-arc', 'Niddah: three positions', 'niddah-arc.html']] },
-    { title: 'Gemara Year · Term IV: speech, status, and transfer', reason: 'Read how language creates a legal category, how a default gives it shape, and how a reading move transfers across tractates without erasing their differences.', steps: [['moed-katan-tractate-arc', 'Moed Katan: rule and bounded exception', 'moed-katan-arc.html'], ['nedarim-tractate-arc', 'Nedarim: legal speech and function', 'nedarim-arc.html'], ['nazir-tractate-arc', 'Nazir: carry the language move across', 'nazir-arc.html'], ['gemara-year-synthesis', 'Gemara Year synthesis', 'gemara-year-synthesis.html']] }
-  ];
-  for (const term of terms) {
-    const step = term.steps.find(([stage]) => !completed.has(stage));
-    if (step) return { title: `${term.title} · ${step[1]}`, reason: term.reason, url: step[2] };
-  }
-  return null;
-}
-
-function moedExpansionRecommendation(learner) {
-  const completed = new Set(learner.completedStages || []);
-  const gemaraYearStages = [
-    'shabbat-tractate-arc', 'eruvin-tractate-arc', 'pesachim-tractate-arc', 'sukkah-tractate-arc', 'yoma-tractate-arc', 'gemara-foundations-checkpoint',
-    'bava-metzia-tractate-arc', 'bava-kamma-tractate-arc', 'ketubot-tractate-arc', 'sanhedrin-tractate-arc', 'civil-reasoning-checkpoint',
-    'chullin-tractate-arc', 'niddah-tractate-arc', 'moed-katan-tractate-arc', 'nedarim-tractate-arc', 'nazir-tractate-arc', 'gemara-year-synthesis'
-  ];
-  if (!gemaraYearStages.every((stage) => completed.has(stage))) return null;
-  const chapters = [
-    ['yoma-tractate-arc', 'Yoma: procedure, limit, and proof', 'yoma-arc.html'],
-    ['rosh-hashanah-tractate-arc', 'Rosh Hashanah: calendar and public record', 'rosh-hashanah-arc.html'],
-    ['megillah-tractate-arc', 'Megillah: public schedule and accommodation', 'megillah-arc.html'],
-    ['taanit-tractate-arc', 'Taanit: timing dispute and distinction', 'taanit-arc.html'],
-    ['chagigah-tractate-arc', 'Chagigah: rule, exception, and historical context', 'chagigah-arc.html'],
-    ['moed-expansion-synthesis', 'Moed Expansion synthesis', 'moed-expansion-synthesis.html']
-  ];
-  const chapter = chapters.find(([stage]) => !completed.has(stage));
-  if (!chapter) return null;
-  return {
-    title: `Moed Expansion · ${chapter[1]}`,
-    reason: 'Your Gemara Year is complete. Extend the same source-reading habits through the calendar, public reading, and communal response.',
-    url: chapter[2]
-  };
 }
 
 function academyFoundationRecommendation(learner) {

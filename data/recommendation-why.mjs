@@ -37,7 +37,7 @@ export function explainRecommendation(rec, learner = {}) {
     case 'foundation-term':
     case 'gemara-year-term':
     case 'moed-expansion':
-      return { basis: 'term-progression', because: 'you’ve earned the prior checkpoint', build, unlocks: 'the next term of your path' };
+      return { basis: 'term-progression', because: rec.builtOn ? `you’ve completed ${rec.builtOn}` : 'you’re ready to begin this term', build, unlocks: 'the next term of your path' };
     case 'graph-practice':
       return {
         basis: 'graph-prerequisite',
@@ -46,9 +46,9 @@ export function explainRecommendation(rec, learner = {}) {
         unlocks: rec.unlocks || null
       };
     case 'canon-session':
-      return { basis: 'canon-journey', because: 'it’s the next shared reading tool in your canon journey', build, unlocks: 'a wider range of sources you can read with it' };
+      return { basis: 'canon-journey', because: rec.builtOn ? `you’ve completed ${rec.builtOn}` : 'it’s the next shared reading tool in your canon journey', build, unlocks: 'a wider range of sources you can read with it' };
     case 'gemara-arc':
-      return { basis: 'gemara-arc', because: 'it continues your current tractate arc', build, unlocks: 'the next move in the sugya' };
+      return { basis: 'gemara-arc', because: rec.builtOn ? `you’ve completed ${rec.builtOn}` : 'it continues your current tractate arc', build, unlocks: 'the next move in the sugya' };
     default: // shas-map and any future breadth recommendation
       return { basis: 'breadth', because: 'your foundations are ready for wider practice', build, unlocks: 'broader tractate exploration' };
   }
