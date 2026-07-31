@@ -17,6 +17,8 @@ const slice = read('data/jla-foundation-skill-slice.json');
 const gradMap = read('data/graduation-skill-map.json').map;
 let edgeLayer = null;
 try { edgeLayer = read('data/foundation-skill-edges.json'); } catch { /* typed-edge layer is optional; report reflects its absence */ }
+let itemLayer = null;
+try { itemLayer = read('data/foundation-assessment-items.json'); } catch { /* assessment-item layer is optional */ }
 
 const skills = graph.skills;
 const byId = new Map(skills.map((s) => [s.id, s]));
@@ -116,6 +118,7 @@ H('Layer 3 — Assessment graph (steps 9, 10 — item bank + transfer)');
 console.log(`  skills with an authored item bank (>=3) ${bar(items3, skills.length)}  (${items3}/${skills.length})`);
 console.log(`  skills with >=1 canonical check .... ${bar(items1, skills.length)}  (${items1}/${skills.length})`);
 console.log(`  GRAPH skills with a scorable authored item ${bar(academyForGraphSkill, skills.length)}  (${academyForGraphSkill}/${skills.length}, via the graduation-skill map)`);
+console.log(`  first-class assessment-item nodes .. ${itemLayer ? `${itemLayer.coverage.items} nodes / ${itemLayer.coverage.graphSkillsWithItem} graph skills (data/foundation-assessment-items.json; max bank ${itemLayer.coverage.maxBankSize}, no key shipped)` : 'not built'}`);
 console.log(`  graduation skills linked to the graph  ${bar(linkedGrad, linkedGrad + unmappedGrad)}  (${linkedGrad}/${linkedGrad + unmappedGrad}; ${unmappedGrad} unmapped = graph audit/expansion candidates)`);
 console.log(`  skills with named misconception models  ${bar(withNamedMisconceptions, skills.length)}  (${withNamedMisconceptions}/${skills.length}; ${withRepairString}/${skills.length} have a single repair string)`);
 console.log(`  skills with an authored transfer item .. ${bar(withTransferItem, skills.length)}  (${withTransferItem}/${skills.length}; ${withTransferString}/${skills.length} have transfer language)`);

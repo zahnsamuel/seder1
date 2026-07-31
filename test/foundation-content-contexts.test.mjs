@@ -5,6 +5,7 @@ import { readFileSync } from 'node:fs';
 const read = (p) => JSON.parse(readFileSync(new URL(`../${p}`, import.meta.url), 'utf8'));
 const graph = read('data/foundation-skill-graph.json');
 const contentMap = read('data/foundation-content-map.json');
+const supplements = read('data/foundation-context-supplements.json').bySkill;
 const layer = read('data/foundation-content-contexts.json');
 const skillIds = new Set(graph.skills.map((s) => s.id));
 
@@ -23,17 +24,33 @@ test('every context is a first-class node referencing a real skill (§2.2 shape)
   }
 });
 
-test('no reference is invented — every context traces to inline or the content map', () => {
+test('no reference is invented — every context traces to inline, the content map, or the supplements', () => {
   const inlineRefs = new Map(graph.skills.map((s) => [s.id, new Set((s.sourceContexts || []).map((x) => x.ref))]));
   const mapRefs = new Map(graph.skills.map((s) => [s.id, new Set((contentMap.bySkill?.[s.id] || []).map((x) => x.ref))]));
+  const suppRefs = new Map(Object.entries(supplements).map(([id, arr]) => [id, new Set(arr.map((x) => x.ref))]));
   for (const c of layer.contexts) {
     const fromInline = inlineRefs.get(c.skill)?.has(c.ref);
     const fromMap = mapRefs.get(c.skill)?.has(c.ref);
-    assert.ok(fromInline || fromMap, `context ${c.id} (${c.ref}) traces to a real source`);
-    // `sources` provenance must be accurate, and only from the two real sources.
-    for (const src of c.sources) assert.ok(['inline', 'content-map'].includes(src), `source ${src} is valid`);
+    const fromAuthored = suppRefs.get(c.skill)?.has(c.ref);
+    assert.ok(fromInline || fromMap || fromAuthored, `context ${c.id} (${c.ref}) traces to a real source`);
+    // `sources` provenance must be accurate, and only from the three real sources.
+    for (const src of c.sources) assert.ok(['inline', 'content-map', 'authored'].includes(src), `source ${src} is valid`);
     if (c.sources.includes('inline')) assert.ok(fromInline, 'inline provenance is accurate');
     if (c.sources.includes('content-map')) assert.ok(fromMap, 'content-map provenance is accurate');
+    if (c.sources.includes('authored')) assert.ok(fromAuthored, 'authored provenance is accurate');
+  }
+});
+
+test('the hand-authored supplements close the step-8 shortfall (49/49, none padded)', () => {
+  assert.equal(layer.shortfall.length, 0, 'no skill is left short after the authored contexts');
+  assert.equal(layer.skillsMeetingStep8, `${graph.skills.length}/${graph.skills.length}`);
+  // Every authored context must add a family the skill did not already have from inline/content-map,
+  // i.e. it does real work — not a duplicate ref padding the count.
+  for (const [skillId, arr] of Object.entries(supplements)) {
+    for (const supp of arr) {
+      const ctx = layer.contexts.find((c) => c.skill === skillId && c.ref === supp.ref);
+      assert.ok(ctx && ctx.sources.includes('authored'), `${skillId} carries authored context ${supp.ref}`);
+    }
   }
 });
 

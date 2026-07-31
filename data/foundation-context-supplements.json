@@ -1,0 +1,29 @@
+{
+  "purpose": "Hand-authored content contexts (docs/foundation-graph-schema.md §2.2, step 8) for the skills the inline + content-map merge left short of >=3 contexts / >=2 families. Each is a real source in which the skill is genuinely exercised, chosen to add a source FAMILY the skill did not yet cover. Kept separate from the graph so the authored provenance is explicit (the builder tags these `authored`); when the graph is next re-authored these can fold into its inline sourceContexts. These are asserted, not pilot-validated — like all content claims they are subject to the educator audit.",
+  "bySkill": {
+    "fnd-orient-page-geography": [
+      { "ref": "Siddur, weekday Shacharit Amidah", "genre": "tefillah", "why": "the prayer text sits inside surrounding rubric and halakhic instructions — primary text vs. what wraps it, in a liturgical layout" }
+    ],
+    "fnd-orient-speaker": [
+      { "ref": "Exodus 3:4-6", "genre": "torah", "why": "God calls 'Moses, Moses' and Moses answers 'Here am I' — identifying who speaks, in Torah narrative" }
+    ],
+    "fnd-orient-unit-boundary": [
+      { "ref": "Shulchan Aruch, Orach Chayim 1:1", "genre": "halakha", "why": "a single se'if is a self-contained unit of ruling — marking where one unit of thought begins and ends, in a code" }
+    ],
+    "fnd-signal-name-formulas": [
+      { "ref": "Pirkei Avot 1:2", "genre": "thought", "why": "'Shimon HaTzaddik ... hu haya omer' is the same 'X said' attribution formula outside the Talmud — a second family for the skill" }
+    ],
+    "fnd-case-restate": [
+      { "ref": "Genesis 25:29-34", "genre": "torah", "why": "Esau sells the birthright is a compact narrative case a learner can retell in their own words" }
+    ],
+    "fnd-agency-ask-question": [
+      { "ref": "A studied berakhah or fixed prayer", "genre": "tefillah", "why": "asking a clear, answerable question about the wording or structure of a prayer" }
+    ],
+    "fnd-agency-use-tools": [
+      { "ref": "A halakhic ruling traced to its Talmudic source", "genre": "halakha", "why": "deliberately following a code's cross-reference back to the Gemara it rests on" }
+    ],
+    "fnd-agency-choose-next": [
+      { "ref": "Choosing the next Torah portion to study", "genre": "torah", "why": "deciding and justifying the next study move within Tanakh, not only within Gemara" }
+    ]
+  }
+}

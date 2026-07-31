@@ -3,49 +3,8 @@
   "graphVersion": "0.2.0",
   "note": "Content-context layer (docs/foundation-graph-schema.md §2.2, step 8): every content context as a first-class node { id, skill, ref, genre, family }, promoted out of the skill object. Merged from the curated inline sourceContexts and data/foundation-content-map.json (deduped by ref); `sources` records provenance. No references are invented — skills still short of >=3 contexts / >=2 families after the merge are listed in `shortfall`, to be filled with real sources (content authoring / educator audit), never padded.",
   "step8Requirement": ">=3 contexts spanning >=2 source families per skill",
-  "skillsMeetingStep8": "41/49",
-  "shortfall": [
-    {
-      "skill": "fnd-orient-page-geography",
-      "contexts": 2,
-      "families": 2
-    },
-    {
-      "skill": "fnd-orient-speaker",
-      "contexts": 2,
-      "families": 2
-    },
-    {
-      "skill": "fnd-orient-unit-boundary",
-      "contexts": 2,
-      "families": 2
-    },
-    {
-      "skill": "fnd-signal-name-formulas",
-      "contexts": 2,
-      "families": 1
-    },
-    {
-      "skill": "fnd-case-restate",
-      "contexts": 2,
-      "families": 2
-    },
-    {
-      "skill": "fnd-agency-ask-question",
-      "contexts": 2,
-      "families": 2
-    },
-    {
-      "skill": "fnd-agency-use-tools",
-      "contexts": 2,
-      "families": 2
-    },
-    {
-      "skill": "fnd-agency-choose-next",
-      "contexts": 2,
-      "families": 2
-    }
-  ],
+  "skillsMeetingStep8": "49/49",
+  "shortfall": [],
   "perSkill": {
     "fnd-orient-source-type": {
       "contexts": 41,
@@ -53,19 +12,19 @@
       "meetsStep8": true
     },
     "fnd-orient-page-geography": {
-      "contexts": 2,
-      "families": 2,
-      "meetsStep8": false
+      "contexts": 3,
+      "families": 3,
+      "meetsStep8": true
     },
     "fnd-orient-speaker": {
-      "contexts": 2,
-      "families": 2,
-      "meetsStep8": false
+      "contexts": 3,
+      "families": 3,
+      "meetsStep8": true
     },
     "fnd-orient-unit-boundary": {
-      "contexts": 2,
-      "families": 2,
-      "meetsStep8": false
+      "contexts": 3,
+      "families": 3,
+      "meetsStep8": true
     },
     "fnd-orient-question-present": {
       "contexts": 3,
@@ -98,9 +57,9 @@
       "meetsStep8": true
     },
     "fnd-signal-name-formulas": {
-      "contexts": 2,
-      "families": 1,
-      "meetsStep8": false
+      "contexts": 3,
+      "families": 2,
+      "meetsStep8": true
     },
     "fnd-role-text-vs-commentary": {
       "contexts": 3,
@@ -148,9 +107,9 @@
       "meetsStep8": true
     },
     "fnd-case-restate": {
-      "contexts": 2,
-      "families": 2,
-      "meetsStep8": false
+      "contexts": 3,
+      "families": 3,
+      "meetsStep8": true
     },
     "fnd-case-category": {
       "contexts": 24,
@@ -273,14 +232,14 @@
       "meetsStep8": true
     },
     "fnd-agency-ask-question": {
-      "contexts": 2,
-      "families": 2,
-      "meetsStep8": false
+      "contexts": 3,
+      "families": 3,
+      "meetsStep8": true
     },
     "fnd-agency-use-tools": {
-      "contexts": 2,
-      "families": 2,
-      "meetsStep8": false
+      "contexts": 3,
+      "families": 3,
+      "meetsStep8": true
     },
     "fnd-agency-record-uncertainty": {
       "contexts": 3,
@@ -288,9 +247,9 @@
       "meetsStep8": true
     },
     "fnd-agency-choose-next": {
-      "contexts": 2,
-      "families": 2,
-      "meetsStep8": false
+      "contexts": 3,
+      "families": 3,
+      "meetsStep8": true
     }
   },
   "contexts": [
@@ -769,6 +728,16 @@
       ]
     },
     {
+      "id": "ctx-fnd-orient-page-geography-siddur-weekday-shacharit-amidah",
+      "skill": "fnd-orient-page-geography",
+      "ref": "Siddur, weekday Shacharit Amidah",
+      "genre": "tefillah",
+      "family": "liturgical",
+      "sources": [
+        "authored"
+      ]
+    },
+    {
       "id": "ctx-fnd-orient-speaker-pirkei-avot-1-1",
       "skill": "fnd-orient-speaker",
       "ref": "Pirkei Avot 1:1",
@@ -791,6 +760,16 @@
       ]
     },
     {
+      "id": "ctx-fnd-orient-speaker-exodus-3-4-6",
+      "skill": "fnd-orient-speaker",
+      "ref": "Exodus 3:4-6",
+      "genre": "torah",
+      "family": "tanakh",
+      "sources": [
+        "authored"
+      ]
+    },
+    {
       "id": "ctx-fnd-orient-unit-boundary-mishnah-berakhot-1-1",
       "skill": "fnd-orient-unit-boundary",
       "ref": "Mishnah Berakhot 1:1",
@@ -810,6 +789,16 @@
       "family": "tanakh",
       "sources": [
         "inline"
+      ]
+    },
+    {
+      "id": "ctx-fnd-orient-unit-boundary-shulchan-aruch-orach-chayim-1-1",
+      "skill": "fnd-orient-unit-boundary",
+      "ref": "Shulchan Aruch, Orach Chayim 1:1",
+      "genre": "halakha",
+      "family": "halakhic",
+      "sources": [
+        "authored"
       ]
     },
     {
@@ -1500,6 +1489,16 @@
       "family": "rabbinic",
       "sources": [
         "inline"
+      ]
+    },
+    {
+      "id": "ctx-fnd-signal-name-formulas-pirkei-avot-1-2",
+      "skill": "fnd-signal-name-formulas",
+      "ref": "Pirkei Avot 1:2",
+      "genre": "thought",
+      "family": "thought",
+      "sources": [
+        "authored"
       ]
     },
     {
@@ -3519,6 +3518,16 @@
       "family": "thought",
       "sources": [
         "inline"
+      ]
+    },
+    {
+      "id": "ctx-fnd-case-restate-genesis-25-29-34",
+      "skill": "fnd-case-restate",
+      "ref": "Genesis 25:29-34",
+      "genre": "torah",
+      "family": "tanakh",
+      "sources": [
+        "authored"
       ]
     },
     {
@@ -9290,6 +9299,16 @@
       ]
     },
     {
+      "id": "ctx-fnd-agency-ask-question-a-studied-berakhah-or-fixed-prayer",
+      "skill": "fnd-agency-ask-question",
+      "ref": "A studied berakhah or fixed prayer",
+      "genre": "tefillah",
+      "family": "liturgical",
+      "sources": [
+        "authored"
+      ]
+    },
+    {
       "id": "ctx-fnd-agency-use-tools-sefaria-links-and-connections-panel",
       "skill": "fnd-agency-use-tools",
       "ref": "Sefaria links and connections panel",
@@ -9309,6 +9328,16 @@
       "family": "tanakh",
       "sources": [
         "inline"
+      ]
+    },
+    {
+      "id": "ctx-fnd-agency-use-tools-a-halakhic-ruling-traced-to-its-talmudic-source",
+      "skill": "fnd-agency-use-tools",
+      "ref": "A halakhic ruling traced to its Talmudic source",
+      "genre": "halakha",
+      "family": "halakhic",
+      "sources": [
+        "authored"
       ]
     },
     {
@@ -9362,6 +9391,16 @@
       "family": "thought",
       "sources": [
         "inline"
+      ]
+    },
+    {
+      "id": "ctx-fnd-agency-choose-next-choosing-the-next-torah-portion-to-study",
+      "skill": "fnd-agency-choose-next",
+      "ref": "Choosing the next Torah portion to study",
+      "genre": "torah",
+      "family": "tanakh",
+      "sources": [
+        "authored"
       ]
     }
   ]

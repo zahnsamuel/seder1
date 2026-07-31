@@ -64,9 +64,12 @@ Today these are inline `sourceContexts` on the skill; the content map is the rev
 `scripts/build-content-contexts.mjs`) promotes contexts into this first-class node class, merging the
 curated inline `sourceContexts` (family-diverse) with the content map (context-rich), deduped by
 `ref` with provenance in `sources`. It invents no references. This lifts step-8 coverage from **6/49
-→ 41/49**; the remaining **8** skills (mostly Layer-1 orientation and Layer-10 agency moves) are
-listed in the file's `shortfall` and need real sources authored — never padded. `test/foundation-
-content-contexts.test.mjs` guards that every context traces to a real source.
+→ 41/49** from existing data alone; the remaining **8** skills were then closed to **49/49** by
+`data/foundation-context-supplements.json` — a small hand-authored file adding one real,
+family-extending source to each (e.g. a Siddur Amidah page for "find the main text and what surrounds
+it", Pirkei Avot 1:2 for attribution formulas). These are asserted content claims, tagged `authored`,
+subject to the educator audit like any other. `test/foundation-content-contexts.test.mjs` guards that
+every context traces to a real source and that the authored ones do real work (add a new family).
 
 ### 2.3 Assessment item (layer 3) — *new node class*
 ```
@@ -83,10 +86,17 @@ discrimination null until calibrated
 ```
 **Requirements:** an **item bank of ≥3 items** per foundational skill (step 10), and **every
 graduation-critical skill has ≥1 `transfer` item drawing from an unfamiliar family** (step 9).
-Current: 0/49 skills have an item bank; each has exactly one canonical `check` string. The 24
-authored, server-scored academy items exist but key off the *slice* id space (`source-family-001`),
-not the `fnd-*` graph — so **0 graph skills have a scorable item today**. Unifying these id spaces
-is a named migration (§6).
+
+**Built (layer materialized, banks not yet):** `data/foundation-assessment-items.json`
+(`npm run graph:items`, `scripts/build-assessment-items.mjs`) promotes the 18 authored academy items
+that Migration 001 links into **first-class assessment-item nodes attached to their `fnd-*` graph
+skill** (17 graph skills; one already has a 2-item mini-bank spanning two families). The nodes are
+**client-safe by construction — `correct` is never included**; the key stays in
+`data/jla-academy-sessions.json` (server-only) and each node records `scoredBy`. `difficulty`/
+`discrimination` are `null` (pilot), `misconceptions` `[]` (audit). This formalizes the items that
+exist; it does **not** manufacture the ≥3-item bank (step 10) — that needs new authored items, not
+derivation, and the report keeps that gap visible (0/49 banks). The 6 unmapped academy items get no
+node (no graph home yet — audit/expansion candidates).
 
 ### 2.4 Learner artifact (layer 4) — *lives in the learner record, never the graph*
 ```

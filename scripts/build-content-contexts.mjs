@@ -16,6 +16,10 @@ import { readFileSync, writeFileSync } from 'node:fs';
 const read = (p) => JSON.parse(readFileSync(new URL(`../${p}`, import.meta.url), 'utf8'));
 const graph = read('data/foundation-skill-graph.json');
 const contentMap = read('data/foundation-content-map.json');
+// Hand-authored contexts for skills the inline + content-map merge left short (§2.2, step 8).
+// Optional — the layer still builds (with a smaller shortfall) if this file is absent.
+let supplements = {};
+try { supplements = read('data/foundation-context-supplements.json').bySkill || {}; } catch { /* optional */ }
 
 // One source family per genre — the unit of "spanning >=2 families" (matches scripts/graph-quality).
 const FAMILY = { torah: 'tanakh', mishnah: 'rabbinic', gemara: 'rabbinic', halakha: 'halakhic', tefillah: 'liturgical', thought: 'thought', mussar: 'thought', chassidus: 'thought', history: 'historical' };
@@ -34,6 +38,11 @@ for (const skill of graph.skills) {
     const prior = byRef.get(c.ref);
     if (prior) { prior.sources.add('content-map'); prior.unit = prior.unit || c.unit; }
     else byRef.set(c.ref, { genre: c.genre, sources: new Set(['content-map']), unit: c.unit });
+  }
+  for (const c of supplements[skill.id] || []) {
+    const prior = byRef.get(c.ref);
+    if (prior) prior.sources.add('authored');
+    else byRef.set(c.ref, { genre: c.genre, sources: new Set(['authored']), unit: undefined });
   }
   let n = 0;
   const families = new Set();
