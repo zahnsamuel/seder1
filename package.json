@@ -13,6 +13,7 @@
     "preflight": "node scripts/preflight.mjs",
     "graph:build": "node scripts/build-skill-graph.mjs",
     "graph:foundation": "node scripts/check-foundation-graph.mjs",
+    "graph:skills": "node scripts/check-skill-shaped.mjs",
     "graph:edges": "node scripts/build-skill-edges.mjs",
     "graph:contexts": "node scripts/build-content-contexts.mjs",
     "graph:items": "node scripts/build-assessment-items.mjs",
