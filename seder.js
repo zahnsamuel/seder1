@@ -7,6 +7,7 @@ Seder.config().then((config) => {
   const needsAuth = config.mode === 'token' || (config.supabaseUrl && config.supabaseAnonKey);
   if (needsAuth && !Seder.session?.access_token) {
     set('#nextAction', (el) => { const signIn = new URL('sign-in.html', location.origin); signIn.searchParams.set('next', 'placement.html'); el.href = `${signIn.pathname}${signIn.search}`; el.textContent = 'Start learning →'; });
+    window.showOnboardingIfNew?.(false); // a first-time visitor: show the welcome
     return;
   }
   loadPersonalized();
@@ -34,5 +35,9 @@ Promise.all([
   // Grounded "why this, now" from the server (recommendation.why), shared across surfaces.
   set('#todayCopy',el=>el.textContent=decision.recommendation.why?.sentence||(placement?decision.recommendation.reason:'One clear next step: repair what is fragile, then build the next source move.'));
   set('#nextAction',el=>{el.href=placement?decision.recommendation.url:'daily-router.html';el.textContent=placement?'Find my starting point →':'See today’s next step →';});
+  // Welcome intro is for brand-new learners only. A returning learner with real evidence gets a
+  // clean front door and one next step — no intro, no second CTA competing with today's step.
+  const hasProgress=(learner.capabilityEvidence||[]).length>0||(learner.dailyStreak||0)>0;
+  window.showOnboardingIfNew?.(hasProgress);
 }).catch(()=>{});
 }
