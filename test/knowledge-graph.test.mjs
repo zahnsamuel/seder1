@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { knowledgeFrontier, learningPath, encompassingReviewSet, keyPrerequisiteRemediation } from '../data/knowledge-graph.mjs';
+import { knowledgeFrontier, learningPath, encompassingReviewSet, keyPrerequisiteRemediation, estimateFrontierFromDiagnostic, nextDiagnosticProbe } from '../data/knowledge-graph.mjs';
 
 const graph = JSON.parse(readFileSync(new URL('../data/foundation-skill-graph.json', import.meta.url), 'utf8'));
 const edges = JSON.parse(readFileSync(new URL('../data/foundation-skill-edges.json', import.meta.url), 'utf8')).edges;
@@ -71,6 +71,48 @@ test('FIRe collapses a due prerequisite chain to the single most-advanced task',
   assert.equal(Object.keys(covered).length, 2, 'the two simpler skills are covered implicitly');
   // Nothing is both practiced and silently dropped.
   for (const id of practice) assert.ok(!(id in covered));
+});
+
+test('the diagnostic infers prerequisites downward from a passed skill', () => {
+  const deep = graph.skills.find((s) => s.layer >= 4 && (s.prerequisites || []).length);
+  const { known } = estimateFrontierFromDiagnostic(graph, { [deep.id]: true });
+  assert.ok(known.includes(deep.id), 'the passed skill is known');
+  for (const p of deep.prerequisites) assert.ok(known.includes(p), `prerequisite ${p} inferred known`);
+});
+
+test('a direct failure overrides an inferred pass', () => {
+  const skill = graph.skills.find((s) => (s.prerequisites || []).length);
+  const prereq = skill.prerequisites[0];
+  // Passing `skill` would infer `prereq` known; failing `prereq` directly must win.
+  const { known } = estimateFrontierFromDiagnostic(graph, { [skill.id]: true, [prereq]: false });
+  assert.ok(!known.includes(prereq), 'the directly-failed prerequisite is not counted as known');
+});
+
+test('empty diagnostic yields the root frontier; probes are always fresh and uncertain', () => {
+  const roots = graph.skills.filter((s) => !(s.prerequisites || []).length).map((s) => s.id);
+  assert.deepEqual(estimateFrontierFromDiagnostic(graph, {}).frontier.sort(), roots.sort());
+  const probe = nextDiagnosticProbe(graph, {});
+  assert.ok(graph.skills.some((s) => s.id === probe), 'probe is a real skill');
+});
+
+test('the adaptive diagnostic pins the exact frontier in far fewer questions than skills', () => {
+  for (const maxLayer of [0, 2, 3, 5, 8]) {
+    const trueKnown = new Set(graph.skills.filter((s) => s.layer <= maxLayer).map((s) => s.id));
+    const responses = {};
+    let questions = 0;
+    for (;;) {
+      const probe = nextDiagnosticProbe(graph, responses);
+      if (!probe) break;
+      assert.ok(!(probe in responses), 'never re-probes an answered skill');
+      responses[probe] = trueKnown.has(probe); // a truthful learner
+      if (++questions > graph.skills.length) { assert.fail('diagnostic did not terminate'); }
+    }
+    const est = estimateFrontierFromDiagnostic(graph, responses);
+    const trueFrontier = knowledgeFrontier(graph, [...trueKnown]).frontier;
+    assert.deepEqual(est.frontier.sort(), trueFrontier.sort(), `frontier exact at layer<=${maxLayer}`);
+    assert.deepEqual(est.known.sort(), [...trueKnown].sort(), `known set exact at layer<=${maxLayer}`);
+    assert.ok(questions < graph.skills.length, `${questions} questions < ${graph.skills.length} skills`);
+  }
 });
 
 test('MA remediation routes a struggled skill to its knowledge points’ key prerequisite', () => {

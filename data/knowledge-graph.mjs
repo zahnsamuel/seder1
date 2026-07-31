@@ -86,6 +86,70 @@ function encompassesTransitively(encompasses, advanced, simpler) {
   return false;
 }
 
+// --- Diagnostic as a knowledge-frontier estimator (The Math Academy Way, ch. 4 "Diagnostic Exams") ---
+// "An adaptive diagnostic exam … leverages the knowledge graph to quickly identify their knowledge
+// frontier." It does not test every skill: passing an advanced skill implies its prerequisites are
+// known ("you know all the prerequisites … below your frontier"), and each probe is chosen to split
+// the remaining uncertainty, so the frontier is pinned in far fewer questions than there are skills.
+
+// All transitive prerequisites (ancestors) of a skill.
+function ancestorsOf(prereqs, id, out = new Set()) {
+  for (const p of prereqs.get(id) || []) if (!out.has(p)) { out.add(p); ancestorsOf(prereqs, p, out); }
+  return out;
+}
+// skill id -> its direct dependents (skills that list it as a prerequisite).
+function dependentsMap(graph) {
+  const kids = new Map(graph.skills.map((s) => [s.id, []]));
+  for (const s of graph.skills) for (const p of s.prerequisites || []) kids.get(p)?.push(s.id);
+  return kids;
+}
+// All transitive dependents (descendants) of a skill.
+function descendantsOf(kids, id, out = new Set()) {
+  for (const c of kids.get(id) || []) if (!out.has(c)) { out.add(c); descendantsOf(kids, c, out); }
+  return out;
+}
+
+// Estimate the knowledge profile from diagnostic responses (skillId -> passed boolean):
+//   known    : skills the learner knows — every passed skill plus all its prerequisites (downward
+//              inference), minus any skill they directly failed (a direct failure beats an inference)
+//   frontier : ready to learn now; blocked: not yet, with missing prerequisites
+export function estimateFrontierFromDiagnostic(graph, responses = {}) {
+  const prereqs = prereqMap(graph);
+  const known = new Set();
+  for (const [id, passed] of Object.entries(responses)) {
+    if (!passed) continue;
+    known.add(id);
+    for (const a of ancestorsOf(prereqs, id)) known.add(a);
+  }
+  for (const [id, passed] of Object.entries(responses)) if (!passed) known.delete(id);
+  const { frontier, blocked } = knowledgeFrontier(graph, [...known]);
+  return { known: [...known].filter((id) => prereqs.has(id)), frontier, blocked, tested: Object.keys(responses).length };
+}
+
+// The next skill to probe: the still-uncertain skill that most evenly splits the remaining
+// uncertainty (binary-search through the DAG) — passing it resolves everything below it, failing it
+// prunes everything above. Returns null once the frontier is pinned down (no informative probe left).
+export function nextDiagnosticProbe(graph, responses = {}) {
+  const prereqs = prereqMap(graph);
+  const kids = dependentsMap(graph);
+  const answered = new Set(Object.keys(responses));
+  const failed = Object.entries(responses).filter(([, passed]) => !passed).map(([id]) => id);
+  const knownSet = new Set(estimateFrontierFromDiagnostic(graph, responses).known);
+  const unreachable = new Set(); // above a failed skill: definitely beyond the frontier, no need to test
+  for (const f of failed) for (const d of descendantsOf(kids, f)) unreachable.add(d);
+  const uncertain = (id) => !answered.has(id) && !knownSet.has(id) && !unreachable.has(id);
+  const candidates = graph.skills.map((s) => s.id).filter(uncertain);
+  if (!candidates.length) return null;
+  let best = null, bestScore = -1;
+  for (const id of candidates) {
+    const below = [...ancestorsOf(prereqs, id)].filter(uncertain).length;
+    const above = [...descendantsOf(kids, id)].filter(uncertain).length;
+    const score = Math.min(below, above);
+    if (score > bestScore) { bestScore = score; best = id; }
+  }
+  return best;
+}
+
 // Math-Academy-Way targeted remediation: "If a student ever fails a lesson twice at the same
 // knowledge point, we automatically provide remedial reviews on the key prerequisites." With only
 // skill-level struggle tracking available, a struggled skill stands in for its failed practice KP;

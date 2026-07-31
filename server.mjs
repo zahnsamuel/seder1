@@ -11,7 +11,7 @@ import { loadJlaAcademySession, checkJlaAcademyChoice } from './jla-academy-sess
 import { canMasterJourneyStage, canonJourney, journeyStatus, nextGemaraArc, nextGraphPractice, nextJourneyRecommendation, remediationFor, sourceReviewItems } from './data/curriculum-engine.mjs';
 import { explainRecommendation, whySentence } from './data/recommendation-why.mjs';
 import { foundationRecommendation, gemaraYearRecommendation, moedExpansionRecommendation } from './data/term-recommendations.mjs';
-import { keyPrerequisiteRemediation } from './data/knowledge-graph.mjs';
+import { keyPrerequisiteRemediation, estimateFrontierFromDiagnostic, nextDiagnosticProbe } from './data/knowledge-graph.mjs';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const port = Number(process.env.PORT || 4180);
@@ -259,6 +259,25 @@ async function handleApi(request, response, url) {
   }
   if (url.pathname === '/api/curriculum/pilot-repairs') {
     sendJson(response, 200, JSON.parse(await fs.readFile(join(root, 'data', 'pilot-repairs.json'), 'utf8')));
+    return true;
+  }
+  // Adaptive diagnostic as a knowledge-frontier estimator (The Math Academy Way). Stateless graph
+  // computation: POST the responses so far ({ responses: { skillId: passed } }); get the current
+  // frontier estimate plus the next skill to probe (with its check), or complete:true when the
+  // frontier is pinned. Downward inference means far fewer questions than there are skills.
+  if (request.method === 'POST' && url.pathname === '/api/graph/diagnostic') {
+    const body = await readJsonBody(request);
+    const responses = (body && typeof body.responses === 'object' && body.responses) || {};
+    if (!cachedGraphSkills) cachedGraphSkills = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-skill-graph.json'), 'utf8')).skills;
+    const graph = { skills: cachedGraphSkills };
+    const estimate = estimateFrontierFromDiagnostic(graph, responses);
+    const probeId = nextDiagnosticProbe(graph, responses);
+    const probe = probeId ? cachedGraphSkills.find((s) => s.id === probeId) : null;
+    sendJson(response, 200, {
+      estimate: { known: estimate.known, frontier: estimate.frontier, tested: estimate.tested },
+      nextProbe: probe ? { id: probe.id, title: probe.title, statement: probe.statement, check: (probe.checks || [])[0] } : null,
+      complete: !probeId
+    });
     return true;
   }
   if (url.pathname === '/api/curriculum/non-gemara-source-reader') {

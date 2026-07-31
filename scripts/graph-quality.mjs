@@ -132,6 +132,7 @@ console.log('  item difficulty / discrimination ... none (needs pilot response d
 console.log('  empirical edge validation .......... none (needs pilot data: do prereqs predict learning?)');
 console.log('  explainable next-step (step 13) .... BUILT (data/recommendation-why.mjs: every recommendation carries because -> build -> unlocks; graph-grounded where edges exist)');
 console.log('  knowledge frontier + FIRe review ... BUILT (data/knowledge-graph.mjs, Math Academy Way: frontier/learning-path/encompassing-review; encompassing weights pending-expert)');
+console.log('  adaptive diagnostic (frontier estimator) BUILT (data/knowledge-graph.mjs + POST /api/graph/diagnostic: pins the exact frontier in ~8-21 questions via downward inference, not 49)');
 
 H('Readiness scorecard (v0.1 -> adaptive graph)');
 const layerReady = { 'Skill ontology': 'PROTOTYPE (49/~150)', 'Content graph': `PARTIAL (${ctxBoth}/${skills.length} meet step 8; ${skills.length - ctxBoth} need real sources)`, 'Assessment graph': `EARLY (${items3}/${skills.length} item banks, ${withNamedMisconceptions} misconception models)`, 'Learner model': 'ELEMENTARY (running score, no probabilities)', 'Sequencing policy': 'ELEMENTARY (rules; not explainable/adaptive)' };
