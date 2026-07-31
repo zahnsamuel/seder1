@@ -91,6 +91,31 @@ async function keyPrerequisiteRemediationFor(root, learner) {
   };
 }
 
+// Placement wiring (The Math Academy Way — the diagnostic estimates the knowledge frontier). A
+// placement records the skills a learner demonstrated; apply the knowledge graph's DOWNWARD INFERENCE
+// so the prerequisites of those skills are seeded as known too. The learner then starts at their true
+// knowledge frontier, not only at the handful of skills the placement checks directly probed. Purely
+// additive: it seeds inferred prerequisites to a secure level, never lowers a directly-earned score.
+async function enrichPlacementWithFrontier(root, event) {
+  if (!cachedGraphSkills) cachedGraphSkills = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-skill-graph.json'), 'utf8')).skills;
+  const graphIds = new Set(cachedGraphSkills.map((s) => s.id));
+  const graded = { ...(event.scores || {}), ...(event.foundationScores || {}) };
+  const demonstrated = Object.entries(graded).filter(([id, v]) => graphIds.has(id) && Number(v) >= 0.67).map(([id]) => id);
+  if (!demonstrated.length) return;
+  // known = the demonstrated skills plus all their transitive prerequisites (downward inference).
+  const { known } = estimateFrontierFromDiagnostic({ skills: cachedGraphSkills }, Object.fromEntries(demonstrated.map((id) => [id, true])));
+  const foundationScores = { ...(event.foundationScores || {}) };
+  const scores = { ...(event.scores || {}) };
+  const SECURE_SEED = 0.8; // secure enough to unlock dependents, below 1 so spaced review still applies
+  for (const id of known) {
+    foundationScores[id] = Math.max(foundationScores[id] || 0, SECURE_SEED);
+    scores[id] = Math.max(scores[id] || 0, SECURE_SEED);
+  }
+  event.foundationScores = foundationScores;
+  event.scores = scores;
+  event.frontierInferred = known.length; // transparency: how many skills the frontier inference covers
+}
+
 async function chooseRecommendation(learner, { skipReview = false } = {}) {
   if (!learner.placement) return { kind: 'placement', title: 'Find your Gemara starting point', reason: 'A short source-based placement will identify what you already know and what to build next.', url: 'placement.html' };
   const academyFoundation = academyFoundationRecommendation(learner);
@@ -600,6 +625,7 @@ async function handleApi(request, response, url) {
       sendJson(response, 409, { error: 'Complete the source evidence and prerequisite canon moments before advancing.' });
       return true;
     }
+    if (event.type === 'placement_completed') await enrichPlacementWithFrontier(root, event);
     sendJson(response, 201, access.hosted ? await recordHostedEvent(access.user, access.token, event) : await recordLearnerEvent(root, access.id, event));
     return true;
   }
