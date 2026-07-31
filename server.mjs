@@ -87,7 +87,7 @@ function moedExpansionRecommendation(learner) {
   const chapter = chapters.find(([stage]) => !completed.has(stage));
   if (!chapter) return null;
   return {
-    title: `Moed Expansion Â· ${chapter[1]}`,
+    title: `Moed Expansion · ${chapter[1]}`,
     reason: 'Your Gemara Year is complete. Extend the same source-reading habits through the calendar, public reading, and communal response.',
     url: chapter[2]
   };
