@@ -128,8 +128,8 @@ console.log(`  skills with an authored transfer item .. ${bar(withTransferItem, 
 
 H('Layers 4-5 — Learner model + sequencing (not in the static graph)');
 console.log('  probabilistic knowledge estimates .. none (mastery is a running score in the repository)');
-console.log('  item difficulty / discrimination ... none (needs pilot response data)');
-console.log('  empirical edge validation .......... none (needs pilot data: do prereqs predict learning?)');
+console.log('  item difficulty / discrimination ... INSTRUMENTED (data/pilot-analytics.mjs: first-attempt P-value + point-biserial from the answer log; awaiting pilot-scale data)');
+console.log('  empirical edge validation .......... INSTRUMENTED (pilot-analytics edge lift = pass rate when a prereq was secured vs not; on /api/admin/analytics, awaiting data)');
 console.log('  explainable next-step (step 13) .... BUILT (data/recommendation-why.mjs: every recommendation carries because -> build -> unlocks; graph-grounded where edges exist)');
 console.log('  knowledge frontier + FIRe review ... BUILT (data/knowledge-graph.mjs, Math Academy Way: frontier/learning-path/encompassing-review; encompassing weights pending-expert)');
 console.log('  adaptive diagnostic (frontier estimator) BUILT (data/knowledge-graph.mjs + POST /api/graph/diagnostic: pins the exact frontier in ~8-21 questions via downward inference, not 49)');

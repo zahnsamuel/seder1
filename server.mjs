@@ -12,6 +12,7 @@ import { canMasterJourneyStage, canonJourney, journeyStatus, nextGemaraArc, next
 import { explainRecommendation, whySentence } from './data/recommendation-why.mjs';
 import { foundationRecommendation, gemaraYearRecommendation, moedExpansionRecommendation } from './data/term-recommendations.mjs';
 import { keyPrerequisiteRemediation, estimateFrontierFromDiagnostic, nextDiagnosticProbe } from './data/knowledge-graph.mjs';
+import { computeGraphPilotAnalytics } from './data/pilot-analytics.mjs';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const port = Number(process.env.PORT || 4180);
@@ -548,7 +549,12 @@ async function handleApi(request, response, url) {
     const topStruggles = Object.entries(struggleTotals).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([skillId, count]) => ({ skillId, count }));
     const now = Date.now();
     const overdueReviews = learners.reduce((sum, l) => sum + (l.reviewQueue || []).filter((item) => new Date(item.dueAt).getTime() <= now).length, 0);
-    sendJson(response, 200, { available: true, totalLearners, totalXp, totalAttempts, overallAccuracy, tractateStats, stageCompletion, topStruggles, overdueReviews });
+    // Pilot instrumentation: the psychometrics the graph needs a pilot to produce — per-skill
+    // difficulty & discrimination and empirical prerequisite validation (does securing a prereq
+    // predict passing the dependent skill?). Computed from the answer log over the foundation graph.
+    const foundationGraph = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-skill-graph.json'), 'utf8'));
+    const graphPilot = computeGraphPilotAnalytics(learners, foundationGraph);
+    sendJson(response, 200, { available: true, totalLearners, totalXp, totalAttempts, overallAccuracy, tractateStats, stageCompletion, topStruggles, overdueReviews, graphPilot });
     return true;
   }
   const todayMatch = url.pathname.match(/^\/api\/learners\/([a-zA-Z0-9_-]+)\/today$/);
