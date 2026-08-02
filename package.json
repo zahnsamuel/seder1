@@ -19,6 +19,8 @@
     "graph:items": "node scripts/build-assessment-items.mjs",
     "graph:kp": "node scripts/build-knowledge-points.mjs",
     "graph:workbench": "node scripts/build-audit-workbench.mjs",
+    "graph:import": "node scripts/import-audit-workbench.mjs",
+    "graph:misconceptions": "node scripts/build-misconceptions.mjs",
     "ladder:check": "node scripts/check-decoding-ladder.mjs",
     "map:foundation": "node scripts/build-foundation-content-map.mjs",
     "check:links": "node scripts/check-source-links.mjs",

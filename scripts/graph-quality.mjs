@@ -83,8 +83,12 @@ for (const [gradId, entry] of Object.entries(gradMap)) {
 const academyForGraphSkill = coveredGraphSkills.size;
 
 // --- Misconception models (step: named misconceptions, not a single repair string) ---
+// Counted from the misconception layer (data/foundation-misconceptions.json, §4), populated from the
+// educator audit via scripts/import-audit-workbench.mjs; empty until an audit is imported.
+let misconceptionLayer = null;
+try { misconceptionLayer = read('data/foundation-misconceptions.json'); } catch { /* layer optional */ }
 const withRepairString = skills.filter((s) => typeof s.repair === 'string' && s.repair.trim()).length;
-const withNamedMisconceptions = skills.filter((s) => Array.isArray(s.misconceptions) && s.misconceptions.length).length;
+const withNamedMisconceptions = misconceptionLayer ? new Set(misconceptionLayer.misconceptions.map((m) => m.skill)).size : skills.filter((s) => Array.isArray(s.misconceptions) && s.misconceptions.length).length;
 
 // --- Transfer language vs authored transfer assessment (step 9) ---
 const withTransferString = skills.filter((s) => typeof s.transfer === 'string' && s.transfer.trim()).length;

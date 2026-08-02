@@ -23,20 +23,36 @@ const gradMap = read('data/graduation-skill-map.json').map;
 const authoredSliceSkills = new Set(read('data/jla-academy-sessions.json').map((a) => a.skillId));
 const skillIds = new Set(graph.skills.map((s) => s.id));
 
+// Educator-audit input, if any has been imported (scripts/import-audit-workbench.mjs). Rationales and
+// expert encompassing weights fold in here; without it, edges stay pending-expert (the honest default).
+let audit = {};
+try { audit = read('data/foundation-audit.json'); } catch { /* no audit imported yet */ }
+const auditRationales = audit.edgeRationales || {};
+const auditWeights = audit.encompassingWeights || {};
+let rationalizedFromAudit = 0, weightsFromAudit = 0;
+
 const edges = [];
 
 // prerequisite: from = the prerequisite skill, to = the skill that depends on it. Per §3, "to cannot
 // be learned before from is at least secure." This is exactly the graph adjacency, now typed.
 for (const skill of graph.skills) {
   for (const prerequisite of skill.prerequisites || []) {
+    const key = `${prerequisite}::${skill.id}`;
+    // Rationale: educator-written (from the audit) or null. Never fabricated here.
+    const rationale = auditRationales[key] || null;
+    if (rationale) rationalizedFromAudit += 1;
+    // Encompassing (The Math Academy Way): practicing `to` (the advanced skill) implicitly reviews
+    // `from` (the simpler prerequisite). An expert weight from the audit wins; otherwise the honest
+    // default is full along the direct prerequisite, flagged pending-expert. The FIRe review engine
+    // (data/knowledge-graph.mjs) reads these weights.
+    const expertWeight = auditWeights[key];
+    const hasExpertWeight = typeof expertWeight === 'number';
+    if (hasExpertWeight) weightsFromAudit += 1;
     edges.push({
-      from: prerequisite, to: skill.id, type: 'prerequisite', rationale: null,
-      // Encompassing (The Math Academy Way): practicing `to` (the advanced skill) implicitly reviews
-      // `from` (the simpler prerequisite). MA sets encompassing weights ALONG direct prerequisites and
-      // lets repetition flow propagate the rest; a full weight (1) along the direct edge is the
-      // proposed first pass, refined by a domain expert in the audit — asserted-pending, like the
-      // rationale. The FIRe review engine (data/knowledge-graph.mjs) reads these weights.
-      encompassing: { weight: 1, basis: 'default-full-along-direct-prerequisite', status: 'pending-expert' }
+      from: prerequisite, to: skill.id, type: 'prerequisite', rationale,
+      encompassing: hasExpertWeight
+        ? { weight: expertWeight, basis: 'expert-set (educator audit)', status: 'expert-set' }
+        : { weight: 1, basis: 'default-full-along-direct-prerequisite', status: 'pending-expert' }
     });
   }
 }
@@ -55,17 +71,19 @@ const output = {
   generatedBy: 'scripts/build-skill-edges.mjs',
   graphVersion: graph.version,
   note: 'Typed edges (docs/foundation-graph-schema.md §3), derived from existing data — never fabricated. '
-    + 'prerequisite = the graph adjacency, typed; rationale is null pending the educator audit '
-    + '(rationales are educator-written pedagogical claims). assessed-by = a graph skill linked to an '
-    + 'authored, server-scored academy item via data/graduation-skill-map.json (confidence carried '
-    + 'through). Judgment edges (supports/transfers-to/misconception-of/repaired-by) are intentionally '
-    + 'absent until the audit; taught-by lives in data/foundation-content-map.json (§2.2).',
+    + 'prerequisite = the graph adjacency, typed; rationale + expert encompassing weight fold in from the '
+    + 'educator audit (data/foundation-audit.json, via scripts/import-audit-workbench.mjs) — null / '
+    + 'pending-expert until then, since rationales are educator-written pedagogical claims. assessed-by = a '
+    + 'graph skill linked to an authored, server-scored academy item via data/graduation-skill-map.json '
+    + '(confidence carried through). Judgment edges (supports/transfers-to/misconception-of/repaired-by) are '
+    + 'intentionally absent until the audit; taught-by lives in data/foundation-content-map.json (§2.2).',
   edgeTypes: ['prerequisite', 'assessed-by'],
   counts,
+  auditApplied: { rationales: rationalizedFromAudit, encompassingWeights: weightsFromAudit },
   edges
 };
 
 writeFileSync(new URL('../data/foundation-skill-edges.json', import.meta.url), `${JSON.stringify(output, null, 2)}\n`);
 console.log(`Wrote ${edges.length} typed edges to data/foundation-skill-edges.json`);
 console.log(`  ${counts.prerequisite || 0} prerequisite · ${counts['assessed-by'] || 0} assessed-by`);
-console.log('  rationale: 0 (pending educator audit — §3, not fabricated)');
+console.log(`  rationale: ${rationalizedFromAudit}/${counts.prerequisite || 0} · expert weights: ${weightsFromAudit}/${counts.prerequisite || 0} (from the educator audit; the rest pending-expert)`);

@@ -184,6 +184,14 @@ habit. Several of those are the reduce-Gemara-dominance gap: the graph is argume
 under-covers midrash/tefillah. The pairings are **proposed, not authoritative** — educators confirm
 or correct them in the audit, and only after that does a *rename* (re-keying slice ids to `fnd-*`,
 with a `capabilityEvidence` remap) become safe.
+**Audit round-trip (BUILT).** The educator-audit workbench
+(`docs/educator-audit-workbench.html`, `npm run graph:workbench`) exports a JSON that folds back in:
+`npm run graph:import -- <export.json>` validates it against the current graph version (stale keys are
+refused, not injected), merges it into `data/foundation-audit.json`, and then `npm run graph:edges`
+(rationales + expert encompassing weights) and `npm run graph:misconceptions` (named misconception
+models) regenerate the built layers from it. Nothing is folded in until a real audit is imported — the
+graph stays honestly bare (0/74 rationales, 0/49 misconceptions) in the meantime.
+
 - **Freeze gate.** No `MAJOR` during a freeze except reviewed audit output.
 - **Quality gate.** `scripts/check-foundation-graph.mjs` (structural) must stay green;
   `scripts/graph-quality.mjs` (this readiness report) is tracked over time, not required to pass.
