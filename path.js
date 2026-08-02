@@ -45,11 +45,12 @@ Promise.all([
   const mastery = learner.mastery || {};
   const skills = graph.skills || [];
   const isSecure = (id) => Math.max(foundationScores[id] || 0, mastery[id] || 0) >= .67;
-  // One next move, in plain words — no raw "N of 49 secure" fraction to collide with the
-  // capability chips above (which count a different id space) or discourage a new learner.
-  const nextSkill = skills.find((skill) => !isSecure(skill.id) && (skill.prerequisites || []).every(isSecure)) || skills.find((skill) => !isSecure(skill.id));
-  // Explainable recommendation: ground the "why this next" in the graph — the secured move it
-  // builds on and the move it unlocks. (You can do A → build B now → which opens C.)
+  // Your knowledge frontier (Math Academy Way): the moves you are ready for right now — not yet
+  // secured, but every prerequisite is. Show them all as choices, not one prescribed step.
+  const frontier = skills.filter((skill) => !isSecure(skill.id) && (skill.prerequisites || []).every(isSecure)).sort((a, b) => a.layer - b.layer);
+  const masteredCount = skills.filter((skill) => isSecure(skill.id)).length;
+  const aheadCount = skills.length - masteredCount - frontier.length;
+  // Ground each choice in the graph — the secured move it builds on and the move it unlocks.
   const explainNextSkill = (skill) => {
     const secured = (skill.prerequisites || []).map((id) => skills.find((s) => s.id === id)).filter((s) => s && isSecure(s.id));
     const unlocks = skills.filter((s) => (s.prerequisites || []).includes(skill.id));
@@ -62,12 +63,21 @@ Promise.all([
     return `${have}, and ${opens}.`;
   };
   const skillCard = document.querySelector('#skill-progress-card');
-  if (skillCard && nextSkill) {
-    const layer = graph.layers?.find((item) => item.n === nextSkill.layer);
-    skillCard.innerHTML = `<div><span>LAYER ${nextSkill.layer} · ${escapeHtml(layer?.title || 'FOUNDATION')}</span><strong>${escapeHtml(nextSkill.title)}</strong><small>${escapeHtml(nextSkill.statement)}</small><p class="why-next"><span>WHY NOW</span>${explainNextSkill(nextSkill)}</p></div><a href="academy-session.html?skill=${encodeURIComponent(nextSkill.id)}">Practice →</a>`;
-    document.querySelector('#skill-progress-copy').textContent = `Your evidence places you in ${escapeHtml(layer?.title || 'the next foundation layer')}. One capability is ready to practice now.`;
+  const copy = document.querySelector('#skill-progress-copy');
+  const title = document.querySelector('#skill-progress-title');
+  if (skillCard && frontier.length) {
+    const shown = frontier.slice(0, 6);
+    skillCard.innerHTML = shown.map((skill) => {
+      const layer = graph.layers?.find((item) => item.n === skill.layer);
+      return `<article class="frontier-card"><span>LAYER ${skill.layer} · ${escapeHtml((layer?.title || 'FOUNDATION').toUpperCase())}</span><strong>${escapeHtml(skill.title)}</strong><small>${escapeHtml(skill.statement)}</small><p class="why-next"><span>WHY NOW</span>${explainNextSkill(skill)}</p><a href="academy-session.html?skill=${encodeURIComponent(skill.id)}">Practice →</a></article>`;
+    }).join('') + (frontier.length > shown.length ? `<p class="frontier-more">and ${frontier.length - shown.length} more open once you secure one of these.</p>` : '');
+    if (title) title.textContent = 'Ready now — your knowledge frontier';
+    if (copy) copy.textContent = masteredCount
+      ? `You’ve secured ${masteredCount} reading move${masteredCount === 1 ? '' : 's'}. ${frontier.length} ${frontier.length === 1 ? 'is' : 'are'} ready now — pick one. ${aheadCount} more open up as you go.`
+      : `${frontier.length} reading move${frontier.length === 1 ? '' : 's'} ready to begin. ${aheadCount} more open up as you secure each one.`;
   } else if (skillCard) {
-    skillCard.innerHTML = '<strong>Foundation skills established. Choose a new source to transfer them.</strong><a href="independent-reading.html">Transfer →</a>';
+    if (title) title.textContent = 'Foundation secured';
+    skillCard.innerHTML = '<article class="frontier-card"><strong>Every foundational move is secured.</strong><small>Carry them into an unfamiliar source to make them transferable.</small><a href="independent-reading.html">Transfer →</a></article>';
   }
   const recommendation = decision.recommendation;
   const today = document.querySelector('.today');

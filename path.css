@@ -15,6 +15,17 @@
 .cap-chip.cap-none{background:transparent;border-style:dashed;font-weight:500;color:var(--muted)}
 
 /* Explainable recommendation — why this next move, grounded in the graph */
-.skill-progress-card .why-next{margin:10px 0 0;padding-top:9px;border-top:1px dashed var(--line);color:var(--muted);font-size:12px;line-height:1.5}
-.skill-progress-card .why-next span{display:inline-block;margin-right:6px;color:var(--teal);font:10px 'DM Mono';letter-spacing:.06em}
-.skill-progress-card .why-next b{color:var(--navy);font-weight:600}
+.skill-progress-card .why-next,.frontier-card .why-next{margin:10px 0 0;padding-top:9px;border-top:1px dashed var(--line);color:var(--muted);font-size:12px;line-height:1.5}
+.skill-progress-card .why-next span,.frontier-card .why-next span{display:inline-block;margin-right:6px;color:var(--teal);font:10px 'DM Mono';letter-spacing:.06em}
+.skill-progress-card .why-next b,.frontier-card .why-next b{color:var(--navy);font-weight:600}
+
+/* Knowledge frontier — the moves you're ready for now, as choices (Math Academy Way) */
+.frontier{display:grid;gap:12px;margin-top:18px}
+.frontier-card{background:#fff;border:1px solid #d7e2d9;border-radius:10px;padding:15px 16px;display:grid;gap:2px;transition:border-color .12s,box-shadow .12s}
+.frontier-card:hover{border-color:var(--teal);box-shadow:0 7px 18px rgba(20,50,45,.07)}
+.frontier-card>span{color:var(--teal);font:10px 'DM Mono';letter-spacing:.06em}
+.frontier-card strong{color:var(--navy);font:500 19px Fraunces,serif}
+.frontier-card small{color:var(--muted);font-size:12.5px;line-height:1.45}
+.frontier-card>a{justify-self:start;margin-top:10px;padding:8px 13px;border-radius:8px;background:var(--navy);color:#fff;font:600 12px Inter;text-decoration:none}
+.frontier-card>a:hover{filter:brightness(1.1)}
+.frontier-more{color:var(--muted);font-size:12px;margin:4px 2px 0;font-style:italic}
