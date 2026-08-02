@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Jewish Learning Academy — Adaptive Placement</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="diagnostic.css?v=1">
+</head>
+<body>
+  <header><a href="/">ס Jewish Learning Academy</a><span>ADAPTIVE PLACEMENT</span><strong id="status" aria-live="polite">FINDING YOUR FRONTIER</strong></header>
+  <main>
+    <section class="intro">
+      <span>A STARTING POINT, NOT A TEST</span>
+      <h1>Let’s find your knowledge frontier.</h1>
+      <p>Each honest answer lets the skill graph fill in everything below it — so this takes a handful of questions, not fifty. Answer from what you can do today. Your first sessions confirm it, and anything you can’t yet do comes straight back.</p>
+      <p class="alt-link"><a href="placement.html">Prefer worked examples? Take the 12-question placement →</a></p>
+    </section>
+
+    <section class="probe-shell" id="probe-shell" hidden>
+      <aside>
+        <span>NARROWING</span>
+        <div class="gauge" role="progressbar" aria-label="Skills mapped" aria-valuemin="0" aria-valuemax="100"><div class="gauge-fill" id="gauge-fill"></div></div>
+        <p id="placed-label">0 skills mapped</p>
+        <p id="q-label">Question 1</p>
+        <p class="aside-note">The graph infers the rest from each answer.</p>
+      </aside>
+      <section class="probe">
+        <span id="probe-layer">FOUNDATION</span>
+        <h2 id="probe-title"></h2>
+        <p class="stmt" id="probe-stmt"></p>
+        <div class="check"><span>WHAT THAT LOOKS LIKE</span><p id="probe-check"></p></div>
+        <p class="ask">Could you do this reliably right now?</p>
+        <div class="answers" id="answers"></div>
+        <p class="note">Answer honestly — over-claiming just means re-doing it later. “Not sure” counts as not yet.</p>
+      </section>
+    </section>
+
+    <section id="results" class="results" hidden>
+      <span>YOUR STARTING FRONTIER</span>
+      <h2 id="results-title">Your starting point is ready.</h2>
+      <p id="results-copy"></p>
+      <p id="results-cando" class="results-cando"></p>
+      <div id="results-grid" class="results-grid"></div>
+      <div class="rhythm-choice">
+        <span>YOUR LEARNING RHYTHM</span>
+        <p>Choose a pace you can keep. You can change it later.</p>
+        <div id="rhythm-options">
+          <button type="button" data-rhythm="daily">20 minutes daily</button>
+          <button type="button" data-rhythm="three-times-weekly">20 minutes, three times a week</button>
+          <button type="button" data-rhythm="weekly">30 minutes weekly</button>
+        </div>
+        <small id="rhythm-status" role="status"></small>
+      </div>
+      <div class="results-actions">
+        <a id="results-begin" class="results-continue" href="daily-router.html">Begin with this skill →</a>
+        <a class="results-secondary" href="my-graph.html">See it on your graph →</a>
+      </div>
+    </section>
+  </main>
+  <script src="seder-auth.js?v=1"></script>
+  <script src="diagnostic.js?v=1"></script>
+</body>
+</html>
