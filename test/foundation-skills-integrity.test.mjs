@@ -9,7 +9,7 @@ test('foundation graph has unique skills with resolvable prerequisites', () => {
   assert.equal(new Set(ids).size, ids.length);
   const known = new Set(ids);
   for (const skill of graph.skills) {
-    assert.ok(skill.title && skill.layer && skill.teachingMove && skill.transfer);
+    assert.ok(skill.title && Number.isInteger(skill.layer) && skill.teachingMove && skill.transfer); // layer 0 (decoding) is valid
     for (const prerequisite of skill.prerequisites) assert.ok(known.has(prerequisite), `${skill.id} has missing prerequisite ${prerequisite}`);
   }
 });

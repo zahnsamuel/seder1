@@ -1,11 +1,31 @@
 {
   "generatedBy": "scripts/build-content-contexts.mjs",
-  "graphVersion": "0.2.0",
+  "graphVersion": "0.3.0",
   "note": "Content-context layer (docs/foundation-graph-schema.md §2.2, step 8): every content context as a first-class node { id, skill, ref, genre, family }, promoted out of the skill object. Merged from the curated inline sourceContexts and data/foundation-content-map.json (deduped by ref); `sources` records provenance. No references are invented — skills still short of >=3 contexts / >=2 families after the merge are listed in `shortfall`, to be filled with real sources (content authoring / educator audit), never padded.",
   "step8Requirement": ">=3 contexts spanning >=2 source families per skill",
-  "skillsMeetingStep8": "49/49",
+  "skillsMeetingStep8": "53/53",
   "shortfall": [],
   "perSkill": {
+    "fnd-decode-letters": {
+      "contexts": 3,
+      "families": 2,
+      "meetsStep8": true
+    },
+    "fnd-decode-vowels": {
+      "contexts": 3,
+      "families": 2,
+      "meetsStep8": true
+    },
+    "fnd-decode-blend": {
+      "contexts": 3,
+      "families": 2,
+      "meetsStep8": true
+    },
+    "fnd-decode-word": {
+      "contexts": 3,
+      "families": 2,
+      "meetsStep8": true
+    },
     "fnd-orient-source-type": {
       "contexts": 41,
       "families": 4,
@@ -253,6 +273,126 @@
     }
   },
   "contexts": [
+    {
+      "id": "ctx-fnd-decode-letters-genesis-1-1",
+      "skill": "fnd-decode-letters",
+      "ref": "Genesis 1:1",
+      "genre": "torah",
+      "family": "tanakh",
+      "sources": [
+        "inline"
+      ]
+    },
+    {
+      "id": "ctx-fnd-decode-letters-shema-deuteronomy-6-4",
+      "skill": "fnd-decode-letters",
+      "ref": "Shema, Deuteronomy 6:4",
+      "genre": "torah",
+      "family": "tanakh",
+      "sources": [
+        "inline"
+      ]
+    },
+    {
+      "id": "ctx-fnd-decode-letters-modeh-ani-morning-blessing",
+      "skill": "fnd-decode-letters",
+      "ref": "Modeh Ani (morning blessing)",
+      "genre": "tefillah",
+      "family": "liturgical",
+      "sources": [
+        "inline"
+      ]
+    },
+    {
+      "id": "ctx-fnd-decode-vowels-shema-deuteronomy-6-4",
+      "skill": "fnd-decode-vowels",
+      "ref": "Shema, Deuteronomy 6:4",
+      "genre": "torah",
+      "family": "tanakh",
+      "sources": [
+        "inline"
+      ]
+    },
+    {
+      "id": "ctx-fnd-decode-vowels-ashrei-psalm-145",
+      "skill": "fnd-decode-vowels",
+      "ref": "Ashrei (Psalm 145)",
+      "genre": "tefillah",
+      "family": "liturgical",
+      "sources": [
+        "inline"
+      ]
+    },
+    {
+      "id": "ctx-fnd-decode-vowels-genesis-1-1",
+      "skill": "fnd-decode-vowels",
+      "ref": "Genesis 1:1",
+      "genre": "torah",
+      "family": "tanakh",
+      "sources": [
+        "inline"
+      ]
+    },
+    {
+      "id": "ctx-fnd-decode-blend-modeh-ani-morning-blessing",
+      "skill": "fnd-decode-blend",
+      "ref": "Modeh Ani (morning blessing)",
+      "genre": "tefillah",
+      "family": "liturgical",
+      "sources": [
+        "inline"
+      ]
+    },
+    {
+      "id": "ctx-fnd-decode-blend-genesis-1-1",
+      "skill": "fnd-decode-blend",
+      "ref": "Genesis 1:1",
+      "genre": "torah",
+      "family": "tanakh",
+      "sources": [
+        "inline"
+      ]
+    },
+    {
+      "id": "ctx-fnd-decode-blend-leviticus-19-18",
+      "skill": "fnd-decode-blend",
+      "ref": "Leviticus 19:18",
+      "genre": "torah",
+      "family": "tanakh",
+      "sources": [
+        "inline"
+      ]
+    },
+    {
+      "id": "ctx-fnd-decode-word-shema-deuteronomy-6-4",
+      "skill": "fnd-decode-word",
+      "ref": "Shema, Deuteronomy 6:4",
+      "genre": "torah",
+      "family": "tanakh",
+      "sources": [
+        "inline"
+      ]
+    },
+    {
+      "id": "ctx-fnd-decode-word-ashrei-psalm-145",
+      "skill": "fnd-decode-word",
+      "ref": "Ashrei (Psalm 145)",
+      "genre": "tefillah",
+      "family": "liturgical",
+      "sources": [
+        "inline"
+      ]
+    },
+    {
+      "id": "ctx-fnd-decode-word-genesis-1-1",
+      "skill": "fnd-decode-word",
+      "ref": "Genesis 1:1",
+      "genre": "torah",
+      "family": "tanakh",
+      "sources": [
+        "inline"
+      ]
+    },
     {
       "id": "ctx-fnd-orient-source-type-deuteronomy-6-4",
       "skill": "fnd-orient-source-type",

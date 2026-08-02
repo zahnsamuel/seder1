@@ -1,13 +1,13 @@
 {
   "generatedBy": "scripts/build-skill-edges.mjs",
-  "graphVersion": "0.2.0",
+  "graphVersion": "0.3.0",
   "note": "Typed edges (docs/foundation-graph-schema.md §3), derived from existing data — never fabricated. prerequisite = the graph adjacency, typed; rationale + expert encompassing weight fold in from the educator audit (data/foundation-audit.json, via scripts/import-audit-workbench.mjs) — null / pending-expert until then, since rationales are educator-written pedagogical claims. assessed-by = a graph skill linked to an authored, server-scored academy item via data/graduation-skill-map.json (confidence carried through). Judgment edges (supports/transfers-to/misconception-of/repaired-by) are intentionally absent until the audit; taught-by lives in data/foundation-content-map.json (§2.2).",
   "edgeTypes": [
     "prerequisite",
     "assessed-by"
   ],
   "counts": {
-    "prerequisite": 74,
+    "prerequisite": 78,
     "assessed-by": 18
   },
   "auditApplied": {
@@ -15,6 +15,50 @@
     "encompassingWeights": 0
   },
   "edges": [
+    {
+      "from": "fnd-decode-letters",
+      "to": "fnd-decode-vowels",
+      "type": "prerequisite",
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
+    },
+    {
+      "from": "fnd-decode-vowels",
+      "to": "fnd-decode-blend",
+      "type": "prerequisite",
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
+    },
+    {
+      "from": "fnd-decode-blend",
+      "to": "fnd-decode-word",
+      "type": "prerequisite",
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
+    },
+    {
+      "from": "fnd-decode-word",
+      "to": "fnd-orient-source-type",
+      "type": "prerequisite",
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
+    },
     {
       "from": "fnd-orient-source-type",
       "to": "fnd-orient-page-geography",

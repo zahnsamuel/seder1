@@ -1,6 +1,6 @@
 {
   "generatedBy": "scripts/build-knowledge-points.mjs",
-  "graphVersion": "0.2.0",
+  "graphVersion": "0.3.0",
   "note": "Knowledge-point layer (Math Academy Way, scaffolded mastery learning). A first scaffold: each skill is decomposed into introduce -> practice -> transfer KPs recast from its OWN teachingMove / check / transfer — no KP text is invented. Each KP proposes the KEY PREREQUISITE it most directly uses (introduce -> most foundational prerequisite, practice/transfer -> most proximate), marked pending-expert. Deeper per-skill decomposition (more advanced-case KPs) and confirmed key prerequisites are the educator audit’s job. The key-prerequisite link is the hook for MA-style targeted remediation: fail a KP twice -> remedial review of its key prerequisite.",
   "kpTemplate": [
     "introduce",
@@ -8,11 +8,15 @@
     "transfer"
   ],
   "coverage": {
-    "knowledgePoints": 147,
-    "skills": 49,
-    "keyPrerequisitesProposed": 144
+    "knowledgePoints": 159,
+    "skills": 53,
+    "keyPrerequisitesProposed": 156
   },
   "perSkill": {
+    "fnd-decode-letters": 3,
+    "fnd-decode-vowels": 3,
+    "fnd-decode-blend": 3,
+    "fnd-decode-word": 3,
     "fnd-orient-source-type": 3,
     "fnd-orient-page-geography": 3,
     "fnd-orient-speaker": 3,
@@ -65,14 +69,146 @@
   },
   "knowledgePoints": [
     {
+      "id": "kp-fnd-decode-letters-1",
+      "skill": "fnd-decode-letters",
+      "index": 1,
+      "kind": "introduce",
+      "statement": "Meet the letters a few at a time by shape and sound, contrasting look-alikes, before combining any of them.",
+      "source": "teachingMove",
+      "keyPrerequisite": null,
+      "keyPrerequisiteStatus": "none-root-skill",
+      "repair": "Return to the letter’s shape family and contrast it with the letter it is most confused with."
+    },
+    {
+      "id": "kp-fnd-decode-letters-2",
+      "skill": "fnd-decode-letters",
+      "index": 2,
+      "kind": "practice",
+      "statement": "Shown a letter, including a final form, name it and the sound it makes.",
+      "source": "check",
+      "keyPrerequisite": null,
+      "keyPrerequisiteStatus": "none-root-skill",
+      "repair": "Return to the letter’s shape family and contrast it with the letter it is most confused with."
+    },
+    {
+      "id": "kp-fnd-decode-letters-3",
+      "skill": "fnd-decode-letters",
+      "index": 3,
+      "kind": "transfer",
+      "statement": "Name a letter inside a word you have not drilled.",
+      "source": "transfer",
+      "keyPrerequisite": null,
+      "keyPrerequisiteStatus": "none-root-skill",
+      "repair": "Return to the letter’s shape family and contrast it with the letter it is most confused with."
+    },
+    {
+      "id": "kp-fnd-decode-vowels-1",
+      "skill": "fnd-decode-vowels",
+      "index": 1,
+      "kind": "introduce",
+      "statement": "Learn the vowels by sound-family; point to the mark and voice its sound on a letter you already know.",
+      "source": "teachingMove",
+      "keyPrerequisite": "fnd-decode-letters",
+      "keyPrerequisiteStatus": "proposed-pending-expert",
+      "repair": "Contrast the two vowels most often confused, voiced on the same letter."
+    },
+    {
+      "id": "kp-fnd-decode-vowels-2",
+      "skill": "fnd-decode-vowels",
+      "index": 2,
+      "kind": "practice",
+      "statement": "Shown a vocalized letter, say the vowel’s sound.",
+      "source": "check",
+      "keyPrerequisite": "fnd-decode-letters",
+      "keyPrerequisiteStatus": "proposed-pending-expert",
+      "repair": "Contrast the two vowels most often confused, voiced on the same letter."
+    },
+    {
+      "id": "kp-fnd-decode-vowels-3",
+      "skill": "fnd-decode-vowels",
+      "index": 3,
+      "kind": "transfer",
+      "statement": "Read the vowels in an unfamiliar vocalized word.",
+      "source": "transfer",
+      "keyPrerequisite": "fnd-decode-letters",
+      "keyPrerequisiteStatus": "proposed-pending-expert",
+      "repair": "Contrast the two vowels most often confused, voiced on the same letter."
+    },
+    {
+      "id": "kp-fnd-decode-blend-1",
+      "skill": "fnd-decode-blend",
+      "index": 1,
+      "kind": "introduce",
+      "statement": "Say the consonant, add the vowel, hold the syllable; then chain syllables across a short word.",
+      "source": "teachingMove",
+      "keyPrerequisite": "fnd-decode-vowels",
+      "keyPrerequisiteStatus": "proposed-pending-expert",
+      "repair": "Slow to one syllable at a time and rebuild the word from its parts."
+    },
+    {
+      "id": "kp-fnd-decode-blend-2",
+      "skill": "fnd-decode-blend",
+      "index": 2,
+      "kind": "practice",
+      "statement": "Blend a shown consonant-and-vowel into its syllable, out loud.",
+      "source": "check",
+      "keyPrerequisite": "fnd-decode-vowels",
+      "keyPrerequisiteStatus": "proposed-pending-expert",
+      "repair": "Slow to one syllable at a time and rebuild the word from its parts."
+    },
+    {
+      "id": "kp-fnd-decode-blend-3",
+      "skill": "fnd-decode-blend",
+      "index": 3,
+      "kind": "transfer",
+      "statement": "Blend the syllables of a short word you have not drilled.",
+      "source": "transfer",
+      "keyPrerequisite": "fnd-decode-vowels",
+      "keyPrerequisiteStatus": "proposed-pending-expert",
+      "repair": "Slow to one syllable at a time and rebuild the word from its parts."
+    },
+    {
+      "id": "kp-fnd-decode-word-1",
+      "skill": "fnd-decode-word",
+      "index": 1,
+      "kind": "introduce",
+      "statement": "Read a familiar short word syllable by syllable, then at a natural pace; then a word you have not seen.",
+      "source": "teachingMove",
+      "keyPrerequisite": "fnd-decode-blend",
+      "keyPrerequisiteStatus": "proposed-pending-expert",
+      "repair": "Break the word back into syllables, blend each, then rejoin them."
+    },
+    {
+      "id": "kp-fnd-decode-word-2",
+      "skill": "fnd-decode-word",
+      "index": 2,
+      "kind": "practice",
+      "statement": "Read a shown vocalized word aloud, syllable by syllable.",
+      "source": "check",
+      "keyPrerequisite": "fnd-decode-blend",
+      "keyPrerequisiteStatus": "proposed-pending-expert",
+      "repair": "Break the word back into syllables, blend each, then rejoin them."
+    },
+    {
+      "id": "kp-fnd-decode-word-3",
+      "skill": "fnd-decode-word",
+      "index": 3,
+      "kind": "transfer",
+      "statement": "Read a vocalized word from a source family you have not drilled.",
+      "source": "transfer",
+      "keyPrerequisite": "fnd-decode-blend",
+      "keyPrerequisiteStatus": "proposed-pending-expert",
+      "repair": "Break the word back into syllables, blend each, then rejoin them."
+    },
+    {
       "id": "kp-fnd-orient-source-type-1",
       "skill": "fnd-orient-source-type",
       "index": 1,
       "kind": "introduce",
       "statement": "Show three short sources side by side and name the tell-tale shape of each genre before reading a word for meaning.",
       "source": "teachingMove",
-      "keyPrerequisite": null,
-      "keyPrerequisiteStatus": "none-root-skill",
+      "keyPrerequisite": "fnd-decode-word",
+      "keyPrerequisiteStatus": "proposed-pending-expert",
       "repair": "Return to the labeled gallery of genre shapes and match the snippet to the closest one."
     },
     {
@@ -82,8 +218,8 @@
       "kind": "practice",
       "statement": "Given an unlabeled snippet, name its genre and one feature that gave it away.",
       "source": "check",
-      "keyPrerequisite": null,
-      "keyPrerequisiteStatus": "none-root-skill",
+      "keyPrerequisite": "fnd-decode-word",
+      "keyPrerequisiteStatus": "proposed-pending-expert",
       "repair": "Return to the labeled gallery of genre shapes and match the snippet to the closest one."
     },
     {
@@ -93,8 +229,8 @@
       "kind": "transfer",
       "statement": "Label the genre of a snippet from a genre not shown in the lesson.",
       "source": "transfer",
-      "keyPrerequisite": null,
-      "keyPrerequisiteStatus": "none-root-skill",
+      "keyPrerequisite": "fnd-decode-word",
+      "keyPrerequisiteStatus": "proposed-pending-expert",
       "repair": "Return to the labeled gallery of genre shapes and match the snippet to the closest one."
     },
     {

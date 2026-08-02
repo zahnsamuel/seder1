@@ -50,6 +50,11 @@ function academyFoundationRecommendation(learner) {
   const scores = learner.foundationScores || {};
   if (!Object.keys(scores).length || learner.foundationGraduated) return null;
   const sequence = [
+    // Layer 0 — the reading on-ramp: a learner who cannot yet read Hebrew starts at the very bottom.
+    ['fnd-decode-letters', 'Recognize the Hebrew letters', 'Begin at the very beginning: name each letter and its sound.'],
+    ['fnd-decode-vowels', 'Recognize the Hebrew vowels', 'Learn the nikud — the vowel marks — and the sound each makes.'],
+    ['fnd-decode-blend', 'Blend a letter and a vowel', 'Put a consonant and its vowel together into a syllable.'],
+    ['fnd-decode-word', 'Read a vocalized Hebrew word', 'Sound out a whole word, then begin a vocalized line on your own.'],
     ['fnd-orient-source-type', 'Orient to a Jewish source', 'Start by recognizing what kind of source you are looking at.'],
     ['fnd-signal-question-words', 'Find the question signal', 'A recurring Hebrew signal gives you a foothold in the first source.'],
     ['fnd-orient-question-present', 'Notice when a source is asking', 'Separate a question from a statement before trying to solve it.'],

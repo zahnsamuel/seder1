@@ -192,6 +192,14 @@ refused, not injected), merges it into `data/foundation-audit.json`, and then `n
 models) regenerate the built layers from it. Nothing is folded in until a real audit is imported — the
 graph stays honestly bare (0/74 rationales, 0/49 misconceptions) in the meantime.
 
+**Migration 002 — Layer 0, the Hebrew-decoding on-ramp (v0.3.0).** Four Layer-0 skills
+(`fnd-decode-letters → -vowels → -blend → -word`) were added *below* orientation, and
+`fnd-orient-source-type` now takes `fnd-decode-word` as a prerequisite — so the same engine (frontier,
+placement, mastery, lessons) spans the whole 0→1 arc, from "cannot read Hebrew" to reading a source.
+This is **additive**: no existing `fnd-*` id is renamed or re-scoped, so no learner `capabilityEvidence`
+or `mastery` is re-keyed. A brand-new learner's frontier is now `fnd-decode-letters`. (A user-directed
+expansion of the on-ramp, distinct from the frozen 49 reading-move skills, which remain unchanged.)
+
 - **Freeze gate.** No `MAJOR` during a freeze except reviewed audit output.
 - **Quality gate.** `scripts/check-foundation-graph.mjs` (structural) must stay green;
   `scripts/graph-quality.mjs` (this readiness report) is tracked over time, not required to pass.

@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0",
+  "version": "0.3.0",
   "name": "Seder · The Jewish Learning Academy — Foundational Skill Graph",
   "principle": "Skills are the product; content is the vehicle. Each skill is a transferable reading capability that a learner can carry from one genre of the Jewish canon to another. Foundational-skill IDs (prefixed fnd-) are deliberately separate from content-unit IDs so that any source can teach any skill.",
   "promise": {
@@ -11,26 +11,99 @@
     "secure": "can make the move unaided in two familiar genres",
     "transfer": "can make the move in an unfamiliar source or a genre it was not practiced in"
   },
-  "genres": ["torah", "mishnah", "gemara", "halakha", "tefillah", "thought", "mussar", "chassidus", "history"],
+  "genres": [
+    "torah",
+    "mishnah",
+    "gemara",
+    "halakha",
+    "tefillah",
+    "thought",
+    "mussar",
+    "chassidus",
+    "history"
+  ],
   "layers": [
-    {"n": 1, "slug": "orientation", "title": "Orientation", "intent": "Identify what a source is, where you are on the page, who is speaking, and whether it is asking a question."},
-    {"n": 2, "slug": "text-signals", "title": "Text signals", "intent": "Recognize high-frequency words, connectors, quotation, and attribution cues before reaching for a full translation."},
-    {"n": 3, "slug": "source-roles", "title": "Source roles", "intent": "Distinguish text from translation and commentary, and question from answer, example, and ruling."},
-    {"n": 4, "slug": "case-mapping", "title": "Case mapping", "intent": "Identify who acts, what happens, what is uncertain, and what factor changes the outcome."},
-    {"n": 5, "slug": "argument-tracking", "title": "Argument tracking", "intent": "Follow claim, evidence, objection, response, and unresolved tension."},
-    {"n": 6, "slug": "comparison", "title": "Comparison", "intent": "Place two sources side by side and name shared question, divergence, and scope."},
-    {"n": 7, "slug": "context", "title": "Context", "intent": "Ask when, where, by whom, and for what community a source was formed, and what evidence it can give."},
-    {"n": 8, "slug": "practice-responsibility", "title": "Practice & responsibility", "intent": "Distinguish learning a source from receiving personal or practical guidance; hold disagreement and name limits."},
-    {"n": 9, "slug": "independent-reading", "title": "Independent reading", "intent": "Make a supported first pass through an unfamiliar short source and carry a move across genres."},
-    {"n": 10, "slug": "learning-agency", "title": "Learning agency", "intent": "Ask a good question, use a source tool, record uncertainty, and choose the next study move."}
+    {
+      "n": 0,
+      "slug": "decoding",
+      "title": "Hebrew decoding",
+      "intent": "Recognize the letters and the vowels, blend them into syllables, and read a vocalized word — the reading skills a source assumes before orientation begins."
+    },
+    {
+      "n": 1,
+      "slug": "orientation",
+      "title": "Orientation",
+      "intent": "Identify what a source is, where you are on the page, who is speaking, and whether it is asking a question."
+    },
+    {
+      "n": 2,
+      "slug": "text-signals",
+      "title": "Text signals",
+      "intent": "Recognize high-frequency words, connectors, quotation, and attribution cues before reaching for a full translation."
+    },
+    {
+      "n": 3,
+      "slug": "source-roles",
+      "title": "Source roles",
+      "intent": "Distinguish text from translation and commentary, and question from answer, example, and ruling."
+    },
+    {
+      "n": 4,
+      "slug": "case-mapping",
+      "title": "Case mapping",
+      "intent": "Identify who acts, what happens, what is uncertain, and what factor changes the outcome."
+    },
+    {
+      "n": 5,
+      "slug": "argument-tracking",
+      "title": "Argument tracking",
+      "intent": "Follow claim, evidence, objection, response, and unresolved tension."
+    },
+    {
+      "n": 6,
+      "slug": "comparison",
+      "title": "Comparison",
+      "intent": "Place two sources side by side and name shared question, divergence, and scope."
+    },
+    {
+      "n": 7,
+      "slug": "context",
+      "title": "Context",
+      "intent": "Ask when, where, by whom, and for what community a source was formed, and what evidence it can give."
+    },
+    {
+      "n": 8,
+      "slug": "practice-responsibility",
+      "title": "Practice & responsibility",
+      "intent": "Distinguish learning a source from receiving personal or practical guidance; hold disagreement and name limits."
+    },
+    {
+      "n": 9,
+      "slug": "independent-reading",
+      "title": "Independent reading",
+      "intent": "Make a supported first pass through an unfamiliar short source and carry a move across genres."
+    },
+    {
+      "n": 10,
+      "slug": "learning-agency",
+      "title": "Learning agency",
+      "intent": "Ask a good question, use a source tool, record uncertainty, and choose the next study move."
+    }
   ],
   "graduationContract": {
     "means": "The learner has demonstrated the foundational skill set across at least three source genres, including at least one unfamiliar source, and can choose a responsible next study move on their own.",
     "doesNotMean": "The learner has completed the Shas or mastered any single subject.",
-    "requiredSkills": ["fnd-indep-carry-across-genre", "fnd-agency-choose-next"],
+    "requiredSkills": [
+      "fnd-indep-carry-across-genre",
+      "fnd-agency-choose-next"
+    ],
     "requiredGenreBreadth": 3,
     "requiresUnseenSource": true,
-    "produces": ["a durable capability profile", "a portfolio of source maps and transfer evidence", "a recommended set of next academies or electives"]
+    "produces": [
+      "a durable capability profile",
+      "a portfolio of source maps and transfer evidence",
+      "a recommended set of next academies or electives"
+    ]
   },
   "durabilityTiers": {
     "foundation": "Review at 1, 3, 7, and 21 days; refresh whenever a later skill depends on it.",
@@ -39,18 +112,153 @@
   },
   "skills": [
     {
+      "id": "fnd-decode-letters",
+      "layer": 0,
+      "title": "Recognize the Hebrew letters",
+      "statement": "You can recognize each Hebrew letter, including its final forms, and say the sound it makes.",
+      "prerequisites": [],
+      "sourceContexts": [
+        {
+          "ref": "Genesis 1:1",
+          "genre": "torah"
+        },
+        {
+          "ref": "Shema, Deuteronomy 6:4",
+          "genre": "torah"
+        },
+        {
+          "ref": "Modeh Ani (morning blessing)",
+          "genre": "tefillah"
+        }
+      ],
+      "teachingMove": "Meet the letters a few at a time by shape and sound, contrasting look-alikes, before combining any of them.",
+      "checks": [
+        "Shown a letter, including a final form, name it and the sound it makes."
+      ],
+      "transfer": "Name a letter inside a word you have not drilled.",
+      "repair": "Return to the letter’s shape family and contrast it with the letter it is most confused with.",
+      "graduationThreshold": "secure",
+      "durability": "foundation"
+    },
+    {
+      "id": "fnd-decode-vowels",
+      "layer": 0,
+      "title": "Recognize the Hebrew vowels",
+      "statement": "You can recognize the nikud — the vowel marks under and beside the letters — and say the sound each makes.",
+      "prerequisites": [
+        "fnd-decode-letters"
+      ],
+      "sourceContexts": [
+        {
+          "ref": "Shema, Deuteronomy 6:4",
+          "genre": "torah"
+        },
+        {
+          "ref": "Ashrei (Psalm 145)",
+          "genre": "tefillah"
+        },
+        {
+          "ref": "Genesis 1:1",
+          "genre": "torah"
+        }
+      ],
+      "teachingMove": "Learn the vowels by sound-family; point to the mark and voice its sound on a letter you already know.",
+      "checks": [
+        "Shown a vocalized letter, say the vowel’s sound."
+      ],
+      "transfer": "Read the vowels in an unfamiliar vocalized word.",
+      "repair": "Contrast the two vowels most often confused, voiced on the same letter.",
+      "graduationThreshold": "secure",
+      "durability": "foundation"
+    },
+    {
+      "id": "fnd-decode-blend",
+      "layer": 0,
+      "title": "Blend a letter and a vowel",
+      "statement": "You can blend a consonant and its vowel into a syllable, and read syllables in sequence, right to left.",
+      "prerequisites": [
+        "fnd-decode-vowels"
+      ],
+      "sourceContexts": [
+        {
+          "ref": "Modeh Ani (morning blessing)",
+          "genre": "tefillah"
+        },
+        {
+          "ref": "Genesis 1:1",
+          "genre": "torah"
+        },
+        {
+          "ref": "Leviticus 19:18",
+          "genre": "torah"
+        }
+      ],
+      "teachingMove": "Say the consonant, add the vowel, hold the syllable; then chain syllables across a short word.",
+      "checks": [
+        "Blend a shown consonant-and-vowel into its syllable, out loud."
+      ],
+      "transfer": "Blend the syllables of a short word you have not drilled.",
+      "repair": "Slow to one syllable at a time and rebuild the word from its parts.",
+      "graduationThreshold": "secure",
+      "durability": "foundation"
+    },
+    {
+      "id": "fnd-decode-word",
+      "layer": 0,
+      "title": "Read a vocalized Hebrew word",
+      "statement": "You can sound out a whole vocalized Hebrew word and begin a vocalized line on your own.",
+      "prerequisites": [
+        "fnd-decode-blend"
+      ],
+      "sourceContexts": [
+        {
+          "ref": "Shema, Deuteronomy 6:4",
+          "genre": "torah"
+        },
+        {
+          "ref": "Ashrei (Psalm 145)",
+          "genre": "tefillah"
+        },
+        {
+          "ref": "Genesis 1:1",
+          "genre": "torah"
+        }
+      ],
+      "teachingMove": "Read a familiar short word syllable by syllable, then at a natural pace; then a word you have not seen.",
+      "checks": [
+        "Read a shown vocalized word aloud, syllable by syllable."
+      ],
+      "transfer": "Read a vocalized word from a source family you have not drilled.",
+      "repair": "Break the word back into syllables, blend each, then rejoin them.",
+      "graduationThreshold": "secure",
+      "durability": "foundation"
+    },
+    {
       "id": "fnd-orient-source-type",
       "layer": 1,
       "title": "Tell what kind of text you are looking at",
       "statement": "You can say whether a source is Torah, Mishnah, Gemara, commentary, a code, or a prayer.",
-      "prerequisites": [],
+      "prerequisites": [
+        "fnd-decode-word"
+      ],
       "sourceContexts": [
-        {"ref": "Deuteronomy 6:4", "genre": "torah"},
-        {"ref": "Mishnah Berakhot 1:1", "genre": "mishnah"},
-        {"ref": "Kaddish", "genre": "tefillah"}
+        {
+          "ref": "Deuteronomy 6:4",
+          "genre": "torah"
+        },
+        {
+          "ref": "Mishnah Berakhot 1:1",
+          "genre": "mishnah"
+        },
+        {
+          "ref": "Kaddish",
+          "genre": "tefillah"
+        }
       ],
       "teachingMove": "Show three short sources side by side and name the tell-tale shape of each genre before reading a word for meaning.",
-      "checks": ["Given an unlabeled snippet, name its genre and one feature that gave it away."],
+      "checks": [
+        "Given an unlabeled snippet, name its genre and one feature that gave it away."
+      ],
       "transfer": "Label the genre of a snippet from a genre not shown in the lesson.",
       "repair": "Return to the labeled gallery of genre shapes and match the snippet to the closest one.",
       "graduationThreshold": "secure",
@@ -61,13 +269,23 @@
       "layer": 1,
       "title": "Find the main text and what surrounds it",
       "statement": "You can locate the primary text on a page and tell it apart from what is wrapped around it.",
-      "prerequisites": ["fnd-orient-source-type"],
+      "prerequisites": [
+        "fnd-orient-source-type"
+      ],
       "sourceContexts": [
-        {"ref": "Talmud Berakhot 2a (Vilna page)", "genre": "gemara"},
-        {"ref": "Chumash with Rashi, Genesis 22", "genre": "torah"}
+        {
+          "ref": "Talmud Berakhot 2a (Vilna page)",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Chumash with Rashi, Genesis 22",
+          "genre": "torah"
+        }
       ],
       "teachingMove": "Point to the center column and trace outward, naming each ring as 'the text' or 'talk about the text'.",
-      "checks": ["Circle the primary text on a page image and mark one surrounding layer."],
+      "checks": [
+        "Circle the primary text on a page image and mark one surrounding layer."
+      ],
       "transfer": "Do the same on a siddur page with commentary you have not seen.",
       "repair": "Ask one question: which block would still make sense if everything around it were removed?",
       "graduationThreshold": "secure",
@@ -78,13 +296,23 @@
       "layer": 1,
       "title": "Identify who is speaking",
       "statement": "You can tell who is speaking or being quoted in a source.",
-      "prerequisites": ["fnd-orient-source-type"],
+      "prerequisites": [
+        "fnd-orient-source-type"
+      ],
       "sourceContexts": [
-        {"ref": "Pirkei Avot 1:1", "genre": "thought"},
-        {"ref": "Gemara Berakhot 2a", "genre": "gemara"}
+        {
+          "ref": "Pirkei Avot 1:1",
+          "genre": "thought"
+        },
+        {
+          "ref": "Gemara Berakhot 2a",
+          "genre": "gemara"
+        }
       ],
       "teachingMove": "Underline names and 'said' words first; treat everything after them as that voice until the next name.",
-      "checks": ["Attribute two lines of a passage to the right speaker."],
+      "checks": [
+        "Attribute two lines of a passage to the right speaker."
+      ],
       "transfer": "Track the speakers in a short narrative from Torah.",
       "repair": "Read only the names in order and retell the passage as a conversation.",
       "graduationThreshold": "secure",
@@ -95,13 +323,23 @@
       "layer": 1,
       "title": "Find where one idea starts and stops",
       "statement": "You can mark where a single unit of thought begins and ends.",
-      "prerequisites": ["fnd-orient-page-geography"],
+      "prerequisites": [
+        "fnd-orient-page-geography"
+      ],
       "sourceContexts": [
-        {"ref": "Mishnah Berakhot 1:1", "genre": "mishnah"},
-        {"ref": "Psalm 19", "genre": "torah"}
+        {
+          "ref": "Mishnah Berakhot 1:1",
+          "genre": "mishnah"
+        },
+        {
+          "ref": "Psalm 19",
+          "genre": "torah"
+        }
       ],
       "teachingMove": "Look for the seams: a new name, a new question, a new case, or a blank in the flow.",
-      "checks": ["Split a passage into its units and name the seam for each split."],
+      "checks": [
+        "Split a passage into its units and name the seam for each split."
+      ],
       "transfer": "Segment a halakhic paragraph you have not read before.",
       "repair": "Read aloud and mark every place you naturally pause for breath or topic.",
       "graduationThreshold": "secure",
@@ -112,32 +350,54 @@
       "layer": 1,
       "title": "Notice when a source is asking, not telling",
       "statement": "You can tell whether a line is asking a question or stating something.",
-      "prerequisites": ["fnd-orient-speaker"],
+      "prerequisites": [
+        "fnd-orient-speaker"
+      ],
       "sourceContexts": [
-        {"ref": "Gemara Berakhot 2a", "genre": "gemara"},
-        {"ref": "Job 38", "genre": "torah"}
+        {
+          "ref": "Gemara Berakhot 2a",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Job 38",
+          "genre": "torah"
+        }
       ],
       "teachingMove": "Ask of each line: does this expect an answer? Mark it Q or S before translating.",
-      "checks": ["Label three lines as question or statement."],
+      "checks": [
+        "Label three lines as question or statement."
+      ],
       "transfer": "Find the question inside a philosophical passage.",
       "repair": "Say the line out loud with question intonation and see whether it wants a reply.",
       "graduationThreshold": "secure",
       "durability": "foundation"
     },
-
     {
       "id": "fnd-signal-known-words",
       "layer": 2,
       "title": "Recognize a bank of high-frequency words",
       "statement": "You can sight-read a growing bank of common Hebrew and Aramaic words without stopping to decode.",
-      "prerequisites": ["fnd-orient-source-type"],
+      "prerequisites": [
+        "fnd-orient-source-type"
+      ],
       "sourceContexts": [
-        {"ref": "Amidah, opening blessing", "genre": "tefillah"},
-        {"ref": "Gemara Berakhot 2a", "genre": "gemara"},
-        {"ref": "Genesis 22", "genre": "torah"}
+        {
+          "ref": "Amidah, opening blessing",
+          "genre": "tefillah"
+        },
+        {
+          "ref": "Gemara Berakhot 2a",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Genesis 22",
+          "genre": "torah"
+        }
       ],
       "teachingMove": "Build and rehearse a small word wall of the highest-frequency words, met again in every new source.",
-      "checks": ["Recognize ten bank words on sight in a fresh passage."],
+      "checks": [
+        "Recognize ten bank words on sight in a fresh passage."
+      ],
       "transfer": "Spot the same words inside a prayer you have not studied.",
       "repair": "Return to the word wall and re-meet the missed words in a sentence you already know.",
       "graduationThreshold": "secure",
@@ -148,14 +408,27 @@
       "layer": 2,
       "title": "Read the grammatical skeleton of a sentence",
       "statement": "You can find the action, its subject, and the shape of a sentence before you know every word.",
-      "prerequisites": ["fnd-signal-known-words"],
+      "prerequisites": [
+        "fnd-signal-known-words"
+      ],
       "sourceContexts": [
-        {"ref": "Mishnah Berakhot 1:1 (find the verb and its subject)", "genre": "mishnah"},
-        {"ref": "Genesis 22:1 (the sentence skeleton before the vocabulary)", "genre": "torah"},
-        {"ref": "Rambam, Hilchot Deot 1:1 (map a legal sentence's clauses)", "genre": "halakha"}
+        {
+          "ref": "Mishnah Berakhot 1:1 (find the verb and its subject)",
+          "genre": "mishnah"
+        },
+        {
+          "ref": "Genesis 22:1 (the sentence skeleton before the vocabulary)",
+          "genre": "torah"
+        },
+        {
+          "ref": "Rambam, Hilchot Deot 1:1 (map a legal sentence's clauses)",
+          "genre": "halakha"
+        }
       ],
       "teachingMove": "Before translating every word, find the action word, then ask who does it and what clause frames it — read the skeleton first.",
-      "checks": ["Point to the main action in a sentence and name what it acts on."],
+      "checks": [
+        "Point to the main action in a sentence and name what it acts on."
+      ],
       "transfer": "Map the skeleton of a sentence in a genre you did not practice.",
       "repair": "Strip the sentence to its verb alone, then add back one piece at a time.",
       "graduationThreshold": "transfer",
@@ -166,13 +439,24 @@
       "layer": 2,
       "title": "Recognize question-signal words",
       "statement": "You can spot the words that flag a question and predict what kind of answer they want.",
-      "prerequisites": ["fnd-signal-known-words", "fnd-orient-question-present"],
+      "prerequisites": [
+        "fnd-signal-known-words",
+        "fnd-orient-question-present"
+      ],
       "sourceContexts": [
-        {"ref": "Gemara Berakhot 2a", "genre": "gemara"},
-        {"ref": "Mishnah Pesachim 1:1", "genre": "mishnah"}
+        {
+          "ref": "Gemara Berakhot 2a",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Mishnah Pesachim 1:1",
+          "genre": "mishnah"
+        }
       ],
       "teachingMove": "Learn a short set of question particles and pair each with the shape of answer it invites.",
-      "checks": ["Given a question word, predict whether the answer will be a reason, a case, or a source."],
+      "checks": [
+        "Given a question word, predict whether the answer will be a reason, a case, or a source."
+      ],
       "transfer": "Predict the answer shape for a question in an unseen sugya.",
       "repair": "Match the question word to the example on the particle card and reread.",
       "graduationThreshold": "transfer",
@@ -183,13 +467,23 @@
       "layer": 2,
       "title": "Recognize argument connectors",
       "statement": "You can recognize the small words that mean 'therefore', 'but', 'as it says', and 'this teaches'.",
-      "prerequisites": ["fnd-signal-known-words"],
+      "prerequisites": [
+        "fnd-signal-known-words"
+      ],
       "sourceContexts": [
-        {"ref": "Gemara Berakhot 2b", "genre": "gemara"},
-        {"ref": "Rambam, Hilchot Deot 1:4", "genre": "halakha"}
+        {
+          "ref": "Gemara Berakhot 2b",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Rambam, Hilchot Deot 1:4",
+          "genre": "halakha"
+        }
       ],
       "teachingMove": "Highlight connectors in one color; read only the connectors to feel the shape of the argument.",
-      "checks": ["Classify three connectors as adding, opposing, or citing."],
+      "checks": [
+        "Classify three connectors as adding, opposing, or citing."
+      ],
       "transfer": "Trace the connectors through a Mussar passage you have not seen.",
       "repair": "Replace each connector with a plain English word and reread the flow.",
       "graduationThreshold": "transfer",
@@ -200,13 +494,23 @@
       "layer": 2,
       "title": "Notice when a source quotes another source",
       "statement": "You can tell when a source is bringing in another text rather than speaking in its own voice.",
-      "prerequisites": ["fnd-signal-connectors"],
+      "prerequisites": [
+        "fnd-signal-connectors"
+      ],
       "sourceContexts": [
-        {"ref": "Gemara Berakhot 2a (verse citations)", "genre": "gemara"},
-        {"ref": "Kiddushin 31b (honoring parents chain)", "genre": "halakha"}
+        {
+          "ref": "Gemara Berakhot 2a (verse citations)",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Kiddushin 31b (honoring parents chain)",
+          "genre": "halakha"
+        }
       ],
       "teachingMove": "Learn the citation formulas; when one appears, bracket the quoted words as borrowed.",
-      "checks": ["Bracket the quoted material in a short passage and name its source type."],
+      "checks": [
+        "Bracket the quoted material in a short passage and name its source type."
+      ],
       "transfer": "Find the quotation inside a piece of Chassidut you have not read.",
       "repair": "Look only for the citation formula, then read the words immediately after it.",
       "graduationThreshold": "transfer",
@@ -217,31 +521,52 @@
       "layer": 2,
       "title": "Recognize attribution formulas",
       "statement": "You can recognize the standard 'Rabbi X said' patterns that assign a statement to a voice.",
-      "prerequisites": ["fnd-signal-known-words", "fnd-orient-speaker"],
+      "prerequisites": [
+        "fnd-signal-known-words",
+        "fnd-orient-speaker"
+      ],
       "sourceContexts": [
-        {"ref": "Mishnah Berakhot 1:1", "genre": "mishnah"},
-        {"ref": "Gemara Shabbat 55a", "genre": "gemara"}
+        {
+          "ref": "Mishnah Berakhot 1:1",
+          "genre": "mishnah"
+        },
+        {
+          "ref": "Gemara Shabbat 55a",
+          "genre": "gemara"
+        }
       ],
       "teachingMove": "Collect the attribution formulas as a family; each one hands the next words to a named voice.",
-      "checks": ["Mark every attribution in a passage and list the voices in order."],
+      "checks": [
+        "Mark every attribution in a passage and list the voices in order."
+      ],
       "transfer": "Do the same in a source from a tractate you have not studied.",
       "repair": "Read only the attributions aloud and reconstruct who said what.",
       "graduationThreshold": "secure",
       "durability": "core"
     },
-
     {
       "id": "fnd-role-text-vs-commentary",
       "layer": 3,
       "title": "Tell primary text from commentary",
       "statement": "You can separate a primary text from a comment written about it.",
-      "prerequisites": ["fnd-orient-page-geography", "fnd-signal-quotation"],
+      "prerequisites": [
+        "fnd-orient-page-geography",
+        "fnd-signal-quotation"
+      ],
       "sourceContexts": [
-        {"ref": "Chumash with Rashi, Genesis 22", "genre": "torah"},
-        {"ref": "Talmud Berakhot 2a with Rashi", "genre": "gemara"}
+        {
+          "ref": "Chumash with Rashi, Genesis 22",
+          "genre": "torah"
+        },
+        {
+          "ref": "Talmud Berakhot 2a with Rashi",
+          "genre": "gemara"
+        }
       ],
       "teachingMove": "Ask which text could stand alone and which only exists to explain another; label accordingly.",
-      "checks": ["Given two blocks, say which is the source and which is the commentary, with a reason."],
+      "checks": [
+        "Given two blocks, say which is the source and which is the commentary, with a reason."
+      ],
       "transfer": "Separate text from commentary on a halakhic page you have not seen.",
       "repair": "Cover the commentary and check that the primary text still reads as a whole.",
       "graduationThreshold": "secure",
@@ -252,13 +577,23 @@
       "layer": 3,
       "title": "Notice where a translation makes a choice",
       "statement": "You can see where a translation adds, drops, or chooses a meaning the original leaves open.",
-      "prerequisites": ["fnd-signal-known-words"],
+      "prerequisites": [
+        "fnd-signal-known-words"
+      ],
       "sourceContexts": [
-        {"ref": "Genesis 22:1 (הינני)", "genre": "torah"},
-        {"ref": "Amidah, opening blessing", "genre": "tefillah"}
+        {
+          "ref": "Genesis 22:1 (הינני)",
+          "genre": "torah"
+        },
+        {
+          "ref": "Amidah, opening blessing",
+          "genre": "tefillah"
+        }
       ],
       "teachingMove": "Compare two translations of one phrase; mark the word where they part ways and ask why.",
-      "checks": ["Point to one word where a translation committed to a choice."],
+      "checks": [
+        "Point to one word where a translation committed to a choice."
+      ],
       "transfer": "Find a translation choice in a piece of Jewish thought you have not studied.",
       "repair": "Look up the single disputed word and list two meanings it can carry.",
       "graduationThreshold": "transfer",
@@ -269,13 +604,24 @@
       "layer": 3,
       "title": "Label question, answer, or restatement",
       "statement": "You can label a line as a question, an answer, or a restatement of what came before.",
-      "prerequisites": ["fnd-signal-question-words", "fnd-orient-question-present"],
+      "prerequisites": [
+        "fnd-signal-question-words",
+        "fnd-orient-question-present"
+      ],
       "sourceContexts": [
-        {"ref": "Gemara Berakhot 2a", "genre": "gemara"},
-        {"ref": "Job 38–40", "genre": "torah"}
+        {
+          "ref": "Gemara Berakhot 2a",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Job 38–40",
+          "genre": "torah"
+        }
       ],
       "teachingMove": "Tag each line Q, A, or R; a passage should read as a chain of these tags.",
-      "checks": ["Tag four consecutive lines and defend one tag."],
+      "checks": [
+        "Tag four consecutive lines and defend one tag."
+      ],
       "transfer": "Tag the moves in an unseen short sugya.",
       "repair": "For each line ask: is this new pressure, a reply, or the same point again?",
       "graduationThreshold": "transfer",
@@ -286,13 +632,23 @@
       "layer": 3,
       "title": "Recognize a worked example",
       "statement": "You can tell when a source drops into a concrete case to make a point.",
-      "prerequisites": ["fnd-role-question-vs-answer"],
+      "prerequisites": [
+        "fnd-role-question-vs-answer"
+      ],
       "sourceContexts": [
-        {"ref": "Mishnah Bava Kamma 1:1", "genre": "mishnah"},
-        {"ref": "Orchot Tzaddikim, a worked case of a middah", "genre": "mussar"}
+        {
+          "ref": "Mishnah Bava Kamma 1:1",
+          "genre": "mishnah"
+        },
+        {
+          "ref": "Orchot Tzaddikim, a worked case of a middah",
+          "genre": "mussar"
+        }
       ],
       "teachingMove": "When the text turns to 'someone who...', treat it as a test case for the rule just stated.",
-      "checks": ["Point to the example and state the rule it is testing."],
+      "checks": [
+        "Point to the example and state the rule it is testing."
+      ],
       "transfer": "Find the illustrative case in a Mussar teaching you have not read.",
       "repair": "Ask: is this the rule, or a story that shows the rule?",
       "graduationThreshold": "secure",
@@ -303,31 +659,51 @@
       "layer": 3,
       "title": "Distinguish a ruling from a discussion",
       "statement": "You can tell a settled ruling from open discussion around it.",
-      "prerequisites": ["fnd-role-question-vs-answer"],
+      "prerequisites": [
+        "fnd-role-question-vs-answer"
+      ],
       "sourceContexts": [
-        {"ref": "Shulchan Aruch, Orach Chaim 1:1", "genre": "halakha"},
-        {"ref": "Gemara Eruvin 13b (elu va-elu)", "genre": "gemara"}
+        {
+          "ref": "Shulchan Aruch, Orach Chaim 1:1",
+          "genre": "halakha"
+        },
+        {
+          "ref": "Gemara Eruvin 13b (elu va-elu)",
+          "genre": "gemara"
+        }
       ],
       "teachingMove": "Ask whether the text decides or explores; a decision closes options, a discussion opens them.",
-      "checks": ["Label a passage as ruling or discussion and cite the deciding word."],
+      "checks": [
+        "Label a passage as ruling or discussion and cite the deciding word."
+      ],
       "transfer": "Make the same call on an unseen halakhic paragraph.",
       "repair": "Ask whether a reader is left with one option or several.",
       "graduationThreshold": "transfer",
       "durability": "core"
     },
-
     {
       "id": "fnd-case-actors",
       "layer": 4,
       "title": "Identify who acts",
       "statement": "You can name who is acting in a case and what they do.",
-      "prerequisites": ["fnd-signal-name-formulas", "fnd-role-example"],
+      "prerequisites": [
+        "fnd-signal-name-formulas",
+        "fnd-role-example"
+      ],
       "sourceContexts": [
-        {"ref": "Mishnah Bava Metzia 1:1", "genre": "mishnah"},
-        {"ref": "Genesis 22", "genre": "torah"}
+        {
+          "ref": "Mishnah Bava Metzia 1:1",
+          "genre": "mishnah"
+        },
+        {
+          "ref": "Genesis 22",
+          "genre": "torah"
+        }
       ],
       "teachingMove": "List the actors as a cast, then attach one verb to each.",
-      "checks": ["List every actor in a case and one thing each does."],
+      "checks": [
+        "List every actor in a case and one thing each does."
+      ],
       "transfer": "Do the same for an unseen narrative from history material.",
       "repair": "Reread and circle every person or party before reading for meaning.",
       "graduationThreshold": "secure",
@@ -338,13 +714,23 @@
       "layer": 4,
       "title": "State what happens in plain language",
       "statement": "You can restate the situation of a case in ordinary words.",
-      "prerequisites": ["fnd-case-actors"],
+      "prerequisites": [
+        "fnd-case-actors"
+      ],
       "sourceContexts": [
-        {"ref": "Mishnah Bava Kamma 1:1", "genre": "mishnah"},
-        {"ref": "Gittin 55b (Kamtza and Bar Kamtza)", "genre": "history"}
+        {
+          "ref": "Mishnah Bava Kamma 1:1",
+          "genre": "mishnah"
+        },
+        {
+          "ref": "Gittin 55b (Kamtza and Bar Kamtza)",
+          "genre": "history"
+        }
       ],
       "teachingMove": "Tell the case as a one-sentence story before touching the legal or conceptual question.",
-      "checks": ["Give a one-sentence plain-language summary of a case."],
+      "checks": [
+        "Give a one-sentence plain-language summary of a case."
+      ],
       "transfer": "Summarize an unseen case from a different tractate.",
       "repair": "Answer only: who, did what, to whom?",
       "graduationThreshold": "secure",
@@ -355,13 +741,24 @@
       "layer": 4,
       "title": "Name what is uncertain",
       "statement": "You can name the point of uncertainty or dispute at the heart of a case.",
-      "prerequisites": ["fnd-case-what-happens", "fnd-role-ruling-vs-discussion"],
+      "prerequisites": [
+        "fnd-case-what-happens",
+        "fnd-role-ruling-vs-discussion"
+      ],
       "sourceContexts": [
-        {"ref": "Mishnah Berakhot 1:1 (until when?)", "genre": "mishnah"},
-        {"ref": "Gemara Bava Metzia 2a", "genre": "gemara"}
+        {
+          "ref": "Mishnah Berakhot 1:1 (until when?)",
+          "genre": "mishnah"
+        },
+        {
+          "ref": "Gemara Bava Metzia 2a",
+          "genre": "gemara"
+        }
       ],
       "teachingMove": "Ask what the case would need in order to be decided; the missing thing is the uncertainty.",
-      "checks": ["State the open question a case turns on."],
+      "checks": [
+        "State the open question a case turns on."
+      ],
       "transfer": "Find the uncertainty in an unseen halakhic case.",
       "repair": "Ask: what are the two things this could be, and why is it not obvious?",
       "graduationThreshold": "transfer",
@@ -372,13 +769,23 @@
       "layer": 4,
       "title": "Find the factor that changes the outcome",
       "statement": "You can identify the detail that would change how a case comes out.",
-      "prerequisites": ["fnd-case-uncertainty"],
+      "prerequisites": [
+        "fnd-case-uncertainty"
+      ],
       "sourceContexts": [
-        {"ref": "Mishnah Bava Kamma 1:1 (categories of damage)", "genre": "mishnah"},
-        {"ref": "Rambam, Hilchot Deot 2:3 (anger, with exception)", "genre": "halakha"}
+        {
+          "ref": "Mishnah Bava Kamma 1:1 (categories of damage)",
+          "genre": "mishnah"
+        },
+        {
+          "ref": "Rambam, Hilchot Deot 2:3 (anger, with exception)",
+          "genre": "halakha"
+        }
       ],
       "teachingMove": "Change one detail of the case out loud and watch whether the ruling moves; the mover is the key factor.",
-      "checks": ["Name one factor that, if changed, would flip the outcome."],
+      "checks": [
+        "Name one factor that, if changed, would flip the outcome."
+      ],
       "transfer": "Identify the deciding factor in an unseen case.",
       "repair": "List the details of the case and test them one at a time.",
       "graduationThreshold": "transfer",
@@ -389,13 +796,23 @@
       "layer": 4,
       "title": "Restate a case in your own words",
       "statement": "You can retell a case accurately without leaning on its original wording.",
-      "prerequisites": ["fnd-case-what-happens"],
+      "prerequisites": [
+        "fnd-case-what-happens"
+      ],
       "sourceContexts": [
-        {"ref": "Mishnah Berakhot 1:1", "genre": "mishnah"},
-        {"ref": "Pirkei Avot 5:7", "genre": "thought"}
+        {
+          "ref": "Mishnah Berakhot 1:1",
+          "genre": "mishnah"
+        },
+        {
+          "ref": "Pirkei Avot 5:7",
+          "genre": "thought"
+        }
       ],
       "teachingMove": "Close the text and retell it; then reopen and check what you dropped or changed.",
-      "checks": ["Retell a case from memory and mark any detail you missed."],
+      "checks": [
+        "Retell a case from memory and mark any detail you missed."
+      ],
       "transfer": "Retell an unseen short passage from another genre.",
       "repair": "Retell just the first half, check it, then add the rest.",
       "graduationThreshold": "secure",
@@ -406,14 +823,27 @@
       "layer": 4,
       "title": "Classify the case into a category",
       "statement": "You can name the legal or conceptual category a case falls under and why.",
-      "prerequisites": ["fnd-case-what-happens"],
+      "prerequisites": [
+        "fnd-case-what-happens"
+      ],
       "sourceContexts": [
-        {"ref": "Mishnah Bava Kamma 1:1 (the primary categories of damage)", "genre": "mishnah"},
-        {"ref": "Rambam, Hilchot Nizkei Mamon 1:1 (avot and toladot)", "genre": "halakha"},
-        {"ref": "Orchot Tzaddikim (naming the middah a deed belongs to)", "genre": "mussar"}
+        {
+          "ref": "Mishnah Bava Kamma 1:1 (the primary categories of damage)",
+          "genre": "mishnah"
+        },
+        {
+          "ref": "Rambam, Hilchot Nizkei Mamon 1:1 (avot and toladot)",
+          "genre": "halakha"
+        },
+        {
+          "ref": "Orchot Tzaddikim (naming the middah a deed belongs to)",
+          "genre": "mussar"
+        }
       ],
       "teachingMove": "Ask what named category this case is an instance of; sort the particular under the general before reasoning further.",
-      "checks": ["Given a case, name the category it belongs to and one feature that places it there."],
+      "checks": [
+        "Given a case, name the category it belongs to and one feature that places it there."
+      ],
       "transfer": "Classify an unseen case from a genre you did not practice.",
       "repair": "List the candidate categories and test the case against each one's defining feature.",
       "graduationThreshold": "transfer",
@@ -424,14 +854,27 @@
       "layer": 4,
       "title": "Follow the order of a procedure",
       "statement": "You can put the steps of a procedure in order and say why the order matters.",
-      "prerequisites": ["fnd-case-what-happens"],
+      "prerequisites": [
+        "fnd-case-what-happens"
+      ],
       "sourceContexts": [
-        {"ref": "Yoma 33a (the fixed order of the daily Temple service)", "genre": "gemara"},
-        {"ref": "The order of the weekday Amidah blessings", "genre": "tefillah"},
-        {"ref": "Rambam, Hilchot Tefillin 4 (the sequence of donning tefillin)", "genre": "halakha"}
+        {
+          "ref": "Yoma 33a (the fixed order of the daily Temple service)",
+          "genre": "gemara"
+        },
+        {
+          "ref": "The order of the weekday Amidah blessings",
+          "genre": "tefillah"
+        },
+        {
+          "ref": "Rambam, Hilchot Tefillin 4 (the sequence of donning tefillin)",
+          "genre": "halakha"
+        }
       ],
       "teachingMove": "Number the steps as an ordered list, then ask which steps could not swap places without breaking the procedure.",
-      "checks": ["Put the steps of a procedure in order and flag one step whose position is fixed."],
+      "checks": [
+        "Put the steps of a procedure in order and flag one step whose position is fixed."
+      ],
       "transfer": "Order the steps of an unfamiliar procedure from another genre.",
       "repair": "Retell the procedure as 'first…, then…, then…' and check each 'then' against the source.",
       "graduationThreshold": "secure",
@@ -442,32 +885,55 @@
       "layer": 4,
       "title": "Identify who is obligated and who is exempt",
       "statement": "You can say who a rule obligates, who it exempts, and on what ground.",
-      "prerequisites": ["fnd-case-what-happens"],
+      "prerequisites": [
+        "fnd-case-what-happens"
+      ],
       "sourceContexts": [
-        {"ref": "Mishnah Berakhot 3:3 (exemption from time-bound mitzvot)", "genre": "mishnah"},
-        {"ref": "Rambam, Hilchot Berakhot 1 (obligation and exemption in blessings)", "genre": "halakha"},
-        {"ref": "Kiddushin 29a (a father's and the community's obligations)", "genre": "gemara"}
+        {
+          "ref": "Mishnah Berakhot 3:3 (exemption from time-bound mitzvot)",
+          "genre": "mishnah"
+        },
+        {
+          "ref": "Rambam, Hilchot Berakhot 1 (obligation and exemption in blessings)",
+          "genre": "halakha"
+        },
+        {
+          "ref": "Kiddushin 29a (a father's and the community's obligations)",
+          "genre": "gemara"
+        }
       ],
       "teachingMove": "For each party in the case ask: obligated, exempt, or forbidden — and what fact decides it.",
-      "checks": ["Name who is obligated and who is exempt in a case, with the deciding ground for each."],
+      "checks": [
+        "Name who is obligated and who is exempt in a case, with the deciding ground for each."
+      ],
       "transfer": "Sort obligation and exemption in an unseen case from another genre.",
       "repair": "List the parties, attach 'must / need not / may not' to each, and name the reason.",
       "graduationThreshold": "transfer",
       "durability": "core"
     },
-
     {
       "id": "fnd-arg-claim",
       "layer": 5,
       "title": "State the claim",
       "statement": "You can state, in one sentence, the claim a source is making.",
-      "prerequisites": ["fnd-role-question-vs-answer", "fnd-case-restate"],
+      "prerequisites": [
+        "fnd-role-question-vs-answer",
+        "fnd-case-restate"
+      ],
       "sourceContexts": [
-        {"ref": "Rambam, Yesodei HaTorah 1:1", "genre": "thought"},
-        {"ref": "Gemara Berakhot 2a", "genre": "gemara"}
+        {
+          "ref": "Rambam, Yesodei HaTorah 1:1",
+          "genre": "thought"
+        },
+        {
+          "ref": "Gemara Berakhot 2a",
+          "genre": "gemara"
+        }
       ],
       "teachingMove": "Finish the sentence 'This source claims that...' before analyzing anything else.",
-      "checks": ["Write the claim of a passage in one sentence."],
+      "checks": [
+        "Write the claim of a passage in one sentence."
+      ],
       "transfer": "State the claim of an unseen source from another genre.",
       "repair": "Ask what the source wants you to believe or do by the end.",
       "graduationThreshold": "transfer",
@@ -478,13 +944,24 @@
       "layer": 5,
       "title": "Say what a cited source is doing",
       "statement": "You can say whether a cited source supports, challenges, clarifies, or distinguishes a claim.",
-      "prerequisites": ["fnd-signal-quotation", "fnd-arg-claim"],
+      "prerequisites": [
+        "fnd-signal-quotation",
+        "fnd-arg-claim"
+      ],
       "sourceContexts": [
-        {"ref": "Gemara Berakhot 2a (proof texts)", "genre": "gemara"},
-        {"ref": "Kiddushin 31b (two verses on honor)", "genre": "halakha"}
+        {
+          "ref": "Gemara Berakhot 2a (proof texts)",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Kiddushin 31b (two verses on honor)",
+          "genre": "halakha"
+        }
       ],
       "teachingMove": "For each citation, choose one of four jobs: prop, attack, refine, or split.",
-      "checks": ["Assign a job to a proof text and justify it in a sentence."],
+      "checks": [
+        "Assign a job to a proof text and justify it in a sentence."
+      ],
       "transfer": "Judge the role of a citation in an unseen argument.",
       "repair": "Ask: is the claim stronger or weaker after this source, and why?",
       "graduationThreshold": "transfer",
@@ -495,13 +972,24 @@
       "layer": 5,
       "title": "Mark an objection",
       "statement": "You can mark an objection and describe the pressure it puts on a claim.",
-      "prerequisites": ["fnd-arg-claim", "fnd-signal-connectors"],
+      "prerequisites": [
+        "fnd-arg-claim",
+        "fnd-signal-connectors"
+      ],
       "sourceContexts": [
-        {"ref": "Gemara Berakhot 2b", "genre": "gemara"},
-        {"ref": "Guide for the Perplexed, selections", "genre": "thought"}
+        {
+          "ref": "Gemara Berakhot 2b",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Guide for the Perplexed, selections",
+          "genre": "thought"
+        }
       ],
       "teachingMove": "When the text pushes back, name what exactly it threatens: the claim, its reason, or its scope.",
-      "checks": ["Identify an objection and what it endangers."],
+      "checks": [
+        "Identify an objection and what it endangers."
+      ],
       "transfer": "Locate the objection in an unseen philosophical passage.",
       "repair": "Ask: what would be wrong if the first claim stood unchanged?",
       "graduationThreshold": "transfer",
@@ -512,13 +1000,24 @@
       "layer": 5,
       "title": "Follow the response",
       "statement": "You can follow how a response answers, narrows, or reframes an objection.",
-      "prerequisites": ["fnd-arg-objection", "fnd-arg-evidence-role"],
+      "prerequisites": [
+        "fnd-arg-objection",
+        "fnd-arg-evidence-role"
+      ],
       "sourceContexts": [
-        {"ref": "Gemara Sukkah 2a", "genre": "gemara"},
-        {"ref": "Rambam, Hilchot Deot 1:5", "genre": "halakha"}
+        {
+          "ref": "Gemara Sukkah 2a",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Rambam, Hilchot Deot 1:5",
+          "genre": "halakha"
+        }
       ],
       "teachingMove": "Ask whether the response denies the objection, limits it, or accepts and adjusts the claim.",
-      "checks": ["Describe how a response handles its objection."],
+      "checks": [
+        "Describe how a response handles its objection."
+      ],
       "transfer": "Trace a response in an unseen sugya.",
       "repair": "Compare the claim before and after the response and name what changed.",
       "graduationThreshold": "transfer",
@@ -529,31 +1028,50 @@
       "layer": 5,
       "title": "Recognize an open tension",
       "statement": "You can recognize when a source leaves a tension unresolved on purpose.",
-      "prerequisites": ["fnd-arg-response"],
+      "prerequisites": [
+        "fnd-arg-response"
+      ],
       "sourceContexts": [
-        {"ref": "Bava Metzia 59b (Oven of Akhnai)", "genre": "gemara"},
-        {"ref": "Job 42", "genre": "torah"}
+        {
+          "ref": "Bava Metzia 59b (Oven of Akhnai)",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Job 42",
+          "genre": "torah"
+        }
       ],
       "teachingMove": "Notice endings that stop without deciding; ask whether the openness is the point.",
-      "checks": ["Say whether a passage resolves, and if not, name the tension left standing."],
+      "checks": [
+        "Say whether a passage resolves, and if not, name the tension left standing."
+      ],
       "transfer": "Judge resolution in an unseen aggadic or narrative passage.",
       "repair": "Ask: did anyone here get the last word?",
       "graduationThreshold": "transfer",
       "durability": "transfer"
     },
-
     {
       "id": "fnd-compare-shared-question",
       "layer": 6,
       "title": "Find the shared question",
       "statement": "You can find the common question that two sources are both answering.",
-      "prerequisites": ["fnd-arg-claim"],
+      "prerequisites": [
+        "fnd-arg-claim"
+      ],
       "sourceContexts": [
-        {"ref": "Hillel and Shammai on conversion, Shabbat 31a", "genre": "gemara"},
-        {"ref": "Akiva and Ben Azzai on the great principle, Sifra Kedoshim", "genre": "thought"}
+        {
+          "ref": "Hillel and Shammai on conversion, Shabbat 31a",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Akiva and Ben Azzai on the great principle, Sifra Kedoshim",
+          "genre": "thought"
+        }
       ],
       "teachingMove": "Before contrasting, write the one question both sources are trying to answer.",
-      "checks": ["State the shared question behind two readings."],
+      "checks": [
+        "State the shared question behind two readings."
+      ],
       "transfer": "Find the shared question across two unseen sources.",
       "repair": "Ask what each source is a possible answer to, then find the overlap.",
       "graduationThreshold": "transfer",
@@ -564,13 +1082,24 @@
       "layer": 6,
       "title": "Name where readings diverge",
       "statement": "You can name the exact point where two readings part ways.",
-      "prerequisites": ["fnd-compare-shared-question", "fnd-arg-response"],
+      "prerequisites": [
+        "fnd-compare-shared-question",
+        "fnd-arg-response"
+      ],
       "sourceContexts": [
-        {"ref": "Eruvin 13b (Beit Hillel and Beit Shammai)", "genre": "gemara"},
-        {"ref": "Rambam and Ramban on a mitzvah", "genre": "halakha"}
+        {
+          "ref": "Eruvin 13b (Beit Hillel and Beit Shammai)",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Rambam and Ramban on a mitzvah",
+          "genre": "halakha"
+        }
       ],
       "teachingMove": "Lay the two answers in parallel and mark the first word where they no longer agree.",
-      "checks": ["Point to the specific point of divergence between two sources."],
+      "checks": [
+        "Point to the specific point of divergence between two sources."
+      ],
       "transfer": "Locate the divergence between two unseen readings.",
       "repair": "State each answer in one line and compare them clause by clause.",
       "graduationThreshold": "transfer",
@@ -581,13 +1110,23 @@
       "layer": 6,
       "title": "State each side at its strongest",
       "statement": "You can give each side of a disagreement its strongest form before contrasting them.",
-      "prerequisites": ["fnd-compare-divergence"],
+      "prerequisites": [
+        "fnd-compare-divergence"
+      ],
       "sourceContexts": [
-        {"ref": "Eruvin 13b (elu va-elu)", "genre": "gemara"},
-        {"ref": "Sacks and Soloveitchik on covenant", "genre": "thought"}
+        {
+          "ref": "Eruvin 13b (elu va-elu)",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Sacks and Soloveitchik on covenant",
+          "genre": "thought"
+        }
       ],
       "teachingMove": "Argue each position as if you held it; only then place them next to each other.",
-      "checks": ["Give the strongest one-line case for each side."],
+      "checks": [
+        "Give the strongest one-line case for each side."
+      ],
       "transfer": "Steel-man both sides of an unseen dispute.",
       "repair": "Ask what a smart person who held this view would say to defend it.",
       "graduationThreshold": "transfer",
@@ -598,31 +1137,51 @@
       "layer": 6,
       "title": "Tell a real dispute from a scope difference",
       "statement": "You can tell whether two sources truly disagree or are simply talking about different cases.",
-      "prerequisites": ["fnd-compare-divergence", "fnd-case-what-changes"],
+      "prerequisites": [
+        "fnd-compare-divergence",
+        "fnd-case-what-changes"
+      ],
       "sourceContexts": [
-        {"ref": "Gemara reconciling two Mishnayot (lo pligei)", "genre": "gemara"},
-        {"ref": "Two responsa on adjacent cases", "genre": "halakha"}
+        {
+          "ref": "Gemara reconciling two Mishnayot (lo pligei)",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Two responsa on adjacent cases",
+          "genre": "halakha"
+        }
       ],
       "teachingMove": "Ask whether both sources are answering about the same case; different cases can hide a false conflict.",
-      "checks": ["Decide whether a pair is a real dispute or a scope difference, with a reason."],
+      "checks": [
+        "Decide whether a pair is a real dispute or a scope difference, with a reason."
+      ],
       "transfer": "Make the same call on an unseen pair.",
       "repair": "Describe the exact case each source has in mind and check whether they match.",
       "graduationThreshold": "transfer",
       "durability": "core"
     },
-
     {
       "id": "fnd-context-when-where",
       "layer": 7,
       "title": "Place a source in time and place",
       "statement": "You can place a source in a rough time and place.",
-      "prerequisites": ["fnd-orient-source-type"],
+      "prerequisites": [
+        "fnd-orient-source-type"
+      ],
       "sourceContexts": [
-        {"ref": "Mishnah (Yavneh era)", "genre": "history"},
-        {"ref": "A Chassidic teaching and its rebbe's generation", "genre": "chassidus"}
+        {
+          "ref": "Mishnah (Yavneh era)",
+          "genre": "history"
+        },
+        {
+          "ref": "A Chassidic teaching and its rebbe's generation",
+          "genre": "chassidus"
+        }
       ],
       "teachingMove": "Attach every source to a rough era and setting before drawing conclusions from it.",
-      "checks": ["Give an approximate time and place for a source."],
+      "checks": [
+        "Give an approximate time and place for a source."
+      ],
       "transfer": "Place an unfamiliar source within a century and a region.",
       "repair": "Use the named people or language to estimate the era.",
       "graduationThreshold": "secure",
@@ -633,13 +1192,24 @@
       "layer": 7,
       "title": "Ask who made it and for whom",
       "statement": "You can ask who produced a source and which community it addressed.",
-      "prerequisites": ["fnd-context-when-where", "fnd-case-actors"],
+      "prerequisites": [
+        "fnd-context-when-where",
+        "fnd-case-actors"
+      ],
       "sourceContexts": [
-        {"ref": "Rambam, Mishneh Torah introduction", "genre": "halakha"},
-        {"ref": "A piyyut and its congregation", "genre": "tefillah"}
+        {
+          "ref": "Rambam, Mishneh Torah introduction",
+          "genre": "halakha"
+        },
+        {
+          "ref": "A piyyut and its congregation",
+          "genre": "tefillah"
+        }
       ],
       "teachingMove": "Name the author and intended audience; a text written for scholars reads differently than one for a congregation.",
-      "checks": ["Name a plausible author and audience for a source."],
+      "checks": [
+        "Name a plausible author and audience for a source."
+      ],
       "transfer": "Infer author and audience for an unseen source.",
       "repair": "Ask who would have needed this text and why.",
       "graduationThreshold": "secure",
@@ -650,13 +1220,24 @@
       "layer": 7,
       "title": "Let the genre set your expectations",
       "statement": "You can use a source's genre to decide how it should and should not be read.",
-      "prerequisites": ["fnd-orient-source-type", "fnd-role-ruling-vs-discussion"],
+      "prerequisites": [
+        "fnd-orient-source-type",
+        "fnd-role-ruling-vs-discussion"
+      ],
       "sourceContexts": [
-        {"ref": "Aggadah vs. halakhah in one sugya", "genre": "gemara"},
-        {"ref": "Psalm vs. legal code", "genre": "torah"}
+        {
+          "ref": "Aggadah vs. halakhah in one sugya",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Psalm vs. legal code",
+          "genre": "torah"
+        }
       ],
       "teachingMove": "Match the reading stance to the genre: a poem invites resonance, a code invites precision.",
-      "checks": ["State one thing this genre can and cannot be asked to deliver."],
+      "checks": [
+        "State one thing this genre can and cannot be asked to deliver."
+      ],
       "transfer": "Set correct expectations for an unseen genre.",
       "repair": "Ask whether you are demanding a legal answer from a non-legal text or the reverse.",
       "graduationThreshold": "transfer",
@@ -667,31 +1248,51 @@
       "layer": 7,
       "title": "Judge what evidence a source can give",
       "statement": "You can judge what kind of evidence a source can and cannot provide.",
-      "prerequisites": ["fnd-context-who-audience"],
+      "prerequisites": [
+        "fnd-context-who-audience"
+      ],
       "sourceContexts": [
-        {"ref": "Aggadic history vs. documentary evidence, Gittin 55b–56b", "genre": "history"},
-        {"ref": "A Mussar teaching as guidance vs. as historical fact", "genre": "mussar"}
+        {
+          "ref": "Aggadic history vs. documentary evidence, Gittin 55b–56b",
+          "genre": "history"
+        },
+        {
+          "ref": "A Mussar teaching as guidance vs. as historical fact",
+          "genre": "mussar"
+        }
       ],
       "teachingMove": "Ask what this source is good evidence for: a fact, a value, a memory, or a practice.",
-      "checks": ["State one claim this source supports and one it cannot."],
+      "checks": [
+        "State one claim this source supports and one it cannot."
+      ],
       "transfer": "Judge the evidentiary reach of an unseen source.",
       "repair": "Ask: if this were the only source, what could I responsibly conclude?",
       "graduationThreshold": "transfer",
       "durability": "core"
     },
-
     {
       "id": "fnd-resp-learning-vs-ruling",
       "layer": 8,
       "title": "Tell learning apart from a ruling",
       "statement": "You can tell the difference between studying a halakhic source and receiving a ruling for yourself.",
-      "prerequisites": ["fnd-role-ruling-vs-discussion", "fnd-context-genre-expectations"],
+      "prerequisites": [
+        "fnd-role-ruling-vs-discussion",
+        "fnd-context-genre-expectations"
+      ],
       "sourceContexts": [
-        {"ref": "Shulchan Aruch with disputing commentaries", "genre": "halakha"},
-        {"ref": "A sugya with multiple undecided views", "genre": "gemara"}
+        {
+          "ref": "Shulchan Aruch with disputing commentaries",
+          "genre": "halakha"
+        },
+        {
+          "ref": "A sugya with multiple undecided views",
+          "genre": "gemara"
+        }
       ],
       "teachingMove": "Separate two questions: what does this source say, and what should I do; the second needs more than reading.",
-      "checks": ["State what you have learned and what you have not yet been told to do."],
+      "checks": [
+        "State what you have learned and what you have not yet been told to do."
+      ],
       "transfer": "Draw the same line in an unseen halakhic source.",
       "repair": "Ask: would a competent authority need to know more about me to answer this?",
       "graduationThreshold": "transfer",
@@ -702,13 +1303,23 @@
       "layer": 8,
       "title": "Hold more than one view",
       "statement": "You can hold more than one legitimate view without collapsing it into one.",
-      "prerequisites": ["fnd-compare-strongest-form"],
+      "prerequisites": [
+        "fnd-compare-strongest-form"
+      ],
       "sourceContexts": [
-        {"ref": "Eruvin 13b (elu va-elu)", "genre": "gemara"},
-        {"ref": "Machloket in Pirkei Avot 5:17", "genre": "thought"}
+        {
+          "ref": "Eruvin 13b (elu va-elu)",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Machloket in Pirkei Avot 5:17",
+          "genre": "thought"
+        }
       ],
       "teachingMove": "Report a disagreement as a live disagreement; resist the urge to declare a winner too early.",
-      "checks": ["Present two views fairly and say why both are kept."],
+      "checks": [
+        "Present two views fairly and say why both are kept."
+      ],
       "transfer": "Preserve a dispute drawn from an unseen source.",
       "repair": "Ask what is lost if only one of the views survives.",
       "graduationThreshold": "transfer",
@@ -719,13 +1330,24 @@
       "layer": 8,
       "title": "Name the limits of what you learned",
       "statement": "You can name the boundaries of what your reading has and has not established.",
-      "prerequisites": ["fnd-resp-learning-vs-ruling", "fnd-arg-unresolved"],
+      "prerequisites": [
+        "fnd-resp-learning-vs-ruling",
+        "fnd-arg-unresolved"
+      ],
       "sourceContexts": [
-        {"ref": "A sugya that ends unresolved", "genre": "gemara"},
-        {"ref": "A philosophical claim with an open edge", "genre": "thought"}
+        {
+          "ref": "A sugya that ends unresolved",
+          "genre": "gemara"
+        },
+        {
+          "ref": "A philosophical claim with an open edge",
+          "genre": "thought"
+        }
       ],
       "teachingMove": "End each study with a sentence beginning 'What I have not settled is...'.",
-      "checks": ["State one thing your reading did not resolve."],
+      "checks": [
+        "State one thing your reading did not resolve."
+      ],
       "transfer": "Name the limits after reading an unseen source.",
       "repair": "Ask which of your conclusions you could not defend to a teacher.",
       "graduationThreshold": "transfer",
@@ -736,31 +1358,52 @@
       "layer": 8,
       "title": "Know when to ask a person",
       "statement": "You can recognize when a question needs a teacher or posek rather than a search.",
-      "prerequisites": ["fnd-resp-learning-vs-ruling"],
+      "prerequisites": [
+        "fnd-resp-learning-vs-ruling"
+      ],
       "sourceContexts": [
-        {"ref": "A practical halakhic question of personal application", "genre": "halakha"},
-        {"ref": "A sensitive interpretive or communal question", "genre": "thought"}
+        {
+          "ref": "A practical halakhic question of personal application",
+          "genre": "halakha"
+        },
+        {
+          "ref": "A sensitive interpretive or communal question",
+          "genre": "thought"
+        }
       ],
       "teachingMove": "Sort questions into 'I can read toward this' and 'this needs a person'; practice telling them apart.",
-      "checks": ["Given a question, decide whether to study it or bring it to a person, with a reason."],
+      "checks": [
+        "Given a question, decide whether to study it or bring it to a person, with a reason."
+      ],
       "transfer": "Sort an unseen question correctly.",
       "repair": "Ask whether being wrong here would affect a real decision or another person.",
       "graduationThreshold": "transfer",
       "durability": "transfer"
     },
-
     {
       "id": "fnd-indep-first-pass",
       "layer": 9,
       "title": "Make a scaffolded first pass",
       "statement": "You can make a supported first pass through an unfamiliar short source.",
-      "prerequisites": ["fnd-arg-response", "fnd-role-text-vs-commentary", "fnd-signal-connectors"],
+      "prerequisites": [
+        "fnd-arg-response",
+        "fnd-role-text-vs-commentary",
+        "fnd-signal-connectors"
+      ],
       "sourceContexts": [
-        {"ref": "Unseen mini-sugya, Berakhot 2b", "genre": "gemara"},
-        {"ref": "Unseen short Torah passage", "genre": "torah"}
+        {
+          "ref": "Unseen mini-sugya, Berakhot 2b",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Unseen short Torah passage",
+          "genre": "torah"
+        }
       ],
       "teachingMove": "Walk the source once for shape, once for signals, once for sense, with support ready at each pass.",
-      "checks": ["Produce a rough three-pass reading of a short unseen source."],
+      "checks": [
+        "Produce a rough three-pass reading of a short unseen source."
+      ],
       "transfer": "Do a first pass in a genre you have not practiced.",
       "repair": "Slow to one pass for shape only, then rebuild.",
       "graduationThreshold": "transfer",
@@ -771,13 +1414,24 @@
       "layer": 9,
       "title": "Map each line's job",
       "statement": "You can label the job of each line in an unfamiliar passage before using a full translation.",
-      "prerequisites": ["fnd-indep-first-pass", "fnd-case-restate"],
+      "prerequisites": [
+        "fnd-indep-first-pass",
+        "fnd-case-restate"
+      ],
       "sourceContexts": [
-        {"ref": "Unseen sugya, Pesachim 2a", "genre": "gemara"},
-        {"ref": "Unseen halakhic paragraph", "genre": "halakha"}
+        {
+          "ref": "Unseen sugya, Pesachim 2a",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Unseen halakhic paragraph",
+          "genre": "halakha"
+        }
       ],
       "teachingMove": "Give every line a one-word job before reaching for meaning; the map comes before the translation.",
-      "checks": ["Produce a line-by-line job map of an unseen passage."],
+      "checks": [
+        "Produce a line-by-line job map of an unseen passage."
+      ],
       "transfer": "Map lines in a genre you did not practice.",
       "repair": "Map only the lines you are sure of, then reason about the gaps.",
       "graduationThreshold": "transfer",
@@ -788,13 +1442,24 @@
       "statement": "You can use a translation to verify your reading rather than to replace it.",
       "layer": 9,
       "title": "Use translation to check, not to skip",
-      "prerequisites": ["fnd-indep-map-lines", "fnd-role-translation-gap"],
+      "prerequisites": [
+        "fnd-indep-map-lines",
+        "fnd-role-translation-gap"
+      ],
       "sourceContexts": [
-        {"ref": "Unseen sugya with facing translation", "genre": "gemara"},
-        {"ref": "Unseen verse with two translations", "genre": "torah"}
+        {
+          "ref": "Unseen sugya with facing translation",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Unseen verse with two translations",
+          "genre": "torah"
+        }
       ],
       "teachingMove": "Commit to a read first, then open the translation only to confirm or correct it.",
-      "checks": ["Predict a line's meaning, then check it against a translation and note the gap."],
+      "checks": [
+        "Predict a line's meaning, then check it against a translation and note the gap."
+      ],
       "transfer": "Do a predict-then-check pass in an unseen source.",
       "repair": "If the translation surprised you, find the word you misjudged and add it to the word wall.",
       "graduationThreshold": "transfer",
@@ -805,31 +1470,53 @@
       "layer": 9,
       "title": "Carry a reading move across genres",
       "statement": "You can apply a reading move in a genre you never practiced it in.",
-      "prerequisites": ["fnd-indep-map-lines", "fnd-compare-shared-question", "fnd-context-genre-expectations"],
+      "prerequisites": [
+        "fnd-indep-map-lines",
+        "fnd-compare-shared-question",
+        "fnd-context-genre-expectations"
+      ],
       "sourceContexts": [
-        {"ref": "Argument tracking moved from Gemara to Jewish thought", "genre": "thought"},
-        {"ref": "Case mapping moved from Mishnah to a Chassidic teaching", "genre": "chassidus"}
+        {
+          "ref": "Argument tracking moved from Gemara to Jewish thought",
+          "genre": "thought"
+        },
+        {
+          "ref": "Case mapping moved from Mishnah to a Chassidic teaching",
+          "genre": "chassidus"
+        }
       ],
       "teachingMove": "Take a move you own in one genre and run it, out loud, in a genre that feels unrelated.",
-      "checks": ["Use one named skill in a genre where you have not used it before."],
+      "checks": [
+        "Use one named skill in a genre where you have not used it before."
+      ],
       "transfer": "Carry a move into a second unseen genre.",
       "repair": "Name the move in the genre you know, then look for its equivalent in the new one.",
       "graduationThreshold": "transfer",
       "durability": "transfer"
     },
-
     {
       "id": "fnd-agency-ask-question",
       "layer": 10,
       "title": "Ask a good question",
       "statement": "You can ask a clear, answerable question about a source.",
-      "prerequisites": ["fnd-arg-unresolved", "fnd-case-uncertainty"],
+      "prerequisites": [
+        "fnd-arg-unresolved",
+        "fnd-case-uncertainty"
+      ],
       "sourceContexts": [
-        {"ref": "Any studied sugya", "genre": "gemara"},
-        {"ref": "Any studied Torah passage", "genre": "torah"}
+        {
+          "ref": "Any studied sugya",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Any studied Torah passage",
+          "genre": "torah"
+        }
       ],
       "teachingMove": "Turn a vague 'I don't get it' into a question with a shape that could actually be answered.",
-      "checks": ["Write one answerable question about a source and say what a good answer would need."],
+      "checks": [
+        "Write one answerable question about a source and say what a good answer would need."
+      ],
       "transfer": "Ask a strong question about an unseen source.",
       "repair": "Point to the exact word or line the question is about.",
       "graduationThreshold": "transfer",
@@ -840,13 +1527,24 @@
       "layer": 10,
       "title": "Use a source tool on purpose",
       "statement": "You can choose and use a dictionary, commentary, or cross-reference deliberately.",
-      "prerequisites": ["fnd-role-text-vs-commentary", "fnd-indep-use-translation-to-check"],
+      "prerequisites": [
+        "fnd-role-text-vs-commentary",
+        "fnd-indep-use-translation-to-check"
+      ],
       "sourceContexts": [
-        {"ref": "Sefaria links and connections panel", "genre": "gemara"},
-        {"ref": "A commentary consulted to resolve a word", "genre": "torah"}
+        {
+          "ref": "Sefaria links and connections panel",
+          "genre": "gemara"
+        },
+        {
+          "ref": "A commentary consulted to resolve a word",
+          "genre": "torah"
+        }
       ],
       "teachingMove": "Name what you are stuck on, then pick the one tool built to unstick it, instead of reaching randomly.",
-      "checks": ["State a difficulty and choose the right tool for it, with a reason."],
+      "checks": [
+        "State a difficulty and choose the right tool for it, with a reason."
+      ],
       "transfer": "Pick the right tool for an unseen difficulty.",
       "repair": "Ask whether your problem is a word, a claim, or a source, and match the tool to that.",
       "graduationThreshold": "transfer",
@@ -857,13 +1555,24 @@
       "layer": 10,
       "title": "Record what you don't yet understand",
       "statement": "You can record your open uncertainties honestly and in a form you can return to.",
-      "prerequisites": ["fnd-resp-name-limits", "fnd-agency-ask-question"],
+      "prerequisites": [
+        "fnd-resp-name-limits",
+        "fnd-agency-ask-question"
+      ],
       "sourceContexts": [
-        {"ref": "A study notebook entry after a sugya", "genre": "gemara"},
-        {"ref": "A note after a philosophical passage", "genre": "thought"}
+        {
+          "ref": "A study notebook entry after a sugya",
+          "genre": "gemara"
+        },
+        {
+          "ref": "A note after a philosophical passage",
+          "genre": "thought"
+        }
       ],
       "teachingMove": "End a session by writing the one thing you would want to reopen next time, specifically enough to act on.",
-      "checks": ["Write one useful, specific record of an open uncertainty."],
+      "checks": [
+        "Write one useful, specific record of an open uncertainty."
+      ],
       "transfer": "Record an open uncertainty after an unseen source.",
       "repair": "Ask: if I came back in a week, would this note tell me where to start?",
       "graduationThreshold": "transfer",
@@ -874,13 +1583,24 @@
       "layer": 10,
       "title": "Choose your next study move",
       "statement": "You can choose your next study move and explain why it is next.",
-      "prerequisites": ["fnd-agency-record-uncertainty", "fnd-indep-carry-across-genre"],
+      "prerequisites": [
+        "fnd-agency-record-uncertainty",
+        "fnd-indep-carry-across-genre"
+      ],
       "sourceContexts": [
-        {"ref": "End-of-session next-move choice", "genre": "gemara"},
-        {"ref": "Choosing an elective direction after the foundation", "genre": "thought"}
+        {
+          "ref": "End-of-session next-move choice",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Choosing an elective direction after the foundation",
+          "genre": "thought"
+        }
       ],
       "teachingMove": "Given where you are, name the next move and the reason it beats the alternatives.",
-      "checks": ["Choose a next move and justify it against one other option."],
+      "checks": [
+        "Choose a next move and justify it against one other option."
+      ],
       "transfer": "Make a defensible next-move choice from an unfamiliar position.",
       "repair": "Ask what would most unlock the next thing you want to read.",
       "graduationThreshold": "transfer",
