@@ -159,14 +159,26 @@ export function nextDiagnosticProbe(graph, responses = {}) {
 //   knowledgePoints : data/foundation-knowledge-points.json's `knowledgePoints`
 //   struggles       : learner.struggles (skillId -> count)
 //   mastery         : learner.mastery (skillId -> 0..1)
-export function keyPrerequisiteRemediation({ knowledgePoints, struggles = {}, mastery = {}, threshold = 2, strongMastery = 0.85 }) {
+export function keyPrerequisiteRemediation({ knowledgePoints, struggles = {}, knowledgePointStruggles = {}, mastery = {}, threshold = 2, strongMastery = 0.85 }) {
+  const usable = (keyPrerequisite) => keyPrerequisite && (mastery[keyPrerequisite] || 0) < strongMastery;
+  // 1. Knowledge-point-granular: a specific KP failed >= threshold routes to THAT KP's key
+  //    prerequisite (introduce -> foundational, practice/transfer -> proximate). This is MA's exact
+  //    "fail a KP twice -> review its key prerequisite" — precise once the KP model is deepened.
+  const kpById = new Map(knowledgePoints.map((k) => [k.id, k]));
+  const failedKps = Object.entries(knowledgePointStruggles).filter(([, n]) => n >= threshold).sort((a, b) => b[1] - a[1]);
+  for (const [kpId, count] of failedKps) {
+    const kp = kpById.get(kpId);
+    if (kp && usable(kp.keyPrerequisite)) {
+      return { strugglingSkill: kp.skill, knowledgePoint: kpId, knowledgePointKind: kp.kind, count, keyPrerequisite: kp.keyPrerequisite };
+    }
+  }
+  // 2. Fallback: only skill-level struggle is known -> the practice KP's key prerequisite (the
+  //    proximate move the skill most directly uses).
   const struggling = Object.entries(struggles).filter(([, n]) => n >= threshold).sort((a, b) => b[1] - a[1]);
   for (const [skillId, count] of struggling) {
-    // The practice KP's key prerequisite is the proximate move the skill most directly uses.
     const practiceKp = knowledgePoints.find((k) => k.skill === skillId && k.kind === 'practice');
-    const keyPrerequisite = practiceKp?.keyPrerequisite;
-    if (keyPrerequisite && (mastery[keyPrerequisite] || 0) < strongMastery) {
-      return { strugglingSkill: skillId, count, keyPrerequisite };
+    if (usable(practiceKp?.keyPrerequisite)) {
+      return { strugglingSkill: skillId, knowledgePoint: null, knowledgePointKind: null, count, keyPrerequisite: practiceKp.keyPrerequisite };
     }
   }
   return null;

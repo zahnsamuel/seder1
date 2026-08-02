@@ -12,6 +12,7 @@ const defaultLearner = (id) => ({
   evidence: {},
   masteryUpdatedAt: {},
   struggles: {},
+  knowledgePointStruggles: {},
   competencies: { recognition: 0, translation: 0, argument: 0, sourceReasoning: 0 },
   profile: { displayName: id === 'demo' ? 'Demo learner' : 'Learner', createdAt: new Date().toISOString() },
   goal: null,
@@ -62,7 +63,7 @@ function withWriteLock(root, fn) {
 function normalizedLearner(learner) {
   if (!learner) return null;
   const base = defaultLearner(learner.id);
-  const merged = { ...base, ...learner, profile: { ...base.profile, ...(learner.profile || {}) }, competencies: { ...base.competencies, ...(learner.competencies || {}) }, evidence: { ...(learner.evidence || {}) }, masteryUpdatedAt: { ...(learner.masteryUpdatedAt || {}) }, struggles: { ...(learner.struggles || {}) }, artifacts: { ...(learner.artifacts || {}) }, foundationScores: { ...(learner.foundationScores || {}) }, capabilityEvidence: [...(learner.capabilityEvidence || learner.artifacts?.jlaCapabilityEvidence || [])], reviewQueue: normalizedReviewQueue(learner.reviewQueue) };
+  const merged = { ...base, ...learner, profile: { ...base.profile, ...(learner.profile || {}) }, competencies: { ...base.competencies, ...(learner.competencies || {}) }, evidence: { ...(learner.evidence || {}) }, masteryUpdatedAt: { ...(learner.masteryUpdatedAt || {}) }, struggles: { ...(learner.struggles || {}) }, knowledgePointStruggles: { ...(learner.knowledgePointStruggles || {}) }, artifacts: { ...(learner.artifacts || {}) }, foundationScores: { ...(learner.foundationScores || {}) }, capabilityEvidence: [...(learner.capabilityEvidence || learner.artifacts?.jlaCapabilityEvidence || [])], reviewQueue: normalizedReviewQueue(learner.reviewQueue) };
   merged.decayedMastery = decayedMasteryMap(merged.mastery, merged.masteryUpdatedAt);
   return merged;
 }
@@ -200,6 +201,10 @@ async function recordLearnerEventUnlocked(root, id, event) {
     const competency = competencyFor(event);
     learner.competencies[competency] = Math.min(1, (learner.competencies[competency] || 0) + (event.correct ? 0.22 : 0.04));
     learner.struggles[event.skillId] = Math.max(0, (learner.struggles[event.skillId] || 0) + (event.correct ? -1 : 1));
+    // Knowledge-point-granular tracking (Math Academy Way): when the answer names the knowledge point
+    // it exercised, count struggle at that KP, so remediation can target the specific KP's key
+    // prerequisite (which varies by KP) rather than only a skill-level proxy.
+    if (event.knowledgePointId) { learner.knowledgePointStruggles ||= {}; learner.knowledgePointStruggles[event.knowledgePointId] = Math.max(0, (learner.knowledgePointStruggles[event.knowledgePointId] || 0) + (event.correct ? -1 : 1)); }
     if (!event.correct) queueReview(learner, event.skillId, { delayHours: reviewDelayHours(learner, event.skillId), reason: 'Revisit this source move while it is still fresh.' });
     if (event.correct && learner.mastery[event.skillId] < .85) {
       // Read the delay (which depends on this skill's prior attempts in the review

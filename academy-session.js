@@ -44,7 +44,9 @@ async function choose(button) {
   document.querySelectorAll('.choice').forEach((item) => { item.disabled = true; });
   $('#continue').disabled = false;
   try {
-    await Seder.api(`/api/learners/${learnerId}/events`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ type:'answer_submitted', skillId, foundationSkillId:skillId, correct, sourceContext:(skill.sourceContexts?.[0]?.ref || 'academy-foundation'), competency:'sourceReasoning' }) });
+    // This graded question is the skill's `check` — its "practice" knowledge point (kp-<skill>-2).
+    // Tagging the event lets remediation track struggle per knowledge point, not only per skill.
+    await Seder.api(`/api/learners/${learnerId}/events`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ type:'answer_submitted', skillId, foundationSkillId:skillId, knowledgePointId:`kp-${skillId}-2`, correct, sourceContext:(skill.sourceContexts?.[0]?.ref || 'academy-foundation'), competency:'sourceReasoning' }) });
   } catch { $('#feedback').textContent += ' Your result is ready locally; it will sync when your account is available.'; }
 }
 

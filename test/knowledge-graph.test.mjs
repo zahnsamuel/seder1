@@ -124,6 +124,34 @@ test('MA remediation routes a struggled skill to its knowledge points’ key pre
   assert.equal(r.count, 2);
 });
 
+test('KP-granular: a specific failed knowledge point routes to its own key prerequisite', () => {
+  const kp = knowledgePoints.find((k) => k.kind === 'practice' && k.keyPrerequisite);
+  const r = keyPrerequisiteRemediation({ knowledgePoints, knowledgePointStruggles: { [kp.id]: 2 }, mastery: {} });
+  assert.equal(r.knowledgePoint, kp.id);
+  assert.equal(r.knowledgePointKind, 'practice');
+  assert.equal(r.keyPrerequisite, kp.keyPrerequisite);
+});
+
+test('different knowledge points of the same skill remediate different foundations', () => {
+  // The whole point of KP granularity: introduce leans on the foundational prerequisite, practice on
+  // the proximate one, so failing each routes to a different foundation.
+  const skill = 'fnd-role-question-vs-answer';
+  const intro = knowledgePoints.find((k) => k.skill === skill && k.kind === 'introduce');
+  const practice = knowledgePoints.find((k) => k.skill === skill && k.kind === 'practice');
+  assert.notEqual(intro.keyPrerequisite, practice.keyPrerequisite);
+  assert.equal(keyPrerequisiteRemediation({ knowledgePoints, knowledgePointStruggles: { [intro.id]: 2 }, mastery: {} }).keyPrerequisite, intro.keyPrerequisite);
+  assert.equal(keyPrerequisiteRemediation({ knowledgePoints, knowledgePointStruggles: { [practice.id]: 2 }, mastery: {} }).keyPrerequisite, practice.keyPrerequisite);
+});
+
+test('KP-granular struggle takes precedence over the skill-level proxy', () => {
+  const skill = 'fnd-role-question-vs-answer';
+  const intro = knowledgePoints.find((k) => k.skill === skill && k.kind === 'introduce');
+  // Skill-level struggle would target the practice key prereq; a failed introduce KP overrides it.
+  const r = keyPrerequisiteRemediation({ knowledgePoints, struggles: { [skill]: 3 }, knowledgePointStruggles: { [intro.id]: 2 }, mastery: {} });
+  assert.equal(r.knowledgePoint, intro.id);
+  assert.equal(r.keyPrerequisite, intro.keyPrerequisite);
+});
+
 test('MA remediation skips a foundation the learner already holds, and low struggle', () => {
   const skill = 'fnd-role-question-vs-answer';
   const key = knowledgePoints.find((k) => k.skill === skill && k.kind === 'practice').keyPrerequisite;

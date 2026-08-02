@@ -76,16 +76,19 @@ function academyFoundationRecommendation(learner) {
 let cachedKpLayer = null, cachedGraphSkills = null;
 async function keyPrerequisiteRemediationFor(root, learner) {
   if (!cachedKpLayer) cachedKpLayer = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-knowledge-points.json'), 'utf8'));
-  const result = keyPrerequisiteRemediation({ knowledgePoints: cachedKpLayer.knowledgePoints, struggles: learner.struggles, mastery: learner.mastery });
+  const result = keyPrerequisiteRemediation({ knowledgePoints: cachedKpLayer.knowledgePoints, struggles: learner.struggles, knowledgePointStruggles: learner.knowledgePointStruggles, mastery: learner.mastery });
   if (!result) return null;
   if (!cachedGraphSkills) cachedGraphSkills = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-skill-graph.json'), 'utf8')).skills;
   const titleOf = (id) => cachedGraphSkills.find((s) => s.id === id)?.title || id;
+  // When the struggle is pinned to a specific knowledge point, name it ("the practice step of X").
+  const where = result.knowledgePointKind ? `the ${result.knowledgePointKind} step of “${titleOf(result.strugglingSkill)}”` : `“${titleOf(result.strugglingSkill)}”`;
   return {
     skillId: result.keyPrerequisite,
     strugglingSkill: result.strugglingSkill,
+    knowledgePoint: result.knowledgePoint,
     count: result.count,
     title: `Shore up the foundation: ${titleOf(result.keyPrerequisite)}`,
-    reason: `You have hit ${result.count} snags on “${titleOf(result.strugglingSkill)}.” The move it leans on most — ${titleOf(result.keyPrerequisite)} — is worth a quick review before you try again.`,
+    reason: `You have hit ${result.count} snags on ${where}. The move it leans on most — ${titleOf(result.keyPrerequisite)} — is worth a quick review before you try again.`,
     url: `academy-session.html?skill=${encodeURIComponent(result.keyPrerequisite)}`,
     repairMode: 'key-prerequisite-review'
   };
