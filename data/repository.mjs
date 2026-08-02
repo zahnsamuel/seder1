@@ -1,8 +1,20 @@
-import { existsSync, promises as fs } from 'node:fs';
+import { existsSync, readFileSync, promises as fs } from 'node:fs';
 import { join } from 'node:path';
 import { decayedMasteryMap, freshnessOf } from './mastery-decay.mjs';
 import { recordAcademyCapabilityEvent } from '../jla-capability-evidence.js';
 import { sqliteEnabled, readAll as sqliteReadAll, writeAll as sqliteWriteAll } from './sqlite-store.mjs';
+import { encompassingReviewSet } from './knowledge-graph.mjs';
+
+// FIRe (The Math Academy Way): the typed-edge layer's full-encompassing relations, loaded once. A
+// prerequisite edge carries encompassing.weight (default 1 — full along a direct prerequisite), so
+// practicing an advanced skill fully reviews the simpler ones beneath it.
+let cachedEncompassingEdges = null;
+function encompassingEdges() {
+  if (cachedEncompassingEdges) return cachedEncompassingEdges;
+  try { cachedEncompassingEdges = JSON.parse(readFileSync(new URL('./foundation-skill-edges.json', import.meta.url), 'utf8')).edges || []; }
+  catch { cachedEncompassingEdges = []; }
+  return cachedEncompassingEdges;
+}
 
 const learnerFile = (root) => join(root, 'data', 'learners.json');
 const defaultLearner = (id) => ({
@@ -101,6 +113,40 @@ export function reviewStatus(learner) {
     due: queue.filter((item) => new Date(item.dueAt).getTime() <= now),
     upcoming: queue.filter((item) => new Date(item.dueAt).getTime() > now)
   };
+}
+
+// FIRe implicit repetition (The Math Academy Way): practicing an advanced skill correctly is itself a
+// retrieval of every simpler skill it fully encompasses. So when a skill is answered correctly, any
+// due skill it covers has its retention credited — decay clock reset and next review pushed out along
+// the same spaced ladder — rather than being surfaced as a separate retrieval. This is what makes the
+// review load shrink as a learner climbs: the more advanced the work, the more it carries beneath it.
+// Auditable, never silent: each credited item records the skill that implicitly reviewed it (coveredBy).
+function creditImplicitReviews(learner, reviewedSkillId, at) {
+  const dueIds = reviewStatus(learner).due.map((item) => item.skillId).filter((id) => id !== reviewedSkillId);
+  if (!dueIds.length) return [];
+  // reviewedSkillId first, so a skill it encompasses is credited to it (encompassingReviewSet keeps the
+  // first encloser it finds). Only skills covered BY the reviewed skill are its implicit repetitions.
+  const { covered } = encompassingReviewSet([reviewedSkillId, ...dueIds], encompassingEdges());
+  const credited = [];
+  for (const [skillId, encloser] of Object.entries(covered)) {
+    if (encloser !== reviewedSkillId) continue;
+    queueReview(learner, skillId, { delayHours: reviewDelayHours(learner, skillId) || 24, reason: 'Kept fresh by a more advanced skill you just practiced.' });
+    const item = learner.reviewQueue.find((entry) => entry.skillId === skillId);
+    if (item) item.coveredBy = reviewedSkillId;
+    if (learner.masteryUpdatedAt) learner.masteryUpdatedAt[skillId] = at; // it was exercised — reset decay
+    credited.push(skillId);
+  }
+  return credited;
+}
+
+// The FIRe review plan for a learner: the smallest set of due skills to actually retrieve, plus which
+// due skills each one covers implicitly (auditable), and how many retrievals FIRe removes. The write
+// side (creditImplicitReviews) keeps the queue compressed over time; this is the read-side view of it.
+export function fireReviewPlan(learner) {
+  const due = reviewStatus(learner).due;
+  const { practice, covered } = encompassingReviewSet(due.map((item) => item.skillId), encompassingEdges());
+  const practiceSet = new Set(practice);
+  return { practice: due.filter((item) => practiceSet.has(item.skillId)), covered, saved: Object.keys(covered).length };
 }
 
 // Skills a learner once established (raw evidence >= .67) that have quietly faded
@@ -218,6 +264,9 @@ async function recordLearnerEventUnlocked(root, id, event) {
     } else if (event.correct && learner.mastery[event.skillId] >= .67) {
       learner.reviewQueue = learner.reviewQueue.filter((item) => item.skillId !== event.skillId);
     }
+    // FIRe: a correct answer also implicitly reviews the simpler skills this one fully encompasses,
+    // crediting any that are currently due so they leave the queue instead of being retrieved twice.
+    if (event.correct) creditImplicitReviews(learner, event.skillId, recorded.at);
   }
   if (event.type === 'answer_submitted' && event.jlaCapability) {
     learner.capabilityEvidence = recordAcademyCapabilityEvent(learner.capabilityEvidence, event, new Date(recorded.at));

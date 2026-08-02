@@ -3,7 +3,7 @@ import { createServer } from 'node:http';
 import { extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { callYochaiTool } from './yochai-adapter.mjs';
-import { createLearner, decayingSkills, deleteLearner, getLearner, listLearners, listLearnersFull, recordLearnerEvent, reviewStatus } from './data/repository.mjs';
+import { createLearner, decayingSkills, deleteLearner, fireReviewPlan, getLearner, listLearners, listLearnersFull, recordLearnerEvent, reviewStatus } from './data/repository.mjs';
 import { supabaseConfig, verifySupabaseAccessToken } from './data/supabase-adapter.mjs';
 import { deleteHostedLearnerData, getHostedLearner, recordHostedEvent } from './data/supabase-learner-repository.mjs';
 import { initSqlite, sqliteEnabled, issueToken, verifyToken, revokeTokens, closeSqlite } from './data/sqlite-store.mjs';
@@ -452,7 +452,9 @@ async function handleApi(request, response, url) {
   const reviewMatch = url.pathname.match(/^\/api\/learners\/([a-zA-Z0-9_-]+)\/review$/);
   if (request.method === 'GET' && reviewMatch) {
     const { learner } = await readLearner(request, reviewMatch[1]);
-    sendJson(response, 200, reviewStatus(learner));
+    // FIRe (The Math Academy Way): alongside the full due/upcoming queue, the compressed plan — the
+    // smallest set to actually retrieve and which due skills each covers implicitly.
+    sendJson(response, 200, { ...reviewStatus(learner), fire: fireReviewPlan(learner) });
     return true;
   }
   const reviewItemsMatch = url.pathname.match(/^\/api\/learners\/([a-zA-Z0-9_-]+)\/review-items$/);
