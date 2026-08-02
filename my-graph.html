@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Jewish Learning Academy · Your Map</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="my-graph.css">
+</head>
+<body>
+  <header><a href="seder.html">Jewish Learning Academy</a><nav><a href="path.html">My Path</a><a href="daily-router.html">Today</a><a href="profile.html">Profile</a></nav><strong id="xp"></strong></header>
+  <main>
+    <section class="intro">
+      <span class="eyebrow">YOUR MAP THROUGH THE GRAPH</span>
+      <h1>Every reading move, and where you are.</h1>
+      <p id="summary">Reading your evidence…</p>
+      <div class="legend" role="list">
+        <span role="listitem"><i class="k mastered"></i> Mastered</span>
+        <span role="listitem"><i class="k frontier"></i> Ready now</span>
+        <span role="listitem"><i class="k locked"></i> Ahead</span>
+      </div>
+    </section>
+    <section class="map-wrap" aria-label="Your knowledge graph">
+      <div class="map-scroll"><svg id="map" class="map"></svg></div>
+    </section>
+    <section id="detail" class="detail"><p class="hint">Tap any move on the map to see what it builds on and unlocks.</p></section>
+  </main>
+  <script src="seder-auth.js?v=2"></script><script src="capability-state.js"></script><script src="my-graph.js?v=1"></script>
+</body>
+</html>
