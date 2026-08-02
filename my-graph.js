@@ -1,14 +1,10 @@
 // Your map through the graph: the whole 49-skill foundation graph, coloured by where the learner is —
 // mastered (secured), frontier (ready now: every prerequisite secured), or ahead (still locked). The
 // big-picture companion to My Path's frontier list. Grounded in the learner's own evidence.
-const learnerId = Seder.currentLearnerId();
 const esc = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const set = (sel, fn) => { const el = document.querySelector(sel); if (el) fn(el); };
 
-Promise.all([
-  Seder.api(`/api/learners/${learnerId}`).then((r) => (r.ok ? r.json() : {})).catch(() => ({})),
-  fetch('data/foundation-skill-graph.json').then((r) => r.json())
-]).then(([learner, graph]) => {
+function render(learner, graph) {
   const skills = graph.skills || [];
   const layers = graph.layers || [];
   const foundationScores = learner.foundationScores || {};
@@ -81,6 +77,18 @@ Promise.all([
   // Open on the first frontier move so the page is never empty of guidance.
   const firstFrontier = skills.find((s) => state.get(s.id) === 'frontier');
   if (firstFrontier) showDetail(firstFrontier.id);
-}).catch(() => {
-  set('#summary', (el) => { el.textContent = 'Sign in to see your map through the graph.'; });
-});
+}
+
+// Static demo mode: a baked {learner, graph} in a <script id="demo-data"> renders without any login
+// or API (the shareable demo-map artifact). Otherwise fetch the signed-in learner's real evidence.
+const embedded = document.getElementById('demo-data');
+if (embedded) {
+  try { const data = JSON.parse(embedded.textContent); render(data.learner || {}, data.graph); } catch (e) { /* malformed demo data */ }
+} else {
+  const learnerId = Seder.currentLearnerId();
+  Promise.all([
+    Seder.api(`/api/learners/${learnerId}`).then((r) => (r.ok ? r.json() : {})).catch(() => ({})),
+    fetch('data/foundation-skill-graph.json').then((r) => r.json())
+  ]).then(([learner, graph]) => render(learner, graph))
+    .catch(() => { set('#summary', (el) => { el.textContent = 'Sign in to see your map through the graph.'; }); });
+}

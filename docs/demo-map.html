@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Your Map Through the Graph — JLA (demo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#183b4e;--teal:#276b68;--paper:#fbfaf6;--surface:#fff;--line:#d8d9d1;--muted:#5e6a70;--gold:#8a601e;--ink:#1e2c34;
+  --mastered:#2f7d5b;--mastered-soft:#e3efe8;--frontier:#b0812a;--frontier-soft:#f6eede;--locked:#c1c6bf;
+}
+@media (prefers-color-scheme:dark){:root{
+  --navy:#9cc2d0;--teal:#5aa89c;--paper:#0f151a;--surface:#161f26;--line:#28333b;--muted:#93a3ab;--gold:#d3a659;--ink:#e7edf1;
+  --mastered:#5ec392;--mastered-soft:#132a20;--frontier:#d3a659;--frontier-soft:#2a2410;--locked:#3a464e;
+}}
+:root[data-theme="light"]{--navy:#183b4e;--teal:#276b68;--paper:#fbfaf6;--surface:#fff;--line:#d8d9d1;--muted:#5e6a70;--gold:#8a601e;--ink:#1e2c34;--mastered:#2f7d5b;--mastered-soft:#e3efe8;--frontier:#b0812a;--frontier-soft:#f6eede;--locked:#c1c6bf}
+:root[data-theme="dark"]{--navy:#9cc2d0;--teal:#5aa89c;--paper:#0f151a;--surface:#161f26;--line:#28333b;--muted:#93a3ab;--gold:#d3a659;--ink:#e7edf1;--mastered:#5ec392;--mastered-soft:#132a20;--frontier:#d3a659;--frontier-soft:#2a2410;--locked:#3a464e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,Arial,sans-serif}
+header{height:70px;padding:0 8%;display:flex;align-items:center;gap:26px;border-bottom:1px solid var(--line)}
+header>a{color:var(--navy);font:500 22px Fraunces,serif;text-decoration:none}
+nav{display:flex;gap:20px;flex:1}
+nav a{color:var(--muted);font-size:13px;text-decoration:none}
+nav a:hover{color:var(--ink)}
+header strong{color:var(--teal);font:600 13px 'DM Mono'}
+main{max-width:1000px;margin:0 auto;padding:0 5%}
+.intro{padding:46px 0 22px}
+.eyebrow{color:var(--gold);font:700 11px 'DM Mono';letter-spacing:.14em}
+.intro h1{margin:10px 0 8px;color:var(--navy);font:500 clamp(1.9rem,4.5vw,2.9rem)/1.05 Fraunces,serif;letter-spacing:-.02em}
+.intro #summary{margin:0;color:var(--muted);font-size:1.05rem;max-width:60ch;line-height:1.55}
+.intro #summary b{color:var(--ink);font-weight:600}
+.legend{display:flex;gap:18px;margin-top:18px;flex-wrap:wrap}
+.legend span{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted)}
+.legend .k{width:11px;height:11px;border-radius:50%;flex:none}
+.k.mastered{background:var(--mastered)}
+.k.frontier{background:var(--frontier);box-shadow:0 0 0 3px var(--frontier-soft)}
+.k.locked{background:var(--locked)}
+
+.map-wrap{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 30px rgba(24,59,78,.06);overflow:hidden}
+.map-scroll{overflow-x:auto}
+svg.map{display:block;min-width:680px;width:100%}
+svg.map text.lyr{font:600 10px 'DM Mono';fill:var(--muted);opacity:.7;letter-spacing:.06em}
+svg.map .node{cursor:pointer}
+svg.map .node circle{transition:r .12s, stroke-width .12s}
+svg.map .node.mastered circle{fill:var(--mastered);stroke:var(--surface);stroke-width:1.5}
+svg.map .node.frontier circle{fill:var(--frontier);stroke:var(--frontier-soft);stroke-width:3}
+svg.map .node.locked circle{fill:var(--locked);stroke:var(--surface);stroke-width:1.5}
+svg.map .node:hover circle,svg.map .node:focus circle{stroke:var(--navy);stroke-width:2.5;outline:none}
+svg.map .node.sel circle{stroke:var(--navy);stroke-width:3}
+
+.detail{margin:16px 0 60px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 22px;min-height:96px}
+.detail .hint{margin:0;color:var(--muted);font-size:.95rem}
+.detail .state{display:inline-flex;align-items:center;gap:7px;font:700 10px 'DM Mono';letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
+.detail .state.mastered{color:var(--mastered);background:var(--mastered-soft)}
+.detail .state.frontier{color:var(--frontier);background:var(--frontier-soft)}
+.detail .state.locked{color:var(--muted);background:transparent;border:1px solid var(--line)}
+.detail h2{margin:11px 0 4px;color:var(--navy);font:500 1.5rem Fraunces,serif}
+.detail .stmt{margin:0;color:var(--muted);font-size:.98rem;line-height:1.5}
+.detail .rel{display:grid;gap:10px;margin-top:16px}
+.detail .rel .row{font-size:.92rem}
+.detail .rel .lbl{font:700 10px 'DM Mono';letter-spacing:.08em;color:var(--teal);text-transform:uppercase;margin-right:8px}
+.detail .rel b{color:var(--ink);font-weight:600}
+.detail .chip{display:inline-block;margin:3px 6px 0 0;padding:3px 9px;border-radius:7px;background:var(--paper);border:1px solid var(--line);font-size:12.5px}
+.detail .chip.done{color:var(--mastered);border-color:var(--mastered)}
+.detail a.practice{display:inline-block;margin-top:16px;padding:10px 15px;border-radius:9px;background:var(--navy);color:#fff;font:600 13px Inter;text-decoration:none}
+.detail a.practice:hover{filter:brightness(1.1)}
+@media(max-width:640px){header{padding:0 5%;gap:14px}nav a:nth-child(n+2){display:none}}
+
+.demo-banner{background:var(--frontier-soft);color:var(--gold);border-bottom:1px solid var(--line);font:600 12px 'DM Mono',monospace;letter-spacing:.04em;text-align:center;padding:8px 16px}
+header a[href="#"]{cursor:default}
+</style>
+</head>
+<body>
+<div class="demo-banner">DEMO · an illustrative learner's progress — the live map reads each learner's own evidence</div>
+<header><a href="#">Jewish Learning Academy</a><nav><span style="color:var(--muted);font-size:13px">Skill graph · foundation year</span></nav></header>
+<main>
+  <section class="intro">
+    <span class="eyebrow">YOUR MAP THROUGH THE GRAPH</span>
+    <h1>Every reading move, and where you are.</h1>
+    <p id="summary">Reading your evidence…</p>
+    <div class="legend" role="list">
+      <span role="listitem"><i class="k mastered"></i> Mastered</span>
+      <span role="listitem"><i class="k frontier"></i> Ready now</span>
+      <span role="listitem"><i class="k locked"></i> Ahead</span>
+    </div>
+  </section>
+  <section class="map-wrap" aria-label="The knowledge graph">
+    <div class="map-scroll"><svg id="map" class="map"></svg></div>
+  </section>
+  <section id="detail" class="detail"><p class="hint">Tap any move on the map to see what it builds on and unlocks.</p></section>
+</main>
+<script type="application/json" id="demo-data">{"learner":{"foundationScores":{"fnd-orient-source-type":1,"fnd-signal-known-words":1,"fnd-orient-speaker":1,"fnd-orient-question-present":1,"fnd-signal-question-words":1,"fnd-role-question-vs-answer":1,"fnd-signal-name-formulas":1,"fnd-role-example":1,"fnd-case-actors":1,"fnd-case-what-happens":1,"fnd-case-restate":1,"fnd-arg-claim":1}},"graph":{"layers":[{"n":1,"title":"Orientation"},{"n":2,"title":"Text signals"},{"n":3,"title":"Source roles"},{"n":4,"title":"Case mapping"},{"n":5,"title":"Argument tracking"},{"n":6,"title":"Comparison"},{"n":7,"title":"Context"},{"n":8,"title":"Practice & responsibility"},{"n":9,"title":"Independent reading"},{"n":10,"title":"Learning agency"}],"skills":[{"id":"fnd-orient-source-type","layer":1,"title":"Tell what kind of text you are looking at","statement":"You can say whether a source is Torah, Mishnah, Gemara, commentary, a code, or a prayer.","prerequisites":[]},{"id":"fnd-orient-page-geography","layer":1,"title":"Find the main text and what surrounds it","statement":"You can locate the primary text on a page and tell it apart from what is wrapped around it.","prerequisites":["fnd-orient-source-type"]},{"id":"fnd-orient-speaker","layer":1,"title":"Identify who is speaking","statement":"You can tell who is speaking or being quoted in a source.","prerequisites":["fnd-orient-source-type"]},{"id":"fnd-orient-unit-boundary","layer":1,"title":"Find where one idea starts and stops","statement":"You can mark where a single unit of thought begins and ends.","prerequisites":["fnd-orient-page-geography"]},{"id":"fnd-orient-question-present","layer":1,"title":"Notice when a source is asking, not telling","statement":"You can tell whether a line is asking a question or stating something.","prerequisites":["fnd-orient-speaker"]},{"id":"fnd-signal-known-words","layer":2,"title":"Recognize a bank of high-frequency words","statement":"You can sight-read a growing bank of common Hebrew and Aramaic words without stopping to decode.","prerequisites":["fnd-orient-source-type"]},{"id":"fnd-signal-sentence-structure","layer":2,"title":"Read the grammatical skeleton of a sentence","statement":"You can find the action, its subject, and the shape of a sentence before you know every word.","prerequisites":["fnd-signal-known-words"]},{"id":"fnd-signal-question-words","layer":2,"title":"Recognize question-signal words","statement":"You can spot the words that flag a question and predict what kind of answer they want.","prerequisites":["fnd-signal-known-words","fnd-orient-question-present"]},{"id":"fnd-signal-connectors","layer":2,"title":"Recognize argument connectors","statement":"You can recognize the small words that mean 'therefore', 'but', 'as it says', and 'this teaches'.","prerequisites":["fnd-signal-known-words"]},{"id":"fnd-signal-quotation","layer":2,"title":"Notice when a source quotes another source","statement":"You can tell when a source is bringing in another text rather than speaking in its own voice.","prerequisites":["fnd-signal-connectors"]},{"id":"fnd-signal-name-formulas","layer":2,"title":"Recognize attribution formulas","statement":"You can recognize the standard 'Rabbi X said' patterns that assign a statement to a voice.","prerequisites":["fnd-signal-known-words","fnd-orient-speaker"]},{"id":"fnd-role-text-vs-commentary","layer":3,"title":"Tell primary text from commentary","statement":"You can separate a primary text from a comment written about it.","prerequisites":["fnd-orient-page-geography","fnd-signal-quotation"]},{"id":"fnd-role-translation-gap","layer":3,"title":"Notice where a translation makes a choice","statement":"You can see where a translation adds, drops, or chooses a meaning the original leaves open.","prerequisites":["fnd-signal-known-words"]},{"id":"fnd-role-question-vs-answer","layer":3,"title":"Label question, answer, or restatement","statement":"You can label a line as a question, an answer, or a restatement of what came before.","prerequisites":["fnd-signal-question-words","fnd-orient-question-present"]},{"id":"fnd-role-example","layer":3,"title":"Recognize a worked example","statement":"You can tell when a source drops into a concrete case to make a point.","prerequisites":["fnd-role-question-vs-answer"]},{"id":"fnd-role-ruling-vs-discussion","layer":3,"title":"Distinguish a ruling from a discussion","statement":"You can tell a settled ruling from open discussion around it.","prerequisites":["fnd-role-question-vs-answer"]},{"id":"fnd-case-actors","layer":4,"title":"Identify who acts","statement":"You can name who is acting in a case and what they do.","prerequisites":["fnd-signal-name-formulas","fnd-role-example"]},{"id":"fnd-case-what-happens","layer":4,"title":"State what happens in plain language","statement":"You can restate the situation of a case in ordinary words.","prerequisites":["fnd-case-actors"]},{"id":"fnd-case-uncertainty","layer":4,"title":"Name what is uncertain","statement":"You can name the point of uncertainty or dispute at the heart of a case.","prerequisites":["fnd-case-what-happens","fnd-role-ruling-vs-discussion"]},{"id":"fnd-case-what-changes","layer":4,"title":"Find the factor that changes the outcome","statement":"You can identify the detail that would change how a case comes out.","prerequisites":["fnd-case-uncertainty"]},{"id":"fnd-case-restate","layer":4,"title":"Restate a case in your own words","statement":"You can retell a case accurately without leaning on its original wording.","prerequisites":["fnd-case-what-happens"]},{"id":"fnd-case-category","layer":4,"title":"Classify the case into a category","statement":"You can name the legal or conceptual category a case falls under and why.","prerequisites":["fnd-case-what-happens"]},{"id":"fnd-case-procedure","layer":4,"title":"Follow the order of a procedure","statement":"You can put the steps of a procedure in order and say why the order matters.","prerequisites":["fnd-case-what-happens"]},{"id":"fnd-case-obligation","layer":4,"title":"Identify who is obligated and who is exempt","statement":"You can say who a rule obligates, who it exempts, and on what ground.","prerequisites":["fnd-case-what-happens"]},{"id":"fnd-arg-claim","layer":5,"title":"State the claim","statement":"You can state, in one sentence, the claim a source is making.","prerequisites":["fnd-role-question-vs-answer","fnd-case-restate"]},{"id":"fnd-arg-evidence-role","layer":5,"title":"Say what a cited source is doing","statement":"You can say whether a cited source supports, challenges, clarifies, or distinguishes a claim.","prerequisites":["fnd-signal-quotation","fnd-arg-claim"]},{"id":"fnd-arg-objection","layer":5,"title":"Mark an objection","statement":"You can mark an objection and describe the pressure it puts on a claim.","prerequisites":["fnd-arg-claim","fnd-signal-connectors"]},{"id":"fnd-arg-response","layer":5,"title":"Follow the response","statement":"You can follow how a response answers, narrows, or reframes an objection.","prerequisites":["fnd-arg-objection","fnd-arg-evidence-role"]},{"id":"fnd-arg-unresolved","layer":5,"title":"Recognize an open tension","statement":"You can recognize when a source leaves a tension unresolved on purpose.","prerequisites":["fnd-arg-response"]},{"id":"fnd-compare-shared-question","layer":6,"title":"Find the shared question","statement":"You can find the common question that two sources are both answering.","prerequisites":["fnd-arg-claim"]},{"id":"fnd-compare-divergence","layer":6,"title":"Name where readings diverge","statement":"You can name the exact point where two readings part ways.","prerequisites":["fnd-compare-shared-question","fnd-arg-response"]},{"id":"fnd-compare-strongest-form","layer":6,"title":"State each side at its strongest","statement":"You can give each side of a disagreement its strongest form before contrasting them.","prerequisites":["fnd-compare-divergence"]},{"id":"fnd-compare-scope","layer":6,"title":"Tell a real dispute from a scope difference","statement":"You can tell whether two sources truly disagree or are simply talking about different cases.","prerequisites":["fnd-compare-divergence","fnd-case-what-changes"]},{"id":"fnd-context-when-where","layer":7,"title":"Place a source in time and place","statement":"You can place a source in a rough time and place.","prerequisites":["fnd-orient-source-type"]},{"id":"fnd-context-who-audience","layer":7,"title":"Ask who made it and for whom","statement":"You can ask who produced a source and which community it addressed.","prerequisites":["fnd-context-when-where","fnd-case-actors"]},{"id":"fnd-context-genre-expectations","layer":7,"title":"Let the genre set your expectations","statement":"You can use a source's genre to decide how it should and should not be read.","prerequisites":["fnd-orient-source-type","fnd-role-ruling-vs-discussion"]},{"id":"fnd-context-evidence-kind","layer":7,"title":"Judge what evidence a source can give","statement":"You can judge what kind of evidence a source can and cannot provide.","prerequisites":["fnd-context-who-audience"]},{"id":"fnd-resp-learning-vs-ruling","layer":8,"title":"Tell learning apart from a ruling","statement":"You can tell the difference between studying a halakhic source and receiving a ruling for yourself.","prerequisites":["fnd-role-ruling-vs-discussion","fnd-context-genre-expectations"]},{"id":"fnd-resp-preserve-disagreement","layer":8,"title":"Hold more than one view","statement":"You can hold more than one legitimate view without collapsing it into one.","prerequisites":["fnd-compare-strongest-form"]},{"id":"fnd-resp-name-limits","layer":8,"title":"Name the limits of what you learned","statement":"You can name the boundaries of what your reading has and has not established.","prerequisites":["fnd-resp-learning-vs-ruling","fnd-arg-unresolved"]},{"id":"fnd-resp-when-to-ask","layer":8,"title":"Know when to ask a person","statement":"You can recognize when a question needs a teacher or posek rather than a search.","prerequisites":["fnd-resp-learning-vs-ruling"]},{"id":"fnd-indep-first-pass","layer":9,"title":"Make a scaffolded first pass","statement":"You can make a supported first pass through an unfamiliar short source.","prerequisites":["fnd-arg-response","fnd-role-text-vs-commentary","fnd-signal-connectors"]},{"id":"fnd-indep-map-lines","layer":9,"title":"Map each line's job","statement":"You can label the job of each line in an unfamiliar passage before using a full translation.","prerequisites":["fnd-indep-first-pass","fnd-case-restate"]},{"id":"fnd-indep-use-translation-to-check","layer":9,"title":"Use translation to check, not to skip","statement":"You can use a translation to verify your reading rather than to replace it.","prerequisites":["fnd-indep-map-lines","fnd-role-translation-gap"]},{"id":"fnd-indep-carry-across-genre","layer":9,"title":"Carry a reading move across genres","statement":"You can apply a reading move in a genre you never practiced it in.","prerequisites":["fnd-indep-map-lines","fnd-compare-shared-question","fnd-context-genre-expectations"]},{"id":"fnd-agency-ask-question","layer":10,"title":"Ask a good question","statement":"You can ask a clear, answerable question about a source.","prerequisites":["fnd-arg-unresolved","fnd-case-uncertainty"]},{"id":"fnd-agency-use-tools","layer":10,"title":"Use a source tool on purpose","statement":"You can choose and use a dictionary, commentary, or cross-reference deliberately.","prerequisites":["fnd-role-text-vs-commentary","fnd-indep-use-translation-to-check"]},{"id":"fnd-agency-record-uncertainty","layer":10,"title":"Record what you don't yet understand","statement":"You can record your open uncertainties honestly and in a form you can return to.","prerequisites":["fnd-resp-name-limits","fnd-agency-ask-question"]},{"id":"fnd-agency-choose-next","layer":10,"title":"Choose your next study move","statement":"You can choose your next study move and explain why it is next.","prerequisites":["fnd-agency-record-uncertainty","fnd-indep-carry-across-genre"]}]}}</script>
+<script>// Your map through the graph: the whole 49-skill foundation graph, coloured by where the learner is —
+// mastered (secured), frontier (ready now: every prerequisite secured), or ahead (still locked). The
+// big-picture companion to My Path's frontier list. Grounded in the learner's own evidence.
+const esc = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const set = (sel, fn) => { const el = document.querySelector(sel); if (el) fn(el); };
+
+function render(learner, graph) {
+  const skills = graph.skills || [];
+  const layers = graph.layers || [];
+  const foundationScores = learner.foundationScores || {};
+  const mastery = learner.mastery || {};
+  const isSecure = (id) => Math.max(foundationScores[id] || 0, mastery[id] || 0) >= 0.67;
+  const byId = new Map(skills.map((s) => [s.id, s]));
+  const titleOf = (id) => byId.get(id)?.title || id;
+  const stateOf = (s) => isSecure(s.id) ? 'mastered' : (s.prerequisites || []).every(isSecure) ? 'frontier' : 'locked';
+  const state = new Map(skills.map((s) => [s.id, stateOf(s)]));
+  const successors = new Map(skills.map((s) => [s.id, skills.filter((x) => (x.prerequisites || []).includes(s.id))]));
+
+  const counts = { mastered: 0, frontier: 0, locked: 0 };
+  skills.forEach((s) => { counts[state.get(s.id)] += 1; });
+  set('#xp', (el) => { el.textContent = counts.mastered ? `${counts.mastered} on your own` : ''; });
+  set('#summary', (el) => {
+    el.innerHTML = counts.mastered
+      ? `You have mastered <b>${counts.mastered}</b> reading move${counts.mastered === 1 ? '' : 's'}. <b>${counts.frontier}</b> ${counts.frontier === 1 ? 'is' : 'are'} ready now; <b>${counts.locked}</b> lie ahead. The gold moves are the ones your evidence says you are ready to learn next.`
+      : `The whole map of ${skills.length} reading moves. <b>${counts.frontier}</b> ${counts.frontier === 1 ? 'is' : 'are'} ready to begin; the rest open up as you secure each one.`;
+  });
+
+  // ---- layered layout ----
+  const layerNums = [...new Set(skills.map((s) => s.layer))].sort((a, b) => a - b);
+  const byLayer = {}; skills.forEach((s) => { (byLayer[s.layer] = byLayer[s.layer] || []).push(s); });
+  const W = 920, rowH = 58, padX = 58, padTop = 30, padBot = 26;
+  const H = padTop + padBot + layerNums.length * rowH;
+  const pos = {};
+  layerNums.forEach((L, li) => {
+    const row = byLayer[L]; const y = padTop + li * rowH + 16;
+    row.forEach((s, i) => { const x = padX + (row.length === 1 ? (W - 2 * padX) / 2 : i * ((W - 2 * padX) / (row.length - 1))); pos[s.id] = { x, y }; });
+  });
+
+  let g = '';
+  for (const s of skills) for (const p of s.prerequisites || []) {
+    const a = pos[p], b = pos[s.id]; if (!a || !b) continue;
+    const hot = state.get(s.id) === 'frontier' && isSecure(p); // a secured move feeding a ready-now one
+    g += `<path d="M${a.x} ${a.y} C ${a.x} ${(a.y + b.y) / 2}, ${b.x} ${(a.y + b.y) / 2}, ${b.x} ${b.y}" fill="none" stroke="${hot ? 'var(--frontier)' : 'var(--line)'}" stroke-width="${hot ? 1.5 : 1}" opacity="${hot ? 0.8 : 0.5}"/>`;
+  }
+  layerNums.forEach((L, li) => { g += `<text class="lyr" x="10" y="${padTop + li * rowH + 20}">${L}</text>`; });
+  for (const s of skills) {
+    const p = pos[s.id]; const st = state.get(s.id);
+    g += `<g class="node ${st}" data-id="${esc(s.id)}" tabindex="0" role="button" aria-label="${esc(s.title)} — ${st}"><title>${esc(s.title)} — ${st}</title><circle cx="${p.x}" cy="${p.y}" r="${st === 'frontier' ? 8 : 6.5}"></circle></g>`;
+  }
+  const svg = document.getElementById('map');
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('height', H);
+  svg.innerHTML = g;
+
+  // ---- detail panel ----
+  const stateLabel = { mastered: 'Mastered', frontier: 'Ready now', locked: 'Ahead' };
+  function showDetail(id) {
+    const s = byId.get(id); if (!s) return;
+    const st = state.get(id);
+    svg.querySelectorAll('.node.sel').forEach((n) => n.classList.remove('sel'));
+    svg.querySelector(`.node[data-id="${CSS.escape(id)}"]`)?.classList.add('sel');
+    const prereqs = (s.prerequisites || []).map((p) => `<span class="chip ${isSecure(p) ? 'done' : ''}">${esc(titleOf(p))}</span>`).join('') || '<span class="chip">— a starting move</span>';
+    const opens = (successors.get(id) || []).map((x) => `<span class="chip">${esc(x.title)}</span>`).join('') || '<span class="chip">completes its layer</span>';
+    const layer = layers.find((x) => x.n === s.layer);
+    const practice = st === 'locked' ? '' : `<a class="practice" href="academy-session.html?skill=${encodeURIComponent(id)}">${st === 'mastered' ? 'Practice again →' : 'Practice this move →'}</a>`;
+    document.getElementById('detail').innerHTML =
+      `<span class="state ${st}">${stateLabel[st]}</span>` +
+      `<h2>${esc(s.title)}</h2><p class="stmt">${esc(s.statement || '')}</p>` +
+      `<div class="rel"><div class="row"><span class="lbl">Layer ${s.layer}</span><b>${esc(layer?.title || '')}</b></div>` +
+      `<div class="row"><span class="lbl">Builds on</span>${prereqs}</div>` +
+      `<div class="row"><span class="lbl">Unlocks</span>${opens}</div></div>${practice}`;
+  }
+  svg.querySelectorAll('.node').forEach((n) => {
+    n.addEventListener('click', () => showDetail(n.dataset.id));
+    n.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showDetail(n.dataset.id); } });
+  });
+  // Open on the first frontier move so the page is never empty of guidance.
+  const firstFrontier = skills.find((s) => state.get(s.id) === 'frontier');
+  if (firstFrontier) showDetail(firstFrontier.id);
+}
+
+// Static demo mode: a baked {learner, graph} in a <script id="demo-data"> renders without any login
+// or API (the shareable demo-map artifact). Otherwise fetch the signed-in learner's real evidence.
+const embedded = document.getElementById('demo-data');
+if (embedded) {
+  try { const data = JSON.parse(embedded.textContent); render(data.learner || {}, data.graph); } catch (e) { /* malformed demo data */ }
+} else {
+  const learnerId = Seder.currentLearnerId();
+  Promise.all([
+    Seder.api(`/api/learners/${learnerId}`).then((r) => (r.ok ? r.json() : {})).catch(() => ({})),
+    fetch('data/foundation-skill-graph.json').then((r) => r.json())
+  ]).then(([learner, graph]) => render(learner, graph))
+    .catch(() => { set('#summary', (el) => { el.textContent = 'Sign in to see your map through the graph.'; }); });
+}
+</script>
+</body>
+</html>
