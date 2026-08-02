@@ -157,7 +157,8 @@ function render(learner, graph) {
     const prereqs = (s.prerequisites || []).map((p) => `<span class="chip ${isSecure(p) ? 'done' : ''}">${esc(titleOf(p))}</span>`).join('') || '<span class="chip">— a starting move</span>';
     const opens = (successors.get(id) || []).map((x) => `<span class="chip">${esc(x.title)}</span>`).join('') || '<span class="chip">completes its layer</span>';
     const layer = layers.find((x) => x.n === s.layer);
-    const practice = st === 'locked' ? '' : `<a class="practice" href="academy-session.html?skill=${encodeURIComponent(id)}">${st === 'mastered' ? 'Practice again →' : 'Practice this move →'}</a>`;
+    const practiceUrl = id.startsWith('fnd-decode-') ? 'hebrew-decoding.html' : `academy-session.html?skill=${encodeURIComponent(id)}`;
+    const practice = st === 'locked' ? '' : `<a class="practice" href="${practiceUrl}">${st === 'mastered' ? 'Practice again →' : 'Practice this move →'}</a>`;
     document.getElementById('detail').innerHTML =
       `<span class="state ${st}">${stateLabel[st]}</span>` +
       `<h2>${esc(s.title)}</h2><p class="stmt">${esc(s.statement || '')}</p>` +

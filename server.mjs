@@ -74,7 +74,10 @@ function academyFoundationRecommendation(learner) {
   const prior = nextIndex > 0 ? sequence[nextIndex - 1] : null;
   const priorSecured = prior && Math.max(scores[prior[0]] || 0, learner.mastery?.[prior[0]] || 0) >= .67;
   const upcoming = sequence[nextIndex + 1] || null;
-  return { kind: 'academy-foundation', title: `Academy Foundation · ${next[1]}`, reason: next[2], url: `daily-router.html?foundationSkill=${encodeURIComponent(next[0])}`, skillId: next[0], foundation: true, builtOn: priorSecured ? prior[1] : null, unlocks: upcoming ? upcoming[1] : null };
+  // Layer-0 decoding skills open the real glyph drills (which record graph mastery); the rest go
+  // through the daily router into the scaffolded knowledge-point lesson.
+  const url = next[0].startsWith('fnd-decode-') ? 'hebrew-decoding.html' : `daily-router.html?foundationSkill=${encodeURIComponent(next[0])}`;
+  return { kind: 'academy-foundation', title: `Academy Foundation · ${next[1]}`, reason: next[2], url, skillId: next[0], foundation: true, builtOn: priorSecured ? prior[1] : null, unlocks: upcoming ? upcoming[1] : null };
 }
 
 // Build the Math-Academy-Way key-prerequisite remediation from the knowledge-point layer: a struggled

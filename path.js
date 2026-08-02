@@ -69,7 +69,10 @@ Promise.all([
     const shown = frontier.slice(0, 6);
     skillCard.innerHTML = shown.map((skill) => {
       const layer = graph.layers?.find((item) => item.n === skill.layer);
-      return `<article class="frontier-card"><span>LAYER ${skill.layer} · ${escapeHtml((layer?.title || 'FOUNDATION').toUpperCase())}</span><strong>${escapeHtml(skill.title)}</strong><small>${escapeHtml(skill.statement)}</small><p class="why-next"><span>WHY NOW</span>${explainNextSkill(skill)}</p><a href="academy-session.html?skill=${encodeURIComponent(skill.id)}">Practice →</a></article>`;
+      // Layer-0 decoding skills route to the real glyph drills (which now record graph mastery);
+      // everything else opens the scaffolded knowledge-point lesson.
+      const practiceUrl = skill.id.startsWith('fnd-decode-') ? 'hebrew-decoding.html' : `academy-session.html?skill=${encodeURIComponent(skill.id)}`;
+      return `<article class="frontier-card"><span>LAYER ${skill.layer} · ${escapeHtml((layer?.title || 'FOUNDATION').toUpperCase())}</span><strong>${escapeHtml(skill.title)}</strong><small>${escapeHtml(skill.statement)}</small><p class="why-next"><span>WHY NOW</span>${explainNextSkill(skill)}</p><a href="${practiceUrl}">Practice →</a></article>`;
     }).join('') + (frontier.length > shown.length ? `<p class="frontier-more">and ${frontier.length - shown.length} more open once you secure one of these.</p>` : '');
     if (title) title.textContent = 'Ready now — your knowledge frontier';
     if (copy) copy.textContent = masteredCount
