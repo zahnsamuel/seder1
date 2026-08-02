@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -7,17 +7,44 @@
   <link rel="stylesheet" href="academy-session.css">
 </head>
 <body>
-  <header><a href="seder.html">Jewish Learning Academy</a><span>JEWISH LEARNING ACADEMY</span><a href="daily-router.html">Today</a></header>
+  <header><a href="seder.html">Jewish Learning Academy</a><span>JEWISH LEARNING ACADEMY</span><a href="path.html">My Path</a></header>
   <main>
     <section class="hero"><p class="eyebrow">ONE SKILL · ONE SOURCE · 20 MINUTES</p><h1 id="title">Preparing your foundation session</h1><p id="statement"></p><p class="why" id="why"></p></section>
-    <section class="session-grid" aria-label="Academy session">
-      <article class="source-card"><p class="label">TODAY'S SOURCE WINDOW</p><h2 id="source-ref">Loading a source…</h2><p class="source-hebrew" id="source-hebrew" lang="he" dir="rtl" hidden></p><p class="source-translation" id="source-translation" hidden></p><p id="source-setting"></p><p class="move" id="teaching-move"></p><a id="source-link" class="source-link" href="#" target="_blank" rel="noreferrer">Open this source in Sefaria ↗</a></article>
-      <aside class="rhythm"><p class="label">20-MINUTE RHYTHM</p><ol id="steps"></ol></aside>
+
+    <ol class="kp-steps" id="kp-steps" aria-label="Lesson steps">
+      <li data-step="introduce"><b>1</b><span>Introduce</span><small>see the move</small></li>
+      <li data-step="practice"><b>2</b><span>Practice</span><small>make the move</small></li>
+      <li data-step="transfer"><b>3</b><span>Transfer</span><small>a new source</small></li>
+    </ol>
+
+    <section class="step" id="step" aria-live="polite">
+      <article class="source-card">
+        <p class="label" id="step-label">TODAY'S SOURCE WINDOW</p>
+        <h2 id="source-ref">Loading a source…</h2>
+        <p class="source-hebrew" id="source-hebrew" lang="he" dir="rtl" hidden></p>
+        <p class="source-translation" id="source-translation" hidden></p>
+        <p id="source-setting"></p>
+        <p class="move" id="teaching-move"></p>
+        <a id="source-link" class="source-link" href="#" target="_blank" rel="noreferrer">Open this source in Sefaria ↗</a>
+      </article>
+      <div class="interaction">
+        <p class="label">GUIDED CHECK · NO TYPING REQUIRED</p>
+        <h2 id="check-title"></h2>
+        <div id="choices" class="choices"></div>
+        <p id="feedback" role="status" aria-live="polite"></p>
+        <button id="advance" type="button" disabled>Continue →</button>
+      </div>
     </section>
-    <section class="check" aria-labelledby="check-title"><p class="label">GUIDED CHECK · NO TYPING REQUIRED</p><h2 id="check-title">Which learner move best demonstrates this skill?</h2><div id="choices" class="choices"></div><p id="feedback" role="status" aria-live="polite"></p><button id="continue" type="button" disabled>Continue to Today →</button></section>
+
+    <section class="complete" id="complete" hidden>
+      <p class="label">SKILL PRACTISED ACROSS THE CANON</p>
+      <h2 id="complete-title"></h2>
+      <p id="complete-copy"></p>
+      <div class="complete-actions"><a class="primary" href="path.html">Back to your path →</a><a class="secondary" href="my-graph.html">See your map</a></div>
+    </section>
+
     <section class="real-content" id="real-content" aria-labelledby="real-content-title" hidden><p class="label">PRACTICE THIS SKILL IN REAL SOURCES</p><h2 id="real-content-title">Where this move shows up across the canon</h2><ul id="real-content-list" class="real-content-list"></ul></section>
   </main>
-  <script src="seder-auth.js?v=2"></script><script src="academy-session.js"></script>
+  <script src="seder-auth.js?v=2"></script><script src="academy-session.js?v=2"></script>
 </body>
 </html>
-

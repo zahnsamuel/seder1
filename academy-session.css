@@ -24,3 +24,26 @@ h1,h2 { font-family:Georgia, serif; line-height:1.1; } h1 { margin:.6rem 0 1rem;
 .real-content-list a { font-weight:700; color:var(--accent); text-decoration:none; }
 .real-content-list a:hover { text-decoration:underline; }
 .real-content-list span { color:var(--muted); font-size:.85rem; }
+
+/* Scaffolded knowledge-point lesson: stepper + step panel + completion */
+.kp-steps { list-style:none; display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:2.5rem 0 1rem; padding:0; }
+.kp-steps li { position:relative; border:1px solid var(--line); border-radius:14px; background:#fff; padding:.85rem 1rem; display:flex; align-items:center; gap:.7rem; color:var(--muted); }
+.kp-steps li b { display:grid; place-items:center; width:26px; height:26px; border-radius:50%; background:var(--warm); color:var(--ink); font-size:.85rem; flex:none; }
+.kp-steps li span { font-weight:700; color:var(--ink); font-size:.9rem; }
+.kp-steps li small { color:var(--muted); font-size:.72rem; margin-left:auto; }
+.kp-steps li.current { border-color:var(--accent); box-shadow:0 6px 18px #27624b18; }
+.kp-steps li.current b { background:var(--accent); color:#fff; }
+.kp-steps li.done b { background:#2a7551; color:#fff; }
+.step { display:grid; grid-template-columns:1.35fr .85fr; gap:1.25rem; margin:0 0 1.25rem; }
+.interaction { background:#fff; border:1px solid var(--line); border-radius:18px; padding:1.5rem; box-shadow:0 8px 24px #183a2410; }
+.interaction h2 { font-size:1.15rem; margin:.3rem 0 1rem; }
+.choice.reveal { text-align:center; border-style:dashed; color:var(--accent); font-weight:700; }
+#advance { border:0; border-radius:999px; padding:.85rem 1.2rem; background:var(--accent); color:#fff; font-weight:700; cursor:pointer; margin-top:1rem; }
+#advance:disabled { opacity:.45; cursor:not-allowed; }
+.complete { background:#fff; border:1px solid var(--line); border-radius:18px; padding:1.75rem; box-shadow:0 8px 24px #183a2410; text-align:center; margin:1rem 0; }
+.complete h2 { color:var(--accent); font-size:1.5rem; margin:.4rem 0; }
+.complete p { color:var(--muted); max-width:52ch; margin:0 auto; }
+.complete-actions { display:flex; gap:.75rem; justify-content:center; margin-top:1.25rem; flex-wrap:wrap; }
+.complete-actions .primary { background:var(--accent); color:#fff; border-radius:999px; padding:.8rem 1.2rem; text-decoration:none; font-weight:700; }
+.complete-actions .secondary { border:1px solid var(--line); color:var(--accent); border-radius:999px; padding:.8rem 1.2rem; text-decoration:none; font-weight:700; }
+@media (max-width:700px) { .kp-steps { grid-template-columns:1fr; } .step { grid-template-columns:1fr; } }
