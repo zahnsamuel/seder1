@@ -24,10 +24,30 @@ function render(data) {
   }).join('') || '<tr><td colspan="4">No tractate engagement recorded yet.</td></tr>';
   $('#stageList').innerHTML = data.stageCompletion.map((s) => `<li><span>${s.stageId.replaceAll('-', ' ')}</span><b>${s.count}</b></li>`).join('') || '<li>No completed stages recorded yet.</li>';
   $('#struggleList').innerHTML = data.topStruggles.map((s) => `<li><span>${s.skillId.replaceAll('-', ' ')}</span><b>${s.count}</b></li>`).join('') || '<li>No recurring struggles recorded yet.</li>';
+  renderFeedback(data.feedback);
   renderGraphPilot(data.graphPilot);
 }
 
 const readable = (id) => id.replace(/^fnd-/, '').replaceAll('-', ' ');
+const escapeHtml = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+// Learner feedback: cohort sentiment counts + recent written comments (escaped — free learner text).
+function renderFeedback(fb) {
+  const panel = document.querySelector('.learner-feedback');
+  if (!panel) return;
+  if (!fb) { panel.hidden = true; return; }
+  panel.hidden = false;
+  const labels = { confusing: 'Confusing', 'too-hard': 'Too hard', 'too-easy': 'Too easy', broken: 'Something off', great: 'Loved it' };
+  const order = ['confusing', 'too-hard', 'too-easy', 'broken', 'great'];
+  const keys = [...order.filter((s) => fb.bySentiment[s]), ...Object.keys(fb.bySentiment).filter((s) => !order.includes(s))];
+  $('#feedbackCounts').innerHTML = keys.length
+    ? keys.map((s) => `<article><small>${escapeHtml(labels[s] || s)}</small><strong>${fb.bySentiment[s]}</strong></article>`).join('')
+    : '<article><small>Total</small><strong>0</strong></article>';
+  $('#feedbackList').innerHTML = (fb.recent || []).map((f) => {
+    const ctx = [f.skillId ? readable(f.skillId) : null, f.page].filter(Boolean).join(' · ');
+    return `<li><span>“${escapeHtml(f.comment)}” <small>— ${escapeHtml(ctx)} (${escapeHtml(f.sentiment)})</small></span></li>`;
+  }).join('') || '<li>No written comments yet.</li>';
+}
 const asPct = (v) => (v == null ? '—' : `${Math.round(v * 100)}%`);
 
 // The graph-pilot signal (data/pilot-analytics.mjs): classical item analysis over the foundation graph.

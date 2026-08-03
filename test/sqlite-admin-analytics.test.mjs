@@ -73,6 +73,17 @@ test('with the admin token, the operator sees cross-learner aggregates', async (
   assert.equal(data.graphPilot.summary.skillsTotal, 54, 'covers every graph skill');
 });
 
+test('learner feedback aggregates into operator analytics', async () => {
+  await fetch(`${base}/api/learners/${learner.id}/events`, {
+    method: 'POST', headers: { Authorization: `Bearer ${learner.token}`, 'content-type': 'application/json' },
+    body: JSON.stringify({ type: 'feedback', page: '/review.html', skillId: 'skill-x', sentiment: 'confusing', comment: 'the prompt was unclear' })
+  });
+  const data = await (await fetch(`${base}/api/admin/analytics`, { headers: { Authorization: `Bearer ${ADMIN}` } })).json();
+  assert.ok(data.feedback && data.feedback.total >= 1, 'feedback is aggregated');
+  assert.ok((data.feedback.bySentiment.confusing || 0) >= 1, 'counted by sentiment');
+  assert.ok(data.feedback.recent.some((f) => f.comment === 'the prompt was unclear' && f.skillId === 'skill-x'), 'the comment is surfaced with context');
+});
+
 test('full flow over HTTP on SQLite: a JLA answer records graduation evidence + shows in analytics', async () => {
   const rec = await fetch(`${base}/api/learners/${learner.id}/events`, {
     method: 'POST', headers: { Authorization: `Bearer ${learner.token}`, 'content-type': 'application/json' },

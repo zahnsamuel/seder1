@@ -570,7 +570,16 @@ async function handleApi(request, response, url) {
     // predict passing the dependent skill?). Computed from the answer log over the foundation graph.
     const foundationGraph = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-skill-graph.json'), 'utf8'));
     const graphPilot = computeGraphPilotAnalytics(learners, foundationGraph);
-    sendJson(response, 200, { available: true, totalLearners, totalXp, totalAttempts, overallAccuracy, tractateStats, stageCompletion, topStruggles, overdueReviews, graphPilot });
+    // Learner feedback (feedback.js): the qualitative pilot signal — a reaction tied to a page and skill.
+    const feedbackEvents = learners.flatMap((l) => (l.events || []).filter((e) => e.type === 'feedback').map((e) => ({ learner: l.id, sentiment: e.sentiment || 'unspecified', comment: e.comment || '', page: e.page || null, skillId: e.skillId || null, at: e.at || null })));
+    const feedbackBySentiment = {};
+    for (const f of feedbackEvents) feedbackBySentiment[f.sentiment] = (feedbackBySentiment[f.sentiment] || 0) + 1;
+    const feedback = {
+      total: feedbackEvents.length,
+      bySentiment: feedbackBySentiment,
+      recent: feedbackEvents.filter((f) => f.comment).sort((a, b) => String(b.at).localeCompare(String(a.at))).slice(0, 25)
+    };
+    sendJson(response, 200, { available: true, totalLearners, totalXp, totalAttempts, overallAccuracy, tractateStats, stageCompletion, topStruggles, overdueReviews, graphPilot, feedback });
     return true;
   }
   const todayMatch = url.pathname.match(/^\/api\/learners\/([a-zA-Z0-9_-]+)\/today$/);

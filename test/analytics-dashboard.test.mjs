@@ -14,6 +14,14 @@ test('the operator dashboard surfaces the graph-pilot signal', () => {
   for (const signal of ['difficulty', 'discrimination', 'lift', 'skillsWithEnoughData']) assert.match(js, new RegExp(signal));
 });
 
+test('the dashboard surfaces learner feedback, with comments escaped', () => {
+  assert.match(html, /class="panel learner-feedback"/);
+  for (const id of ['feedbackCounts', 'feedbackList']) assert.match(html, new RegExp(`id="${id}"`));
+  assert.match(js, /renderFeedback\(data\.feedback\)/);
+  // free learner text must be escaped in the operator view.
+  assert.match(js, /escapeHtml\(f\.comment\)/);
+});
+
 test('the dashboard stays honest about sample size — sparse rows are held back, not read as signal', () => {
   // Only rows with enough responses are shown; the rest surface an explicit "awaiting data" message.
   assert.match(js, /\.filter\(\(x\) => x\.enough\)/);

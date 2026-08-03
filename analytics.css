@@ -25,6 +25,9 @@ td{padding:9px 6px;border-bottom:1px solid #eee8de}
 tr.drop-off td{color:var(--red)}
 tr.drop-off td:first-child{font-weight:600}
 .panel h3.subhead{margin:24px 0 4px;color:var(--navy);font:600 12px 'DM Mono';letter-spacing:.05em}
+#feedbackList li{display:block;line-height:1.5}
+#feedbackList li span{text-transform:none}
+#feedbackList li small{color:var(--muted)}
 td.flag{color:var(--red);font-weight:600}
 td small{color:var(--muted);font-size:11px}
 .stage-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
