@@ -21,6 +21,8 @@
     "graph:workbench": "node scripts/build-audit-workbench.mjs",
     "graph:import": "node scripts/import-audit-workbench.mjs",
     "graph:misconceptions": "node scripts/build-misconceptions.mjs",
+    "graph:authoring": "node scripts/build-item-authoring-worksheet.mjs",
+    "graph:import-items": "node scripts/import-authored-items.mjs",
     "graph:demo-map": "node scripts/build-demo-map.mjs",
     "ladder:check": "node scripts/check-decoding-ladder.mjs",
     "map:foundation": "node scripts/build-foundation-content-map.mjs",

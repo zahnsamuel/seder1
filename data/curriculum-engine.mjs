@@ -33,6 +33,33 @@ async function foundationSkills(root) {
   return cachedFoundationSkills;
 }
 
+let cachedAuthoredItems;
+async function authoredItems(root) {
+  if (!cachedAuthoredItems) {
+    try { cachedAuthoredItems = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-authored-items.json'), 'utf8')).items || {}; }
+    catch { cachedAuthoredItems = {}; }
+  }
+  return cachedAuthoredItems;
+}
+
+// A retrieval from an educator-authored item bank (data/foundation-authored-items.json): real graded
+// recognition — the author's stem, choices, and correct index, with hand-written distractors. Preferred
+// over the graph-derived foundationReviewItem the moment a bank is imported. `seed` rotates variants.
+export function authoredReviewItem(skillId, bank, seed = Math.floor(Math.random() * 997)) {
+  const item = bank[seed % bank.length];
+  return {
+    trueSkillId: skillId,
+    label: item.sourceRef ? `RETRIEVAL · ${item.sourceRef}` : 'FOUNDATION RETRIEVAL',
+    hebrew: '', translation: '',
+    prompt: item.stem,
+    answers: item.choices,
+    correct: item.correct,
+    feedback: item.feedback || '',
+    sourceContext: `retrieval for ${skillId}`,
+    variantId: `authored-${skillId}-${seed}`
+  };
+}
+
 // A real retrieval for a foundation-graph skill (fnd-*): ground it in one of the skill's own source
 // contexts and ask which reading move that practice names, discriminating from nearby real moves. The
 // distractors are OTHER skills' actual statements (same-layer siblings first, so they are plausible),
@@ -217,9 +244,12 @@ export async function sourceReviewItems(root, skillIds = []) {
   const covered = new Set([...mapped, ...flagshipMapped].map((item) => item.trueSkillId));
   const fndSkills = await foundationSkills(root);
   const fndById = new Map(fndSkills.map((skill) => [skill.id, skill]));
+  const authored = await authoredItems(root);
   const workbenchFallbacks = skillIds.filter((skillId) => !covered.has(skillId)).map((skillId) => {
-    // A foundation-graph skill gets a real, skill-specific retrieval from the graph; a subject skill
-    // gets its subject retrieval; anything else falls back to the generic daf-reading prompt.
+    // Prefer an educator-authored item bank; else a real graph-derived retrieval for a foundation
+    // skill; else a subject retrieval; else the generic daf-reading prompt.
+    const bank = authored[skillId];
+    if (bank && bank.length) return authoredReviewItem(skillId, bank);
     const fnd = fndById.get(skillId);
     if (fnd) return foundationReviewItem(fnd, fndSkills);
     return subjectReviewItem(skillId) || ({

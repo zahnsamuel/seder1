@@ -1,0 +1,6 @@
+{
+  "generatedBy": "scripts/import-authored-items.mjs",
+  "note": "Authored per-skill review item banks — client-scorable recognition items (source ref, stem, choices, correct index, feedback). Empty until an educator authors items in docs/item-authoring-workbench.html and imports them (npm run graph:import-items -- <export.json>). sourceReviewItems (data/curriculum-engine.mjs) prefers these over the graph-derived retrievals, so authored items upgrade a skill's reviews the moment they land. The >=3-items-per-skill bank (foundation-graph-schema.md step 10) fills here.",
+  "target": 3,
+  "items": {}
+}
