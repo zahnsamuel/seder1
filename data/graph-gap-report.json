@@ -1,0 +1,322 @@
+{
+  "generatedBy": "scripts/graph-gap-analyzer.mjs",
+  "graphVersion": "0.3.0",
+  "thresholds": {
+    "LONG_EDGE_SPAN": 2,
+    "FANOUT_MIN": 5,
+    "HIGH_PREREQ_MIN": 3,
+    "MIN_CONTEXTS": 3,
+    "MIN_FAMILIES": 2,
+    "ITEM_BANK_TARGET": 3
+  },
+  "summary": {
+    "skills": 53,
+    "edges": 78,
+    "layers": 11,
+    "longEdges": 25,
+    "fanOutHubs": 3,
+    "highPrereq": 2,
+    "thinCoverage": 0,
+    "step8Coverage": "53/53",
+    "authoredItemBanks": "0/53",
+    "skillsWithAnyItem": "17/53",
+    "scaleNote": "53 skills now; the schema targets ~150 then ~300. Long edges below are the first places intermediate skills belong."
+  },
+  "findings": [
+    {
+      "type": "long-edge",
+      "priority": 14,
+      "skills": [
+        "fnd-role-text-vs-commentary",
+        "fnd-agency-use-tools"
+      ],
+      "detail": "Tell primary text from commentary (L3 Source roles) → Use a source tool on purpose (L10 Learning agency) spans 7 layers",
+      "suggestion": "A large jump — the dependent likely leans on moves that do not yet exist as skills between them; strong candidate for one or more intermediate skills."
+    },
+    {
+      "type": "long-edge",
+      "priority": 14,
+      "skills": [
+        "fnd-signal-connectors",
+        "fnd-indep-first-pass"
+      ],
+      "detail": "Recognize argument connectors (L2 Text signals) → Make a scaffolded first pass (L9 Independent reading) spans 7 layers",
+      "suggestion": "A large jump — the dependent likely leans on moves that do not yet exist as skills between them; strong candidate for one or more intermediate skills."
+    },
+    {
+      "type": "long-edge",
+      "priority": 12,
+      "skills": [
+        "fnd-case-uncertainty",
+        "fnd-agency-ask-question"
+      ],
+      "detail": "Name what is uncertain (L4 Case mapping) → Ask a good question (L10 Learning agency) spans 6 layers",
+      "suggestion": "A large jump — the dependent likely leans on moves that do not yet exist as skills between them; strong candidate for one or more intermediate skills."
+    },
+    {
+      "type": "long-edge",
+      "priority": 12,
+      "skills": [
+        "fnd-orient-source-type",
+        "fnd-context-when-where"
+      ],
+      "detail": "Tell what kind of text you are looking at (L1 Orientation) → Place a source in time and place (L7 Context) spans 6 layers",
+      "suggestion": "A large jump — the dependent likely leans on moves that do not yet exist as skills between them; strong candidate for one or more intermediate skills."
+    },
+    {
+      "type": "long-edge",
+      "priority": 12,
+      "skills": [
+        "fnd-orient-source-type",
+        "fnd-context-genre-expectations"
+      ],
+      "detail": "Tell what kind of text you are looking at (L1 Orientation) → Let the genre set your expectations (L7 Context) spans 6 layers",
+      "suggestion": "A large jump — the dependent likely leans on moves that do not yet exist as skills between them; strong candidate for one or more intermediate skills."
+    },
+    {
+      "type": "long-edge",
+      "priority": 12,
+      "skills": [
+        "fnd-role-text-vs-commentary",
+        "fnd-indep-first-pass"
+      ],
+      "detail": "Tell primary text from commentary (L3 Source roles) → Make a scaffolded first pass (L9 Independent reading) spans 6 layers",
+      "suggestion": "A large jump — the dependent likely leans on moves that do not yet exist as skills between them; strong candidate for one or more intermediate skills."
+    },
+    {
+      "type": "long-edge",
+      "priority": 12,
+      "skills": [
+        "fnd-role-translation-gap",
+        "fnd-indep-use-translation-to-check"
+      ],
+      "detail": "Notice where a translation makes a choice (L3 Source roles) → Use translation to check, not to skip (L9 Independent reading) spans 6 layers",
+      "suggestion": "A large jump — the dependent likely leans on moves that do not yet exist as skills between them; strong candidate for one or more intermediate skills."
+    },
+    {
+      "type": "long-edge",
+      "priority": 10,
+      "skills": [
+        "fnd-arg-unresolved",
+        "fnd-agency-ask-question"
+      ],
+      "detail": "Recognize an open tension (L5 Argument tracking) → Ask a good question (L10 Learning agency) spans 5 layers",
+      "suggestion": "A large jump — the dependent likely leans on moves that do not yet exist as skills between them; strong candidate for one or more intermediate skills."
+    },
+    {
+      "type": "long-edge",
+      "priority": 10,
+      "skills": [
+        "fnd-case-restate",
+        "fnd-indep-map-lines"
+      ],
+      "detail": "Restate a case in your own words (L4 Case mapping) → Map each line's job (L9 Independent reading) spans 5 layers",
+      "suggestion": "A large jump — the dependent likely leans on moves that do not yet exist as skills between them; strong candidate for one or more intermediate skills."
+    },
+    {
+      "type": "long-edge",
+      "priority": 10,
+      "skills": [
+        "fnd-role-ruling-vs-discussion",
+        "fnd-resp-learning-vs-ruling"
+      ],
+      "detail": "Distinguish a ruling from a discussion (L3 Source roles) → Tell learning apart from a ruling (L8 Practice & responsibility) spans 5 layers",
+      "suggestion": "A large jump — the dependent likely leans on moves that do not yet exist as skills between them; strong candidate for one or more intermediate skills."
+    },
+    {
+      "type": "long-edge",
+      "priority": 8,
+      "skills": [
+        "fnd-arg-response",
+        "fnd-indep-first-pass"
+      ],
+      "detail": "Follow the response (L5 Argument tracking) → Make a scaffolded first pass (L9 Independent reading) spans 4 layers",
+      "suggestion": "A large jump — the dependent likely leans on moves that do not yet exist as skills between them; strong candidate for one or more intermediate skills."
+    },
+    {
+      "type": "long-edge",
+      "priority": 8,
+      "skills": [
+        "fnd-role-ruling-vs-discussion",
+        "fnd-context-genre-expectations"
+      ],
+      "detail": "Distinguish a ruling from a discussion (L3 Source roles) → Let the genre set your expectations (L7 Context) spans 4 layers",
+      "suggestion": "A large jump — the dependent likely leans on moves that do not yet exist as skills between them; strong candidate for one or more intermediate skills."
+    },
+    {
+      "type": "long-edge",
+      "priority": 6,
+      "skills": [
+        "fnd-arg-unresolved",
+        "fnd-resp-name-limits"
+      ],
+      "detail": "Recognize an open tension (L5 Argument tracking) → Name the limits of what you learned (L8 Practice & responsibility) spans 3 layers",
+      "suggestion": "Consider whether an intermediate skill belongs between these, so the dependent builds on a nearer move."
+    },
+    {
+      "type": "long-edge",
+      "priority": 6,
+      "skills": [
+        "fnd-case-actors",
+        "fnd-context-who-audience"
+      ],
+      "detail": "Identify who acts (L4 Case mapping) → Ask who made it and for whom (L7 Context) spans 3 layers",
+      "suggestion": "Consider whether an intermediate skill belongs between these, so the dependent builds on a nearer move."
+    },
+    {
+      "type": "long-edge",
+      "priority": 6,
+      "skills": [
+        "fnd-compare-shared-question",
+        "fnd-indep-carry-across-genre"
+      ],
+      "detail": "Find the shared question (L6 Comparison) → Carry a reading move across genres (L9 Independent reading) spans 3 layers",
+      "suggestion": "Consider whether an intermediate skill belongs between these, so the dependent builds on a nearer move."
+    },
+    {
+      "type": "long-edge",
+      "priority": 6,
+      "skills": [
+        "fnd-signal-connectors",
+        "fnd-arg-objection"
+      ],
+      "detail": "Recognize argument connectors (L2 Text signals) → Mark an objection (L5 Argument tracking) spans 3 layers",
+      "suggestion": "Consider whether an intermediate skill belongs between these, so the dependent builds on a nearer move."
+    },
+    {
+      "type": "long-edge",
+      "priority": 6,
+      "skills": [
+        "fnd-signal-quotation",
+        "fnd-arg-evidence-role"
+      ],
+      "detail": "Notice when a source quotes another source (L2 Text signals) → Say what a cited source is doing (L5 Argument tracking) spans 3 layers",
+      "suggestion": "Consider whether an intermediate skill belongs between these, so the dependent builds on a nearer move."
+    },
+    {
+      "type": "fan-out-hub",
+      "priority": 5,
+      "skills": [
+        "fnd-case-what-happens"
+      ],
+      "detail": "State what happens in plain language (L4) — 5 moves depend on it directly",
+      "suggestion": "A wide branch point. As the layer above grows, an organizing intermediate skill (or splitting this one) may keep prerequisites proximate."
+    },
+    {
+      "type": "fan-out-hub",
+      "priority": 5,
+      "skills": [
+        "fnd-orient-source-type"
+      ],
+      "detail": "Tell what kind of text you are looking at (L1) — 5 moves depend on it directly",
+      "suggestion": "A wide branch point. As the layer above grows, an organizing intermediate skill (or splitting this one) may keep prerequisites proximate."
+    },
+    {
+      "type": "fan-out-hub",
+      "priority": 5,
+      "skills": [
+        "fnd-signal-known-words"
+      ],
+      "detail": "Recognize a bank of high-frequency words (L2) — 5 moves depend on it directly",
+      "suggestion": "A wide branch point. As the layer above grows, an organizing intermediate skill (or splitting this one) may keep prerequisites proximate."
+    },
+    {
+      "type": "long-edge",
+      "priority": 4,
+      "skills": [
+        "fnd-case-what-changes",
+        "fnd-compare-scope"
+      ],
+      "detail": "Find the factor that changes the outcome (L4 Case mapping) → Tell a real dispute from a scope difference (L6 Comparison) spans 2 layers",
+      "suggestion": "Consider whether an intermediate skill belongs between these, so the dependent builds on a nearer move."
+    },
+    {
+      "type": "long-edge",
+      "priority": 4,
+      "skills": [
+        "fnd-compare-strongest-form",
+        "fnd-resp-preserve-disagreement"
+      ],
+      "detail": "State each side at its strongest (L6 Comparison) → Hold more than one view (L8 Practice & responsibility) spans 2 layers",
+      "suggestion": "Consider whether an intermediate skill belongs between these, so the dependent builds on a nearer move."
+    },
+    {
+      "type": "long-edge",
+      "priority": 4,
+      "skills": [
+        "fnd-context-genre-expectations",
+        "fnd-indep-carry-across-genre"
+      ],
+      "detail": "Let the genre set your expectations (L7 Context) → Carry a reading move across genres (L9 Independent reading) spans 2 layers",
+      "suggestion": "Consider whether an intermediate skill belongs between these, so the dependent builds on a nearer move."
+    },
+    {
+      "type": "long-edge",
+      "priority": 4,
+      "skills": [
+        "fnd-orient-page-geography",
+        "fnd-role-text-vs-commentary"
+      ],
+      "detail": "Find the main text and what surrounds it (L1 Orientation) → Tell primary text from commentary (L3 Source roles) spans 2 layers",
+      "suggestion": "Consider whether an intermediate skill belongs between these, so the dependent builds on a nearer move."
+    },
+    {
+      "type": "long-edge",
+      "priority": 4,
+      "skills": [
+        "fnd-orient-question-present",
+        "fnd-role-question-vs-answer"
+      ],
+      "detail": "Notice when a source is asking, not telling (L1 Orientation) → Label question, answer, or restatement (L3 Source roles) spans 2 layers",
+      "suggestion": "Consider whether an intermediate skill belongs between these, so the dependent builds on a nearer move."
+    },
+    {
+      "type": "long-edge",
+      "priority": 4,
+      "skills": [
+        "fnd-resp-name-limits",
+        "fnd-agency-record-uncertainty"
+      ],
+      "detail": "Name the limits of what you learned (L8 Practice & responsibility) → Record what you don't yet understand (L10 Learning agency) spans 2 layers",
+      "suggestion": "Consider whether an intermediate skill belongs between these, so the dependent builds on a nearer move."
+    },
+    {
+      "type": "long-edge",
+      "priority": 4,
+      "skills": [
+        "fnd-role-question-vs-answer",
+        "fnd-arg-claim"
+      ],
+      "detail": "Label question, answer, or restatement (L3 Source roles) → State the claim (L5 Argument tracking) spans 2 layers",
+      "suggestion": "Consider whether an intermediate skill belongs between these, so the dependent builds on a nearer move."
+    },
+    {
+      "type": "long-edge",
+      "priority": 4,
+      "skills": [
+        "fnd-signal-name-formulas",
+        "fnd-case-actors"
+      ],
+      "detail": "Recognize attribution formulas (L2 Text signals) → Identify who acts (L4 Case mapping) spans 2 layers",
+      "suggestion": "Consider whether an intermediate skill belongs between these, so the dependent builds on a nearer move."
+    },
+    {
+      "type": "high-prereq",
+      "priority": 3,
+      "skills": [
+        "fnd-indep-carry-across-genre"
+      ],
+      "detail": "Carry a reading move across genres (L9) leans on 3 prerequisites: Map each line's job, Find the shared question, Let the genre set your expectations",
+      "suggestion": "Check whether this is one move or several; a skill that requires this many prerequisites at once is a candidate for decomposition into scaffolded steps."
+    },
+    {
+      "type": "high-prereq",
+      "priority": 3,
+      "skills": [
+        "fnd-indep-first-pass"
+      ],
+      "detail": "Make a scaffolded first pass (L9) leans on 3 prerequisites: Follow the response, Tell primary text from commentary, Recognize argument connectors",
+      "suggestion": "Check whether this is one move or several; a skill that requires this many prerequisites at once is a candidate for decomposition into scaffolded steps."
+    }
+  ]
+}
