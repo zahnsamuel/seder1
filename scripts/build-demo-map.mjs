@@ -57,6 +57,7 @@ header a[href="#"]{cursor:default}
       <span role="listitem"><i class="k frontier"></i> Ready now</span>
       <span role="listitem"><i class="k locked"></i> Ahead</span>
     </div>
+    <p id="placement-cta" class="placement-cta" hidden></p>
   </section>
   <section class="map-wrap" aria-label="The knowledge graph">
     <div class="map-scroll"><svg id="map" class="map"></svg></div>

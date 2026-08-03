@@ -18,11 +18,42 @@ function render(learner, graph) {
 
   const counts = { mastered: 0, frontier: 0, locked: 0 };
   skills.forEach((s) => { counts[state.get(s.id)] += 1; });
+
+  // The diagnostic's frontier, made concrete on the map: of the ready-now moves, the one the most
+  // later moves depend on — the same "start here" the adaptive placement recommends. Mark it so the
+  // learner sees not just their frontier but where on it to begin.
+  const descendantsOf = (id, seen = new Set()) => { for (const x of successors.get(id) || []) if (!seen.has(x.id)) { seen.add(x.id); descendantsOf(x.id, seen); } return seen; };
+  const startHere = skills.filter((s) => state.get(s.id) === 'frontier')
+    .map((s) => ({ id: s.id, lev: descendantsOf(s.id).size, layer: s.layer }))
+    .sort((a, b) => b.lev - a.lev || a.layer - b.layer || a.id.localeCompare(b.id))[0]?.id || null;
+
   set('#xp', (el) => { el.textContent = counts.mastered ? `${counts.mastered} on your own` : ''; });
   set('#summary', (el) => {
     el.innerHTML = counts.mastered
-      ? `You have mastered <b>${counts.mastered}</b> reading move${counts.mastered === 1 ? '' : 's'}. <b>${counts.frontier}</b> ${counts.frontier === 1 ? 'is' : 'are'} ready now; <b>${counts.locked}</b> lie ahead. The gold moves are the ones your evidence says you are ready to learn next.`
+      ? `You have mastered <b>${counts.mastered}</b> reading move${counts.mastered === 1 ? '' : 's'}. <b>${counts.frontier}</b> ${counts.frontier === 1 ? 'is' : 'are'} ready now${startHere ? `, starting with <b>${esc(titleOf(startHere))}</b>` : ''}; <b>${counts.locked}</b> lie ahead. The gold moves are your frontier — where your evidence says you are ready to learn next.`
       : `The whole map of ${skills.length} reading moves. <b>${counts.frontier}</b> ${counts.frontier === 1 ? 'is' : 'are'} ready to begin; the rest open up as you secure each one.`;
+  });
+
+  // Tie the frontier back to the diagnostic that finds it: run/re-run the adaptive placement, and —
+  // when arriving straight from it — confirm the result the learner just produced.
+  const fromDiagnostic = typeof location !== 'undefined' && /[?&]from=diagnostic(?:&|$)/.test(location.search || '');
+  const isDemo = !!document.getElementById('demo-data');
+  set('#placement-cta', (el) => {
+    el.hidden = false;
+    if (fromDiagnostic && counts.mastered) {
+      el.className = 'placement-cta done';
+      el.innerHTML = `<b>Your adaptive placement is in.</b> The <b>${counts.frontier}</b> gold move${counts.frontier === 1 ? '' : 's'} below ${counts.frontier === 1 ? 'is' : 'are'} your knowledge frontier — ready to learn now.`;
+    } else if (!counts.mastered) {
+      el.className = 'placement-cta';
+      el.innerHTML = isDemo
+        ? `An adaptive placement maps a learner's frontier in about five minutes.`
+        : `Not sure where you are on the map? <a href="diagnostic.html">Take the 5-minute adaptive placement →</a> It pins your frontier in a handful of questions.`;
+    } else {
+      el.className = 'placement-cta subtle';
+      el.innerHTML = isDemo
+        ? `The gold moves are this learner's frontier — where they are ready to learn now.`
+        : `The gold moves are your frontier. <a href="diagnostic.html">Re-take the adaptive placement →</a> to update where you are.`;
+    }
   });
 
   // ---- layered layout ----
@@ -45,7 +76,11 @@ function render(learner, graph) {
   layerNums.forEach((L, li) => { g += `<text class="lyr" x="10" y="${padTop + li * rowH + 20}">${L}</text>`; });
   for (const s of skills) {
     const p = pos[s.id]; const st = state.get(s.id);
-    g += `<g class="node ${st}" data-id="${esc(s.id)}" tabindex="0" role="button" aria-label="${esc(s.title)} — ${st}"><title>${esc(s.title)} — ${st}</title><circle cx="${p.x}" cy="${p.y}" r="${st === 'frontier' ? 8 : 6.5}"></circle></g>`;
+    const isStart = s.id === startHere;
+    const aria = isStart ? `${esc(s.title)} — ${st}, start here` : `${esc(s.title)} — ${st}`;
+    g += `<g class="node ${st}${isStart ? ' start' : ''}" data-id="${esc(s.id)}" tabindex="0" role="button" aria-label="${aria}"><title>${aria}</title>` +
+      `${isStart ? `<circle class="halo" cx="${p.x}" cy="${p.y}" r="13"></circle><text class="start-label" x="${p.x}" y="${p.y - 15}" text-anchor="middle">START HERE</text>` : ''}` +
+      `<circle cx="${p.x}" cy="${p.y}" r="${st === 'frontier' ? 8 : 6.5}"></circle></g>`;
   }
   const svg = document.getElementById('map');
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
@@ -65,7 +100,7 @@ function render(learner, graph) {
     const practiceUrl = id.startsWith('fnd-decode-') ? 'hebrew-decoding.html' : `academy-session.html?skill=${encodeURIComponent(id)}`;
     const practice = st === 'locked' ? '' : `<a class="practice" href="${practiceUrl}">${st === 'mastered' ? 'Practice again →' : 'Practice this move →'}</a>`;
     document.getElementById('detail').innerHTML =
-      `<span class="state ${st}">${stateLabel[st]}</span>` +
+      `<span class="state ${st}">${stateLabel[st]}</span>${id === startHere ? '<span class="state start">Start here</span>' : ''}` +
       `<h2>${esc(s.title)}</h2><p class="stmt">${esc(s.statement || '')}</p>` +
       `<div class="rel"><div class="row"><span class="lbl">Layer ${s.layer}</span><b>${esc(layer?.title || '')}</b></div>` +
       `<div class="row"><span class="lbl">Builds on</span>${prereqs}</div>` +
@@ -75,9 +110,10 @@ function render(learner, graph) {
     n.addEventListener('click', () => showDetail(n.dataset.id));
     n.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showDetail(n.dataset.id); } });
   });
-  // Open on the first frontier move so the page is never empty of guidance.
-  const firstFrontier = skills.find((s) => state.get(s.id) === 'frontier');
-  if (firstFrontier) showDetail(firstFrontier.id);
+  // Open on the start-here move (the frontier's highest-leverage skill) so the page opens on exactly
+  // where the diagnostic says to begin; fall back to any frontier move.
+  const opening = startHere || skills.find((s) => state.get(s.id) === 'frontier')?.id;
+  if (opening) showDetail(opening);
 }
 
 // Static demo mode: a baked {learner, graph} in a <script id="demo-data"> renders without any login

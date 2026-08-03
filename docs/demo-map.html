@@ -39,6 +39,12 @@ main{max-width:1000px;margin:0 auto;padding:0 5%}
 .k.frontier{background:var(--frontier);box-shadow:0 0 0 3px var(--frontier-soft)}
 .k.locked{background:var(--locked)}
 
+.placement-cta{margin:16px 0 0;padding:12px 15px;border-radius:10px;font-size:.92rem;line-height:1.5;background:var(--frontier-soft);border:1px solid var(--frontier);color:var(--ink);max-width:60ch}
+.placement-cta a{color:var(--teal);font-weight:600;text-decoration:none}
+.placement-cta a:hover{text-decoration:underline}
+.placement-cta.done{background:var(--mastered-soft);border-color:var(--mastered)}
+.placement-cta.subtle{background:transparent;border-color:var(--line);color:var(--muted)}
+
 .map-wrap{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 30px rgba(24,59,78,.06);overflow:hidden}
 .map-scroll{overflow-x:auto}
 svg.map{display:block;min-width:680px;width:100%}
@@ -48,6 +54,10 @@ svg.map .node circle{transition:r .12s, stroke-width .12s}
 svg.map .node.mastered circle{fill:var(--mastered);stroke:var(--surface);stroke-width:1.5}
 svg.map .node.frontier circle{fill:var(--frontier);stroke:var(--frontier-soft);stroke-width:3}
 svg.map .node.locked circle{fill:var(--locked);stroke:var(--surface);stroke-width:1.5}
+svg.map .node.start circle.halo{fill:none;stroke:var(--frontier);stroke-width:1.5;opacity:.55}
+svg.map .node.start text.start-label{font:700 8.5px 'DM Mono';fill:var(--frontier);letter-spacing:.08em}
+@keyframes mg-pulse{0%,100%{opacity:.55;r:13}50%{opacity:.2;r:15}}
+@media(prefers-reduced-motion:no-preference){svg.map .node.start circle.halo{animation:mg-pulse 2.4s ease-in-out infinite}}
 svg.map .node:hover circle,svg.map .node:focus circle{stroke:var(--navy);stroke-width:2.5;outline:none}
 svg.map .node.sel circle{stroke:var(--navy);stroke-width:3}
 
@@ -57,6 +67,7 @@ svg.map .node.sel circle{stroke:var(--navy);stroke-width:3}
 .detail .state.mastered{color:var(--mastered);background:var(--mastered-soft)}
 .detail .state.frontier{color:var(--frontier);background:var(--frontier-soft)}
 .detail .state.locked{color:var(--muted);background:transparent;border:1px solid var(--line)}
+.detail .state.start{color:#fff;background:var(--frontier);margin-left:7px}
 .detail h2{margin:11px 0 4px;color:var(--navy);font:500 1.5rem Fraunces,serif}
 .detail .stmt{margin:0;color:var(--muted);font-size:.98rem;line-height:1.5}
 .detail .rel{display:grid;gap:10px;margin-top:16px}
@@ -86,6 +97,7 @@ header a[href="#"]{cursor:default}
       <span role="listitem"><i class="k frontier"></i> Ready now</span>
       <span role="listitem"><i class="k locked"></i> Ahead</span>
     </div>
+    <p id="placement-cta" class="placement-cta" hidden></p>
   </section>
   <section class="map-wrap" aria-label="The knowledge graph">
     <div class="map-scroll"><svg id="map" class="map"></svg></div>
@@ -113,11 +125,42 @@ function render(learner, graph) {
 
   const counts = { mastered: 0, frontier: 0, locked: 0 };
   skills.forEach((s) => { counts[state.get(s.id)] += 1; });
+
+  // The diagnostic's frontier, made concrete on the map: of the ready-now moves, the one the most
+  // later moves depend on — the same "start here" the adaptive placement recommends. Mark it so the
+  // learner sees not just their frontier but where on it to begin.
+  const descendantsOf = (id, seen = new Set()) => { for (const x of successors.get(id) || []) if (!seen.has(x.id)) { seen.add(x.id); descendantsOf(x.id, seen); } return seen; };
+  const startHere = skills.filter((s) => state.get(s.id) === 'frontier')
+    .map((s) => ({ id: s.id, lev: descendantsOf(s.id).size, layer: s.layer }))
+    .sort((a, b) => b.lev - a.lev || a.layer - b.layer || a.id.localeCompare(b.id))[0]?.id || null;
+
   set('#xp', (el) => { el.textContent = counts.mastered ? `${counts.mastered} on your own` : ''; });
   set('#summary', (el) => {
     el.innerHTML = counts.mastered
-      ? `You have mastered <b>${counts.mastered}</b> reading move${counts.mastered === 1 ? '' : 's'}. <b>${counts.frontier}</b> ${counts.frontier === 1 ? 'is' : 'are'} ready now; <b>${counts.locked}</b> lie ahead. The gold moves are the ones your evidence says you are ready to learn next.`
+      ? `You have mastered <b>${counts.mastered}</b> reading move${counts.mastered === 1 ? '' : 's'}. <b>${counts.frontier}</b> ${counts.frontier === 1 ? 'is' : 'are'} ready now${startHere ? `, starting with <b>${esc(titleOf(startHere))}</b>` : ''}; <b>${counts.locked}</b> lie ahead. The gold moves are your frontier — where your evidence says you are ready to learn next.`
       : `The whole map of ${skills.length} reading moves. <b>${counts.frontier}</b> ${counts.frontier === 1 ? 'is' : 'are'} ready to begin; the rest open up as you secure each one.`;
+  });
+
+  // Tie the frontier back to the diagnostic that finds it: run/re-run the adaptive placement, and —
+  // when arriving straight from it — confirm the result the learner just produced.
+  const fromDiagnostic = typeof location !== 'undefined' && /[?&]from=diagnostic(?:&|$)/.test(location.search || '');
+  const isDemo = !!document.getElementById('demo-data');
+  set('#placement-cta', (el) => {
+    el.hidden = false;
+    if (fromDiagnostic && counts.mastered) {
+      el.className = 'placement-cta done';
+      el.innerHTML = `<b>Your adaptive placement is in.</b> The <b>${counts.frontier}</b> gold move${counts.frontier === 1 ? '' : 's'} below ${counts.frontier === 1 ? 'is' : 'are'} your knowledge frontier — ready to learn now.`;
+    } else if (!counts.mastered) {
+      el.className = 'placement-cta';
+      el.innerHTML = isDemo
+        ? `An adaptive placement maps a learner's frontier in about five minutes.`
+        : `Not sure where you are on the map? <a href="diagnostic.html">Take the 5-minute adaptive placement →</a> It pins your frontier in a handful of questions.`;
+    } else {
+      el.className = 'placement-cta subtle';
+      el.innerHTML = isDemo
+        ? `The gold moves are this learner's frontier — where they are ready to learn now.`
+        : `The gold moves are your frontier. <a href="diagnostic.html">Re-take the adaptive placement →</a> to update where you are.`;
+    }
   });
 
   // ---- layered layout ----
@@ -140,7 +183,11 @@ function render(learner, graph) {
   layerNums.forEach((L, li) => { g += `<text class="lyr" x="10" y="${padTop + li * rowH + 20}">${L}</text>`; });
   for (const s of skills) {
     const p = pos[s.id]; const st = state.get(s.id);
-    g += `<g class="node ${st}" data-id="${esc(s.id)}" tabindex="0" role="button" aria-label="${esc(s.title)} — ${st}"><title>${esc(s.title)} — ${st}</title><circle cx="${p.x}" cy="${p.y}" r="${st === 'frontier' ? 8 : 6.5}"></circle></g>`;
+    const isStart = s.id === startHere;
+    const aria = isStart ? `${esc(s.title)} — ${st}, start here` : `${esc(s.title)} — ${st}`;
+    g += `<g class="node ${st}${isStart ? ' start' : ''}" data-id="${esc(s.id)}" tabindex="0" role="button" aria-label="${aria}"><title>${aria}</title>` +
+      `${isStart ? `<circle class="halo" cx="${p.x}" cy="${p.y}" r="13"></circle><text class="start-label" x="${p.x}" y="${p.y - 15}" text-anchor="middle">START HERE</text>` : ''}` +
+      `<circle cx="${p.x}" cy="${p.y}" r="${st === 'frontier' ? 8 : 6.5}"></circle></g>`;
   }
   const svg = document.getElementById('map');
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
@@ -160,7 +207,7 @@ function render(learner, graph) {
     const practiceUrl = id.startsWith('fnd-decode-') ? 'hebrew-decoding.html' : `academy-session.html?skill=${encodeURIComponent(id)}`;
     const practice = st === 'locked' ? '' : `<a class="practice" href="${practiceUrl}">${st === 'mastered' ? 'Practice again →' : 'Practice this move →'}</a>`;
     document.getElementById('detail').innerHTML =
-      `<span class="state ${st}">${stateLabel[st]}</span>` +
+      `<span class="state ${st}">${stateLabel[st]}</span>${id === startHere ? '<span class="state start">Start here</span>' : ''}` +
       `<h2>${esc(s.title)}</h2><p class="stmt">${esc(s.statement || '')}</p>` +
       `<div class="rel"><div class="row"><span class="lbl">Layer ${s.layer}</span><b>${esc(layer?.title || '')}</b></div>` +
       `<div class="row"><span class="lbl">Builds on</span>${prereqs}</div>` +
@@ -170,9 +217,10 @@ function render(learner, graph) {
     n.addEventListener('click', () => showDetail(n.dataset.id));
     n.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showDetail(n.dataset.id); } });
   });
-  // Open on the first frontier move so the page is never empty of guidance.
-  const firstFrontier = skills.find((s) => state.get(s.id) === 'frontier');
-  if (firstFrontier) showDetail(firstFrontier.id);
+  // Open on the start-here move (the frontier's highest-leverage skill) so the page opens on exactly
+  // where the diagnostic says to begin; fall back to any frontier move.
+  const opening = startHere || skills.find((s) => state.get(s.id) === 'frontier')?.id;
+  if (opening) showDetail(opening);
 }
 
 // Static demo mode: a baked {learner, graph} in a <script id="demo-data"> renders without any login

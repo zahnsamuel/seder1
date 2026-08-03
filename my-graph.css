@@ -29,6 +29,12 @@ main{max-width:1000px;margin:0 auto;padding:0 5%}
 .k.frontier{background:var(--frontier);box-shadow:0 0 0 3px var(--frontier-soft)}
 .k.locked{background:var(--locked)}
 
+.placement-cta{margin:16px 0 0;padding:12px 15px;border-radius:10px;font-size:.92rem;line-height:1.5;background:var(--frontier-soft);border:1px solid var(--frontier);color:var(--ink);max-width:60ch}
+.placement-cta a{color:var(--teal);font-weight:600;text-decoration:none}
+.placement-cta a:hover{text-decoration:underline}
+.placement-cta.done{background:var(--mastered-soft);border-color:var(--mastered)}
+.placement-cta.subtle{background:transparent;border-color:var(--line);color:var(--muted)}
+
 .map-wrap{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 30px rgba(24,59,78,.06);overflow:hidden}
 .map-scroll{overflow-x:auto}
 svg.map{display:block;min-width:680px;width:100%}
@@ -38,6 +44,10 @@ svg.map .node circle{transition:r .12s, stroke-width .12s}
 svg.map .node.mastered circle{fill:var(--mastered);stroke:var(--surface);stroke-width:1.5}
 svg.map .node.frontier circle{fill:var(--frontier);stroke:var(--frontier-soft);stroke-width:3}
 svg.map .node.locked circle{fill:var(--locked);stroke:var(--surface);stroke-width:1.5}
+svg.map .node.start circle.halo{fill:none;stroke:var(--frontier);stroke-width:1.5;opacity:.55}
+svg.map .node.start text.start-label{font:700 8.5px 'DM Mono';fill:var(--frontier);letter-spacing:.08em}
+@keyframes mg-pulse{0%,100%{opacity:.55;r:13}50%{opacity:.2;r:15}}
+@media(prefers-reduced-motion:no-preference){svg.map .node.start circle.halo{animation:mg-pulse 2.4s ease-in-out infinite}}
 svg.map .node:hover circle,svg.map .node:focus circle{stroke:var(--navy);stroke-width:2.5;outline:none}
 svg.map .node.sel circle{stroke:var(--navy);stroke-width:3}
 
@@ -47,6 +57,7 @@ svg.map .node.sel circle{stroke:var(--navy);stroke-width:3}
 .detail .state.mastered{color:var(--mastered);background:var(--mastered-soft)}
 .detail .state.frontier{color:var(--frontier);background:var(--frontier-soft)}
 .detail .state.locked{color:var(--muted);background:transparent;border:1px solid var(--line)}
+.detail .state.start{color:#fff;background:var(--frontier);margin-left:7px}
 .detail h2{margin:11px 0 4px;color:var(--navy);font:500 1.5rem Fraunces,serif}
 .detail .stmt{margin:0;color:var(--muted);font-size:.98rem;line-height:1.5}
 .detail .rel{display:grid;gap:10px;margin-top:16px}

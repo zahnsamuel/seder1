@@ -31,3 +31,18 @@ test('the map colours every skill by the learner\'s state, computed from evidenc
 test('My Path links out to the whole-graph map', () => {
   assert.match(path, /href="my-graph\.html"/);
 });
+
+test('the map surfaces the diagnostic frontier: a start-here move and a path to the placement', () => {
+  assert.match(html, /id="placement-cta"/);
+  // The start-here move is the frontier's highest-leverage skill — the same one the diagnostic
+  // recommends — computed from transitive dependents.
+  assert.match(js, /const startHere =/);
+  assert.match(js, /descendantsOf/);
+  assert.match(js, /state\.get\(s\.id\) === 'frontier'/);
+  // It is marked on the map and named as where to begin.
+  assert.match(js, /START HERE/);
+  assert.match(js, /Start here/);
+  // The frontier is tied back to the adaptive placement that finds it.
+  assert.match(js, /diagnostic\.html/);
+  assert.match(js, /from=diagnostic/);
+});
