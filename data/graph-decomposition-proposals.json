@@ -1,0 +1,930 @@
+{
+  "generatedBy": "scripts/graph-decomposition-proposer.mjs",
+  "graphVersion": "0.3.0",
+  "params": {
+    "spanThreshold": 3,
+    "edge": null
+  },
+  "summary": {
+    "targeted": 17,
+    "redundantEdges": 5,
+    "insertIntermediate": 12
+  },
+  "proposals": [
+    {
+      "kind": "redundant-edge",
+      "edge": {
+        "from": "fnd-signal-connectors",
+        "fromTitle": "Recognize argument connectors",
+        "fromLayer": 2,
+        "to": "fnd-indep-first-pass",
+        "toTitle": "Make a scaffolded first pass",
+        "toLayer": 9,
+        "span": 7
+      },
+      "altPath": true,
+      "rationale": "Make a scaffolded first pass still reaches Recognize argument connectors through another path, so the direct 7-layer edge carries no reachability. Removing it closes the jump without losing any prerequisite.",
+      "graphEdits": {
+        "removeEdges": [
+          {
+            "from": "fnd-signal-connectors",
+            "to": "fnd-indep-first-pass"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "redundant-edge",
+      "edge": {
+        "from": "fnd-role-text-vs-commentary",
+        "fromTitle": "Tell primary text from commentary",
+        "fromLayer": 3,
+        "to": "fnd-agency-use-tools",
+        "toTitle": "Use a source tool on purpose",
+        "toLayer": 10,
+        "span": 7
+      },
+      "altPath": true,
+      "rationale": "Use a source tool on purpose still reaches Tell primary text from commentary through another path, so the direct 7-layer edge carries no reachability. Removing it closes the jump without losing any prerequisite.",
+      "graphEdits": {
+        "removeEdges": [
+          {
+            "from": "fnd-role-text-vs-commentary",
+            "to": "fnd-agency-use-tools"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "insert-intermediate",
+      "edge": {
+        "from": "fnd-orient-source-type",
+        "fromTitle": "Tell what kind of text you are looking at",
+        "fromLayer": 1,
+        "to": "fnd-context-when-where",
+        "toTitle": "Place a source in time and place",
+        "toLayer": 7,
+        "span": 6
+      },
+      "status": "draft-needs-authoring",
+      "proposedLayer": 4,
+      "proposedLayerTitle": "Case mapping",
+      "idHint": "fnd-case-<name>",
+      "bridges": {
+        "from": {
+          "id": "fnd-orient-source-type",
+          "title": "Tell what kind of text you are looking at",
+          "statement": "You can say whether a source is Torah, Mishnah, Gemara, commentary, a code, or a prayer.",
+          "transferKp": "Label the genre of a snippet from a genre not shown in the lesson."
+        },
+        "to": {
+          "id": "fnd-context-when-where",
+          "title": "Place a source in time and place",
+          "statement": "You can place a source in a rough time and place.",
+          "introduceKp": "Attach every source to a rough era and setting before drawing conclusions from it."
+        }
+      },
+      "authoringGuidance": "Name the single reading move a learner needs after \"You can say whether a source is Torah, Mishnah, Gemara, commentary, a code, or a prayer.\" to be ready for \"You can place a source in a rough time and place.\" — which begins by \"Attach every source to a rough era and setting before drawing conclusions from it.\". If the jump is genuinely one move, reject this and keep the direct edge.",
+      "suggestedFamilies": [
+        "rabbinic",
+        "liturgical",
+        "thought"
+      ],
+      "graphEdits": {
+        "addSkill": {
+          "id": "fnd-case-<name>",
+          "layer": 4,
+          "title": null,
+          "statement": null,
+          "teachingMove": null,
+          "checks": [],
+          "sourceContexts": [],
+          "prerequisites": [
+            "fnd-orient-source-type"
+          ],
+          "_draft": true
+        },
+        "addEdges": [
+          {
+            "from": "fnd-orient-source-type",
+            "to": "fnd-case-<name>"
+          },
+          {
+            "from": "fnd-case-<name>",
+            "to": "fnd-context-when-where"
+          }
+        ],
+        "removeEdges": [
+          {
+            "from": "fnd-orient-source-type",
+            "to": "fnd-context-when-where"
+          }
+        ]
+      },
+      "note": "A 6-layer jump may need more than one intermediate; this proposes one at layer 4. After authoring it, re-run to decompose the two shorter edges it leaves."
+    },
+    {
+      "kind": "redundant-edge",
+      "edge": {
+        "from": "fnd-orient-source-type",
+        "fromTitle": "Tell what kind of text you are looking at",
+        "fromLayer": 1,
+        "to": "fnd-context-genre-expectations",
+        "toTitle": "Let the genre set your expectations",
+        "toLayer": 7,
+        "span": 6
+      },
+      "altPath": true,
+      "rationale": "Let the genre set your expectations still reaches Tell what kind of text you are looking at through another path, so the direct 6-layer edge carries no reachability. Removing it closes the jump without losing any prerequisite.",
+      "graphEdits": {
+        "removeEdges": [
+          {
+            "from": "fnd-orient-source-type",
+            "to": "fnd-context-genre-expectations"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "insert-intermediate",
+      "edge": {
+        "from": "fnd-role-text-vs-commentary",
+        "fromTitle": "Tell primary text from commentary",
+        "fromLayer": 3,
+        "to": "fnd-indep-first-pass",
+        "toTitle": "Make a scaffolded first pass",
+        "toLayer": 9,
+        "span": 6
+      },
+      "status": "draft-needs-authoring",
+      "proposedLayer": 6,
+      "proposedLayerTitle": "Comparison",
+      "idHint": "fnd-comparison-<name>",
+      "bridges": {
+        "from": {
+          "id": "fnd-role-text-vs-commentary",
+          "title": "Tell primary text from commentary",
+          "statement": "You can separate a primary text from a comment written about it.",
+          "transferKp": "Separate text from commentary on a halakhic page you have not seen."
+        },
+        "to": {
+          "id": "fnd-indep-first-pass",
+          "title": "Make a scaffolded first pass",
+          "statement": "You can make a supported first pass through an unfamiliar short source.",
+          "introduceKp": "Walk the source once for shape, once for signals, once for sense, with support ready at each pass."
+        }
+      },
+      "authoringGuidance": "Name the single reading move a learner needs after \"You can separate a primary text from a comment written about it.\" to be ready for \"You can make a supported first pass through an unfamiliar short source.\" — which begins by \"Walk the source once for shape, once for signals, once for sense, with support ready at each pass.\". If the jump is genuinely one move, reject this and keep the direct edge.",
+      "suggestedFamilies": [
+        "tanakh",
+        "rabbinic"
+      ],
+      "graphEdits": {
+        "addSkill": {
+          "id": "fnd-comparison-<name>",
+          "layer": 6,
+          "title": null,
+          "statement": null,
+          "teachingMove": null,
+          "checks": [],
+          "sourceContexts": [],
+          "prerequisites": [
+            "fnd-role-text-vs-commentary"
+          ],
+          "_draft": true
+        },
+        "addEdges": [
+          {
+            "from": "fnd-role-text-vs-commentary",
+            "to": "fnd-comparison-<name>"
+          },
+          {
+            "from": "fnd-comparison-<name>",
+            "to": "fnd-indep-first-pass"
+          }
+        ],
+        "removeEdges": [
+          {
+            "from": "fnd-role-text-vs-commentary",
+            "to": "fnd-indep-first-pass"
+          }
+        ]
+      },
+      "note": "A 6-layer jump may need more than one intermediate; this proposes one at layer 6. After authoring it, re-run to decompose the two shorter edges it leaves."
+    },
+    {
+      "kind": "insert-intermediate",
+      "edge": {
+        "from": "fnd-role-translation-gap",
+        "fromTitle": "Notice where a translation makes a choice",
+        "fromLayer": 3,
+        "to": "fnd-indep-use-translation-to-check",
+        "toTitle": "Use translation to check, not to skip",
+        "toLayer": 9,
+        "span": 6
+      },
+      "status": "draft-needs-authoring",
+      "proposedLayer": 6,
+      "proposedLayerTitle": "Comparison",
+      "idHint": "fnd-comparison-<name>",
+      "bridges": {
+        "from": {
+          "id": "fnd-role-translation-gap",
+          "title": "Notice where a translation makes a choice",
+          "statement": "You can see where a translation adds, drops, or chooses a meaning the original leaves open.",
+          "transferKp": "Find a translation choice in a piece of Jewish thought you have not studied."
+        },
+        "to": {
+          "id": "fnd-indep-use-translation-to-check",
+          "title": "Use translation to check, not to skip",
+          "statement": "You can use a translation to verify your reading rather than to replace it.",
+          "introduceKp": "Commit to a read first, then open the translation only to confirm or correct it."
+        }
+      },
+      "authoringGuidance": "Name the single reading move a learner needs after \"You can see where a translation adds, drops, or chooses a meaning the original leaves open.\" to be ready for \"You can use a translation to verify your reading rather than to replace it.\" — which begins by \"Commit to a read first, then open the translation only to confirm or correct it.\". If the jump is genuinely one move, reject this and keep the direct edge.",
+      "suggestedFamilies": [
+        "tanakh",
+        "thought"
+      ],
+      "graphEdits": {
+        "addSkill": {
+          "id": "fnd-comparison-<name>",
+          "layer": 6,
+          "title": null,
+          "statement": null,
+          "teachingMove": null,
+          "checks": [],
+          "sourceContexts": [],
+          "prerequisites": [
+            "fnd-role-translation-gap"
+          ],
+          "_draft": true
+        },
+        "addEdges": [
+          {
+            "from": "fnd-role-translation-gap",
+            "to": "fnd-comparison-<name>"
+          },
+          {
+            "from": "fnd-comparison-<name>",
+            "to": "fnd-indep-use-translation-to-check"
+          }
+        ],
+        "removeEdges": [
+          {
+            "from": "fnd-role-translation-gap",
+            "to": "fnd-indep-use-translation-to-check"
+          }
+        ]
+      },
+      "note": "A 6-layer jump may need more than one intermediate; this proposes one at layer 6. After authoring it, re-run to decompose the two shorter edges it leaves."
+    },
+    {
+      "kind": "insert-intermediate",
+      "edge": {
+        "from": "fnd-case-uncertainty",
+        "fromTitle": "Name what is uncertain",
+        "fromLayer": 4,
+        "to": "fnd-agency-ask-question",
+        "toTitle": "Ask a good question",
+        "toLayer": 10,
+        "span": 6
+      },
+      "status": "draft-needs-authoring",
+      "proposedLayer": 7,
+      "proposedLayerTitle": "Context",
+      "idHint": "fnd-context-<name>",
+      "bridges": {
+        "from": {
+          "id": "fnd-case-uncertainty",
+          "title": "Name what is uncertain",
+          "statement": "You can name the point of uncertainty or dispute at the heart of a case.",
+          "transferKp": "Find the uncertainty in an unseen halakhic case."
+        },
+        "to": {
+          "id": "fnd-agency-ask-question",
+          "title": "Ask a good question",
+          "statement": "You can ask a clear, answerable question about a source.",
+          "introduceKp": "Turn a vague 'I don't get it' into a question with a shape that could actually be answered."
+        }
+      },
+      "authoringGuidance": "Name the single reading move a learner needs after \"You can name the point of uncertainty or dispute at the heart of a case.\" to be ready for \"You can ask a clear, answerable question about a source.\" — which begins by \"Turn a vague 'I don't get it' into a question with a shape that could actually be answered.\". If the jump is genuinely one move, reject this and keep the direct edge.",
+      "suggestedFamilies": [
+        "rabbinic",
+        "liturgical"
+      ],
+      "graphEdits": {
+        "addSkill": {
+          "id": "fnd-context-<name>",
+          "layer": 7,
+          "title": null,
+          "statement": null,
+          "teachingMove": null,
+          "checks": [],
+          "sourceContexts": [],
+          "prerequisites": [
+            "fnd-case-uncertainty"
+          ],
+          "_draft": true
+        },
+        "addEdges": [
+          {
+            "from": "fnd-case-uncertainty",
+            "to": "fnd-context-<name>"
+          },
+          {
+            "from": "fnd-context-<name>",
+            "to": "fnd-agency-ask-question"
+          }
+        ],
+        "removeEdges": [
+          {
+            "from": "fnd-case-uncertainty",
+            "to": "fnd-agency-ask-question"
+          }
+        ]
+      },
+      "note": "A 6-layer jump may need more than one intermediate; this proposes one at layer 7. After authoring it, re-run to decompose the two shorter edges it leaves."
+    },
+    {
+      "kind": "redundant-edge",
+      "edge": {
+        "from": "fnd-role-ruling-vs-discussion",
+        "fromTitle": "Distinguish a ruling from a discussion",
+        "fromLayer": 3,
+        "to": "fnd-resp-learning-vs-ruling",
+        "toTitle": "Tell learning apart from a ruling",
+        "toLayer": 8,
+        "span": 5
+      },
+      "altPath": true,
+      "rationale": "Tell learning apart from a ruling still reaches Distinguish a ruling from a discussion through another path, so the direct 5-layer edge carries no reachability. Removing it closes the jump without losing any prerequisite.",
+      "graphEdits": {
+        "removeEdges": [
+          {
+            "from": "fnd-role-ruling-vs-discussion",
+            "to": "fnd-resp-learning-vs-ruling"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "redundant-edge",
+      "edge": {
+        "from": "fnd-case-restate",
+        "fromTitle": "Restate a case in your own words",
+        "fromLayer": 4,
+        "to": "fnd-indep-map-lines",
+        "toTitle": "Map each line's job",
+        "toLayer": 9,
+        "span": 5
+      },
+      "altPath": true,
+      "rationale": "Map each line's job still reaches Restate a case in your own words through another path, so the direct 5-layer edge carries no reachability. Removing it closes the jump without losing any prerequisite.",
+      "graphEdits": {
+        "removeEdges": [
+          {
+            "from": "fnd-case-restate",
+            "to": "fnd-indep-map-lines"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "insert-intermediate",
+      "edge": {
+        "from": "fnd-arg-unresolved",
+        "fromTitle": "Recognize an open tension",
+        "fromLayer": 5,
+        "to": "fnd-agency-ask-question",
+        "toTitle": "Ask a good question",
+        "toLayer": 10,
+        "span": 5
+      },
+      "status": "draft-needs-authoring",
+      "proposedLayer": 7,
+      "proposedLayerTitle": "Context",
+      "idHint": "fnd-context-<name>",
+      "bridges": {
+        "from": {
+          "id": "fnd-arg-unresolved",
+          "title": "Recognize an open tension",
+          "statement": "You can recognize when a source leaves a tension unresolved on purpose.",
+          "transferKp": "Judge resolution in an unseen aggadic or narrative passage."
+        },
+        "to": {
+          "id": "fnd-agency-ask-question",
+          "title": "Ask a good question",
+          "statement": "You can ask a clear, answerable question about a source.",
+          "introduceKp": "Turn a vague 'I don't get it' into a question with a shape that could actually be answered."
+        }
+      },
+      "authoringGuidance": "Name the single reading move a learner needs after \"You can recognize when a source leaves a tension unresolved on purpose.\" to be ready for \"You can ask a clear, answerable question about a source.\" — which begins by \"Turn a vague 'I don't get it' into a question with a shape that could actually be answered.\". If the jump is genuinely one move, reject this and keep the direct edge.",
+      "suggestedFamilies": [
+        "rabbinic",
+        "tanakh"
+      ],
+      "graphEdits": {
+        "addSkill": {
+          "id": "fnd-context-<name>",
+          "layer": 7,
+          "title": null,
+          "statement": null,
+          "teachingMove": null,
+          "checks": [],
+          "sourceContexts": [],
+          "prerequisites": [
+            "fnd-arg-unresolved"
+          ],
+          "_draft": true
+        },
+        "addEdges": [
+          {
+            "from": "fnd-arg-unresolved",
+            "to": "fnd-context-<name>"
+          },
+          {
+            "from": "fnd-context-<name>",
+            "to": "fnd-agency-ask-question"
+          }
+        ],
+        "removeEdges": [
+          {
+            "from": "fnd-arg-unresolved",
+            "to": "fnd-agency-ask-question"
+          }
+        ]
+      },
+      "note": "A 5-layer jump may need more than one intermediate; this proposes one at layer 7. After authoring it, re-run to decompose the two shorter edges it leaves."
+    },
+    {
+      "kind": "insert-intermediate",
+      "edge": {
+        "from": "fnd-role-ruling-vs-discussion",
+        "fromTitle": "Distinguish a ruling from a discussion",
+        "fromLayer": 3,
+        "to": "fnd-context-genre-expectations",
+        "toTitle": "Let the genre set your expectations",
+        "toLayer": 7,
+        "span": 4
+      },
+      "status": "draft-needs-authoring",
+      "proposedLayer": 5,
+      "proposedLayerTitle": "Argument tracking",
+      "idHint": "fnd-argument-<name>",
+      "bridges": {
+        "from": {
+          "id": "fnd-role-ruling-vs-discussion",
+          "title": "Distinguish a ruling from a discussion",
+          "statement": "You can tell a settled ruling from open discussion around it.",
+          "transferKp": "Make the same call on an unseen halakhic paragraph."
+        },
+        "to": {
+          "id": "fnd-context-genre-expectations",
+          "title": "Let the genre set your expectations",
+          "statement": "You can use a source's genre to decide how it should and should not be read.",
+          "introduceKp": "Match the reading stance to the genre: a poem invites resonance, a code invites precision."
+        }
+      },
+      "authoringGuidance": "Name the single reading move a learner needs after \"You can tell a settled ruling from open discussion around it.\" to be ready for \"You can use a source's genre to decide how it should and should not be read.\" — which begins by \"Match the reading stance to the genre: a poem invites resonance, a code invites precision.\". If the jump is genuinely one move, reject this and keep the direct edge.",
+      "suggestedFamilies": [
+        "rabbinic",
+        "tanakh"
+      ],
+      "graphEdits": {
+        "addSkill": {
+          "id": "fnd-argument-<name>",
+          "layer": 5,
+          "title": null,
+          "statement": null,
+          "teachingMove": null,
+          "checks": [],
+          "sourceContexts": [],
+          "prerequisites": [
+            "fnd-role-ruling-vs-discussion"
+          ],
+          "_draft": true
+        },
+        "addEdges": [
+          {
+            "from": "fnd-role-ruling-vs-discussion",
+            "to": "fnd-argument-<name>"
+          },
+          {
+            "from": "fnd-argument-<name>",
+            "to": "fnd-context-genre-expectations"
+          }
+        ],
+        "removeEdges": [
+          {
+            "from": "fnd-role-ruling-vs-discussion",
+            "to": "fnd-context-genre-expectations"
+          }
+        ]
+      },
+      "note": null
+    },
+    {
+      "kind": "insert-intermediate",
+      "edge": {
+        "from": "fnd-arg-response",
+        "fromTitle": "Follow the response",
+        "fromLayer": 5,
+        "to": "fnd-indep-first-pass",
+        "toTitle": "Make a scaffolded first pass",
+        "toLayer": 9,
+        "span": 4
+      },
+      "status": "draft-needs-authoring",
+      "proposedLayer": 7,
+      "proposedLayerTitle": "Context",
+      "idHint": "fnd-context-<name>",
+      "bridges": {
+        "from": {
+          "id": "fnd-arg-response",
+          "title": "Follow the response",
+          "statement": "You can follow how a response answers, narrows, or reframes an objection.",
+          "transferKp": "Trace a response in an unseen sugya."
+        },
+        "to": {
+          "id": "fnd-indep-first-pass",
+          "title": "Make a scaffolded first pass",
+          "statement": "You can make a supported first pass through an unfamiliar short source.",
+          "introduceKp": "Walk the source once for shape, once for signals, once for sense, with support ready at each pass."
+        }
+      },
+      "authoringGuidance": "Name the single reading move a learner needs after \"You can follow how a response answers, narrows, or reframes an objection.\" to be ready for \"You can make a supported first pass through an unfamiliar short source.\" — which begins by \"Walk the source once for shape, once for signals, once for sense, with support ready at each pass.\". If the jump is genuinely one move, reject this and keep the direct edge.",
+      "suggestedFamilies": [
+        "rabbinic",
+        "tanakh"
+      ],
+      "graphEdits": {
+        "addSkill": {
+          "id": "fnd-context-<name>",
+          "layer": 7,
+          "title": null,
+          "statement": null,
+          "teachingMove": null,
+          "checks": [],
+          "sourceContexts": [],
+          "prerequisites": [
+            "fnd-arg-response"
+          ],
+          "_draft": true
+        },
+        "addEdges": [
+          {
+            "from": "fnd-arg-response",
+            "to": "fnd-context-<name>"
+          },
+          {
+            "from": "fnd-context-<name>",
+            "to": "fnd-indep-first-pass"
+          }
+        ],
+        "removeEdges": [
+          {
+            "from": "fnd-arg-response",
+            "to": "fnd-indep-first-pass"
+          }
+        ]
+      },
+      "note": null
+    },
+    {
+      "kind": "insert-intermediate",
+      "edge": {
+        "from": "fnd-signal-quotation",
+        "fromTitle": "Notice when a source quotes another source",
+        "fromLayer": 2,
+        "to": "fnd-arg-evidence-role",
+        "toTitle": "Say what a cited source is doing",
+        "toLayer": 5,
+        "span": 3
+      },
+      "status": "draft-needs-authoring",
+      "proposedLayer": 3,
+      "proposedLayerTitle": "Source roles",
+      "idHint": "fnd-source-<name>",
+      "bridges": {
+        "from": {
+          "id": "fnd-signal-quotation",
+          "title": "Notice when a source quotes another source",
+          "statement": "You can tell when a source is bringing in another text rather than speaking in its own voice.",
+          "transferKp": "Find the quotation inside a piece of Chassidut you have not read."
+        },
+        "to": {
+          "id": "fnd-arg-evidence-role",
+          "title": "Say what a cited source is doing",
+          "statement": "You can say whether a cited source supports, challenges, clarifies, or distinguishes a claim.",
+          "introduceKp": "For each citation, choose one of four jobs: prop, attack, refine, or split."
+        }
+      },
+      "authoringGuidance": "Name the single reading move a learner needs after \"You can tell when a source is bringing in another text rather than speaking in its own voice.\" to be ready for \"You can say whether a cited source supports, challenges, clarifies, or distinguishes a claim.\" — which begins by \"For each citation, choose one of four jobs: prop, attack, refine, or split.\". If the jump is genuinely one move, reject this and keep the direct edge.",
+      "suggestedFamilies": [
+        "rabbinic",
+        "halakhic"
+      ],
+      "graphEdits": {
+        "addSkill": {
+          "id": "fnd-source-<name>",
+          "layer": 3,
+          "title": null,
+          "statement": null,
+          "teachingMove": null,
+          "checks": [],
+          "sourceContexts": [],
+          "prerequisites": [
+            "fnd-signal-quotation"
+          ],
+          "_draft": true
+        },
+        "addEdges": [
+          {
+            "from": "fnd-signal-quotation",
+            "to": "fnd-source-<name>"
+          },
+          {
+            "from": "fnd-source-<name>",
+            "to": "fnd-arg-evidence-role"
+          }
+        ],
+        "removeEdges": [
+          {
+            "from": "fnd-signal-quotation",
+            "to": "fnd-arg-evidence-role"
+          }
+        ]
+      },
+      "note": null
+    },
+    {
+      "kind": "insert-intermediate",
+      "edge": {
+        "from": "fnd-signal-connectors",
+        "fromTitle": "Recognize argument connectors",
+        "fromLayer": 2,
+        "to": "fnd-arg-objection",
+        "toTitle": "Mark an objection",
+        "toLayer": 5,
+        "span": 3
+      },
+      "status": "draft-needs-authoring",
+      "proposedLayer": 3,
+      "proposedLayerTitle": "Source roles",
+      "idHint": "fnd-source-<name>",
+      "bridges": {
+        "from": {
+          "id": "fnd-signal-connectors",
+          "title": "Recognize argument connectors",
+          "statement": "You can recognize the small words that mean 'therefore', 'but', 'as it says', and 'this teaches'.",
+          "transferKp": "Trace the connectors through a Mussar passage you have not seen."
+        },
+        "to": {
+          "id": "fnd-arg-objection",
+          "title": "Mark an objection",
+          "statement": "You can mark an objection and describe the pressure it puts on a claim.",
+          "introduceKp": "When the text pushes back, name what exactly it threatens: the claim, its reason, or its scope."
+        }
+      },
+      "authoringGuidance": "Name the single reading move a learner needs after \"You can recognize the small words that mean 'therefore', 'but', 'as it says', and 'this teaches'.\" to be ready for \"You can mark an objection and describe the pressure it puts on a claim.\" — which begins by \"When the text pushes back, name what exactly it threatens: the claim, its reason, or its scope.\". If the jump is genuinely one move, reject this and keep the direct edge.",
+      "suggestedFamilies": [
+        "rabbinic",
+        "halakhic",
+        "thought"
+      ],
+      "graphEdits": {
+        "addSkill": {
+          "id": "fnd-source-<name>",
+          "layer": 3,
+          "title": null,
+          "statement": null,
+          "teachingMove": null,
+          "checks": [],
+          "sourceContexts": [],
+          "prerequisites": [
+            "fnd-signal-connectors"
+          ],
+          "_draft": true
+        },
+        "addEdges": [
+          {
+            "from": "fnd-signal-connectors",
+            "to": "fnd-source-<name>"
+          },
+          {
+            "from": "fnd-source-<name>",
+            "to": "fnd-arg-objection"
+          }
+        ],
+        "removeEdges": [
+          {
+            "from": "fnd-signal-connectors",
+            "to": "fnd-arg-objection"
+          }
+        ]
+      },
+      "note": null
+    },
+    {
+      "kind": "insert-intermediate",
+      "edge": {
+        "from": "fnd-case-actors",
+        "fromTitle": "Identify who acts",
+        "fromLayer": 4,
+        "to": "fnd-context-who-audience",
+        "toTitle": "Ask who made it and for whom",
+        "toLayer": 7,
+        "span": 3
+      },
+      "status": "draft-needs-authoring",
+      "proposedLayer": 5,
+      "proposedLayerTitle": "Argument tracking",
+      "idHint": "fnd-argument-<name>",
+      "bridges": {
+        "from": {
+          "id": "fnd-case-actors",
+          "title": "Identify who acts",
+          "statement": "You can name who is acting in a case and what they do.",
+          "transferKp": "Do the same for an unseen narrative from history material."
+        },
+        "to": {
+          "id": "fnd-context-who-audience",
+          "title": "Ask who made it and for whom",
+          "statement": "You can ask who produced a source and which community it addressed.",
+          "introduceKp": "Name the author and intended audience; a text written for scholars reads differently than one for a congregation."
+        }
+      },
+      "authoringGuidance": "Name the single reading move a learner needs after \"You can name who is acting in a case and what they do.\" to be ready for \"You can ask who produced a source and which community it addressed.\" — which begins by \"Name the author and intended audience; a text written for scholars reads differently than one for a congregation.\". If the jump is genuinely one move, reject this and keep the direct edge.",
+      "suggestedFamilies": [
+        "rabbinic"
+      ],
+      "graphEdits": {
+        "addSkill": {
+          "id": "fnd-argument-<name>",
+          "layer": 5,
+          "title": null,
+          "statement": null,
+          "teachingMove": null,
+          "checks": [],
+          "sourceContexts": [],
+          "prerequisites": [
+            "fnd-case-actors"
+          ],
+          "_draft": true
+        },
+        "addEdges": [
+          {
+            "from": "fnd-case-actors",
+            "to": "fnd-argument-<name>"
+          },
+          {
+            "from": "fnd-argument-<name>",
+            "to": "fnd-context-who-audience"
+          }
+        ],
+        "removeEdges": [
+          {
+            "from": "fnd-case-actors",
+            "to": "fnd-context-who-audience"
+          }
+        ]
+      },
+      "note": null
+    },
+    {
+      "kind": "insert-intermediate",
+      "edge": {
+        "from": "fnd-arg-unresolved",
+        "fromTitle": "Recognize an open tension",
+        "fromLayer": 5,
+        "to": "fnd-resp-name-limits",
+        "toTitle": "Name the limits of what you learned",
+        "toLayer": 8,
+        "span": 3
+      },
+      "status": "draft-needs-authoring",
+      "proposedLayer": 6,
+      "proposedLayerTitle": "Comparison",
+      "idHint": "fnd-comparison-<name>",
+      "bridges": {
+        "from": {
+          "id": "fnd-arg-unresolved",
+          "title": "Recognize an open tension",
+          "statement": "You can recognize when a source leaves a tension unresolved on purpose.",
+          "transferKp": "Judge resolution in an unseen aggadic or narrative passage."
+        },
+        "to": {
+          "id": "fnd-resp-name-limits",
+          "title": "Name the limits of what you learned",
+          "statement": "You can name the boundaries of what your reading has and has not established.",
+          "introduceKp": "End each study with a sentence beginning 'What I have not settled is...'."
+        }
+      },
+      "authoringGuidance": "Name the single reading move a learner needs after \"You can recognize when a source leaves a tension unresolved on purpose.\" to be ready for \"You can name the boundaries of what your reading has and has not established.\" — which begins by \"End each study with a sentence beginning 'What I have not settled is...'.\". If the jump is genuinely one move, reject this and keep the direct edge.",
+      "suggestedFamilies": [
+        "rabbinic"
+      ],
+      "graphEdits": {
+        "addSkill": {
+          "id": "fnd-comparison-<name>",
+          "layer": 6,
+          "title": null,
+          "statement": null,
+          "teachingMove": null,
+          "checks": [],
+          "sourceContexts": [],
+          "prerequisites": [
+            "fnd-arg-unresolved"
+          ],
+          "_draft": true
+        },
+        "addEdges": [
+          {
+            "from": "fnd-arg-unresolved",
+            "to": "fnd-comparison-<name>"
+          },
+          {
+            "from": "fnd-comparison-<name>",
+            "to": "fnd-resp-name-limits"
+          }
+        ],
+        "removeEdges": [
+          {
+            "from": "fnd-arg-unresolved",
+            "to": "fnd-resp-name-limits"
+          }
+        ]
+      },
+      "note": null
+    },
+    {
+      "kind": "insert-intermediate",
+      "edge": {
+        "from": "fnd-compare-shared-question",
+        "fromTitle": "Find the shared question",
+        "fromLayer": 6,
+        "to": "fnd-indep-carry-across-genre",
+        "toTitle": "Carry a reading move across genres",
+        "toLayer": 9,
+        "span": 3
+      },
+      "status": "draft-needs-authoring",
+      "proposedLayer": 7,
+      "proposedLayerTitle": "Context",
+      "idHint": "fnd-context-<name>",
+      "bridges": {
+        "from": {
+          "id": "fnd-compare-shared-question",
+          "title": "Find the shared question",
+          "statement": "You can find the common question that two sources are both answering.",
+          "transferKp": "Find the shared question across two unseen sources."
+        },
+        "to": {
+          "id": "fnd-indep-carry-across-genre",
+          "title": "Carry a reading move across genres",
+          "statement": "You can apply a reading move in a genre you never practiced it in.",
+          "introduceKp": "Take a move you own in one genre and run it, out loud, in a genre that feels unrelated."
+        }
+      },
+      "authoringGuidance": "Name the single reading move a learner needs after \"You can find the common question that two sources are both answering.\" to be ready for \"You can apply a reading move in a genre you never practiced it in.\" — which begins by \"Take a move you own in one genre and run it, out loud, in a genre that feels unrelated.\". If the jump is genuinely one move, reject this and keep the direct edge.",
+      "suggestedFamilies": [
+        "rabbinic",
+        "thought",
+        "historical"
+      ],
+      "graphEdits": {
+        "addSkill": {
+          "id": "fnd-context-<name>",
+          "layer": 7,
+          "title": null,
+          "statement": null,
+          "teachingMove": null,
+          "checks": [],
+          "sourceContexts": [],
+          "prerequisites": [
+            "fnd-compare-shared-question"
+          ],
+          "_draft": true
+        },
+        "addEdges": [
+          {
+            "from": "fnd-compare-shared-question",
+            "to": "fnd-context-<name>"
+          },
+          {
+            "from": "fnd-context-<name>",
+            "to": "fnd-indep-carry-across-genre"
+          }
+        ],
+        "removeEdges": [
+          {
+            "from": "fnd-compare-shared-question",
+            "to": "fnd-indep-carry-across-genre"
+          }
+        ]
+      },
+      "note": null
+    }
+  ]
+}

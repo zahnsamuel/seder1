@@ -28,6 +28,7 @@
     "map:foundation": "node scripts/build-foundation-content-map.mjs",
     "check:links": "node scripts/check-source-links.mjs",
     "graph:quality": "node scripts/graph-quality.mjs",
-    "graph:gaps": "node scripts/graph-gap-analyzer.mjs"
+    "graph:gaps": "node scripts/graph-gap-analyzer.mjs",
+    "graph:decompose": "node scripts/graph-decomposition-proposer.mjs"
   }
 }
