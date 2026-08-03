@@ -24,6 +24,50 @@ function subjectReviewItem(skillId) {
   return spec && { trueSkillId: skillId, ...spec, correct: 0, sourceContext: `retrieval for ${skillId}`, variantId: `subject-${skillId}` };
 }
 
+let cachedFoundationSkills;
+async function foundationSkills(root) {
+  if (!cachedFoundationSkills) {
+    try { cachedFoundationSkills = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-skill-graph.json'), 'utf8')).skills || []; }
+    catch { cachedFoundationSkills = []; }
+  }
+  return cachedFoundationSkills;
+}
+
+// A real retrieval for a foundation-graph skill (fnd-*): ground it in one of the skill's own source
+// contexts and ask which reading move that practice names, discriminating from nearby real moves. The
+// distractors are OTHER skills' actual statements (same-layer siblings first, so they are plausible),
+// making this a genuine recognition task instead of the generic boilerplate every uncovered skill used
+// to share. Graph-derived, nothing authored or fabricated — the answer is the skill's own public
+// statement. `seed` keeps it varied across spaced repetitions while staying deterministic for tests.
+export function foundationReviewItem(skill, allSkills, seed = Math.floor(Math.random() * 997)) {
+  const contexts = (skill.sourceContexts && skill.sourceContexts.length) ? skill.sourceContexts : [{ ref: 'a short Jewish source', genre: 'source' }];
+  const ctx = contexts[seed % contexts.length];
+  const others = allSkills.filter((s) => s.id !== skill.id && s.statement && s.statement !== skill.statement);
+  const siblings = others.filter((s) => s.layer === skill.layer);
+  const pool = siblings.length >= 2 ? siblings : others;
+  const distractors = [];
+  for (let k = 0; k < pool.length && distractors.length < 2; k++) {
+    const candidate = pool[(seed + k * 7 + 3) % pool.length];
+    if (candidate && !distractors.includes(candidate.statement)) distractors.push(candidate.statement);
+  }
+  const options = [skill.statement, ...distractors];
+  const rotation = seed % options.length; // don't always place the answer first
+  const answers = options.slice(rotation).concat(options.slice(0, rotation));
+  const task = (skill.checks && skill.checks[0]) || 'make the move this skill names';
+  return {
+    trueSkillId: skill.id,
+    label: `FOUNDATION · ${(ctx.genre || 'SOURCE').toUpperCase()}`,
+    hebrew: '',
+    translation: '',
+    prompt: `Reading ${ctx.ref}, your task is: “${task}”. Which reading move is that?`,
+    answers,
+    correct: answers.indexOf(skill.statement),
+    feedback: `“${skill.title}”: ${skill.statement}`,
+    sourceContext: `retrieval for ${skill.id}`,
+    variantId: `${skill.id}-rv${seed}`
+  };
+}
+
 export async function canonJourney(root) {
   if (!cachedJourney) {
     const [foundationFile, extensionFile] = await Promise.all([
@@ -171,11 +215,19 @@ export async function sourceReviewItems(root, skillIds = []) {
     })));
   const flagshipMapped = flagship.filter((item) => wanted.has(item.skillId)).map((item) => ({ ...item, trueSkillId: item.skillId, variantId: `flagship-${item.skillId}` }));
   const covered = new Set([...mapped, ...flagshipMapped].map((item) => item.trueSkillId));
-  const workbenchFallbacks = skillIds.filter((skillId) => !covered.has(skillId)).map((skillId) => subjectReviewItem(skillId) || ({
-    trueSkillId: skillId, label: 'DAF RETRIEVAL', hebrew: 'מַה תַּפְקִיד הַשּׁוּרָה?', translation: 'What job does this line perform?',
-    prompt: 'Before deciding whether a line is correct, what should you identify in a sugya?', answers: ['Its role: case, question, proof, objection, response, or distinction.', 'Only the longest word in the line.', 'The final ruling without reading the argument.'], correct: 0,
-    feedback: 'Daf reading starts by naming the work a line does in the argument.', sourceContext: `retrieval for ${skillId}`, variantId: `fallback-${skillId}`
-  }));
+  const fndSkills = await foundationSkills(root);
+  const fndById = new Map(fndSkills.map((skill) => [skill.id, skill]));
+  const workbenchFallbacks = skillIds.filter((skillId) => !covered.has(skillId)).map((skillId) => {
+    // A foundation-graph skill gets a real, skill-specific retrieval from the graph; a subject skill
+    // gets its subject retrieval; anything else falls back to the generic daf-reading prompt.
+    const fnd = fndById.get(skillId);
+    if (fnd) return foundationReviewItem(fnd, fndSkills);
+    return subjectReviewItem(skillId) || ({
+      trueSkillId: skillId, label: 'DAF RETRIEVAL', hebrew: 'מַה תַּפְקִיד הַשּׁוּרָה?', translation: 'What job does this line perform?',
+      prompt: 'Before deciding whether a line is correct, what should you identify in a sugya?', answers: ['Its role: case, question, proof, objection, response, or distinction.', 'Only the longest word in the line.', 'The final ruling without reading the argument.'], correct: 0,
+      feedback: 'Daf reading starts by naming the work a line does in the argument.', sourceContext: `retrieval for ${skillId}`, variantId: `fallback-${skillId}`
+    });
+  });
   return [...mapped, ...flagshipMapped, ...workbenchFallbacks];
 }
 
