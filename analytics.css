@@ -24,6 +24,9 @@ th{text-align:left;color:var(--muted);font:600 11px 'DM Mono';letter-spacing:.06
 td{padding:9px 6px;border-bottom:1px solid #eee8de}
 tr.drop-off td{color:var(--red)}
 tr.drop-off td:first-child{font-weight:600}
+.panel h3.subhead{margin:24px 0 4px;color:var(--navy);font:600 12px 'DM Mono';letter-spacing:.05em}
+td.flag{color:var(--red);font-weight:600}
+td small{color:var(--muted);font-size:11px}
 .stage-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 .stage-list li{display:flex;justify-content:space-between;padding:8px 10px;background:var(--paper);border-radius:6px;font-size:13px}
 .stage-list li span{color:#273b43;text-transform:capitalize}

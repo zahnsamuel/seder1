@@ -24,6 +24,42 @@ function render(data) {
   }).join('') || '<tr><td colspan="4">No tractate engagement recorded yet.</td></tr>';
   $('#stageList').innerHTML = data.stageCompletion.map((s) => `<li><span>${s.stageId.replaceAll('-', ' ')}</span><b>${s.count}</b></li>`).join('') || '<li>No completed stages recorded yet.</li>';
   $('#struggleList').innerHTML = data.topStruggles.map((s) => `<li><span>${s.skillId.replaceAll('-', ' ')}</span><b>${s.count}</b></li>`).join('') || '<li>No recurring struggles recorded yet.</li>';
+  renderGraphPilot(data.graphPilot);
+}
+
+const readable = (id) => id.replace(/^fnd-/, '').replaceAll('-', ' ');
+const asPct = (v) => (v == null ? '—' : `${Math.round(v * 100)}%`);
+
+// The graph-pilot signal (data/pilot-analytics.mjs): classical item analysis over the foundation graph.
+// Honest about sample size — only rows with enough responses are shown as signal; the rest await data.
+function renderGraphPilot(gp) {
+  const panel = document.querySelector('.graph-pilot');
+  if (!panel) return;
+  if (!gp) { panel.hidden = true; return; }
+  panel.hidden = false;
+  const s = gp.summary;
+  $('#pilotSummary').innerHTML = [
+    ['Learners', s.learners],
+    ['Responses', s.responses],
+    ['Skills with data', `${s.skillsWithEnoughData}/${s.skillsTotal}`],
+    ['Edges validatable', s.edgesValidatable],
+    ['Edges confirming prereq', s.edgesConfirmingPrerequisite]
+  ].map(([label, value]) => `<article><small>${label}</small><strong>${value}</strong></article>`).join('');
+
+  const skills = (gp.skills || []).filter((x) => x.enough).sort((a, b) => (a.difficulty ?? 1) - (b.difficulty ?? 1));
+  $('#pilotSkills tbody').innerHTML = skills.map((x) => {
+    const diffFlag = x.difficulty != null && x.difficulty < 0.4 ? ' class="flag"' : '';
+    const disc = x.discrimination == null ? '—' : x.discrimination.toFixed(2);
+    const discFlag = x.discrimination != null && x.discrimination < 0 ? ' class="flag"' : '';
+    return `<tr><td>${readable(x.skill)}</td><td>${x.layer}</td><td>${x.learners}</td><td${diffFlag}>${asPct(x.difficulty)}</td><td${discFlag}>${disc}</td></tr>`;
+  }).join('') || `<tr><td colspan="5">No skill has reached ${gp.minResponses} first-attempt responses yet — awaiting pilot data.</td></tr>`;
+
+  const edges = (gp.edges || []).filter((e) => e.enough).sort((a, b) => (a.lift ?? 0) - (b.lift ?? 0));
+  $('#pilotEdges tbody').innerHTML = edges.map((e) => {
+    const flag = e.lift != null && e.lift <= 0 ? ' class="flag"' : '';
+    const lift = e.lift == null ? '—' : `${e.lift > 0 ? '+' : ''}${Math.round(e.lift * 100)}pp`;
+    return `<tr><td>${readable(e.from)} → ${readable(e.to)}</td><td>${asPct(e.passWhenSecured)} <small>(${e.nSecured})</small></td><td>${asPct(e.passWhenNotSecured)} <small>(${e.nUnsecured})</small></td><td${flag}>${lift}</td></tr>`;
+  }).join('') || `<tr><td colspan="4">No prerequisite edge has enough secured and unsecured attempts yet — awaiting pilot data.</td></tr>`;
 }
 
 function gate(message) {
