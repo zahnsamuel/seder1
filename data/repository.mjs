@@ -146,7 +146,18 @@ export function fireReviewPlan(learner) {
   const due = reviewStatus(learner).due;
   const { practice, covered } = encompassingReviewSet(due.map((item) => item.skillId), encompassingEdges());
   const practiceSet = new Set(practice);
-  return { practice: due.filter((item) => practiceSet.has(item.skillId)), covered, saved: Object.keys(covered).length };
+  // encompassingReviewSet can attribute a covered skill to an intermediate that is itself covered
+  // (letters -> vowels -> blend). Resolve each to the practice skill that ultimately carries it — the
+  // same skill the write side credits when it is practiced — so the UI attributes every implicit
+  // review to a retrieval the learner actually does.
+  const resolve = (id, guard = 0) => {
+    const encloser = covered[id];
+    if (!encloser || guard > 100) return encloser;
+    return practiceSet.has(encloser) ? encloser : resolve(encloser, guard + 1);
+  };
+  const resolvedCovered = {};
+  for (const id of Object.keys(covered)) resolvedCovered[id] = resolve(id);
+  return { practice: due.filter((item) => practiceSet.has(item.skillId)), covered: resolvedCovered, saved: Object.keys(covered).length };
 }
 
 // Skills a learner once established (raw evidence >= .67) that have quietly faded

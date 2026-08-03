@@ -808,10 +808,24 @@ $('#continue').addEventListener('click', () => {
   $('.card').classList.add('seder-checkpoint-celebrate');
 });
 
-Promise.all([Seder.api(`/api/learners/${learnerId}`).then((r) => r.ok ? r.json() : null), Seder.api(`/api/learners/${learnerId}/review-items`).then((r) => r.ok ? r.json() : { items: [] })]).then(([l, adaptive]) => {
+Promise.all([
+  Seder.api(`/api/learners/${learnerId}`).then((r) => r.ok ? r.json() : null),
+  Seder.api(`/api/learners/${learnerId}/review-items`).then((r) => r.ok ? r.json() : { items: [] }),
+  fetch('data/foundation-skill-graph.json').then((r) => r.ok ? r.json() : null).catch(() => null)
+]).then(([l, adaptive, graph]) => {
   xp = l?.xp || 0; $('#xp').textContent = `${xp} XP`; $('#streak').textContent = l?.dailyStreak || 0;
+  const titleById = new Map((graph?.skills || []).map((s) => [s.id, s.title]));
+  const titleFor = (id) => titleById.get(id) || pretty(id);
   const due = l?.reviewQueue?.filter((i) => new Date(i.dueAt) <= Date.now()) || [];
-  $('#ready').textContent = due.length;
+  // FIRe: you retrieve only the compressed practice set; the simpler skills beneath it are refreshed
+  // implicitly. Show what that saves so the compression is visible, not a silently shrunken queue.
+  const fire = adaptive.fire;
+  $('#ready').textContent = fire ? fire.practiceCount : due.length;
+  if (fire && fire.saved > 0) {
+    const note = $('#fireNote');
+    note.hidden = false;
+    note.textContent = `${fire.dueCount} skills came due — retrieving ${fire.practiceCount} refreshes the other ${fire.saved}, which sit beneath more advanced skills you’re practicing.`;
+  }
   set = adaptive.items?.length ? adaptive.items : due.map((item) => {
     const key = bankKeyFor(item.skillId);
     if (!key) return null;
@@ -830,7 +844,14 @@ Promise.all([Seder.api(`/api/learners/${learnerId}`).then((r) => r.ok ? r.json()
     const starterKeys = ['berakhot-orientation', 'berakhot-meimatai', 'berakhot-context-question'];
     set = fadedSet.length ? fadedSet : starterKeys.map((key) => ({ ...pickVariant(key), trueSkillId: key }));
   }
-  $('#queue').innerHTML = set.map((item, i) => `<div class="queue-item">${i + 1}. ${pretty(item.trueSkillId)}</div>`).join('');
+  // Each retrieval names the simpler skills it implicitly refreshes (FIRe), so the saving is legible.
+  const coveredBy = {};
+  if (fire?.covered) for (const [skill, encloser] of Object.entries(fire.covered)) { (coveredBy[encloser] = coveredBy[encloser] || []).push(skill); }
+  $('#queue').innerHTML = set.map((item, i) => {
+    const covers = coveredBy[item.trueSkillId] || [];
+    const sub = covers.length ? `<span class="queue-covers">↳ also refreshes ${covers.map(titleFor).join(', ')}</span>` : '';
+    return `<div class="queue-item">${i + 1}. ${titleFor(item.trueSkillId)}${sub}</div>`;
+  }).join('');
   render();
 }).catch(() => {
   const starterKeys = ['berakhot-orientation', 'berakhot-meimatai', 'berakhot-context-question'];

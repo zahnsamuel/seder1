@@ -89,14 +89,19 @@ Promise.all([
   const daily = document.querySelector('.intro .primary'); daily.href = 'daily-router.html'; daily.textContent = recommendation.kind === 'placement' ? 'Begin my starting session →' : 'Begin today’s session →';
   if (review.due.length) {
     document.querySelector('#review-section').hidden = false;
-    document.querySelector('#review-count').textContent = `${review.due.length} READY NOW`;
-    // One thing at a time: show a few due skills for texture, then a single way in. The review
-    // session (review.html) walks the full queue one at a time, strongest need first — listing
-    // every due card here just overwhelms (and each card linked to the same place anyway).
-    const preview = review.due.slice(0, 3);
-    const remaining = review.due.length - preview.length;
-    const previewCards = preview.map((item) => `<article class="review-card"><div><span>RETRIEVAL REVIEW</span><strong>${readableSkill(item.skillId)}</strong><small>${item.reason}</small></div></article>`).join('');
-    const startCard = `<article class="review-card review-start"><div><span>RETENTION SESSION</span><strong>${remaining > 0 ? `And ${remaining} more ready to bring back` : 'Bring these back'}</strong><small>Your review session revisits them one at a time, strongest need first.</small></div><a class="primary" href="review.html">Start review →</a></article>`;
+    // FIRe (Math Academy Way): you retrieve only the compressed practice set; the simpler skills each
+    // one covers are refreshed implicitly. Lead with what you actually retrieve, and name the saving.
+    const fire = review.fire;
+    document.querySelector('#review-count').textContent = fire && fire.saved > 0
+      ? `${fire.practiceCount} TO RETRIEVE · ${fire.saved} AUTO-REFRESHED`
+      : `${review.due.length} READY NOW`;
+    const titleOf = (id) => skills.find((skill) => skill.id === id)?.title || readableSkill(id);
+    const items = fire?.practice?.length ? fire.practice : review.due;
+    const preview = items.slice(0, 3);
+    const remaining = items.length - preview.length;
+    const previewCards = preview.map((item) => `<article class="review-card"><div><span>RETRIEVAL REVIEW</span><strong>${escapeHtml(titleOf(item.skillId))}</strong><small>${escapeHtml(item.reason || 'Bring this skill back before it fades.')}</small></div></article>`).join('');
+    const tail = remaining > 0 ? `And ${remaining} more ready to bring back` : (fire && fire.saved > 0 ? `${fire.saved} more refreshed automatically` : 'Bring these back');
+    const startCard = `<article class="review-card review-start"><div><span>RETENTION SESSION</span><strong>${tail}</strong><small>Your review session revisits them one at a time, strongest need first.</small></div><a class="primary" href="review.html">Start review →</a></article>`;
     document.querySelector('#review-list').innerHTML = previewCards + startCard;
   }
 }).catch(() => {});

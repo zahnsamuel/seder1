@@ -33,7 +33,8 @@ test('My Path caps the retention preview instead of dumping every due card', () 
   // One thing at a time: a learner can have 100+ skills due. The review section shows a few
   // previews plus a single way into the review session, not one linked card per due skill.
   // Guards against the overwhelming full-list dump returning.
-  assert.match(js, /review\.due\.slice\(/);
+  assert.match(js, /items\.slice\(0, 3\)/);
+  assert.match(js, /fire\?\.practice\?\.length \? fire\.practice : review\.due/); // previews the FIRe-compressed set, capped
   assert.match(js, /Start review/);
   assert.doesNotMatch(js, /Review this skill/);
 });

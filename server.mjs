@@ -460,9 +460,15 @@ async function handleApi(request, response, url) {
   const reviewItemsMatch = url.pathname.match(/^\/api\/learners\/([a-zA-Z0-9_-]+)\/review-items$/);
   if (request.method === 'GET' && reviewItemsMatch) {
     const { learner } = await readLearner(request, reviewItemsMatch[1]);
-    const due = reviewStatus(learner).due.map((item) => item.skillId);
-    const items = await sourceReviewItems(root, due);
-    sendJson(response, 200, { items: items.slice(0, 4) });
+    // FIRe: retrieve only the compressed practice set — the simpler skills each one covers are refreshed
+    // implicitly (see creditImplicitReviews). Report the saving so the UI can show what it removed.
+    const status = reviewStatus(learner);
+    const plan = fireReviewPlan(learner);
+    const items = await sourceReviewItems(root, plan.practice.map((item) => item.skillId));
+    sendJson(response, 200, {
+      items: items.slice(0, 4),
+      fire: { dueCount: status.due.length, practiceCount: plan.practice.length, saved: plan.saved, covered: plan.covered }
+    });
     return true;
   }
   const remediationMatch = url.pathname.match(/^\/api\/learners\/([a-zA-Z0-9_-]+)\/remediation$/);
