@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtemp, rm, mkdir } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { createLearner, recordLearnerEvent, getLearner, reviewStatus, fireReviewPlan } from '../data/repository.mjs';
+import { createLearner, recordLearnerEvent, getLearner, reviewStatus, fireReviewPlan, creditImplicitReviews } from '../data/repository.mjs';
 
 // FIRe wired into the review scheduler (The Math Academy Way). The Layer-0 decoding chain is a clean,
 // stable prerequisite chain in the real graph: letters -> vowels -> blend, each a direct prerequisite
@@ -41,6 +41,23 @@ describe('FIRe implicit repetition in the scheduler', () => {
     await recordLearnerEvent(root, learner.id, { type: 'answer_submitted', skillId: 'fnd-decode-blend', correct: false });
     const after = await recordLearnerEvent(root, learner.id, { type: 'answer_submitted', skillId: 'fnd-decode-letters', correct: true });
     assert.ok(reviewStatus(after).due.some((item) => item.skillId === 'fnd-decode-blend'), 'blend stays due — a prerequisite does not review its dependent');
+  });
+
+  // The hosted (Supabase) path reuses this exact function, so it credits the identical set. Proven
+  // directly on a hosted-shaped learner object (reviewQueue rows + masteryUpdatedAt) without Supabase.
+  test('creditImplicitReviews works on the hosted learner shape (parity with the file/SQLite path)', () => {
+    const now = Date.now();
+    const learner = {
+      reviewQueue: [{ skillId: 'fnd-decode-letters', dueAt: new Date(now - 1000).toISOString(), attempts: 1, reason: 'due' }],
+      masteryUpdatedAt: { 'fnd-decode-letters': new Date(now - 999999).toISOString() }
+    };
+    const at = new Date(now).toISOString();
+    const credited = creditImplicitReviews(learner, 'fnd-decode-vowels', at);
+    assert.deepEqual(credited, ['fnd-decode-letters'], 'vowels implicitly reviews the due letters skill it encompasses');
+    const item = learner.reviewQueue.find((i) => i.skillId === 'fnd-decode-letters');
+    assert.ok(new Date(item.dueAt).getTime() > now, 'the credited skill is pushed out of the due set');
+    assert.equal(item.coveredBy, 'fnd-decode-vowels', 'auditable attribution');
+    assert.equal(learner.masteryUpdatedAt['fnd-decode-letters'], at, 'its decay clock is reset');
   });
 
   test('fireReviewPlan collapses a due prerequisite chain to the single most-advanced retrieval', async () => {

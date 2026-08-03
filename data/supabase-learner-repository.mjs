@@ -1,5 +1,6 @@
 import { supabaseRest } from './supabase-adapter.mjs';
 import { recordAcademyCapabilityEvent } from '../jla-capability-evidence.js';
+import { creditImplicitReviews } from './repository.mjs';
 
 const competencies = { recognition: 0, translation: 0, argument: 0, sourceReasoning: 0 };
 const empty = (id, displayName = 'Learner') => ({ id, xp: 0, mastery: {}, evidence: {}, masteryUpdatedAt: {}, struggles: {}, competencies: { ...competencies }, profile: { displayName }, completedStages: [], reviewQueue: [], placement: null, artifacts: {}, capabilityEvidence: [], events: [], dailyStreak: 0, lastStudyDate: null, totalAnswered: 0, updatedAt: new Date().toISOString() });
@@ -95,6 +96,13 @@ export async function recordHostedEvent(user, accessToken, event) {
     } else learner.reviewQueue = learner.reviewQueue.filter((item) => item.skillId !== skillId);
     await supabaseRest('attempts', { accessToken, method: 'POST', body: { user_id: learner.id, skill_id: skillId, competency, correct, source_context: event.sourceContext || null, type: event.type } });
     await putReview(learner, skillId, accessToken);
+    // FIRe (Math Academy Way), identical to the file/SQLite path: a correct answer implicitly reviews
+    // the simpler skills this one fully encompasses. The same shared credit runs here; persist each
+    // credited review row (coveredBy is audit-only and not stored on the hosted schema).
+    if (correct) {
+      const credited = creditImplicitReviews(learner, skillId, recorded.at);
+      await Promise.all(credited.map((id) => putReview(learner, id, accessToken)));
+    }
   }
   if (event.type === 'answer_submitted' && event.jlaCapability) {
     learner.capabilityEvidence = recordAcademyCapabilityEvent(learner.capabilityEvidence || [], event, new Date(recorded.at));

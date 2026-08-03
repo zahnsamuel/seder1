@@ -121,7 +121,9 @@ export function reviewStatus(learner) {
 // the same spaced ladder — rather than being surfaced as a separate retrieval. This is what makes the
 // review load shrink as a learner climbs: the more advanced the work, the more it carries beneath it.
 // Auditable, never silent: each credited item records the skill that implicitly reviewed it (coveredBy).
-function creditImplicitReviews(learner, reviewedSkillId, at) {
+// Exported so the legacy hosted path (supabase-learner-repository.mjs) credits the identical set — pure
+// (mutates only learner.reviewQueue + learner.masteryUpdatedAt), returns the credited skill ids.
+export function creditImplicitReviews(learner, reviewedSkillId, at) {
   const dueIds = reviewStatus(learner).due.map((item) => item.skillId).filter((id) => id !== reviewedSkillId);
   if (!dueIds.length) return [];
   // reviewedSkillId first, so a skill it encompasses is credited to it (encompassingReviewSet keeps the
