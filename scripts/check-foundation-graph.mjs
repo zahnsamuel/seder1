@@ -7,7 +7,8 @@
 //
 // This is the safety rail that lets Claude and Codex extend the graph without breaking it:
 // unique IDs, resolvable prerequisites, no cycles, full reachability, layer discipline
-// (a prerequisite may not sit more than one layer above its dependent), and a complete
+// (a prerequisite may reach back several layers but must never sit in a higher layer than
+// its dependent), and a complete
 // teaching contract on every skill (>=2 source contexts, a check, a transfer, a repair,
 // a graduation threshold, a durability tier).
 
