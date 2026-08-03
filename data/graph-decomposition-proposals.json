@@ -1,14 +1,14 @@
 {
   "generatedBy": "scripts/graph-decomposition-proposer.mjs",
-  "graphVersion": "0.3.0",
+  "graphVersion": "0.3.1",
   "params": {
     "spanThreshold": 3,
     "edge": null
   },
   "summary": {
-    "targeted": 12,
+    "targeted": 11,
     "redundantEdges": 0,
-    "insertIntermediate": 12
+    "insertIntermediate": 11
   },
   "proposals": [
     {
@@ -476,73 +476,6 @@
           {
             "from": "fnd-arg-response",
             "to": "fnd-indep-first-pass"
-          }
-        ]
-      },
-      "note": null
-    },
-    {
-      "kind": "insert-intermediate",
-      "edge": {
-        "from": "fnd-signal-quotation",
-        "fromTitle": "Notice when a source quotes another source",
-        "fromLayer": 2,
-        "to": "fnd-arg-evidence-role",
-        "toTitle": "Say what a cited source is doing",
-        "toLayer": 5,
-        "span": 3
-      },
-      "status": "draft-needs-authoring",
-      "proposedLayer": 3,
-      "proposedLayerTitle": "Source roles",
-      "idHint": "fnd-source-<name>",
-      "bridges": {
-        "from": {
-          "id": "fnd-signal-quotation",
-          "title": "Notice when a source quotes another source",
-          "statement": "You can tell when a source is bringing in another text rather than speaking in its own voice.",
-          "transferKp": "Find the quotation inside a piece of Chassidut you have not read."
-        },
-        "to": {
-          "id": "fnd-arg-evidence-role",
-          "title": "Say what a cited source is doing",
-          "statement": "You can say whether a cited source supports, challenges, clarifies, or distinguishes a claim.",
-          "introduceKp": "For each citation, choose one of four jobs: prop, attack, refine, or split."
-        }
-      },
-      "authoringGuidance": "Name the single reading move a learner needs after \"You can tell when a source is bringing in another text rather than speaking in its own voice.\" to be ready for \"You can say whether a cited source supports, challenges, clarifies, or distinguishes a claim.\" — which begins by \"For each citation, choose one of four jobs: prop, attack, refine, or split.\". If the jump is genuinely one move, reject this and keep the direct edge.",
-      "suggestedFamilies": [
-        "rabbinic",
-        "halakhic"
-      ],
-      "graphEdits": {
-        "addSkill": {
-          "id": "fnd-source-<name>",
-          "layer": 3,
-          "title": null,
-          "statement": null,
-          "teachingMove": null,
-          "checks": [],
-          "sourceContexts": [],
-          "prerequisites": [
-            "fnd-signal-quotation"
-          ],
-          "_draft": true
-        },
-        "addEdges": [
-          {
-            "from": "fnd-signal-quotation",
-            "to": "fnd-source-<name>"
-          },
-          {
-            "from": "fnd-source-<name>",
-            "to": "fnd-arg-evidence-role"
-          }
-        ],
-        "removeEdges": [
-          {
-            "from": "fnd-signal-quotation",
-            "to": "fnd-arg-evidence-role"
           }
         ]
       },

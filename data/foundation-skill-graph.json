@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0",
+  "version": "0.3.1",
   "name": "Seder · The Jewish Learning Academy — Foundational Skill Graph",
   "principle": "Skills are the product; content is the vehicle. Each skill is a transferable reading capability that a learner can carry from one genre of the Jewish canon to another. Foundational-skill IDs (prefixed fnd-) are deliberately separate from content-unit IDs so that any source can teach any skill.",
   "promise": {
@@ -682,6 +682,38 @@
       "durability": "core"
     },
     {
+      "id": "fnd-role-quotation-bounds",
+      "layer": 3,
+      "title": "Bound a quotation",
+      "statement": "You can tell where a quoted source begins and ends, and separate the cited words from the voice citing them.",
+      "prerequisites": [
+        "fnd-signal-quotation",
+        "fnd-orient-unit-boundary"
+      ],
+      "sourceContexts": [
+        {
+          "ref": "Gemara Berakhot 2a",
+          "genre": "gemara"
+        },
+        {
+          "ref": "Pirkei Avot 3:2",
+          "genre": "thought"
+        },
+        {
+          "ref": "Shulchan Aruch, Orach Chaim 1:1",
+          "genre": "halakha"
+        }
+      ],
+      "teachingMove": "Draw a box around the cited words, then mark the point where the source returns to its own voice.",
+      "checks": [
+        "Shown a line that cites another text, mark where the quotation ends and the source resumes, and say which words are which."
+      ],
+      "transfer": "Bound the quotation in an unfamiliar source from a different genre.",
+      "repair": "Find the citation signal (“as it says”, “it was taught”), then read forward until the voice clearly shifts back — that shift is the closing edge.",
+      "graduationThreshold": "transfer",
+      "durability": "core"
+    },
+    {
       "id": "fnd-case-actors",
       "layer": 4,
       "title": "Identify who acts",
@@ -945,7 +977,7 @@
       "title": "Say what a cited source is doing",
       "statement": "You can say whether a cited source supports, challenges, clarifies, or distinguishes a claim.",
       "prerequisites": [
-        "fnd-signal-quotation",
+        "fnd-role-quotation-bounds",
         "fnd-arg-claim"
       ],
       "sourceContexts": [

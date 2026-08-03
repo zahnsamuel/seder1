@@ -1,6 +1,6 @@
 {
   "generatedBy": "scripts/build-knowledge-points.mjs",
-  "graphVersion": "0.3.0",
+  "graphVersion": "0.3.1",
   "note": "Knowledge-point layer (Math Academy Way, scaffolded mastery learning). A first scaffold: each skill is decomposed into introduce -> practice -> transfer KPs recast from its OWN teachingMove / check / transfer — no KP text is invented. Each KP proposes the KEY PREREQUISITE it most directly uses (introduce -> most foundational prerequisite, practice/transfer -> most proximate), marked pending-expert. Deeper per-skill decomposition (more advanced-case KPs) and confirmed key prerequisites are the educator audit’s job. The key-prerequisite link is the hook for MA-style targeted remediation: fail a KP twice -> remedial review of its key prerequisite.",
   "kpTemplate": [
     "introduce",
@@ -8,9 +8,9 @@
     "transfer"
   ],
   "coverage": {
-    "knowledgePoints": 159,
-    "skills": 53,
-    "keyPrerequisitesProposed": 156
+    "knowledgePoints": 162,
+    "skills": 54,
+    "keyPrerequisitesProposed": 159
   },
   "perSkill": {
     "fnd-decode-letters": 3,
@@ -33,6 +33,7 @@
     "fnd-role-question-vs-answer": 3,
     "fnd-role-example": 3,
     "fnd-role-ruling-vs-discussion": 3,
+    "fnd-role-quotation-bounds": 3,
     "fnd-case-actors": 3,
     "fnd-case-what-happens": 3,
     "fnd-case-uncertainty": 3,
@@ -729,6 +730,39 @@
       "repair": "Ask whether a reader is left with one option or several."
     },
     {
+      "id": "kp-fnd-role-quotation-bounds-1",
+      "skill": "fnd-role-quotation-bounds",
+      "index": 1,
+      "kind": "introduce",
+      "statement": "Draw a box around the cited words, then mark the point where the source returns to its own voice.",
+      "source": "teachingMove",
+      "keyPrerequisite": "fnd-orient-unit-boundary",
+      "keyPrerequisiteStatus": "proposed-pending-expert",
+      "repair": "Find the citation signal (“as it says”, “it was taught”), then read forward until the voice clearly shifts back — that shift is the closing edge."
+    },
+    {
+      "id": "kp-fnd-role-quotation-bounds-2",
+      "skill": "fnd-role-quotation-bounds",
+      "index": 2,
+      "kind": "practice",
+      "statement": "Shown a line that cites another text, mark where the quotation ends and the source resumes, and say which words are which.",
+      "source": "check",
+      "keyPrerequisite": "fnd-signal-quotation",
+      "keyPrerequisiteStatus": "proposed-pending-expert",
+      "repair": "Find the citation signal (“as it says”, “it was taught”), then read forward until the voice clearly shifts back — that shift is the closing edge."
+    },
+    {
+      "id": "kp-fnd-role-quotation-bounds-3",
+      "skill": "fnd-role-quotation-bounds",
+      "index": 3,
+      "kind": "transfer",
+      "statement": "Bound the quotation in an unfamiliar source from a different genre.",
+      "source": "transfer",
+      "keyPrerequisite": "fnd-signal-quotation",
+      "keyPrerequisiteStatus": "proposed-pending-expert",
+      "repair": "Find the citation signal (“as it says”, “it was taught”), then read forward until the voice clearly shifts back — that shift is the closing edge."
+    },
+    {
       "id": "kp-fnd-case-actors-1",
       "skill": "fnd-case-actors",
       "index": 1,
@@ -1032,7 +1066,7 @@
       "kind": "introduce",
       "statement": "For each citation, choose one of four jobs: prop, attack, refine, or split.",
       "source": "teachingMove",
-      "keyPrerequisite": "fnd-signal-quotation",
+      "keyPrerequisite": "fnd-role-quotation-bounds",
       "keyPrerequisiteStatus": "proposed-pending-expert",
       "repair": "Ask: is the claim stronger or weaker after this source, and why?"
     },

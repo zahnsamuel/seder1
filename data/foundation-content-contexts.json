@@ -1,9 +1,9 @@
 {
   "generatedBy": "scripts/build-content-contexts.mjs",
-  "graphVersion": "0.3.0",
+  "graphVersion": "0.3.1",
   "note": "Content-context layer (docs/foundation-graph-schema.md §2.2, step 8): every content context as a first-class node { id, skill, ref, genre, family }, promoted out of the skill object. Merged from the curated inline sourceContexts and data/foundation-content-map.json (deduped by ref); `sources` records provenance. No references are invented — skills still short of >=3 contexts / >=2 families after the merge are listed in `shortfall`, to be filled with real sources (content authoring / educator audit), never padded.",
   "step8Requirement": ">=3 contexts spanning >=2 source families per skill",
-  "skillsMeetingStep8": "53/53",
+  "skillsMeetingStep8": "54/54",
   "shortfall": [],
   "perSkill": {
     "fnd-decode-letters": {
@@ -104,6 +104,11 @@
     "fnd-role-ruling-vs-discussion": {
       "contexts": 70,
       "families": 5,
+      "meetsStep8": true
+    },
+    "fnd-role-quotation-bounds": {
+      "contexts": 3,
+      "families": 3,
       "meetsStep8": true
     },
     "fnd-case-actors": {
@@ -2730,6 +2735,36 @@
         "content-map"
       ],
       "unit": "lab:tamid"
+    },
+    {
+      "id": "ctx-fnd-role-quotation-bounds-gemara-berakhot-2a",
+      "skill": "fnd-role-quotation-bounds",
+      "ref": "Gemara Berakhot 2a",
+      "genre": "gemara",
+      "family": "rabbinic",
+      "sources": [
+        "inline"
+      ]
+    },
+    {
+      "id": "ctx-fnd-role-quotation-bounds-pirkei-avot-3-2",
+      "skill": "fnd-role-quotation-bounds",
+      "ref": "Pirkei Avot 3:2",
+      "genre": "thought",
+      "family": "thought",
+      "sources": [
+        "inline"
+      ]
+    },
+    {
+      "id": "ctx-fnd-role-quotation-bounds-shulchan-aruch-orach-chaim-1-1",
+      "skill": "fnd-role-quotation-bounds",
+      "ref": "Shulchan Aruch, Orach Chaim 1:1",
+      "genre": "halakha",
+      "family": "halakhic",
+      "sources": [
+        "inline"
+      ]
     },
     {
       "id": "ctx-fnd-case-actors-mishnah-bava-metzia-1-1",

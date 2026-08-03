@@ -1,6 +1,6 @@
 {
   "generatedBy": "scripts/graph-gap-analyzer.mjs",
-  "graphVersion": "0.3.0",
+  "graphVersion": "0.3.1",
   "thresholds": {
     "LONG_EDGE_SPAN": 2,
     "FANOUT_MIN": 5,
@@ -10,17 +10,17 @@
     "ITEM_BANK_TARGET": 3
   },
   "summary": {
-    "skills": 53,
-    "edges": 73,
+    "skills": 54,
+    "edges": 75,
     "layers": 11,
-    "longEdges": 20,
+    "longEdges": 21,
     "fanOutHubs": 2,
     "highPrereq": 1,
     "thinCoverage": 0,
-    "step8Coverage": "53/53",
-    "authoredItemBanks": "0/53",
-    "skillsWithAnyItem": "17/53",
-    "scaleNote": "53 skills now; the schema targets ~150 then ~300. Long edges below are the first places intermediate skills belong."
+    "step8Coverage": "54/54",
+    "authoredItemBanks": "0/54",
+    "skillsWithAnyItem": "17/54",
+    "scaleNote": "54 skills now; the schema targets ~150 then ~300. Long edges below are the first places intermediate skills belong."
   },
   "findings": [
     {
@@ -134,16 +134,6 @@
       "suggestion": "Consider whether an intermediate skill belongs between these, so the dependent builds on a nearer move."
     },
     {
-      "type": "long-edge",
-      "priority": 6,
-      "skills": [
-        "fnd-signal-quotation",
-        "fnd-arg-evidence-role"
-      ],
-      "detail": "Notice when a source quotes another source (L2 Text signals) → Say what a cited source is doing (L5 Argument tracking) spans 3 layers",
-      "suggestion": "Consider whether an intermediate skill belongs between these, so the dependent builds on a nearer move."
-    },
-    {
       "type": "fan-out-hub",
       "priority": 5,
       "skills": [
@@ -215,6 +205,16 @@
       "type": "long-edge",
       "priority": 4,
       "skills": [
+        "fnd-orient-unit-boundary",
+        "fnd-role-quotation-bounds"
+      ],
+      "detail": "Find where one idea starts and stops (L1 Orientation) → Bound a quotation (L3 Source roles) spans 2 layers",
+      "suggestion": "Consider whether an intermediate skill belongs between these, so the dependent builds on a nearer move."
+    },
+    {
+      "type": "long-edge",
+      "priority": 4,
+      "skills": [
         "fnd-resp-name-limits",
         "fnd-agency-record-uncertainty"
       ],
@@ -229,6 +229,16 @@
         "fnd-arg-claim"
       ],
       "detail": "Label question, answer, or restatement (L3 Source roles) → State the claim (L5 Argument tracking) spans 2 layers",
+      "suggestion": "Consider whether an intermediate skill belongs between these, so the dependent builds on a nearer move."
+    },
+    {
+      "type": "long-edge",
+      "priority": 4,
+      "skills": [
+        "fnd-role-quotation-bounds",
+        "fnd-arg-evidence-role"
+      ],
+      "detail": "Bound a quotation (L3 Source roles) → Say what a cited source is doing (L5 Argument tracking) spans 2 layers",
       "suggestion": "Consider whether an intermediate skill belongs between these, so the dependent builds on a nearer move."
     },
     {

@@ -1,6 +1,6 @@
 {
   "generatedBy": "scripts/build-assessment-items.mjs",
-  "graphVersion": "0.3.0",
+  "graphVersion": "0.3.1",
   "note": "Assessment-item layer (docs/foundation-graph-schema.md §2.3): the authored academy items, promoted to first-class nodes attached to their fnd-* graph skill via Migration 001. Client-safe — `correct` is never included; it stays in data/jla-academy-sessions.json (server-only) and each node records `scoredBy`. Formalizes what exists; does NOT reach the >=3-item bank (step 10) — that needs new authored items. misconceptions/difficulty/discrimination await the audit and pilot.",
   "coverage": {
     "items": 18,

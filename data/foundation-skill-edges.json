@@ -1,13 +1,13 @@
 {
   "generatedBy": "scripts/build-skill-edges.mjs",
-  "graphVersion": "0.3.0",
+  "graphVersion": "0.3.1",
   "note": "Typed edges (docs/foundation-graph-schema.md §3), derived from existing data — never fabricated. prerequisite = the graph adjacency, typed; rationale + expert encompassing weight fold in from the educator audit (data/foundation-audit.json, via scripts/import-audit-workbench.mjs) — null / pending-expert until then, since rationales are educator-written pedagogical claims. assessed-by = a graph skill linked to an authored, server-scored academy item via data/graduation-skill-map.json (confidence carried through). Judgment edges (supports/transfers-to/misconception-of/repaired-by) are intentionally absent until the audit; taught-by lives in data/foundation-content-map.json (§2.2).",
   "edgeTypes": [
     "prerequisite",
     "assessed-by"
   ],
   "counts": {
-    "prerequisite": 73,
+    "prerequisite": 75,
     "assessed-by": 18
   },
   "auditApplied": {
@@ -269,6 +269,28 @@
       }
     },
     {
+      "from": "fnd-signal-quotation",
+      "to": "fnd-role-quotation-bounds",
+      "type": "prerequisite",
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
+    },
+    {
+      "from": "fnd-orient-unit-boundary",
+      "to": "fnd-role-quotation-bounds",
+      "type": "prerequisite",
+      "rationale": null,
+      "encompassing": {
+        "weight": 1,
+        "basis": "default-full-along-direct-prerequisite",
+        "status": "pending-expert"
+      }
+    },
+    {
       "from": "fnd-signal-name-formulas",
       "to": "fnd-case-actors",
       "type": "prerequisite",
@@ -401,7 +423,7 @@
       }
     },
     {
-      "from": "fnd-signal-quotation",
+      "from": "fnd-role-quotation-bounds",
       "to": "fnd-arg-evidence-role",
       "type": "prerequisite",
       "rationale": null,
