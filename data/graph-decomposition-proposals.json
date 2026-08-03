@@ -6,55 +6,11 @@
     "edge": null
   },
   "summary": {
-    "targeted": 17,
-    "redundantEdges": 5,
+    "targeted": 12,
+    "redundantEdges": 0,
     "insertIntermediate": 12
   },
   "proposals": [
-    {
-      "kind": "redundant-edge",
-      "edge": {
-        "from": "fnd-signal-connectors",
-        "fromTitle": "Recognize argument connectors",
-        "fromLayer": 2,
-        "to": "fnd-indep-first-pass",
-        "toTitle": "Make a scaffolded first pass",
-        "toLayer": 9,
-        "span": 7
-      },
-      "altPath": true,
-      "rationale": "Make a scaffolded first pass still reaches Recognize argument connectors through another path, so the direct 7-layer edge carries no reachability. Removing it closes the jump without losing any prerequisite.",
-      "graphEdits": {
-        "removeEdges": [
-          {
-            "from": "fnd-signal-connectors",
-            "to": "fnd-indep-first-pass"
-          }
-        ]
-      }
-    },
-    {
-      "kind": "redundant-edge",
-      "edge": {
-        "from": "fnd-role-text-vs-commentary",
-        "fromTitle": "Tell primary text from commentary",
-        "fromLayer": 3,
-        "to": "fnd-agency-use-tools",
-        "toTitle": "Use a source tool on purpose",
-        "toLayer": 10,
-        "span": 7
-      },
-      "altPath": true,
-      "rationale": "Use a source tool on purpose still reaches Tell primary text from commentary through another path, so the direct 7-layer edge carries no reachability. Removing it closes the jump without losing any prerequisite.",
-      "graphEdits": {
-        "removeEdges": [
-          {
-            "from": "fnd-role-text-vs-commentary",
-            "to": "fnd-agency-use-tools"
-          }
-        ]
-      }
-    },
     {
       "kind": "insert-intermediate",
       "edge": {
@@ -122,28 +78,6 @@
         ]
       },
       "note": "A 6-layer jump may need more than one intermediate; this proposes one at layer 4. After authoring it, re-run to decompose the two shorter edges it leaves."
-    },
-    {
-      "kind": "redundant-edge",
-      "edge": {
-        "from": "fnd-orient-source-type",
-        "fromTitle": "Tell what kind of text you are looking at",
-        "fromLayer": 1,
-        "to": "fnd-context-genre-expectations",
-        "toTitle": "Let the genre set your expectations",
-        "toLayer": 7,
-        "span": 6
-      },
-      "altPath": true,
-      "rationale": "Let the genre set your expectations still reaches Tell what kind of text you are looking at through another path, so the direct 6-layer edge carries no reachability. Removing it closes the jump without losing any prerequisite.",
-      "graphEdits": {
-        "removeEdges": [
-          {
-            "from": "fnd-orient-source-type",
-            "to": "fnd-context-genre-expectations"
-          }
-        ]
-      }
     },
     {
       "kind": "insert-intermediate",
@@ -345,50 +279,6 @@
         ]
       },
       "note": "A 6-layer jump may need more than one intermediate; this proposes one at layer 7. After authoring it, re-run to decompose the two shorter edges it leaves."
-    },
-    {
-      "kind": "redundant-edge",
-      "edge": {
-        "from": "fnd-role-ruling-vs-discussion",
-        "fromTitle": "Distinguish a ruling from a discussion",
-        "fromLayer": 3,
-        "to": "fnd-resp-learning-vs-ruling",
-        "toTitle": "Tell learning apart from a ruling",
-        "toLayer": 8,
-        "span": 5
-      },
-      "altPath": true,
-      "rationale": "Tell learning apart from a ruling still reaches Distinguish a ruling from a discussion through another path, so the direct 5-layer edge carries no reachability. Removing it closes the jump without losing any prerequisite.",
-      "graphEdits": {
-        "removeEdges": [
-          {
-            "from": "fnd-role-ruling-vs-discussion",
-            "to": "fnd-resp-learning-vs-ruling"
-          }
-        ]
-      }
-    },
-    {
-      "kind": "redundant-edge",
-      "edge": {
-        "from": "fnd-case-restate",
-        "fromTitle": "Restate a case in your own words",
-        "fromLayer": 4,
-        "to": "fnd-indep-map-lines",
-        "toTitle": "Map each line's job",
-        "toLayer": 9,
-        "span": 5
-      },
-      "altPath": true,
-      "rationale": "Map each line's job still reaches Restate a case in your own words through another path, so the direct 5-layer edge carries no reachability. Removing it closes the jump without losing any prerequisite.",
-      "graphEdits": {
-        "removeEdges": [
-          {
-            "from": "fnd-case-restate",
-            "to": "fnd-indep-map-lines"
-          }
-        ]
-      }
     },
     {
       "kind": "insert-intermediate",

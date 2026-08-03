@@ -1221,7 +1221,6 @@
       "title": "Let the genre set your expectations",
       "statement": "You can use a source's genre to decide how it should and should not be read.",
       "prerequisites": [
-        "fnd-orient-source-type",
         "fnd-role-ruling-vs-discussion"
       ],
       "sourceContexts": [
@@ -1276,7 +1275,6 @@
       "title": "Tell learning apart from a ruling",
       "statement": "You can tell the difference between studying a halakhic source and receiving a ruling for yourself.",
       "prerequisites": [
-        "fnd-role-ruling-vs-discussion",
         "fnd-context-genre-expectations"
       ],
       "sourceContexts": [
@@ -1387,8 +1385,7 @@
       "statement": "You can make a supported first pass through an unfamiliar short source.",
       "prerequisites": [
         "fnd-arg-response",
-        "fnd-role-text-vs-commentary",
-        "fnd-signal-connectors"
+        "fnd-role-text-vs-commentary"
       ],
       "sourceContexts": [
         {
@@ -1415,8 +1412,7 @@
       "title": "Map each line's job",
       "statement": "You can label the job of each line in an unfamiliar passage before using a full translation.",
       "prerequisites": [
-        "fnd-indep-first-pass",
-        "fnd-case-restate"
+        "fnd-indep-first-pass"
       ],
       "sourceContexts": [
         {
@@ -1528,7 +1524,6 @@
       "title": "Use a source tool on purpose",
       "statement": "You can choose and use a dictionary, commentary, or cross-reference deliberately.",
       "prerequisites": [
-        "fnd-role-text-vs-commentary",
         "fnd-indep-use-translation-to-check"
       ],
       "sourceContexts": [

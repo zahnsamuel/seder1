@@ -7,7 +7,7 @@
     "assessed-by"
   ],
   "counts": {
-    "prerequisite": 78,
+    "prerequisite": 73,
     "assessed-by": 18
   },
   "auditApplied": {
@@ -577,17 +577,6 @@
       }
     },
     {
-      "from": "fnd-orient-source-type",
-      "to": "fnd-context-genre-expectations",
-      "type": "prerequisite",
-      "rationale": null,
-      "encompassing": {
-        "weight": 1,
-        "basis": "default-full-along-direct-prerequisite",
-        "status": "pending-expert"
-      }
-    },
-    {
       "from": "fnd-role-ruling-vs-discussion",
       "to": "fnd-context-genre-expectations",
       "type": "prerequisite",
@@ -601,17 +590,6 @@
     {
       "from": "fnd-context-who-audience",
       "to": "fnd-context-evidence-kind",
-      "type": "prerequisite",
-      "rationale": null,
-      "encompassing": {
-        "weight": 1,
-        "basis": "default-full-along-direct-prerequisite",
-        "status": "pending-expert"
-      }
-    },
-    {
-      "from": "fnd-role-ruling-vs-discussion",
-      "to": "fnd-resp-learning-vs-ruling",
       "type": "prerequisite",
       "rationale": null,
       "encompassing": {
@@ -698,29 +676,7 @@
       }
     },
     {
-      "from": "fnd-signal-connectors",
-      "to": "fnd-indep-first-pass",
-      "type": "prerequisite",
-      "rationale": null,
-      "encompassing": {
-        "weight": 1,
-        "basis": "default-full-along-direct-prerequisite",
-        "status": "pending-expert"
-      }
-    },
-    {
       "from": "fnd-indep-first-pass",
-      "to": "fnd-indep-map-lines",
-      "type": "prerequisite",
-      "rationale": null,
-      "encompassing": {
-        "weight": 1,
-        "basis": "default-full-along-direct-prerequisite",
-        "status": "pending-expert"
-      }
-    },
-    {
-      "from": "fnd-case-restate",
       "to": "fnd-indep-map-lines",
       "type": "prerequisite",
       "rationale": null,
@@ -799,17 +755,6 @@
     {
       "from": "fnd-case-uncertainty",
       "to": "fnd-agency-ask-question",
-      "type": "prerequisite",
-      "rationale": null,
-      "encompassing": {
-        "weight": 1,
-        "basis": "default-full-along-direct-prerequisite",
-        "status": "pending-expert"
-      }
-    },
-    {
-      "from": "fnd-role-text-vs-commentary",
-      "to": "fnd-agency-use-tools",
       "type": "prerequisite",
       "rationale": null,
       "encompassing": {

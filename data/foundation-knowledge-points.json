@@ -1362,7 +1362,7 @@
       "kind": "introduce",
       "statement": "Match the reading stance to the genre: a poem invites resonance, a code invites precision.",
       "source": "teachingMove",
-      "keyPrerequisite": "fnd-orient-source-type",
+      "keyPrerequisite": "fnd-role-ruling-vs-discussion",
       "keyPrerequisiteStatus": "proposed-pending-expert",
       "repair": "Ask whether you are demanding a legal answer from a non-legal text or the reverse."
     },
@@ -1428,7 +1428,7 @@
       "kind": "introduce",
       "statement": "Separate two questions: what does this source say, and what should I do; the second needs more than reading.",
       "source": "teachingMove",
-      "keyPrerequisite": "fnd-role-ruling-vs-discussion",
+      "keyPrerequisite": "fnd-context-genre-expectations",
       "keyPrerequisiteStatus": "proposed-pending-expert",
       "repair": "Ask: would a competent authority need to know more about me to answer this?"
     },
@@ -1560,7 +1560,7 @@
       "kind": "introduce",
       "statement": "Walk the source once for shape, once for signals, once for sense, with support ready at each pass.",
       "source": "teachingMove",
-      "keyPrerequisite": "fnd-signal-connectors",
+      "keyPrerequisite": "fnd-role-text-vs-commentary",
       "keyPrerequisiteStatus": "proposed-pending-expert",
       "repair": "Slow to one pass for shape only, then rebuild."
     },
@@ -1593,7 +1593,7 @@
       "kind": "introduce",
       "statement": "Give every line a one-word job before reaching for meaning; the map comes before the translation.",
       "source": "teachingMove",
-      "keyPrerequisite": "fnd-case-restate",
+      "keyPrerequisite": "fnd-indep-first-pass",
       "keyPrerequisiteStatus": "proposed-pending-expert",
       "repair": "Map only the lines you are sure of, then reason about the gaps."
     },
@@ -1725,7 +1725,7 @@
       "kind": "introduce",
       "statement": "Name what you are stuck on, then pick the one tool built to unstick it, instead of reaching randomly.",
       "source": "teachingMove",
-      "keyPrerequisite": "fnd-role-text-vs-commentary",
+      "keyPrerequisite": "fnd-indep-use-translation-to-check",
       "keyPrerequisiteStatus": "proposed-pending-expert",
       "repair": "Ask whether your problem is a word, a claim, or a source, and match the tool to that."
     },

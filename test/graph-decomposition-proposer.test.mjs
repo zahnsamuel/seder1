@@ -29,9 +29,10 @@ test('proposes for every long edge and leaves the graph untouched', () => {
   assert.equal(readFileSync(new URL('../data/foundation-skill-graph.json', import.meta.url), 'utf8'), graphBefore, 'proposal-only: graph unchanged');
 });
 
-test('redundant-edge proposals are truly redundant; each drops exactly that edge', () => {
+test('any redundant-edge proposal is truly redundant and drops exactly that edge', () => {
+  // After the transitive-reduction cleanup (scripts/apply-redundant-edges.mjs) a fully reduced graph
+  // has none of these; if any remain, each must be a genuine redundancy that removes only its edge.
   const redundant = report.proposals.filter((p) => p.kind === 'redundant-edge');
-  assert.ok(redundant.length > 0);
   for (const p of redundant) {
     assert.ok(altPath(p.edge.from, p.edge.to), `${p.edge.from}->${p.edge.to} must have an alternative path to be droppable`);
     assert.deepEqual(p.graphEdits.removeEdges, [{ from: p.edge.from, to: p.edge.to }]);
