@@ -1,14 +1,14 @@
 {
   "generatedBy": "scripts/graph-decomposition-proposer.mjs",
-  "graphVersion": "0.3.1",
+  "graphVersion": "0.3.2",
   "params": {
     "spanThreshold": 3,
     "edge": null
   },
   "summary": {
-    "targeted": 11,
+    "targeted": 12,
     "redundantEdges": 0,
-    "insertIntermediate": 11
+    "insertIntermediate": 12
   },
   "proposals": [
     {
@@ -141,73 +141,6 @@
           {
             "from": "fnd-role-text-vs-commentary",
             "to": "fnd-indep-first-pass"
-          }
-        ]
-      },
-      "note": "A 6-layer jump may need more than one intermediate; this proposes one at layer 6. After authoring it, re-run to decompose the two shorter edges it leaves."
-    },
-    {
-      "kind": "insert-intermediate",
-      "edge": {
-        "from": "fnd-role-translation-gap",
-        "fromTitle": "Notice where a translation makes a choice",
-        "fromLayer": 3,
-        "to": "fnd-indep-use-translation-to-check",
-        "toTitle": "Use translation to check, not to skip",
-        "toLayer": 9,
-        "span": 6
-      },
-      "status": "draft-needs-authoring",
-      "proposedLayer": 6,
-      "proposedLayerTitle": "Comparison",
-      "idHint": "fnd-comparison-<name>",
-      "bridges": {
-        "from": {
-          "id": "fnd-role-translation-gap",
-          "title": "Notice where a translation makes a choice",
-          "statement": "You can see where a translation adds, drops, or chooses a meaning the original leaves open.",
-          "transferKp": "Find a translation choice in a piece of Jewish thought you have not studied."
-        },
-        "to": {
-          "id": "fnd-indep-use-translation-to-check",
-          "title": "Use translation to check, not to skip",
-          "statement": "You can use a translation to verify your reading rather than to replace it.",
-          "introduceKp": "Commit to a read first, then open the translation only to confirm or correct it."
-        }
-      },
-      "authoringGuidance": "Name the single reading move a learner needs after \"You can see where a translation adds, drops, or chooses a meaning the original leaves open.\" to be ready for \"You can use a translation to verify your reading rather than to replace it.\" — which begins by \"Commit to a read first, then open the translation only to confirm or correct it.\". If the jump is genuinely one move, reject this and keep the direct edge.",
-      "suggestedFamilies": [
-        "tanakh",
-        "thought"
-      ],
-      "graphEdits": {
-        "addSkill": {
-          "id": "fnd-comparison-<name>",
-          "layer": 6,
-          "title": null,
-          "statement": null,
-          "teachingMove": null,
-          "checks": [],
-          "sourceContexts": [],
-          "prerequisites": [
-            "fnd-role-translation-gap"
-          ],
-          "_draft": true
-        },
-        "addEdges": [
-          {
-            "from": "fnd-role-translation-gap",
-            "to": "fnd-comparison-<name>"
-          },
-          {
-            "from": "fnd-comparison-<name>",
-            "to": "fnd-indep-use-translation-to-check"
-          }
-        ],
-        "removeEdges": [
-          {
-            "from": "fnd-role-translation-gap",
-            "to": "fnd-indep-use-translation-to-check"
           }
         ]
       },
@@ -552,6 +485,74 @@
     {
       "kind": "insert-intermediate",
       "edge": {
+        "from": "fnd-role-translation-gap",
+        "fromTitle": "Notice where a translation makes a choice",
+        "fromLayer": 3,
+        "to": "fnd-compare-translation-choice",
+        "toTitle": "Weigh a translation against the original",
+        "toLayer": 6,
+        "span": 3
+      },
+      "status": "draft-needs-authoring",
+      "proposedLayer": 4,
+      "proposedLayerTitle": "Case mapping",
+      "idHint": "fnd-case-<name>",
+      "bridges": {
+        "from": {
+          "id": "fnd-role-translation-gap",
+          "title": "Notice where a translation makes a choice",
+          "statement": "You can see where a translation adds, drops, or chooses a meaning the original leaves open.",
+          "transferKp": "Find a translation choice in a piece of Jewish thought you have not studied."
+        },
+        "to": {
+          "id": "fnd-compare-translation-choice",
+          "title": "Weigh a translation against the original",
+          "statement": "You can judge what a translation's choice does to the meaning by holding it against the original word.",
+          "introduceKp": "Set the translation beside the original word; name what the translation committed to, and what it left behind."
+        }
+      },
+      "authoringGuidance": "Name the single reading move a learner needs after \"You can see where a translation adds, drops, or chooses a meaning the original leaves open.\" to be ready for \"You can judge what a translation's choice does to the meaning by holding it against the original word.\" — which begins by \"Set the translation beside the original word; name what the translation committed to, and what it left behind.\". If the jump is genuinely one move, reject this and keep the direct edge.",
+      "suggestedFamilies": [
+        "tanakh",
+        "liturgical",
+        "thought"
+      ],
+      "graphEdits": {
+        "addSkill": {
+          "id": "fnd-case-<name>",
+          "layer": 4,
+          "title": null,
+          "statement": null,
+          "teachingMove": null,
+          "checks": [],
+          "sourceContexts": [],
+          "prerequisites": [
+            "fnd-role-translation-gap"
+          ],
+          "_draft": true
+        },
+        "addEdges": [
+          {
+            "from": "fnd-role-translation-gap",
+            "to": "fnd-case-<name>"
+          },
+          {
+            "from": "fnd-case-<name>",
+            "to": "fnd-compare-translation-choice"
+          }
+        ],
+        "removeEdges": [
+          {
+            "from": "fnd-role-translation-gap",
+            "to": "fnd-compare-translation-choice"
+          }
+        ]
+      },
+      "note": null
+    },
+    {
+      "kind": "insert-intermediate",
+      "edge": {
         "from": "fnd-case-actors",
         "fromTitle": "Identify who acts",
         "fromLayer": 4,
@@ -676,6 +677,73 @@
           {
             "from": "fnd-arg-unresolved",
             "to": "fnd-resp-name-limits"
+          }
+        ]
+      },
+      "note": null
+    },
+    {
+      "kind": "insert-intermediate",
+      "edge": {
+        "from": "fnd-compare-translation-choice",
+        "fromTitle": "Weigh a translation against the original",
+        "fromLayer": 6,
+        "to": "fnd-indep-use-translation-to-check",
+        "toTitle": "Use translation to check, not to skip",
+        "toLayer": 9,
+        "span": 3
+      },
+      "status": "draft-needs-authoring",
+      "proposedLayer": 7,
+      "proposedLayerTitle": "Context",
+      "idHint": "fnd-context-<name>",
+      "bridges": {
+        "from": {
+          "id": "fnd-compare-translation-choice",
+          "title": "Weigh a translation against the original",
+          "statement": "You can judge what a translation's choice does to the meaning by holding it against the original word.",
+          "transferKp": "Weigh a translation choice against the original in an unseen source, and say what rides on it."
+        },
+        "to": {
+          "id": "fnd-indep-use-translation-to-check",
+          "title": "Use translation to check, not to skip",
+          "statement": "You can use a translation to verify your reading rather than to replace it.",
+          "introduceKp": "Commit to a read first, then open the translation only to confirm or correct it."
+        }
+      },
+      "authoringGuidance": "Name the single reading move a learner needs after \"You can judge what a translation's choice does to the meaning by holding it against the original word.\" to be ready for \"You can use a translation to verify your reading rather than to replace it.\" — which begins by \"Commit to a read first, then open the translation only to confirm or correct it.\". If the jump is genuinely one move, reject this and keep the direct edge.",
+      "suggestedFamilies": [
+        "tanakh",
+        "thought"
+      ],
+      "graphEdits": {
+        "addSkill": {
+          "id": "fnd-context-<name>",
+          "layer": 7,
+          "title": null,
+          "statement": null,
+          "teachingMove": null,
+          "checks": [],
+          "sourceContexts": [],
+          "prerequisites": [
+            "fnd-compare-translation-choice"
+          ],
+          "_draft": true
+        },
+        "addEdges": [
+          {
+            "from": "fnd-compare-translation-choice",
+            "to": "fnd-context-<name>"
+          },
+          {
+            "from": "fnd-context-<name>",
+            "to": "fnd-indep-use-translation-to-check"
+          }
+        ],
+        "removeEdges": [
+          {
+            "from": "fnd-compare-translation-choice",
+            "to": "fnd-indep-use-translation-to-check"
           }
         ]
       },

@@ -1,10 +1,10 @@
 {
   "generatedBy": "scripts/build-misconceptions.mjs",
-  "graphVersion": "0.3.0",
+  "graphVersion": "0.3.2",
   "note": "Misconception models (§4), authored by educators in the audit and imported via scripts/import-audit-workbench.mjs. description + signal are educator judgments; repair is the skill's existing repair note. Empty until an audit is imported — never fabricated.",
   "coverage": {
     "misconceptions": 0,
-    "skillsTotal": 53
+    "skillsTotal": 55
   },
   "misconceptions": []
 }

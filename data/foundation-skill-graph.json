@@ -1,5 +1,5 @@
 {
-  "version": "0.3.1",
+  "version": "0.3.2",
   "name": "Seder · The Jewish Learning Academy — Foundational Skill Graph",
   "principle": "Skills are the product; content is the vehicle. Each skill is a transferable reading capability that a learner can carry from one genre of the Jewish canon to another. Foundational-skill IDs (prefixed fnd-) are deliberately separate from content-unit IDs so that any source can teach any skill.",
   "promise": {
@@ -1193,6 +1193,37 @@
       "durability": "core"
     },
     {
+      "id": "fnd-compare-translation-choice",
+      "layer": 6,
+      "title": "Weigh a translation against the original",
+      "statement": "You can judge what a translation's choice does to the meaning by holding it against the original word.",
+      "prerequisites": [
+        "fnd-role-translation-gap"
+      ],
+      "sourceContexts": [
+        {
+          "ref": "Genesis 1:1 (בְּרֵאשִׁית — \"In the beginning\" vs \"When God began to create\")",
+          "genre": "torah"
+        },
+        {
+          "ref": "Shema, Deuteronomy 6:5 (מְאֹדֶךָ — \"with all your might\" vs \"with all your resources\")",
+          "genre": "tefillah"
+        },
+        {
+          "ref": "Pirkei Avot 1:14 (אִם אֵין אֲנִי לִי — \"for myself\" vs \"to myself\")",
+          "genre": "thought"
+        }
+      ],
+      "teachingMove": "Set the translation beside the original word; name what the translation committed to, and what it left behind.",
+      "checks": [
+        "Shown a word and a translation of it, say what the translation chose and what a different choice would change."
+      ],
+      "transfer": "Weigh a translation choice against the original in an unseen source, and say what rides on it.",
+      "repair": "Return to the single word, list the meanings it can carry, and match each to the reading it would produce.",
+      "graduationThreshold": "transfer",
+      "durability": "core"
+    },
+    {
       "id": "fnd-context-when-where",
       "layer": 7,
       "title": "Place a source in time and place",
@@ -1472,7 +1503,7 @@
       "title": "Use translation to check, not to skip",
       "prerequisites": [
         "fnd-indep-map-lines",
-        "fnd-role-translation-gap"
+        "fnd-compare-translation-choice"
       ],
       "sourceContexts": [
         {

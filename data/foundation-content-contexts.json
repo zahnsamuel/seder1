@@ -1,9 +1,9 @@
 {
   "generatedBy": "scripts/build-content-contexts.mjs",
-  "graphVersion": "0.3.1",
+  "graphVersion": "0.3.2",
   "note": "Content-context layer (docs/foundation-graph-schema.md §2.2, step 8): every content context as a first-class node { id, skill, ref, genre, family }, promoted out of the skill object. Merged from the curated inline sourceContexts and data/foundation-content-map.json (deduped by ref); `sources` records provenance. No references are invented — skills still short of >=3 contexts / >=2 families after the merge are listed in `shortfall`, to be filled with real sources (content authoring / educator audit), never padded.",
   "step8Requirement": ">=3 contexts spanning >=2 source families per skill",
-  "skillsMeetingStep8": "54/54",
+  "skillsMeetingStep8": "55/55",
   "shortfall": [],
   "perSkill": {
     "fnd-decode-letters": {
@@ -193,6 +193,11 @@
     },
     "fnd-compare-scope": {
       "contexts": 26,
+      "families": 3,
+      "meetsStep8": true
+    },
+    "fnd-compare-translation-choice": {
+      "contexts": 3,
       "families": 3,
       "meetsStep8": true
     },
@@ -6405,6 +6410,36 @@
         "content-map"
       ],
       "unit": "zevachim-arc"
+    },
+    {
+      "id": "ctx-fnd-compare-translation-choice-genesis-1-1-in-the-beginning-vs-when-god-began-to-creat",
+      "skill": "fnd-compare-translation-choice",
+      "ref": "Genesis 1:1 (בְּרֵאשִׁית — \"In the beginning\" vs \"When God began to create\")",
+      "genre": "torah",
+      "family": "tanakh",
+      "sources": [
+        "inline"
+      ]
+    },
+    {
+      "id": "ctx-fnd-compare-translation-choice-shema-deuteronomy-6-5-with-all-your-might-vs-with-all-y",
+      "skill": "fnd-compare-translation-choice",
+      "ref": "Shema, Deuteronomy 6:5 (מְאֹדֶךָ — \"with all your might\" vs \"with all your resources\")",
+      "genre": "tefillah",
+      "family": "liturgical",
+      "sources": [
+        "inline"
+      ]
+    },
+    {
+      "id": "ctx-fnd-compare-translation-choice-pirkei-avot-1-14-for-myself-vs-to-myself",
+      "skill": "fnd-compare-translation-choice",
+      "ref": "Pirkei Avot 1:14 (אִם אֵין אֲנִי לִי — \"for myself\" vs \"to myself\")",
+      "genre": "thought",
+      "family": "thought",
+      "sources": [
+        "inline"
+      ]
     },
     {
       "id": "ctx-fnd-context-when-where-mishnah-yavneh-era",

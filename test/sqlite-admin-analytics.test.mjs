@@ -70,7 +70,7 @@ test('with the admin token, the operator sees cross-learner aggregates', async (
   assert.ok(data.totalAttempts >= 1, 'the recorded answer is counted');
   // The graph-pilot signal (item difficulty, edge validation) rides along for the dashboard.
   assert.ok(data.graphPilot && data.graphPilot.summary && Array.isArray(data.graphPilot.skills) && Array.isArray(data.graphPilot.edges), 'graph-pilot signal is included');
-  assert.equal(data.graphPilot.summary.skillsTotal, 54, 'covers every graph skill');
+  assert.equal(data.graphPilot.summary.skillsTotal, 55, 'covers every graph skill');
 });
 
 test('learner feedback aggregates into operator analytics', async () => {

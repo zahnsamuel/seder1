@@ -13,7 +13,7 @@ const NAMED_SOURCE = /\b(berakhot|shabbat|eruvin|pesachim|sukkah|yoma|bava|ketub
 test('the skill-shape gate passes on the current graph and exits 0', () => {
   const out = execFileSync(process.execPath, ['scripts/check-skill-shaped.mjs'], { cwd: repoRoot, encoding: 'utf8' });
   assert.match(out, /All nodes are skill-shaped/);
-  assert.match(out, /54\/54 clean/);
+  assert.match(out, /55\/55 clean/);
   assert.match(out, /Interlocking density/);
 });
 

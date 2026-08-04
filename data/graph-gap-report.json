@@ -1,6 +1,6 @@
 {
   "generatedBy": "scripts/graph-gap-analyzer.mjs",
-  "graphVersion": "0.3.1",
+  "graphVersion": "0.3.2",
   "thresholds": {
     "LONG_EDGE_SPAN": 2,
     "FANOUT_MIN": 5,
@@ -10,17 +10,17 @@
     "ITEM_BANK_TARGET": 3
   },
   "summary": {
-    "skills": 54,
-    "edges": 75,
+    "skills": 55,
+    "edges": 76,
     "layers": 11,
-    "longEdges": 21,
+    "longEdges": 22,
     "fanOutHubs": 2,
     "highPrereq": 1,
     "thinCoverage": 0,
-    "step8Coverage": "54/54",
-    "authoredItemBanks": "0/54",
-    "skillsWithAnyItem": "17/54",
-    "scaleNote": "54 skills now; the schema targets ~150 then ~300. Long edges below are the first places intermediate skills belong."
+    "step8Coverage": "55/55",
+    "authoredItemBanks": "0/55",
+    "skillsWithAnyItem": "17/55",
+    "scaleNote": "55 skills now; the schema targets ~150 then ~300. Long edges below are the first places intermediate skills belong."
   },
   "findings": [
     {
@@ -51,16 +51,6 @@
         "fnd-indep-first-pass"
       ],
       "detail": "Tell primary text from commentary (L3 Source roles) → Make a scaffolded first pass (L9 Independent reading) spans 6 layers",
-      "suggestion": "A large jump — the dependent likely leans on moves that do not yet exist as skills between them; strong candidate for one or more intermediate skills."
-    },
-    {
-      "type": "long-edge",
-      "priority": 12,
-      "skills": [
-        "fnd-role-translation-gap",
-        "fnd-indep-use-translation-to-check"
-      ],
-      "detail": "Notice where a translation makes a choice (L3 Source roles) → Use translation to check, not to skip (L9 Independent reading) spans 6 layers",
       "suggestion": "A large jump — the dependent likely leans on moves that do not yet exist as skills between them; strong candidate for one or more intermediate skills."
     },
     {
@@ -121,6 +111,26 @@
         "fnd-indep-carry-across-genre"
       ],
       "detail": "Find the shared question (L6 Comparison) → Carry a reading move across genres (L9 Independent reading) spans 3 layers",
+      "suggestion": "Consider whether an intermediate skill belongs between these, so the dependent builds on a nearer move."
+    },
+    {
+      "type": "long-edge",
+      "priority": 6,
+      "skills": [
+        "fnd-compare-translation-choice",
+        "fnd-indep-use-translation-to-check"
+      ],
+      "detail": "Weigh a translation against the original (L6 Comparison) → Use translation to check, not to skip (L9 Independent reading) spans 3 layers",
+      "suggestion": "Consider whether an intermediate skill belongs between these, so the dependent builds on a nearer move."
+    },
+    {
+      "type": "long-edge",
+      "priority": 6,
+      "skills": [
+        "fnd-role-translation-gap",
+        "fnd-compare-translation-choice"
+      ],
+      "detail": "Notice where a translation makes a choice (L3 Source roles) → Weigh a translation against the original (L6 Comparison) spans 3 layers",
       "suggestion": "Consider whether an intermediate skill belongs between these, so the dependent builds on a nearer move."
     },
     {
