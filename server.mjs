@@ -129,7 +129,7 @@ async function enrichPlacementWithFrontier(root, event) {
 }
 
 async function chooseRecommendation(learner, { skipReview = false } = {}) {
-  if (!learner.placement) return { kind: 'placement', title: 'Find your Gemara starting point', reason: 'A short source-based placement will identify what you already know and what to build next.', url: 'placement.html' };
+  if (!learner.placement) return { kind: 'placement', title: 'Find your Gemara starting point', reason: 'A short adaptive placement pins your knowledge frontier in a handful of questions — what you already know and what to build next.', url: 'diagnostic.html' };
   const academyFoundation = academyFoundationRecommendation(learner);
   if (academyFoundation) return academyFoundation;
   if (!skipReview) {

@@ -13,7 +13,7 @@ async function selectProfile(id) {
   $('#competencies').innerHTML = Object.entries(learner.competencies || {}).map(([name, score]) => `<div class="competency"><span>${readable(name)}</span><div class="meter"><i style="width:${Math.round(score * 100)}%"></i></div><strong>${Math.round(score * 100)}%</strong></div>`).join('') || '<p>Complete a placement to begin building mastery evidence.</p>';
   const begin = $('#begin');
   const needsPlacement = !learner.placement;
-  begin.href = needsPlacement ? 'placement.html' : 'daily-router.html';
+  begin.href = needsPlacement ? 'diagnostic.html' : 'daily-router.html';
   begin.textContent = needsPlacement ? 'Find my starting point →' : 'Continue today’s learning →';
 }
 $('#export-data').addEventListener('click', async () => {

@@ -11,7 +11,7 @@ test('ninety-day academy gives beginners a single sequenced, evidence-led entry 
   for (const removed of ['YOUR 90-DAY COURSE', 'THE FIRST NINETY DAYS', 'id="milestones"']) assert.doesNotMatch(html, new RegExp(removed));
   for (const route of ['language.html', 'tractate-mastery.html?tractate=berakhot', 'halakha-chanukah.html', 'history-geniza.html', 'independent-reading.html', 'weekly-review.html']) assert.match(source, new RegExp(route.replace(/[.?]/g, '\\$&')));
   assert.match(source, /const plan = \[/);
-  assert.match(source, /placement\.html/);
+  assert.match(source, /diagnostic\.html/);
   assert.match(source, /source evidence/);
   assert.match(source, /whyNext\(day\)/);
   assert.match(source, /dayMap/);

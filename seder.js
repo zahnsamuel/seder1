@@ -6,7 +6,7 @@ const set = (sel, fn) => { const el = document.querySelector(sel); if (el) fn(el
 Seder.config().then((config) => {
   const needsAuth = config.mode === 'token' || (config.supabaseUrl && config.supabaseAnonKey);
   if (needsAuth && !Seder.session?.access_token) {
-    set('#nextAction', (el) => { const signIn = new URL('sign-in.html', location.origin); signIn.searchParams.set('next', 'placement.html'); el.href = `${signIn.pathname}${signIn.search}`; el.textContent = 'Start learning →'; });
+    set('#nextAction', (el) => { const signIn = new URL('sign-in.html', location.origin); signIn.searchParams.set('next', 'diagnostic.html'); el.href = `${signIn.pathname}${signIn.search}`; el.textContent = 'Start learning →'; });
     window.showOnboardingIfNew?.(false); // a first-time visitor: show the welcome
     return;
   }

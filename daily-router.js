@@ -5,7 +5,7 @@ function renderSessionPlan(primaryUrl, needsPlacement = false, isFoundation = fa
   const lapsed = Boolean(window.__academyLapsed);
   const frontier = window.__academyFrontier;
   const steps = needsPlacement
-    ? [['1', '10 min', 'Placement', 'Find the right starting point before new material.', 'placement.html']]
+    ? [['1', '5 min', 'Placement', 'Find the right starting point before new material.', 'diagnostic.html']]
     : lapsed
       ? [['1', '3 min', 'Welcome back', 'One small retrieval restarts your rhythm. No catch-up required.', 'daily-recall.html']]
     : isFoundation
@@ -151,7 +151,7 @@ Promise.all([
 
   if (!category?.score && !(personalDue || vocabDue) && (foundationTerm || gemaraYearMove || moedExpansionMove)) recommendation = foundationTerm || gemaraYearMove || moedExpansionMove;
   if (recommendation.url === `tractate-mastery.html?tractate=${tractate}`) recommendation.url = gemaraWorkbenchUrl[tractate];
-  if (needsPlacement) recommendation = { title: 'Find your starting point', url: 'placement.html', reason: 'Begin with a short source-based placement. It chooses a first Gemara move and a review rhythm without assigning a permanent level.' };
+  if (needsPlacement) recommendation = { title: 'Find your starting point', url: 'diagnostic.html', reason: 'Begin with a short adaptive placement. A handful of questions pin where you are and set a review rhythm, without assigning a permanent level.' };
   const requestedFoundation = !needsPlacement && foundationSkill ? foundationSkill : null;
   if (requestedFoundation) {
     recommendation = { title: 'Academy Foundation · one focused skill', url: `academy-session.html?skill=${encodeURIComponent(requestedFoundation)}`, reason: 'A short, source-based session builds one transferable learning move at a time.', foundation: true, skillId: requestedFoundation };
