@@ -3,3 +3,12 @@
 supabase/.temp/
 node_modules/
 data/learners.json
+
+# Local SQLite scratch DBs from hosted-mode / go-live testing (SEDER_DB=cap.db etc.)
+*.db
+*.db-shm
+*.db-wal
+
+# Generated presentation scratch and outputs (not part of the app build)
+.tmp-presentation/
+outputs/
