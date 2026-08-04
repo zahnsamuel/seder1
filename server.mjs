@@ -18,7 +18,15 @@ const root = fileURLToPath(new URL('.', import.meta.url));
 const port = Number(process.env.PORT || 4180);
 // Hosted pilot persistence: point SEDER_DB at a SQLite file to store learners there and turn
 // on per-learner bearer-token auth (see data/sqlite-store.mjs). Unset = local JSON dev store.
-if (process.env.SEDER_DB) initSqlite(process.env.SEDER_DB);
+if (process.env.SEDER_DB) {
+  initSqlite(process.env.SEDER_DB);
+} else if (process.env.NODE_ENV === 'production' && !supabaseConfig().configured) {
+  // Fail closed: local-development mode has no per-learner auth, no account isolation, and an OPEN
+  // analytics endpoint — it must never back a real deploy. Refusing to start (rather than quietly
+  // serving an insecure instance) turns a missing SEDER_DB into a loud, obvious deploy failure.
+  console.error('FATAL: NODE_ENV=production but no persistent store is configured. Set SEDER_DB to a SQLite file on a mounted disk (e.g. /data/seder.db) for hosted mode, or configure Supabase. Refusing to start in local-development mode: it has no auth, no isolation, and an open analytics endpoint.');
+  process.exit(1);
+}
 
 // Best-effort per-IP throttle on the open sign-up endpoint so a public deploy can't be flooded
 // with junk accounts. In-memory (resets on restart), which is fine at pilot scale.
