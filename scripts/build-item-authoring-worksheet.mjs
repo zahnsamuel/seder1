@@ -27,7 +27,6 @@ const skills = graph.skills.map((s) => ({
 }));
 
 const DATA = {
-  generatedAt: new Date().toISOString().slice(0, 10),
   graphVersion: graph.version,
   target: 3,
   layers: (graph.layers || []).map((l) => ({ n: l.n, title: l.title })),
@@ -114,7 +113,7 @@ footer{max-width:900px;margin:38px auto 0;padding:24px 22px 60px;border-top:1px 
   <div class="how"><b>What makes a good item.</b> Ground it in one of the skill's real sources (listed per card). Write a stem that asks the learner to <em>make the move</em>, not recall a definition. Make each wrong choice a mistake a real learner makes — the misconception the skill exists to correct. Mark exactly one choice correct.</div>
 </div></header>
 <div class="wrap"><div id="cards"></div></div>
-<footer><div class="mono">JLA item-authoring workbench · graph <span id="ver2"></span> · generated <span id="gen"></span> · entries stay in this browser until you export</div></footer>
+<footer><div class="mono">JLA item-authoring workbench · graph <span id="ver2"></span> · entries stay in this browser until you export</div></footer>
 <script>
 const DATA = JSON.parse(document.getElementById('wb-data').textContent);
 const KEY = 'jla-items-' + DATA.graphVersion;
@@ -129,7 +128,6 @@ let t; function save(){ clearTimeout(t); t=setTimeout(()=>{ localStorage.setItem
 
 document.getElementById('ver').textContent=DATA.graphVersion;
 document.getElementById('ver2').textContent=DATA.graphVersion;
-document.getElementById('gen').textContent=DATA.generatedAt;
 document.getElementById('t-skills').textContent=DATA.skills.length;
 document.getElementById('tgt').textContent=DATA.target;
 

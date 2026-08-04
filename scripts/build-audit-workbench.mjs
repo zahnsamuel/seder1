@@ -37,7 +37,6 @@ const unmapped = Object.entries(gradMap)
   .map(([gradId, m]) => ({ gradId, note: m.note }));
 
 const DATA = {
-  generatedAt: new Date().toISOString().slice(0, 10),
   graphVersion: graph.version,
   layers: (graph.layers || []).map((l) => ({ n: l.n, title: l.title })),
   skills, edges, approximate, unmapped,
@@ -187,7 +186,7 @@ footer{max-width:960px;margin:40px auto 0;padding:26px 22px 60px;border-top:1px 
 
 <footer>
   <span class="mono">JLA educator-audit workbench</span><span>·</span>
-  <span>graph <span id="ver2"></span> · generated <span id="gen"></span></span><span>·</span>
+  <span>graph <span id="ver2"></span></span><span>·</span>
   <span>entries stay in this browser until you export</span>
 </footer>
 
@@ -206,7 +205,6 @@ const edgesTo = {}; for(const e of DATA.edges){ (edgesTo[e.to]=edgesTo[e.to]||[]
 // ---- fill headers ----
 document.getElementById('ver').textContent = DATA.graphVersion;
 document.getElementById('ver2').textContent = DATA.graphVersion;
-document.getElementById('gen').textContent = DATA.generatedAt;
 document.getElementById('map-n').textContent = DATA.counts.skills;
 document.getElementById('map-e').textContent = DATA.counts.edges;
 document.getElementById('t-rat').textContent = DATA.counts.edges;
