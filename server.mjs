@@ -47,11 +47,32 @@ function sendJson(response, status, body) {
   response.end(JSON.stringify(body));
 }
 
+// Every learner payload (events, answers, feedback, placement scores) is small JSON, so cap the
+// body well above any legitimate request. Without a cap, a single large POST to a public endpoint
+// could buffer unbounded memory — a cheap DoS on the pilot URL. A malformed body is the caller's
+// error (400), not the server's (500); both are surfaced via the top-level handler's statusCode path.
+const MAX_BODY_BYTES = 256 * 1024;
+
 async function readJsonBody(request) {
   const chunks = [];
-  for await (const chunk of request) chunks.push(chunk);
+  let size = 0;
+  for await (const chunk of request) {
+    size += chunk.length;
+    if (size > MAX_BODY_BYTES) {
+      const error = new Error('Request body too large.');
+      error.statusCode = 413;
+      throw error;
+    }
+    chunks.push(chunk);
+  }
   if (!chunks.length) return {};
-  return JSON.parse(Buffer.concat(chunks).toString('utf8'));
+  try {
+    return JSON.parse(Buffer.concat(chunks).toString('utf8'));
+  } catch {
+    const error = new Error('Request body must be valid JSON.');
+    error.statusCode = 400;
+    throw error;
+  }
 }
 
 function academyFoundationRecommendation(learner) {
