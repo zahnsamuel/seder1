@@ -3,6 +3,13 @@ WORKDIR /app
 COPY . .
 ENV NODE_ENV=production
 ENV PORT=4180
+# Bake the deployed commit into the image so /api/health reports exactly which build is running.
+# Render exposes its automatic RENDER_GIT_COMMIT to the Docker build as a build arg; capture it as
+# SEDER_COMMIT. The server prefers the runtime RENDER_GIT_COMMIT Render also injects (see
+# server.mjs /api/health) and falls back to this baked value, so the image is self-describing even
+# outside Render. Empty when built without the arg (e.g. a local docker build) — health reports null.
+ARG RENDER_GIT_COMMIT=""
+ENV SEDER_COMMIT=$RENDER_GIT_COMMIT
 # Default to SQLite hosted mode from the image itself, so the container never falls back to the
 # insecure local-development mode even if render.yaml's env var / disk did not apply (e.g. the service
 # was created as a plain Web Service, not a Blueprint). /data is created here so SQLite works whether
