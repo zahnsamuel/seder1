@@ -18,8 +18,13 @@ Supabase) via `npm run golive`:
 
 ## One-time setup on Render
 
-1. Create a **Blueprint** from this repo (Render reads [`render.yaml`](../render.yaml)) — or a Web
-   Service pointing at the repo. It builds from the [`Dockerfile`](../Dockerfile).
+1. Prefer a **Blueprint** from this repo (Render reads [`render.yaml`](../render.yaml)): it wires the
+   persistent disk and `SEDER_DB` for you. A plain **Web Service** pointing at the repo also works and
+   is now safe — the [`Dockerfile`](../Dockerfile) bakes `SEDER_DB=/data/seder.db` into the image, so
+   the server enters SQLite hosted mode even when `render.yaml` isn't applied. But a plain Web Service
+   gets **no persistent disk unless you add one**, so learner data would be ephemeral (lost on
+   redeploy). If you go that route, add a 1 GB disk mounted at `/data` in the dashboard. When in doubt,
+   use the Blueprint.
 2. **Keep the plan on a paid tier (`starter`).** The persistent disk (`/data`, 1 GB, holds
    `seder.db`) requires it — the free plan has ephemeral storage and would **lose every learner on
    each redeploy**.
@@ -30,19 +35,62 @@ Supabase) via `npm run golive`:
 5. Optional: if your cohort shares one network/IP, raise **`SEDER_SIGNUP_LIMIT`** (default: 8 signups
    per IP per hour) so classmates aren't rate-limited.
 
-## Deploy
+## Push and redeploy
 
-- Push to `main`. `autoDeployTrigger: commit` deploys automatically; Render waits on the
-  `/api/health` check before routing traffic.
+1. Note the commit you're shipping, so you can confirm the live deploy matches:
+
+   ```bash
+   git rev-parse --short HEAD
+   ```
+
+2. Push `main`:
+
+   ```bash
+   git push origin main
+   ```
+
+   `autoDeployTrigger: commit` starts the build automatically. Watch it in the Render dashboard →
+   **Events** / **Logs**; Render waits on the `/api/health` check before routing traffic, so a failing
+   health check keeps the *previous* deploy live (safe).
 
 ## Verify the live deploy
 
-```bash
-SEDER_ADMIN_TOKEN=<your token> node scripts/go-live-check.mjs https://<your-app>.onrender.com
-```
+1. Confirm the running build is what you pushed and is in hosted mode:
 
-All checks must print `PASS` (exit 0). A `FAIL` on **health** usually means `SEDER_DB` isn't set; a
-`FAIL` on **isolation** is a hard stop — do not run a pilot until it passes.
+   ```bash
+   curl -s https://<your-app>.onrender.com/api/health
+   ```
+
+   Expect `"persistence":"sqlite-ready"` (**not** `local-development`) and `"commit"` to be the full
+   SHA that **begins with** the short SHA from the push step (Render injects the deployed commit; the
+   image also bakes it as a fallback). If `commit` is `null` or a different SHA, the redeploy didn't
+   take — re-check the dashboard.
+
+2. Run the full gate against the live URL:
+
+   ```bash
+   SEDER_ADMIN_TOKEN=<your token> node scripts/go-live-check.mjs https://<your-app>.onrender.com
+   ```
+
+   All checks must print `PASS` (exit 0). A `FAIL` on **health** means it's not in `sqlite-ready`
+   mode — see Troubleshooting. A `FAIL` on **isolation** is a hard stop — do not run a pilot until it
+   passes.
+
+## Troubleshooting
+
+- **Health says `local-development`** (no auth, no isolation, open analytics — do **not** pilot on
+  this). It means neither `SEDER_DB` nor Supabase reached the process. Root cause we hit once: the
+  service was created as a plain Web Service, so `render.yaml`'s env var and disk never applied. Two
+  defenses are now in place: the Dockerfile bakes `SEDER_DB=/data/seder.db`, and the server
+  **fail-closes** — under `NODE_ENV=production` with no store it refuses to start rather than serve
+  insecurely, so a genuinely misconfigured deploy shows up as a failed deploy (check the logs for the
+  `FATAL: … no persistent store is configured` line) instead of a quietly insecure one. Fix: redeploy
+  from the current `Dockerfile`, or set `SEDER_DB=/data/seder.db` in the dashboard, and ensure a disk
+  is mounted at `/data`.
+- **Health `commit` is `null` or an old SHA.** The new build didn't roll out. Trigger a manual deploy
+  (**Manual Deploy → Deploy latest commit**) and re-check.
+- **Learners disappear after a redeploy.** No persistent disk is mounted at `/data` (or the plan is
+  free/ephemeral). Add the 1 GB disk and use a paid tier.
 
 ## Run the pilot
 
