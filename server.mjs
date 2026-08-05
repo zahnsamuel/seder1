@@ -738,7 +738,13 @@ createServer(async (request, response) => {
     if (relativePath === 'data/jla-academy-sessions.json') { response.writeHead(404); response.end('Not found'); return; }
     const target = normalize(join(root, relativePath));
     if (!target.startsWith(root) || !existsSync(target)) { response.writeHead(404); response.end('Not found'); return; }
-    response.writeHead(200, { 'Content-Type': mime[extname(target)] || 'application/octet-stream', 'Cache-Control': 'no-store' });
+    const ext = extname(target);
+    // HTML is the app shell — keep it uncached so a redeploy is picked up immediately. Other static
+    // assets (js/css/json data, images, fonts) change only on deploy, so cache them briefly. This
+    // stops the 60KB skill-graph JSON and the scripts being re-downloaded on every pageload, which
+    // serialized into multi-second waits under concurrent load. /api responses stay no-store (above).
+    const cacheControl = ext === '.html' ? 'no-store' : 'public, max-age=300';
+    response.writeHead(200, { 'Content-Type': mime[ext] || 'application/octet-stream', 'Cache-Control': cacheControl });
     createReadStream(target).pipe(response);
   } catch (error) {
     logError(`${request.method} ${url.pathname}`, error);
