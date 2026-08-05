@@ -11,6 +11,7 @@ const esc = (value) => String(value == null ? '' : value).replace(/[&<>"']/g, (c
 
 const responses = {};      // skillId -> passed boolean, accumulated across probes
 let questionCount = 0;
+let done = false;          // once the result is shown, the diagnostic is terminal — no late probe may reappear
 let graph = null;
 let total = 53;            // graph skill count, for the "mapped" gauge; refined once the graph loads
 let kids = new Map();      // skillId -> direct dependents, for local descendant/leverage math
@@ -35,6 +36,7 @@ const leverage = (id) => descendants(id).size; // how many later moves depend on
 // One round-trip to the stateless estimator: send everything answered so far, get the current
 // estimate, the next probe, or completion.
 async function step() {
+  if (done) return; // a slow round-trip could resolve after we've already finished; never re-open
   let data;
   try {
     const response = await Seder.api('/api/graph/diagnostic', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ responses }) });
@@ -43,6 +45,7 @@ async function step() {
   } catch { $('#status').textContent = 'Diagnostic unavailable — try placement.'; return; }
   updateGauge(data.estimate || {});
   if (data.complete || !data.nextProbe) { finish(data.estimate || {}); return; }
+  if (done) return; // finished while this round-trip was in flight
   renderProbe(data.nextProbe);
 }
 
@@ -95,6 +98,8 @@ function pickStart(frontier) {
 }
 
 function finish(estimate) {
+  if (done) return; // idempotent: only place the result once, and never re-open it afterward
+  done = true;
   $('#probe-shell').hidden = true;
   const intro = $('.intro'); if (intro) intro.hidden = true;
   $('#status').textContent = 'STARTING POINT READY';
