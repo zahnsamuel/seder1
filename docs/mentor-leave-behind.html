@@ -1,0 +1,172 @@
+<style>
+  :root {
+    --paper:#F4EFE3; --paper-2:#EDE5D3; --ink:#1E2A25; --teal:#123C45; --teal-2:#1C5560;
+    --brass:#9A7A32; --muted:#5F5749; --rule:#D9CEBC; --rule-soft:#E4DBC8;
+    --serif:'Iowan Old Style','Palatino Linotype',Palatino,'Book Antiqua',Georgia,'Times New Roman',serif;
+    --sans:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper:#141F1B; --paper-2:#1C2A25; --ink:#ECE4D3; --teal:#84BBB4; --teal-2:#A9D4CE;
+      --brass:#CFAA55; --muted:#A79E8C; --rule:#33443E; --rule-soft:#28352F;
+    }
+  }
+  :root[data-theme="light"] {
+    --paper:#F4EFE3; --paper-2:#EDE5D3; --ink:#1E2A25; --teal:#123C45; --teal-2:#1C5560;
+    --brass:#9A7A32; --muted:#5F5749; --rule:#D9CEBC; --rule-soft:#E4DBC8;
+  }
+  :root[data-theme="dark"] {
+    --paper:#141F1B; --paper-2:#1C2A25; --ink:#ECE4D3; --teal:#84BBB4; --teal-2:#A9D4CE;
+    --brass:#CFAA55; --muted:#A79E8C; --rule:#33443E; --rule-soft:#28352F;
+  }
+
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--paper-2); color:var(--ink); font-family:var(--serif);
+    -webkit-font-smoothing:antialiased; }
+
+  .sheet {
+    max-width:52rem; margin:2.2rem auto; background:var(--paper); color:var(--ink);
+    padding:3rem 3.2rem 2.4rem; border:1px solid var(--rule);
+    box-shadow:0 1px 0 var(--rule-soft), 0 22px 50px -32px rgba(18,60,69,.5);
+  }
+
+  /* --- Masthead --- */
+  .masthead { display:flex; align-items:center; gap:1.1rem; }
+  .mark {
+    flex:none; width:3.1rem; height:3.1rem; display:grid; place-items:center;
+    border:1.5px solid var(--teal); border-radius:50%; color:var(--teal);
+    font-size:1.65rem; line-height:1; padding-bottom:.12em;
+  }
+  .wordmark { min-width:0; }
+  .eyebrow {
+    font-family:var(--sans); font-size:.66rem; font-weight:600; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--brass); margin:0 0 .35rem;
+  }
+  h1 { font-size:2.05rem; line-height:1.02; margin:0; font-weight:600; letter-spacing:-.01em;
+    text-wrap:balance; color:var(--ink); }
+
+  .rule { height:0; border:0; border-top:1.5px solid var(--brass); margin:1.3rem 0 1.4rem;
+    opacity:.85; }
+
+  .lead { font-size:1.24rem; line-height:1.42; margin:0 0 1.7rem; color:var(--teal);
+    max-width:44ch; text-wrap:pretty; }
+
+  /* --- Body grid --- */
+  .body { display:grid; grid-template-columns:1fr 1fr; gap:1.6rem 2.6rem; }
+  section { margin:0; }
+  h2 {
+    font-family:var(--sans); font-size:.7rem; font-weight:700; letter-spacing:.13em;
+    text-transform:uppercase; color:var(--brass); margin:0 0 .5rem;
+  }
+  p { margin:0; font-size:.985rem; line-height:1.5; color:var(--ink); }
+  p + p { margin-top:.6rem; }
+
+  .built { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.62rem; }
+  .built li { position:relative; padding-left:1.15rem; font-size:.95rem; line-height:1.42; }
+  .built li::before { content:""; position:absolute; left:0; top:.52em; width:.42rem; height:.42rem;
+    background:var(--teal); border-radius:50%; }
+  .built b { color:var(--ink); font-weight:600; }
+
+  /* --- Honesty callout --- */
+  .honesty {
+    grid-column:1 / -1; margin-top:.3rem; background:var(--paper-2);
+    border:1px solid var(--rule); border-left:3px solid var(--teal);
+    padding:1rem 1.2rem; border-radius:2px;
+  }
+  .honesty p { font-size:.95rem; }
+  .honesty em { font-style:italic; color:var(--teal-2); }
+
+  /* --- Fill-in row --- */
+  .fillins { grid-column:1 / -1; display:grid; grid-template-columns:1fr 1fr; gap:2.6rem;
+    margin-top:.2rem; }
+  .placeholder {
+    font-family:var(--sans); font-size:.86rem; line-height:1.5; color:var(--muted);
+    border:1px dashed var(--rule); border-radius:3px; padding:.7rem .8rem; background:transparent;
+  }
+
+  footer {
+    margin-top:2rem; padding-top:1rem; border-top:1px solid var(--rule);
+    font-family:var(--sans); font-size:.76rem; letter-spacing:.02em; color:var(--muted);
+    display:flex; align-items:center; gap:.6rem; flex-wrap:wrap;
+  }
+  footer .dot { color:var(--brass); }
+  footer .sam-mark { color:var(--teal); font-family:var(--serif); font-size:1rem; }
+  footer a { color:var(--teal-2); text-decoration:none; }
+
+  @media (max-width:640px) {
+    .sheet { margin:0; padding:1.8rem 1.4rem; border:0; box-shadow:none; }
+    .body, .fillins { grid-template-columns:1fr; }
+    h1 { font-size:1.75rem; }
+    .lead { font-size:1.12rem; }
+  }
+
+  @media print {
+    :root, :root[data-theme="dark"] {
+      --paper:#fff; --paper-2:#F5F0E5; --ink:#1E2A25; --teal:#123C45; --teal-2:#123C45;
+      --brass:#8A6C2C; --muted:#4C463B; --rule:#CFC4AF; --rule-soft:#E4DBC8;
+    }
+    body { background:#fff; }
+    .sheet { margin:0; max-width:none; border:0; box-shadow:none; padding:0; }
+    @page { margin:15mm; }
+  }
+</style>
+
+<article class="sheet">
+  <header class="masthead">
+    <div class="mark" aria-hidden="true">ס</div>
+    <div class="wordmark">
+      <p class="eyebrow">A skills-first tutor for the Jewish canon</p>
+      <h1>The Jewish Learning Academy</h1>
+    </div>
+  </header>
+
+  <hr class="rule" />
+
+  <p class="lead">Become someone who can open Jewish texts — a tutor that takes an adult from zero to reading the Jewish canon on their own, one move at a time.</p>
+
+  <div class="body">
+    <section>
+      <h2>The problem</h2>
+      <p>Millions of Jewishly-curious adults feel locked out of the canon — no yeshiva, no day school, unsure how to even open a page. Every existing tool hands them <em>content</em>: translations, courses, references. None of them make a person <em>able to read on their own.</em></p>
+      <h2 style="margin-top:1.3rem">The bet</h2>
+      <p>Teach the <b>transferable reading skills</b>, not the content. Modeled on Math Academy's knowledge graph: one skill at a time, minimal cognitive load, always the single highest-leverage next move. The canon becomes the practice ground; the product is literacy itself.</p>
+    </section>
+
+    <section>
+      <h2>What's built — and live today</h2>
+      <ul class="built">
+        <li><b>Adaptive placement</b> that pins a learner's frontier in ~7–15 self-checks — not one per skill — by inferring everything below what they can do.</li>
+        <li>A <b>55-skill knowledge graph</b> of reading moves, from recognizing Hebrew letters to reading an unvocalized source independently.</li>
+        <li><b>Scaffolded lessons</b> on real sources: introduce → practice → <b>transfer to a different genre.</b> The transfer <em>is</em> the skill.</li>
+        <li><b>Spaced review, targeted remediation,</b> and a Hebrew-decoding on-ramp — the full 0→1 arc, alphabet to independent reading.</li>
+      </ul>
+    </section>
+
+    <aside class="honesty">
+      <h2>Where it honestly stands</h2>
+      <p>A <b>v0.1 prototype with a real engine.</b> The learning machinery is built and working. What it needs next — and we are deliberately not faking — is <b>(1)</b> a live pilot to calibrate difficulty and validate the graph <em>(running now)</em>, and <b>(2)</b> educator sign-off and authored assessment banks <em>(the tooling to capture both is built)</em>. The graph grows on real pilot signal, not speculation.</p>
+    </aside>
+
+    <div class="fillins">
+      <section>
+        <h2>Early signal</h2>
+        <p class="placeholder">[ Pilot launched [date]: __ learners, __ sessions, early retention + a learner quote — fill in day-of. ]</p>
+      </section>
+      <section>
+        <h2>The ask</h2>
+        <p class="placeholder">[ One or two concrete asks — e.g. introductions to Jewish educators for the audit, a few pilot learners, advising, or capital to fund the pilot-to-product build. ]</p>
+      </section>
+    </div>
+  </div>
+
+  <footer>
+    <span class="sam-mark" aria-hidden="true">ס</span>
+    <span>The Jewish Learning Academy</span>
+    <span class="dot">·</span>
+    <span>[Your name]</span>
+    <span class="dot">·</span>
+    <span>[email]</span>
+    <span class="dot">·</span>
+    <a href="https://seder-demo.onrender.com">seder-demo.onrender.com</a>
+  </footer>
+</article>
