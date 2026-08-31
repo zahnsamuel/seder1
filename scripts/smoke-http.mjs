@@ -1,7 +1,7 @@
 const base = (process.env.SEDER_BASE_URL || 'http://127.0.0.1:4180').replace(/\/$/, '');
 const routes = [
   '/seder.html',
-  '/placement.html',
+  '/diagnostic.html',
   '/daily.html',
   '/daily-router.html',
   '/path.html',

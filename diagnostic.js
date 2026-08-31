@@ -42,7 +42,7 @@ async function step() {
     const response = await Seder.api('/api/graph/diagnostic', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ responses }) });
     if (!response.ok) throw new Error('diagnostic');
     data = await response.json();
-  } catch { $('#status').textContent = 'Diagnostic unavailable — try placement.'; return; }
+  } catch { $('#status').textContent = 'Diagnostic unavailable — reload to try again.'; return; }
   updateGauge(data.estimate || {});
   if (data.complete || !data.nextProbe) { finish(data.estimate || {}); return; }
   if (done) return; // finished while this round-trip was in flight
@@ -90,7 +90,7 @@ function renderProbe(probe) {
 }
 
 // The single highest-leverage frontier skill: ready now, and more later moves depend on it than on any
-// other ready-now move (mirrors placement.js's "the first skill that unlocks the most").
+// other ready-now move (picks the first skill that unlocks the most, as the retired graded placement did).
 function pickStart(frontier) {
   const candidates = (frontier || []).map((id) => ({ id, skill: skillById(id), lev: leverage(id) })).filter((entry) => entry.skill);
   if (!candidates.length) return null;

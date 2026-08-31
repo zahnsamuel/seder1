@@ -8,6 +8,6 @@ test('a fresh learner creates a private local profile before placement', async (
   assert.match(page, /first placement takes about three minutes/);
   assert.match(script, /get\('next'\)/);
   assert.match(script, /requestedNext === 'placement'/);
-  assert.match(script, /location\.href = 'placement\.html'/);
+  assert.match(script, /location\.href = 'diagnostic\.html'/);
   assert.match(script, /Create profile and find my starting point/);
 });
