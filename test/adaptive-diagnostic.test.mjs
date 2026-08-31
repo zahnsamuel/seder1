@@ -14,8 +14,10 @@ test('adaptive diagnostic page has the probe loop, gauge, results and rhythm sur
   }
   assert.match(html, /src="diagnostic\.js/);
   assert.match(html, /src="seder-auth\.js/);
-  // reachable both ways with the graded placement (the protected placement-first entry stays)
-  assert.match(html, /placement\.html/);
+  // Simplification: the diagnostic no longer offers the worked-example placement as an alternative —
+  // the adaptive diagnostic is the single navigable placement. (daily-router still protects the
+  // placement-first entry; that guarantee lives in daily-router.test.mjs.)
+  assert.doesNotMatch(html, /placement\.html/);
 });
 
 test('diagnostic.js drives the stateless estimator and seeds through the placement path', () => {
