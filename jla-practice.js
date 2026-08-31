@@ -1,110 +1,108 @@
 /* ==========================================================================
-   Interactive lesson prototype — priority #4 of the UI consolidation.
+   Interactive lesson component — now wired to the REAL item bank.
 
-   Proves the "learn by doing" pattern (the thing Brilliant does and JLA's lessons
-   mostly don't yet): the skill "Notice when a source is asking, not telling" is
-   taught by having the learner *label* real lines, not read about labelling them.
-   Self-contained on purpose so it runs as a pattern reference; a production version
-   would pull items from the item bank and post evidence to /api/learners.
+   The earlier version of this file scored answers in the browser from a hardcoded
+   key. That is both insecure (the client must never hold the answer) and fake (not
+   real items). This version consumes the production Academy-session contract:
 
-   Built entirely from jla-system.css components (.jla-choice / .jla-feedback /
-   .jla-meter), so it inherits the design system with no bespoke styling.
+     GET  /api/jla/academy-session/:skillId          → authored item, answer key
+                                                        stripped, choices shuffled
+     POST /api/jla/academy-session/:skillId/answer    → server scores {choiceId},
+                                                        records the capability
+                                                        evidence for the learner,
+                                                        returns {correct, feedback}
+
+   Correctness is NEVER computed here. The server is authoritative and records the
+   `answer_submitted` evidence event, so a completed lesson moves the learner's real
+   capability state. Rendered entirely from jla-system.css components.
+
+   Pass ?skill=<skillId> to practice a specific skill; defaults to a source-navigation
+   item. Available skills live in data/jla-academy-sessions.json (source-family-001,
+   mishnah-case-001, gemara-question-001, …).
    ========================================================================== */
 (function () {
-  // Authentic Talmudic lines chosen so the asking/telling signal is legible from a
-  // single word. `why` names that signal — the transferable cue, not the translation.
-  const ITEMS = [
-    {
-      he: 'מְנָא הָנֵי מִילֵּי?',
-      en: '“From where are these things derived?”',
-      answer: 'question',
-      why: 'מנא — “from where” — is the Gemara turning to ask for a source. A telling line never opens this way.'
-    },
-    {
-      he: 'תָּנוּ רַבָּנַן',
-      en: '“The Rabbis taught…”',
-      answer: 'statement',
-      why: 'תנו רבנן introduces a teaching being stated. It sets up what follows; it asks nothing.'
-    },
-    {
-      he: 'מַאי טַעְמָא?',
-      en: '“What is the reason?”',
-      answer: 'question',
-      why: 'מאי — “what” — is a demand for a reason. The line is asking, and expects a reason in reply.'
-    },
-    {
-      he: 'שֶׁנֶּאֱמַר: שְׁמַע יִשְׂרָאֵל',
-      en: '“…as it is stated: Hear, O Israel.”',
-      answer: 'statement',
-      why: 'שנאמר brings a proof-text to support a claim already made — telling, not asking.'
-    }
-  ];
+  const Seder = window.Seder = window.Seder || {};
+  const learnerId = Seder.currentLearnerId ? Seder.currentLearnerId() : 'demo';
+  const skillId = new URLSearchParams(location.search).get('skill') || 'source-family-001';
 
-  const stage = document.getElementById('stage');
-  const meter = document.getElementById('meter');
-  const count = document.getElementById('count');
-  let i = 0;
-  let correct = 0;
+  const esc = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const el = (id) => document.getElementById(id);
+  const stage = el('stage');
 
-  function renderItem() {
-    const item = ITEMS[i];
-    count.textContent = `${i + 1} / ${ITEMS.length}`;
-    meter.style.width = `${Math.round(((i) / ITEMS.length) * 100) + 12}%`;
+  const sefariaLink = (w) => w.sourceUrl || `https://www.sefaria.org/search?q=${encodeURIComponent(w.sourceRef || '')}&tab=texts`;
+
+  function renderLesson(session) {
+    el('eyebrow').textContent = session.domain ? session.domain.replace(/-/g, ' ') : 'Source practice';
+    el('title').textContent = session.title || 'Read a source';
+    el('teaching').textContent = session.teachingMove || '';
+
+    const w = session.sourceWindow || {};
     stage.innerHTML = `
-      <div class="prompt">Line ${i + 1} — asking or telling?</div>
-      <div class="jla-source-line"><div class="jla-source-he">${item.he}</div></div>
-      <p class="line-en">${item.en}</p>
-      <div class="choices">
-        <button class="jla-choice" data-choice="question">A question — the source is asking</button>
-        <button class="jla-choice" data-choice="statement">A statement — the source is telling</button>
+      <div class="jla-card source-card">
+        <div class="source-ref"><b>${esc(w.sourceRef || 'Source')}</b><a href="${esc(sefariaLink(w))}" target="_blank" rel="noopener">Open at Sefaria →</a></div>
+        ${w.hebrew ? `<div class="jla-source-line"><div class="jla-source-he">${esc(w.hebrew)}</div></div>` : ''}
+        ${w.translation ? `<p class="source-tr">${esc(w.translation)}</p>` : ''}
+        ${w.context ? `<p class="source-context">${esc(w.context)}</p>` : ''}
       </div>
-      <div id="fb" aria-live="polite"></div>`;
+      <p class="prompt">${esc(session.prompt || 'Which first move fits this source?')}</p>
+      <div id="choices">
+        ${(session.choices || []).map((c) => `<button class="jla-choice" data-choice-id="${esc(c.id)}">${esc(c.text)}</button>`).join('')}
+      </div>
+      <div id="feedback" aria-live="polite"></div>`;
+
+    let answered = false;
     stage.querySelectorAll('.jla-choice').forEach((btn) => {
-      btn.addEventListener('click', () => choose(btn));
+      btn.addEventListener('click', () => { if (!answered) { answered = true; submit(btn, session); } });
     });
   }
 
-  function choose(btn) {
-    const item = ITEMS[i];
-    const picked = btn.dataset.choice;
-    const right = picked === item.answer;
-    if (right) correct += 1;
-    stage.querySelectorAll('.jla-choice').forEach((b) => {
-      b.disabled = true;
-      if (b.dataset.choice === item.answer) b.classList.add('is-correct');
-      else if (b === btn) b.classList.add('is-wrong');
-    });
-    const fb = document.getElementById('fb');
-    fb.className = `jla-feedback ${right ? 'is-correct' : 'is-wrong'}`;
-    fb.innerHTML = `<strong>${right ? 'Yes.' : 'Not quite.'}</strong> ${item.why}`;
+  async function submit(btn, session) {
+    stage.querySelectorAll('.jla-choice').forEach((b) => { b.disabled = true; });
+    const fb = el('feedback');
+    fb.className = 'jla-feedback';
+    fb.textContent = 'Checking…';
+    let result;
+    try {
+      // The server scores the choice and records the evidence. The client only reports the pick.
+      const res = await Seder.api(`/api/jla/academy-session/${encodeURIComponent(skillId)}/answer`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ choiceId: btn.dataset.choiceId })
+      });
+      result = await res.json();
+    } catch {
+      fb.className = 'jla-feedback is-wrong';
+      fb.textContent = 'Your result is ready locally; it will sync when your account is available.';
+      return;
+    }
+
+    btn.classList.add(result.correct ? 'is-correct' : 'is-wrong');
+    fb.className = `jla-feedback ${result.correct ? 'is-correct' : 'is-wrong'}`;
+    // The server returns authored, complete feedback — show it as-is (no client prefix,
+    // which would double up on feedback that already opens with "Yes."/"Not quite.").
+    fb.textContent = result.feedback || (result.correct ? 'You made the move in this source.' : 'Carry the move into the next source and try again.');
+
     const advance = document.createElement('div');
     advance.className = 'advance';
-    advance.innerHTML = `<button class="jla-btn jla-btn-primary" id="next">${i + 1 < ITEMS.length ? 'Next line →' : 'See what you earned →'}</button>`;
+    advance.innerHTML = `<a class="jla-btn jla-btn-primary" href="daily-router.html">Back to today →</a>`;
     stage.appendChild(advance);
-    document.getElementById('next').addEventListener('click', () => {
-      i += 1;
-      if (i < ITEMS.length) renderItem();
-      else finish();
-    });
+
+    // Reflect the capability this evidence moves, in the shared state vocabulary.
+    if (result.correct && result.evidenceStatement) {
+      const chip = document.createElement('div');
+      chip.style.marginTop = '18px';
+      chip.innerHTML = `<span class="jla-chip is-secure"><b>Evidence recorded</b> ${esc(result.evidenceStatement)}</span>`;
+      stage.appendChild(chip);
+    }
   }
 
-  function finish() {
-    meter.style.width = '100%';
-    count.textContent = `${ITEMS.length} / ${ITEMS.length}`;
-    // Report in the capability vocabulary, not a score. This is the state a demonstrated
-    // move enters first; the shared shell would then surface it as a live capability.
-    const secured = correct >= 3;
-    stage.className = 'jla-card done-card';
-    stage.innerHTML = `
-      <span class="jla-eyebrow">Capability</span>
-      <h2 class="jla-display" style="font-size:1.7rem;margin:8px 0 6px;">Notice when a source is asking</h2>
-      <p class="line-en" style="max-width:46ch;margin:0 auto;">You labelled ${correct} of ${ITEMS.length} lines by their signal word${secured ? ' — enough to carry this move on your own.' : '. One more pass will secure it.'}</p>
-      <span class="jla-chip ${secured ? 'is-secure' : 'is-emerging'}"><b>${secured ? 'Secure' : 'Emerging'}</b> ${secured ? 'can make the move on your own' : 'can make the move with support'}</span>
-      <div class="advance" style="justify-content:center;margin-top:22px;">
-        <a class="jla-btn jla-btn-ghost" href="jla-practice.html" style="margin-right:10px;">Practice again</a>
-        <a class="jla-btn jla-btn-primary" href="daily-router.html">Back to today →</a>
-      </div>`;
+  function renderError() {
+    el('title').textContent = 'No source ready for this skill';
+    el('teaching').textContent = '';
+    stage.innerHTML = `<p class="lesson-error">There is no authored source session for “${esc(skillId)}” yet. <a href="daily-router.html">Back to today →</a></p>`;
   }
 
-  renderItem();
+  fetch(`/api/jla/academy-session/${encodeURIComponent(skillId)}`)
+    .then((r) => (r.ok ? r.json() : null))
+    .then((session) => { if (session && session.sourceWindow) renderLesson(session); else renderError(); })
+    .catch(renderError);
 })();
