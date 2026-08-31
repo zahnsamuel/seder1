@@ -83,6 +83,9 @@ body.jla a { color: inherit; }
 .jla-stat b { font: 700 1.05rem/1 var(--jla-font-body); color: var(--jla-accent-ink); }
 .jla-stat small { color: var(--jla-text-soft); font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-top: 3px; }
 .jla-stat.is-fresh b { color: var(--jla-accent); font-family: var(--jla-font-display); font-size: .95rem; letter-spacing: -.02em; }
+.jla-shell-links { display: flex; align-items: center; gap: 18px; }
+.jla-shell-link { color: var(--jla-text-soft); text-decoration: none; font-size: .78rem; font-weight: 700; letter-spacing: .04em; white-space: nowrap; }
+.jla-shell-link:hover { color: var(--jla-accent-ink); }
 .jla-shell-next { display: inline-flex; align-items: center; gap: 8px; background: var(--jla-accent-ink); color: var(--jla-on-dark); text-decoration: none; font-weight: 700; font-size: .82rem; padding: 9px 15px; border-radius: var(--jla-r-sm); transition: transform .12s ease, box-shadow .12s ease; }
 .jla-shell-next:hover { transform: translateY(-1px); box-shadow: var(--jla-shadow-2); }
 .jla-shell-next .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--jla-gold-soft); animation: jla-pulse 2.4s infinite; }
@@ -153,6 +156,7 @@ body.jla a { color: inherit; }
 @media (max-width: 720px) {
   .jla-shell-inner { padding: 10px 16px; gap: 10px; }
   .jla-stat { padding: 4px 8px; }
+  .jla-shell-links { display: none; }
   .jla-shell-next span.label { display: none; }
   .jla-main { padding: var(--jla-sp-5) 16px var(--jla-sp-6); }
   .jla-path { padding-left: 52px; }

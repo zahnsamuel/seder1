@@ -32,14 +32,23 @@
     return el;
   }
 
+  // Optional page-specific links, supplied by the mount as a JSON data-attribute:
+  //   <div id="jla-shell-mount" data-links='[{"label":"Notebook","href":"notebook.html"}]'></div>
+  // Lets a converted page keep its contextual nav in the one shared bar.
+  function readLinks(mount) {
+    try { return JSON.parse(mount.dataset.links || '[]'); } catch { return []; }
+  }
+
   // Static skeleton — visible instantly, before any network. Never shows a raw 0.
-  function skeleton() {
+  function skeleton(links) {
+    const nav = (links || []).map((l) => `<a class="jla-shell-link" href="${l.href}">${l.label}</a>`).join('');
     return `
       <div class="jla-shell">
         <div class="jla-shell-inner">
           <a class="jla-brand" href="seder.html">Jewish Learning <span>Academy</span></a>
           <div class="jla-stat is-fresh" data-stat="rhythm"><b>Day 1</b><small>Your rhythm</small></div>
           <div class="jla-stat is-fresh" data-stat="caps"><b>In reach</b><small>Capabilities</small></div>
+          ${nav ? `<nav class="jla-shell-links">${nav}</nav>` : ''}
           <a class="jla-shell-next" href="daily-router.html"><span class="dot"></span><span class="label">Today's step</span></a>
         </div>
       </div>`;
@@ -109,7 +118,7 @@
 
   function render() {
     const root = mountPoint();
-    root.innerHTML = skeleton();
+    root.innerHTML = skeleton(readLinks(root));
     hydrate(root.querySelector('.jla-shell'));
   }
 
