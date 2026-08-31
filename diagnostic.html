@@ -8,9 +8,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="diagnostic.css?v=1">
+  <link rel="stylesheet" href="jla-system.css">
 </head>
-<body>
-  <header><a href="/">ס Jewish Learning Academy</a><span>ADAPTIVE PLACEMENT</span><strong id="status" aria-live="polite">FINDING YOUR FRONTIER</strong></header>
+<body class="jla">
+  <div id="jla-shell-mount"></div>
+  <strong id="status" aria-live="polite" hidden>FINDING YOUR FRONTIER</strong>
   <main>
     <section class="intro">
       <span>A STARTING POINT, NOT A TEST</span>
@@ -61,6 +63,7 @@
     </section>
   </main>
   <script src="seder-auth.js?v=1"></script>
+  <script src="capability-state.js"></script><script src="jla-shell.js"></script>
   <script src="diagnostic.js?v=1"></script><script src="feedback.js?v=1"></script>
 </body>
 </html>
