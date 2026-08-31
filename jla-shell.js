@@ -22,10 +22,13 @@
     return el;
   }
 
-  // The label is the most specific part of the page title (after the last "·").
+  // The label is the most specific part of the page title: split on any separator (·, —, –, |),
+  // drop brand segments, take the last. Handles titles that use "·" or "—" alike.
   function pageLabel() {
-    const parts = (document.title || '').split('·').map((s) => s.trim()).filter(Boolean);
-    return parts.length > 1 ? parts[parts.length - 1] : (parts[0] || 'Learning');
+    const parts = (document.title || '')
+      .split(/[·—–|]/).map((s) => s.trim()).filter(Boolean)
+      .filter((s) => !/^ס?\s*Jewish Learning Academy$/i.test(s));
+    return parts[parts.length - 1] || 'Learning';
   }
 
   function render() {
