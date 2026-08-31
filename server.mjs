@@ -13,6 +13,7 @@ import { explainRecommendation, whySentence } from './data/recommendation-why.mj
 import { foundationRecommendation, gemaraYearRecommendation, moedExpansionRecommendation } from './data/term-recommendations.mjs';
 import { keyPrerequisiteRemediation, estimateFrontierFromDiagnostic, nextDiagnosticProbe } from './data/knowledge-graph.mjs';
 import { computeGraphPilotAnalytics } from './data/pilot-analytics.mjs';
+import { normalizeNextAction, selectNextAction } from './data/next-action.mjs';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const port = Number(process.env.PORT || 4180);
@@ -47,6 +48,10 @@ function sendJson(response, status, body) {
   response.end(JSON.stringify(body));
 }
 
+function sendPrivateJson(response, status, body) {
+  response.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'private, no-store' });
+  response.end(JSON.stringify(body));
+}
 // Every learner payload (events, answers, feedback, placement scores) is small JSON, so cap the
 // body well above any legitimate request. Without a cap, a single large POST to a public endpoint
 // could buffer unbounded memory — a cheap DoS on the pilot URL. A malformed body is the caller's
@@ -206,6 +211,22 @@ async function recommendFor(learner, options = {}) {
   return recommendation;
 }
 
+async function nextActionFor(learner) {
+  const recommendation = await recommendFor(learner);
+  const daysSinceStudy = learner.lastStudyDate ? Math.floor((Date.now() - new Date(learner.lastStudyDate).getTime()) / 86400000) : 0;
+  const recoveryWindow = learner.rhythm === 'weekly' ? 8 : learner.rhythm === 'three-times-weekly' ? 4 : 3;
+  const base = { title: recommendation.title, reason: recommendation.reason, href: recommendation.url, cta: 'Start this step' };
+  const candidates = {};
+  if (daysSinceStudy >= recoveryWindow) candidates.recovery = { title: 'Welcome back with one small step', reason: 'One short retrieval is enough to restart your learning rhythm.', href: 'daily-recall.html', cta: 'Begin a short recall' };
+  if (recommendation.kind === 'review') candidates.review = { ...base, cta: 'Review now' };
+  else if (['placement', 'academy-foundation', 'foundation-term'].includes(recommendation.kind)) candidates.foundation = base;
+  else if (recommendation.kind === 'academy-session') candidates.academy = base;
+  else if (recommendation.kind === 'graph-practice' && /transfer/i.test(`${recommendation.skill?.id || ''} ${recommendation.context || ''}`)) candidates.transfer = { ...base, cta: 'Try it in a new source' };
+  else if (recommendation.kind === 'graph-practice') candidates.frontier = { ...base, cta: 'Learn a new reading move' };
+  else if (recommendation.kind === 'shas-map') candidates.completion = { title: 'Choose what to deepen next', reason: 'You completed the current sequence. Continue from what you can now do.', href: 'academy.html', cta: 'See your progress' };
+  else candidates.continuation = base;
+  return normalizeNextAction(selectNextAction(candidates));
+}
 async function learnerAccess(request, requestedId) {
   const token = request.headers.authorization?.replace(/^Bearer\s+/i, '');
   if (sqliteEnabled()) {
@@ -518,6 +539,12 @@ async function handleApi(request, response, url) {
     sendJson(response, 200, { recommendation: await recommendFor(learner), learner });
     return true;
   }
+  const nextActionMatch = url.pathname.match(/^\/api\/learners\/([a-zA-Z0-9_-]+)\/next-action$/);
+  if (request.method === 'GET' && nextActionMatch) {
+    const { learner } = await readLearner(request, nextActionMatch[1]);
+    sendPrivateJson(response, 200, await nextActionFor(learner));
+    return true;
+  }
   const journeyMatch = url.pathname.match(/^\/api\/learners\/([a-zA-Z0-9_-]+)\/journey$/);
   if (request.method === 'GET' && journeyMatch) {
     const { learner } = await readLearner(request, journeyMatch[1]);
@@ -731,6 +758,8 @@ createServer(async (request, response) => {
   response.setHeader('Strict-Transport-Security', 'max-age=15552000');
   try {
     if (url.pathname.startsWith('/api/') && await handleApi(request, response, url)) return;
+    const redirects = { '/today.html': '/daily-router.html', '/daily.html': '/daily-router.html', '/index.html': '/seder.html' };
+    if (redirects[url.pathname]) { response.writeHead(307, { Location: `${redirects[url.pathname]}${url.search}`, 'Cache-Control': 'no-store' }); response.end(); return; }
     const relativePath = url.pathname === '/' ? 'seder.html' : url.pathname.slice(1);
     // The academy answer key must not be reachable over HTTP — it is served only via the
     // key-stripped /api/jla/academy-session endpoint. (Tests and the link checker read it from

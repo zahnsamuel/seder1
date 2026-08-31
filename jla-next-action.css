@@ -1,0 +1,52 @@
+/* Presentation for Codex's single next-action engine, in the JLA design system.
+   The engine (data/next-action.mjs) and client (jla-next-action.js) are Codex's, unchanged;
+   these styles dress its [data-jla-next-action] hero with the shared --jla-* tokens so Today
+   reads as one prominent, calm next step. */
+
+.jla-na-eyebrow { margin: 8px 0 14px; }
+
+[data-jla-next-action] {
+  background: var(--jla-surface);
+  border: 1px solid var(--jla-line);
+  border-radius: var(--jla-r-lg);
+  box-shadow: var(--jla-shadow-1);
+  padding: clamp(28px, 5vw, 52px);
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+[data-jla-next-action] h1 {
+  font-family: var(--jla-font-display);
+  color: var(--jla-accent-ink);
+  font-size: clamp(1.9rem, 4.5vw, 2.9rem);
+  line-height: 1.05;
+  letter-spacing: -.03em;
+  margin: 0;
+  text-wrap: balance;
+}
+[data-jla-next-action] p {
+  color: var(--jla-text-soft);
+  font-size: 1.08rem;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 46ch;
+}
+
+.jla-next-action__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  background: var(--jla-accent-ink);
+  color: var(--jla-on-dark);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 14px 24px;
+  border-radius: var(--jla-r-sm);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.jla-next-action__cta:hover { transform: translateY(-1px); box-shadow: var(--jla-shadow-2); }
+.jla-next-action__cta:focus-visible { outline: 3px solid var(--jla-accent); outline-offset: 2px; }

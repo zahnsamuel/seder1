@@ -11,13 +11,17 @@ test('ninety-day academy gives beginners a single sequenced, evidence-led entry 
     assert.match(html, new RegExp(sharedUi.replace(/[.?]/g, '\\$&')));
   }
   assert.doesNotMatch(html, /<header>/);
-  // Brand + the still-present anchors: 90-Day Academy (title), Today's Study + Full map (shell links),
-  // and the 8-week journey kept reachable contextually rather than in prominent nav.
+  // Brand + shell links (Today's Study + Full map). The 8-week journey (integrated-path) is now
+  // FOLDED IN per the simplification decision — no longer offered as a navigable choice on the hub;
+  // it survives only as a daily-router destination.
+  // The 90-Day Academy is demoted to a progress reference that returns to the single Today spine
+  // (reconciliation with Codex's one-action hub): no longer a competing "next session" program.
   assert.match(html, /90-Day Academy/);
   assert.match(html, /daily-router\.html/);
-  assert.match(html, /seder-curriculum\.html/);
-  assert.match(html, /integrated-path\.html/);
-  assert.doesNotMatch(html, /8-week journey<\/a>/); // demoted out of the top nav
+  assert.match(html, /PROGRESS REFERENCE/);
+  assert.match(html, /Return to Today/);
+  assert.doesNotMatch(html, /integrated-path/);
+  assert.doesNotMatch(html, /8-week journey/);
 
   // Progressive foundations: one shown at a time, the rest behind a disclosure.
   assert.match(html, /id="foundationNext"/);

@@ -4,22 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Jewish Learning Academy · Today</title>
-  <link rel="stylesheet" href="canon-labs.css">
-  <link rel="stylesheet" href="why-next.css">
-  <link rel="stylesheet" href="daily-session.css">
-  <!-- Design system. Its tokens are --jla-* prefixed, so it neither overrides nor
-       is overridden by legacy page tokens; components are all namespaced .jla-*. -->
+  <!-- Reconciliation: Codex's server-driven single next-action engine (data/next-action.mjs +
+       /api/learners/:id/next-action + jla-next-action.js) rendered inside the shared shell +
+       design system. Engine files are Codex's, verbatim; presentation is the JLA design system. -->
   <link rel="stylesheet" href="jla-system.css">
+  <link rel="stylesheet" href="jla-next-action.css">
 </head>
 <body class="jla">
   <div id="jla-shell-mount"></div>
-  <main>
-    <section class="hero"><p>ONE CLEAR NEXT STEP</p><h1 id="title">Preparing today's study</h1><div id="reason"></div><p class="workbench-link"><a id="primary" href="daily-canon.html">Begin →</a></p></section>
-    <section id="session-plan" class="session-plan" aria-labelledby="session-plan-title">
-      <div class="session-plan-heading"><p class="lesson-label">TODAY'S SEDER · <span id="session-duration">20</span> MINUTES</p><h2 id="session-plan-title">A focused learning rhythm</h2><p>Retrieve what you know, study one source deeply, then carry the reading habit somewhere new.</p></div>
-      <div id="session-steps"></div>
+  <main class="jla-main">
+    <p class="jla-eyebrow jla-na-eyebrow">TODAY</p>
+    <section class="jla-next-action" data-jla-next-action aria-live="polite">
+      <h1>Preparing today’s step</h1>
+      <p>Finding the most useful next move from your learning.</p>
+      <a class="jla-next-action__cta" href="daily-router.html">Open Today →</a>
     </section>
   </main>
-  <script src="seder-auth.js?v=2"></script><script src="capability-state.js"></script><script src="jla-shell.js"></script><script src="daily-router.js"></script><script src="why-next.js"></script><script src="feedback.js?v=1"></script>
+  <script src="seder-auth.js?v=2"></script><script src="capability-state.js"></script><script src="jla-shell.js"></script><script src="jla-next-action.js"></script><script src="feedback.js?v=1"></script>
 </body>
 </html>
