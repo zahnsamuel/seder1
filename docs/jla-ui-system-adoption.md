@@ -77,6 +77,9 @@ touch it — no rush, do it opportunistically:
 ## Converted so far
 
 - `seder.html` — hub, on the shell (Today's Study + dynamic account link via `data-links`).
+- `academy.html` — 90-day academy hub: shell + a two-step Study→Demonstrate spatial path and
+  progressive foundations keyed to each foundation's real completion signal (decoding uses a
+  `localStorage` flag, not a server stage).
 - `daily-router.html` — daily session as a spatial path.
 - `source-reader.html` — full-text reader with the shell (keeps its own reader internals).
 - `diagnostic.html` + `placement.html` — placement flow (both entry points on the shell; each keeps
@@ -85,8 +88,10 @@ touch it — no rush, do it opportunistically:
   header, carry its contextual link into the shell via `data-links`, keep a hidden `#xp` hook).
 - `jla-practice.html` — reference lesson, wired to the real item bank
   (`GET`/`POST /api/jla/academy-session/:skillId`, server-scored, records capability evidence).
-  `?skill=` selects any of the 24 authored items. The routed production lesson is still
-  `academy-session.html` (not yet on the design system — a good next migration).
+  `?skill=` selects any of the 24 authored items.
+- `academy-session.html` — the ROUTED production lesson (both the fnd-* introduce/practice/transfer
+  scaffold and the server-scored slice sessions), migrated onto the shell + `.jla-choice` /
+  `.jla-feedback` / `.jla-btn`. Logic unchanged; slice answers still server-scored.
 
 **Batch conversions:** when many pages share a structure (like the arcs), a codemod beats hand-editing
 — strip `<header>…</header>` with a regex, extract its non-brand `<a>` links into `data-links`, and
