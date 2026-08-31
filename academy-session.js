@@ -55,14 +55,14 @@ function startScaffold(skill, graph, kpLayer, ctxLayer) {
     $('#source-setting').textContent = `${context.genre} · ${context.family} family. Read this window for the shape of the move, not for total mastery.`;
     $('#source-link').href = sourceLinkFor(context);
     $('#source-hebrew').hidden = true; $('#source-translation').hidden = true;
-    $('#feedback').textContent = '';
+    $('#feedback').className = ''; $('#feedback').textContent = '';
     advance.disabled = true; advance.textContent = KP[step.kind].next;
 
     if (step.kind === 'introduce') {
       $('#teaching-move').textContent = '';
       $('#check-title').textContent = 'See how the move works before you make it yourself.';
-      $('#choices').innerHTML = `<button class="choice reveal" type="button">Show me the move on ${escapeHtml(context.ref)}</button>`;
-      $('#choices .choice').addEventListener('click', (e) => {
+      $('#choices').innerHTML = `<button class="jla-choice reveal" type="button">Show me the move on ${escapeHtml(context.ref)}</button>`;
+      $('#choices .jla-choice').addEventListener('click', (e) => {
         e.target.disabled = true;
         $('#teaching-move').textContent = step.guidance;
         $('#feedback').textContent = 'That is the move. Now make it yourself.';
@@ -72,14 +72,15 @@ function startScaffold(skill, graph, kpLayer, ctxLayer) {
       $('#teaching-move').textContent = skill.teachingMove;
       $('#check-title').textContent = step.guidance;
       const choices = [`Make the move: ${skill.statement}`, 'Skip the source and memorise its title instead.', 'Give a practical verdict before reading what the source is doing.'];
-      $('#choices').innerHTML = choices.map((choice, index) => `<button class="choice" type="button" data-choice="${index}">${escapeHtml(choice)}</button>`).join('');
+      $('#choices').innerHTML = choices.map((choice, index) => `<button class="jla-choice" type="button" data-choice="${index}">${escapeHtml(choice)}</button>`).join('');
       let answered = false;
-      document.querySelectorAll('#choices .choice').forEach((button) => button.addEventListener('click', async () => {
+      document.querySelectorAll('#choices .jla-choice').forEach((button) => button.addEventListener('click', async () => {
         if (answered) return; answered = true;
         const correct = button.dataset.choice === '0';
-        button.classList.add(correct ? 'correct' : 'incorrect');
-        if (!correct) document.querySelector('[data-choice="0"]').classList.add('correct');
-        document.querySelectorAll('#choices .choice').forEach((b) => { b.disabled = true; });
+        button.classList.add(correct ? 'is-correct' : 'is-wrong');
+        if (!correct) document.querySelector('[data-choice="0"]').classList.add('is-correct');
+        document.querySelectorAll('#choices .jla-choice').forEach((b) => { b.disabled = true; });
+        $('#feedback').className = `jla-feedback ${correct ? 'is-correct' : 'is-wrong'}`;
         $('#feedback').textContent = correct ? 'Yes — that is the move made visible in this source.' : 'The highlighted choice is the move. Notice it, then carry it on.';
         advance.disabled = false;
         await record(`kp-${skillId}-2`, correct, context.ref);
@@ -88,12 +89,14 @@ function startScaffold(skill, graph, kpLayer, ctxLayer) {
       $('#teaching-move').textContent = `Carry the same move into a different source family (${escapeHtml(context.family)}).`;
       $('#check-title').textContent = `In ${context.ref} — can you make the move here too?`;
       const choices = ['Yes — I made the move in this new source', 'Not yet — show me how it carries over'];
-      $('#choices').innerHTML = choices.map((choice, index) => `<button class="choice" type="button" data-choice="${index}">${escapeHtml(choice)}</button>`).join('');
+      $('#choices').innerHTML = choices.map((choice, index) => `<button class="jla-choice" type="button" data-choice="${index}">${escapeHtml(choice)}</button>`).join('');
       let answered = false;
-      document.querySelectorAll('#choices .choice').forEach((button) => button.addEventListener('click', async () => {
+      document.querySelectorAll('#choices .jla-choice').forEach((button) => button.addEventListener('click', async () => {
         if (answered) return; answered = true;
         const correct = button.dataset.choice === '0';
-        document.querySelectorAll('#choices .choice').forEach((b) => { b.disabled = true; });
+        button.classList.add(correct ? 'is-correct' : 'is-wrong');
+        document.querySelectorAll('#choices .jla-choice').forEach((b) => { b.disabled = true; });
+        $('#feedback').className = `jla-feedback ${correct ? 'is-correct' : 'is-wrong'}`;
         $('#feedback').textContent = correct ? 'That is transfer — the move held in an unfamiliar family.' : `Here is how it carries over: ${skill.transfer}`;
         advance.disabled = false;
         await record(`kp-${skillId}-3`, correct, context.ref);
@@ -155,25 +158,26 @@ function renderJlaSession(session) {
   $('#source-link').href = sourceWindow.sourceUrl;
   $('#check-title').textContent = session.prompt;
   $('#choices').innerHTML = session.choices.map((choice) =>
-    `<button class="choice" type="button" data-choice-id="${escapeHtml(choice.id)}">${escapeHtml(choice.text)}</button>`).join('');
+    `<button class="jla-choice" type="button" data-choice-id="${escapeHtml(choice.id)}">${escapeHtml(choice.text)}</button>`).join('');
   const advance = $('#advance');
   advance.textContent = 'Continue to Today →';
   advance.onclick = () => { location.href = 'daily-router.html'; };
-  document.querySelectorAll('.choice').forEach((button) => button.addEventListener('click', () => chooseJla(button, session)));
+  document.querySelectorAll('.jla-choice').forEach((button) => button.addEventListener('click', () => chooseJla(button, session)));
 }
 
 let jlaAnswered = false;
 async function chooseJla(button, session) {
   if (jlaAnswered) return;
   jlaAnswered = true;
-  document.querySelectorAll('.choice').forEach((item) => { item.disabled = true; });
+  document.querySelectorAll('.jla-choice').forEach((item) => { item.disabled = true; });
   $('#advance').disabled = false;
   try {
     // The server scores the choice, records the graduation evidence, and returns the feedback —
     // correctness is never computed or asserted by the client.
     const response = await Seder.api(`/api/jla/academy-session/${encodeURIComponent(session.skillId)}/answer`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ choiceId: button.dataset.choiceId }) });
     const result = await response.json();
-    button.classList.add(result.correct ? 'correct' : 'incorrect');
+    button.classList.add(result.correct ? 'is-correct' : 'is-wrong');
+    $('#feedback').className = `jla-feedback ${result.correct ? 'is-correct' : 'is-wrong'}`;
     $('#feedback').textContent = result.feedback || (result.correct ? 'Good. You made the move visible in one source window.' : 'Not quite — carry the move into the next source and try again.');
   } catch { $('#feedback').textContent = 'Your result is ready locally; it will sync when your account is available.'; }
 }
