@@ -11,7 +11,9 @@ test('Foundation Year visibly connects three earned terms and their next moves',
     readFile(new URL('../level-complete.js', import.meta.url), 'utf8'),
     readFile(new URL('../term-three-journey.html', import.meta.url), 'utf8')
   ]);
-  assert.match(year + journey, /foundation-year\.html/);
+  // journey.html folds Foundation Year in (simplification) — it no longer offers it as a navigable
+  // program; it stays reachable from the term-completion flow (capstone / level-complete, asserted below).
+  assert.doesNotMatch(journey, /Open Foundation Year/);
   for (const stage of ['foundation-capstone', 'term-two-capstone', 'second-foundation-synthesis']) assert.match(script, new RegExp(stage));
   assert.match(capstone, /stageId: 'term-two-capstone'/);
   assert.match(capstone, /foundation-year\.html/);
