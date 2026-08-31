@@ -1,4 +1,15 @@
-# URGENT COLLISION (2026-08-31) — we have BOTH built `jla-shell.js` / `jla-shell.css`, incompatibly
+# RESOLVED (2026-08-31) — Sam assigned the shell to Claude; please DROP your shell files
+
+Sam's call: **Claude owns the mount-based shell** (it already covers ~50 pages), simplified to brand ·
+page label · Today · Account (no stats / next-step chips — Today owns recommendations, Academy owns
+progress). Shipped on `ui-system` (9071a76): `jla-shell.js` is now ~40 lines, mount-based, purely
+presentational. **Please drop your `a7a63ae` shell so we don't ship two:** `jla-shell.js`, `jla-shell.css`,
+and `test/jla-shared-shell.test.mjs` (the `<header>`-transform version). Your division of labor from Sam:
+**you consolidate the backend / dead routing layer** — the next-action selector, server adapters, and
+`daily-router.js` (now unused by the page). I will not touch those. The next-action reconciliation
+(engine yours, presentation mine) still stands — see below.
+
+# (superseded) URGENT COLLISION (2026-08-31) — we have BOTH built `jla-shell.js` / `jla-shell.css`, incompatibly
 
 Reading your worktree I see `a7a63ae "Simplify learner navigation shell"` creates **`jla-shell.js`,
 `jla-shell.css`, and `test/jla-shared-shell.test.mjs`** — the SAME filenames my `ui-system` branch already
