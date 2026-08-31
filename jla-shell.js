@@ -1,26 +1,16 @@
 /* ==========================================================================
-   JLA persistent app shell — priority #2 of the UI consolidation.
+   JLA persistent app shell — simplified (2026-08-31, per Sam's direction).
 
-   Renders one consistent top bar on every surface that opts in, carrying the
-   learner's live state (rhythm, capabilities secured) and the single next step,
-   so the learner always knows where they are and what to do next.
-
-   The critique it answers: today every page is a standalone document with no
-   persistent chrome, and the hub greets a new learner with "0 DAY RHYTHM /
-   0 CAPABILITIES" — a demotivating empty scoreboard. This shell never shows a
-   dead zero: before there is progress it shows an inviting first-run state.
-
-   Usage on a converted page:
-     <link rel="stylesheet" href="jla-system.css">
-     <div id="jla-shell-mount"></div>
-     ... after seder-auth.js + capability-state.js ...
-     <script src="jla-shell.js"></script>
-   With no mount element present it injects itself as the first child of <body>.
-   Depends on Seder.api / Seder.currentLearnerId / Seder.summarizeCapabilities
-   (seder-auth.js + capability-state.js); degrades to a brand-only bar without them.
+   Shows ONLY: brand · page label · Today · Account. No live streak / capability /
+   next-step chips — Today owns recommendations and Academy owns progress, so the
+   global shell must not compete with them. Keeps the mount-based mechanism (it
+   already covers ~50 converted pages): injects into <div id="jla-shell-mount">,
+   or prepends one to <body>. The page label is derived from <title> ("… · Today"
+   → "Today"). Purely presentational — touches no learner API, no next-action
+   selector, no server adapter, no daily-router.js (Codex's backend layer).
    ========================================================================== */
 (function () {
-  const Seder = window.Seder = window.Seder || {};
+  const esc = (v) => String(v == null ? '' : v).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
   function mountPoint() {
     let el = document.getElementById('jla-shell-mount');
@@ -32,99 +22,28 @@
     return el;
   }
 
-  // Optional page-specific links, supplied by the mount as a JSON data-attribute:
-  //   <div id="jla-shell-mount" data-links='[{"label":"Notebook","href":"notebook.html"}]'></div>
-  // Lets a converted page keep its contextual nav in the one shared bar.
-  function readLinks(mount) {
-    try { return JSON.parse(mount.dataset.links || '[]'); } catch { return []; }
-  }
-
-  // Static skeleton — visible instantly, before any network. Never shows a raw 0.
-  function skeleton(links) {
-    const nav = (links || []).map((l) => `<a class="jla-shell-link"${l.id ? ` id="${l.id}"` : ''} href="${l.href}">${l.label}</a>`).join('');
-    return `
-      <div class="jla-shell">
-        <div class="jla-shell-inner">
-          <a class="jla-brand" href="seder.html">Jewish Learning <span>Academy</span></a>
-          <div class="jla-stat is-fresh" data-stat="rhythm"><b>Day 1</b><small>Your rhythm</small></div>
-          <div class="jla-stat is-fresh" data-stat="caps"><b>In reach</b><small>Capabilities</small></div>
-          ${nav ? `<nav class="jla-shell-links">${nav}</nav>` : ''}
-          <a class="jla-shell-next" href="daily-router.html"><span class="dot"></span><span class="label">Today's step</span></a>
-        </div>
-      </div>`;
-  }
-
-  function setStat(root, key, { value, label, fresh }) {
-    const stat = root.querySelector(`[data-stat="${key}"]`);
-    if (!stat) return;
-    stat.classList.toggle('is-fresh', Boolean(fresh));
-    stat.querySelector('b').textContent = value;
-    stat.querySelector('small').textContent = label;
-  }
-
-  function setNext(root, { text, href }) {
-    const next = root.querySelector('.jla-shell-next');
-    if (!next) return;
-    if (href) next.href = href;
-    const label = next.querySelector('.label');
-    if (label) label.textContent = text;
-  }
-
-  async function hydrate(root) {
-    // Hosted mode with no session yet: keep the pitch, point the one step at sign-in.
-    try {
-      const config = await Seder.config?.();
-      const needsAuth = config && (config.mode === 'token' || (config.supabaseUrl && config.supabaseAnonKey));
-      if (needsAuth && !Seder.session?.access_token) {
-        setNext(root, { text: 'Start learning', href: 'sign-in.html?next=diagnostic.html' });
-        return;
-      }
-    } catch { /* config optional — continue with best effort */ }
-
-    const learnerId = Seder.currentLearnerId ? Seder.currentLearnerId() : 'demo';
-    let learner, decision;
-    try {
-      [learner, decision] = await Promise.all([
-        Seder.api(`/api/learners/${learnerId}`).then((r) => r.ok ? r.json() : Promise.reject()),
-        Seder.api(`/api/learners/${learnerId}/recommendation`).then((r) => r.ok ? r.json() : null).catch(() => null)
-      ]);
-    } catch {
-      return; // leave the inviting skeleton in place rather than flashing zeros
-    }
-
-    // Rhythm: a real streak reads as a number; a learner who has not begun reads
-    // as "Day 1" (starting now), never "0".
-    const streak = learner.dailyStreak || 0;
-    setStat(root, 'rhythm', streak > 0
-      ? { value: streak, label: streak === 1 ? 'Day rhythm' : 'Day rhythm', fresh: false }
-      : { value: 'Day 1', label: 'Starts today', fresh: true });
-
-    // Capabilities: count what the learner can now do on their own. Before the
-    // first is secured, show "In reach", not "0".
-    const evidence = learner.capabilityEvidence || [];
-    const counts = Seder.summarizeCapabilities ? Seder.summarizeCapabilities(evidence) : { secure: 0, transferable: 0, durable: 0 };
-    const onOwn = (counts.secure || 0) + (counts.transferable || 0) + (counts.durable || 0);
-    setStat(root, 'caps', onOwn > 0
-      ? { value: onOwn, label: onOwn === 1 ? 'Capability' : 'Capabilities', fresh: false }
-      : { value: 'In reach', label: 'First capability', fresh: true });
-
-    // The one next step, everywhere.
-    const rec = decision?.recommendation;
-    if (rec) {
-      const placement = rec.kind === 'placement' || !learner.placement;
-      setNext(root, { text: placement ? 'Find your start' : 'Today\'s step', href: rec.url || 'daily-router.html' });
-    }
+  // The label is the most specific part of the page title (after the last "·").
+  function pageLabel() {
+    const parts = (document.title || '').split('·').map((s) => s.trim()).filter(Boolean);
+    return parts.length > 1 ? parts[parts.length - 1] : (parts[0] || 'Learning');
   }
 
   function render() {
-    const root = mountPoint();
-    root.innerHTML = skeleton(readLinks(root));
-    hydrate(root.querySelector('.jla-shell'));
+    mountPoint().innerHTML = `
+      <div class="jla-shell">
+        <div class="jla-shell-inner">
+          <a class="jla-brand" href="seder.html">Jewish Learning <span>Academy</span></a>
+          <span class="jla-shell-label">${esc(pageLabel())}</span>
+          <nav class="jla-shell-nav">
+            <a href="daily-router.html">Today</a>
+            <a id="accountAction" href="profile.html">Account</a>
+          </nav>
+        </div>
+      </div>`;
+    // hosted-sign-in-front-door.js may retarget #accountAction (sign-in vs. My account); it
+    // early-returns when absent, so nothing breaks if it is not loaded.
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', render);
-  } else {
-    render();
-  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', render);
+  else render();
 })();

@@ -79,19 +79,13 @@ body.jla a:not([class]) { color: inherit; }
 /* --- Persistent app shell (top bar) — rendered by jla-shell.js --------- */
 .jla-shell { position: sticky; top: 0; z-index: 40; background: color-mix(in srgb, var(--jla-cream) 88%, transparent); backdrop-filter: saturate(1.1) blur(8px); border-bottom: 1px solid var(--jla-border); }
 .jla-shell-inner { max-width: var(--jla-maxw); margin: auto; display: flex; align-items: center; gap: var(--jla-sp-4); padding: 12px 28px; }
-.jla-brand { font: 600 1.25rem/1 var(--jla-font-display); letter-spacing: -.04em; color: var(--jla-accent-ink); text-decoration: none; margin-right: auto; white-space: nowrap; }
+.jla-brand { font: 600 1.25rem/1 var(--jla-font-display); letter-spacing: -.04em; color: var(--jla-accent-ink); text-decoration: none; white-space: nowrap; }
 .jla-brand span { color: var(--jla-accent); }
-.jla-stat { display: flex; flex-direction: column; line-height: 1.1; padding: 4px 12px; border-left: 1px solid var(--jla-border); }
-.jla-stat b { font: 700 1.05rem/1 var(--jla-font-body); color: var(--jla-accent-ink); }
-.jla-stat small { color: var(--jla-text-soft); font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-top: 3px; }
-.jla-stat.is-fresh b { color: var(--jla-accent); font-family: var(--jla-font-display); font-size: .95rem; letter-spacing: -.02em; }
-.jla-shell-links { display: flex; align-items: center; gap: 18px; }
-.jla-shell-link { color: var(--jla-text-soft); text-decoration: none; font-size: .78rem; font-weight: 700; letter-spacing: .04em; white-space: nowrap; }
-.jla-shell-link:hover { color: var(--jla-accent-ink); }
-.jla-shell-next { display: inline-flex; align-items: center; gap: 8px; background: var(--jla-accent-ink); color: var(--jla-on-dark); text-decoration: none; font-weight: 700; font-size: .82rem; padding: 9px 15px; border-radius: var(--jla-r-sm); transition: transform .12s ease, box-shadow .12s ease; }
-.jla-shell-next:hover { transform: translateY(-1px); box-shadow: var(--jla-shadow-2); }
-.jla-shell-next .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--jla-gold-soft); animation: jla-pulse 2.4s infinite; }
-@keyframes jla-pulse { 0% { box-shadow: 0 0 0 0 rgba(231, 191, 112, .6); } 70% { box-shadow: 0 0 0 7px rgba(231, 191, 112, 0); } 100% { box-shadow: 0 0 0 0 rgba(231, 191, 112, 0); } }
+/* Simplified shell content: brand · page label · Today · Account. No stats / next-step chip. */
+.jla-shell-label { color: var(--jla-text-soft); font-size: .8rem; font-weight: 600; letter-spacing: .04em; white-space: nowrap; padding-left: 14px; border-left: 1px solid var(--jla-border); }
+.jla-shell-nav { display: flex; align-items: center; gap: 22px; margin-left: auto; }
+.jla-shell-nav a { color: var(--jla-text-soft); text-decoration: none; font-size: .82rem; font-weight: 700; letter-spacing: .04em; white-space: nowrap; }
+.jla-shell-nav a:hover { color: var(--jla-accent-ink); }
 
 /* --- Layout ------------------------------------------------------------ */
 .jla-main { max-width: var(--jla-maxw); margin: auto; padding: var(--jla-sp-6) 28px var(--jla-sp-7); }
@@ -156,10 +150,9 @@ body.jla a:not([class]) { color: inherit; }
 
 /* --- Responsive ------------------------------------------------------- */
 @media (max-width: 720px) {
-  .jla-shell-inner { padding: 10px 16px; gap: 10px; }
-  .jla-stat { padding: 4px 8px; }
-  .jla-shell-links { display: none; }
-  .jla-shell-next span.label { display: none; }
+  .jla-shell-inner { padding: 10px 16px; gap: 12px; }
+  .jla-shell-label { display: none; }
+  .jla-shell-nav { gap: 16px; }
   .jla-main { padding: var(--jla-sp-5) 16px var(--jla-sp-6); }
   .jla-path { padding-left: 52px; }
   .jla-path::before { left: 18px; }
