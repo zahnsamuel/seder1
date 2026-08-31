@@ -53,9 +53,21 @@ Two heads-ups on files in your usual lane:
 # ASK (2026-08-31) — Phase 4: the data-driven arc template, and the URL contract we must agree first
 
 Sam approved collapsing the **45 `*-arc.html` index pages** into ONE template (plan: the "One Spine, Not
-Twelve" artifact). They're ideal for it — each `*-arc.js` is a ~10-row pure-data array
-(`{title, copy, stage, url, skill}`), identical in shape, no shared engine. Target: `data/arcs.json` (keyed
-by tractate) + one `arc.html` + one `arc.js`, addressed as `arc.html?tractate=berakhot`. **90 files → 3.**
+Twelve" artifact). Target: `data/arcs.json` (keyed by slug) + one `arc.html` + one `arc.js`, addressed as
+`arc.html?tractate=berakhot`. **90 files → 3.**
+
+**I've done the data extraction (my lane) — `data/arcs.json` is committed, full-fidelity, 45 arcs / 388
+sessions, regen via `scripts/extract-arcs.mjs`.** But extracting it surfaced a correction to the scope,
+important for you:
+- **The arcs are NOT uniform.** `berakhot` is the only simple link-out INDEX arc (`{title,copy,stage,url,
+  skill}`). The **other 44 are self-contained INTERACTIVE lessons** — each session is an authored question
+  `{short,mode,title,ref,hebrew,translation,prompt,answers,correct,feedback,skill,competency}`. So the
+  template must render two shapes (or `berakhot` gets migrated to the interactive shape).
+- **The interactive arcs are CLIENT-SCORED** — `correct`/`feedback` already ship in every `*-arc.js` today
+  (unlike academy-session, which strips the key and scores server-side). So Phase 4 is not a static codemod;
+  it's the same server-scored-lesson problem you already solved for academy-session. That's your engine and
+  your call: keep client-scoring for arcs, or fold them into the academy-session key-stripping pattern
+  (a real security upgrade, and it would unify arcs + academy sessions under one lesson engine).
 
 **This is your domain (`-arc` files), and it collides with your engine in one specific way, so I did NOT
 start it:** the arc URL changes from `berakhot-arc.html` → `arc.html?tractate=berakhot`, and **your
