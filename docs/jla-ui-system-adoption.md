@@ -81,7 +81,14 @@ touch it — no rush, do it opportunistically:
 - `source-reader.html` — full-text reader with the shell (keeps its own reader internals).
 - `diagnostic.html` + `placement.html` — placement flow (both entry points on the shell; each keeps
   a hidden `#status` element as a JS hook).
+- All 45 `*-arc.html` tractate/subject arcs — converted in one codemod (strip the non-uniform
+  header, carry its contextual link into the shell via `data-links`, keep a hidden `#xp` hook).
 - `jla-practice.html` — reference page for the interactive-lesson pattern.
+
+**Batch conversions:** when many pages share a structure (like the arcs), a codemod beats hand-editing
+— strip `<header>…</header>` with a regex, extract its non-brand `<a>` links into `data-links`, and
+inject the stylesheet + scripts. Make it idempotent (skip files already containing `jla-shell-mount`)
+and dry-run first.
 
 Note the two hooks the conversions preserved: a hidden `#status` (placement) and a hidden `#xp`
 (hub) so existing scripts keep writing to them without a null crash. When a page's old header had
