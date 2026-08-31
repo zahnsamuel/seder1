@@ -83,7 +83,10 @@ touch it — no rush, do it opportunistically:
   a hidden `#status` element as a JS hook).
 - All 45 `*-arc.html` tractate/subject arcs — converted in one codemod (strip the non-uniform
   header, carry its contextual link into the shell via `data-links`, keep a hidden `#xp` hook).
-- `jla-practice.html` — reference page for the interactive-lesson pattern.
+- `jla-practice.html` — reference lesson, wired to the real item bank
+  (`GET`/`POST /api/jla/academy-session/:skillId`, server-scored, records capability evidence).
+  `?skill=` selects any of the 24 authored items. The routed production lesson is still
+  `academy-session.html` (not yet on the design system — a good next migration).
 
 **Batch conversions:** when many pages share a structure (like the arcs), a codemod beats hand-editing
 — strip `<header>…</header>` with a regex, extract its non-brand `<a>` links into `data-links`, and
