@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Jewish Learning Academy · Practice</title>
+  <link rel="stylesheet" href="jla-system.css">
+  <style>
+    /* Page-local layout only; all visual tokens come from jla-system.css (--jla-*). */
+    body { margin: 0; background: var(--jla-cream); color: var(--jla-ink); font-family: var(--jla-font-body); }
+    .practice { max-width: 680px; margin: auto; padding: 40px 24px 72px; }
+    .practice-head { margin-bottom: 22px; }
+    .practice-head h1 { font-family: var(--jla-font-display); color: var(--jla-accent-ink); font-size: clamp(1.7rem, 4vw, 2.4rem); letter-spacing: -.04em; margin: 6px 0 8px; }
+    .practice-head p { color: var(--jla-muted); line-height: 1.55; margin: 0; }
+    .progress-row { display: flex; align-items: center; gap: 12px; margin: 20px 0 26px; }
+    .progress-row .count { font-size: .72rem; font-weight: 800; letter-spacing: .1em; color: var(--jla-muted); white-space: nowrap; }
+    .progress-row .jla-meter { flex: 1; }
+    .prompt { color: var(--jla-accent); font-size: .7rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 12px; }
+    .line-en { color: var(--jla-muted); font-size: .95rem; margin-top: 10px; line-height: 1.5; }
+    .choices { margin-top: 20px; }
+    .advance { display: flex; justify-content: flex-end; margin-top: 18px; }
+    .done-card { text-align: center; }
+    .done-card .jla-chip { margin: 14px auto 0; }
+  </style>
+</head>
+<body>
+  <div id="jla-shell-mount"></div>
+  <main class="practice">
+    <div class="practice-head">
+      <span class="jla-eyebrow">Layer 1 · Orientation</span>
+      <h1>Is this line asking, or telling?</h1>
+      <p>Before you can follow an argument, you have to hear when a source turns to ask a question. Read each line and decide — the signal word gives it away.</p>
+    </div>
+    <div class="progress-row">
+      <span class="count" id="count">1 / 4</span>
+      <div class="jla-meter"><i id="meter" style="width:12%"></i></div>
+    </div>
+    <div id="stage" class="jla-card"></div>
+  </main>
+  <script src="seder-auth.js?v=2"></script>
+  <script src="capability-state.js"></script>
+  <script src="jla-shell.js"></script>
+  <script src="jla-practice.js"></script>
+</body>
+</html>

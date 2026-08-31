@@ -1,0 +1,162 @@
+/* ==========================================================================
+   JLA Design System — single source of truth for tokens + core components.
+
+   Priority #1 of the UI consolidation. Every surface that opts in gets the same
+   palette, type scale, spacing, and components, so "make the UI better" becomes
+   one edit here instead of 70. Faithfully mirrors the palette already used in
+   seder.css (navy / gold / cream, Fraunces display + Inter body).
+
+   WHY --jla-* PREFIXED TOKENS: several legacy sheets (e.g. canon-labs.css) define
+   their own --paper / --ink / --line on :root. If this system reused those bare
+   names, load order would decide who wins and redefining them would bleed into
+   legacy components (a page's body background could shift unexpectedly). Prefixing
+   every token --jla-* makes this system immune to legacy overrides AND unable to
+   disturb legacy components — so adoption is genuinely non-destructive and load
+   order no longer matters.
+
+   Adopt on a page:
+     <link rel="stylesheet" href="jla-system.css">
+   Every component is namespaced .jla-*, so it never touches a page's own classes.
+   ========================================================================== */
+
+:root {
+  /* Brand palette — same values as seder.css, under collision-proof names. */
+  --jla-ink: #182632;
+  --jla-blue: #173b57;
+  --jla-gold: #856229;
+  --jla-cream: #f6f2e9;
+  --jla-paper: #fffdf8;
+  --jla-sunk: #eae2d4;
+  --jla-muted: #5e6978;
+  --jla-line: #ddd5c6;
+  --jla-green: #34725c;
+  --jla-on-dark: #fff;
+  --jla-on-dark-soft: #d8e1e8;
+  --jla-gold-soft: #e7bf70;
+
+  /* Semantic roles — components reference these. */
+  --jla-bg: var(--jla-cream);
+  --jla-surface: var(--jla-paper);
+  --jla-text: var(--jla-ink);
+  --jla-text-soft: var(--jla-muted);
+  --jla-accent: var(--jla-gold);
+  --jla-accent-ink: var(--jla-blue);
+  --jla-border: var(--jla-line);
+  --jla-ok: var(--jla-green);
+
+  /* State tints (from the existing cap-chip system). */
+  --jla-emerging-bg: #f4efe1;  --jla-emerging-ink: #7a6636;  --jla-emerging-line: #e6dcc2;
+  --jla-secure-bg: #e5efe6;    --jla-secure-ink: #34725c;    --jla-secure-line: #cbe0cf;
+  --jla-transfer-bg: #e2edf2;  --jla-transfer-ink: #2a5b74;  --jla-transfer-line: #c8dde6;
+  --jla-durable-bg: #efe6d6;   --jla-durable-ink: #856229;   --jla-durable-line: #e2d3b8;
+  --jla-wrong-bg: #f6e4e0;     --jla-wrong-ink: #8a3626;     --jla-wrong-line: #b04b3c;
+
+  /* Type */
+  --jla-font-display: Fraunces, Georgia, serif;
+  --jla-font-body: Inter, system-ui, sans-serif;
+
+  /* Spacing */
+  --jla-sp-1: 6px; --jla-sp-2: 10px; --jla-sp-3: 14px; --jla-sp-4: 20px;
+  --jla-sp-5: 28px; --jla-sp-6: 40px; --jla-sp-7: 64px;
+
+  /* Radius + elevation */
+  --jla-r-sm: 8px; --jla-r-md: 13px; --jla-r-lg: 16px; --jla-r-pill: 999px;
+  --jla-shadow-1: 0 6px 18px rgba(24, 38, 50, .05);
+  --jla-shadow-2: 0 9px 26px rgba(24, 38, 50, .12);
+
+  --jla-maxw: 1100px;
+}
+
+/* --- Optional base (only when <body class="jla">) ---------------------- */
+body.jla { margin: 0; background: var(--jla-bg); color: var(--jla-text); font-family: var(--jla-font-body); -webkit-font-smoothing: antialiased; }
+body.jla a { color: inherit; }
+
+.jla-eyebrow { color: var(--jla-accent); font-size: .7rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.jla-display { font-family: var(--jla-font-display); letter-spacing: -.045em; color: var(--jla-accent-ink); line-height: 1.02; }
+
+/* --- Persistent app shell (top bar) — rendered by jla-shell.js --------- */
+.jla-shell { position: sticky; top: 0; z-index: 40; background: color-mix(in srgb, var(--jla-cream) 88%, transparent); backdrop-filter: saturate(1.1) blur(8px); border-bottom: 1px solid var(--jla-border); }
+.jla-shell-inner { max-width: var(--jla-maxw); margin: auto; display: flex; align-items: center; gap: var(--jla-sp-4); padding: 12px 28px; }
+.jla-brand { font: 600 1.25rem/1 var(--jla-font-display); letter-spacing: -.04em; color: var(--jla-accent-ink); text-decoration: none; margin-right: auto; white-space: nowrap; }
+.jla-brand span { color: var(--jla-accent); }
+.jla-stat { display: flex; flex-direction: column; line-height: 1.1; padding: 4px 12px; border-left: 1px solid var(--jla-border); }
+.jla-stat b { font: 700 1.05rem/1 var(--jla-font-body); color: var(--jla-accent-ink); }
+.jla-stat small { color: var(--jla-text-soft); font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-top: 3px; }
+.jla-stat.is-fresh b { color: var(--jla-accent); font-family: var(--jla-font-display); font-size: .95rem; letter-spacing: -.02em; }
+.jla-shell-next { display: inline-flex; align-items: center; gap: 8px; background: var(--jla-accent-ink); color: var(--jla-on-dark); text-decoration: none; font-weight: 700; font-size: .82rem; padding: 9px 15px; border-radius: var(--jla-r-sm); transition: transform .12s ease, box-shadow .12s ease; }
+.jla-shell-next:hover { transform: translateY(-1px); box-shadow: var(--jla-shadow-2); }
+.jla-shell-next .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--jla-gold-soft); animation: jla-pulse 2.4s infinite; }
+@keyframes jla-pulse { 0% { box-shadow: 0 0 0 0 rgba(231, 191, 112, .6); } 70% { box-shadow: 0 0 0 7px rgba(231, 191, 112, 0); } 100% { box-shadow: 0 0 0 0 rgba(231, 191, 112, 0); } }
+
+/* --- Layout ------------------------------------------------------------ */
+.jla-main { max-width: var(--jla-maxw); margin: auto; padding: var(--jla-sp-6) 28px var(--jla-sp-7); }
+.jla-section-head { display: flex; justify-content: space-between; align-items: end; gap: 18px; margin-bottom: var(--jla-sp-4); }
+.jla-section-head h2 { font-family: var(--jla-font-display); color: var(--jla-accent-ink); font-size: clamp(1.6rem, 3.4vw, 2.4rem); margin: 4px 0 0; letter-spacing: -.04em; }
+.jla-section-head small { color: var(--jla-text-soft); font-size: .72rem; font-weight: 800; letter-spacing: .1em; white-space: nowrap; }
+
+/* --- Buttons ----------------------------------------------------------- */
+.jla-btn { display: inline-flex; align-items: center; gap: 8px; border-radius: var(--jla-r-sm); padding: 12px 18px; font-size: .88rem; font-weight: 700; text-decoration: none; cursor: pointer; border: 1px solid transparent; transition: transform .12s ease, box-shadow .12s ease, background .12s ease; }
+.jla-btn-primary { background: var(--jla-accent-ink); color: var(--jla-on-dark); }
+.jla-btn-primary:hover { transform: translateY(-1px); box-shadow: var(--jla-shadow-2); }
+.jla-btn-ghost { background: transparent; border-color: var(--jla-border); color: var(--jla-accent-ink); }
+.jla-btn-ghost:hover { background: var(--jla-paper); }
+
+/* --- Card -------------------------------------------------------------- */
+.jla-card { background: var(--jla-surface); border: 1px solid var(--jla-border); border-radius: var(--jla-r-md); padding: var(--jla-sp-4); box-shadow: var(--jla-shadow-1); }
+
+/* --- Capability chips (canonical state vocabulary) --------------------- */
+.jla-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.jla-chip { font: 600 .8rem/1 var(--jla-font-body); padding: 7px 11px; border-radius: var(--jla-r-pill); display: inline-flex; align-items: center; gap: 6px; background: #eef1ec; color: var(--jla-text-soft); border: 1px solid var(--jla-border); }
+.jla-chip b { font-weight: 800; color: var(--jla-text); }
+.jla-chip.is-emerging { background: var(--jla-emerging-bg); color: var(--jla-emerging-ink); border-color: var(--jla-emerging-line); }
+.jla-chip.is-secure { background: var(--jla-secure-bg); color: var(--jla-secure-ink); border-color: var(--jla-secure-line); }
+.jla-chip.is-transferable { background: var(--jla-transfer-bg); color: var(--jla-transfer-ink); border-color: var(--jla-transfer-line); }
+.jla-chip.is-durable { background: var(--jla-durable-bg); color: var(--jla-durable-ink); border-color: var(--jla-durable-line); }
+.jla-chip.is-none { background: transparent; border-style: dashed; font-weight: 500; }
+
+/* --- Spatial path (priority #3) --------------------------------------- */
+.jla-path { list-style: none; margin: 0; padding: 0 0 0 60px; position: relative; width: 100%; box-sizing: border-box; }
+.jla-path::before { content: ""; position: absolute; left: 21px; top: 26px; bottom: 26px; width: 2px; background: linear-gradient(var(--jla-accent), var(--jla-border)); }
+.jla-node { position: relative; background: var(--jla-surface); border: 1px solid var(--jla-border); border-radius: var(--jla-r-md); margin-bottom: var(--jla-sp-3); padding: 16px 18px; box-shadow: var(--jla-shadow-1); transition: box-shadow .15s ease, transform .15s ease; }
+.jla-node > .marker { position: absolute; left: -58px; top: 15px; height: 40px; width: 40px; border: 2px solid var(--jla-border); border-radius: 50%; background: var(--jla-cream); display: grid; place-items: center; color: var(--jla-text-soft); font-size: .82rem; font-weight: 700; z-index: 1; }
+.jla-node .kicker { display: block; color: var(--jla-accent); font-size: .66rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 5px; }
+.jla-node h3 { display: block; color: var(--jla-accent-ink); font: 600 1.22rem/1.12 var(--jla-font-display); margin: 0 0 6px; }
+.jla-node p { color: var(--jla-text-soft); font-size: .86rem; line-height: 1.5; margin: 0; }
+.jla-node .open { display: inline-block; margin-top: 12px; font-size: .82rem; font-weight: 700; text-decoration: none; color: var(--jla-accent-ink); }
+.jla-node.is-done > .marker { background: var(--jla-ok); border-color: var(--jla-ok); color: #fff; }
+.jla-node.is-done { opacity: .82; }
+.jla-node.is-current { border-color: var(--jla-accent); box-shadow: 0 9px 26px rgba(133, 98, 41, .16); }
+.jla-node.is-current > .marker { border-color: var(--jla-accent); color: var(--jla-accent-ink); background: var(--jla-paper); }
+.jla-node.is-current .open { color: var(--jla-accent); }
+.jla-node.is-upcoming { opacity: .72; }
+
+/* --- Source line (Sefaria-aware reading row) --------------------------- */
+.jla-source-line { border-inline-start: 3px solid var(--jla-accent); padding: 10px 14px; background: var(--jla-paper); border-radius: 0 var(--jla-r-sm) var(--jla-r-sm) 0; }
+.jla-source-he { font-size: 1.4rem; line-height: 1.7; text-align: right; direction: rtl; color: var(--jla-ink); font-family: "SBL Hebrew", "Frank Ruhl Libre", Georgia, serif; }
+
+/* --- Interactive lesson choices (priority #4) ------------------------- */
+.jla-choice { display: block; width: 100%; box-sizing: border-box; text-align: start; background: var(--jla-surface); border: 1.5px solid var(--jla-border); border-radius: var(--jla-r-sm); padding: 13px 16px; margin: 8px 0; font: 500 .95rem/1.4 var(--jla-font-body); color: var(--jla-text); cursor: pointer; transition: border-color .12s ease, background .12s ease, transform .08s ease; }
+.jla-choice:hover { border-color: var(--jla-accent); }
+.jla-choice:active { transform: translateY(1px); }
+.jla-choice.is-correct { border-color: var(--jla-ok); background: var(--jla-secure-bg); color: var(--jla-secure-ink); }
+.jla-choice.is-wrong { border-color: var(--jla-wrong-line); background: var(--jla-wrong-bg); color: var(--jla-wrong-ink); }
+.jla-choice[disabled] { cursor: default; }
+.jla-feedback { margin-top: var(--jla-sp-3); padding: 14px 16px; border-radius: var(--jla-r-sm); font-size: .9rem; line-height: 1.55; }
+.jla-feedback.is-correct { background: var(--jla-secure-bg); color: var(--jla-secure-ink); border: 1px solid var(--jla-secure-line); }
+.jla-feedback.is-wrong { background: var(--jla-emerging-bg); color: var(--jla-emerging-ink); border: 1px solid var(--jla-emerging-line); }
+
+/* --- Progress meter --------------------------------------------------- */
+.jla-meter { background: #e7dfd2; border-radius: var(--jla-r-pill); height: 8px; overflow: hidden; }
+.jla-meter > i { display: block; height: 100%; background: var(--jla-accent); border-radius: inherit; transition: width .4s ease; }
+
+/* --- Responsive ------------------------------------------------------- */
+@media (max-width: 720px) {
+  .jla-shell-inner { padding: 10px 16px; gap: 10px; }
+  .jla-stat { padding: 4px 8px; }
+  .jla-shell-next span.label { display: none; }
+  .jla-main { padding: var(--jla-sp-5) 16px var(--jla-sp-6); }
+  .jla-path { padding-left: 52px; }
+  .jla-path::before { left: 18px; }
+  .jla-node > .marker { left: -52px; }
+  .jla-section-head { flex-direction: column; align-items: start; }
+}

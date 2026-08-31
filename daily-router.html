@@ -7,16 +7,19 @@
   <link rel="stylesheet" href="canon-labs.css">
   <link rel="stylesheet" href="why-next.css">
   <link rel="stylesheet" href="daily-session.css">
+  <!-- Design system. Its tokens are --jla-* prefixed, so it neither overrides nor
+       is overridden by legacy page tokens; components are all namespaced .jla-*. -->
+  <link rel="stylesheet" href="jla-system.css">
 </head>
-<body>
-  <header><a href="seder.html">Jewish Learning Academy</a><span>TODAY IN JLA</span><a href="course-dashboard.html">Course progress</a></header>
+<body class="jla">
+  <div id="jla-shell-mount"></div>
   <main>
     <section class="hero"><p>ONE CLEAR NEXT STEP</p><h1 id="title">Preparing today's study</h1><div id="reason"></div><p class="workbench-link"><a id="primary" href="daily-canon.html">Begin →</a></p></section>
     <section id="session-plan" class="session-plan" aria-labelledby="session-plan-title">
       <div class="session-plan-heading"><p class="lesson-label">TODAY'S SEDER · <span id="session-duration">20</span> MINUTES</p><h2 id="session-plan-title">A focused learning rhythm</h2><p>Retrieve what you know, study one source deeply, then carry the reading habit somewhere new.</p></div>
-      <div id="session-steps" class="session-steps"></div>
+      <div id="session-steps"></div>
     </section>
   </main>
-  <script src="seder-auth.js?v=2"></script><script src="daily-router.js"></script><script src="why-next.js"></script><script src="feedback.js?v=1"></script>
+  <script src="seder-auth.js?v=2"></script><script src="capability-state.js"></script><script src="jla-shell.js"></script><script src="daily-router.js"></script><script src="why-next.js"></script><script src="feedback.js?v=1"></script>
 </body>
 </html>

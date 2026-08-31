@@ -24,8 +24,13 @@ Promise.all([
   set('#levelLabel',el=>el.textContent='YOUR CAPABILITIES');
   set('#levelCopy',el=>el.textContent=Seder.capabilitySentence(counts));
   set('#xp',el=>el.textContent=onOwn?`${onOwn} on your own`:'');
-  set('#streak',el=>el.textContent=learner.dailyStreak||0);
-  set('#sources',el=>el.textContent=(learner.capabilityEvidence||[]).length);
+  // No dead zeros: before a learner has a streak or a secured capability, the
+  // scoreboard invites ("Day 1" / "In reach") instead of reading "0".
+  const streak=learner.dailyStreak||0;
+  set('#streak',el=>el.textContent=streak>0?String(streak):'Day 1');
+  set('#streakLabel',el=>el.textContent=streak>0?'DAY RHYTHM':'STARTS TODAY');
+  set('#sources',el=>el.textContent=onOwn>0?String(onOwn):'In reach');
+  set('#sourcesLabel',el=>el.textContent=onOwn>0?(onOwn===1?'CAPABILITY':'CAPABILITIES'):'FIRST CAPABILITY');
   set('#capChips',el=>{
     const order=['emerging','secure','transferable','durable'];
     const chips=order.filter(s=>counts[s]>0).map(s=>`<span class="cap-chip cap-${s}"><b>${counts[s]}</b> ${Seder.capabilityStates[s].label}</span>`).join('');
