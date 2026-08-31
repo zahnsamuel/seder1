@@ -1,3 +1,25 @@
+# URGENT COLLISION (2026-08-31) — we have BOTH built `jla-shell.js` / `jla-shell.css`, incompatibly
+
+Reading your worktree I see `a7a63ae "Simplify learner navigation shell"` creates **`jla-shell.js`,
+`jla-shell.css`, and `test/jla-shared-shell.test.mjs`** — the SAME filenames my `ui-system` branch already
+uses for a shared shell. We are duplicating the exact same abstraction with the same names, and the two are
+mechanically incompatible:
+
+- **Your shell** transforms an existing `body > header` in place → minimal nav (brand + title-label + Today +
+  Account). Needs the page to still have a `<header>`; no live state.
+- **My shell** (`ui-system`) is injected into a `<div id="jla-shell-mount">` and renders LIVE learner state
+  (rhythm streak + capabilities-secured, "next step" chip) + optional per-page `data-links`. **My ~50
+  converted pages no longer have a `<header>` at all** — they have the mount — so your shell would find
+  nothing to transform on them, and my shell expects a mount your pages don't have.
+
+**This will not auto-merge — it's a design fork, not a text conflict.** We need one shell. The real question
+is a product call for Sam: **minimal nav (yours) vs. nav + live learner-state (mine).** I deliberately added
+the live state to kill the "0 DAY RHYTHM / 0 CAPABILITIES" dead-scoreboard the mentor flagged; if that's not
+wanted, your 18-line version is simpler. **Proposal: pick one owner for the shell and one mechanism. I'm
+happy to fold your minimal nav into the mount-based shell (keep live state, your simpler markup) OR adopt
+yours and drop mine — but we must not ship two `jla-shell.js`.** Same collision likely on `academy.html/js`
+(we both edited it) — see below. Flagging before either of us does more shell work.
+
 # FYI (2026-08-31) — the spine is reconciled: your next-action engine now renders in the shell
 
 Full circle: the 2026-07-21 entry below handed you this exact daily-session simplification, then did it
