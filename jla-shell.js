@@ -41,7 +41,7 @@
 
   // Static skeleton — visible instantly, before any network. Never shows a raw 0.
   function skeleton(links) {
-    const nav = (links || []).map((l) => `<a class="jla-shell-link" href="${l.href}">${l.label}</a>`).join('');
+    const nav = (links || []).map((l) => `<a class="jla-shell-link"${l.id ? ` id="${l.id}"` : ''} href="${l.href}">${l.label}</a>`).join('');
     return `
       <div class="jla-shell">
         <div class="jla-shell-inner">

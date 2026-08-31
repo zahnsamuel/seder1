@@ -69,7 +69,9 @@
 
 /* --- Optional base (only when <body class="jla">) ---------------------- */
 body.jla { margin: 0; background: var(--jla-bg); color: var(--jla-text); font-family: var(--jla-font-body); -webkit-font-smoothing: antialiased; }
-body.jla a { color: inherit; }
+/* Only unclassed links inherit; never override a page's own styled links (e.g. a
+   .today-cta), which would otherwise lose their color to this base rule's specificity. */
+body.jla a:not([class]) { color: inherit; }
 
 .jla-eyebrow { color: var(--jla-accent); font-size: .7rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .jla-display { font-family: var(--jla-font-display); letter-spacing: -.045em; color: var(--jla-accent-ink); line-height: 1.02; }
