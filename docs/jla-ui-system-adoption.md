@@ -76,10 +76,16 @@ touch it — no rush, do it opportunistically:
 
 ## Converted so far
 
+- `seder.html` — hub, on the shell (Today's Study + dynamic account link via `data-links`).
 - `daily-router.html` — daily session as a spatial path.
 - `source-reader.html` — full-text reader with the shell (keeps its own reader internals).
-- `seder.html` — hub scoreboard de-zeroed (not yet on the shell; next candidate).
+- `diagnostic.html` + `placement.html` — placement flow (both entry points on the shell; each keeps
+  a hidden `#status` element as a JS hook).
 - `jla-practice.html` — reference page for the interactive-lesson pattern.
+
+Note the two hooks the conversions preserved: a hidden `#status` (placement) and a hidden `#xp`
+(hub) so existing scripts keep writing to them without a null crash. When a page's old header had
+elements its JS updates, keep them (hidden) rather than deleting them.
 
 ## Verifying a conversion
 
