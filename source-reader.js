@@ -21,9 +21,22 @@ function firstUnseen(collection) {
   return collection.lines.length;
 }
 
+function startIndex(collection) {
+  const next = data.collections[active + 1];
+  if (localStorage.getItem(completeKey(collection)) === 'complete' && !next) return collection.lines.length;
+  const unseen = firstUnseen(collection);
+  return unseen >= collection.lines.length ? 0 : unseen;
+}
+
 function markViewed(collection, lineIndex) {
   viewed.add(lineIndex);
   localStorage.setItem(seenKey(collection), JSON.stringify([...viewed]));
+}
+
+function nextPageHref(collection) {
+  const next = data.collections[active + 1];
+  if (!next) return '';
+  return `source-reader.html?collection=${encodeURIComponent(next.id)}`;
 }
 
 async function completePassage(collection) {
@@ -41,6 +54,11 @@ async function completePassage(collection) {
       })
     });
   } catch (error) { console.warn(error); }
+  const href = nextPageHref(collection);
+  if (href) {
+    location.assign(href);
+    return;
+  }
   showComplete(collection);
 }
 
@@ -49,16 +67,14 @@ function showComplete(collection) {
   $('#complete').hidden = false;
   $('#title').textContent = collection.title;
   $('#connection').textContent = collection.connection;
-  $('#next-unit').href = collection.connectionUrl;
+  $('#next-unit').href = 'daily-router.html';
   $('#sefaria').href = collection.sourceUrl;
 }
 
 function renderLine() {
   const collection = data.collections[active];
-  const done = localStorage.getItem(completeKey(collection)) === 'complete';
-  if (done || current >= collection.lines.length) {
-    if (!done && viewed.size >= collection.lines.length) completePassage(collection);
-    else showComplete(collection);
+  if (current >= collection.lines.length) {
+    showComplete(collection);
     return;
   }
 
@@ -77,22 +93,6 @@ function renderLine() {
   $('#sefaria').href = collection.sourceUrl;
   $('#continue').disabled = false;
   $('#continue').textContent = current === collection.lines.length - 1 ? 'Complete this passage →' : 'Continue →';
-}
-
-function renderNav() {
-  $('#collection-nav').innerHTML = data.collections.map((item, itemIndex) => (
-    `<button type="button" class="lab-button ${itemIndex === active ? 'active' : ''}" data-nav="${itemIndex}">${item.title}<small>${item.lines.length} lines</small></button>`
-  )).join('');
-  document.querySelectorAll('[data-nav]').forEach((button) => {
-    button.onclick = () => {
-      active = Number(button.dataset.nav);
-      const collection = data.collections[active];
-      viewed = loadViewed(collection);
-      current = firstUnseen(collection);
-      renderNav();
-      renderLine();
-    };
-  });
 }
 
 $('#toggleTranslation').onclick = () => {
@@ -119,7 +119,6 @@ fetch('/api/curriculum/non-gemara-source-reader').then((response) => response.js
   if (match >= 0) active = match;
   const collection = data.collections[active];
   viewed = loadViewed(collection);
-  current = firstUnseen(collection);
-  renderNav();
+  current = startIndex(collection);
   renderLine();
 });

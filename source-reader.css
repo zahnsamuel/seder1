@@ -122,71 +122,18 @@
   max-width: 46ch;
 }
 
-.reader-complete .source-link,
 .reader-sefaria {
-  color: var(--jla-accent-ink, var(--reader-blue));
+  align-self: flex-start;
+  color: var(--jla-text-soft, var(--reader-muted));
   font-size: .82rem;
-  font-weight: 700;
+  font-weight: 600;
   text-decoration: none;
 }
 
-.reader-complete .source-link:hover,
-.reader-sefaria:hover { text-decoration: underline; }
+.reader-sefaria:hover { color: var(--jla-accent-ink, var(--reader-blue)); text-decoration: underline; }
 
-.reader-passages {
-  margin-top: var(--jla-sp-6, 40px);
-  max-width: 640px;
-}
-
-.reader-passages > summary {
-  cursor: pointer;
-  color: var(--jla-text-soft, var(--reader-muted));
-  font-size: .88rem;
-  font-weight: 600;
-  padding: 10px 0;
-  list-style: revert;
-}
-
-.reader-passages > summary:hover { color: var(--jla-accent-ink, var(--reader-blue)); }
-.reader-passages[open] > summary { margin-bottom: 12px; }
-
-#collection-nav { display: grid; gap: 8px; }
-
-.lab-button {
-  border: 1px solid var(--jla-border, var(--reader-line));
-  background: var(--jla-surface, #fffdf8);
-  color: var(--jla-accent-ink, var(--reader-blue));
-  border-radius: var(--jla-r-sm, 8px);
-  padding: 12px 14px;
-  text-align: left;
-  cursor: pointer;
-  font: 700 14px/1.2 var(--jla-font-body, Inter, system-ui, sans-serif);
-  min-height: 44px;
-}
-
-.lab-button small {
-  display: block;
-  margin-top: 5px;
-  color: var(--jla-text-soft, var(--reader-muted));
-  font: 400 12px/1.3 var(--jla-font-body, Inter, system-ui, sans-serif);
-}
-
-.lab-button.active {
-  background: var(--jla-accent-ink, var(--reader-blue));
-  color: var(--jla-on-dark, #fff);
-  border-color: var(--jla-accent-ink, var(--reader-blue));
-}
-
-.lab-button.active small { color: var(--jla-on-dark-soft, #d8e1e8); }
-
-.reader-sefaria {
-  display: inline-block;
-  margin-top: 14px;
-}
-
-.jla-choice:focus-visible,
-.lab-button:focus-visible,
-#toggleTranslation:focus-visible {
+#toggleTranslation:focus-visible,
+.reader-sefaria:focus-visible {
   outline: 3px solid var(--jla-accent, var(--reader-gold));
   outline-offset: 2px;
 }
@@ -194,5 +141,4 @@
 @media (max-width: 720px) {
   .reader-drill #continue,
   .reader-complete .jla-btn { width: 100%; min-height: 44px; }
-  .reader-passages { max-width: none; }
 }

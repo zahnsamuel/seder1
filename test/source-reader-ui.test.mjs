@@ -1,70 +1,70 @@
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import test from "node:test";
 
-const read = (file) => readFile(new URL(`../${file}`, import.meta.url), 'utf8');
+const html = readFileSync(new URL("../source-reader.html", import.meta.url), "utf8");
+const css = readFileSync(new URL("../source-reader.css", import.meta.url), "utf8");
+const js = readFileSync(new URL("../source-reader.js", import.meta.url), "utf8");
 
-const SHARED_UI = ['class="jla"', 'id="jla-shell-mount"', 'jla-system.css', 'capability-state.js', 'jla-shell.js', 'seder-auth.js'];
+function countMatches(source, pattern) {
+  return [...source.matchAll(pattern)].length;
+}
 
-test('source reader is one line and one Continue on the shared shell', async () => {
-  const html = await read('source-reader.html');
-  for (const sharedUi of SHARED_UI) {
-    assert.match(html, new RegExp(sharedUi.replace(/[.?]/g, '\\$&')), sharedUi);
-  }
-  assert.match(html, /fonts\.googleapis\.com\/css2\?family=DM\+Mono/);
-  assert.match(html, /family=Fraunces/);
-  assert.match(html, /family=Inter/);
-  assert.match(html, /family=Noto\+Sans\+Hebrew/);
-  assert.match(html, /<p class="jla-eyebrow">SOURCE<\/p>/);
-  assert.match(html, /id="title"/);
-  assert.match(html, /id="reader"/);
-  assert.match(html, /id="hebrew"/);
-  assert.match(html, /lang="he" dir="rtl"/);
-  assert.match(html, /id="prompt"/);
-  assert.equal((html.match(/id="continue"/g) || []).length, 1);
-  assert.match(html, /id="continue" class="jla-btn jla-btn-primary"/);
-  assert.match(html, /<details class="reader-passages">/);
-  assert.match(html, /<summary>Other passages<\/summary>/);
-  assert.match(html, /id="collection-nav"/);
-  assert.ok(html.indexOf('id="continue"') < html.indexOf('<details class="reader-passages">'));
-  assert.ok(html.indexOf('<details class="reader-passages">') < html.indexOf('id="collection-nav"'));
-  assert.doesNotMatch(html, /\sopen[\s>]/);
-  assert.doesNotMatch(html, /<header>/);
-  assert.doesNotMatch(html, /canon-labs\.css/);
+test("source reader is a single-line page with no same-page collection picker", () => {
+  assert.match(html, /id="jla-shell-mount"/);
+  assert.match(html, /<script src="seder-auth\.js/);
+  assert.match(html, /<script src="capability-state\.js"><\/script>/);
+  assert.match(html, /<script src="jla-shell\.js"><\/script>/);
+  assert.match(html, /<script src="source-reader\.js"><\/script>/);
   assert.doesNotMatch(html, /source-reader-language\.js/);
-  assert.doesNotMatch(html, /textarea/i);
+  assert.doesNotMatch(html, /<details[\s\S]*Other passages/);
+  assert.doesNotMatch(html, /id="collection-nav"/);
+  assert.doesNotMatch(html, /<select/);
+  assert.doesNotMatch(html, /<textarea/);
+  assert.equal(countMatches(html, /<textarea/g), 0);
   assert.doesNotMatch(html, /id="focus"/);
-  assert.doesNotMatch(html, /chatbot|ChatGPT|ask the assistant/i);
-  assert.match(html, /id="complete"/);
-  assert.match(html, /id="complete"[^>]*hidden/);
+  assert.doesNotMatch(html, /What do you hear/);
+  assert.doesNotMatch(html, /Your next step/);
+  assert.match(html, /id="drill"/);
+  assert.match(html, /id="hebrew"/);
+  assert.match(html, /id="translation"/);
+  assert.match(html, /id="toggleTranslation"/);
+  assert.match(html, /id="prompt"/);
+  assert.match(html, /id="continue"/);
+  assert.match(html, />Continue →</);
+  assert.match(html, /id="complete"[^>]*\bhidden\b/);
+  assert.match(html, /You have finished these passages/);
   assert.match(html, /id="connection"/);
-  assert.match(html, /source-reader\.js/);
-  const authOrder = html.indexOf('seder-auth.js');
-  const shellOrder = html.indexOf('jla-shell.js');
-  const readerOrder = html.indexOf('source-reader.js');
-  assert.ok(authOrder < shellOrder && shellOrder < readerOrder);
+  assert.match(html, /id="next-unit"/);
+  assert.match(html, />Return to Today →</);
+  assert.match(html, /href="daily-router\.html"/);
+  assert.doesNotMatch(html, /Write one sentence/);
+  assert.doesNotMatch(html, /id="reflection"/);
 });
 
-test('source reader JS is one line at a time with no free response', async () => {
-  const [js, css] = await Promise.all(['source-reader.js', 'source-reader.css'].map(read));
-  assert.match(js, /Show translation/);
-  assert.match(js, /lang="he" dir="rtl"|#hebrew/);
-  assert.match(js, /#prompt/);
-  assert.match(js, /Continue →/);
-  assert.match(js, /Complete this passage/);
-  assert.match(js, /source_reading_completed/);
-  assert.match(js, /#collection-nav/);
-  assert.match(js, /\/api\/curriculum\/non-gemara-source-reader/);
-  assert.match(js, /firstUnseen|viewed/);
-  assert.doesNotMatch(js, /textarea/i);
-  assert.doesNotMatch(js, /reading-reflection/);
-  assert.doesNotMatch(js, /Private note/);
-  assert.doesNotMatch(js, /Save line note/);
-  assert.doesNotMatch(js, /Focus this line/);
-  assert.doesNotMatch(js, /Close the reading loop/);
-  assert.doesNotMatch(js, /collection\.lines\.map/);
-  assert.match(css, /--jla-ink|--jla-blue/);
-  assert.match(css, /min-height:\s*44px/);
-  assert.match(css, /@media \(max-width: 720px\)/);
+test("source reader CSS keeps one line on screen and hides the done state until the last collection", () => {
+  assert.match(css, /\.line-hebrew\s*\{/);
+  assert.match(css, /\.reader-source\s*\{/);
   assert.match(css, /\.reader-complete\[hidden\]/);
+  assert.match(css, /\.reader-drill\[hidden\]/);
+  assert.doesNotMatch(css, /\.reader-passages/);
+  assert.doesNotMatch(css, /#collection-nav/);
+});
+
+test("source reader treats collections as sequential pages, not a same-page list", () => {
+  assert.match(js, /location\.assign/);
+  assert.match(js, /source-reader\.html\?collection=/);
+  assert.match(js, /nextPageHref/);
+  assert.match(js, /\/api\/curriculum\/non-gemara-source-reader/);
+  assert.doesNotMatch(js, /collection-nav/);
+  assert.doesNotMatch(js, /renderNav/);
+  assert.doesNotMatch(js, /#focus/);
+  assert.doesNotMatch(js, /querySelectorAll\("textarea"\)/);
+  assert.doesNotMatch(js, /textarea/);
+  assert.match(js, /Continue →/);
+  assert.match(js, /Complete this passage →/);
+  assert.match(js, /seder-source-reader-seen-/);
+  assert.match(js, /seder-source-reader-complete-/);
+  assert.match(js, /source_reading_completed/);
+  assert.match(js, /daily-router\.html/);
 });

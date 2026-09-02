@@ -12,4 +12,7 @@ test('source reader completes after every line without a typed reflection', asyn
   assert.doesNotMatch(source, /reading-reflection/);
   assert.doesNotMatch(source, /reflection,/);
   assert.doesNotMatch(source, /textarea/);
+  assert.match(source, /location\.assign/);
+  assert.match(source, /source-reader\.html\?collection=/);
+  assert.match(source, /nextPageHref/);
 });

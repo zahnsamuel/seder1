@@ -3035,4 +3035,23 @@ Show translation works. Continue advances to 6:5 only. Last line CTA is
 “Complete this passage →”; finish screen has next-unit + Today, no typing.
 Skip-link present. Daf workbench not re-opened (out of scope).
 
+## 2026-09-02 — Cursor: source-reader collections are next pages, not a dropdown
+
+Sam: “Great but make the other passages the next pages, not on the same page with a drop down.”
+Source-reader only. Daf workbench left as shipped.
+
+- Removed the “Other passages” `<details>` / `#collection-nav` same-page switcher.
+  The current page shows only the active collection. Quiet Sefaria link stays under Continue.
+- After every line of a collection, **Complete this passage →** writes the existing
+  per-collection seen/complete keys, fires `source_reading_completed`, then
+  `location.assign('source-reader.html?collection=<nextId>')` so the next collection
+  is a new page at line 0. `?collection=` still selects entry.
+- Last collection (exile) does not navigate: calm done state (“You have finished these
+  passages.”) + `#connection` + one **Return to Today →** (`daily-router.html`). No
+  free text, no other-passage list.
+- Mid-sequence collections that are already complete replay from line 0 (Back still works).
+  Last collection already complete opens the done state.
+- Tests: `test/source-reader-ui.test.mjs`, `source-reader-completion`,
+  `source-reader-accessibility`.
+
 
