@@ -3054,4 +3054,13 @@ Source-reader only. Daf workbench left as shipped.
 - Tests: `test/source-reader-ui.test.mjs`, `source-reader-completion`,
   `source-reader-accessibility`.
 
+Verification (same day, `:4180`): hard-refresh `?collection=shema`. First paint is
+Shema 1/4, one Hebrew line, one prompt, Continue, quiet Sefaria; 0 textareas;
+no Other passages / `<details>` / `<select>`. Continue walks 6:4 → 6:5 → 6:6–7 →
+6:8–9. **Complete this passage →** assigns `?collection=blessings` at line 1/3
+(Deuteronomy 8:10). Exile last line stays on `?collection=exile` with
+“You have finished these passages.” + connection + one **Return to Today →**
+(`daily-router.html`). 390px Shema still one column, no picker. Console clean.
+`node --test "test/*.test.mjs"` **562/562**.
+
 
