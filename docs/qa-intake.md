@@ -3029,4 +3029,10 @@ Source-reader only. Daf workbench left as shipped.
 - Tests: `test/source-reader-ui.test.mjs`, `source-reader-accessibility`,
   `source-reader-completion`, `language-support`.
 
+Verification (same day, `:4180`): hard-refresh Shema. First paint is 1/4 Deuteronomy 6:4
++ one prompt + Continue; 0 textareas; complete panel `hidden` / `display:none`.
+Show translation works. Continue advances to 6:5 only. Last line CTA is
+“Complete this passage →”; finish screen has next-unit + Today, no typing.
+Skip-link present. Daf workbench not re-opened (out of scope).
+
 
