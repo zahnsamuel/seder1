@@ -33,8 +33,8 @@ Promise.all([
   set('#sourcesLabel',el=>el.textContent=onOwn>0?(onOwn===1?'CAPABILITY':'CAPABILITIES'):'FIRST CAPABILITY');
   set('#capChips',el=>{
     const order=['emerging','secure','transferable','durable'];
-    const chips=order.filter(s=>counts[s]>0).map(s=>`<span class="cap-chip cap-${s}"><b>${counts[s]}</b> ${Seder.capabilityStates[s].label}</span>`).join('');
-    el.innerHTML=chips||'<span class="cap-chip cap-none">No capabilities demonstrated yet — start below.</span>';
+    const chips=order.filter(s=>counts[s]>0).map(s=>`<span class="jla-chip is-${s}"><b>${counts[s]}</b> ${Seder.capabilityStates[s].label}</span>`).join('');
+    el.innerHTML=chips||'<span class="jla-chip is-none">No capabilities demonstrated yet — start below.</span>';
   });
   set('#todayTitle',el=>el.textContent=placement?decision.recommendation.title:'Today in Jewish Learning Academy');
   // Grounded "why this, now" from the server (recommendation.why), shared across surfaces.

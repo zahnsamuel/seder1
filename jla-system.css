@@ -94,11 +94,12 @@ body.jla a:not([class]) { color: inherit; }
 .jla-section-head small { color: var(--jla-text-soft); font-size: .72rem; font-weight: 800; letter-spacing: .1em; white-space: nowrap; }
 
 /* --- Buttons ----------------------------------------------------------- */
-.jla-btn { display: inline-flex; align-items: center; gap: 8px; border-radius: var(--jla-r-sm); padding: 12px 18px; font-size: .88rem; font-weight: 700; text-decoration: none; cursor: pointer; border: 1px solid transparent; transition: transform .12s ease, box-shadow .12s ease, background .12s ease; }
+.jla-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; box-sizing: border-box; border-radius: var(--jla-r-sm); padding: 12px 18px; font-size: .88rem; font-weight: 700; text-decoration: none; cursor: pointer; border: 1px solid transparent; transition: transform .12s ease, box-shadow .12s ease, background .12s ease; }
 .jla-btn-primary { background: var(--jla-accent-ink); color: var(--jla-on-dark); }
 .jla-btn-primary:hover { transform: translateY(-1px); box-shadow: var(--jla-shadow-2); }
 .jla-btn-ghost { background: transparent; border-color: var(--jla-border); color: var(--jla-accent-ink); }
 .jla-btn-ghost:hover { background: var(--jla-paper); }
+.jla-btn:focus-visible { outline: 3px solid var(--jla-accent); outline-offset: 2px; }
 
 /* --- Card -------------------------------------------------------------- */
 .jla-card { background: var(--jla-surface); border: 1px solid var(--jla-border); border-radius: var(--jla-r-md); padding: var(--jla-sp-4); box-shadow: var(--jla-shadow-1); }
