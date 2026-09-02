@@ -2928,3 +2928,11 @@ Presentation-only pass on hub + Today. Engine / scoring / next-action math untou
 Verified hunches before editing: hub already on `body.jla` + `#jla-shell-mount`; Today
 already uses `[data-jla-next-action]` + `jla-next-action.js`, not `daily-router.js`;
 shell already simplified.
+
+Verification (same day): `node --test "test/*.test.mjs"` **549/549**; `node scripts/smoke-http.mjs`
+all listed routes 200. Browser (local `:4180`): first-time hub shows one navy Today CTA
+(`Find my starting point →`); click lands on Today with one hero (`Start this step →`);
+mobile stacks, CTA full-width; shell is brand · label · Today · Account (Berakhot arc
+adds contextual Mastery only); skip-link + focus-visible present; `privacy.html` header
+via leftover `seder.css` rules still styled. First-visit onboarding still inserts a second
+“Start today’s study” link after `.hero` — pre-existing, hook preserved, out of this pass.
