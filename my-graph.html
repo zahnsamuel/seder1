@@ -8,9 +8,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="my-graph.css">
-</head>
-<body>
-  <header><a href="seder.html">Jewish Learning Academy</a><nav><a href="path.html">My Path</a><a href="daily-router.html">Today</a><a href="profile.html">Profile</a></nav><strong id="xp"></strong></header>
+<link rel="stylesheet" href="jla-system.css"></head>
+<body class="jla">
+  <div id="jla-shell-mount"></div><strong id="xp" hidden></strong>
   <main>
     <section class="intro">
       <span class="eyebrow">YOUR MAP THROUGH THE GRAPH</span>
@@ -29,5 +29,5 @@
     <section id="detail" class="detail"><p class="hint">Tap any move on the map to see what it builds on and unlocks.</p></section>
   </main>
   <script src="seder-auth.js?v=2"></script><script src="capability-state.js"></script><script src="my-graph.js?v=1"></script><script src="feedback.js?v=1"></script>
-</body>
+<script src="jla-shell.js"></script></body>
 </html>

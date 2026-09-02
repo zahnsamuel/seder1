@@ -71,6 +71,19 @@ if (admin) {
   results.push(['SKIP', 'operator analytics with admin token', 'set SEDER_ADMIN_TOKEN to include this check']);
 }
 
+// Clean up after ourselves — self-delete the throwaway learners via their own tokens (the DELETE
+// /api/learners/:id endpoint), so a go-live run never leaves test accounts in the pilot DB. Best-
+// effort: a cleanup hiccup is reported but never fails the readiness gate.
+try {
+  const del = (id, token) => fetch(`${base}/api/learners/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } });
+  const a = A && A.token ? await del(A.id, A.token) : null;
+  const b = B && B.token ? await del(B.id, B.token) : null;
+  const ok = (!a || a.ok) && (!b || b.ok);
+  results.push([ok ? 'PASS' : 'SKIP', 'throwaway learners cleaned up', `${A ? A.id : ''}${B ? ' + ' + B.id : ''}`]);
+} catch (error) {
+  results.push(['SKIP', 'throwaway learner cleanup', `could not delete: ${error.message}`]);
+}
+
 const color = { PASS: '\x1b[32m✓\x1b[0m', FAIL: '\x1b[31m✗\x1b[0m', SKIP: '\x1b[33m∙\x1b[0m' };
 console.log(`\nGo-live check · ${base}\n`);
 for (const [status, name, detail] of results) console.log(`  ${color[status]} ${status.padEnd(4)} ${name}${detail ? `  — ${detail}` : ''}`);
