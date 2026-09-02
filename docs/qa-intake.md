@@ -2988,3 +2988,24 @@ item text only (no “+10 XP”); Continue enables. Continue advances to bet. Sh
 “The ladder” opens `hebrew-decoding.html` (one Start decoding CTA). Mobile 390px
 keeps one column and a full-width Continue. Hub and Today unchanged. Hidden `#xp`
 still updates (10 XP after a correct answer). `decoding-drills.js` untouched.
+
+## 2026-09-02 — Cursor: simplify source reader and Daf workbench chrome
+
+Presentation-only. Scoring, role checks, source packets, completion, and content banks
+untouched. Live learner paths (from daily-router / tractate-mastery): `source-reader.html`,
+`daf-workbench.html` (Berakhot), `flagship-daf-workbench.html` (other flagship tractates).
+Did not restyle yoma/taanit/megillah/etc. experimental workspaces.
+
+- All three mount the shared shell (`body.jla`, `jla-system.css`, `#jla-shell-mount`,
+  `seder-auth.js`, `capability-state.js`, `jla-shell.js`) with hub fonts plus Noto Sans
+  Hebrew. Dropped `canon-labs.css` from the reader. Replaced workbench `<header>` XP
+  theater with hidden `#xp` (flagship also keeps hidden `#masteryLink`).
+- First paint is eyebrow + title + the source/work + one primary control (translation
+  toggle / Record my reading; reader focus + line tools). Side maps, other openings,
+  source packets, reading protocol, and other passages live in collapsed `<details>`.
+  Notebook / Mastery map / Gemara path are shell contextual links, not equal-weight heroes.
+- Page-local CSS bridges to `--jla-*`. Primary controls use `.jla-btn` and `min-height: 44px`
+  on small screens. Hebrew keeps `lang="he"` `dir="rtl"`. Skip-link + focus-visible still
+  come from `seder-auth.js`.
+- Tests: `test/source-reader-ui.test.mjs`, `test/daf-workbench-ui.test.mjs`.
+

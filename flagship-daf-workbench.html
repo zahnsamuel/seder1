@@ -6,27 +6,84 @@
   <title>Jewish Learning Academy · Gemara Daf Workspace</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="jla-system.css">
   <link rel="stylesheet" href="daf-workbench.css">
   <link rel="stylesheet" href="daf-argument-map.css">
   <link rel="stylesheet" href="yoma-daf-workbench.css">
 </head>
-<body>
-  <header><a href="seder.html">Jewish Learning Academy</a><span>GEMARA DAF WORKSPACE</span><a id="masteryLink" href="gemara-continuation.html">Gemara path</a><strong id="xp">0 XP</strong></header>
-  <main>
-    <section class="intro"><span>READ THE SOURCE AS AN ARGUMENT</span><h1 id="title">Opening source</h1><p id="description">Click a line, use the translation to check your reading, then name what work it does in the sugya.</p></section>
+<body class="jla">
+  <div id="jla-shell-mount"></div>
+  <strong id="xp" hidden>0 XP</strong>
+  <a id="masteryLink" href="gemara-continuation.html" hidden>This tractate</a>
+  <main class="jla-main">
+    <p class="jla-eyebrow">DAF</p>
+    <h1 id="title">Opening source</h1>
+    <p id="description">Click a line, use the translation to check your reading, then name what work it does in the sugya.</p>
     <section class="workbench">
-      <article class="daf"><div class="daf-head"><span id="citation"></span><button id="toggleTranslation">Show translations</button></div><div id="lines" class="lines"></div><aside class="source-boundary">This workspace is for text study. It develops reading and argument-mapping skills; it does not provide personal halakhic guidance.</aside></article>
-      <aside class="analysis">
-        <span>LINE IN FOCUS</span><h2 id="lineTitle">Choose a line.</h2><p id="lineTranslation">The translation will appear here when you select a line.</p><div id="clues"></div>
-        <label for="role">What is this line doing?</label><select id="role"><option value="">Choose a role</option><option>Mishnah case</option><option>Claim / distinction</option><option>Procedure / response</option><option>Context question</option><option>Textual grounding</option><option>Objection</option></select><button id="mark" disabled>Record my reading</button><p id="feedback" aria-live="polite"></p>
-        <section class="argument-map" aria-live="polite"><span>SUGYA MAP</span><p id="mapProgress">Classify the source moves to build your map.</p><ol id="argumentMap"></ol></section>
-        <section class="source-packet"><span>SOURCE PACKET</span><strong id="objective"></strong><p id="transfer"></p><a id="sefaria" target="_blank" rel="noreferrer">Open the full source at Sefaria →</a></section>
-        <div id="repairMove" class="next-move" hidden></div><div id="nextMove" class="next-move" hidden></div>
-        <div class="legend"><b>Reading protocol</b><ol><li>Orient to the case.</li><li>Name the question or pressure.</li><li>Locate the response or source.</li><li>Use English to verify, not replace, first reading.</li></ol></div>
+      <article class="daf jla-card">
+        <div class="daf-head">
+          <span id="citation"></span>
+          <button id="toggleTranslation" class="jla-btn jla-btn-ghost" type="button">Show translations</button>
+        </div>
+        <div id="lines" class="lines"></div>
+        <aside class="source-boundary">This workspace is for text study. It develops reading and argument-mapping skills; it does not provide personal halakhic guidance.</aside>
+      </article>
+      <aside class="analysis jla-card">
+        <span class="jla-eyebrow">LINE IN FOCUS</span>
+        <h2 id="lineTitle">Choose a line.</h2>
+        <p id="lineTranslation">The translation will appear here when you select a line.</p>
+        <div id="clues"></div>
+        <label for="role">What is this line doing?</label>
+        <select id="role">
+          <option value="">Choose a role</option>
+          <option>Mishnah case</option>
+          <option>Claim / distinction</option>
+          <option>Procedure / response</option>
+          <option>Context question</option>
+          <option>Textual grounding</option>
+          <option>Objection</option>
+        </select>
+        <button id="mark" class="jla-btn jla-btn-primary" type="button" disabled>Record my reading</button>
+        <p id="feedback" aria-live="polite"></p>
+        <div id="repairMove" class="next-move" hidden></div>
+        <div id="nextMove" class="next-move" hidden></div>
+        <details class="workbench-extra">
+          <summary>Sugya map</summary>
+          <section class="argument-map" aria-live="polite">
+            <span>SUGYA MAP</span>
+            <p id="mapProgress">Classify the source moves to build your map.</p>
+            <ol id="argumentMap"></ol>
+          </section>
+        </details>
+        <details class="workbench-extra">
+          <summary>Source packet</summary>
+          <section class="source-packet">
+            <span>SOURCE PACKET</span>
+            <strong id="objective"></strong>
+            <p id="transfer"></p>
+            <a id="sefaria" class="source-link" target="_blank" rel="noreferrer">Open the full source at Sefaria →</a>
+          </section>
+        </details>
+        <details class="workbench-extra">
+          <summary>Reading protocol</summary>
+          <div class="legend">
+            <b>Reading protocol</b>
+            <ol>
+              <li>Orient to the case.</li>
+              <li>Name the question or pressure.</li>
+              <li>Locate the response or source.</li>
+              <li>Use English to verify, not replace, first reading.</li>
+            </ol>
+          </div>
+        </details>
       </aside>
     </section>
   </main>
-  <script src="seder-auth.js?v=2"></script><script src="flagship-daf-workbench.js"></script><script src="flagship-daf-retention.js"></script>
+  <script src="seder-auth.js?v=2"></script>
+  <script src="capability-state.js"></script>
+  <script src="jla-shell.js"></script>
+  <script src="flagship-daf-workbench.js"></script>
+  <script src="flagship-daf-retention.js"></script>
 </body>
 </html>

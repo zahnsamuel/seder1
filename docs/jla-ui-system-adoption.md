@@ -97,7 +97,18 @@ touch it — no rush, do it opportunistically:
   recommendation surface.
 - `daily-router.html` — Today: one `[data-jla-next-action]` hero driven by
   `jla-next-action.js` (not `daily-router.js`). Presentation in `jla-next-action.css`.
-- `source-reader.html` — full-text reader with the shell (keeps its own reader internals).
+- `hebrew-decoding.html` — decoding ladder index: one next-move hero; full ladder in collapsed
+  `<details>`.
+- `decoding-lesson.html` — in-lesson glyph drill on the shell. Hidden `#xp`; lesson map in
+  collapsed `<details>` (“This lesson”); glyph card uses `.jla-glyph-card` / `.jla-glyph`.
+- `source-reader.html` — full-text reader: shell + one passage; collection picker in collapsed
+  `<details>` (“Other passages”). Translation, focus, Hebrew `lang`/`dir`, and language-lens
+  controls stay in the line. Notebook / Mastery map are shell contextual links.
+- `daf-workbench.html` — Berakhot Daf workspace on the shell. Hidden `#xp`; sugya map, source
+  packet, other openings, and reading protocol in collapsed `<details>`. Record + translation
+  stay first-paint.
+- `flagship-daf-workbench.html` — production Daf workspace for the other flagship tractates.
+  Same chrome as Berakhot: shell, hidden `#xp` / `#masteryLink`, extras in `<details>`.
 - `diagnostic.html` + `placement.html` — placement flow (both entry points on the shell; each keeps
   a hidden `#status` element as a JS hook).
 - All 45 `*-arc.html` tractate/subject arcs — converted in one codemod (strip the non-uniform
@@ -108,10 +119,6 @@ touch it — no rush, do it opportunistically:
 - `academy-session.html` — the ROUTED production lesson (both the fnd-* introduce/practice/transfer
   scaffold and the server-scored slice sessions), migrated onto the shell + `.jla-choice` /
   `.jla-feedback` / `.jla-btn`. Logic unchanged; slice answers still server-scored.
-- `hebrew-decoding.html` — decoding ladder index: one next-move hero; full ladder in collapsed
-  `<details>`.
-- `decoding-lesson.html` — in-lesson glyph drill on the shell. Hidden `#xp`; lesson map in
-  collapsed `<details>` (“This lesson”); glyph card uses `.jla-glyph-card` / `.jla-glyph`.
 
 **Batch conversions:** when many pages share a structure (like the arcs), a codemod beats hand-editing
 — strip `<header>…</header>` with a regex, extract its non-brand `<a>` links into `data-links`, and
