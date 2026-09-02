@@ -2960,3 +2960,25 @@ full ladder”; CTA opens `decoding-lesson.html?lesson=letters-1`. Mid-ladder (2
 becomes **Continue decoding →** for letters-3. Review-due on letters-1 wins over the
 next new lesson (**Review what is due →**). Hub and Today remain the same one-next-move
 tone. Pedagogy/drill files untouched.
+
+## 2026-09-02 — Cursor: simplify decoding lesson to one next move
+
+Presentation-only follow-on to the Hebrew Decoding index. Pedagogy and item banks in
+`decoding-drills.js` untouched. Mastery / review / graph scheduling in `decoding-engine.js`
+untouched; only answer/feedback/completion chrome classes and learner-facing XP copy.
+
+- `decoding-lesson.html` now mounts the shared shell (`body.jla`, `jla-system.css`,
+  `#jla-shell-mount`, `seder-auth.js`, `capability-state.js`, `jla-shell.js`) with hub
+  fonts plus Noto Sans Hebrew. Dropped `deep-course.css`, the busy `<header>`, visible
+  XP, and the dual-column “THIS LESSON” aside.
+- First paint is a quiet lesson title + one glyph card + prompt + shuffled choices +
+  feedback + one Continue. The item map lives in a collapsed `<details>` (“This lesson”).
+  Shell `data-links` adds a contextual “The ladder” back to `hebrew-decoding.html` (not a
+  second CTA). `#xp` remains as a hidden hook.
+- `jla-system.css` adds reusable `.jla-glyph-card` / `.jla-glyph` / `.jla-hear`.
+- Engine presentation: answer buttons get `.jla-choice` (dual-class `correct`/`incorrect`
+  + `is-correct`/`is-wrong`); feedback is the item text without “+10 XP”; completion CTA
+  uses `.jla-btn.jla-btn-primary`. All existing selectors still written.
+- Test: `test/decoding-lesson.test.mjs` (shell + disclosure + hook guards; engine wiring).
+
+Verification pending this turn’s test run and browser pass.

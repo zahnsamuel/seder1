@@ -108,6 +108,10 @@ touch it — no rush, do it opportunistically:
 - `academy-session.html` — the ROUTED production lesson (both the fnd-* introduce/practice/transfer
   scaffold and the server-scored slice sessions), migrated onto the shell + `.jla-choice` /
   `.jla-feedback` / `.jla-btn`. Logic unchanged; slice answers still server-scored.
+- `hebrew-decoding.html` — decoding ladder index: one next-move hero; full ladder in collapsed
+  `<details>`.
+- `decoding-lesson.html` — in-lesson glyph drill on the shell. Hidden `#xp`; lesson map in
+  collapsed `<details>` (“This lesson”); glyph card uses `.jla-glyph-card` / `.jla-glyph`.
 
 **Batch conversions:** when many pages share a structure (like the arcs), a codemod beats hand-editing
 — strip `<header>…</header>` with a regex, extract its non-brand `<a>` links into `data-links`, and
