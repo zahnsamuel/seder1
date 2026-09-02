@@ -48,7 +48,7 @@ function renderFocus(journey, learner) {
   const nodeIndex = journey.nodes.indexOf(next);
   const phase = journey.phases.find((item) => nodeIndex >= item.start && nodeIndex <= item.end);
   const reviewCopy = due ? `${due} timely retrieval ${due === 1 ? 'is' : 'are'} due; take it after this source move.` : 'No retrieval is due first; this is the right new move.';
-  document.querySelector('#focus').innerHTML = `<span>YOUR CURRENT FOCUS</span><h2>${next.title}</h2><p>${next.summary}</p><small>${phase?.title || 'Canon journey'} · ${journey.completed} of ${journey.total} encounters earned · ${reviewCopy}</small><div><a class="focus-primary" href="canon-session.html?id=${encodeURIComponent(next.id)}">Continue this source →</a><a href="${due ? 'review.html' : 'weekly-review.html'}">${due ? 'Retrieve what is due →' : 'See retrieval rhythm →'}</a></div>`;
+  document.querySelector('#focus').innerHTML = `<span>YOUR CURRENT FOCUS</span><h2>${next.title}</h2><p>${next.summary}</p><small>${phase?.title || 'Canon journey'} · ${journey.completed} of ${journey.total} encounters earned · ${reviewCopy}</small><div><a class="focus-primary" href="daily-router.html">Continue on Today →</a><a href="canon-session.html?id=${encodeURIComponent(next.id)}">Work the Canon Journey here →</a><a href="${due ? 'review.html' : 'weekly-review.html'}">${due ? 'Retrieve what is due →' : 'See retrieval rhythm →'}</a></div>`;
 }
 
 Seder.api(`/api/learners/${learnerId}/journey`).then((response) => response.ok ? response.json() : Promise.reject()).then((journey) => {

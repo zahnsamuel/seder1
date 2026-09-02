@@ -14,3 +14,10 @@ main{max-width:1080px;margin:auto;padding:54px 26px 86px}.eyebrow{color:var(--go
 .context-link a,.quiet-link a{color:var(--jla-muted,#5e6978);font-size:.85rem;font-weight:600;text-decoration:none;border-bottom:1px solid transparent}
 .context-link a:hover,.quiet-link a:hover{color:var(--jla-accent-ink,#173b57);border-bottom-color:currentColor}
 .today-steps{margin-top:16px}
+
+/* Demoted 90-day day-flow: a quiet disclosure so it does not compete with the one Today. */
+.academy-direct { margin-top: 16px; }
+.academy-direct > summary { cursor: pointer; color: var(--jla-text-soft, #5e6978); font: 700 .82rem/1 var(--jla-font-body, Inter, system-ui, sans-serif); letter-spacing: .03em; padding: 8px 0; list-style: none; }
+.academy-direct > summary::-webkit-details-marker { display: none; }
+.academy-direct > summary::before { content: "\25B8  "; }
+.academy-direct[open] > summary::before { content: "\25BE  "; }
