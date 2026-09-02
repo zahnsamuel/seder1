@@ -3009,3 +3009,5 @@ Did not restyle yoma/taanit/megillah/etc. experimental workspaces.
   come from `seder-auth.js`.
 - Tests: `test/source-reader-ui.test.mjs`, `test/daf-workbench-ui.test.mjs`.
 
+Verification (same day, local `:4180`): reader `?collection=shema` is shell + SOURCE + Shema title + focus box + Hebrew `lang="he" dir="rtl"` (4 lines). Show translation / Focus this line / Other passages `<details>` work. No header XP. Skip-link is injected (`Skip to main content`). Berakhot workbench: DAF eyebrow, click line, Show translations, Record → “Good reading.”; sugya map / packet / other openings / protocol stay collapsed. Flagship Shabbat: same chrome, study-aid boundary, Sefaria inside Source packet. 390×844: single column, Record 45px tall. Experimental `yoma-daf-workbench.html` still has its old header + visible XP (intentionally untouched). Console only the usual favicon/sw/mathjax noise. Pedagogy files untouched.
+
