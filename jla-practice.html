@@ -4,35 +4,70 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Jewish Learning Academy · Practice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="jla-system.css">
   <style>
     /* Page-local layout only; all visual tokens come from jla-system.css (--jla-*). */
-    body { margin: 0; background: var(--jla-cream); color: var(--jla-ink); font-family: var(--jla-font-body); }
-    .practice { max-width: 680px; margin: auto; padding: 40px 24px 72px; }
-    .practice-head h1 { font-family: var(--jla-font-display); color: var(--jla-accent-ink); font-size: clamp(1.7rem, 4vw, 2.4rem); letter-spacing: -.04em; margin: 6px 0 8px; }
-    .teaching { color: var(--jla-muted); line-height: 1.55; margin: 0 0 22px; }
-    .source-card { margin: 20px 0 26px; }
-    .source-ref { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+    .jla-main > .jla-eyebrow { margin: 8px 0 14px; }
+    .practice-title {
+      font-family: var(--jla-font-display);
+      color: var(--jla-accent-ink);
+      font-size: clamp(1.35rem, 3vw, 1.7rem);
+      font-weight: 600;
+      letter-spacing: -.02em;
+      line-height: 1.2;
+      margin: 0 0 10px;
+      max-width: 640px;
+    }
+    .teaching {
+      color: var(--jla-text-soft);
+      font-size: .95rem;
+      line-height: 1.55;
+      margin: 0 0 22px;
+      max-width: 46ch;
+    }
+    .practice-drill {
+      max-width: 640px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+    }
+    .source-ref {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
     .source-ref b { font: 600 .95rem var(--jla-font-body); color: var(--jla-accent-ink); }
     .source-ref a { font-size: .78rem; font-weight: 700; text-decoration: none; color: var(--jla-accent); white-space: nowrap; }
-    .source-tr { color: var(--jla-muted); font-size: .95rem; line-height: 1.6; margin: 10px 0 0; }
-    .source-context { color: var(--jla-muted); font-size: .82rem; font-style: italic; margin: 12px 0 0; }
-    .prompt { color: var(--jla-accent-ink); font: 600 1.1rem/1.4 var(--jla-font-display); margin: 0 0 14px; }
-    .advance { display: flex; justify-content: flex-end; margin-top: 18px; }
-    .done-card { text-align: center; }
-    .done-card .jla-chip { margin: 14px auto 0; }
-    .loading, .lesson-error { color: var(--jla-muted); padding: 24px 0; }
+    .source-tr { color: var(--jla-text-soft); font-size: .95rem; line-height: 1.6; margin: 10px 0 0; }
+    .source-context { color: var(--jla-text-soft); font-size: .82rem; font-style: italic; margin: 12px 0 0; }
+    .prompt { color: var(--jla-accent-ink); font: 600 1.08rem/1.45 var(--jla-font-display); margin: 0; }
+    .practice-drill #continue { align-self: flex-start; margin-top: 4px; }
+    .practice-drill #continue:disabled {
+      opacity: .42;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    .loading, .lesson-error { color: var(--jla-text-soft); padding: 8px 0; }
+    @media (max-width: 720px) {
+      .practice-drill #continue { width: 100%; min-height: 44px; }
+      .source-ref { flex-wrap: wrap; }
+    }
   </style>
 </head>
 <body class="jla">
   <div id="jla-shell-mount"></div>
-  <main class="practice">
-    <div class="practice-head">
-      <span class="jla-eyebrow" id="eyebrow">Source practice</span>
-      <h1 id="title">Loading a source…</h1>
-      <p class="teaching" id="teaching"></p>
-    </div>
-    <div id="stage"><p class="loading">Finding a source to read…</p></div>
+  <main class="jla-main">
+    <p class="jla-eyebrow" id="eyebrow">Source practice</p>
+    <h1 id="title" class="practice-title">Loading a source…</h1>
+    <p class="teaching" id="teaching"></p>
+    <div id="stage" class="practice-drill"><p class="loading">Finding a source to read…</p></div>
   </main>
   <script src="seder-auth.js?v=2"></script>
   <script src="capability-state.js"></script>

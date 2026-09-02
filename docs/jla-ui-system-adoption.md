@@ -99,15 +99,17 @@ touch it — no rush, do it opportunistically:
   `jla-next-action.js` (not `daily-router.js`). Presentation in `jla-next-action.css`.
 - `source-reader.html` — full-text reader with the shell (keeps its own reader internals).
 - `diagnostic.html` + `placement.html` — placement flow (both entry points on the shell; each keeps
-  a hidden `#status` element as a JS hook).
+  a hidden `#status` element as a JS hook). Diagnostic results now have one primary CTA; the
+  foundation map sits in a collapsed `<details>`.
 - All 45 `*-arc.html` tractate/subject arcs — converted in one codemod (strip the non-uniform
   header, carry its contextual link into the shell via `data-links`, keep a hidden `#xp` hook).
 - `jla-practice.html` — reference lesson, wired to the real item bank
   (`GET`/`POST /api/jla/academy-session/:skillId`, server-scored, records capability evidence).
-  `?skill=` selects any of the 24 authored items.
+  `?skill=` selects any of the 24 authored items. One source window + one Continue.
 - `academy-session.html` — the ROUTED production lesson (both the fnd-* introduce/practice/transfer
-  scaffold and the server-scored slice sessions), migrated onto the shell + `.jla-choice` /
-  `.jla-feedback` / `.jla-btn`. Logic unchanged; slice answers still server-scored.
+  scaffold and the server-scored slice sessions), on the shell + `.jla-choice` /
+  `.jla-feedback` / `.jla-btn`. Quiet chip path with one `.is-current`; real-source links
+  in a collapsed `<details>`. Logic unchanged; slice answers still server-scored.
 - `hebrew-decoding.html` — decoding ladder index: one next-move hero; full ladder in collapsed
   `<details>`.
 - `decoding-lesson.html` — in-lesson glyph drill on the shell. Hidden `#xp`; lesson map in

@@ -2988,3 +2988,31 @@ item text only (no “+10 XP”); Continue enables. Continue advances to bet. Sh
 “The ladder” opens `hebrew-decoding.html` (one Start decoding CTA). Mobile 390px
 keeps one column and a full-width Continue. Hub and Today unchanged. Hidden `#xp`
 still updates (10 XP after a correct answer). `decoding-drills.js` untouched.
+
+## 2026-09-02 — Cursor: simplify academy foundation lesson surfaces to one next move
+
+Presentation-only follow-on to hub / Today / Hebrew Decoding / decoding-lesson (PRs #3–#5).
+Pedagogy, placement scoring, and server-scored academy-session flows untouched.
+
+- `academy-session.html` + `.css`: shared shell fonts + `jla-main`; title/why + quiet
+  introduce/practice/transfer chips (one `.is-current`) + one source card + one check +
+  one Continue. Dropped the two-column source/check grid and the equal-hero stepper.
+  Completion is one primary path CTA; “See your map” is a quiet text link. Real-source
+  links live in a collapsed `<details>`. CSS bridges to `--jla-*`.
+- `academy-session.js`: presentation classes only (`is-current` / `is-done` / `is-upcoming`
+  alongside the existing `current`/`done` toggles). Scaffold recording and
+  `/api/jla/academy-session/:skillId` scoring unchanged.
+- `jla-practice.html` + `.js`: same first-paint rhythm as decoding — title/why, one source
+  window, shuffled `.jla-choice`s, one disabled Continue that enables after the server
+  scores. Capability chip stays; no second destination menu.
+- `diagnostic.html` + `.css` + `.js`: intro hides when the first probe arrives so the
+  learner sees one current step. Results have one `.jla-btn` CTA; graph is a quiet link;
+  the layer grid is in `<details>`. Rhythm capture and `placement_completed` seeding
+  unchanged. Answer buttons also get `.jla-choice`.
+- Light `academy.html` / `.css`: hub fonts + `jla-main`; hero type scaled down; tokens
+  bridged to `--jla-*`. Progress-reference + one-next-foundation + “See all foundations”
+  disclosure left in place (academy.test guards).
+- Tests: `test/academy-session.test.mjs`, `test/jla-practice.test.mjs`,
+  `test/adaptive-diagnostic.test.mjs`.
+
+Verification: `node --test "test/*.test.mjs"` **561/561**. Browser check follows.
