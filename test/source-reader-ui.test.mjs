@@ -35,6 +35,8 @@ test('source reader is one line and one Continue on the shared shell', async () 
   assert.doesNotMatch(html, /textarea/i);
   assert.doesNotMatch(html, /id="focus"/);
   assert.doesNotMatch(html, /chatbot|ChatGPT|ask the assistant/i);
+  assert.match(html, /id="complete"/);
+  assert.match(html, /id="complete"[^>]*hidden/);
   assert.match(html, /id="connection"/);
   assert.match(html, /source-reader\.js/);
   const authOrder = html.indexOf('seder-auth.js');
@@ -64,4 +66,5 @@ test('source reader JS is one line at a time with no free response', async () =>
   assert.match(css, /--jla-ink|--jla-blue/);
   assert.match(css, /min-height:\s*44px/);
   assert.match(css, /@media \(max-width: 720px\)/);
+  assert.match(css, /\.reader-complete\[hidden\]/);
 });
