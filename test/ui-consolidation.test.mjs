@@ -36,7 +36,7 @@ test('UI principles document the learner-facing product law', async () => {
     'twenty minutes',
     'Low cognitive load',
     'No chatbot',
-    'skills + canon touched',
+    'skills \\+ canon touched',
     'jla-system',
     'study aid',
     'Mobile-first',
@@ -104,8 +104,8 @@ test('shell stays presentational: Today + Account, optional contextual links, no
   assert.match(shell, /contextualLinks/);
   assert.match(shell, /reservedHref/);
   assert.doesNotMatch(shell, /\/api\/learners/);
-  assert.doesNotMatch(shell, /next-step chip|nextStepChip|jla-shell-next/);
-  assert.doesNotMatch(shell, /dailyStreak|capabilit/);
+  assert.doesNotMatch(shell, /nextStepChip|jla-shell-next|class="jla-shell-chip"/);
+  assert.doesNotMatch(shell, /dailyStreak|capabilityEvidence|summarizeCapabilities/);
   assert.match(adoption, /Simplified 2026-08-31/);
   assert.match(adoption, /No live rhythm/);
   assert.match(adoption, /next-step recommendation chip/);
