@@ -8,6 +8,7 @@ import { supabaseConfig, verifySupabaseAccessToken } from './data/supabase-adapt
 import { deleteHostedLearnerData, getHostedLearner, recordHostedEvent } from './data/supabase-learner-repository.mjs';
 import { initSqlite, sqliteEnabled, issueToken, verifyToken, revokeTokens, closeSqlite } from './data/sqlite-store.mjs';
 import { loadJlaAcademySession, checkJlaAcademyChoice } from './jla-academy-session.js';
+import { loadArc, checkArcAnswer } from './data/arc-session.mjs';
 import { canMasterJourneyStage, canonJourney, journeyStatus, nextGemaraArc, nextGraphPractice, nextJourneyRecommendation, remediationFor, sourceReviewItems } from './data/curriculum-engine.mjs';
 import { explainRecommendation, whySentence } from './data/recommendation-why.mjs';
 import { foundationRecommendation, gemaraYearRecommendation, moedExpansionRecommendation } from './data/term-recommendations.mjs';
@@ -705,6 +706,31 @@ async function handleApi(request, response, url) {
     sendJson(response, 201, { correct: result.correct, feedback: result.feedback, evidenceStatement: result.evidencePreview });
     return true;
   }
+  // Phase-4 arc template: one endpoint serves any tractate's arc from data/arcs.json with the answer
+  // key stripped (interactive arcs), so arc.html?tractate=X reads ONE file instead of 45. Scoring is
+  // authoritative at /answer below — correct/feedback never reach the browser.
+  const arcMatch = url.pathname.match(/^\/api\/arc\/([a-z0-9-]+)$/);
+  if (request.method === 'GET' && arcMatch) {
+    const { arcs } = JSON.parse(await fs.readFile(join(root, 'data', 'arcs.json'), 'utf8'));
+    try { sendJson(response, 200, loadArc({ tractate: arcMatch[1], arcs })); }
+    catch { sendJson(response, 404, { error: 'No arc for that tractate.' }); }
+    return true;
+  }
+  const arcAnswerMatch = url.pathname.match(/^\/api\/arc\/([a-z0-9-]+)\/answer$/);
+  if (request.method === 'POST' && arcAnswerMatch) {
+    const tractate = arcAnswerMatch[1];
+    const { arcs } = JSON.parse(await fs.readFile(join(root, 'data', 'arcs.json'), 'utf8'));
+    const body = await readJsonBody(request);
+    let result;
+    try { result = checkArcAnswer({ tractate, sessionIndex: body.sessionIndex, choiceId: body.choiceId, arcs }); }
+    catch { sendJson(response, 400, { error: 'Unknown choice for this arc session.' }); return true; }
+    const access = await learnerAccess(request);
+    const event = { type: 'answer_submitted', skillId: result.skill, correct: result.correct, competency: 'sourceReasoning', sourceContext: tractate };
+    if (access.hosted) await recordHostedEvent(access.user, access.token, event);
+    else await recordLearnerEvent(root, access.id, event);
+    sendJson(response, 201, { correct: result.correct, feedback: result.feedback });
+    return true;
+  }
   const eventMatch = url.pathname.match(/^\/api\/learners\/([a-zA-Z0-9_-]+)\/events$/);
   if (request.method === 'POST' && eventMatch) {
     const event = await readJsonBody(request);
@@ -764,7 +790,9 @@ createServer(async (request, response) => {
     // The academy answer key must not be reachable over HTTP — it is served only via the
     // key-stripped /api/jla/academy-session endpoint. (Tests and the link checker read it from
     // the filesystem, not the network, so this does not affect them.)
-    if (relativePath === 'data/jla-academy-sessions.json') { response.writeHead(404); response.end('Not found'); return; }
+    // data/arcs.json carries interactive-arc answer keys (correct/feedback); serve it only via the
+    // key-stripped /api/arc endpoints, never as a static file.
+    if (relativePath === 'data/jla-academy-sessions.json' || relativePath === 'data/arcs.json') { response.writeHead(404); response.end('Not found'); return; }
     const target = normalize(join(root, relativePath));
     if (!target.startsWith(root) || !existsSync(target)) { response.writeHead(404); response.end('Not found'); return; }
     const ext = extname(target);
