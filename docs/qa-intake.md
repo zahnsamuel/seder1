@@ -2953,3 +2953,10 @@ Presentation-only. Pedagogy, `decoding-drills.js` items, and `decoding-engine.js
   `seder-decoding-review:`. First-visit / continue / review-due change only the hero.
 - Test: `test/decoding-index.test.mjs` (shell + disclosure guards; start / continue /
   review-due picker).
+
+Verification (same day): `node --test "test/*.test.mjs"` **552/552**. Browser (`:4180`):
+first visit is one navy **Start decoding →** + `0 / 9 lessons` + collapsed “See the
+full ladder”; CTA opens `decoding-lesson.html?lesson=letters-1`. Mid-ladder (2 done)
+becomes **Continue decoding →** for letters-3. Review-due on letters-1 wins over the
+next new lesson (**Review what is due →**). Hub and Today remain the same one-next-move
+tone. Pedagogy/drill files untouched.
