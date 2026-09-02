@@ -2896,3 +2896,43 @@ resolved in code, not just parked; the sign-in-only lever I described was taken.
 - Regenerated `data/foundation-content-map.json` with the canonical builder after the detached
   baseline exposed drift: 119 units and all 49 foundational skills now have mapped content.
 - Verification: full required suite passes, 360 tests / 0 failures.
+
+## 2026-09-02 — Cursor: first learner-UI consolidation pass
+
+Presentation-only pass on hub + Today. Engine / scoring / next-action math untouched.
+
+- Added `docs/ui-principles.md` (product law in our voice: one next task, system-chosen
+  action, evidence over vanity XP, ~20 min rhythm, low cognitive load, no chatbot primary
+  UI, progress = skills + canon touched, cream/navy/gold via `jla-system`, study aid not
+  pesak, mobile-first). Did not paste Math Academy book text.
+- Hub (`seder.html` / `seder.css` / chip-class tweak in `seder.js`): one Today CTA, `.jla-btn`
+  / `.jla-card` / `.jla-chip`, mobile-first stack. Preserved hooks `#xp` (hidden),
+  `#nextAction`, `#capChips`, `#heroCopy`, `#levelLabel`, `#levelCopy`, `#todayTitle`,
+  `#todayCopy`, `#streak`, `#streakLabel`, `#sources`, `#sourcesLabel`, `.hero` (onboarding
+  insertion), and auth script order. `data-links` JSON kept for hosted-sign-in tests.
+- Slimmed `seder.css`: dropped dead `.journey-map` / `.why` / `.depth` rules; bridged
+  palette to `--jla-*`. **Kept `header` rules** — they are not dead. `privacy.html`,
+  `terms.html`, `support.html`, `sign-in.html`, `goals.html`, and `reflection.html` still
+  load `seder.css` with a real `<header>`.
+- Today (`daily-router.html` + `jla-next-action.css`): same Fraunces/Inter font links as
+  the hub; one `[data-jla-next-action]` hero; mobile CTA full-width and `min-height: 44px`.
+  Did not load or reattach `daily-router.js` (orphaned; DOM targets gone). Left
+  `jla-next-action.js` logic alone.
+- Shell: still brand · page label · Today · Account. Optional `data-links` now render only
+  as safe contextual extras (Mastery, etc.). Today / Account / next-step-shaped links are
+  filtered so they cannot compete with the primary CTA. No live streak/capability chips
+  returned. Updated `docs/jla-ui-system-adoption.md` (it had drifted: still described the
+  pre-2026-08-31 live-state + next-step chip shell).
+- Tests: `test/ui-consolidation.test.mjs` plus the existing hub/Today guards.
+
+Verified hunches before editing: hub already on `body.jla` + `#jla-shell-mount`; Today
+already uses `[data-jla-next-action]` + `jla-next-action.js`, not `daily-router.js`;
+shell already simplified.
+
+Verification (same day): `node --test "test/*.test.mjs"` **549/549**; `node scripts/smoke-http.mjs`
+all listed routes 200. Browser (local `:4180`): first-time hub shows one navy Today CTA
+(`Find my starting point →`); click lands on Today with one hero (`Start this step →`);
+mobile stacks, CTA full-width; shell is brand · label · Today · Account (Berakhot arc
+adds contextual Mastery only); skip-link + focus-visible present; `privacy.html` header
+via leftover `seder.css` rules still styled. First-visit onboarding still inserts a second
+“Start today’s study” link after `.hero` — pre-existing, hook preserved, out of this pass.

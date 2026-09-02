@@ -37,8 +37,11 @@
 .jla-next-action__cta {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   margin-top: 8px;
+  min-height: 44px;
+  box-sizing: border-box;
   background: var(--jla-accent-ink);
   color: var(--jla-on-dark);
   text-decoration: none;
@@ -50,3 +53,15 @@
 }
 .jla-next-action__cta:hover { transform: translateY(-1px); box-shadow: var(--jla-shadow-2); }
 .jla-next-action__cta:focus-visible { outline: 3px solid var(--jla-accent); outline-offset: 2px; }
+
+@media (max-width: 720px) {
+  [data-jla-next-action] {
+    max-width: none;
+    width: 100%;
+    padding: 24px 18px;
+  }
+  .jla-next-action__cta {
+    width: 100%;
+    min-height: 44px;
+  }
+}
