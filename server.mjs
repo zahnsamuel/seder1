@@ -14,6 +14,7 @@ import { foundationRecommendation, gemaraYearRecommendation, moedExpansionRecomm
 import { keyPrerequisiteRemediation, estimateFrontierFromDiagnostic, nextDiagnosticProbe } from './data/knowledge-graph.mjs';
 import { computeGraphPilotAnalytics } from './data/pilot-analytics.mjs';
 import { normalizeNextAction, selectNextAction } from './data/next-action.mjs';
+import { isTestLearner } from './scripts/scrub-test-learners.mjs';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const port = Number(process.env.PORT || 4180);
@@ -581,6 +582,38 @@ async function handleApi(request, response, url) {
   // server to read across learners without a service-role key, which it intentionally never holds
   // (see data/supabase-adapter.mjs). Real hosted-pilot aggregate reporting needs a separate
   // admin-side tool run with actual Supabase dashboard access, not this endpoint.
+  if (url.pathname === '/api/admin/scrub-test-learners' && request.method === 'POST') {
+    // Operator cleanup of test-artifact accounts (go-live-*, Learner A/B, Demo …) — the network
+    // equivalent of scripts/scrub-test-learners.mjs, for operators without Render Shell access.
+    // Admin-token-gated exactly like /api/admin/analytics; isTestLearner spares every real learner
+    // AND the demo fixture, so even a leaked token can only remove test-pattern rows. Default is a
+    // DRY RUN; ?confirm=1 deletes. Optional repeatable ?name=/?id= target extras explicitly.
+    if (sqliteEnabled()) {
+      const admin = process.env.SEDER_ADMIN_TOKEN;
+      if (!admin) { sendJson(response, 403, { error: 'Set SEDER_ADMIN_TOKEN to enable operator cleanup.' }); return true; }
+      const token = request.headers.authorization?.replace(/^Bearer\s+/i, '');
+      if (token !== admin) { sendJson(response, 401, { error: 'Operator (admin) authorization required.' }); return true; }
+    }
+    const names = url.searchParams.getAll('name');
+    const ids = url.searchParams.getAll('id');
+    const confirm = url.searchParams.get('confirm') === '1';
+    const all = await listLearnersFull(root);
+    const matches = all.filter((learner) => isTestLearner(learner, { names, ids }));
+    let deleted = 0;
+    if (confirm) {
+      for (const learner of matches) {
+        const existed = await deleteLearner(root, learner.id);
+        if (existed) { revokeTokens(learner.id); deleted += 1; }
+      }
+    }
+    sendPrivateJson(response, 200, {
+      dryRun: !confirm,
+      scanned: all.length,
+      matched: matches.map((learner) => ({ id: learner.id, name: (learner.profile && learner.profile.displayName) || '' })),
+      deleted
+    });
+    return true;
+  }
   if (url.pathname === '/api/admin/analytics') {
     if (supabaseConfig().configured) {
       sendJson(response, 200, { available: false, reason: 'Aggregate analytics only works in local/demo mode. In hosted mode, row-level security correctly prevents this server from reading across learners without a service-role key it does not hold.' });
