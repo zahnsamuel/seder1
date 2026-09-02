@@ -3015,4 +3015,17 @@ Pedagogy, placement scoring, and server-scored academy-session flows untouched.
 - Tests: `test/academy-session.test.mjs`, `test/jla-practice.test.mjs`,
   `test/adaptive-diagnostic.test.mjs`.
 
-Verification: `node --test "test/*.test.mjs"` **561/561**. Browser check follows.
+Verification (same day): `node --test "test/*.test.mjs"` **562/562**. Browser (`:4180`):
+academy-session first paint is title/why + one current Introduce chip + Deuteronomy
+source card + one Show-me check + disabled Continue; completion card stays hidden
+until finish. Introduce → Practice keeps a single current chip. Slice
+`?skill=source-family-001` hides the stepper, shows Genesis 1:1 Hebrew + three
+choices + Continue to Today. Practice page matches (one source, one disabled
+Continue that enables after the server scores). Diagnostic shows one probe only
+(intro hidden; results/rhythm not leaked). Academy remains a progress reference
+with one next foundation behind the existing Study/Demonstrate path. Mobile 390px
+is a single column with a full-width Continue. Hub and Today unchanged.
+
+A first browser pass found `display:flex` beating `[hidden]` (completion + results
+leaked). Fixed with `[hidden] { display: none !important }` on those panels; re-shot
+after cache-bust (`academy-session.css?v=2`, `diagnostic.css?v=2`).
