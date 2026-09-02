@@ -3011,3 +3011,22 @@ Did not restyle yoma/taanit/megillah/etc. experimental workspaces.
 
 Verification (same day, local `:4180`): reader `?collection=shema` is shell + SOURCE + Shema title + focus box + Hebrew `lang="he" dir="rtl"` (4 lines). Show translation / Focus this line / Other passages `<details>` work. No header XP. Skip-link is injected (`Skip to main content`). Berakhot workbench: DAF eyebrow, click line, Show translations, Record → “Good reading.”; sugya map / packet / other openings / protocol stay collapsed. Flagship Shabbat: same chrome, study-aid boundary, Sefaria inside Source packet. 390×844: single column, Record 45px tall. Experimental `yoma-daf-workbench.html` still has its old header + visible XP (intentionally untouched). Console only the usual favicon/sw/mathjax noise. Pedagogy files untouched.
 
+## 2026-09-02 — Cursor: source reader is one line, one ask, no typing
+
+Sam rejected PR #8 reader density: too much on screen, free response, many lines at once.
+Source-reader only. Daf workbench left as shipped.
+
+- First paint is decoding-shaped: eyebrow + title + one Hebrew line + optional Show
+  translation + the line’s reading move as the single prompt + one Continue.
+  Other passages + Sefaria stay in collapsed `<details>`. Connection copy waits for
+  the complete screen.
+- Removed every textarea (per-line private note / Save line note, `#reading-reflection`).
+  Completion fires `source_reading_completed` after the last line with no typed
+  reflection. Viewed-line + complete flags still persist.
+- Dropped `source-reader-language.js` from this page (lens / save-word / extra action
+  row). Hebrew `lang="he"` `dir="rtl"` stays on the current line. Curriculum still
+  comes from `/api/curriculum/non-gemara-source-reader`.
+- Tests: `test/source-reader-ui.test.mjs`, `source-reader-accessibility`,
+  `source-reader-completion`, `language-support`.
+
+

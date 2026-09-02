@@ -101,9 +101,9 @@ touch it — no rush, do it opportunistically:
   `<details>`.
 - `decoding-lesson.html` — in-lesson glyph drill on the shell. Hidden `#xp`; lesson map in
   collapsed `<details>` (“This lesson”); glyph card uses `.jla-glyph-card` / `.jla-glyph`.
-- `source-reader.html` — full-text reader: shell + one passage; collection picker in collapsed
-  `<details>` (“Other passages”). Translation, focus, Hebrew `lang`/`dir`, and language-lens
-  controls stay in the line. Notebook / Mastery map are shell contextual links.
+- `source-reader.html` — one line at a time on the shell: Hebrew + optional translation + one
+  reading-move prompt + Continue. No textareas. Other passages and Sefaria live in collapsed
+  `<details>`. Notebook / Mastery map are shell contextual links.
 - `daf-workbench.html` — Berakhot Daf workspace on the shell. Hidden `#xp`; sugya map, source
   packet, other openings, and reading protocol in collapsed `<details>`. Record + translation
   stay first-paint.

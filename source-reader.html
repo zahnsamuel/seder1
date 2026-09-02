@@ -15,22 +15,39 @@
   <main class="jla-main">
     <p class="jla-eyebrow">SOURCE</p>
     <h1 id="title" class="reader-title">Loading source</h1>
-    <p id="connection" class="reader-connection"></p>
-    <section id="focus" class="reading-focus" aria-live="polite">
-      <small>FOCUS IN THE SOURCE</small>
-      <strong>Choose a line to see its reading move.</strong>
-      <p>Notice who speaks, what’s claimed, and what kind of source it is.</p>
+
+    <section id="drill" class="reader-drill" aria-live="polite">
+      <div class="reader-status">
+        <span id="line-ref"></span>
+        <div class="jla-meter reader-meter" aria-hidden="true"><i id="bar"></i></div>
+        <small id="count"></small>
+      </div>
+      <article id="reader" class="reader-source jla-card">
+        <p id="hebrew" class="line-hebrew" lang="he" dir="rtl"></p>
+        <p id="translation" class="line-translation" hidden></p>
+        <button type="button" id="toggleTranslation" class="jla-hear">Show translation</button>
+      </article>
+      <p id="prompt" class="reader-prompt"></p>
+      <button id="continue" class="jla-btn jla-btn-primary" type="button">Continue →</button>
     </section>
-    <section id="reader" class="reader jla-card"></section>
+
+    <section id="complete" class="reader-complete" hidden>
+      <p class="jla-eyebrow">PASSAGE COMPLETE</p>
+      <h2>You read each line, one move at a time.</h2>
+      <p id="connection"></p>
+      <a id="next-unit" class="jla-btn jla-btn-primary" href="daily-router.html">Carry this source into the next unit →</a>
+      <a class="source-link" href="daily-router.html">Return to Today →</a>
+    </section>
+
     <details class="reader-passages">
       <summary>Other passages</summary>
       <nav id="collection-nav"></nav>
+      <a id="sefaria" class="reader-sefaria" target="_blank" rel="noreferrer">Open the full source at Sefaria →</a>
     </details>
   </main>
   <script src="seder-auth.js?v=2"></script>
   <script src="capability-state.js"></script>
   <script src="jla-shell.js"></script>
   <script src="source-reader.js"></script>
-  <script src="source-reader-language.js"></script>
 </body>
 </html>
