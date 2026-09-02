@@ -21,7 +21,10 @@ test('academy days require two correct source checks before their mastery marker
 test('academy makes daily source evidence, rather than opening a link, the unlock condition', async () => {
   const [academy, evidence, html] = await Promise.all(['academy.js', 'academy-evidence.js', 'academy-evidence.html'].map((file) => readFile(file, 'utf8')));
   assert.match(academy, /academy-day-/);
-  assert.match(academy, /Demonstrate today/);
+  // The demonstrate/evidence step is now the second node of the today path ("Demonstrate the move →"
+  // linking to academy-evidence). Still the unlock condition, not a plain open-link.
+  assert.match(academy, /Demonstrate the move/);
+  assert.match(academy, /academy-evidence\.html\?day=/);
   assert.match(evidence, /academy day \$\{day\} check/);
   assert.match(evidence, /stage_mastered/);
   assert.match(evidence, /academy-source-maps/);

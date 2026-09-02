@@ -64,7 +64,7 @@ if (!health) {
     `persistence: ${health.persistence}${hostedPersistence ? '' : ' — a real pilot must run in hosted mode, not local (shared demo learner)'}`);
   // smoke a few learner-facing routes
   const routes = [
-    '/seder.html', '/demo.html', '/sign-in.html', '/placement.html', '/daily-router.html', '/path.html',
+    '/seder.html', '/demo.html', '/sign-in.html', '/diagnostic.html', '/daily-router.html', '/path.html',
     '/lab.html?tractate=shabbat', '/profile.html', '/privacy.html', '/terms.html', '/support.html'
   ];
   const bad = [];
@@ -86,7 +86,7 @@ if (!health) {
     } catch { missingTrust.push(route); }
   }
   add('Trust pages contain required learner promises', missingTrust.length === 0 ? 'pass' : 'fail', missingTrust.length === 0 ? `${trustPages.length}/${trustPages.length} checked` : `incomplete: ${missingTrust.join(', ')}`);
-  const a11yRoutes = ['/seder.html', '/sign-in.html', '/placement.html', '/daily-router.html', '/path.html', '/profile.html'];
+  const a11yRoutes = ['/seder.html', '/sign-in.html', '/diagnostic.html', '/daily-router.html', '/path.html', '/profile.html'];
   const a11yBad = [];
   for (const route of a11yRoutes) {
     try {

@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Jewish Learning Academy · Academy Foundation</title>
   <link rel="stylesheet" href="academy-session.css">
+  <link rel="stylesheet" href="jla-system.css">
 </head>
-<body>
-  <header><a href="seder.html">Jewish Learning Academy</a><span>JEWISH LEARNING ACADEMY</span><a href="path.html">My Path</a></header>
+<body class="jla">
+  <div id="jla-shell-mount" data-links='[{"label":"My Path","href":"path.html"}]'></div>
   <main>
     <section class="hero"><p class="eyebrow">ONE SKILL · ONE SOURCE · 20 MINUTES</p><h1 id="title">Preparing your foundation session</h1><p id="statement"></p><p class="why" id="why"></p></section>
 
@@ -32,7 +33,7 @@
         <h2 id="check-title"></h2>
         <div id="choices" class="choices"></div>
         <p id="feedback" role="status" aria-live="polite"></p>
-        <button id="advance" type="button" disabled>Continue →</button>
+        <button id="advance" class="jla-btn jla-btn-primary" type="button" disabled>Continue →</button>
       </div>
     </section>
 
@@ -40,11 +41,11 @@
       <p class="label">SKILL PRACTISED ACROSS THE CANON</p>
       <h2 id="complete-title"></h2>
       <p id="complete-copy"></p>
-      <div class="complete-actions"><a class="primary" href="path.html">Back to your path →</a><a class="secondary" href="my-graph.html">See your map</a></div>
+      <div class="complete-actions"><a class="jla-btn jla-btn-primary" href="path.html">Back to your path →</a><a class="jla-btn jla-btn-ghost" href="my-graph.html">See your map</a></div>
     </section>
 
     <section class="real-content" id="real-content" aria-labelledby="real-content-title" hidden><p class="label">PRACTICE THIS SKILL IN REAL SOURCES</p><h2 id="real-content-title">Where this move shows up across the canon</h2><ul id="real-content-list" class="real-content-list"></ul></section>
   </main>
-  <script src="seder-auth.js?v=2"></script><script src="academy-session.js?v=2"></script><script src="feedback.js?v=1"></script>
+  <script src="seder-auth.js?v=2"></script><script src="capability-state.js"></script><script src="jla-shell.js"></script><script src="academy-session.js?v=2"></script><script src="feedback.js?v=1"></script>
 </body>
 </html>

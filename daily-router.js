@@ -16,7 +16,13 @@ function renderSessionPlan(primaryUrl, needsPlacement = false, isFoundation = fa
   }
   const target = $('#session-steps');
   if (!target) return;
-  target.innerHTML = steps.map(([number, time, title, copy, url], index) => `<article class="session-step ${index === 1 && !needsPlacement ? 'is-primary' : ''}"><span class="session-time">${number} · ${time}</span><h3>${title}</h3><p>${copy}</p><a href="${url}">Open →</a></article>`).join('');
+  // Spatial path (jla-system.css): the session reads as a climbable sequence with
+  // one clear "current" node rather than a flat list of cards. Same steps, same URLs.
+  const currentIndex = needsPlacement ? 0 : (steps.length > 1 ? 1 : 0);
+  target.innerHTML = `<ol class="jla-path">` + steps.map(([number, time, title, copy, url], index) => {
+    const state = index === currentIndex ? 'is-current' : 'is-upcoming';
+    return `<li class="jla-node ${state}"><span class="marker">${number}</span><span class="kicker">${time}</span><h3>${title}</h3><p>${copy}</p><a class="open" href="${url}">Open →</a></li>`;
+  }).join('') + `</ol>`;
   const duration = $('#session-duration');
   if (duration) duration.textContent = isFoundation ? '20' : String(minutes);
 }

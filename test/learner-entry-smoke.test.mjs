@@ -4,7 +4,7 @@ import { access, readFile } from 'node:fs/promises';
 
 const pages = [
   'seder.html',
-  'placement.html',
+  'diagnostic.html',
   'daily.html',
   'daily-router.html',
   'path.html',
@@ -22,6 +22,6 @@ test('learner entry and first Gemara surfaces remain present', async () => {
     readFile(new URL('../flagship-daf-workbench.html', import.meta.url), 'utf8')
   ]);
   assert.match(daily, /daily-router\.html/);
-  assert.match(path, /berakhot-deep\.html|placement\.html|daily-router\.html/);
+  assert.match(path, /berakhot-deep\.html|diagnostic\.html|daily-router\.html/);
   assert.match(flagship, /id="lines"|id='lines'/);
 });

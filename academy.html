@@ -6,13 +6,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="academy.css">
+  <link rel="stylesheet" href="jla-system.css">
 </head>
-<body>
-  <header><a href="seder.html">Jewish Learning Academy</a><span>90-DAY ACADEMY</span><a href="daily-router.html">Today</a><a href="integrated-path.html">8-week journey</a><a href="seder-curriculum.html">Full map</a><strong id="xp">0 XP</strong></header>
+<body class="jla">
+  <div id="jla-shell-mount" data-links='[{"label":"Return to Today","href":"daily-router.html"},{"label":"Account","href":"profile.html"}]'></div>
+  <strong id="xp" hidden>0 XP</strong>
   <main>
     <section class="hero"><p class="eyebrow">A BEGINNING THAT LEADS SOMEWHERE</p><h1>Ninety days into one Jewish literacy.</h1><p>Gemara is the reasoning spine. Hebrew, Torah, prayer, history, thought, and ethics are not side quests: they give you more source forms in which to use the same reading habits.</p><div id="placement" class="placement"></div></section>
-    <section class="today"><p class="eyebrow">YOUR NEXT SESSION</p><div id="todayCard"></div></section>
-    <section><div class="section-heading"><div><p class="eyebrow">NEW HERE? START BEFORE DAY ONE</p><h2>Foundations before you read.</h2></div><p>Learn to decode Hebrew, then the reading habits every session assumes — orientation and the independent-learner moves. Short sessions; take them before the ninety days, or whenever a source stops making sense.</p></div><div class="phases"><article class="phase"><strong>01</strong><div><h3>Read Hebrew from scratch</h3><p>Recognize each letter and its sound, then the vowels, then blend them into words — the alef-bet decoding ladder, no prior Hebrew assumed.</p></div><a href="hebrew-decoding.html">Begin →</a></article><article class="phase"><strong>02</strong><div><h3>Reading Orientation</h3><p>Find the primary text, the voices, the seams, and the question — then the signal words that carry them, on real lines of Gemara, Mishnah, and Avot.</p></div><a href="foundation-reading-orientation.html">Begin →</a></article><article class="phase"><strong>03</strong><div><h3>Reading on Your Own</h3><p>Check a translation instead of leaning on it, restate a case, give each side its strongest form, and choose a next move you can defend.</p></div><a href="foundation-independent-reading.html">Begin →</a></article></div></section>
+    <section class="today"><p class="eyebrow">PROGRESS REFERENCE</p><div id="todayCard"></div></section>
+    <section class="foundations"><div class="section-heading"><div><p class="eyebrow">BUILD THE NEXT SKILL</p><h2>Your next foundation.</h2></div><p>One foundation at a time, chosen from the evidence already in your record. Take it before the ninety days, or whenever a source stops making sense.</p></div><div id="foundationNext" class="phases"></div><details class="foundation-library"><summary>See all foundations</summary><div id="foundationAll" class="phases"></div></details></section>
   </main>
-  <script src="seder-auth.js?v=2"></script><script src="academy.js"></script>
+  <script src="seder-auth.js?v=2"></script><script src="capability-state.js"></script><script src="jla-shell.js"></script><script src="academy.js"></script>
 </body></html>

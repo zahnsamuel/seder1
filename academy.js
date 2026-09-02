@@ -48,16 +48,41 @@ function openDay(day) { opened.add(day); localStorage.setItem(openedKey, JSON.st
 function phaseForDay(day) { return phases.find((phase) => day >= phase.start && day <= phase.end) || phases.at(-1); }
 function whyNext(day) { return day <= 30 ? 'The first month establishes orientation, argument maps, purpose, and transfer.' : day <= 60 ? 'The second month carries those habits across Shas and into source chains, community, and comparison.' : 'The third month turns evidence, retrieval, and independent source work into a durable practice.'; }
 
+// Progressive foundations: show one at a time, keyed to each foundation's REAL completion signal.
+// Decoding writes a localStorage flag (seder-decoding-done); the other two record server stages via
+// course-engine.js. (A uniform completedStages.has(id) check would leave decoding stuck as "next"
+// forever, since the decoding flow never records a stage — verified before wiring this.)
+const foundations = [
+  { id: 'foundation-hebrew-decoding', number: '01', title: 'Read Hebrew from scratch', copy: 'Recognize each letter and vowel, then blend them into words — no prior Hebrew assumed.', url: 'hebrew-decoding.html', done: () => { try { return Boolean(localStorage.getItem('seder-decoding-done')); } catch { return false; } } },
+  { id: 'foundation-reading-orientation', number: '02', title: 'Find your place in a source', copy: 'Identify the primary text, its voices, the seams, and the question it is asking.', url: 'foundation-reading-orientation.html', done: (stages) => stages.has('foundation-reading-orientation') },
+  { id: 'foundation-independent-reading', number: '03', title: 'Read with growing independence', copy: 'Check a translation rather than lean on it, restate a case, and defend a next move.', url: 'foundation-independent-reading.html', done: (stages) => stages.has('foundation-independent-reading') }
+];
+function renderFoundationCard(step, action = 'Begin') {
+  return `<article class="phase"><strong>${step.number}</strong><div><h3>${step.title}</h3><p>${step.copy}</p></div><a href="${step.url}">${action} →</a></article>`;
+}
+function renderFoundations(stages) {
+  if (!$('#foundationNext')) return;
+  const next = foundations.find((step) => !step.done(stages));
+  $('#foundationNext').innerHTML = next
+    ? renderFoundationCard(next)
+    : `<article class="phase complete"><strong>✓</strong><div><h3>Your foundations are in place.</h3><p>Continue with today’s recommended source.</p></div></article>`;
+  $('#foundationAll').innerHTML = foundations.map((step) => renderFoundationCard(step, step.done(stages) ? 'Review' : 'Open')).join('');
+}
+
 Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? response.json() : null).then((learner) => {
   const completedStages = new Set(learner?.completedStages || []);
   const day = currentDay(completedStages), [title, url] = plan[day - 1];
   const academyComplete = completedStages.size >= plan.length && plan.every((_, index) => completedStages.has(dayStage(index + 1)));
   $('#xp').textContent = `${learner?.xp || 0} XP`;
   $('#placement').innerHTML = learner?.placement?.completedAt ? '<b>Starting point saved.</b> Your source evidence—not this placement alone—will determine what becomes secure.' : '<b>Choose a starting point first.</b> A short adaptive placement lets Jewish Learning Academy begin at your actual reading level. <a href="diagnostic.html">Find my starting point →</a>';
+  renderFoundations(completedStages);
   if (academyComplete) {
-    $('#todayCard').innerHTML = `<small>90 DAYS EARNED · ${completedStages.size} MASTERY MARKERS</small><h2>You have completed the Academy foundation.</h2><p>You now move from a fixed beginning into an evidence-led canon journey. Jewish Learning Academy will recommend a next move from your demonstrated work, not from a separate track.</p><div class="today-actions"><a class="prove" href="academy-next.html">Choose my next mastery cycle →</a><a href="study-record.html">Open my study record →</a></div><small class="mastery-note">Completion is a beginning: retrieve what fades, deepen what is ready, and keep one accountable question in view.</small>`;
+    $('#todayCard').innerHTML = `<small>90 DAYS EARNED · ${completedStages.size} MASTERY MARKERS</small><h2>You have completed the Academy foundation.</h2><p>You now move from a fixed beginning into an evidence-led canon journey. Jewish Learning Academy will recommend a next move from your demonstrated work, not from a separate track.</p><div class="today-actions"><a class="prove" href="academy-next.html">Choose my next mastery cycle →</a></div><p class="quiet-link"><a href="study-record.html">Open my study record</a></p><small class="mastery-note">Completion is a beginning: retrieve what fades, deepen what is ready, and keep one accountable question in view.</small>`;
   } else {
-    $('#todayCard').innerHTML = `<small>DAY ${day} OF ${plan.length} · ${completedStages.size} MASTERY MARKERS</small><h2>${title}</h2><p>${whyNext(day)}</p><p class="why-next"><b>Why this is next:</b> ${phaseForDay(day).milestone}</p><div class="today-actions"><a id="openToday" href="${url}">1. Study today’s source →</a><a class="prove" href="academy-evidence.html?day=${day}">2. Demonstrate today’s move →</a></div><small class="mastery-note">Tomorrow opens after two source checks are correct. On Day 7, 14, and each weekly boundary, one check is an unfamiliar-source transfer.</small>`;
+    // One clear starting action (Study, the current node) without hiding the pedagogically-required
+    // Demonstrate step: both are rendered as a visible two-step path. (Codex's handoff hid Demonstrate
+    // in a <details>; but that step records the evidence that gates tomorrow, so it stays visible.)
+    $('#todayCard').innerHTML = `<small>DAY ${day} OF ${plan.length} · ${completedStages.size} MASTERY MARKERS</small><h2>${title}</h2><p class="why-next"><b>Why this is next:</b> ${phaseForDay(day).milestone}</p><ol class="jla-path today-steps"><li class="jla-node is-current"><span class="marker">1</span><span class="kicker">Study</span><h3>Read today’s source</h3><p>${whyNext(day)}</p><a id="openToday" class="open" href="${url}">Open the source →</a></li><li class="jla-node is-upcoming"><span class="marker">2</span><span class="kicker">Demonstrate</span><h3>Show today’s move</h3><p>Two correct source checks record your evidence and open tomorrow.</p><a class="open" href="academy-evidence.html?day=${day}">Demonstrate the move →</a></li></ol><small class="mastery-note">Tomorrow opens after two source checks are correct. On Day 7, 14, and each weekly boundary, one check is an unfamiliar-source transfer.</small>`;
     $('#openToday').addEventListener('click', () => openDay(day));
   }
   // The 90-day map, milestones, and phases were removed from the hub (mentor reset: don't show the
@@ -74,4 +99,4 @@ Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? respons
   $('#milestones').innerHTML = phases.map((phase, index) => `<article class="milestone ${hasEvidence(learner || {}, phase) ? 'ready' : ''}"><small>${hasEvidence(learner || {}, phase) ? 'EVIDENCE GROWING' : `MILESTONE ${index + 1}`}</small><h3>${phase.title}</h3><p>${phase.milestone}</p></article>`).join('');
   $('#phases').innerHTML = phases.map((phase) => `<article class="phase ${day > phase.end ? 'complete' : ''}"><strong>${phase.days}</strong><div><h3>${phase.title}</h3><p>${phase.copy}</p></div><a href="${phase.link}">Open phase →</a></article>`).join('');
   }
-}).catch((error) => { console.error('Academy learner state failed to render.', error); $('#placement').textContent = 'Your learner record is unavailable; you can still open the first source.'; });
+}).catch((error) => { console.error('Academy learner state failed to render.', error); $('#placement').textContent = 'Your learner record is unavailable; you can still open the first source.'; renderFoundations(new Set()); });

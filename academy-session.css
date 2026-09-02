@@ -27,6 +27,7 @@ h1,h2 { font-family:Georgia, serif; line-height:1.1; } h1 { margin:.6rem 0 1rem;
 
 /* Scaffolded knowledge-point lesson: stepper + step panel + completion */
 .kp-steps { list-style:none; display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin:2.5rem 0 1rem; padding:0; }
+.kp-steps[hidden] { display:none; } /* slice sessions hide the 3-step scaffold; honour the attribute over display:grid */
 .kp-steps li { position:relative; border:1px solid var(--line); border-radius:14px; background:#fff; padding:.85rem 1rem; display:flex; align-items:center; gap:.7rem; color:var(--muted); }
 .kp-steps li b { display:grid; place-items:center; width:26px; height:26px; border-radius:50%; background:var(--warm); color:var(--ink); font-size:.85rem; flex:none; }
 .kp-steps li span { font-weight:700; color:var(--ink); font-size:.9rem; }
