@@ -134,6 +134,47 @@ body.jla a:not([class]) { color: inherit; }
 .jla-source-line { border-inline-start: 3px solid var(--jla-accent); padding: 10px 14px; background: var(--jla-paper); border-radius: 0 var(--jla-r-sm) var(--jla-r-sm) 0; }
 .jla-source-he { font-size: 1.4rem; line-height: 1.7; text-align: right; direction: rtl; color: var(--jla-ink); font-family: "SBL Hebrew", "Frank Ruhl Libre", Georgia, serif; }
 
+/* --- Large Hebrew glyph (decoding drills) ----------------------------- */
+.jla-glyph-card {
+  background: var(--jla-surface);
+  border: 1px solid var(--jla-border);
+  border-radius: var(--jla-r-lg);
+  box-shadow: var(--jla-shadow-1);
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  min-height: 200px;
+  box-sizing: border-box;
+}
+.jla-glyph {
+  font-family: "Noto Sans Hebrew", "Times New Roman", serif;
+  font-size: 8rem;
+  line-height: 1;
+  color: var(--jla-accent-ink);
+  margin: 0;
+}
+.jla-hear {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: transparent;
+  border: 1px solid var(--jla-border);
+  border-radius: var(--jla-r-pill);
+  padding: 7px 15px;
+  font: 600 12px var(--jla-font-body);
+  color: var(--jla-accent);
+  cursor: pointer;
+}
+.jla-hear:hover { background: var(--jla-paper); }
+.jla-hear:focus-visible { outline: 3px solid var(--jla-accent); outline-offset: 2px; }
+@media (max-width: 720px) {
+  .jla-glyph { font-size: 5.5rem; }
+  .jla-glyph-card { min-height: 160px; }
+}
+
 /* --- Interactive lesson choices (priority #4) ------------------------- */
 .jla-choice { display: block; width: 100%; box-sizing: border-box; text-align: start; background: var(--jla-surface); border: 1.5px solid var(--jla-border); border-radius: var(--jla-r-sm); padding: 13px 16px; margin: 8px 0; font: 500 .95rem/1.4 var(--jla-font-body); color: var(--jla-text); cursor: pointer; transition: border-color .12s ease, background .12s ease, transform .08s ease; }
 .jla-choice:hover { border-color: var(--jla-accent); }

@@ -70,21 +70,34 @@ function decRender() {
   $('#band').textContent = drill.bandLabel || 'DECODING';
   $('#glyph').textContent = item.glyph;
   $('#prompt').textContent = item.prompt;
-  $('#feedback').textContent = '';
+  const fb = $('#feedback');
+  fb.textContent = '';
+  fb.className = 'feedback';
   $('#continue').disabled = true;
   $('#continue').textContent = decIndex === drill.items.length - 1 ? 'Finish lesson →' : 'Continue →';
   updateHear();
   const answers = $('#answers'); answers.innerHTML = '';
-  decShuffle(item.answers).forEach(({ text, i }) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = text; b.addEventListener('click', () => decAnswer(b, i === item.correct, item)); answers.appendChild(b); });
+  decShuffle(item.answers).forEach(({ text, i }) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'jla-choice';
+    b.textContent = text;
+    b.addEventListener('click', () => decAnswer(b, i === item.correct, item));
+    answers.appendChild(b);
+  });
   $('#map').innerHTML = drill.items.map((it, i) => `<li class="${i === decIndex ? 'active' : ''} ${i < decIndex ? 'done' : ''}">${it.short || it.glyph}</li>`).join('');
 }
 function decAnswer(button, correct, item) {
   if (decAnswered) return; decAnswered = true;
   document.querySelectorAll('#answers button').forEach((b) => b.disabled = true);
   button.classList.add(correct ? 'correct' : 'incorrect');
+  button.classList.add(correct ? 'is-correct' : 'is-wrong');
   decXp += correct ? 10 : 5;
-  $('#xp').textContent = `${decXp} XP`;
-  $('#feedback').textContent = (correct ? '+10 XP. ' : '+5 XP. ') + item.feedback;
+  const xp = $('#xp');
+  if (xp) xp.textContent = `${decXp} XP`;
+  const fb = $('#feedback');
+  fb.className = `feedback jla-feedback ${correct ? 'is-correct' : 'is-wrong'}`;
+  fb.textContent = item.feedback;
   $('#continue').disabled = false;
 }
 $('#continue').addEventListener('click', () => {
@@ -95,8 +108,10 @@ $('#continue').addEventListener('click', () => {
   recordGraphMasteryIfBandComplete(done);
   scheduleReview();
   const next = order[order.indexOf(lessonId) + 1];
-  const cta = next ? `<a href="decoding-lesson.html?lesson=${next}">Next lesson →</a>` : '<a href="foundation-reading-orientation.html">Begin Reading Orientation →</a>';
-  $('.lesson').innerHTML = `<section class="mastery"><span class="eyebrow">${next ? 'LESSON COMPLETE' : 'YOU CAN READ HEBREW'}</span><h2>${drill.title || 'Lesson complete.'}</h2><p>Your progress is saved. ${next ? 'The next lesson builds on what you just learned.' : 'You have finished the decoding ladder — you can read Hebrew and begin an unvocalized line. Next comes learning to read a source: orientation.'}</p>${cta}</section>`;
+  const cta = next
+    ? `<a class="jla-btn jla-btn-primary" href="decoding-lesson.html?lesson=${next}">Next lesson →</a>`
+    : '<a class="jla-btn jla-btn-primary" href="foundation-reading-orientation.html">Begin Reading Orientation →</a>';
+  $('.lesson').innerHTML = `<section class="mastery"><span class="eyebrow jla-eyebrow">${next ? 'LESSON COMPLETE' : 'YOU CAN READ HEBREW'}</span><h2>${drill.title || 'Lesson complete.'}</h2><p>Your progress is saved. ${next ? 'The next lesson builds on what you just learned.' : 'You have finished the decoding ladder — you can read Hebrew and begin an unvocalized line. Next comes learning to read a source: orientation.'}</p>${cta}</section>`;
 });
 if ($('#band-title')) $('#band-title').textContent = drill.title || '';
 decRender();
