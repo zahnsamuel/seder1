@@ -50,7 +50,10 @@
   padding: 0;
   max-width: 640px;
 }
-.kp-steps[hidden] { display: none; }
+.kp-steps[hidden],
+.step[hidden],
+.complete[hidden],
+.real-content[hidden] { display: none !important; }
 .kp-steps li {
   color: var(--jla-text-soft);
   opacity: .72;

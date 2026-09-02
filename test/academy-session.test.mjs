@@ -71,4 +71,5 @@ test('academy-session CSS uses jla tokens and a single-column lesson', () => {
   assert.match(css, /flex-direction:\s*column/);
   assert.match(css, /min-height:\s*44px/);
   assert.doesNotMatch(css, /grid-template-columns:\s*1\.35fr/);
+  assert.match(css, /\.complete\[hidden\][\s\S]*display:\s*none/);
 });

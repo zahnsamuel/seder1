@@ -9,6 +9,10 @@
   --soft: var(--jla-sunk);
 }
 
+.intro[hidden],
+.probe-shell[hidden],
+.results[hidden] { display: none !important; }
+
 .jla-main > .intro { max-width: 640px; }
 .intro .jla-eyebrow { margin: 8px 0 14px; }
 .intro h1,

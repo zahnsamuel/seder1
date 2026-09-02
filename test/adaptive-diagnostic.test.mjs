@@ -38,6 +38,13 @@ test('diagnostic results push one next CTA on the shared shell, not a menu of de
   assert.ok(authOrder < shellOrder && shellOrder < pageOrder);
 });
 
+test('diagnostic CSS honours hidden so results never compete with the current probe', async () => {
+  const css = await readFile(new URL('../diagnostic.css', import.meta.url), 'utf8');
+  assert.match(css, /\.results\[hidden\][\s\S]*display:\s*none/);
+  assert.match(css, /\.probe-shell\[hidden\][\s\S]*display:\s*none/);
+  assert.match(css, /\.intro\[hidden\][\s\S]*display:\s*none/);
+});
+
 test('diagnostic.js drives the stateless estimator and seeds through the placement path', () => {
   assert.match(js, /\/api\/graph\/diagnostic/);
   assert.match(js, /responses\[probe\.id\] = option\.passed/);
