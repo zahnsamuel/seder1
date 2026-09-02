@@ -2981,4 +2981,10 @@ untouched; only answer/feedback/completion chrome classes and learner-facing XP 
   uses `.jla-btn.jla-btn-primary`. All existing selectors still written.
 - Test: `test/decoding-lesson.test.mjs` (shell + disclosure + hook guards; engine wiring).
 
-Verification pending this turn’s test run and browser pass.
+Verification (same day): `node --test "test/*.test.mjs"` **555/555**. Browser (`:4180`):
+first paint is one alef glyph + prompt + three choices + disabled Continue + collapsed
+“This lesson”; no header XP and no dual-column map. Correct answer feedback is the
+item text only (no “+10 XP”); Continue enables. Continue advances to bet. Shell
+“The ladder” opens `hebrew-decoding.html` (one Start decoding CTA). Mobile 390px
+keeps one column and a full-width Continue. Hub and Today unchanged. Hidden `#xp`
+still updates (10 XP after a correct answer). `decoding-drills.js` untouched.
