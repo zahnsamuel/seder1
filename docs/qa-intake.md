@@ -2936,3 +2936,27 @@ mobile stacks, CTA full-width; shell is brand · label · Today · Account (Bera
 adds contextual Mastery only); skip-link + focus-visible present; `privacy.html` header
 via leftover `seder.css` rules still styled. First-visit onboarding still inserts a second
 “Start today’s study” link after `.hero` — pre-existing, hook preserved, out of this pass.
+
+## 2026-09-02 — Cursor: simplify Hebrew Decoding index to one next move
+
+Presentation-only. Pedagogy, `decoding-drills.js` items, and `decoding-engine.js` untouched.
+
+- `hebrew-decoding.html` now mounts the shared shell (`body.jla`, `jla-system.css`,
+  `#jla-shell-mount`, `capability-state.js`, `jla-shell.js`) with hub fonts (Fraunces /
+  Inter / DM Mono) plus Noto Sans Hebrew. Dropped `deep-course.css` and the busy
+  `<header>` / review banner / first-paint ladder dump.
+- First paint is eyebrow + short h1 + 1–2 sentences + one primary CTA + quiet
+  `n / n lessons` meta, in the same next-step card language as Today. The full band
+  ladder lives in a collapsed `<details>` (“See the full ladder”).
+- `decoding-index.js` still prefers review-due over the next new lesson and still
+  writes `decoding-lesson.html?lesson=…` from `seder-decoding-done:` /
+  `seder-decoding-review:`. First-visit / continue / review-due change only the hero.
+- Test: `test/decoding-index.test.mjs` (shell + disclosure guards; start / continue /
+  review-due picker).
+
+Verification (same day): `node --test "test/*.test.mjs"` **552/552**. Browser (`:4180`):
+first visit is one navy **Start decoding →** + `0 / 9 lessons` + collapsed “See the
+full ladder”; CTA opens `decoding-lesson.html?lesson=letters-1`. Mid-ladder (2 done)
+becomes **Continue decoding →** for letters-3. Review-due on letters-1 wins over the
+next new lesson (**Review what is due →**). Hub and Today remain the same one-next-move
+tone. Pedagogy/drill files untouched.
