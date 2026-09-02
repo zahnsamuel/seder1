@@ -7,29 +7,29 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="diagnostic.css?v=1">
   <link rel="stylesheet" href="jla-system.css">
+  <link rel="stylesheet" href="diagnostic.css?v=2">
 </head>
 <body class="jla">
   <div id="jla-shell-mount"></div>
   <strong id="status" aria-live="polite" hidden>FINDING YOUR FRONTIER</strong>
-  <main>
+  <main class="jla-main">
     <section class="intro">
-      <span>A STARTING POINT, NOT A TEST</span>
+      <p class="jla-eyebrow">A STARTING POINT, NOT A TEST</p>
       <h1>Let’s find your knowledge frontier.</h1>
       <p>A few honest self-checks about what you can do today are enough to place you. Your first sessions confirm it, and anything you can’t yet do comes right back.</p>
     </section>
 
     <section class="probe-shell" id="probe-shell" hidden>
-      <aside>
-        <span>NARROWING</span>
+      <aside class="probe-status">
+        <span class="jla-eyebrow">NARROWING</span>
         <div class="gauge" role="progressbar" aria-label="Skills mapped" aria-valuemin="0" aria-valuemax="100"><div class="gauge-fill" id="gauge-fill"></div></div>
         <p id="placed-label">0 skills mapped</p>
         <p id="q-label">Question 1</p>
         <p class="aside-note">The graph infers the rest from each answer.</p>
       </aside>
       <section class="probe">
-        <span id="probe-layer">FOUNDATION</span>
+        <span class="jla-eyebrow" id="probe-layer">FOUNDATION</span>
         <h2 id="probe-title"></h2>
         <p class="stmt" id="probe-stmt"></p>
         <div class="check"><span>WHAT THAT LOOKS LIKE</span><p id="probe-check"></p></div>
@@ -40,29 +40,34 @@
     </section>
 
     <section id="results" class="results" hidden>
-      <span>YOUR STARTING FRONTIER</span>
+      <p class="jla-eyebrow">YOUR STARTING FRONTIER</p>
       <h2 id="results-title">Your starting point is ready.</h2>
       <p id="results-copy"></p>
       <p id="results-cando" class="results-cando"></p>
-      <div id="results-grid" class="results-grid"></div>
+      <div class="results-actions">
+        <a id="results-begin" class="jla-btn jla-btn-primary" href="daily-router.html">Begin with this skill →</a>
+      </div>
+      <p class="quiet-link"><a href="my-graph.html">See it on your graph</a></p>
       <div class="rhythm-choice">
-        <span>YOUR LEARNING RHYTHM</span>
+        <span class="jla-eyebrow">YOUR LEARNING RHYTHM</span>
         <p>Choose a pace you can keep. You can change it later.</p>
         <div id="rhythm-options">
-          <button type="button" data-rhythm="daily">20 minutes daily</button>
-          <button type="button" data-rhythm="three-times-weekly">20 minutes, three times a week</button>
-          <button type="button" data-rhythm="weekly">30 minutes weekly</button>
+          <button type="button" class="jla-choice" data-rhythm="daily">20 minutes daily</button>
+          <button type="button" class="jla-choice" data-rhythm="three-times-weekly">20 minutes, three times a week</button>
+          <button type="button" class="jla-choice" data-rhythm="weekly">30 minutes weekly</button>
         </div>
         <small id="rhythm-status" role="status"></small>
       </div>
-      <div class="results-actions">
-        <a id="results-begin" class="results-continue" href="daily-router.html">Begin with this skill →</a>
-        <a class="results-secondary" href="my-graph.html">See it on your graph →</a>
-      </div>
+      <details class="results-map">
+        <summary>See the foundation map</summary>
+        <div id="results-grid" class="results-grid"></div>
+      </details>
     </section>
   </main>
-  <script src="seder-auth.js?v=1"></script>
-  <script src="capability-state.js"></script><script src="jla-shell.js"></script>
-  <script src="diagnostic.js?v=1"></script><script src="feedback.js?v=1"></script>
+  <script src="seder-auth.js?v=2"></script>
+  <script src="capability-state.js"></script>
+  <script src="jla-shell.js"></script>
+  <script src="diagnostic.js?v=1"></script>
+  <script src="feedback.js?v=1"></script>
 </body>
 </html>

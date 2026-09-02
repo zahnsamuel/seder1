@@ -64,6 +64,7 @@ function updateGauge(estimate) {
 }
 
 function renderProbe(probe) {
+  const intro = $('.intro'); if (intro) intro.hidden = true;
   $('#probe-shell').hidden = false;
   const skill = skillById(probe.id);
   $('#probe-layer').textContent = (skill ? `Layer ${skill.layer} · ${layerTitle(skill.layer)}` : 'Foundation').toUpperCase();
@@ -78,7 +79,7 @@ function renderProbe(probe) {
   ];
   for (const option of options) {
     const button = document.createElement('button');
-    button.type = 'button'; button.className = option.cls; button.textContent = option.label;
+    button.type = 'button'; button.className = `jla-choice ${option.cls}`; button.textContent = option.label;
     button.addEventListener('click', () => {
       responses[probe.id] = option.passed;
       questionCount += 1;

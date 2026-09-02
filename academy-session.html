@@ -4,32 +4,38 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Jewish Learning Academy · Academy Foundation</title>
-  <link rel="stylesheet" href="academy-session.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="jla-system.css">
+  <link rel="stylesheet" href="academy-session.css?v=2">
 </head>
 <body class="jla">
   <div id="jla-shell-mount" data-links='[{"label":"My Path","href":"path.html"}]'></div>
-  <main>
-    <section class="hero"><p class="eyebrow">ONE SKILL · ONE SOURCE · 20 MINUTES</p><h1 id="title">Preparing your foundation session</h1><p id="statement"></p><p class="why" id="why"></p></section>
+  <main class="jla-main">
+    <p class="jla-eyebrow">ONE SKILL · ONE SOURCE · 20 MINUTES</p>
+    <h1 id="title" class="session-title">Preparing your foundation session</h1>
+    <p id="statement" class="session-statement"></p>
+    <p class="why" id="why"></p>
 
     <ol class="kp-steps" id="kp-steps" aria-label="Lesson steps">
-      <li data-step="introduce"><b>1</b><span>Introduce</span><small>see the move</small></li>
-      <li data-step="practice"><b>2</b><span>Practice</span><small>make the move</small></li>
-      <li data-step="transfer"><b>3</b><span>Transfer</span><small>a new source</small></li>
+      <li class="jla-chip is-current" data-step="introduce"><b>1</b><span>Introduce</span><small>see the move</small></li>
+      <li class="jla-chip" data-step="practice"><b>2</b><span>Practice</span><small>make the move</small></li>
+      <li class="jla-chip" data-step="transfer"><b>3</b><span>Transfer</span><small>a new source</small></li>
     </ol>
 
     <section class="step" id="step" aria-live="polite">
-      <article class="source-card">
-        <p class="label" id="step-label">TODAY'S SOURCE WINDOW</p>
+      <article class="source-card jla-card">
+        <p class="jla-eyebrow" id="step-label">TODAY'S SOURCE WINDOW</p>
         <h2 id="source-ref">Loading a source…</h2>
-        <p class="source-hebrew" id="source-hebrew" lang="he" dir="rtl" hidden></p>
+        <p class="source-hebrew jla-source-he" id="source-hebrew" lang="he" dir="rtl" hidden></p>
         <p class="source-translation" id="source-translation" hidden></p>
         <p id="source-setting"></p>
         <p class="move" id="teaching-move"></p>
         <a id="source-link" class="source-link" href="#" target="_blank" rel="noreferrer">Open this source in Sefaria ↗</a>
       </article>
       <div class="interaction">
-        <p class="label">GUIDED CHECK · NO TYPING REQUIRED</p>
+        <p class="jla-eyebrow">GUIDED CHECK · NO TYPING REQUIRED</p>
         <h2 id="check-title"></h2>
         <div id="choices" class="choices"></div>
         <p id="feedback" role="status" aria-live="polite"></p>
@@ -37,15 +43,27 @@
       </div>
     </section>
 
-    <section class="complete" id="complete" hidden>
-      <p class="label">SKILL PRACTISED ACROSS THE CANON</p>
+    <section class="complete jla-card" id="complete" hidden>
+      <p class="jla-eyebrow">SKILL PRACTISED ACROSS THE CANON</p>
       <h2 id="complete-title"></h2>
       <p id="complete-copy"></p>
-      <div class="complete-actions"><a class="jla-btn jla-btn-primary" href="path.html">Back to your path →</a><a class="jla-btn jla-btn-ghost" href="my-graph.html">See your map</a></div>
+      <div class="complete-actions">
+        <a class="jla-btn jla-btn-primary" href="path.html">Back to your path →</a>
+      </div>
+      <p class="quiet-link"><a href="my-graph.html">See your map</a></p>
     </section>
 
-    <section class="real-content" id="real-content" aria-labelledby="real-content-title" hidden><p class="label">PRACTICE THIS SKILL IN REAL SOURCES</p><h2 id="real-content-title">Where this move shows up across the canon</h2><ul id="real-content-list" class="real-content-list"></ul></section>
+    <details class="real-content" id="real-content" aria-labelledby="real-content-title" hidden>
+      <summary>Practice this skill in real sources</summary>
+      <p class="label">PRACTICE THIS SKILL IN REAL SOURCES</p>
+      <h2 id="real-content-title">Where this move shows up across the canon</h2>
+      <ul id="real-content-list" class="real-content-list"></ul>
+    </details>
   </main>
-  <script src="seder-auth.js?v=2"></script><script src="capability-state.js"></script><script src="jla-shell.js"></script><script src="academy-session.js?v=2"></script><script src="feedback.js?v=1"></script>
+  <script src="seder-auth.js?v=2"></script>
+  <script src="capability-state.js"></script>
+  <script src="jla-shell.js"></script>
+  <script src="academy-session.js?v=2"></script>
+  <script src="feedback.js?v=1"></script>
 </body>
 </html>

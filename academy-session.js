@@ -49,7 +49,13 @@ function startScaffold(skill, graph, kpLayer, ctxLayer) {
   function renderStep() {
     const step = steps[i];
     const context = step.context;
-    stepEls.forEach((el, n) => { el.classList.toggle('done', n < i); el.classList.toggle('current', n === i); });
+    stepEls.forEach((el, n) => {
+      el.classList.toggle('done', n < i);
+      el.classList.toggle('is-done', n < i);
+      el.classList.toggle('current', n === i);
+      el.classList.toggle('is-current', n === i);
+      el.classList.toggle('is-upcoming', n > i);
+    });
     $('#step-label').textContent = KP[step.kind].label;
     $('#source-ref').textContent = context.ref;
     $('#source-setting').textContent = `${context.genre} · ${context.family} family. Read this window for the shape of the move, not for total mastery.`;
@@ -107,7 +113,7 @@ function startScaffold(skill, graph, kpLayer, ctxLayer) {
   function finish() {
     $('#step').hidden = true;
     document.querySelector('#kp-steps').hidden = true;
-    stepEls.forEach((el) => el.classList.add('done'));
+    stepEls.forEach((el) => { el.classList.add('done', 'is-done'); el.classList.remove('current', 'is-current', 'is-upcoming'); });
     $('#complete-title').textContent = `You practised “${skill.title}” across the canon.`;
     $('#complete-copy').textContent = 'Introduce, practice, transfer — you saw the move, made it, and carried it into a new source family. Your map has moved.';
     $('#complete').hidden = false;

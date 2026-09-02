@@ -48,7 +48,8 @@
       <div id="choices">
         ${(session.choices || []).map((c) => `<button class="jla-choice" data-choice-id="${esc(c.id)}">${esc(c.text)}</button>`).join('')}
       </div>
-      <div id="feedback" aria-live="polite"></div>`;
+      <div id="feedback" aria-live="polite"></div>
+      <button id="continue" class="jla-btn jla-btn-primary" type="button" disabled>Continue →</button>`;
 
     let answered = false;
     stage.querySelectorAll('.jla-choice').forEach((btn) => {
@@ -81,16 +82,18 @@
     // which would double up on feedback that already opens with "Yes."/"Not quite.").
     fb.textContent = result.feedback || (result.correct ? 'You made the move in this source.' : 'Carry the move into the next source and try again.');
 
-    const advance = document.createElement('div');
-    advance.className = 'advance';
-    advance.innerHTML = `<a class="jla-btn jla-btn-primary" href="daily-router.html">Back to today →</a>`;
-    stage.appendChild(advance);
+    const cont = el('continue');
+    if (cont) {
+      cont.disabled = false;
+      cont.textContent = 'Continue to Today →';
+      cont.onclick = () => { location.href = 'daily-router.html'; };
+    }
 
     // Reflect the capability this evidence moves, in the shared state vocabulary.
     if (result.correct && result.evidenceStatement) {
-      const chip = document.createElement('div');
-      chip.style.marginTop = '18px';
-      chip.innerHTML = `<span class="jla-chip is-secure"><b>Evidence recorded</b> ${esc(result.evidenceStatement)}</span>`;
+      const chip = document.createElement('p');
+      chip.className = 'jla-chip is-secure';
+      chip.innerHTML = `<b>Evidence recorded</b> ${esc(result.evidenceStatement)}`;
       stage.appendChild(chip);
     }
   }
