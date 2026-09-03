@@ -3130,4 +3130,30 @@ way; last CTA is **Complete this passage â†’**. Completing assigns `?collec
 at 1/3 with Continue disabled again. Console: usual favicon 404 only after a clean
 reload. `node --test "test/*.test.mjs"` **565/565**.
 
+## 2026-09-03 — Cursor: simplify arc and syllabus-dump surfaces to one next move
 
+Presentation-only. Pedagogy, scoring, mastery routes, and source-reader retrieval
+untouched. Live learner paths: the 45 `*-arc.html` pages, `shas-map-v2.html` (gemara
+breadth + Berakhot launch), `course-dashboard.html`, `tractate-mastery.html`, and
+`gemara-path.html`. Experimental per-tractate daf workbenches left as PR #8 shipped them.
+
+- Interactive `*-arc.html` (44 files, shared `course-engine.js`): idempotent codemod
+  `scripts/adopt-arc-one-next.mjs` unwraps the dual-column `course-layout`, keeps the
+  current lesson first-paint, and puts `#map` in collapsed `<details class="jla-disclose
+  arc-path">` (“See the full path”). `#xp` stays hidden. Continue is `.jla-btn`.
+- `course-engine.js`: wraps any leftover `#map` in the same disclosure at runtime (covers
+  non-arc `deep-course` pages without a flash of the aside: CSS hides
+  `.course-layout > aside.map`). Answer buttons get `.jla-choice`; learner-facing
+  feedback drops “+10 XP”; hidden `#xp` still records. Shuffle + server events unchanged.
+- `berakhot-arc.html` / `.js`: index shape matching Hebrew Decoding. One next-session
+  hero (`#arc-cta`) + quiet `n / 10 sessions`; the ten-step path fills `#sessions`
+  inside the disclosure. `#completed` / `#evidence` / `#xp` remain hidden hooks.
+- `shas-map-v2`, `course-dashboard`, `tractate-mastery`, `gemara-path`: shared shell +
+  one recommended CTA; full catalog/loop in `<details>`. Summary scoreboards stay as
+  hidden JS hooks where they existed.
+- `jla-system.css` adds `.jla-disclose` / `.jla-progress`. `jla-next-action.css` now
+  styles `.jla-next-action` as well as `[data-jla-next-action]`.
+- Tests: `test/arc-one-next-move.test.mjs`, `test/syllabus-one-next.test.mjs`.
+
+Verification: `node --test "test/*.test.mjs"` (run after this commit). Browser pass
+on Berakhot arc, Shabbat arc, Shas map, course dashboard, tractate mastery.

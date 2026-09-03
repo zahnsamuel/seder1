@@ -5,6 +5,8 @@ import { readFile } from 'node:fs/promises';
 test('course dashboard links each course to its own resumable route and capstone', async () => {
   const [html, js] = await Promise.all(['course-dashboard.html', 'course-dashboard.js'].map((file) => readFile(file)));
   assert.match(html.toString(), /course-dashboard\.js/);
+  assert.match(html.toString(), /id="next-cta"/);
+  assert.match(html.toString(), /See all courses/);
   assert.match(js.toString(), /canon-course\.html\?course=\$\{course\.id\}/);
   assert.match(js.toString(), /canon-capstone\.html\?course=\$\{course\.id\}/);
   assert.match(js.toString(), /seder-course-\$\{course\.id\}/);

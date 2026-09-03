@@ -83,7 +83,8 @@ touch it â€” no rush, do it opportunistically:
 - **Interactive choices:** `.jla-choice` (+ `.is-correct` / `.is-wrong`) and
   `.jla-feedback` â€” see `jla-practice.js` for a full worked lesson.
 - **Buttons / cards / section heads:** `.jla-btn(.jla-btn-primary|.jla-btn-ghost)`,
-  `.jla-card`, `.jla-section-head`, `.jla-meter`.
+  `.jla-card`, `.jla-section-head`, `.jla-meter`, `.jla-disclose` (collapsed
+  “See all” / “See the full path”).
 
 ## Converted so far
 
@@ -115,8 +116,14 @@ touch it â€” no rush, do it opportunistically:
 - `diagnostic.html` + `placement.html` â€” placement flow (both entry points on the shell; each keeps
   a hidden `#status` element as a JS hook). Diagnostic results now have one primary CTA; the
   foundation map sits in a collapsed `<details>`.
-- All 45 `*-arc.html` tractate/subject arcs â€” converted in one codemod (strip the non-uniform
-  header, carry its contextual link into the shell via `data-links`, keep a hidden `#xp` hook).
+- All 45 `*-arc.html` tractate/subject arcs — on the shell, then simplified to one
+  next move. Interactive arcs keep the current lesson first-paint; the step map
+  lives in collapsed `<details>` (“See the full path”). `berakhot-arc.html` is the
+  index shape: one session CTA + the ten-step path in the same disclosure.
+  Idempotent codemod: `scripts/adopt-arc-one-next.mjs`.
+- `shas-map-v2.html`, `course-dashboard.html`, `tractate-mastery.html`, and
+  `gemara-path.html` — live syllabus maps: one recommended next + catalog in
+  `<details>`.
 - `jla-practice.html` â€” reference lesson, wired to the real item bank
   (`GET`/`POST /api/jla/academy-session/:skillId`, server-scored, records capability evidence).
   `?skill=` selects any of the 24 authored items. One source window + one Continue.

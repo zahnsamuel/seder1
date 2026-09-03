@@ -10,5 +10,69 @@ const arc=[
 {title:'Independent reading',copy:'Meet unfamiliar Gemara signals without the scaffold.',stage:'independent-reading-checkpoint',url:'independent-read.html',skill:'independent-'},
 {title:'Launch into a new tractate',copy:'Use your Berakhot tools in Eruvin, Shabbat, Pesachim, or Bava Metzia.',stage:'tractate-launch',url:'shas-map-v2.html',skill:'lab-'}
 ];
-const learnerId=Seder.currentLearnerId();
-Seder.api(`/api/learners/${learnerId}`).then(r=>r.ok?r.json():null).then(learner=>{const completed=learner?.completedStages||[];const mastery=learner?.mastery||{};document.querySelector('#xp').textContent=`${learner?.xp||0} XP`;const sourceMoves=Object.keys(mastery).filter(k=>mastery[k]>0).length;document.querySelector('#evidence').textContent=`${sourceMoves} SOURCE MOVES PRACTICED`;const lastDone=arc.reduce((count,item)=>count+(completed.includes(item.stage)?1:0),0);document.querySelector('#completed').textContent=`${lastDone} OF ${arc.length} SESSIONS`;let available=true;document.querySelector('#sessions').innerHTML=arc.map((item,index)=>{const done=completed.includes(item.stage);const current=!done&&available;available=available&&done;return `<article class="session ${done?'done':''} ${current?'current':''} ${!done&&!current?'locked':''}"><b>${done?'✓':index+1}</b><div><h2>${item.title}</h2><p>${item.copy}</p><small>${done?'MASTERY EVIDENCE RECORDED':current?'READY NOW':'PREREQUISITE IN PROGRESS'}</small></div><a href="${item.url}">${done?'Revisit →':current?'Begin →':'Locked'}</a></article>`}).join('')}).catch(()=>{});
+
+const START_TITLE = 'A real path through the opening of Shas.';
+const START_COPY = 'Learn the signals, enter a Mishnah, follow a question, weigh evidence, then meet an unfamiliar passage on your own.';
+
+function sessionState(completed){
+  const doneSet = new Set(completed || []);
+  let available = true;
+  const items = arc.map((item, index) => {
+    const done = doneSet.has(item.stage);
+    const current = !done && available;
+    available = available && done;
+    return { ...item, index, done, current, locked: !done && !current };
+  });
+  const doneCount = items.filter((item) => item.done).length;
+  const current = items.find((item) => item.current) || items[items.length - 1];
+  return { items, current, doneCount, complete: doneCount === items.length };
+}
+
+function heroFor(state){
+  if (state.complete) {
+    return { title: state.current.title, copy: state.current.copy, cta: 'Continue into Shas →', href: state.current.url };
+  }
+  if (state.doneCount === 0) {
+    return { title: START_TITLE, copy: START_COPY, cta: 'Begin the first session →', href: state.current.url };
+  }
+  return { title: state.current.title, copy: state.current.copy, cta: 'Continue this session →', href: state.current.url };
+}
+
+function sessionsHtml(state){
+  return state.items.map((item) => {
+    const action = item.done ? 'Revisit →' : item.current ? 'Begin →' : 'Locked';
+    const status = item.done ? 'MASTERY EVIDENCE RECORDED' : item.current ? 'READY NOW' : 'PREREQUISITE IN PROGRESS';
+    return `<article class="session ${item.done?'done':''} ${item.current?'current':''} ${item.locked?'locked':''}"><b>${item.done?'✓':item.index+1}</b><div><h2>${item.title}</h2><p>${item.copy}</p><small>${status}</small></div><a href="${item.url}">${action}</a></article>`;
+  }).join('');
+}
+
+function render(document, learner){
+  const xp = document.querySelector('#xp');
+  const evidence = document.querySelector('#evidence');
+  const completedEl = document.querySelector('#completed');
+  const title = document.querySelector('#arc-title');
+  const copy = document.querySelector('#arc-copy');
+  const cta = document.querySelector('#arc-cta');
+  const progress = document.querySelector('#arc-progress');
+  const sessions = document.querySelector('#sessions');
+  const completed = learner?.completedStages || [];
+  const mastery = learner?.mastery || {};
+  const state = sessionState(completed);
+  const hero = heroFor(state);
+  const sourceMoves = Object.keys(mastery).filter((k) => mastery[k] > 0).length;
+  if (xp) xp.textContent = `${learner?.xp || 0} XP`;
+  if (evidence) evidence.textContent = `${sourceMoves} SOURCE MOVES PRACTICED`;
+  if (completedEl) completedEl.textContent = `${state.doneCount} OF ${state.items.length} SESSIONS`;
+  if (title) title.textContent = hero.title;
+  if (copy) copy.textContent = hero.copy;
+  if (cta) { cta.href = hero.href; cta.textContent = hero.cta; }
+  if (progress) progress.textContent = `${state.doneCount} / ${state.items.length} sessions`;
+  if (sessions) sessions.innerHTML = sessionsHtml(state);
+}
+
+(typeof window !== 'undefined' ? window : globalThis).SederBerakhotArc = { arc, sessionState, heroFor, sessionsHtml, render };
+
+if (typeof document !== 'undefined' && document.querySelector && document.querySelector('#arc-cta') && typeof Seder !== 'undefined') {
+  const learnerId = Seder.currentLearnerId();
+  Seder.api(`/api/learners/${learnerId}`).then((r) => r.ok ? r.json() : null).then((learner) => render(document, learner)).catch(() => render(document, null));
+}

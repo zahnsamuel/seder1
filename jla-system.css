@@ -190,6 +190,28 @@ body.jla a:not([class]) { color: inherit; }
 .jla-meter { background: #e7dfd2; border-radius: var(--jla-r-pill); height: 8px; overflow: hidden; }
 .jla-meter > i { display: block; height: 100%; background: var(--jla-accent); border-radius: inherit; transition: width .4s ease; }
 
+/* --- Collapsed catalog / path (one next move; full list on request) --- */
+.jla-disclose {
+  margin-top: var(--jla-sp-6);
+  max-width: 640px;
+}
+.jla-disclose > summary {
+  cursor: pointer;
+  color: var(--jla-text-soft);
+  font-size: .88rem;
+  font-weight: 600;
+  padding: 10px 0;
+  list-style: revert;
+}
+.jla-disclose > summary:hover { color: var(--jla-accent-ink); }
+.jla-disclose[open] > summary { margin-bottom: 16px; }
+.jla-progress {
+  color: var(--jla-text-soft);
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+
 /* --- Responsive ------------------------------------------------------- */
 @media (max-width: 720px) {
   .jla-shell-inner { padding: 10px 16px; gap: 12px; }
