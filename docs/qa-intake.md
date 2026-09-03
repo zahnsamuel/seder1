@@ -3079,4 +3079,12 @@ Source-reader only. Sequential pages, one line, zero textareas kept.
 - Tests: `test/source-reader-checks.test.mjs`, `source-reader-ui`, `source-reader-completion`,
   `source-reader-accessibility`, `source-reader`, `additional-source-reader`.
 
+Verification (same day, `:4180`): hard-refresh `?collection=shema`. First paint is 1/4
+Hebrew + prompt + 3 shuffled choices + **disabled** Continue; 0 textareas; no Other
+passages. Wrong choice stays on Deuteronomy 6:4 with “Not this reading…”; Continue
+stays disabled. Correct choice enables Continue. Remaining Shema lines unlock the same
+way; last CTA is **Complete this passage →**. Completing assigns `?collection=blessings`
+at 1/3 with Continue disabled again. Console: usual favicon 404 only after a clean
+reload. `node --test "test/*.test.mjs"` **565/565**.
+
 
