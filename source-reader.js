@@ -1,3 +1,6 @@
+import { buildLineCheck, shuffleChoices } from './source-reader-checks.mjs';
+
+const Seder = window.Seder;
 const learnerId = Seder.currentLearnerId();
 const requested = new URLSearchParams(location.search).get('collection');
 const $ = (selector) => document.querySelector(selector);
@@ -6,6 +9,7 @@ let data;
 let active = 0;
 let current = 0;
 let viewed = new Set();
+let solved = false;
 
 const seenKey = (collection) => `seder-source-reader-seen-${collection.id}-${learnerId}`;
 const completeKey = (collection) => `seder-source-reader-complete-${collection.id}-${learnerId}`;
@@ -71,6 +75,46 @@ function showComplete(collection) {
   $('#sefaria').href = collection.sourceUrl;
 }
 
+function renderCheck(line, collection) {
+  solved = false;
+  const check = buildLineCheck(line, collection);
+  const box = $('#choices');
+  box.replaceChildren();
+  const feedback = $('#feedback');
+  feedback.hidden = true;
+  feedback.textContent = '';
+  feedback.className = 'jla-feedback';
+  $('#continue').disabled = true;
+
+  shuffleChoices(check.answers).forEach(({ text, index }) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'jla-choice';
+    button.textContent = text;
+    button.addEventListener('click', () => answerCheck(button, index === check.correct, check));
+    box.appendChild(button);
+  });
+}
+
+function answerCheck(button, correct, check) {
+  if (solved || button.disabled) return;
+  const feedback = $('#feedback');
+  feedback.hidden = false;
+  if (!correct) {
+    button.disabled = true;
+    button.classList.add('is-wrong');
+    feedback.className = 'jla-feedback is-wrong';
+    feedback.textContent = 'Not this reading. Stay with the line in front of you.';
+    return;
+  }
+  solved = true;
+  button.classList.add('is-correct');
+  document.querySelectorAll('#choices .jla-choice').forEach((choice) => { choice.disabled = true; });
+  feedback.className = 'jla-feedback is-correct';
+  feedback.textContent = check.feedback;
+  $('#continue').disabled = false;
+}
+
 function renderLine() {
   const collection = data.collections[active];
   if (current >= collection.lines.length) {
@@ -91,8 +135,8 @@ function renderLine() {
   $('#toggleTranslation').textContent = 'Show translation';
   $('#prompt').textContent = line.note;
   $('#sefaria').href = collection.sourceUrl;
-  $('#continue').disabled = false;
   $('#continue').textContent = current === collection.lines.length - 1 ? 'Complete this passage →' : 'Continue →';
+  renderCheck(line, collection);
 }
 
 $('#toggleTranslation').onclick = () => {
@@ -102,7 +146,7 @@ $('#toggleTranslation').onclick = () => {
 };
 
 $('#continue').onclick = async () => {
-  if (!data || $('#continue').disabled) return;
+  if (!data || !solved || $('#continue').disabled) return;
   const collection = data.collections[active];
   markViewed(collection, current);
   if (current >= collection.lines.length - 1) {

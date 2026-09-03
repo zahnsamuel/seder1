@@ -3063,4 +3063,20 @@ no Other passages / `<details>` / `<select>`. Continue walks 6:4 → 6:5 → 6:6
 (`daily-router.html`). 390px Shema still one column, no picker. Console clean.
 `node --test "test/*.test.mjs"` **562/562**.
 
+## 2026-09-02 — Cursor: source-reader active retrieval (no Continue-only)
+
+Sam approved a Math Academy beat: don’t let learners only click Continue.
+Source-reader only. Sequential pages, one line, zero textareas kept.
+
+- After Hebrew + optional translation + the line’s reading-move prompt, each line now
+  has one micro-check: 2–3 shuffled `.jla-choice` options and `.jla-feedback`.
+- Continue starts disabled. Wrong choice: brief feedback, stay on the line, retry.
+  Correct: enable Continue → next line / Complete this passage → next collection page
+  as already implemented.
+- Authored `answers` / `correct` / `feedback` on each curriculum line; fallback builder
+  (`source-reader-checks.mjs`) uses sibling translations or fixed reading-move templates
+  (no invented Torah). Still fires `source_reading_completed` with no typed reflection.
+- Tests: `test/source-reader-checks.test.mjs`, `source-reader-ui`, `source-reader-completion`,
+  `source-reader-accessibility`, `source-reader`, `additional-source-reader`.
+
 

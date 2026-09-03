@@ -7,5 +7,10 @@ test('source reader offers five full short-passage collections with links and no
   for (const source of reader.collections) {
     assert.ok(source.sourceUrl && source.connectionUrl);
     assert.ok(source.lines.length >= 2);
+    for (const line of source.lines) {
+      assert.ok(Array.isArray(line.answers) && line.answers.length >= 2 && line.answers.length <= 3);
+      assert.ok(line.answers[line.correct]);
+      assert.equal(new Set(line.answers).size, line.answers.length);
+    }
   }
 });

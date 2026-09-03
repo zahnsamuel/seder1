@@ -28,7 +28,9 @@
         <button type="button" id="toggleTranslation" class="jla-hear">Show translation</button>
       </article>
       <p id="prompt" class="reader-prompt"></p>
-      <button id="continue" class="jla-btn jla-btn-primary" type="button">Continue →</button>
+      <div id="choices" class="reader-choices" role="group" aria-label="Check this line"></div>
+      <p id="feedback" class="jla-feedback" hidden></p>
+      <button id="continue" class="jla-btn jla-btn-primary" type="button" disabled>Continue →</button>
       <a id="sefaria" class="reader-sefaria" target="_blank" rel="noreferrer">Open at Sefaria →</a>
     </section>
 
@@ -42,6 +44,6 @@
   <script src="seder-auth.js?v=2"></script>
   <script src="capability-state.js"></script>
   <script src="jla-shell.js"></script>
-  <script src="source-reader.js"></script>
+  <script type="module" src="source-reader.js"></script>
 </body>
 </html>

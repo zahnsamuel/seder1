@@ -102,7 +102,8 @@ touch it — no rush, do it opportunistically:
 - `decoding-lesson.html` — in-lesson glyph drill on the shell. Hidden `#xp`; lesson map in
   collapsed `<details>` (“This lesson”); glyph card uses `.jla-glyph-card` / `.jla-glyph`.
 - `source-reader.html` — one line at a time on the shell: Hebrew + optional translation + one
-  reading-move prompt + Continue. No textareas. Collections are sequential pages
+  reading-move prompt + a 2–3 choice micro-check (`.jla-choice` / `.jla-feedback`). Continue
+  stays disabled until the correct choice. No textareas. Collections are sequential pages
   (`?collection=` then the next id after Complete this passage). Last collection shows a
   calm done state with one Return to Today CTA. Quiet Sefaria link under Continue. Notebook /
   Mastery map are shell contextual links.

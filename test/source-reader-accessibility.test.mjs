@@ -8,6 +8,8 @@ test('source reader exposes translation and Hebrew without hover-only or typed c
   assert.match(html, /lang="he" dir="rtl"/);
   assert.match(html, /id="toggleTranslation"/);
   assert.match(html, /id="prompt"/);
+  assert.match(html, /id="choices"/);
+  assert.match(html, /id="feedback"/);
   assert.match(js, /Show translation/);
   assert.match(js, /Hide translation/);
   assert.doesNotMatch(js, /onmouseover|onmouseenter|:hover-only/);

@@ -15,4 +15,6 @@ test('source reader completes after every line without a typed reflection', asyn
   assert.match(source, /location\.assign/);
   assert.match(source, /source-reader\.html\?collection=/);
   assert.match(source, /nextPageHref/);
+  assert.match(source, /!solved/);
+  assert.match(source, /buildLineCheck/);
 });
