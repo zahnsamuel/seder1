@@ -3079,6 +3079,9 @@ Source-reader only. Sequential pages, one line, zero textareas kept.
 - Tests: `test/source-reader-checks.test.mjs`, `source-reader-ui`, `source-reader-completion`,
   `source-reader-accessibility`, `source-reader`, `additional-source-reader`.
 
+- Server: added `.mjs` to the static MIME map so `source-reader-checks.mjs` loads as a
+  module (`application/javascript`). One-line change; no other server work.
+
 Verification (same day, `:4180`): hard-refresh `?collection=shema`. First paint is 1/4
 Hebrew + prompt + 3 shuffled choices + **disabled** Continue; 0 textareas; no Other
 passages. Wrong choice stays on Deuteronomy 6:4 with “Not this reading…”; Continue

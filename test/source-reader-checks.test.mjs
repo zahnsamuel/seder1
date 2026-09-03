@@ -3,6 +3,11 @@ import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 import { buildLineCheck, MOVE_TEMPLATES, shuffleChoices } from '../source-reader-checks.mjs';
 
+test('server serves browser .mjs modules as JavaScript', async () => {
+  const server = await readFile(new URL('../server.mjs', import.meta.url), 'utf8');
+  assert.match(server, /\.mjs': 'application\/javascript/);
+});
+
 const primary = JSON.parse(await readFile(new URL('../data/non-gemara-source-reader.json', import.meta.url), 'utf8'));
 const additional = JSON.parse(await readFile(new URL('../data/additional-source-reader.json', import.meta.url), 'utf8'));
 const collections = [...primary.collections, ...additional.collections];
