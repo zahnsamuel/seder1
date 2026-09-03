@@ -29,9 +29,14 @@ const stages = [
 Seder.api(`/api/learners/${learnerId}`).then((response) => response.json()).then((learner) => {
   const mastery = learner.mastery || {};
   const established = arc.skills.filter((skill) => (mastery[skill] || 0) >= .67).length;
-  $('#eyebrow').textContent = `${id.toUpperCase()} · FULL MASTERY LOOP`;
+  $('#eyebrow').textContent = `${id.toUpperCase()} · MASTERY`;
   $('#title').textContent = arc.title;
   $('#description').textContent = arc.description;
+  const next = stages[established === arc.skills.length ? stages.length - 1 : 0];
+  const cta = $('#next-cta');
+  if (cta && next) { cta.href = next[1]; cta.textContent = `${next[0]} →`; }
+  const progress = $('#next-progress');
+  if (progress) progress.textContent = `${established} / ${arc.skills.length} tractate skills`;
   $('#summary').innerHTML = `<article><small>TRACTATE SKILLS ESTABLISHED</small><strong>${established} / ${arc.skills.length}</strong></article><article><small>PRIMARY TEXT</small><strong>Visible at every stage</strong></article><article><small>NEXT AIM</small><strong>${established === arc.skills.length ? 'Transfer' : 'Read the next move'}</strong></article>`;
   $('#steps').innerHTML = stages.map(([title, url, copy], index) => `<article class="course-card"><small>STAGE ${index + 1}</small><h2>${title}</h2><p>${copy}</p><a href="${url}">Open stage →</a></article>`).join('');
 }).catch(() => { $('#title').textContent = arc.title; $('#description').textContent = arc.description; });

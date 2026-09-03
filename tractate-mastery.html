@@ -1,1 +1,37 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Jewish Learning Academy · Tractate mastery</title><link rel="stylesheet" href="canon-labs.css"><link rel="stylesheet" href="course-dashboard.css"></head><body><header><a href="shas-map-v2.html">ס Jewish Learning Academy</a><span>TRACTATE MASTERY ARC</span><a href="gemara-path.html">Gemara path</a></header><main><section class="hero"><p id="eyebrow">GEMARA MASTERY</p><h1 id="title">Loading tractate…</h1><div id="description"></div></section><section class="dashboard-summary" id="summary"></section><section><p class="lesson-label">YOUR MASTERY LOOP</p><div id="steps" class="course-grid"></div></section><section class="dashboard-note"><p class="lesson-label">STUDY BOUNDARY</p><p>Jewish Learning Academy teaches text skills and argument structure. It does not issue personal halakhic rulings.</p></section></main><script src="seder-auth.js?v=2"></script><script src="tractate-mastery.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Jewish Learning Academy · Tractate mastery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="jla-system.css">
+  <link rel="stylesheet" href="jla-next-action.css">
+  <link rel="stylesheet" href="canon-labs.css">
+  <link rel="stylesheet" href="course-dashboard.css?v=2">
+</head>
+<body class="jla">
+  <div id="jla-shell-mount" data-links='[{"label":"Shas map","href":"shas-map-v2.html"}]'></div>
+  <main class="jla-main">
+    <p class="jla-eyebrow jla-na-eyebrow" id="eyebrow">GEMARA MASTERY</p>
+    <section class="jla-next-action" data-mastery-next>
+      <h1 id="title">Loading tractate…</h1>
+      <p id="description"></p>
+      <a class="jla-next-action__cta" id="next-cta" href="shabbat-arc.html">Open the source trail →</a>
+      <small class="jla-progress" id="next-progress"></small>
+    </section>
+    <section class="dashboard-summary" id="summary" hidden></section>
+    <details class="jla-disclose">
+      <summary>See the full path</summary>
+      <div id="steps" class="course-grid"></div>
+    </details>
+    <p class="quiet-boundary">Jewish Learning Academy teaches text skills and argument structure. It does not issue personal halakhic rulings.</p>
+  </main>
+  <script src="seder-auth.js?v=2"></script>
+  <script src="capability-state.js"></script>
+  <script src="jla-shell.js"></script>
+  <script src="tractate-mastery.js?v=2"></script>
+</body>
+</html>
