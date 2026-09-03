@@ -29,3 +29,19 @@ test('every mapped foundation skill exists in the graph, and every unit is tagge
     assert.equal(tagged, hasAssessedStep, `${unit.id}: tagged=${tagged} but hasAssessedStep=${hasAssessedStep}`);
   }
 });
+
+// Coverage guardrail: every foundation skill must map to real source content, EXCEPT the
+// Layer-0 decoding on-ramp (fnd-decode-*), which is served by the dedicated decoding drill
+// (decoding-engine.js / hebrew-decoding.html), not the source-unit corpus. This turns a silent
+// authoring gap into a failing signal — if a future rubric or content change drops a non-decode
+// skill back to zero units, this fails and names it, the way fnd-role-quotation-bounds and
+// fnd-compare-translation-choice were once silently uncovered.
+test('every non-decode foundation skill has real mapped content', () => {
+  const map = JSON.parse(committed);
+  const servedByDecodingDrill = (id) => id.startsWith('fnd-decode-');
+  const uncovered = graph.skills
+    .filter((s) => !servedByDecodingDrill(s.id))
+    .filter((s) => !(map.bySkill[s.id]?.length));
+  assert.deepEqual(uncovered.map((s) => s.id), [],
+    `these foundation skills have zero content units — author a step whose mode the rubric tags to them:\n  ${uncovered.map((s) => `L${s.layer} ${s.id}`).join('\n  ')}`);
+});

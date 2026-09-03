@@ -58,6 +58,9 @@ export function tagFor(step, genre) {
   if (has(/QUESTION WORDS/)) return 'fnd-signal-question-words';
   if (has(/CONNECTOR SIGNAL/)) return 'fnd-signal-connectors';
   if (has(/QUOTATION SIGNAL/)) return 'fnd-signal-quotation';
+  // Bounding a quote (finding where the borrowed words stop) is the L3 sibling of merely
+  // signalling one; keyed on its own token and placed here so it wins before \bBOUNDARY\b below.
+  if (has(/QUOTATION BOUNDS/)) return 'fnd-role-quotation-bounds';
   if (has(/NAME FORMULA/)) return 'fnd-signal-name-formulas';
 
   // L3-L10 — the independent learner's own moves. Like the orientation micro-skills above, these
@@ -66,6 +69,9 @@ export function tagFor(step, genre) {
   // Distinctive modes, placed first so the general rules below don't capture them (e.g.
   // \bQUESTION\b -> arg-objection would otherwise swallow "ASK A QUESTION").
   if (has(/TRANSLATION CHOICE/)) return 'fnd-role-translation-gap';
+  // Weighing a translation against the original (L6 compare) is a distinct, deeper move than
+  // noticing a choice was made (L3 translation-gap above); its own token keeps them apart.
+  if (has(/TRANSLATION COMPARE/)) return 'fnd-compare-translation-choice';
   if (has(/\bRESTATE\b/)) return 'fnd-case-restate';
   if (has(/STEELMAN|STRONGEST FORM/)) return 'fnd-compare-strongest-form';
   if (has(/WHEN TO ASK/)) return 'fnd-resp-when-to-ask';
