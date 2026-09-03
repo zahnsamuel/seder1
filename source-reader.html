@@ -1,1 +1,49 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Jewish Learning Academy &middot; Source Reader</title><link rel="stylesheet" href="canon-labs.css"><link rel="stylesheet" href="source-reader.css"><link rel="stylesheet" href="jla-system.css"></head><body class="jla"><div id="jla-shell-mount" data-links='[{"label":"Notebook","href":"notebook.html"},{"label":"Mastery map","href":"canon-map.html"}]'></div><main><section class="hero"><p>READ THE WHOLE SHORT PASSAGE</p><h1 id="title">Loading source</h1><div id="connection"></div></section><section id="focus" class="reading-focus"><small>FOCUS IN THE SOURCE</small><strong>Choose a line to see its reading move.</strong><p>Notice who speaks, what’s claimed, and what kind of source it is.</p></section><section class="layout"><nav id="collection-nav"></nav><section id="reader" class="reader"></section></section></main><script src="seder-auth.js?v=2"></script><script src="capability-state.js"></script><script src="jla-shell.js"></script><script src="source-reader.js"></script><script src="source-reader-language.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Jewish Learning Academy · Source Reader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="jla-system.css">
+  <link rel="stylesheet" href="source-reader.css">
+</head>
+<body class="jla">
+  <div id="jla-shell-mount" data-links='[{"label":"Notebook","href":"notebook.html"},{"label":"Mastery map","href":"canon-map.html"}]'></div>
+  <main class="jla-main">
+    <p class="jla-eyebrow">SOURCE</p>
+    <h1 id="title" class="reader-title">Loading source</h1>
+
+    <section id="drill" class="reader-drill" aria-live="polite">
+      <div class="reader-status">
+        <span id="line-ref"></span>
+        <div class="jla-meter reader-meter" aria-hidden="true"><i id="bar"></i></div>
+        <small id="count"></small>
+      </div>
+      <article id="reader" class="reader-source jla-card">
+        <p id="hebrew" class="line-hebrew" lang="he" dir="rtl"></p>
+        <p id="translation" class="line-translation" hidden></p>
+        <button type="button" id="toggleTranslation" class="jla-hear">Show translation</button>
+      </article>
+      <p id="prompt" class="reader-prompt"></p>
+      <div id="choices" class="reader-choices" role="group" aria-label="Check this line"></div>
+      <p id="feedback" class="jla-feedback" hidden></p>
+      <button id="continue" class="jla-btn jla-btn-primary" type="button" disabled>Continue →</button>
+      <a id="sefaria" class="reader-sefaria" target="_blank" rel="noreferrer">Open at Sefaria →</a>
+    </section>
+
+    <section id="complete" class="reader-complete" hidden>
+      <p class="jla-eyebrow">SOURCE</p>
+      <h2>You have finished these passages.</h2>
+      <p id="connection"></p>
+      <a id="next-unit" class="jla-btn jla-btn-primary" href="daily-router.html">Return to Today →</a>
+    </section>
+  </main>
+  <script src="seder-auth.js?v=2"></script>
+  <script src="capability-state.js"></script>
+  <script src="jla-shell.js"></script>
+  <script type="module" src="source-reader.js"></script>
+</body>
+</html>

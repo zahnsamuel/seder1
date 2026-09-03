@@ -1,52 +1,168 @@
+import { buildLineCheck, shuffleChoices } from './source-reader-checks.mjs';
+
+const Seder = window.Seder;
 const learnerId = Seder.currentLearnerId();
-const notesKey = `seder-source-reader-${learnerId}`;
-const notes = JSON.parse(localStorage.getItem(notesKey) || '[]');
 const requested = new URLSearchParams(location.search).get('collection');
 const $ = (selector) => document.querySelector(selector);
+
 let data;
 let active = 0;
+let current = 0;
 let viewed = new Set();
+let solved = false;
+
 const seenKey = (collection) => `seder-source-reader-seen-${collection.id}-${learnerId}`;
 const completeKey = (collection) => `seder-source-reader-complete-${collection.id}-${learnerId}`;
 
-function renderCompletion(collection) {
-  const complete = localStorage.getItem(completeKey(collection)) === 'complete';
-  const ready = viewed.size >= collection.lines.length;
-  $('#reader-completion').innerHTML = complete ? `<strong>Passage complete</strong><p>You have worked through every line and recorded your reading path.</p><a class="source-link" href="${collection.connectionUrl}">Carry this source into the next unit &rarr;</a><a class="source-link" href="daily-router.html">Return to today&apos;s plan &rarr;</a>` : `<strong>Close the reading loop</strong><p>${ready ? 'You have focused every line. Name the move that mattered most, then complete this passage.' : `Focus ${collection.lines.length - viewed.size} more line${collection.lines.length - viewed.size === 1 ? '' : 's'} before closing the passage.`}</p><textarea id="reading-reflection" placeholder="What did this source ask you to notice?"></textarea><button id="complete-reading" class="save-note" ${ready ? '' : 'disabled'}>Complete this passage</button>`;
-  const button = $('#complete-reading');
-  if (!button) return;
-  button.onclick = async () => {
-    const reflection = $('#reading-reflection').value.trim();
-    if (!reflection) { $('#reading-reflection').focus(); return; }
-    localStorage.setItem(completeKey(collection), 'complete');
-    localStorage.setItem(`${completeKey(collection)}-reflection`, reflection);
-    try { await Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'source_reading_completed', skillId: `source-reader-${collection.id}`, competency: 'sourceReasoning', sourceContext: collection.title, reflection, correct: true }) }); } catch (error) { console.warn(error); }
-    renderCompletion(collection);
-  };
+function loadViewed(collection) {
+  try { return new Set(JSON.parse(localStorage.getItem(seenKey(collection)) || '[]')); } catch { return new Set(); }
 }
 
-function focus(line, collection, lineIndex) {
+function firstUnseen(collection) {
+  for (let index = 0; index < collection.lines.length; index += 1) {
+    if (!viewed.has(index)) return index;
+  }
+  return collection.lines.length;
+}
+
+function startIndex(collection) {
+  const next = data.collections[active + 1];
+  if (localStorage.getItem(completeKey(collection)) === 'complete' && !next) return collection.lines.length;
+  const unseen = firstUnseen(collection);
+  return unseen >= collection.lines.length ? 0 : unseen;
+}
+
+function markViewed(collection, lineIndex) {
   viewed.add(lineIndex);
   localStorage.setItem(seenKey(collection), JSON.stringify([...viewed]));
-  $('#focus').innerHTML = `<small>FOCUS IN THE SOURCE &middot; ${line.ref}</small><strong>${line.note}</strong><p>${line.translation}</p>`;
-  renderCompletion(collection);
 }
 
-function render() {
-  const collection = data.collections[active];
-  viewed = new Set(JSON.parse(localStorage.getItem(seenKey(collection)) || '[]'));
+function nextPageHref(collection) {
+  const next = data.collections[active + 1];
+  if (!next) return '';
+  return `source-reader.html?collection=${encodeURIComponent(next.id)}`;
+}
+
+async function completePassage(collection) {
+  localStorage.setItem(completeKey(collection), 'complete');
+  try {
+    await Seder.api(`/api/learners/${learnerId}/events`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'source_reading_completed',
+        skillId: `source-reader-${collection.id}`,
+        competency: 'sourceReasoning',
+        sourceContext: collection.title,
+        correct: true
+      })
+    });
+  } catch (error) { console.warn(error); }
+  const href = nextPageHref(collection);
+  if (href) {
+    location.assign(href);
+    return;
+  }
+  showComplete(collection);
+}
+
+function showComplete(collection) {
+  $('#drill').hidden = true;
+  $('#complete').hidden = false;
   $('#title').textContent = collection.title;
-  $('#connection').innerHTML = `${collection.connection} <a class="source-link" target="_blank" rel="noreferrer" href="${collection.sourceUrl}">Open full source at Sefaria &rarr;</a>`;
-  $('#collection-nav').innerHTML = data.collections.map((item, itemIndex) => `<button class="lab-button ${itemIndex === active ? 'active' : ''}" data-nav="${itemIndex}">${item.title}<small>${item.lines.length} connected lines</small></button>`).join('');
-  document.querySelectorAll('[data-nav]').forEach((button) => { button.onclick = () => { active = Number(button.dataset.nav); render(); }; });
-  $('#reader').innerHTML = collection.lines.map((line, lineIndex) => `<article class="source-line" data-line="${lineIndex}"><div class="line-ref">${line.ref}</div><p class="line-hebrew" lang="he" dir="rtl">${line.hebrew}</p><p class="line-translation" hidden>${line.translation}</p><div class="line-actions"><button class="translate">Show translation</button><button class="focus-line">Focus this line</button><button class="highlight">Highlight</button><a href="notebook.html?source=${encodeURIComponent(line.ref)}">Open in notebook</a></div><p class="line-note">${line.note}</p><textarea placeholder="Private note on this line"></textarea><button class="save-note">Save line note</button></article>`).join('') + '<section id="reader-completion" class="source-line"></section>';
-  document.querySelectorAll('.source-line[data-line]').forEach((line, lineIndex) => {
-    line.querySelector('.translate').onclick = () => { const translation = line.querySelector('.line-translation'); translation.hidden = !translation.hidden; line.querySelector('.translate').textContent = translation.hidden ? 'Show translation' : 'Hide translation'; };
-    line.querySelector('.focus-line').onclick = () => focus(collection.lines[lineIndex], collection, lineIndex);
-    line.querySelector('.highlight').onclick = () => line.classList.toggle('highlight');
-    line.querySelector('.save-note').onclick = () => { const note = line.querySelector('textarea').value.trim(); if (!note) return; notes.push({ source: collection.lines[lineIndex].ref, note, at: new Date().toISOString() }); localStorage.setItem(notesKey, JSON.stringify(notes)); line.querySelector('.save-note').textContent = 'Saved'; Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'note_saved', sourceContext: collection.lines[lineIndex].ref, note }) }).catch(() => {}); };
-  });
-  focus(collection.lines[0], collection, 0);
+  $('#connection').textContent = collection.connection;
+  $('#next-unit').href = 'daily-router.html';
+  $('#sefaria').href = collection.sourceUrl;
 }
 
-fetch('/api/curriculum/non-gemara-source-reader').then((response) => response.json()).then((result) => { data = result; const match = result.collections.findIndex((collection) => collection.id === requested); if (match >= 0) active = match; render(); });
+function renderCheck(line, collection) {
+  solved = false;
+  const check = buildLineCheck(line, collection);
+  const box = $('#choices');
+  box.replaceChildren();
+  const feedback = $('#feedback');
+  feedback.hidden = true;
+  feedback.textContent = '';
+  feedback.className = 'jla-feedback';
+  $('#continue').disabled = true;
+
+  shuffleChoices(check.answers).forEach(({ text, index }) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'jla-choice';
+    button.textContent = text;
+    button.addEventListener('click', () => answerCheck(button, index === check.correct, check));
+    box.appendChild(button);
+  });
+}
+
+function answerCheck(button, correct, check) {
+  if (solved || button.disabled) return;
+  const feedback = $('#feedback');
+  feedback.hidden = false;
+  if (!correct) {
+    button.disabled = true;
+    button.classList.add('is-wrong');
+    feedback.className = 'jla-feedback is-wrong';
+    feedback.textContent = 'Not this reading. Stay with the line in front of you.';
+    return;
+  }
+  solved = true;
+  button.classList.add('is-correct');
+  document.querySelectorAll('#choices .jla-choice').forEach((choice) => { choice.disabled = true; });
+  feedback.className = 'jla-feedback is-correct';
+  feedback.textContent = check.feedback;
+  $('#continue').disabled = false;
+}
+
+function renderLine() {
+  const collection = data.collections[active];
+  if (current >= collection.lines.length) {
+    showComplete(collection);
+    return;
+  }
+
+  const line = collection.lines[current];
+  $('#drill').hidden = false;
+  $('#complete').hidden = true;
+  $('#title').textContent = collection.title;
+  $('#line-ref').textContent = line.ref;
+  $('#count').textContent = `${current + 1} / ${collection.lines.length}`;
+  $('#bar').style.width = `${((current + 1) / collection.lines.length) * 100}%`;
+  $('#hebrew').textContent = line.hebrew;
+  $('#translation').textContent = line.translation;
+  $('#translation').hidden = true;
+  $('#toggleTranslation').textContent = 'Show translation';
+  $('#prompt').textContent = line.note;
+  $('#sefaria').href = collection.sourceUrl;
+  $('#continue').textContent = current === collection.lines.length - 1 ? 'Complete this passage →' : 'Continue →';
+  renderCheck(line, collection);
+}
+
+$('#toggleTranslation').onclick = () => {
+  const translation = $('#translation');
+  translation.hidden = !translation.hidden;
+  $('#toggleTranslation').textContent = translation.hidden ? 'Show translation' : 'Hide translation';
+};
+
+$('#continue').onclick = async () => {
+  if (!data || !solved || $('#continue').disabled) return;
+  const collection = data.collections[active];
+  markViewed(collection, current);
+  if (current >= collection.lines.length - 1) {
+    await completePassage(collection);
+    return;
+  }
+  current += 1;
+  renderLine();
+};
+
+fetch('/api/curriculum/non-gemara-source-reader').then((response) => response.json()).then((result) => {
+  data = result;
+  const match = result.collections.findIndex((collection) => collection.id === requested);
+  if (match >= 0) active = match;
+  const collection = data.collections[active];
+  viewed = loadViewed(collection);
+  current = startIndex(collection);
+  renderLine();
+});

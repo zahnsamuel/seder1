@@ -97,7 +97,21 @@ touch it — no rush, do it opportunistically:
   recommendation surface.
 - `daily-router.html` — Today: one `[data-jla-next-action]` hero driven by
   `jla-next-action.js` (not `daily-router.js`). Presentation in `jla-next-action.css`.
-- `source-reader.html` — full-text reader with the shell (keeps its own reader internals).
+- `hebrew-decoding.html` — decoding ladder index: one next-move hero; full ladder in collapsed
+  `<details>`.
+- `decoding-lesson.html` — in-lesson glyph drill on the shell. Hidden `#xp`; lesson map in
+  collapsed `<details>` (“This lesson”); glyph card uses `.jla-glyph-card` / `.jla-glyph`.
+- `source-reader.html` — one line at a time on the shell: Hebrew + optional translation + one
+  reading-move prompt + a 2–3 choice micro-check (`.jla-choice` / `.jla-feedback`). Continue
+  stays disabled until the correct choice. No textareas. Collections are sequential pages
+  (`?collection=` then the next id after Complete this passage). Last collection shows a
+  calm done state with one Return to Today CTA. Quiet Sefaria link under Continue. Notebook /
+  Mastery map are shell contextual links.
+- `daf-workbench.html` — Berakhot Daf workspace on the shell. Hidden `#xp`; sugya map, source
+  packet, other openings, and reading protocol in collapsed `<details>`. Record + translation
+  stay first-paint.
+- `flagship-daf-workbench.html` — production Daf workspace for the other flagship tractates.
+  Same chrome as Berakhot: shell, hidden `#xp` / `#masteryLink`, extras in `<details>`.
 - `diagnostic.html` + `placement.html` — placement flow (both entry points on the shell; each keeps
   a hidden `#status` element as a JS hook). Diagnostic results now have one primary CTA; the
   foundation map sits in a collapsed `<details>`.
@@ -107,6 +121,7 @@ touch it — no rush, do it opportunistically:
   (`GET`/`POST /api/jla/academy-session/:skillId`, server-scored, records capability evidence).
   `?skill=` selects any of the 24 authored items. One source window + one Continue.
 - `academy-session.html` — the ROUTED production lesson (both the fnd-* introduce/practice/transfer
+<<<<<<< HEAD
   scaffold and the server-scored slice sessions), on the shell + `.jla-choice` /
   `.jla-feedback` / `.jla-btn`. Quiet chip path with one `.is-current`; real-source links
   in a collapsed `<details>`. Logic unchanged; slice answers still server-scored.
@@ -114,6 +129,10 @@ touch it — no rush, do it opportunistically:
   `<details>`.
 - `decoding-lesson.html` — in-lesson glyph drill on the shell. Hidden `#xp`; lesson map in
   collapsed `<details>` (“This lesson”); glyph card uses `.jla-glyph-card` / `.jla-glyph`.
+=======
+  scaffold and the server-scored slice sessions), migrated onto the shell + `.jla-choice` /
+  `.jla-feedback` / `.jla-btn`. Logic unchanged; slice answers still server-scored.
+>>>>>>> origin/cursor/simplify-reader-workbench-aa2e
 
 **Batch conversions:** when many pages share a structure (like the arcs), a codemod beats hand-editing
 — strip `<header>…</header>` with a regex, extract its non-brand `<a>` links into `data-links`, and

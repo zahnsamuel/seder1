@@ -2989,6 +2989,7 @@ item text only (no “+10 XP”); Continue enables. Continue advances to bet. Sh
 keeps one column and a full-width Continue. Hub and Today unchanged. Hidden `#xp`
 still updates (10 XP after a correct answer). `decoding-drills.js` untouched.
 
+<<<<<<< HEAD
 ## 2026-09-02 — Cursor: simplify academy foundation lesson surfaces to one next move
 
 Presentation-only follow-on to hub / Today / Hebrew Decoding / decoding-lesson (PRs #3–#5).
@@ -3029,3 +3030,107 @@ is a single column with a full-width Continue. Hub and Today unchanged.
 A first browser pass found `display:flex` beating `[hidden]` (completion + results
 leaked). Fixed with `[hidden] { display: none !important }` on those panels; re-shot
 after cache-bust (`academy-session.css?v=2`, `diagnostic.css?v=2`).
+=======
+## 2026-09-02 — Cursor: simplify source reader and Daf workbench chrome
+
+Presentation-only. Scoring, role checks, source packets, completion, and content banks
+untouched. Live learner paths (from daily-router / tractate-mastery): `source-reader.html`,
+`daf-workbench.html` (Berakhot), `flagship-daf-workbench.html` (other flagship tractates).
+Did not restyle yoma/taanit/megillah/etc. experimental workspaces.
+
+- All three mount the shared shell (`body.jla`, `jla-system.css`, `#jla-shell-mount`,
+  `seder-auth.js`, `capability-state.js`, `jla-shell.js`) with hub fonts plus Noto Sans
+  Hebrew. Dropped `canon-labs.css` from the reader. Replaced workbench `<header>` XP
+  theater with hidden `#xp` (flagship also keeps hidden `#masteryLink`).
+- First paint is eyebrow + title + the source/work + one primary control (translation
+  toggle / Record my reading; reader focus + line tools). Side maps, other openings,
+  source packets, reading protocol, and other passages live in collapsed `<details>`.
+  Notebook / Mastery map / Gemara path are shell contextual links, not equal-weight heroes.
+- Page-local CSS bridges to `--jla-*`. Primary controls use `.jla-btn` and `min-height: 44px`
+  on small screens. Hebrew keeps `lang="he"` `dir="rtl"`. Skip-link + focus-visible still
+  come from `seder-auth.js`.
+- Tests: `test/source-reader-ui.test.mjs`, `test/daf-workbench-ui.test.mjs`.
+
+Verification (same day, local `:4180`): reader `?collection=shema` is shell + SOURCE + Shema title + focus box + Hebrew `lang="he" dir="rtl"` (4 lines). Show translation / Focus this line / Other passages `<details>` work. No header XP. Skip-link is injected (`Skip to main content`). Berakhot workbench: DAF eyebrow, click line, Show translations, Record → “Good reading.”; sugya map / packet / other openings / protocol stay collapsed. Flagship Shabbat: same chrome, study-aid boundary, Sefaria inside Source packet. 390×844: single column, Record 45px tall. Experimental `yoma-daf-workbench.html` still has its old header + visible XP (intentionally untouched). Console only the usual favicon/sw/mathjax noise. Pedagogy files untouched.
+
+## 2026-09-02 — Cursor: source reader is one line, one ask, no typing
+
+Sam rejected PR #8 reader density: too much on screen, free response, many lines at once.
+Source-reader only. Daf workbench left as shipped.
+
+- First paint is decoding-shaped: eyebrow + title + one Hebrew line + optional Show
+  translation + the line’s reading move as the single prompt + one Continue.
+  Other passages + Sefaria stay in collapsed `<details>`. Connection copy waits for
+  the complete screen.
+- Removed every textarea (per-line private note / Save line note, `#reading-reflection`).
+  Completion fires `source_reading_completed` after the last line with no typed
+  reflection. Viewed-line + complete flags still persist.
+- Dropped `source-reader-language.js` from this page (lens / save-word / extra action
+  row). Hebrew `lang="he"` `dir="rtl"` stays on the current line. Curriculum still
+  comes from `/api/curriculum/non-gemara-source-reader`.
+- Tests: `test/source-reader-ui.test.mjs`, `source-reader-accessibility`,
+  `source-reader-completion`, `language-support`.
+
+Verification (same day, `:4180`): hard-refresh Shema. First paint is 1/4 Deuteronomy 6:4
++ one prompt + Continue; 0 textareas; complete panel `hidden` / `display:none`.
+Show translation works. Continue advances to 6:5 only. Last line CTA is
+“Complete this passage →”; finish screen has next-unit + Today, no typing.
+Skip-link present. Daf workbench not re-opened (out of scope).
+
+## 2026-09-02 — Cursor: source-reader collections are next pages, not a dropdown
+
+Sam: “Great but make the other passages the next pages, not on the same page with a drop down.”
+Source-reader only. Daf workbench left as shipped.
+
+- Removed the “Other passages” `<details>` / `#collection-nav` same-page switcher.
+  The current page shows only the active collection. Quiet Sefaria link stays under Continue.
+- After every line of a collection, **Complete this passage →** writes the existing
+  per-collection seen/complete keys, fires `source_reading_completed`, then
+  `location.assign('source-reader.html?collection=<nextId>')` so the next collection
+  is a new page at line 0. `?collection=` still selects entry.
+- Last collection (exile) does not navigate: calm done state (“You have finished these
+  passages.”) + `#connection` + one **Return to Today →** (`daily-router.html`). No
+  free text, no other-passage list.
+- Mid-sequence collections that are already complete replay from line 0 (Back still works).
+  Last collection already complete opens the done state.
+- Tests: `test/source-reader-ui.test.mjs`, `source-reader-completion`,
+  `source-reader-accessibility`.
+
+Verification (same day, `:4180`): hard-refresh `?collection=shema`. First paint is
+Shema 1/4, one Hebrew line, one prompt, Continue, quiet Sefaria; 0 textareas;
+no Other passages / `<details>` / `<select>`. Continue walks 6:4 → 6:5 → 6:6–7 →
+6:8–9. **Complete this passage →** assigns `?collection=blessings` at line 1/3
+(Deuteronomy 8:10). Exile last line stays on `?collection=exile` with
+“You have finished these passages.” + connection + one **Return to Today →**
+(`daily-router.html`). 390px Shema still one column, no picker. Console clean.
+`node --test "test/*.test.mjs"` **562/562**.
+
+## 2026-09-02 — Cursor: source-reader active retrieval (no Continue-only)
+
+Sam approved a Math Academy beat: don’t let learners only click Continue.
+Source-reader only. Sequential pages, one line, zero textareas kept.
+
+- After Hebrew + optional translation + the line’s reading-move prompt, each line now
+  has one micro-check: 2–3 shuffled `.jla-choice` options and `.jla-feedback`.
+- Continue starts disabled. Wrong choice: brief feedback, stay on the line, retry.
+  Correct: enable Continue → next line / Complete this passage → next collection page
+  as already implemented.
+- Authored `answers` / `correct` / `feedback` on each curriculum line; fallback builder
+  (`source-reader-checks.mjs`) uses sibling translations or fixed reading-move templates
+  (no invented Torah). Still fires `source_reading_completed` with no typed reflection.
+- Tests: `test/source-reader-checks.test.mjs`, `source-reader-ui`, `source-reader-completion`,
+  `source-reader-accessibility`, `source-reader`, `additional-source-reader`.
+
+- Server: added `.mjs` to the static MIME map so `source-reader-checks.mjs` loads as a
+  module (`application/javascript`). One-line change; no other server work.
+
+Verification (same day, `:4180`): hard-refresh `?collection=shema`. First paint is 1/4
+Hebrew + prompt + 3 shuffled choices + **disabled** Continue; 0 textareas; no Other
+passages. Wrong choice stays on Deuteronomy 6:4 with “Not this reading…”; Continue
+stays disabled. Correct choice enables Continue. Remaining Shema lines unlock the same
+way; last CTA is **Complete this passage →**. Completing assigns `?collection=blessings`
+at 1/3 with Continue disabled again. Console: usual favicon 404 only after a clean
+reload. `node --test "test/*.test.mjs"` **565/565**.
+
+
+>>>>>>> origin/cursor/simplify-reader-workbench-aa2e

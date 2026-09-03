@@ -1,1 +1,156 @@
-.reader{border:1px solid #d8d0bd;background:#fffdf7;padding:28px}.reading-focus{margin:28px 0;padding:20px 24px;border-left:4px solid #c8963e;background:#f0eadb}.reading-focus small{display:block;color:#1e4d43;font:700 10px/1 Arial,sans-serif;letter-spacing:.12em}.reading-focus strong{display:block;margin:8px 0;font-size:1.15rem}.reading-focus p{margin:0;color:#43514a}.source-line{padding:19px 0;border-bottom:1px solid #e5dece}.source-line:last-child{border-bottom:0}.source-line.highlight{background:#fff4ce;margin:0 -12px;padding:19px 12px}.line-ref{font:700 11px Arial,sans-serif;color:#1e4d43;letter-spacing:.08em}.line-hebrew{font-size:1.5rem;line-height:1.7;margin:9px 0}.line-translation{color:#43514a}.glossary{display:flex;gap:7px;flex-wrap:wrap}.gloss{padding:3px 6px;background:#edf3eb;color:#284e37;font:700 11px Arial,sans-serif}.line-actions{display:flex;gap:14px;align-items:center;margin-top:9px;flex-wrap:wrap}.line-actions button,.line-actions a{border:0;background:none;padding:0;color:#1e4d43;text-decoration:underline;cursor:pointer;font:700 12px Arial,sans-serif}.line-note{color:#5f6b65;font-size:.93rem;margin-top:10px}.reader textarea{width:100%;min-height:70px;border:1px solid #d8d0bd;padding:9px;font:15px Georgia,serif;margin-top:10px}.save-note{border:0;background:#1e4d43;color:white;padding:10px 14px;cursor:pointer;font:700 12px Arial,sans-serif}.language-lens{margin-top:12px;padding:14px 16px;border-left:3px solid #c8963e;background:#f7f1e4;color:#43514a}.language-lens strong{color:#1e4d43}.language-lens p{margin:7px 0;line-height:1.5}.language-lens a{color:#1e4d43;font:700 12px Arial,sans-serif}.language-words{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.language-word{border:1px solid #b8cabc;background:#fffdf7;padding:5px 8px;color:#1e4d43;cursor:pointer;font:600 15px 'Noto Sans Hebrew',Arial,sans-serif}.language-gloss{padding:8px 10px;background:#fffdf7}@media(max-width:700px){.reader{padding:18px}.line-actions{gap:12px}.language-lens{padding:13px}}
+/* One-line source reader. Tokens bridge to --jla-* when jla-system is present. */
+:root {
+  --reader-ink: var(--jla-ink, #182632);
+  --reader-blue: var(--jla-blue, #173b57);
+  --reader-gold: var(--jla-gold, #856229);
+  --reader-muted: var(--jla-muted, #5e6978);
+  --reader-line: var(--jla-line, #ddd5c6);
+}
+
+.reader-title {
+  font-family: var(--jla-font-display, Fraunces, Georgia, serif);
+  color: var(--jla-accent-ink, var(--reader-blue));
+  font-size: clamp(1.35rem, 3vw, 1.7rem);
+  font-weight: 600;
+  letter-spacing: -.02em;
+  line-height: 1.2;
+  margin: 6px 0 18px;
+  max-width: 22ch;
+  text-wrap: balance;
+}
+
+.reader-drill {
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+}
+
+.reader-drill[hidden],
+.reader-complete[hidden] { display: none; }
+
+.reader-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--jla-text-soft, var(--reader-muted));
+}
+
+.reader-status #line-ref {
+  font: 700 .68rem/1 var(--jla-font-body, Inter, system-ui, sans-serif);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.reader-meter { flex: 1; min-width: 48px; }
+
+.reader-status #count {
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+
+.reader-source {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+  padding: clamp(20px, 4vw, 28px);
+}
+
+.line-hebrew {
+  font-family: "Noto Sans Hebrew", "Times New Roman", serif;
+  font-size: clamp(1.6rem, 4vw, 2rem);
+  line-height: 1.7;
+  margin: 0;
+  color: var(--jla-accent-ink, var(--reader-blue));
+}
+
+.line-translation {
+  margin: 0;
+  color: var(--jla-text-soft, var(--reader-muted));
+  font-size: 1.02rem;
+  line-height: 1.55;
+}
+
+.reader-source .jla-hear { align-self: flex-start; }
+
+.reader-prompt {
+  color: var(--jla-accent-ink, var(--reader-blue));
+  font: 600 1.08rem/1.45 var(--jla-font-display, Fraunces, Georgia, serif);
+  margin: 0;
+}
+
+.reader-choices { display: flex; flex-direction: column; gap: 0; }
+
+.reader-choices .jla-choice { margin: 6px 0; }
+
+.reader-choices .jla-choice:focus-visible {
+  outline: 3px solid var(--jla-accent, var(--reader-gold));
+  outline-offset: 2px;
+}
+
+.jla-feedback[hidden] { display: none; }
+
+.reader-drill #continue { align-self: flex-start; margin-top: 4px; }
+
+.reader-drill #continue:disabled {
+  opacity: .42;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.reader-complete {
+  max-width: 640px;
+  background: var(--jla-secure-bg, #e5efe6);
+  border: 1px solid var(--jla-secure-line, #cbe0cf);
+  border-radius: var(--jla-r-lg, 16px);
+  padding: clamp(24px, 4vw, 40px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.reader-complete h2 {
+  font-family: var(--jla-font-display, Fraunces, Georgia, serif);
+  color: var(--jla-accent-ink, var(--reader-blue));
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  letter-spacing: -.03em;
+  margin: 0;
+}
+
+.reader-complete #connection,
+.reader-complete p {
+  color: var(--jla-text-soft, var(--reader-muted));
+  font-size: 1.02rem;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 46ch;
+}
+
+.reader-sefaria {
+  align-self: flex-start;
+  color: var(--jla-text-soft, var(--reader-muted));
+  font-size: .82rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.reader-sefaria:hover { color: var(--jla-accent-ink, var(--reader-blue)); text-decoration: underline; }
+
+#toggleTranslation:focus-visible,
+.reader-sefaria:focus-visible {
+  outline: 3px solid var(--jla-accent, var(--reader-gold));
+  outline-offset: 2px;
+}
+
+@media (max-width: 720px) {
+  .reader-drill #continue,
+  .reader-choices .jla-choice,
+  .reader-complete .jla-btn { width: 100%; min-height: 44px; }
+}
