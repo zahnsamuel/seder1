@@ -3155,5 +3155,19 @@ breadth + Berakhot launch), `course-dashboard.html`, `tractate-mastery.html`, an
   styles `.jla-next-action` as well as `[data-jla-next-action]`.
 - Tests: `test/arc-one-next-move.test.mjs`, `test/syllabus-one-next.test.mjs`.
 
-Verification: `node --test "test/*.test.mjs"` (run after this commit). Browser pass
-on Berakhot arc, Shabbat arc, Shas map, course dashboard, tractate mastery.
+Verification: `node --test "test/*.test.mjs"` **580/583**. The three reds are
+pre-existing graph drift (`foundation-content-map` stale + two unmapped
+`reading-orientation` / `reading-independent` skills) and are not from this
+presentation change. New tests `arc-one-next-move` and `syllabus-one-next` pass.
+
+Browser (`:4180`, hard refresh): Berakhot is one navy **Begin the first session →**
++ `0 / 10 sessions` + collapsed “See the full path”; CTA opens `language.html`.
+Shabbat first-paint is the current source lesson (Hebrew `lang=he`), collapsed
+path, Continue disabled until a choice; feedback has no “+10 XP”. Shas map is
+Berakhot CTA + collapsed “See all tractates” (clicking Shabbat in the catalog
+does not steal the hero). Course dashboard is Shema **Begin course →** + two
+collapsed catalogs. Tractate mastery Shabbat is **Source trail →** + collapsed
+full loop. Gemara path is **Follow Gemara moves** + collapsed eight-stage path.
+Hub and Today unchanged. 390px Berakhot/Shabbat are one column with a full-width
+≥44px CTA. Shell is brand · label · Today · Account (Mastery/Shas map only as
+contextual links). Hidden `#xp` still updates. Console: favicon 404 only.
