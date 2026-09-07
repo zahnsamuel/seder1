@@ -30,10 +30,9 @@ Promise.all([
     if (!done && !activeMilestone) { button.setAttribute('aria-current', 'step'); activeMilestone = true; }
     else button.removeAttribute('aria-current');
   });
-  // Header and capability graph speak in capabilities, not XP: what the learner can now do.
+  // Header and capability graph speak in emerging / secure / transferable / durable.
   const capabilityCounts = Seder.summarizeCapabilities(learner.capabilityEvidence);
-  const onOwn = capabilityCounts.secure + capabilityCounts.transferable + capabilityCounts.durable;
-  xp.textContent = onOwn ? `${onOwn} on your own` : '';
+  xp.textContent = Seder.capabilityHeaderText(learner.capabilityEvidence);
   const capChips = document.querySelector('#capChips');
   if (capChips) {
     const order = ['emerging', 'secure', 'transferable', 'durable'];
@@ -108,5 +107,5 @@ Promise.all([
 
 document.querySelectorAll('.path button').forEach((node) => node.addEventListener('click', () => {
   document.querySelectorAll('.path button').forEach((item) => item.classList.toggle('active', item === node));
-  document.querySelector('#detail').innerHTML = `<span>MASTERY TARGET</span><h2>${node.dataset.name}</h2><p>${node.dataset.text}</p><a class="primary" href="study.html?v=11">Practice this skill →</a>`;
+  document.querySelector('#detail').innerHTML = `<span>THIS CAPABILITY</span><h2>${node.dataset.name}</h2><p>${node.dataset.text}</p><a class="primary" href="study.html?v=11">Practice this skill →</a>`;
 }));

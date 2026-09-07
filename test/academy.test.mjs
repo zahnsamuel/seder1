@@ -51,4 +51,13 @@ test('ninety-day academy gives beginners a single sequenced, evidence-led entry 
   assert.match(source, /continuationBlocks/);
   assert.match(source, /seder-90-day/);
   assert.match(source, /Month 3 · Independence/);
+
+  // North-star #8: progress chrome speaks emerging / secure / transferable / durable, not XP / %.
+  assert.match(source, /capabilityChrome/);
+  assert.match(source, /capabilitySentence/);
+  assert.match(source, /Continue on Today/);
+  assert.doesNotMatch(html, /0 XP/);
+  assert.doesNotMatch(source, /\$\{learner\?\.xp \|\| 0\} XP/);
+  assert.doesNotMatch(source, /MASTERY MARKERS/);
+  assert.doesNotMatch(source, /reading level/);
 });
