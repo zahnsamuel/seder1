@@ -13,7 +13,7 @@ import { explainRecommendation, whySentence } from './data/recommendation-why.mj
 import { foundationRecommendation, gemaraYearRecommendation, moedExpansionRecommendation } from './data/term-recommendations.mjs';
 import { keyPrerequisiteRemediation, estimateFrontierFromDiagnostic, nextDiagnosticProbe } from './data/knowledge-graph.mjs';
 import { computeGraphPilotAnalytics } from './data/pilot-analytics.mjs';
-import { normalizeNextAction, selectNextAction } from './data/next-action.mjs';
+import { foundationFrontierRecommendation, normalizeNextAction, selectNextAction } from './data/next-action.mjs';
 import { isTestLearner } from './scripts/scrub-test-learners.mjs';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
@@ -81,48 +81,26 @@ async function readJsonBody(request) {
   }
 }
 
-function academyFoundationRecommendation(learner) {
-  const scores = learner.foundationScores || {};
-  if (!Object.keys(scores).length || learner.foundationGraduated) return null;
-  const sequence = [
-    // Layer 0 — the reading on-ramp: a learner who cannot yet read Hebrew starts at the very bottom.
-    ['fnd-decode-letters', 'Recognize the Hebrew letters', 'Begin at the very beginning: name each letter and its sound.'],
-    ['fnd-decode-vowels', 'Recognize the Hebrew vowels', 'Learn the nikud — the vowel marks — and the sound each makes.'],
-    ['fnd-decode-blend', 'Blend a letter and a vowel', 'Put a consonant and its vowel together into a syllable.'],
-    ['fnd-decode-word', 'Read a vocalized Hebrew word', 'Sound out a whole word, then begin a vocalized line on your own.'],
-    ['fnd-orient-source-type', 'Orient to a Jewish source', 'Start by recognizing what kind of source you are looking at.'],
-    ['fnd-signal-question-words', 'Find the question signal', 'A recurring Hebrew signal gives you a foothold in the first source.'],
-    ['fnd-orient-question-present', 'Notice when a source is asking', 'Separate a question from a statement before trying to solve it.'],
-    ['fnd-arg-claim', 'Name the source’s claim', 'Practice identifying what a source is actually saying.'],
-    ['fnd-arg-evidence-role', 'Match evidence to a claim', 'Learn to point to the line that makes an argument move.'],
-    ['fnd-context-who-audience', 'Find the source’s audience', 'Ask who is being addressed before applying a source.'],
-    ['fnd-resp-learning-vs-ruling', 'Keep study and ruling distinct', 'Read halakhic sources seriously without mistaking literacy for personal guidance.'],
-    ['fnd-compare-scope', 'Compare sources responsibly', 'Name what is shared while preserving each source’s scope and difference.'],
-    ['fnd-indep-first-pass', 'Make a first pass through a new source', 'Carry the reading move into an unfamiliar short passage.'],
-    ['fnd-agency-choose-next', 'Choose your next learning move', 'Use your evidence to decide what to study next.']
-  ];
-  const nextIndex = sequence.findIndex(([skill]) => Math.max(scores[skill] || 0, learner.mastery?.[skill] || 0) < .67);
-  if (nextIndex === -1) return null;
-  const next = sequence[nextIndex];
-  // Explanation beats: the prior move in the sequence (if the learner has secured it) and the one
-  // this unlocks next, so the recommendation can say what it builds on and what it opens.
-  const prior = nextIndex > 0 ? sequence[nextIndex - 1] : null;
-  const priorSecured = prior && Math.max(scores[prior[0]] || 0, learner.mastery?.[prior[0]] || 0) >= .67;
-  const upcoming = sequence[nextIndex + 1] || null;
-  // Layer-0 decoding skills open the real glyph drills (which record graph mastery); the rest go
-  // through the daily router into the scaffolded knowledge-point lesson.
-  const url = next[0].startsWith('fnd-decode-') ? 'hebrew-decoding.html' : `daily-router.html?foundationSkill=${encodeURIComponent(next[0])}`;
-  return { kind: 'academy-foundation', title: `Academy Foundation · ${next[1]}`, reason: next[2], url, skillId: next[0], foundation: true, builtOn: priorSecured ? prior[1] : null, unlocks: upcoming ? upcoming[1] : null };
+let cachedFoundationGraph = null, cachedKpLayer = null, cachedGraphSkills = null;
+async function loadFoundationGraph() {
+  if (!cachedFoundationGraph) {
+    cachedFoundationGraph = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-skill-graph.json'), 'utf8'));
+    cachedGraphSkills = cachedFoundationGraph.skills;
+  }
+  return cachedFoundationGraph;
+}
+
+async function academyFoundationRecommendation(learner) {
+  return foundationFrontierRecommendation(learner, await loadFoundationGraph());
 }
 
 // Build the Math-Academy-Way key-prerequisite remediation from the knowledge-point layer: a struggled
 // skill routes to a review of the foundation its knowledge points most directly use.
-let cachedKpLayer = null, cachedGraphSkills = null;
 async function keyPrerequisiteRemediationFor(root, learner) {
   if (!cachedKpLayer) cachedKpLayer = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-knowledge-points.json'), 'utf8'));
   const result = keyPrerequisiteRemediation({ knowledgePoints: cachedKpLayer.knowledgePoints, struggles: learner.struggles, knowledgePointStruggles: learner.knowledgePointStruggles, mastery: learner.mastery });
   if (!result) return null;
-  if (!cachedGraphSkills) cachedGraphSkills = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-skill-graph.json'), 'utf8')).skills;
+  if (!cachedGraphSkills) cachedGraphSkills = (await loadFoundationGraph()).skills;
   const titleOf = (id) => cachedGraphSkills.find((s) => s.id === id)?.title || id;
   // When the struggle is pinned to a specific knowledge point, name it ("the practice step of X").
   const where = result.knowledgePointKind ? `the ${result.knowledgePointKind} step of “${titleOf(result.strugglingSkill)}”` : `“${titleOf(result.strugglingSkill)}”`;
@@ -144,7 +122,7 @@ async function keyPrerequisiteRemediationFor(root, learner) {
 // knowledge frontier, not only at the handful of skills the placement checks directly probed. Purely
 // additive: it seeds inferred prerequisites to a secure level, never lowers a directly-earned score.
 async function enrichPlacementWithFrontier(root, event) {
-  if (!cachedGraphSkills) cachedGraphSkills = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-skill-graph.json'), 'utf8')).skills;
+  if (!cachedGraphSkills) cachedGraphSkills = (await loadFoundationGraph()).skills;
   const graphIds = new Set(cachedGraphSkills.map((s) => s.id));
   const graded = { ...(event.scores || {}), ...(event.foundationScores || {}) };
   const demonstrated = Object.entries(graded).filter(([id, v]) => graphIds.has(id) && Number(v) >= 0.67).map(([id]) => id);
@@ -165,7 +143,7 @@ async function enrichPlacementWithFrontier(root, event) {
 
 async function chooseRecommendation(learner, { skipReview = false } = {}) {
   if (!learner.placement) return { kind: 'placement', title: 'Find your Gemara starting point', reason: 'A short adaptive placement pins your knowledge frontier in a handful of questions — what you already know and what to build next.', url: 'diagnostic.html' };
-  const academyFoundation = academyFoundationRecommendation(learner);
+  const academyFoundation = await academyFoundationRecommendation(learner);
   if (academyFoundation) return academyFoundation;
   if (!skipReview) {
     // A skill that reaches strong raw mastery (>= .85) is dropped from the formal
@@ -357,7 +335,7 @@ async function handleApi(request, response, url) {
   if (request.method === 'POST' && url.pathname === '/api/graph/diagnostic') {
     const body = await readJsonBody(request);
     const responses = (body && typeof body.responses === 'object' && body.responses) || {};
-    if (!cachedGraphSkills) cachedGraphSkills = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-skill-graph.json'), 'utf8')).skills;
+    if (!cachedGraphSkills) cachedGraphSkills = (await loadFoundationGraph()).skills;
     const graph = { skills: cachedGraphSkills };
     const estimate = estimateFrontierFromDiagnostic(graph, responses);
     const probeId = nextDiagnosticProbe(graph, responses);

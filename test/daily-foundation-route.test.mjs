@@ -4,9 +4,13 @@ import fs from 'node:fs';
 
 test('daily router opens an explicit Academy foundation skill session', () => {
   const source = fs.readFileSync('daily-router.js', 'utf8');
+  const today = fs.readFileSync('jla-next-action.js', 'utf8');
   assert.match(source, /URLSearchParams\(location\.search\).*foundationSkill/);
   assert.match(source, /academy-session\.html\?skill=/);
   assert.match(source, /isFoundation/);
   assert.match(source, /Retrieve/);
   assert.match(source, /Encounter/);
+  assert.match(today, /foundationSkill/);
+  assert.match(today, /location\.replace/);
+  assert.match(today, /academy-session\.html\?skill=/);
 });

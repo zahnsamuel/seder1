@@ -3236,3 +3236,25 @@ full loop. Gemara path is **Follow Gemara moves** + collapsed eight-stage path.
 Hub and Today unchanged. 390px Berakhot/Shabbat are one column with a full-width
 ≥44px CTA. Shell is brand · label · Today · Account (Mastery/Shas map only as
 contextual links). Hidden `#xp` still updates. Console: favicon 404 only.
+
+## 2026-09-07 — Cursor: Today / next-action → live foundation frontier
+
+North-star checklist items 1–2. Placed foundation learners were bouncing to
+Today with a dead `?foundationSkill=` query because `daily-router.html` no
+longer loads `daily-router.js`, and `academyFoundationRecommendation` walked a
+hardcoded 14-skill ladder instead of `knowledgeFrontier()`.
+
+- `data/next-action.mjs`: `foundationSessionHref`, `pickFrontierFoundationSkill`,
+  `foundationFrontierRecommendation` — lowest-layer ready `fnd-` skill from the
+  real DAG. Decode → `hebrew-decoding.html`; everything else →
+  `academy-session.html?skill=<fnd-id>`. `skillId` stays on the public contract.
+- `server.mjs`: foundation recommendation is now that frontier helper, not the
+  14-skill list. No more `daily-router.html?foundationSkill=`.
+- `diagnostic.js`: placement CTA uses the same live session URL.
+- `jla-next-action.js`: leftover `?skill=` / `?foundationSkill=` on Today
+  `location.replace`s to the session (one next move, no cafeteria).
+- Tests: `academy-foundation-recommendation`, `jla-next-action` (href + skillId),
+  `adaptive-diagnostic`, `daily-foundation-route`.
+
+Out of scope (unchanged): starter-set freeze, item banks, Yochai, mastery-decay
+math, content-move graph demotion.

@@ -1,4 +1,14 @@
 (function () {
+  const requestedSkill = (() => {
+    try {
+      const value = new URLSearchParams(location.search).get('skill') || new URLSearchParams(location.search).get('foundationSkill');
+      return typeof value === 'string' && /^[a-z][a-z0-9-]{1,80}$/.test(value.trim()) ? value.trim() : null;
+    } catch { return null; }
+  })();
+  if (requestedSkill) {
+    location.replace(requestedSkill.startsWith('fnd-decode-') ? 'hebrew-decoding.html' : `academy-session.html?skill=${encodeURIComponent(requestedSkill)}`);
+    return;
+  }
   const root = document.querySelector('[data-jla-next-action]');
   if (!root || !window.Seder) return;
   const fallback = { title: 'Continue today’s learning', reason: 'Open Today to continue with one clear step.', href: 'daily-router.html', cta: 'Open Today' };
