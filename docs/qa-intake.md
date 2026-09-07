@@ -3316,3 +3316,11 @@ Sam’s feedback: foundation sessions felt like a Sefaria link plus “what’s 
 - Step chips are see it / try it / new source. Sefaria is “Open full text”, secondary.
 - Did not rewrite Claude’s item bank; did not touch Today / next-action / placement. Stayed off PR #16’s L2–L5 authoring files.
 - Tests: `academy-session-lesson`, `academy-session`, `academy-source-link`. Practice fallback copy mirrored in `jla-practice.js`.
+
+## 2026-09-07 — Cursor: Sam re-review — zero “the move” as the ask
+
+Hard requirement after a second live look. Renderer now:
+- uses the skill statement (`Look for this: …`) instead of teacher-facing `teachingMove` / KP “move” language
+- rewrites vague JLA prompts (“Which first move…”) into “In this source, which option correctly…”
+- strips `Make the move:` from any leftover choice text
+- grep-guard on `academy-session.html` + `academy-session.js`: no `make the move` / `see the move` / `that is the move` / `the move` as ask frame

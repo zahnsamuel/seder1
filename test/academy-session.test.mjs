@@ -66,6 +66,17 @@ test('scaffold path marks exactly one current step and keeps scoring hooks', () 
   assert.equal((html.match(/class="jla-chip is-current"/g) || []).length, 1);
 });
 
+test('academy-session learner chrome does not use “the move” as the ask frame', () => {
+  const chrome = `${html}\n${js}`;
+  assert.doesNotMatch(chrome, /make the move/i);
+  assert.doesNotMatch(chrome, /see the move/i);
+  assert.doesNotMatch(chrome, /that is the move/i);
+  assert.doesNotMatch(chrome, /Make the move:/);
+  assert.doesNotMatch(chrome, /Show me the move/i);
+  assert.doesNotMatch(html, /\bthe move\b/i);
+  assert.doesNotMatch(js, /\bthe move\b/i);
+});
+
 test('foundation session chrome is see it / try it / new source with a clear ask', () => {
   assert.match(html, /<small>see it<\/small>/);
   assert.match(html, /<small>try it<\/small>/);
@@ -77,9 +88,9 @@ test('foundation session chrome is see it / try it / new source with a clear ask
   assert.match(js, /foundation-authored-items\.json/);
   assert.match(js, /foundation-source-excerpts\.json/);
   assert.match(lesson, /You'll practice:/);
-  assert.doesNotMatch(js + lesson, /Make the move:/);
-  assert.doesNotMatch(js + lesson, /Show me the move/);
-  assert.doesNotMatch(js + lesson, /INTRODUCE · SEE THE MOVE/);
+  assert.doesNotMatch(html + js, /Make the move:/);
+  assert.doesNotMatch(html + js, /Show me the move/);
+  assert.doesNotMatch(html + js, /INTRODUCE · SEE THE MOVE/);
 });
 
 test('academy-session CSS uses jla tokens and a single-column lesson', () => {

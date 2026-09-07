@@ -30,6 +30,17 @@
   const stage = el('stage');
 
   const sefariaLink = (w) => w.sourceUrl || `https://www.sefaria.org/search?q=${encodeURIComponent(w.sourceRef || '')}&tab=texts`;
+  const vagueMoveAsk = (text) => /\b((make|see|show me|that is) the move|the move|which first move|what move)\b/i.test(String(text || ''));
+  const practicePrompt = (session) => {
+    const prompt = session.prompt || '';
+    if (prompt && !vagueMoveAsk(prompt)) return prompt;
+    const capability = String(session.evidencePreview || session.title || '')
+      .replace(/^I can /i, '')
+      .replace(/\.$/, '');
+    return capability
+      ? `In this source, which option correctly does this: ${capability.charAt(0).toLowerCase()}${capability.slice(1)}?`
+      : 'In this source, which option correctly answers the question about the text?';
+  };
 
   function renderLesson(session) {
     el('eyebrow').textContent = session.domain ? session.domain.replace(/-/g, ' ') : 'Source practice';
@@ -46,7 +57,7 @@
         ${w.translation ? `<p class="source-tr">${esc(w.translation)}</p>` : ''}
         ${w.context ? `<p class="source-context">${esc(w.context)}</p>` : ''}
       </div>
-      <p class="prompt">${esc(session.prompt || 'In this source, which option correctly answers the question?')}</p>
+      <p class="prompt">${esc(practicePrompt(session))}</p>
       <div id="choices">
         ${(session.choices || []).map((c) => `<button class="jla-choice" data-choice-id="${esc(c.id)}">${esc(c.text)}</button>`).join('')}
       </div>

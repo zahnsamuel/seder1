@@ -66,8 +66,12 @@ test('banked orientation skill uses authored stems, on-page source, and shuffled
     assert.ok(step.choices.length >= 3);
     assert.ok(step.correctId);
     assert.doesNotMatch(step.prompt, BANNED_LEARNER_COPY[0]);
+    assert.doesNotMatch(step.prompt, /\bthe move\b/i);
+    assert.doesNotMatch(step.guidance, /\bthe move\b/i);
+    if (step.kind !== 'transfer') assert.match(step.guidance, /^Look for this:/);
     for (const choice of step.choices) {
       assert.doesNotMatch(choice.text, /^Make the move:/i);
+      assert.doesNotMatch(choice.text, /\bthe move\b/i);
       assert.equal(learnerCopyHasBannedPhrase(choice.text), false);
     }
   }
@@ -109,7 +113,7 @@ test('explicitAsk prefers the authored stem and otherwise uses the skill check',
   assert.match(explicitAsk({ skill, context: { ref: 'Berakhot 2a' }, kind: 'practice' }), /which option correctly/i);
 });
 
-test('JLA session framing keeps the authored prompt and prefixes You\'ll practice', () => {
+test('JLA session framing prefixes You\'ll practice and rewrites a vague move ask', () => {
   const view = frameJlaSession({
     title: 'Recognize the source before interpreting it',
     evidencePreview: 'I can recognize a Jewish source family before I interpret it.',
@@ -119,6 +123,7 @@ test('JLA session framing keeps the authored prompt and prefixes You\'ll practic
     choices: [{ id: 'a', text: 'Name the family' }]
   });
   assert.match(view.practiceLine, /^You'll practice:/);
-  assert.equal(view.prompt, 'Which first move best orients you to this source?');
+  assert.match(view.prompt, /which option correctly/i);
+  assert.doesNotMatch(view.prompt, /the move/i);
   assert.equal(view.sourceWindow.hasOnPageSource, true);
 });

@@ -21,7 +21,17 @@ export const BANNED_LEARNER_COPY = [
   /make the move/i,
   /see the move/i,
   /show me the move/i,
+  /that is the move/i,
   /make one transferable learning move/i
+];
+
+// Ask-frame jargon Sam rejected: "the move" as the thing the learner is supposed to do.
+export const VAGUE_MOVE_ASK = [
+  ...BANNED_LEARNER_COPY,
+  /\bthe move\b/i,
+  /\bwhich first move\b/i,
+  /\bwhat move\b/i,
+  /\bwhat(?:'s| is) the move\b/i
 ];
 
 export function practiceLine(statement) {
@@ -97,8 +107,11 @@ export function uncapitalize(text) {
   return value.charAt(0).toLowerCase() + value.slice(1);
 }
 
-export function explicitAsk({ skill = {}, context = {}, item, kind } = {}) {
-  if (item?.stem) return item.stem;
+export function isVagueMoveAsk(text) {
+  return VAGUE_MOVE_ASK.some((pattern) => pattern.test(String(text || '')));
+}
+
+export function concreteAskFromSkill(skill = {}, context = {}, kind) {
   const ref = context.ref || 'this source';
   const check = skill.checks?.[0];
   if (kind === 'transfer') {
@@ -111,6 +124,17 @@ export function explicitAsk({ skill = {}, context = {}, item, kind } = {}) {
   return 'In this source, which option correctly answers the question about the text?';
 }
 
+export function explicitAsk({ skill = {}, context = {}, item, kind } = {}) {
+  if (item?.stem && !isVagueMoveAsk(item.stem)) return item.stem;
+  return concreteAskFromSkill(skill, context, kind);
+}
+
+export function howToLook(skill = {}) {
+  const statement = String(skill.statement || '').trim();
+  if (!statement || isVagueMoveAsk(statement)) return '';
+  return `Look for this: ${statement}`;
+}
+
 export function shuffleList(list, random = Math.random) {
   const result = list.slice();
   for (let index = result.length - 1; index > 0; index -= 1) {
@@ -120,10 +144,14 @@ export function shuffleList(list, random = Math.random) {
   return result;
 }
 
+export function sanitizeChoiceText(text) {
+  return String(text || '').replace(/^Make the move:\s*/i, '').trim();
+}
+
 export function presentChoices(texts, correctIndex, random = Math.random) {
   const items = texts.map((text, index) => ({
     id: `choice-${index}`,
-    text,
+    text: sanitizeChoiceText(text),
     correct: index === correctIndex
   }));
   const shuffled = shuffleList(items, random);
@@ -214,9 +242,6 @@ export function buildScaffoldSteps({
   excerpts = {},
   random = Math.random
 } = {}) {
-  const kpByKind = Object.fromEntries(
-    (kpLayer?.knowledgePoints || []).filter((point) => point.skill === skill.id).map((point) => [point.kind, point])
-  );
   const contexts = pickStepContexts(skill, ctxLayer, authoredBank);
   const allSkills = graph?.skills || [];
 
@@ -231,12 +256,12 @@ export function buildScaffoldSteps({
         return presentChoices(fallback.texts, fallback.correctIndex, random);
       })();
 
-    let guidance = '';
-    if (kind === 'introduce') guidance = kpByKind.introduce?.statement || skill.teachingMove || '';
-    else if (kind === 'practice') guidance = skill.teachingMove || '';
-    else if (skill.transfer) {
+    let guidance = howToLook(skill);
+    if (kind === 'transfer') {
       const family = context.family && context.family !== context.genre ? ` (${context.family})` : '';
-      guidance = `Now try the same skill in a different source${family}.`;
+      guidance = `Now try the same skill on this new source${family}.`;
+    } else if (isVagueMoveAsk(guidance)) {
+      guidance = '';
     }
 
     const taught = item?.feedback || '';
@@ -261,20 +286,31 @@ export function buildScaffoldSteps({
   });
 }
 
+export function concreteJlaPrompt(session = {}) {
+  const prompt = session.prompt || '';
+  if (prompt && !isVagueMoveAsk(prompt)) return prompt;
+  const capability = String(session.evidencePreview || session.title || '')
+    .replace(/^I can /i, '')
+    .replace(/\.$/, '');
+  if (capability) return `In this source, which option correctly does this: ${uncapitalize(capability)}?`;
+  return 'In this source, which option correctly answers the question about the text?';
+}
+
 export function frameJlaSession(session) {
   const sourceWindow = session.sourceWindow || {};
+  const guidance = isVagueMoveAsk(session.teachingMove) ? '' : (session.teachingMove || '');
   return {
     title: session.title,
     practiceLine: practiceLine(session.evidencePreview || session.title),
-    why: session.teachingMove || '',
+    why: guidance,
     stepLabel: 'TODAY’S SOURCE WINDOW',
     sourceWindow: {
       ...sourceWindow,
       context: sourceWindow.context || 'Read this source on the page, then answer the question below.',
       hasOnPageSource: Boolean(sourceWindow.hebrew || sourceWindow.translation)
     },
-    guidance: session.teachingMove || '',
-    prompt: session.prompt,
+    guidance,
+    prompt: concreteJlaPrompt(session),
     choices: session.choices || []
   };
 }
