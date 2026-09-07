@@ -3347,3 +3347,5 @@ Sam: sessions still felt link-heavy vs teach. “Open full text in Sefaria ↗�
 - JS: `fillSourceCard` hides the whole footer when there is no URL.
 - Tests: `academy-session`, `academy-source-link` now assert the quiet label and footer-after-teach order.
 - Left alone: routing, item banks, Today, `foundation-teach.json`, Claude teach JSON.
+
+Browser (`:4180`, `?skill=fnd-orient-source-type`, hard refresh v=6): first paint is Genesis 1:1 excerpt + WHAT TO NOTICE + navy **Got it — ask me**; Sefaria is muted footer **Full text (optional)** (href `sefaria.org/Genesis.1.1`, `target=_blank`). After Got it, YOUR ASK + four choices; footer stays quiet. Try it (Mishnah Berakhot 1:1) shows the ask immediately with the same quiet footer. 390px: teach + full-width Got it, footer still small/muted. Old “Open full text in Sefaria” copy gone. Console: expected 404 on `/api/jla/academy-session/fnd-orient-source-type` and favicon. Suite `node --test "test/*.test.mjs"` 610/610.
