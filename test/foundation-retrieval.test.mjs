@@ -70,7 +70,8 @@ test('review and welcome-back recommendations cite fnd- and a live session href'
 
   const recovery = foundationRetrievalRecommendation({
     foundationScores: secure([...decode, 'fnd-orient-source-type']),
-    mastery: { 'fnd-orient-source-type': 0.8 }
+    mastery: { 'fnd-orient-source-type': 0.8 },
+    masteryUpdatedAt: { 'fnd-orient-source-type': '2026-08-20T12:00:00.000Z' }
   }, graph, map, { allowSecuredFallback: true, mode: 'recovery' });
   assert.equal(recovery.skillId, 'fnd-orient-source-type');
   assert.match(recovery.title, /Welcome back/);
