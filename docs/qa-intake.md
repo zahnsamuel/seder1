@@ -3337,3 +3337,18 @@ Sam: foundation See it was excerpt + immediate quiz, not a short teach. Approved
 ## 2026-09-07 — Cursor: drop “NO TYPING REQUIRED” from academy ask chrome
 
 Sam: get rid of learner-facing “no typing required.” `academy-session.html` ask eyebrow is now `YOUR ASK`. Grep of HTML/JS session chrome is clean. Pedagogy/routing unchanged.
+
+## 2026-09-07 — Cursor: capability-state language on path and academy references
+
+North-star checklist item 8. Learner-facing leftover XP / % / “level” copy on My Path and the Academy progress reference now uses emerging / secure / transferable / durable from `capability-state.js`. Today stays one action — not rewritten into a dashboard. Next-action routing, item banks, and academy-session files were not touched.
+
+Before → after (learner-visible):
+- Path header `0 XP` / `${xp} XP` → empty, then “3 on your own”
+- Path graduation `SOURCE EXPLORER · 50%` / “Your Jewish literacy level” → `SOURCE EXPLORER · Emerging` / “Your reading capabilities”
+- Academy `#xp` `0 XP` + `${xp} XP` (hidden) → capability header text
+- Academy card `DAY 12 OF 90 · 4 MASTERY MARKERS` → `DAY 12 OF 90 · 2 SECURE` plus the capability sentence
+- Placement “actual reading level” → “the first move that is not yet secure”
+- Academy-next `${n}% demonstrated mastery` / header `0 XP` → “least secure evidence…” plus capability sentence
+
+Tests: `capability-state`, `capability-state-surfaces`, plus path/academy/academy-next grep guards. HTML grep of those six files is clean of `0 XP`, `MASTERY MARKERS`, `levelProgress}%`, and “reading level”.
+

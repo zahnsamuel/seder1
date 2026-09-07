@@ -38,3 +38,12 @@ test('My Path caps the retention preview instead of dumping every due card', () 
   assert.match(js, /Start review/);
   assert.doesNotMatch(js, /Review this skill/);
 });
+
+test('My Path header chrome uses capability-state copy, not XP', () => {
+  assert.match(js, /capabilityHeaderText/);
+  assert.match(js, /capabilityStates/);
+  assert.doesNotMatch(js, /learner\.xp/);
+  assert.doesNotMatch(html, /0 XP/);
+  assert.doesNotMatch(html, /levelProgress\}%/);
+  assert.doesNotMatch(js, /MASTERY TARGET/);
+});

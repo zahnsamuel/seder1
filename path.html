@@ -9,29 +9,29 @@
 <body>
   <!-- Legacy fallback: url=berakhot-deep.html?entry=placement remains available when scripts are disabled. -->
   <noscript><p>Opening your first Gemara lesson. <a href="berakhot-deep.html?entry=placement">Begin Berakhot 2a →</a></p></noscript>
-  <header><a href="seder.html">Jewish Learning Academy</a><nav><a href="daily-router.html">Today</a><a href="course-dashboard.html">Courses</a><a href="profile.html">Profile</a></nav><strong id="xp">0 XP</strong></header>
+  <header><a href="seder.html">Jewish Learning Academy</a><nav><a href="daily-router.html">Today</a><a href="course-dashboard.html">Courses</a><a href="profile.html">Profile</a></nav><strong id="xp"></strong></header>
   <main>
     <section class="intro"><div><span>ONE INTEGRATED PATH</span><h1>My Path through Jewish learning.</h1><p>Gemara is the spine. Chumash, Halakha, Tefillah, Jewish Thought, History, and the wider world deepen the same reading practice.</p><small id="path-status">Building your starting profile…</small></div><a class="primary" href="daily-router.html">Begin today’s session →</a></section>
     <section class="today"><div><span>NEXT BEST STEP</span><strong>Preparing your next move</strong><small>Jewish Learning Academy is reading your current evidence.</small></div><a href="daily-router.html">Open Today →</a></section>
     <section id="review-section" class="review-section" hidden><div class="review-heading"><div><span>RETENTION</span><h2>Ready to bring back</h2></div><small id="review-count"></small></div><div id="review-list" class="review-list"></div></section>
     <section id="skill-progress" class="skill-progress" aria-labelledby="skill-progress-title"><div><span>KNOWLEDGE FRONTIER</span><h2 id="skill-progress-title">Your next learning capability</h2><p id="skill-progress-copy">Reading your evidence across the Academy’s foundational skills.</p><div id="capChips" class="cap-chips"></div><a class="map-link" href="my-graph.html">See your whole map through the graph →</a></div><div id="skill-progress-card" class="frontier"><strong>Loading your capability profile…</strong></div></section>
-    <section id="jla-graduation" class="skill-progress" aria-labelledby="jla-grad-title" hidden><div><span>GRADUATION</span><h2 id="jla-grad-title">Your Jewish literacy level</h2><p id="jla-grad-copy">Evidence you have earned across the Academy’s graduation skills.</p></div><div id="jla-grad-card" class="skill-progress-card"></div></section>
-    <section class="path" aria-label="Integrated mastery milestones">
+    <section id="jla-graduation" class="skill-progress" aria-labelledby="jla-grad-title" hidden><div><span>GRADUATION</span><h2 id="jla-grad-title">Your reading capabilities</h2><p id="jla-grad-copy">Evidence you have earned across the Academy’s graduation skills.</p></div><div id="jla-grad-card" class="skill-progress-card"></div></section>
+    <section class="path" aria-label="Integrated capability milestones">
       <i class="line" aria-hidden="true"></i>
       <button class="done" data-stage="source" data-name="Begin with sources" data-text="Build the first habits: recognize Hebrew, locate a question, and see how a source makes a claim."><b>1</b><span>BEGIN WITH SOURCES</span><small>Recognize the page</small></button>
       <button class="active" data-stage="sugya" data-name="Read a first sugya" data-text="Separate Mishnah, Gemara question, evidence, and response while the Daf stays visible."><b>2</b><span>READ A FIRST SUGYA</span><small>Berakhot and the opening moves</small></button>
       <button data-stage="foundation" data-name="Map cases and reasons" data-text="Carry the same reading moves into time, space, claims, categories, and responsibility."><b>3</b><span>MAP CASES AND REASONS</span><small>Foundation Year</small></button>
       <button data-stage="canon" data-name="Compare the canon" data-text="Interweave law, prayer, Torah, philosophy, history, and Chassidus without flattening their differences."><b>4</b><span>COMPARE THE CANON</span><small>One language, many voices</small></button>
       <button data-stage="transfer" data-name="Transfer to new sources" data-text="Read unfamiliar passages, name uncertainty, and explain which evidence makes your interpretation responsible."><b>5</b><span>TRANSFER TO NEW SOURCES</span><small>Independent reading</small></button>
-      <button data-stage="reader" data-name="Become a serious reader" data-text="Return, retrieve, and deepen across the full Jewish canon. Mastery is durable understanding, not a finish line."><b>6</b><span>BECOME A SERIOUS READER</span><small>Full Jewish Learning Academy mastery</small></button>
+      <button data-stage="reader" data-name="Become a serious reader" data-text="Return, retrieve, and deepen across the full Jewish canon. Understanding is durable, not a finish line."><b>6</b><span>BECOME A SERIOUS READER</span><small>Durable independent reading</small></button>
     </section>
-    <section id="detail"><span>MASTERY TARGET</span><h2>Read a first sugya</h2><p>Separate Mishnah, Gemara question, evidence, and response while the Daf stays visible.</p><a class="primary" href="daily-router.html">Practice today’s move →</a></section>
+    <section id="detail"><span>THIS CAPABILITY</span><h2>Read a first sugya</h2><p>Separate Mishnah, Gemara question, evidence, and response while the Daf stays visible.</p><a class="primary" href="daily-router.html">Practice today’s move →</a></section>
   </main>
-  <script src="seder-auth.js?v=2"></script><script src="capability-state.js"></script><script src="path.js?v=9"></script><script src="feedback.js?v=1"></script>
+  <script src="seder-auth.js?v=2"></script><script src="capability-state.js"></script><script src="path.js?v=10"></script><script src="feedback.js?v=1"></script>
   <script type="module">
-    // Graduation progress: turn the learner's recorded capability evidence into a visible
-    // Jewish-literacy level. Stays hidden until there is real evidence, so a brand-new learner
-    // is never shown the graduation graph before they have earned anything (roadmap principle).
+    // Graduation progress: turn recorded capability evidence into emerging / secure /
+    // transferable / durable language. Stays hidden until there is real evidence, so a
+    // brand-new learner is never shown the graduation graph before they have earned anything.
     import { buildJlaPathProgress } from './jla-path-progress.js';
     const esc = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
     const learnerId = window.Seder?.currentLearnerId?.();
@@ -46,15 +46,17 @@
         const progress = buildJlaPathProgress({ levels, skills, transcript });
         const level = progress.currentLevel;
         const next = progress.nextCapability;
-        const earned = progress.earnedCapabilities.length;
+        const counts = window.Seder.summarizeCapabilities(transcript);
+        const stateKey = progress.foundationComplete ? 'transferable' : window.Seder.leadingCapabilityState(counts);
+        const state = window.Seder.capabilityStates[stateKey];
         document.querySelector('#jla-grad-card').innerHTML =
-          `<div><span>${esc((level?.title || 'Foundation').toUpperCase())} · ${progress.levelProgress}%</span>` +
-          `<strong>${esc(next ? next.title : (progress.foundationComplete ? 'Foundation graduation complete' : level?.promise || ''))}</strong>` +
-          `<small>${earned} capabilit${earned === 1 ? 'y' : 'ies'} earned${level?.promise ? ` · ${esc(level.promise)}` : ''}</small></div>` +
+          `<div><span>${esc((level?.title || 'Foundation').toUpperCase())} · ${esc(state.label)}</span>` +
+          `<strong>${esc(next ? next.title : (progress.foundationComplete ? 'Foundation capabilities are secure' : level?.promise || ''))}</strong>` +
+          `<small>${esc(window.Seder.capabilitySentence(counts))}${level?.promise ? ` · ${esc(level.promise)}` : ''}</small></div>` +
           (next ? `<a href="${esc(next.nextStep)}">Practice →</a>` : '<a href="daily-router.html">Continue →</a>');
         document.querySelector('#jla-grad-copy').textContent = progress.foundationComplete
-          ? 'You have completed the Academy’s foundation graduation levels.'
-          : `Working toward ${level?.title || 'your next level'}: ${level?.promise || ''}`;
+          ? 'Foundation capabilities are secure. Carry them into an unfamiliar source to make them transferable.'
+          : `Working toward ${level?.title || 'the next capability'}: ${level?.promise || ''}`;
         document.querySelector('#jla-graduation').hidden = false;
       }).catch(() => {});
     }

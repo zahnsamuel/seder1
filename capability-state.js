@@ -26,6 +26,29 @@
     return counts;
   };
 
+  // Highest demonstrated state — the word a progress surface should lead with instead of % / XP.
+  Seder.leadingCapabilityState = (counts) => {
+    if (counts.durable) return 'durable';
+    if (counts.transferable) return 'transferable';
+    if (counts.secure) return 'secure';
+    return 'emerging';
+  };
+
+  // Compact header chrome: "3 on your own", or empty when nothing is yet secure.
+  Seder.capabilityHeaderText = (evidence) => {
+    const counts = Seder.summarizeCapabilities(evidence);
+    const onOwn = counts.secure + counts.transferable + counts.durable;
+    return onOwn ? `${onOwn} on your own` : '';
+  };
+
+  // Short progress-reference eyebrow: "2 Secure", or "Emerging" when nothing is demonstrated.
+  Seder.capabilityEyebrow = (counts) => {
+    const state = Seder.leadingCapabilityState(counts);
+    const n = counts[state];
+    if (!n) return Seder.capabilityStates.emerging.label;
+    return `${n} ${Seder.capabilityStates[state].label}`;
+  };
+
   // A plain sentence describing where the learner stands, no numbers-as-score.
   Seder.capabilitySentence = (counts) => {
     const onOwn = counts.secure + counts.transferable + counts.durable;
