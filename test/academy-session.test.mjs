@@ -16,9 +16,10 @@ const HOOKS = [
   'id="complete-copy"', 'id="real-content"', 'id="real-content-title"', 'id="real-content-list"'
 ];
 
-test('academy session is a graph-driven, no-typing 20-minute experience', () => {
+test('academy session is a graph-driven 20-minute experience', () => {
   assert.match(html, /ONE SKILL.*20 MINUTES/);
-  assert.match(html, /NO TYPING REQUIRED/);
+  assert.match(html, /id="ask-eyebrow">YOUR ASK</);
+  assert.doesNotMatch(html, /no typing|typing required/i);
   assert.match(html, /choices/);
   assert.match(js, /foundation-skill-graph\.json/);
   assert.match(js, /answer_submitted/);
@@ -84,7 +85,8 @@ test('foundation session chrome is see it / try it / new source with a clear ask
   assert.match(html, /<small>new source<\/small>/);
   assert.doesNotMatch(html, /see the move/i);
   assert.doesNotMatch(html, /make the move/i);
-  assert.match(html, /YOUR ASK · NO TYPING REQUIRED/);
+  assert.match(html, /id="ask-eyebrow">YOUR ASK</);
+  assert.doesNotMatch(html, /no typing|typing required/i);
   assert.match(html, /WHAT TO NOTICE/);
   assert.match(html, /id="teach-copy"/);
   assert.match(html, /id="ask-panel"/);
