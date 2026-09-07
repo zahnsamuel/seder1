@@ -107,7 +107,7 @@
       "meetsStep8": true
     },
     "fnd-role-quotation-bounds": {
-      "contexts": 3,
+      "contexts": 4,
       "families": 3,
       "meetsStep8": true
     },
@@ -197,7 +197,7 @@
       "meetsStep8": true
     },
     "fnd-compare-translation-choice": {
-      "contexts": 3,
+      "contexts": 4,
       "families": 3,
       "meetsStep8": true
     },
@@ -2770,6 +2770,17 @@
       "sources": [
         "inline"
       ]
+    },
+    {
+      "id": "ctx-fnd-role-quotation-bounds-berakhot-48b-deuteronomy-8-10",
+      "skill": "fnd-role-quotation-bounds",
+      "ref": "Berakhot 48b · Deuteronomy 8:10",
+      "genre": "thought",
+      "family": "thought",
+      "sources": [
+        "content-map"
+      ],
+      "unit": "foundation-reading-orientation"
     },
     {
       "id": "ctx-fnd-case-actors-mishnah-bava-metzia-1-1",
@@ -6440,6 +6451,17 @@
       "sources": [
         "inline"
       ]
+    },
+    {
+      "id": "ctx-fnd-compare-translation-choice-genesis-1-1",
+      "skill": "fnd-compare-translation-choice",
+      "ref": "Genesis 1:1",
+      "genre": "thought",
+      "family": "thought",
+      "sources": [
+        "content-map"
+      ],
+      "unit": "foundation-independent-reading"
     },
     {
       "id": "ctx-fnd-context-when-where-mishnah-yavneh-era",

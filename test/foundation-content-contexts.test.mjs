@@ -1,13 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { buildLayer, serialize } from '../scripts/build-content-contexts.mjs';
 
+const lf = (s) => s.replace(/\r\n/g, '\n');
 const read = (p) => JSON.parse(readFileSync(new URL(`../${p}`, import.meta.url), 'utf8'));
 const graph = read('data/foundation-skill-graph.json');
 const contentMap = read('data/foundation-content-map.json');
 const supplements = read('data/foundation-context-supplements.json').bySkill;
-const layer = read('data/foundation-content-contexts.json');
+const committed = readFileSync(new URL('../data/foundation-content-contexts.json', import.meta.url), 'utf8');
+const layer = JSON.parse(committed);
 const skillIds = new Set(graph.skills.map((s) => s.id));
+
+test('foundation-content-contexts.json is in sync with graph + content map + supplements', () => {
+  assert.equal(lf(committed), lf(serialize(buildLayer())),
+    'data/foundation-content-contexts.json is stale — run: node scripts/build-content-contexts.mjs');
+});
 
 const FAMILY = { torah: 'tanakh', mishnah: 'rabbinic', gemara: 'rabbinic', halakha: 'halakhic', tefillah: 'liturgical', thought: 'thought', mussar: 'thought', chassidus: 'thought', history: 'historical' };
 

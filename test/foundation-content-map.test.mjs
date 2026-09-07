@@ -4,12 +4,13 @@ import { readFileSync } from 'node:fs';
 import { buildMap, serialize } from '../scripts/build-foundation-content-map.mjs';
 import { loadUnits } from '../scripts/audit-content.mjs';
 
+const lf = (s) => s.replace(/\r\n/g, '\n');
 const committed = readFileSync('data/foundation-content-map.json', 'utf8');
 const graph = JSON.parse(readFileSync('data/foundation-skill-graph.json', 'utf8'));
 const graphIds = new Set(graph.skills.map((s) => s.id));
 
 test('foundation-content-map.json is in sync with content + rubric', () => {
-  assert.equal(committed, serialize(buildMap('.')),
+  assert.equal(lf(committed), lf(serialize(buildMap('.'))),
     'data/foundation-content-map.json is stale — run: node scripts/build-foundation-content-map.mjs');
 });
 

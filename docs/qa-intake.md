@@ -3337,3 +3337,24 @@ Sam: foundation See it was excerpt + immediate quiz, not a short teach. Approved
 ## 2026-09-07 — Cursor: drop “NO TYPING REQUIRED” from academy ask chrome
 
 Sam: get rid of learner-facing “no typing required.” `academy-session.html` ask eyebrow is now `YOUR ASK`. Grep of HTML/JS session chrome is clean. Pedagogy/routing unchanged.
+
+## 2026-09-07 — Cursor: finish foundation derived-file hygiene (PR #10 leftover)
+
+North-star / open PR #10 territory. Started from current `main` (`d157922`). Did not invent skill pedagogy and did not touch Claude item banks, Today, or session chrome.
+
+**Already green on `main` (commit `179805a`):** `data/foundation-content-map.json` and `data/content-skill-graph.mjs` already match source. Coverage is **51/55** (the remaining 4 are `fnd-decode-*`, served by `decoding-engine.js`). `fnd-role-quotation-bounds` and `fnd-compare-translation-choice` have mapped units; `reading-orientation-*` / `reading-independent-*` are in the content graph. Re-running `npm run graph:build` and `npm run map:foundation` produced a zero diff.
+
+**Still stale:** `data/foundation-content-contexts.json` had not been rebuilt after those map rows landed, so the two intermediate skills still showed 3 contexts instead of 4. Regenerated with `node scripts/build-content-contexts.mjs`. Adds the already-mapped refs only:
+- `fnd-role-quotation-bounds` ← Berakhot 48b · Deuteronomy 8:10 (`foundation-reading-orientation`, content-map)
+- `fnd-compare-translation-choice` ← Genesis 1:1 (`foundation-independent-reading`, content-map)
+
+Step 8 stays **55/55**. Same three-file regen PR #10 intended, rebased onto current main; map/graph needed no rewrite.
+
+**Tests (LF-normalized file identity, so a Windows CRLF checkout is not a false red):**
+- `foundation-content-map.json is in sync…` now compares LF-normalized bytes
+- new `foundation-content-contexts.json is in sync…` (the version-only check could not see the missing contexts)
+- new `content-skill-graph.mjs is in sync…`
+
+Builders `build-content-contexts.mjs` and `build-skill-graph.mjs` now export `build`/`serialize` and only write when run as CLI, so the drift tests can import them. Left `graph-gap-report.json` and `docs/item-authoring-workbench.html` alone (those rewrite as a side effect of their own tests and would pick up Claude’s item-bank `have` counts).
+
+Stale open PR #10 (`fix-foundation-derived-files`) is superseded by this branch.
