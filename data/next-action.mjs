@@ -81,7 +81,7 @@ export function foundationRetrievalRecommendation(learner, graph, map, options =
   return {
     kind: 'review',
     decayTriggered: decay,
-    title: recovery ? `Welcome back · ${skill.title}` : decay ? `Refresh ${skill.title}` : `Retrieve ${skill.title}`,
+    title: recovery ? `Welcome back · ${skill.title}` : decay ? `Refresh · ${skill.title}` : `Retrieve · ${skill.title}`,
     reason: recovery
       ? `One short check of ${skill.title.toLowerCase()} restarts your rhythm.`
       : decay
