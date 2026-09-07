@@ -1,6 +1,44 @@
 {
-  "note": "Optional learner-facing See-it mini-lessons for academy foundation sessions. 2–4 sentences in plain adult English. Not Sefaria-as-instruction. The renderer also accepts skill.teach / item.teach; if those are missing, academy-session-lesson.mjs falls back here, then to a built-in source-type lesson.",
+  "note": "Optional learner-facing See-it mini-lessons for academy foundation sessions. 2–4 sentences in plain adult English. Not Sefaria-as-instruction. The renderer also accepts skill.teach / item.teach; if those are missing, academy-session-lesson.mjs falls back here, then to a built-in source-type lesson. The `genres` block below adds a plain-adult mini-lesson for each basic kind of Jewish text (Torah verse, Mishnah, Gemara, commentary), each with one short on-page excerpt (Hebrew + translation, not a Sefaria link), to feed the See-it mini-lesson's genre gallery for fnd-orient-source-type.",
   "teach": {
     "fnd-orient-source-type": "Jewish texts come in a few basic kinds, and you can often tell which one you are looking at from its shape — before you translate every word. A Torah verse usually tells or commands in the Bible’s own voice. A Mishnah states a compact rule; the Gemara then asks about that rule and argues it. Commentary talks about the text from the side, rather than being the text itself."
+  },
+  "genres": {
+    "torah": {
+      "name": "Torah verse",
+      "teach": "The Torah is Scripture itself — the Five Books — in its own voice. A Torah verse tells a story or gives a command directly; it is the source that everything else discusses, not a discussion of the source. You will not find a rabbi's name attached to the verse or a back-and-forth argument inside it.",
+      "example": {
+        "sourceRef": "Deuteronomy 6:4",
+        "hebrew": "שְׁמַע יִשְׂרָאֵל יְהוָה אֱלֹהֵינוּ יְהוָה אֶחָד",
+        "translation": "Hear, O Israel: the LORD is our God, the LORD is one."
+      }
+    },
+    "mishnah": {
+      "name": "Mishnah",
+      "teach": "The Mishnah is the first great rabbinic law book, edited about eighteen centuries ago. It states practice in short, dense Hebrew, and often records where named sages disagree. It usually just states the rule; it does not quote proof-verses or argue at length — that comes afterward, in the Gemara.",
+      "example": {
+        "sourceRef": "Mishnah Berakhot 1:1",
+        "hebrew": "מֵאֵימָתַי קוֹרִין אֶת שְׁמַע בְּעַרְבִין",
+        "translation": "From when may one recite the Shema in the evening?"
+      }
+    },
+    "gemara": {
+      "name": "Gemara",
+      "teach": "The Gemara is the long discussion that grew up around the Mishnah — together they make the Talmud. It is largely in Aramaic and moves by questions: it asks what the Mishnah means, raises objections, and brings proofs. Where the Mishnah states a rule, the Gemara probes it.",
+      "example": {
+        "sourceRef": "Berakhot 2a",
+        "hebrew": "תַּנָּא הֵיכָא קָאֵי דְּקָתָנֵי מֵאֵימָתַי",
+        "translation": "Where does the Tanna stand [what is he discussing], that he teaches 'from when'?"
+      }
+    },
+    "commentary": {
+      "name": "Commentary",
+      "teach": "A commentary explains another text from the side, rather than being that text. It quotes a word or phrase from the base source and then explains it — Rashi's notes on the Torah and Talmud are the classic example. On the page it sits around the main text, keyed to it line by line.",
+      "example": {
+        "sourceRef": "Rashi on Genesis 1:1",
+        "hebrew": "בְּרֵאשִׁית — אֵין הַמִּקְרָא הַזֶּה אוֹמֵר אֶלָּא דָּרְשֵׁנִי",
+        "translation": "'In the beginning' — this verse says nothing other than 'interpret me.'"
+      }
+    }
   }
 }
