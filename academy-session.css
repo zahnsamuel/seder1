@@ -55,7 +55,8 @@
 .complete[hidden],
 .real-content[hidden],
 .teach-block[hidden],
-#ask-panel[hidden] { display: none !important; }
+#ask-panel[hidden],
+.source-footer[hidden] { display: none !important; }
 .kp-steps li {
   color: var(--jla-text-soft);
   opacity: .72;
@@ -134,15 +135,26 @@
   color: var(--jla-accent-ink);
 }
 .move[hidden] { display: none !important; }
+.source-footer {
+  margin: 1.15rem 0 0;
+  padding-top: .6rem;
+  border-top: 1px solid var(--jla-line);
+}
+.source-fulltext,
 .source-link {
-  display: inline-block;
-  margin-top: 1rem;
-  color: var(--jla-accent);
-  font-weight: 700;
-  font-size: .88rem;
+  display: inline;
+  margin: 0;
+  color: var(--jla-text-soft);
+  font-weight: 400;
+  font-size: .78rem;
+  letter-spacing: 0;
   text-decoration: none;
 }
-.source-link:hover { text-decoration: underline; }
+.source-fulltext:hover,
+.source-link:hover {
+  color: var(--jla-accent-ink);
+  text-decoration: underline;
+}
 
 .interaction {
   max-width: 640px;
