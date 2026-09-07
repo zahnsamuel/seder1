@@ -2,6 +2,29 @@ const sederOrder = ['Zeraim', 'Moed', 'Nashim', 'Nezikin', 'Kodashim', 'Taharot'
 const map = document.querySelector('#map');
 const detail = document.querySelector('#detail');
 
+function destinationFor(tractate) {
+  return tractate.entry ? 'berakhot-arc.html' : tractate.arcUrl ? tractate.arcUrl : tractate.labId ? `lab.html?tractate=${encodeURIComponent(tractate.labId)}` : 'study.html?v=12';
+}
+
+function actionFor(tractate) {
+  return tractate.entry ? 'Begin the Berakhot onramp' : tractate.arcUrl ? `Begin the ${tractate.title} arc` : tractate.labId ? `Open ${tractate.title} lab` : 'Practice prerequisite skills';
+}
+
+function recommendedTractate(tractates) {
+  return tractates.find((tractate) => tractate.entry) || tractates.find((tractate) => tractate.arcUrl) || tractates[0];
+}
+
+function fillHero(tractate) {
+  const title = document.querySelector('#next-title');
+  const copy = document.querySelector('#next-copy');
+  const cta = document.querySelector('#next-cta');
+  if (!tractate || !cta) return;
+  if (title) title.textContent = tractate.title;
+  if (copy) copy.textContent = `Study ${tractate.theme} through a sequence of language, sugya structure, source skills, and review.`;
+  cta.href = destinationFor(tractate);
+  cta.textContent = `${actionFor(tractate)} →`;
+}
+
 function showTractate(tractate, button) {
   document.querySelectorAll('.tractate').forEach((item) => item.classList.toggle('active', item === button));
   const entry = tractate.entry ? 'YOUR STARTING TRACTATE' : `${tractate.seder.toUpperCase()} · TRACTATE STUDY`;
@@ -9,8 +32,8 @@ function showTractate(tractate, button) {
   // route there first -- the arc teaches the vocabulary and case-reading moves the lab then
   // exercises. Falling straight through to labId here would silently strand a built arc page
   // with no link pointing at it, the same "orphaned page" gap fixed elsewhere in the app.
-  const destination = tractate.entry ? 'berakhot-arc.html' : tractate.arcUrl ? tractate.arcUrl : tractate.labId ? `lab.html?tractate=${encodeURIComponent(tractate.labId)}` : 'study.html?v=12';
-  const action = tractate.entry ? 'Begin the Berakhot onramp' : tractate.arcUrl ? `Begin the ${tractate.title} arc` : tractate.labId ? `Open ${tractate.title} lab` : 'Practice prerequisite skills';
+  const destination = destinationFor(tractate);
+  const action = actionFor(tractate);
   detail.innerHTML = `<span>${entry}</span><h2>${tractate.title}</h2><p>Study ${tractate.theme} through a sequence of language, sugya structure, source skills, and review.</p><div><small>REQUIRED BEFORE THIS TRACTATE</small><strong>${tractate.prerequisites.join(' → ').replaceAll('-', ' ')}</strong></div><div><small>FIRST PRACTICE FIELD</small><strong>${tractate.practice}</strong></div><a href="${destination}">${action} →</a>`;
 }
 
@@ -30,8 +53,9 @@ function renderMap(tractates) {
     });
     map.appendChild(section);
   });
-  const entry = tractates.find((tractate) => tractate.entry);
-  if (entry) showTractate(entry, document.querySelector('.tractate.entry'));
+  const recommended = recommendedTractate(tractates);
+  fillHero(recommended);
+  if (recommended) showTractate(recommended, document.querySelector('.tractate.entry') || document.querySelector('.tractate'));
 }
 
 fetch('/api/gemara/tractates')

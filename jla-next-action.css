@@ -5,6 +5,7 @@
 
 .jla-na-eyebrow { margin: 8px 0 14px; }
 
+.jla-next-action,
 [data-jla-next-action] {
   background: var(--jla-surface);
   border: 1px solid var(--jla-line);
@@ -17,6 +18,7 @@
   align-items: flex-start;
   gap: 16px;
 }
+.jla-next-action h1,
 [data-jla-next-action] h1 {
   font-family: var(--jla-font-display);
   color: var(--jla-accent-ink);
@@ -26,6 +28,7 @@
   margin: 0;
   text-wrap: balance;
 }
+.jla-next-action p,
 [data-jla-next-action] p {
   color: var(--jla-text-soft);
   font-size: 1.08rem;
@@ -55,6 +58,7 @@
 .jla-next-action__cta:focus-visible { outline: 3px solid var(--jla-accent); outline-offset: 2px; }
 
 @media (max-width: 720px) {
+  .jla-next-action,
   [data-jla-next-action] {
     max-width: none;
     width: 100%;

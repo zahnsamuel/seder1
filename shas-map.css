@@ -1,1 +1,29 @@
-:root{--navy:#183b4e;--teal:#276b68;--paper:#fbfaf6;--muted:#5f6a70;--line:#d8d9d1;--gold:#8a601e}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:#213039;font-family:Inter,Arial,sans-serif}header{display:flex;align-items:center;gap:22px;height:70px;padding:0 8%;border-bottom:1px solid var(--line)}header a:first-child{color:var(--navy);font:500 22px Fraunces,serif;text-decoration:none}header span{color:var(--muted);font:10px 'DM Mono';letter-spacing:.08em}header a:last-child{margin-left:auto;color:var(--teal);font-size:13px;font-weight:600}.hero{padding:65px 12% 42px;background:#ecf1ed}.hero span,.seder h2,.note span,#detail>span,#detail small{color:var(--teal);font:10px 'DM Mono';letter-spacing:.08em}.hero h1{max-width:730px;margin:11px 0;color:var(--navy);font:500 51px/1.04 Fraunces,serif}.hero p{max-width:700px;margin:0;color:var(--muted);line-height:1.6}.map{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1120px;margin:50px auto}.seder{padding:22px;border:1px solid var(--line);background:#fff}.seder h2{margin:0 0 15px}.tractates{display:flex;flex-wrap:wrap;gap:8px}.tractate{padding:9px 10px;border:1px solid #d9ddd8;background:#fff;color:var(--navy);font:600 12px Inter;cursor:pointer}.tractate:hover,.tractate.active{border-color:var(--teal);background:#f1f8f3}.tractate.entry{border-color:#b7d0c2;background:#f1f8f3}#detail{max-width:800px;margin:0 auto 43px;padding:27px 31px;background:#f5f0e4;border-left:4px solid var(--gold)}#detail h2{margin:8px 0;color:var(--navy);font:500 30px Fraunces,serif}#detail p{margin:0;color:var(--muted);line-height:1.55}#detail div{margin:20px 0}#detail small,#detail strong{display:block}#detail strong{margin-top:7px;color:var(--navy);font-size:14px}#detail a{color:var(--teal);font-size:13px;font-weight:600}.note{max-width:800px;margin:0 auto 65px;padding-top:18px;border-top:1px solid var(--line)}.note p{color:var(--muted);line-height:1.6}@media(max-width:800px){header{padding:0 6%}.hero{padding:48px 7%}.hero h1{font-size:40px}.map{grid-template-columns:1fr;margin:35px 7%}.note,#detail{margin-left:7%;margin-right:7%}}
+:root{--navy:var(--jla-accent-ink,#183b4e);--teal:var(--jla-ok,#276b68);--paper:var(--jla-cream,#fbfaf6);--muted:var(--jla-text-soft,#5f6a70);--line:var(--jla-line,#d8d9d1);--gold:var(--jla-accent,#8a601e)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:#213039;font-family:Inter,Arial,sans-serif}
+header{display:flex;align-items:center;gap:22px;height:70px;padding:0 8%;border-bottom:1px solid var(--line)}
+header a:first-child{color:var(--navy);font:500 22px Fraunces,serif;text-decoration:none}
+header span{color:var(--muted);font:10px 'DM Mono';letter-spacing:.08em}
+header a:last-child{margin-left:auto;color:var(--teal);font-size:13px;font-weight:600}
+[data-shas-next]{max-width:640px}
+.shas-all{max-width:none}
+.map{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1120px;margin:8px 0 24px}
+.seder{padding:22px;border:1px solid var(--line);background:var(--jla-surface,#fff);border-radius:12px}
+.seder h2{margin:0 0 15px;color:var(--teal);font:10px 'DM Mono';letter-spacing:.08em}
+.tractates{display:flex;flex-wrap:wrap;gap:8px}
+.tractate{padding:9px 10px;border:1px solid #d9ddd8;background:#fff;color:var(--navy);font:600 12px Inter;cursor:pointer;border-radius:8px}
+.tractate:hover,.tractate.active{border-color:var(--teal);background:#f1f8f3}
+.tractate.entry{border-color:#b7d0c2;background:#f1f8f3}
+#detail{max-width:800px;margin:0 0 24px;padding:27px 31px;background:#f5f0e4;border-left:4px solid var(--gold);border-radius:0 12px 12px 0}
+#detail>span,#detail small{color:var(--teal);font:10px 'DM Mono';letter-spacing:.08em}
+#detail h2{margin:8px 0;color:var(--navy);font:500 30px Fraunces,serif}
+#detail p{margin:0;color:var(--muted);line-height:1.55}
+#detail div{margin:20px 0}
+#detail small,#detail strong{display:block}
+#detail strong{margin-top:7px;color:var(--navy);font-size:14px}
+#detail a{color:var(--teal);font-size:13px;font-weight:600}
+@media(max-width:800px){
+  header{padding:0 6%}
+  .map{grid-template-columns:1fr;margin:16px 0}
+  #detail{margin:0 0 24px;padding:20px}
+}

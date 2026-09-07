@@ -1,1 +1,48 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Jewish Learning Academy · Course progress</title><link rel="stylesheet" href="canon-labs.css"><link rel="stylesheet" href="course-dashboard.css"><link rel="stylesheet" href="canon-source-sequences.css"><link rel="stylesheet" href="jla-system.css"></head><body class="jla"><div id="jla-shell-mount"></div><main><section class="hero"><p>ONE INTEGRATED COURSE OF STUDY</p><h1>Your course evidence.</h1><div>Each course is a connected strand of one Jewish canon. Demonstrate a move, retrieve it later, then make a source-grounded connection.</div></section><section class="dashboard-summary" id="summary"></section><section id="convergence" class="dashboard-note"><p class="lesson-label">GEMARA AND CANON CONVERGE</p><p>Loading the sources that reinforce each other in your next study move.</p></section><section id="source-sequences" class="dashboard-note"></section><section><p class="lesson-label">CURRENT AND UPCOMING COURSES</p><div id="courses" class="course-grid"></div></section><section class="dashboard-note"><p class="lesson-label">PROVE INDEPENDENT READING</p><p>When a source is new, the goal is not to remember a prepared answer. Practice orienting to an unfamiliar text, naming its function, and making one careful connection.</p><a href="independent-reading.html">Open unseen-source encounters →</a></section><section class="dashboard-note"><p class="lesson-label">HOW TO USE THIS PAGE</p><p>Resume the first undemonstrated move. A capstone opens only after all six moves in its course are demonstrated. Vocabulary is scheduled as brief retrieval within the same learning rhythm.</p><a href="canon-vocabulary.html">Open vocabulary retrieval →</a></section></main><script src="seder-auth.js?v=2"></script><script src="journey-sync.js"></script><script src="course-dashboard.js"></script><script src="course-connections.js"></script><script src="canon-source-sequences.js"></script><script src="jla-shell.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Jewish Learning Academy · Course progress</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="jla-system.css">
+  <link rel="stylesheet" href="jla-next-action.css">
+  <link rel="stylesheet" href="canon-labs.css">
+  <link rel="stylesheet" href="course-dashboard.css?v=2">
+  <link rel="stylesheet" href="canon-source-sequences.css">
+</head>
+<body class="jla">
+  <div id="jla-shell-mount"></div>
+  <main class="jla-main">
+    <p class="jla-eyebrow jla-na-eyebrow">COURSE PROGRESS</p>
+    <section class="jla-next-action" data-course-next>
+      <h1 id="next-title">Your next course move</h1>
+      <p id="next-copy">Each course is a connected strand of one Jewish canon. Resume the first undemonstrated move.</p>
+      <a class="jla-next-action__cta" id="next-cta" href="daily-router.html">Return to Today →</a>
+      <small class="jla-progress" id="next-progress"></small>
+    </section>
+    <section class="dashboard-summary" id="summary" hidden></section>
+    <details class="jla-disclose">
+      <summary>See all courses</summary>
+      <div id="courses" class="course-grid"></div>
+    </details>
+    <details class="jla-disclose">
+      <summary>See canon connections</summary>
+      <section id="convergence" class="dashboard-note">
+        <p class="lesson-label">GEMARA AND CANON CONVERGE</p>
+        <p>Loading the sources that reinforce each other in your next study move.</p>
+      </section>
+      <section id="source-sequences" class="dashboard-note"></section>
+    </details>
+  </main>
+  <script src="seder-auth.js?v=2"></script>
+  <script src="capability-state.js"></script>
+  <script src="jla-shell.js"></script>
+  <script src="journey-sync.js"></script>
+  <script src="course-dashboard.js?v=2"></script>
+  <script src="course-connections.js"></script>
+  <script src="canon-source-sequences.js"></script>
+</body>
+</html>

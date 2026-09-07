@@ -47,6 +47,23 @@ const courseProgressKey=`seder-course-progress:${courseLearner}:${config.stage}`
 const savedCourseIndex=Number(localStorage.getItem(courseProgressKey));
 let courseIndex=Number.isInteger(savedCourseIndex)&&savedCourseIndex>=0&&savedCourseIndex<config.steps.length?savedCourseIndex:0,answered=false,xp=0;const $$=s=>document.querySelector(s);
 function shuffle(list){return list.map((text,i)=>({text,i})).sort(()=>Math.random()-.5)}
+function ensurePathDisclosure(){
+  const map=$$('#map');
+  if(!map||map.closest('details'))return;
+  const host=map.closest('aside')||map.parentElement;
+  if(!host||!host.parentNode)return;
+  const details=document.createElement('details');
+  details.className='jla-disclose arc-path';
+  const summary=document.createElement('summary');
+  summary.textContent='See the full path';
+  host.parentNode.insertBefore(details,host);
+  details.appendChild(summary);
+  details.appendChild(host);
+}
+function markContinue(){
+  const cont=$$('#continue');
+  if(cont) cont.classList.add('jla-btn','jla-btn-primary');
+}
 (function injectCelebrationStyles(){
   if(document.getElementById('seder-celebration-styles'))return;
   const style=document.createElement('style');style.id='seder-celebration-styles';
@@ -105,8 +122,8 @@ function sefariaUrl(ref){
   if(m)return`https://www.sefaria.org/${m[1].replace(/ /g,'_')}.${m[2]}`;
   return null;
 }
-function renderCourse(){const step=config.steps[courseIndex];answered=false;$$('#count').textContent=`${courseIndex+1} / ${config.steps.length}`;$$('#bar').style.width=`${(courseIndex+1)/config.steps.length*100}%`;$$('#mode').textContent=step.mode;$$('#title').textContent=step.title;const sourceLink=sefariaUrl(step.ref);if(sourceLink){$$('#ref').innerHTML=`${step.ref} · <a href="${sourceLink}" target="_blank" rel="noopener" style="color:#276b68;font-weight:600">Read the full source ↗</a>`}else{$$('#ref').textContent=step.ref};$$('#hebrew').textContent=step.hebrew;$$('#translation').textContent=step.translation;$$('#translation').hidden=Boolean(step.independent);$$('#translate').textContent=step.independent?'Show translation':'Hide translation';$$('#prompt').textContent=step.prompt;$$('#feedback').textContent='';$$('#continue').disabled=true;$$('#continue').textContent=courseIndex===config.steps.length-1?'Complete checkpoint →':'Continue →';const answers=$$('#answers');answers.innerHTML='';if(step.typed){renderTyped(step,answers)}else{shuffle(step.answers).forEach(({text,i})=>{const b=document.createElement('button');b.type='button';b.textContent=text;b.addEventListener('click',()=>answerCourse(b,i===step.correct,step));answers.appendChild(b)})}$$('#map').innerHTML=config.steps.map((item,i)=>`<li class="${i===courseIndex?'active':''} ${i<courseIndex?'done':''}">${item.short}</li>`).join('')}
-function answerCourse(button,correct,step){if(answered)return;answered=true;document.querySelectorAll('#answers button').forEach(b=>b.disabled=true);button.classList.add(correct?'correct':'incorrect');$$('#feedback').textContent=(correct?'+10 XP. ':'+5 XP. ')+step.feedback;$$('#continue').disabled=false;recordCourseAnswer(step,correct)}
+function renderCourse(){const step=config.steps[courseIndex];answered=false;ensurePathDisclosure();markContinue();$$('#count').textContent=`${courseIndex+1} / ${config.steps.length}`;$$('#bar').style.width=`${(courseIndex+1)/config.steps.length*100}%`;$$('#mode').textContent=step.mode;$$('#title').textContent=step.title;const sourceLink=sefariaUrl(step.ref);if(sourceLink){$$('#ref').innerHTML=`${step.ref} · <a href="${sourceLink}" target="_blank" rel="noopener" style="color:#276b68;font-weight:600">Read the full source ↗</a>`}else{$$('#ref').textContent=step.ref};$$('#hebrew').textContent=step.hebrew;$$('#translation').textContent=step.translation;$$('#translation').hidden=Boolean(step.independent);$$('#translate').textContent=step.independent?'Show translation':'Hide translation';$$('#prompt').textContent=step.prompt;$$('#feedback').textContent='';$$('#continue').disabled=true;$$('#continue').textContent=courseIndex===config.steps.length-1?'Complete checkpoint →':'Continue →';const answers=$$('#answers');answers.innerHTML='';if(step.typed){renderTyped(step,answers)}else{shuffle(step.answers).forEach(({text,i})=>{const b=document.createElement('button');b.type='button';b.className='jla-choice';b.textContent=text;b.addEventListener('click',()=>answerCourse(b,i===step.correct,step));answers.appendChild(b)})}const map=$$('#map');if(map)map.innerHTML=config.steps.map((item,i)=>`<li class="${i===courseIndex?'active':''} ${i<courseIndex?'done':''}">${item.short}</li>`).join('')}
+function answerCourse(button,correct,step){if(answered)return;answered=true;document.querySelectorAll('#answers button').forEach(b=>b.disabled=true);button.classList.add(correct?'correct':'incorrect');button.classList.add(correct?'is-correct':'is-wrong');$$('#feedback').textContent=step.feedback;$$('#continue').disabled=false;recordCourseAnswer(step,correct)}
 function normalizeTyped(text){return String(text||'').trim().toLowerCase().replace(/[.,!?;:'"“”’]/g,'')}
 function renderTyped(step,container){
   const wrap=document.createElement('div');wrap.className='seder-typed';
@@ -126,11 +143,11 @@ function submitTyped(input,submit,step){
   input.disabled=true;submit.disabled=true;
   input.classList.add(correct?'correct':'incorrect');
   const hint=correct?'':` The expected answer was “${step.acceptable[0]}.”`;
-  $$('#feedback').textContent=(correct?'+10 XP. ':'+5 XP. ')+step.feedback+hint;
+  $$('#feedback').textContent=step.feedback+(correct?'':hint);
   $$('#continue').disabled=false;
   recordCourseAnswer(step,correct);
 }
 function recordCourseAnswer(step,correct){Seder.api(`/api/learners/${courseLearner}/events`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'answer_submitted',skillId:step.skill,competency:step.competency,correct,sourceContext:step.ref})}).then(r=>r.ok?r.json():null).then(l=>{if(l){xp=l.xp||xp;$$('#xp').textContent=`${xp} XP`;celebrateXp($$('#xp'),correct?10:5)}}).catch(()=>{})}
 $$('#translate').addEventListener('click',()=>{const el=$$('#translation');el.hidden=!el.hidden;$$('#translate').textContent=el.hidden?'Show translation':'Hide translation'});
-$$('#continue').addEventListener('click',()=>{if(!answered)return;if(courseIndex<config.steps.length-1){courseIndex++;localStorage.setItem(courseProgressKey,String(courseIndex));renderCourse();return}localStorage.removeItem(courseProgressKey);$$('.lesson').innerHTML=`<section class="mastery"><span class="eyebrow">CHECKPOINT COMPLETE</span><h2>${config.completeTitle}</h2><p>${config.completeCopy}</p><a href="${config.nextUrl}">${config.nextLabel} →</a></section>`;celebrateCheckpoint($$('.mastery'));Seder.api(`/api/learners/${courseLearner}/events`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'stage_mastered',stageId:config.stage})}).catch(()=>{})});
+$$('#continue').addEventListener('click',()=>{if(!answered)return;if(courseIndex<config.steps.length-1){courseIndex++;localStorage.setItem(courseProgressKey,String(courseIndex));renderCourse();return}localStorage.removeItem(courseProgressKey);$$('.lesson').innerHTML=`<section class="mastery"><span class="eyebrow">CHECKPOINT COMPLETE</span><h2>${config.completeTitle}</h2><p>${config.completeCopy}</p><a class="jla-btn jla-btn-primary" href="${config.nextUrl}">${config.nextLabel} →</a></section>`;celebrateCheckpoint($$('.mastery'));Seder.api(`/api/learners/${courseLearner}/events`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'stage_mastered',stageId:config.stage})}).catch(()=>{})});
 Seder.api(`/api/learners/${courseLearner}`).then(r=>r.ok?r.json():null).then(l=>{if(l){xp=l.xp||0;$$('#xp').textContent=`${xp} XP`}}).catch(()=>{});renderCourse();
