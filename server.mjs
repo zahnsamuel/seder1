@@ -14,6 +14,7 @@ import { foundationRecommendation, gemaraYearRecommendation, moedExpansionRecomm
 import { keyPrerequisiteRemediation, estimateFrontierFromDiagnostic, nextDiagnosticProbe } from './data/knowledge-graph.mjs';
 import { computeGraphPilotAnalytics } from './data/pilot-analytics.mjs';
 import { citedSkillId, foundationFrontierRecommendation, normalizeNextAction, selectNextAction } from './data/next-action.mjs';
+import { resolvePlacementStart } from './jla-placement-router.js';
 import { isTestLearner } from './scripts/scrub-test-learners.mjs';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
@@ -81,7 +82,7 @@ async function readJsonBody(request) {
   }
 }
 
-let cachedFoundationGraph = null, cachedKpLayer = null, cachedGraphSkills = null, cachedContentMap = null;
+let cachedFoundationGraph = null, cachedKpLayer = null, cachedGraphSkills = null, cachedContentMap = null, cachedGraduationMap = null;
 async function loadFoundationGraph() {
   if (!cachedFoundationGraph) {
     cachedFoundationGraph = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-skill-graph.json'), 'utf8'));
@@ -93,6 +94,14 @@ async function loadFoundationGraph() {
 async function loadFoundationContentMap() {
   if (!cachedContentMap) cachedContentMap = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-content-map.json'), 'utf8'));
   return cachedContentMap;
+}
+
+async function loadGraduationMap() {
+  if (!cachedGraduationMap) {
+    const data = JSON.parse(await fs.readFile(join(root, 'data', 'graduation-skill-map.json'), 'utf8'));
+    cachedGraduationMap = data.map || {};
+  }
+  return cachedGraduationMap;
 }
 
 async function academyFoundationRecommendation(learner) {
@@ -127,23 +136,26 @@ async function keyPrerequisiteRemediationFor(root, learner) {
 // knowledge frontier, not only at the handful of skills the placement checks directly probed. Purely
 // additive: it seeds inferred prerequisites to a secure level, never lowers a directly-earned score.
 async function enrichPlacementWithFrontier(root, event) {
-  if (!cachedGraphSkills) cachedGraphSkills = (await loadFoundationGraph()).skills;
-  const graphIds = new Set(cachedGraphSkills.map((s) => s.id));
-  const graded = { ...(event.scores || {}), ...(event.foundationScores || {}) };
-  const demonstrated = Object.entries(graded).filter(([id, v]) => graphIds.has(id) && Number(v) >= 0.67).map(([id]) => id);
-  if (!demonstrated.length) return;
-  // known = the demonstrated skills plus all their transitive prerequisites (downward inference).
-  const { known } = estimateFrontierFromDiagnostic({ skills: cachedGraphSkills }, Object.fromEntries(demonstrated.map((id) => [id, true])));
-  const foundationScores = { ...(event.foundationScores || {}) };
-  const scores = { ...(event.scores || {}) };
+  const graph = await loadFoundationGraph();
+  const graduationMap = await loadGraduationMap();
+  const resolved = resolvePlacementStart({
+    graph,
+    scores: event.scores,
+    foundationScores: event.foundationScores,
+    recommendedSkill: event.recommendedSkill,
+    graduationMap
+  });
   const SECURE_SEED = 0.8; // secure enough to unlock dependents, below 1 so spaced review still applies
-  for (const id of known) {
+  const foundationScores = { ...resolved.foundationScores };
+  const scores = { ...resolved.scores };
+  for (const id of resolved.known) {
     foundationScores[id] = Math.max(foundationScores[id] || 0, SECURE_SEED);
     scores[id] = Math.max(scores[id] || 0, SECURE_SEED);
   }
   event.foundationScores = foundationScores;
   event.scores = scores;
-  event.frontierInferred = known.length; // transparency: how many skills the frontier inference covers
+  event.recommendedSkill = resolved.recommendedSkill;
+  event.frontierInferred = resolved.known.length; // transparency: how many skills the frontier inference covers
 }
 
 async function chooseRecommendation(learner, { skipReview = false } = {}) {

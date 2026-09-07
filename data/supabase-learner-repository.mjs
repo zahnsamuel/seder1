@@ -3,7 +3,7 @@ import { recordAcademyCapabilityEvent } from '../jla-capability-evidence.js';
 import { creditImplicitReviews } from './repository.mjs';
 
 const competencies = { recognition: 0, translation: 0, argument: 0, sourceReasoning: 0 };
-const empty = (id, displayName = 'Learner') => ({ id, xp: 0, mastery: {}, evidence: {}, masteryUpdatedAt: {}, struggles: {}, competencies: { ...competencies }, profile: { displayName }, completedStages: [], reviewQueue: [], placement: null, artifacts: {}, capabilityEvidence: [], events: [], dailyStreak: 0, lastStudyDate: null, totalAnswered: 0, updatedAt: new Date().toISOString() });
+const empty = (id, displayName = 'Learner') => ({ id, xp: 0, mastery: {}, evidence: {}, masteryUpdatedAt: {}, struggles: {}, competencies: { ...competencies }, profile: { displayName }, completedStages: [], reviewQueue: [], placement: null, foundationScores: {}, artifacts: {}, capabilityEvidence: [], events: [], dailyStreak: 0, lastStudyDate: null, totalAnswered: 0, updatedAt: new Date().toISOString() });
 const encode = (value) => encodeURIComponent(value);
 
 function competencyFor(event) {
@@ -117,7 +117,14 @@ export async function recordHostedEvent(user, accessToken, event) {
     learner.artifacts[event.artifactType] = [...items];
   }
   if (event.type === 'placement_completed') {
-    learner.placement = { completedAt: new Date().toISOString(), scores: event.scores || {} };
+    learner.placement = {
+      completedAt: new Date().toISOString(),
+      scores: event.scores || {},
+      recommendedSkill: typeof event.recommendedSkill === 'string' && event.recommendedSkill.startsWith('fnd-')
+        ? event.recommendedSkill
+        : null
+    };
+    learner.foundationScores = { ...(learner.foundationScores || {}), ...(event.foundationScores || {}) };
     Object.entries(event.scores || {}).forEach(([skill, score]) => { learner.mastery[skill] = Math.max(learner.mastery[skill] || 0, Math.min(1, Number(score) || 0)); });
     learner.competencies.recognition = Math.max(learner.competencies.recognition, event.scores?.['hebrew-decoding'] || 0);
     learner.competencies.argument = Math.max(learner.competencies.argument, event.scores?.['gemara-moves'] || 0);

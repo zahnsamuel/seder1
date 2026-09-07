@@ -9,8 +9,9 @@ const server = readFileSync(new URL('../server.mjs', import.meta.url), 'utf8');
 test('the server wires placement into the frontier estimator (downward inference)', () => {
   // A placement_completed event is enriched before it is recorded.
   assert.match(server, /if \(event\.type === 'placement_completed'\) await enrichPlacementWithFrontier\(root, event\)/);
-  // The enrichment uses the diagnostic estimator and only raises scores (never lowers them).
-  assert.match(server, /estimateFrontierFromDiagnostic\(\{ skills: cachedGraphSkills \}/);
+  // Slice ids are rewritten onto fnd- scores; inferred prerequisites are seeded, never lowered.
+  assert.match(server, /resolvePlacementStart/);
+  assert.match(server, /event\.recommendedSkill = resolved\.recommendedSkill/);
   assert.match(server, /Math\.max\(foundationScores\[id\] \|\| 0, SECURE_SEED\)/);
 });
 

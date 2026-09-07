@@ -177,10 +177,10 @@ another hundred skills.
    retrieval, and a working frontier router.
 
 5. **One placement, one id space.**
-   `diagnostic.html` + `/api/graph/diagnostic` already estimate the `fnd-`
-   frontier. `jla-placement-router.js` still ranks graduation-slice ids. New
-   learners should leave placement with a capability profile and one `fnd-`
-   start, not a second taxonomy.
+   Done: `diagnostic.html` + `/api/graph/diagnostic` + `jla-placement-router.js`
+   now leave a capability profile and one `fnd-` start on the same next-action
+   path as Today. Graduation-slice ids (`source-family-001`) remain a
+   translation layer only — they are not the learner’s “start here” id.
 
 6. **Retrieval checks on the same ids.**
    Review, decay, and welcome-back recall must cite `fnd-` skills and use an
