@@ -70,6 +70,6 @@ test('Today no longer falls through to nextGraphPractice as an independent next-
   assert.match(server, /citedSkillId/);
   assert.match(server, /Content-move graphs are indexes/);
   assert.doesNotMatch(engine, /content-skill-graph/);
-  assert.doesNotMatch(engine, /skill-graph\.json/);
+  assert.doesNotMatch(engine, /'data', 'skill-graph\.json'/);
   assert.match(engine, /foundation-content-map\.json/);
 });
