@@ -23,8 +23,12 @@ function fillSourceCard(sourceWindow = {}) {
   else { translation.textContent = ''; translation.hidden = true; }
   $('#source-setting').textContent = sourceWindow.context || 'Read this source on the page, then answer the question below.';
   const link = $('#source-link');
-  link.href = sourceWindow.sourceUrl || '#';
-  link.hidden = !sourceWindow.sourceUrl || sourceWindow.sourceUrl === '#';
+  const footer = $('#source-footer');
+  const url = sourceWindow.sourceUrl;
+  const hasUrl = Boolean(url) && url !== '#';
+  link.href = hasUrl ? url : '#';
+  link.hidden = !hasUrl;
+  if (footer) footer.hidden = !hasUrl;
 }
 
 function renderChoices(choices, onPick) {

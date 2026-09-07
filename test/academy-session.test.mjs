@@ -11,7 +11,7 @@ const HOOKS = [
   'id="title"', 'id="statement"', 'id="why"', 'id="kp-steps"', 'id="step"',
   'id="step-label"', 'id="source-ref"', 'id="source-hebrew"', 'id="source-translation"',
   'id="source-setting"', 'id="teach-block"', 'id="teach-copy"', 'id="teaching-move"',
-  'id="source-link"', 'id="ask-panel"', 'id="check-title"',
+  'id="source-footer"', 'id="source-link"', 'id="ask-panel"', 'id="check-title"',
   'id="choices"', 'id="feedback"', 'id="advance"', 'id="complete"', 'id="complete-title"',
   'id="complete-copy"', 'id="real-content"', 'id="real-content-title"', 'id="real-content-list"'
 ];
@@ -90,7 +90,11 @@ test('foundation session chrome is see it / try it / new source with a clear ask
   assert.match(html, /WHAT TO NOTICE/);
   assert.match(html, /id="teach-copy"/);
   assert.match(html, /id="ask-panel"/);
-  assert.match(html, /Open full text in Sefaria/);
+  assert.match(html, /id="source-footer"/);
+  assert.match(html, /Full text \(optional\)/);
+  assert.doesNotMatch(html, /Open full text in Sefaria/);
+  assert.ok(html.indexOf('id="teach-block"') < html.indexOf('id="source-footer"'));
+  assert.ok(html.indexOf('id="source-footer"') < html.indexOf('id="ask-panel"'));
   assert.match(js, /foundation-authored-items\.json/);
   assert.match(js, /foundation-source-excerpts\.json/);
   assert.match(js, /foundation-teach\.json/);
@@ -113,4 +117,8 @@ test('academy-session CSS uses jla tokens and a single-column lesson', () => {
   assert.match(css, /min-height:\s*44px/);
   assert.doesNotMatch(css, /grid-template-columns:\s*1\.35fr/);
   assert.match(css, /\.complete\[hidden\][\s\S]*display:\s*none/);
+  assert.match(css, /\.source-footer/);
+  assert.match(css, /\.source-fulltext[\s\S]*color:\s*var\(--jla-text-soft/);
+  assert.doesNotMatch(css, /\.source-link\s*\{[^}]*font-weight:\s*700/);
+  assert.doesNotMatch(css, /\.source-link\s*\{[^}]*color:\s*var\(--jla-accent\)/);
 });

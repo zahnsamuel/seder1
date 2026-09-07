@@ -3337,3 +3337,15 @@ Sam: foundation See it was excerpt + immediate quiz, not a short teach. Approved
 ## 2026-09-07 — Cursor: drop “NO TYPING REQUIRED” from academy ask chrome
 
 Sam: get rid of learner-facing “no typing required.” `academy-session.html` ask eyebrow is now `YOUR ASK`. Grep of HTML/JS session chrome is clean. Pedagogy/routing unchanged.
+
+## 2026-09-07 — Cursor: further demote Sefaria on academy foundation sessions
+
+Sam: sessions still felt link-heavy vs teach. “Open full text in Sefaria ↗” was a gold/bold outbound CTA sitting in the source card after the teach block.
+
+- `academy-session.html`: Sefaria is now a muted footer link, label **Full text (optional)**. Teach + excerpt + YOUR ASK / Got it — ask me stay the hero path. Link is not removed.
+- CSS: `.source-footer` hairline + `.source-fulltext` uses `--jla-text-soft` / weight 400 / 0.78rem. No longer accent + 700.
+- JS: `fillSourceCard` hides the whole footer when there is no URL.
+- Tests: `academy-session`, `academy-source-link` now assert the quiet label and footer-after-teach order.
+- Left alone: routing, item banks, Today, `foundation-teach.json`, Claude teach JSON.
+
+Browser (`:4180`, `?skill=fnd-orient-source-type`, hard refresh v=6): first paint is Genesis 1:1 excerpt + WHAT TO NOTICE + navy **Got it — ask me**; Sefaria is muted footer **Full text (optional)** (href `sefaria.org/Genesis.1.1`, `target=_blank`). After Got it, YOUR ASK + four choices; footer stays quiet. Try it (Mishnah Berakhot 1:1) shows the ask immediately with the same quiet footer. 390px: teach + full-width Got it, footer still small/muted. Old “Open full text in Sefaria” copy gone. Console: expected 404 on `/api/jla/academy-session/fnd-orient-source-type` and favicon. Suite `node --test "test/*.test.mjs"` 610/610.
