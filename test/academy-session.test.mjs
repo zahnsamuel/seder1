@@ -10,7 +10,8 @@ const css = fs.readFileSync('academy-session.css', 'utf8');
 const HOOKS = [
   'id="title"', 'id="statement"', 'id="why"', 'id="kp-steps"', 'id="step"',
   'id="step-label"', 'id="source-ref"', 'id="source-hebrew"', 'id="source-translation"',
-  'id="source-setting"', 'id="teaching-move"', 'id="source-link"', 'id="check-title"',
+  'id="source-setting"', 'id="teach-block"', 'id="teach-copy"', 'id="teaching-move"',
+  'id="source-link"', 'id="ask-panel"', 'id="check-title"',
   'id="choices"', 'id="feedback"', 'id="advance"', 'id="complete"', 'id="complete-title"',
   'id="complete-copy"', 'id="real-content"', 'id="real-content-title"', 'id="real-content-list"'
 ];
@@ -84,10 +85,17 @@ test('foundation session chrome is see it / try it / new source with a clear ask
   assert.doesNotMatch(html, /see the move/i);
   assert.doesNotMatch(html, /make the move/i);
   assert.match(html, /YOUR ASK · NO TYPING REQUIRED/);
+  assert.match(html, /WHAT TO NOTICE/);
+  assert.match(html, /id="teach-copy"/);
+  assert.match(html, /id="ask-panel"/);
   assert.match(html, /Open full text in Sefaria/);
   assert.match(js, /foundation-authored-items\.json/);
   assert.match(js, /foundation-source-excerpts\.json/);
+  assert.match(js, /foundation-teach\.json/);
+  assert.match(js, /Got it — ask me|continueTeach|holdAsk|awaitingAsk/);
   assert.match(lesson, /You'll practice:/);
+  assert.match(lesson, /Got it — ask me/);
+  assert.match(lesson, /SOURCE_TYPE_TEACH/);
   assert.doesNotMatch(html + js, /Make the move:/);
   assert.doesNotMatch(html + js, /Show me the move/);
   assert.doesNotMatch(html + js, /INTRODUCE · SEE THE MOVE/);
