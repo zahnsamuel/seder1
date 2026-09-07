@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="jla-system.css">
-  <link rel="stylesheet" href="academy-session.css?v=2">
+  <link rel="stylesheet" href="academy-session.css?v=3">
 </head>
 <body class="jla">
   <div id="jla-shell-mount" data-links='[{"label":"My Path","href":"path.html"}]'></div>
@@ -19,9 +19,9 @@
     <p class="why" id="why"></p>
 
     <ol class="kp-steps" id="kp-steps" aria-label="Lesson steps">
-      <li class="jla-chip is-current" data-step="introduce"><b>1</b><span>Introduce</span><small>see the move</small></li>
-      <li class="jla-chip" data-step="practice"><b>2</b><span>Practice</span><small>make the move</small></li>
-      <li class="jla-chip" data-step="transfer"><b>3</b><span>Transfer</span><small>a new source</small></li>
+      <li class="jla-chip is-current" data-step="introduce"><b>1</b><span>Introduce</span><small>see it</small></li>
+      <li class="jla-chip" data-step="practice"><b>2</b><span>Practice</span><small>try it</small></li>
+      <li class="jla-chip" data-step="transfer"><b>3</b><span>Transfer</span><small>new source</small></li>
     </ol>
 
     <section class="step" id="step" aria-live="polite">
@@ -32,10 +32,10 @@
         <p class="source-translation" id="source-translation" hidden></p>
         <p id="source-setting"></p>
         <p class="move" id="teaching-move"></p>
-        <a id="source-link" class="source-link" href="#" target="_blank" rel="noreferrer">Open this source in Sefaria ↗</a>
+        <a id="source-link" class="source-link" href="#" target="_blank" rel="noreferrer">Open full text in Sefaria ↗</a>
       </article>
       <div class="interaction">
-        <p class="jla-eyebrow">GUIDED CHECK · NO TYPING REQUIRED</p>
+        <p class="jla-eyebrow" id="ask-eyebrow">YOUR ASK · NO TYPING REQUIRED</p>
         <h2 id="check-title"></h2>
         <div id="choices" class="choices"></div>
         <p id="feedback" role="status" aria-live="polite"></p>
@@ -56,14 +56,14 @@
     <details class="real-content" id="real-content" aria-labelledby="real-content-title" hidden>
       <summary>Practice this skill in real sources</summary>
       <p class="label">PRACTICE THIS SKILL IN REAL SOURCES</p>
-      <h2 id="real-content-title">Where this move shows up across the canon</h2>
+      <h2 id="real-content-title">Where this skill shows up across the canon</h2>
       <ul id="real-content-list" class="real-content-list"></ul>
     </details>
   </main>
   <script src="seder-auth.js?v=2"></script>
   <script src="capability-state.js"></script>
   <script src="jla-shell.js"></script>
-  <script src="academy-session.js?v=2"></script>
+  <script type="module" src="academy-session.js?v=3"></script>
   <script src="feedback.js?v=1"></script>
 </body>
 </html>

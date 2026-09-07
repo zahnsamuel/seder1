@@ -34,7 +34,9 @@
   function renderLesson(session) {
     el('eyebrow').textContent = session.domain ? session.domain.replace(/-/g, ' ') : 'Source practice';
     el('title').textContent = session.title || 'Read a source';
-    el('teaching').textContent = session.teachingMove || '';
+    el('teaching').textContent = session.evidencePreview
+      ? `You'll practice: ${session.evidencePreview}`
+      : (session.teachingMove || '');
 
     const w = session.sourceWindow || {};
     stage.innerHTML = `
@@ -44,7 +46,7 @@
         ${w.translation ? `<p class="source-tr">${esc(w.translation)}</p>` : ''}
         ${w.context ? `<p class="source-context">${esc(w.context)}</p>` : ''}
       </div>
-      <p class="prompt">${esc(session.prompt || 'Which first move fits this source?')}</p>
+      <p class="prompt">${esc(session.prompt || 'In this source, which option correctly answers the question?')}</p>
       <div id="choices">
         ${(session.choices || []).map((c) => `<button class="jla-choice" data-choice-id="${esc(c.id)}">${esc(c.text)}</button>`).join('')}
       </div>
@@ -80,7 +82,7 @@
     fb.className = `jla-feedback ${result.correct ? 'is-correct' : 'is-wrong'}`;
     // The server returns authored, complete feedback — show it as-is (no client prefix,
     // which would double up on feedback that already opens with "Yes."/"Not quite.").
-    fb.textContent = result.feedback || (result.correct ? 'You made the move in this source.' : 'Carry the move into the next source and try again.');
+    fb.textContent = result.feedback || (result.correct ? 'Yes — that reading fits this source.' : 'Not quite — look back at the source and try the next window.');
 
     const cont = el('continue');
     if (cont) {

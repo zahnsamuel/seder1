@@ -3306,3 +3306,13 @@ frontier, but `jla-placement-router.js` still ranked graduation-slice ids
   `placement-frontier`.
 
 Left alone: item banks, starter-set freeze, content-move demotion, graph growth.
+
+## 2026-09-07 — Cursor: academy foundation session = source + clear ask
+
+Sam’s feedback: foundation sessions felt like a Sefaria link plus “what’s the move? / make the move.” Renaming “move” was not enough.
+
+- `academy-session` introduce → practice → transfer now uses one pattern: skill title + “You’ll practice: {statement}”, the current source on the page (Hebrew/translation excerpt when we have one), and one explicit ask before shuffled choices.
+- Authored foundation items (`data/foundation-authored-items.json`) are preferred when present. Bankless skills (e.g. `fnd-arg-claim` until PR #16 lands) fall back to the skill statement/checks as the substance of the question — still a real MC, not “Make the move: …”.
+- Step chips are see it / try it / new source. Sefaria is “Open full text”, secondary.
+- Did not rewrite Claude’s item bank; did not touch Today / next-action / placement. Stayed off PR #16’s L2–L5 authoring files.
+- Tests: `academy-session-lesson`, `academy-session`, `academy-source-link`. Practice fallback copy mirrored in `jla-practice.js`.

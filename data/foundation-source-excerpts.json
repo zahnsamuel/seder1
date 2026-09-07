@@ -1,0 +1,83 @@
+{
+  "note": "Client-safe short source windows for academy foundation sessions. Hebrew and translations are excerpts already used in this repo (or public-domain Hebrew plus a short educational gloss), so a learner can answer on the page. Sefaria links are secondary. Do not treat this as a full text store.",
+  "excerpts": {
+    "Genesis 1:1": {
+      "hebrew": "בְּרֵאשִׁית בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ",
+      "translation": "In the beginning God created the heaven and the earth.",
+      "setting": "Opening verse of the Torah — a narrative line, not a rule or a debate.",
+      "sourceUrl": "https://www.sefaria.org/Genesis.1.1"
+    },
+    "Genesis 1:1–2:3": {
+      "hebrew": "בְּרֵאשִׁית בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ",
+      "translation": "In the beginning God created the heaven and the earth.",
+      "setting": "The first creation account runs from this opening verse through the close of the seventh day.",
+      "sourceUrl": "https://www.sefaria.org/Genesis.1.1"
+    },
+    "Deuteronomy 6:4": {
+      "hebrew": "שְׁמַע יִשְׂרָאֵל ה׳ אֱלֹהֵינוּ ה׳ אֶחָד",
+      "translation": "Hear, Israel: the Lord is our God, the Lord is one.",
+      "setting": "A Torah verse of direct address — later reused in prayer, but first a verse.",
+      "sourceUrl": "https://www.sefaria.org/Deuteronomy.6.4"
+    },
+    "Mishnah Berakhot 1:1": {
+      "hebrew": "מֵאֵימָתַי קוֹרִין אֶת שְׁמַע בְּעַרְבִית",
+      "translation": "From when do we recite Shema in the evening?",
+      "setting": "A compact Mishnah question about a practice and its time — a rule-shaped opening, not a story.",
+      "sourceUrl": "https://www.sefaria.org/Mishnah_Berakhot.1.1"
+    },
+    "Berakhot 2a": {
+      "hebrew": "תַּנָּא הֵיכָא קָאֵי דְּקָתָנֵי מֵאֵימָתַי",
+      "translation": "On what is the tanna standing, that he teaches: “From when?”",
+      "setting": "The Gemara quotes the Mishnah’s rule-shaped opening and immediately presses it with a question.",
+      "sourceUrl": "https://www.sefaria.org/Berakhot.2a"
+    },
+    "Berakhot 2a (Vilna page)": {
+      "hebrew": "מֵאֵימָתַי קוֹרִין אֶת שְׁמַע בְּעַרְבִית",
+      "translation": "From when do we recite Shema in the evening?",
+      "setting": "On a Vilna Talmud page this Mishnah–Gemara block sits in the center; commentary fills the columns around it.",
+      "sourceUrl": "https://www.sefaria.org/Berakhot.2a"
+    },
+    "Mishnah and Gemara, Berakhot 2a": {
+      "hebrew": "מֵאֵימָתַי קוֹרִין אֶת שְׁמַע בְּעַרְבִית",
+      "translation": "From when do we recite Shema in the evening?",
+      "setting": "The Mishnah states the practice; the Gemara that follows (often marked גמ׳) begins the discussion of it.",
+      "sourceUrl": "https://www.sefaria.org/Berakhot.2a"
+    },
+    "Gemara Berakhot 2a": {
+      "hebrew": "תַּנָּא הֵיכָא קָאֵי דְּקָתָנֵי מֵאֵימָתַי",
+      "translation": "On what is the tanna standing, that he teaches: “From when?”",
+      "setting": "A Gemara line that asks about the Mishnah’s opening rather than retelling a story.",
+      "sourceUrl": "https://www.sefaria.org/Berakhot.2a"
+    },
+    "Mikraot Gedolot, Genesis 1:1": {
+      "hebrew": "בְּרֵאשִׁית בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ",
+      "translation": "In the beginning God created the heaven and the earth.",
+      "setting": "On a Mikraot Gedolot page the verse sits as the primary text; commentaries are printed around it.",
+      "sourceUrl": "https://www.sefaria.org/Genesis.1.1"
+    },
+    "Pirkei Avot 1:1": {
+      "hebrew": "מֹשֶׁה קִבֵּל תּוֹרָה מִסִּינַי וּמְסָרָהּ לִיהוֹשֻׁעַ",
+      "translation": "Moses received the Torah at Sinai and handed it to Joshua.",
+      "setting": "An anonymous Mishnah voice narrating a chain of transmission — no “Rabbi X said” formula on this opening line.",
+      "sourceUrl": "https://www.sefaria.org/Pirkei_Avot.1.1"
+    },
+    "Pirkei Avot 1:2": {
+      "hebrew": "שִׁמְעוֹן הַצַּדִּיק הָיָה מִשְּׁיָרֵי כְנֶסֶת הַגְּדוֹלָה. הוּא הָיָה אוֹמֵר",
+      "translation": "Shimon the Righteous was of the remnants of the Great Assembly. He used to say…",
+      "setting": "A named sage plus “he used to say” — an attribution formula before the teaching itself.",
+      "sourceUrl": "https://www.sefaria.org/Pirkei_Avot.1.2"
+    },
+    "Kaddish": {
+      "hebrew": "יִתְגַּדַּל וְיִתְקַדַּשׁ שְׁמֵהּ רַבָּא",
+      "translation": "May His great name be magnified and sanctified.",
+      "setting": "A prayer of public praise — liturgical address, not a legal case or a Torah narrative.",
+      "sourceUrl": "https://www.sefaria.org/search?q=Kaddish&tab=texts"
+    },
+    "Rambam, Yesodei HaTorah 1:1": {
+      "hebrew": "יְסוֹד הַיְסוֹדוֹת וְעַמּוּד הַחָכְמוֹת לֵידַע שֶׁיֵּשׁ שָׁם מָצוּי רִאשׁוֹן",
+      "translation": "The foundation of foundations and the pillar of wisdoms is to know that there is a First Being.",
+      "setting": "A code-style claim stated as a principle, not as a back-and-forth sugya.",
+      "sourceUrl": "https://www.sefaria.org/Mishneh_Torah,_Foundations_of_the_Torah.1.1"
+    }
+  }
+}
