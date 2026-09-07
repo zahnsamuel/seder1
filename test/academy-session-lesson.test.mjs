@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import {
   BANNED_LEARNER_COPY,
+  SOURCE_TYPE_TEACH,
   buildScaffoldSteps,
   explicitAsk,
   frameJlaSession,
@@ -10,12 +11,15 @@ import {
   lookupExcerpt,
   practiceLine,
   presentChoices,
+  sentenceCount,
+  teachCopy,
   whyLine
 } from '../academy-session-lesson.mjs';
 
 const graph = JSON.parse(readFileSync(new URL('../data/foundation-skill-graph.json', import.meta.url), 'utf8'));
 const authored = JSON.parse(readFileSync(new URL('../data/foundation-authored-items.json', import.meta.url), 'utf8'));
 const excerpts = JSON.parse(readFileSync(new URL('../data/foundation-source-excerpts.json', import.meta.url), 'utf8'));
+const teachBank = JSON.parse(readFileSync(new URL('../data/foundation-teach.json', import.meta.url), 'utf8'));
 const kpLayer = JSON.parse(readFileSync(new URL('../data/foundation-knowledge-points.json', import.meta.url), 'utf8'));
 const ctxLayer = JSON.parse(readFileSync(new URL('../data/foundation-content-contexts.json', import.meta.url), 'utf8'));
 
@@ -49,16 +53,25 @@ test('banked orientation skill uses authored stems, on-page source, and shuffled
   const bank = authored.items[skill.id];
   assert.ok(bank.length >= 3);
   const steps = buildScaffoldSteps({
-    skill, graph, kpLayer, ctxLayer, authoredBank: bank, excerpts, random: cyclingRandom()
+    skill, graph, kpLayer, ctxLayer, authoredBank: bank, excerpts, teachBank, random: cyclingRandom()
   });
   assert.equal(steps.length, 3);
   assert.equal(steps[0].kind, 'introduce');
   assert.equal(steps[0].chrome.label, 'SEE IT');
+  assert.equal(steps[0].chrome.continueTeach, 'Got it — ask me');
   assert.equal(steps[1].chrome.label, 'TRY IT');
   assert.equal(steps[2].chrome.label, 'NEW SOURCE');
   assert.equal(steps[0].prompt, bank[0].stem);
   assert.equal(steps[1].prompt, bank[1].stem);
   assert.equal(steps[2].prompt, bank[2].stem);
+  assert.ok(steps[0].teach);
+  assert.equal(steps[0].holdAsk, true);
+  assert.equal(steps[0].guidance, '');
+  assert.equal(steps[1].holdAsk, false);
+  assert.equal(steps[1].teach, '');
+  assert.match(steps[1].guidance, /^Look for this:/);
+  assert.equal(steps[2].holdAsk, false);
+  assert.equal(steps[2].teach, '');
   for (const step of steps) {
     assert.equal(step.authored, true);
     assert.ok(step.sourceWindow.hasOnPageSource, `${step.kind} should show Hebrew or translation`);
@@ -68,7 +81,7 @@ test('banked orientation skill uses authored stems, on-page source, and shuffled
     assert.doesNotMatch(step.prompt, BANNED_LEARNER_COPY[0]);
     assert.doesNotMatch(step.prompt, /\bthe move\b/i);
     assert.doesNotMatch(step.guidance, /\bthe move\b/i);
-    if (step.kind !== 'transfer') assert.match(step.guidance, /^Look for this:/);
+    assert.doesNotMatch(step.teach, /\bthe move\b/i);
     for (const choice of step.choices) {
       assert.doesNotMatch(choice.text, /^Make the move:/i);
       assert.doesNotMatch(choice.text, /\bthe move\b/i);
@@ -111,6 +124,46 @@ test('explicitAsk prefers the authored stem and otherwise uses the skill check',
   assert.equal(explicitAsk({ skill, item: { stem: 'Authored stem here' } }), 'Authored stem here');
   assert.match(explicitAsk({ skill, context: { ref: 'Berakhot 2a' }, kind: 'practice' }), /Berakhot 2a/);
   assert.match(explicitAsk({ skill, context: { ref: 'Berakhot 2a' }, kind: 'practice' }), /which option correctly/i);
+});
+
+test('See-it teach is a 2–4 sentence mini-lesson before the ask, with a source-type fallback', () => {
+  const skill = graph.skills.find((item) => item.id === 'fnd-orient-source-type');
+  const fromBank = teachCopy({ skill, kind: 'introduce', teachBank });
+  assert.match(fromBank, /Torah verse/i);
+  assert.match(fromBank, /Mishnah/i);
+  assert.match(fromBank, /Gemara/i);
+  assert.match(fromBank, /Commentary/i);
+  assert.ok(sentenceCount(fromBank) >= 2 && sentenceCount(fromBank) <= 4);
+  assert.equal(learnerCopyHasBannedPhrase(fromBank), false);
+
+  const fallback = teachCopy({ skill, kind: 'introduce', teachBank: {} });
+  assert.equal(fallback, SOURCE_TYPE_TEACH);
+  assert.match(SOURCE_TYPE_TEACH, /Torah verse/);
+  assert.match(SOURCE_TYPE_TEACH, /commentary/i);
+
+  const authored = teachCopy({
+    skill,
+    kind: 'introduce',
+    item: { teach: 'Notice the shape of the excerpt first. Then name the kind of text.' }
+  });
+  assert.match(authored, /Notice the shape/);
+
+  const fromSkill = teachCopy({
+    skill: { id: 'fnd-arg-claim', teach: 'A claim is the sentence the source is trying to get you to accept. Restate it in one line before you judge it.' },
+    kind: 'introduce'
+  });
+  assert.match(fromSkill, /A claim is the sentence/);
+
+  assert.equal(teachCopy({ skill, kind: 'practice', teachBank }), '');
+  assert.equal(teachCopy({ skill, kind: 'transfer', teachBank }), '');
+
+  const generic = teachCopy({
+    skill: graph.skills.find((item) => item.id === 'fnd-arg-claim'),
+    kind: 'introduce',
+    teachBank: {}
+  });
+  assert.match(generic, /noticing one thing in a source/);
+  assert.ok(sentenceCount(generic) >= 2 && sentenceCount(generic) <= 4);
 });
 
 test('JLA session framing prefixes You\'ll practice and rewrites a vague move ask', () => {

@@ -35,16 +35,52 @@ function renderChoices(choices, onPick) {
   });
 }
 
-function startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts) {
+function fillTeach(step = {}) {
+  const block = $('#teach-block');
+  const copy = $('#teach-copy');
+  if (!block || !copy) return;
+  if (step.teach) {
+    copy.textContent = step.teach;
+    block.hidden = false;
+  } else {
+    copy.textContent = '';
+    block.hidden = true;
+  }
+}
+
+function showAsk(visible) {
+  const panel = $('#ask-panel');
+  if (panel) panel.hidden = !visible;
+}
+
+function startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, teachBank) {
   $('#title').textContent = skill.title;
   $('#statement').textContent = practiceLine(skill.statement);
   $('#why').textContent = whyLine(skill, graph);
 
-  const steps = buildScaffoldSteps({ skill, graph, kpLayer, ctxLayer, authoredBank, excerpts });
+  const steps = buildScaffoldSteps({ skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, teachBank });
   let i = 0;
+  let awaitingAsk = false;
   const stepEls = [...document.querySelectorAll('#kp-steps li')];
   const advance = $('#advance');
-  advance.onclick = () => { if (i < steps.length - 1) { i += 1; renderStep(); } else finish(); };
+
+  const goNext = () => { if (i < steps.length - 1) { i += 1; renderStep(); } else finish(); };
+
+  advance.onclick = () => {
+    if (awaitingAsk) {
+      awaitingAsk = false;
+      revealAsk();
+      return;
+    }
+    goNext();
+  };
+
+  function revealAsk() {
+    showAsk(true);
+    advance.disabled = true;
+    advance.textContent = STEP_CHROME[steps[i].kind].next;
+    $('#check-title').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
 
   function renderStep() {
     const step = steps[i];
@@ -58,16 +94,29 @@ function startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts) 
     });
     $('#step-label').textContent = STEP_CHROME[step.kind].label;
     fillSourceCard(step.sourceWindow);
-    $('#teaching-move').textContent = step.guidance || '';
+    fillTeach(step);
+    const guidance = $('#teaching-move');
+    guidance.textContent = step.guidance || '';
+    guidance.hidden = !step.guidance;
     $('#check-title').textContent = step.prompt;
     $('#feedback').className = '';
     $('#feedback').textContent = '';
-    advance.disabled = true;
-    advance.textContent = STEP_CHROME[step.kind].next;
+
+    if (step.holdAsk) {
+      awaitingAsk = true;
+      showAsk(false);
+      advance.disabled = false;
+      advance.textContent = STEP_CHROME.introduce.continueTeach;
+    } else {
+      awaitingAsk = false;
+      showAsk(true);
+      advance.disabled = true;
+      advance.textContent = STEP_CHROME[step.kind].next;
+    }
 
     let answered = false;
     renderChoices(step.choices, async (button) => {
-      if (answered) return;
+      if (answered || awaitingAsk) return;
       answered = true;
       const correct = button.dataset.choiceId === step.correctId;
       button.classList.add(correct ? 'is-correct' : 'is-wrong');
@@ -160,14 +209,15 @@ Promise.all([
   fetch('data/foundation-content-contexts.json').then((response) => (response.ok ? response.json() : null)).catch(() => null),
   fetch('data/foundation-content-map.json').then((response) => (response.ok ? response.json() : null)).catch(() => null),
   fetch('data/foundation-authored-items.json').then((response) => (response.ok ? response.json() : null)).catch(() => null),
-  fetch('data/foundation-source-excerpts.json').then((response) => (response.ok ? response.json() : null)).catch(() => null)
-]).then(([jlaSession, graph, kpLayer, ctxLayer, map, authoredFile, excerpts]) => {
+  fetch('data/foundation-source-excerpts.json').then((response) => (response.ok ? response.json() : null)).catch(() => null),
+  fetch('data/foundation-teach.json').then((response) => (response.ok ? response.json() : null)).catch(() => null)
+]).then(([jlaSession, graph, kpLayer, ctxLayer, map, authoredFile, excerpts, teachBank]) => {
   if (jlaSession && jlaSession.sourceWindow) {
     renderJlaSession(jlaSession);
   } else {
     const skill = graph?.skills.find((item) => item.id === skillId) || { ...FALLBACK_SKILL, id: skillId };
     const authoredBank = authoredFile?.items?.[skillId] || [];
-    startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts);
+    startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, teachBank);
   }
   renderRealContent(map);
 });

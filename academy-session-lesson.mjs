@@ -3,10 +3,14 @@
 // source on the page, one explicit ask, shuffled real choices.
 
 export const STEP_CHROME = {
-  introduce: { label: 'SEE IT', next: 'I can see it — try it →' },
+  introduce: { label: 'SEE IT', next: 'I can see it — try it →', continueTeach: 'Got it — ask me' },
   practice: { label: 'TRY IT', next: 'Try a new source →' },
   transfer: { label: 'NEW SOURCE', next: 'Finish →' }
 };
+
+// Built-in See-it fallback until authored teach lands. Sam: briefly name
+// Torah verse / Mishnah / Gemara / commentary in plain adult English.
+export const SOURCE_TYPE_TEACH = 'Jewish texts come in a few basic kinds, and you can often tell which one you are looking at from its shape — before you translate every word. A Torah verse usually tells or commands in the Bible’s own voice. A Mishnah states a compact rule; the Gemara then asks about that rule and argues it. Commentary talks about the text from the side, rather than being the text itself.';
 
 export const FALLBACK_SKILL = {
   title: 'Practice one reading skill',
@@ -135,6 +139,54 @@ export function howToLook(skill = {}) {
   return `Look for this: ${statement}`;
 }
 
+export function sentenceCount(text) {
+  return String(text || '').split(/[.!?]+/).map((part) => part.trim()).filter(Boolean).length;
+}
+
+export function firstPlainTeach(...values) {
+  for (const value of values) {
+    const text = String(value || '').trim();
+    if (text && !isVagueMoveAsk(text) && !learnerCopyHasBannedPhrase(text)) return text;
+  }
+  return '';
+}
+
+export function resolveTeachBank(teachBank = {}) {
+  if (teachBank.teach && typeof teachBank.teach === 'object' && !Array.isArray(teachBank.teach)) {
+    return teachBank.teach;
+  }
+  return teachBank;
+}
+
+export function bankedTeach(skill = {}, kind = 'introduce', teachBank = {}) {
+  const entry = resolveTeachBank(teachBank)[skill.id];
+  if (!entry) return '';
+  if (typeof entry === 'string') return kind === 'introduce' ? entry : '';
+  return entry[kind] || (kind === 'introduce' ? (entry.introduce || entry.teach) : '');
+}
+
+export function genericIntroduceTeach(skill = {}) {
+  const statement = String(skill.statement || '').trim();
+  if (statement && !isVagueMoveAsk(statement) && !learnerCopyHasBannedPhrase(statement)) {
+    return `This skill is about noticing one thing in a source, not solving the whole page. ${statement} Look at the excerpt here and notice that — then you will get a short question.`;
+  }
+  return 'Look at the excerpt on this page. Notice what kind of text it is and what it is doing, then you will get a short question.';
+}
+
+export function teachCopy({ skill = {}, item, kind = 'introduce', teachBank = {} } = {}) {
+  if (kind !== 'introduce') return '';
+  const authored = firstPlainTeach(
+    item?.teach,
+    item?.introduce,
+    skill.teach,
+    skill.introduce,
+    bankedTeach(skill, kind, teachBank)
+  );
+  if (authored) return authored;
+  if (skill.id === 'fnd-orient-source-type') return SOURCE_TYPE_TEACH;
+  return genericIntroduceTeach(skill);
+}
+
 export function shuffleList(list, random = Math.random) {
   const result = list.slice();
   for (let index = result.length - 1; index > 0; index -= 1) {
@@ -240,6 +292,7 @@ export function buildScaffoldSteps({
   ctxLayer,
   authoredBank = [],
   excerpts = {},
+  teachBank = {},
   random = Math.random
 } = {}) {
   const contexts = pickStepContexts(skill, ctxLayer, authoredBank);
@@ -257,19 +310,24 @@ export function buildScaffoldSteps({
       })();
 
     let guidance = howToLook(skill);
-    if (kind === 'transfer') {
+    if (kind === 'introduce') {
+      guidance = '';
+    } else if (kind === 'transfer') {
       const family = context.family && context.family !== context.genre ? ` (${context.family})` : '';
       guidance = `Now try the same skill on this new source${family}.`;
     } else if (isVagueMoveAsk(guidance)) {
       guidance = '';
     }
 
+    const teach = teachCopy({ skill, item, kind, teachBank });
     const taught = item?.feedback || '';
     return {
       kind,
       chrome: STEP_CHROME[kind],
       context,
       sourceWindow,
+      teach,
+      holdAsk: kind === 'introduce' && Boolean(teach),
       guidance,
       prompt: explicitAsk({ skill, context, item, kind }),
       choices: presented.choices,

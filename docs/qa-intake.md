@@ -3324,3 +3324,12 @@ Hard requirement after a second live look. Renderer now:
 - rewrites vague JLA prompts (“Which first move…”) into “In this source, which option correctly…”
 - strips `Make the move:` from any leftover choice text
 - grep-guard on `academy-session.html` + `academy-session.js`: no `make the move` / `see the move` / `that is the move` / `the move` as ask frame
+
+## 2026-09-07 — Cursor: See it is a mini-lesson, then the ask
+
+Sam: foundation See it was excerpt + immediate quiz, not a short teach. Approved shape is teach (2–4 sentences) with the on-page excerpt, then the MC — same step or after “Got it — ask me”. Try it / new source stay the same skill with less scaffolding.
+
+- `academy-session-lesson.mjs` now builds a `teach` block for introduce only (`holdAsk`). Prefers optional `item.teach` / `item.introduce` / `skill.teach` / `data/foundation-teach.json`. `fnd-orient-source-type` has a built-in fallback naming Torah verse / Mishnah / Gemara / commentary in plain English if authored teach is missing.
+- Renderer shows WHAT TO NOTICE + excerpt first; choices stay hidden until **Got it — ask me**. `#advance` sits outside `#ask-panel` so the continue is still visible while the ask is held. Sefaria stays “Open full text”. No “the move” chrome. Did not rewrite Claude’s item banks or touch Today / next-action / placement.
+- Tests: `academy-session-lesson`, `academy-session`.
+- Browser (`?skill=fnd-orient-source-type`): first paint is Genesis 1:1 + WHAT TO NOTICE + **Got it — ask me**, no choices. After the continue, the authored genre ask appears. Try it (Mishnah Berakhot 1:1) and new source (Berakhot 2a) skip the mini-lesson and show the ask immediately. 390px: teach + full-width continue. Console: expected 404 on `/api/jla/academy-session/fnd-orient-source-type` (scaffold fallback) and favicon.

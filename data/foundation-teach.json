@@ -1,0 +1,6 @@
+{
+  "note": "Optional learner-facing See-it mini-lessons for academy foundation sessions. 2–4 sentences in plain adult English. Not Sefaria-as-instruction. The renderer also accepts skill.teach / item.teach; if those are missing, academy-session-lesson.mjs falls back here, then to a built-in source-type lesson.",
+  "teach": {
+    "fnd-orient-source-type": "Jewish texts come in a few basic kinds, and you can often tell which one you are looking at from its shape — before you translate every word. A Torah verse usually tells or commands in the Bible’s own voice. A Mishnah states a compact rule; the Gemara then asks about that rule and argues it. Commentary talks about the text from the side, rather than being the text itself."
+  }
+}
