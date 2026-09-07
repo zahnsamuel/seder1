@@ -13,7 +13,7 @@ import { explainRecommendation, whySentence } from './data/recommendation-why.mj
 import { foundationRecommendation, gemaraYearRecommendation, moedExpansionRecommendation } from './data/term-recommendations.mjs';
 import { keyPrerequisiteRemediation, estimateFrontierFromDiagnostic, nextDiagnosticProbe } from './data/knowledge-graph.mjs';
 import { computeGraphPilotAnalytics } from './data/pilot-analytics.mjs';
-import { citedSkillId, foundationFrontierRecommendation, normalizeNextAction, selectNextAction } from './data/next-action.mjs';
+import { citedSkillId, foundationFrontierRecommendation, foundationRetrievalRecommendation, normalizeNextAction, resolveFoundationSkillId, selectNextAction } from './data/next-action.mjs';
 import { resolvePlacementStart } from './jla-placement-router.js';
 import { isTestLearner } from './scripts/scrub-test-learners.mjs';
 
@@ -108,6 +108,16 @@ async function academyFoundationRecommendation(learner) {
   return foundationFrontierRecommendation(learner, await loadFoundationGraph(), await loadFoundationContentMap());
 }
 
+async function foundationRetrievalFor(learner, options = {}) {
+  const due = reviewStatus(learner).due;
+  const faded = decayingSkills(learner).filter((skill) => skill.freshness === 'faded');
+  return foundationRetrievalRecommendation(learner, await loadFoundationGraph(), await loadFoundationContentMap(), {
+    dueIds: due.map((item) => item.skillId),
+    fadedIds: faded.map((skill) => skill.skillId),
+    ...options
+  });
+}
+
 // Build the Math-Academy-Way key-prerequisite remediation from the knowledge-point layer: a struggled
 // skill routes to a review of the foundation its knowledge points most directly use.
 async function keyPrerequisiteRemediationFor(root, learner) {
@@ -160,20 +170,15 @@ async function enrichPlacementWithFrontier(root, event) {
 
 async function chooseRecommendation(learner, { skipReview = false } = {}) {
   if (!learner.placement) return { kind: 'placement', title: 'Find your Gemara starting point', reason: 'A short adaptive placement pins your knowledge frontier in a handful of questions — what you already know and what to build next.', url: 'diagnostic.html' };
+  if (!skipReview) {
+    // Recover / review before teaching the next frontier skill. Only fire when the
+    // due or faded id resolves to a live fnd- skill — never a generic Daf card or a
+    // vanished content-step. Unmappable leftovers fall through to foundation teach.
+    const retrieval = await foundationRetrievalFor(learner);
+    if (retrieval) return retrieval;
+  }
   const academyFoundation = await academyFoundationRecommendation(learner);
   if (academyFoundation) return academyFoundation;
-  if (!skipReview) {
-    // A skill that reaches strong raw mastery (>= .85) is dropped from the formal
-    // spaced-repetition queue for good (see repository.mjs recordLearnerEvent), so
-    // the schedule alone will never resurface it again. Decay can still quietly eat
-    // into it, so gating on the schedule alone would let a "mastered" skill go stale
-    // forever without ever being recommended again. Treat severe, silent decay as
-    // its own trigger for a review recommendation, on top of the formal due queue.
-    const due = reviewStatus(learner).due;
-    if (due.length) return { kind: 'review', title: 'Retrieve a skill before it fades', reason: 'Mastery grows through timely retrieval, especially after an uncertain answer.', url: 'review.html' };
-    const badlyFaded = decayingSkills(learner).filter((skill) => skill.freshness === 'faded');
-    if (badlyFaded.length) return { kind: 'review', decayTriggered: true, title: 'Refresh a skill that has faded', reason: `${badlyFaded.length === 1 ? 'A previously mastered skill has' : `${badlyFaded.length} previously mastered skills have`} faded well below their peak. A quick retrieval restores it faster than relearning from scratch.`, url: 'review.html' };
-  }
   // Math-Academy-Way targeted remediation: repeated struggle on a foundation skill routes to a
   // review of the KEY PREREQUISITE its knowledge points lean on most (strengthen the foundation
   // before re-drilling), ahead of the generic repair-router remediation.
@@ -214,8 +219,21 @@ async function nextActionFor(learner) {
   const skillId = citedSkillId(recommendation);
   const base = { title: recommendation.title, reason: recommendation.reason, href: recommendation.url, cta: 'Start this step', skillId };
   const candidates = {};
-  if (daysSinceStudy >= recoveryWindow) candidates.recovery = { title: 'Welcome back with one small step', reason: 'One short retrieval is enough to restart your learning rhythm.', href: 'daily-recall.html', cta: 'Begin a short recall' };
-  if (recommendation.kind === 'review') candidates.review = { ...base, cta: 'Review now' };
+  if (daysSinceStudy >= recoveryWindow) {
+    const retrieval = recommendation.kind === 'review' && recommendation.skillId
+      ? recommendation
+      : await foundationRetrievalFor(learner, { allowSecuredFallback: true, mode: 'recovery' });
+    if (retrieval?.skillId) {
+      candidates.recovery = {
+        title: 'Welcome back with one small step',
+        reason: retrieval.reason,
+        href: retrieval.url,
+        cta: 'Begin a short recall',
+        skillId: retrieval.skillId
+      };
+    }
+  }
+  if (recommendation.kind === 'review' && skillId) candidates.review = { ...base, cta: 'Review now' };
   else if (['placement', 'academy-foundation', 'foundation-term'].includes(recommendation.kind)) candidates.foundation = base;
   else if (recommendation.kind === 'academy-session') candidates.academy = base;
   else if (recommendation.kind === 'graph-practice' && /transfer/i.test(`${recommendation.skill?.id || ''} ${recommendation.context || ''}`)) candidates.transfer = { ...base, cta: 'Try it in a new source' };
@@ -511,7 +529,10 @@ async function handleApi(request, response, url) {
     // implicitly (see creditImplicitReviews). Report the saving so the UI can show what it removed.
     const status = reviewStatus(learner);
     const plan = fireReviewPlan(learner);
-    const items = await sourceReviewItems(root, plan.practice.map((item) => item.skillId));
+    const graph = await loadFoundationGraph();
+    const map = await loadFoundationContentMap();
+    const skillIds = plan.practice.map((item) => resolveFoundationSkillId(graph, map, item.skillId) || item.skillId);
+    const items = await sourceReviewItems(root, skillIds);
     sendJson(response, 200, {
       items: items.slice(0, 4),
       fire: { dueCount: status.due.length, practiceCount: plan.practice.length, saved: plan.saved, covered: plan.covered }
@@ -676,14 +697,11 @@ async function handleApi(request, response, url) {
     const steps = [];
     if (recommendation.kind === 'placement') steps.push({ type: 'placement', label: 'Starting point', title: recommendation.title, reason: recommendation.reason, why: recommendation.why, minutes: 5, url: recommendation.url });
     else {
-      if (review.due.length) {
-        review.due.slice(0, 1).forEach((item) => steps.push({ type: 'review', label: 'Retrieve', title: `Review ${item.skillId.replace(/^lab-/, '').replaceAll('-', ' ')}`, reason: item.reason, minutes: 3, url: 'review.html' }));
-      } else if (recommendation.kind === 'review') {
-        // Decay-triggered review recommendation (see recommendFor): the skill already
-        // graduated out of the formal spaced-repetition queue, so there is no queue
-        // item to read a step from -- build the step from the recommendation itself
-        // so the plan still surfaces an actionable "Retrieve" step, not just a badge.
-        steps.push({ type: 'review', label: 'Retrieve', title: recommendation.title, reason: recommendation.reason, minutes: 3, url: 'review.html' });
+      const retrieval = recommendation.kind === 'review' && recommendation.skillId
+        ? recommendation
+        : await foundationRetrievalFor(learner);
+      if (retrieval?.skillId) {
+        steps.push({ type: 'review', label: 'Retrieve', title: retrieval.title, reason: retrieval.reason, minutes: 3, url: retrieval.url, skillId: retrieval.skillId });
       }
       const newLearning = recommendation.kind === 'review' ? await recommendFor(learner, { skipReview: true }) : recommendation;
       steps.push({ type: 'new', label: 'New learning', title: newLearning.title, reason: newLearning.reason, why: newLearning.why, minutes: Math.max(7, rhythmMinutes - (review.due.length ? 3 : 0) - 2), url: newLearning.url });

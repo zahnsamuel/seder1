@@ -33,6 +33,67 @@ export function pickContentPracticeForSkill(map, skillId, learner) {
   return { unit: pick.unit, label: pick.label, href: pick.route, ref: pick.ref, genre: pick.genre, contentSkill: pick.contentSkill };
 }
 
+export function contentSkillToFoundationId(map, contentSkill) {
+  if (typeof contentSkill !== 'string' || !map?.bySkill) return null;
+  for (const [fnd, rows] of Object.entries(map.bySkill)) {
+    if (!fnd.startsWith('fnd-') || !Array.isArray(rows)) continue;
+    if (rows.some((row) => row.contentSkill === contentSkill)) return fnd;
+  }
+  return null;
+}
+
+export function resolveFoundationSkillId(graph, map, skillId) {
+  if (typeof skillId !== 'string' || !skillId.trim()) return null;
+  const id = skillId.trim();
+  if (graph?.skills?.some((skill) => skill.id === id)) return id;
+  return contentSkillToFoundationId(map, id);
+}
+
+export function pickRetrievalFoundationSkill(graph, map, { dueIds = [], fadedIds = [], learner = null, allowSecuredFallback = false } = {}) {
+  if (!graph?.skills?.length) return null;
+  const resolve = (id) => resolveFoundationSkillId(graph, map, id);
+  for (const id of dueIds) {
+    const skillId = resolve(id);
+    if (skillId) return { skillId, sourceId: id, trigger: 'due' };
+  }
+  for (const id of fadedIds) {
+    const skillId = resolve(id);
+    if (skillId) return { skillId, sourceId: id, trigger: 'decay' };
+  }
+  if (!allowSecuredFallback || !learner) return null;
+  const secured = graph.skills.filter((skill) => skillScore(learner, skill.id) >= SECURE);
+  if (!secured.length) return null;
+  const updated = learner.masteryUpdatedAt || {};
+  secured.sort((a, b) => {
+    const newest = (Date.parse(updated[b.id] || '') || 0) - (Date.parse(updated[a.id] || '') || 0);
+    return newest || (a.layer - b.layer) || a.id.localeCompare(b.id);
+  });
+  return { skillId: secured[0].id, sourceId: secured[0].id, trigger: 'welcome-back' };
+}
+
+export function foundationRetrievalRecommendation(learner, graph, map, options = {}) {
+  const pick = pickRetrievalFoundationSkill(graph, map, { ...options, learner });
+  if (!pick) return null;
+  const skill = graph.skills.find((entry) => entry.id === pick.skillId);
+  if (!skill) return null;
+  const recovery = options.mode === 'recovery' || pick.trigger === 'welcome-back';
+  const decay = pick.trigger === 'decay';
+  return {
+    kind: 'review',
+    decayTriggered: decay,
+    title: recovery ? `Welcome back · ${skill.title}` : decay ? `Refresh ${skill.title}` : `Retrieve ${skill.title}`,
+    reason: recovery
+      ? `One short check of ${skill.title.toLowerCase()} restarts your rhythm.`
+      : decay
+        ? `${skill.title} has faded below its peak. A quick retrieval restores it faster than relearning.`
+        : `A short check of ${skill.title.toLowerCase()} keeps the move from fading.`,
+    url: foundationSessionHref(pick.skillId),
+    skillId: pick.skillId,
+    practice: pickContentPracticeForSkill(map, pick.skillId, learner),
+    trigger: pick.trigger
+  };
+}
+
 export function foundationFrontierRecommendation(learner, graph, map) {
   if (!learner || learner.foundationGraduated) return null;
   const next = pickFrontierFoundationSkill(graph, learner);
@@ -58,7 +119,7 @@ export function citedSkillId(recommendation) {
   const id = recommendation?.skillId || recommendation?.skill?.id || null;
   if (typeof id !== 'string' || !SKILL_ID.test(id.trim())) return null;
   const trimmed = id.trim();
-  if (['academy-foundation', 'graph-practice'].includes(recommendation?.kind) && !trimmed.startsWith('fnd-')) return null;
+  if (['academy-foundation', 'graph-practice', 'review', 'recovery'].includes(recommendation?.kind) && !trimmed.startsWith('fnd-')) return null;
   return trimmed;
 }
 

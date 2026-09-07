@@ -3306,3 +3306,27 @@ frontier, but `jla-placement-router.js` still ranked graduation-slice ids
   `placement-frontier`.
 
 Left alone: item banks, starter-set freeze, content-move demotion, graph growth.
+
+## 2026-09-07 — Cursor: retrieval / review / welcome-back cite `fnd-` skills
+
+North-star checklist item 6. Review, decay, and welcome-back were still generic:
+`chooseRecommendation` returned `{ kind: 'review', url: 'review.html' }` with no
+skill id (and only after the foundation teach path won), and `nextActionFor`
+sent lapsed learners to `daily-recall.html` with no `skillId`. `sourceReviewItems`
+could still emit a Daf card for a content-step that already maps to a foundation
+skill.
+
+- `data/next-action.mjs`: `resolveFoundationSkillId`, `pickRetrievalFoundationSkill`,
+  `foundationRetrievalRecommendation` — due / faded / welcome-back secured fallback
+  all resolve to a live `fnd-` id and `foundationSessionHref` (same surface as #13).
+  `citedSkillId` now refuses non-`fnd-` ids on review and recovery too.
+- `server.mjs`: review runs before frontier teach when a `fnd-` retrieval exists;
+  unmappable leftovers do not block teaching with a generic Daf page. Welcome-back
+  cites that same `fnd-` skill. `/review-items` maps queue ids onto `fnd-` before
+  building items.
+- `sourceReviewItems` maps an uncovered content-step onto the tagged `fnd-` item
+  (authored if present, else graph-derived).
+- Tests: `test/foundation-retrieval.test.mjs` (unit + HTTP review / welcome-back).
+
+Left alone: placement router, starter-set freeze, authored item banks, graph growth.
+

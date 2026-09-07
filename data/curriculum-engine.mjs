@@ -1,7 +1,7 @@
 import { promises as fs } from 'node:fs';
 import { join } from 'node:path';
 import { advancedCanonSessions } from './advanced-canon-cycle.mjs';
-import { pickContentPracticeForSkill, pickFrontierFoundationSkill } from './next-action.mjs';
+import { pickContentPracticeForSkill, pickFrontierFoundationSkill, resolveFoundationSkillId } from './next-action.mjs';
 
 let cachedJourney;
 let cachedGemaraSequence;
@@ -21,15 +21,6 @@ function subjectReviewItem(skillId) {
   const key = Object.keys(subjectRetrievals).find((prefix) => skillId.startsWith(`${prefix}-`));
   const spec = key && subjectRetrievals[key];
   return spec && { trueSkillId: skillId, ...spec, correct: 0, sourceContext: `retrieval for ${skillId}`, variantId: `subject-${skillId}` };
-}
-
-let cachedFoundationSkills;
-async function foundationSkills(root) {
-  if (!cachedFoundationSkills) {
-    try { cachedFoundationSkills = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-skill-graph.json'), 'utf8')).skills || []; }
-    catch { cachedFoundationSkills = []; }
-  }
-  return cachedFoundationSkills;
 }
 
 let cachedAuthoredItems;
@@ -241,15 +232,18 @@ export async function sourceReviewItems(root, skillIds = []) {
     })));
   const flagshipMapped = flagship.filter((item) => wanted.has(item.skillId)).map((item) => ({ ...item, trueSkillId: item.skillId, variantId: `flagship-${item.skillId}` }));
   const covered = new Set([...mapped, ...flagshipMapped].map((item) => item.trueSkillId));
-  const fndSkills = await foundationSkills(root);
+  const { graph, map } = await practiceIndex(root);
+  const fndSkills = graph.skills || [];
   const fndById = new Map(fndSkills.map((skill) => [skill.id, skill]));
   const authored = await authoredItems(root);
   const workbenchFallbacks = skillIds.filter((skillId) => !covered.has(skillId)).map((skillId) => {
     // Prefer an educator-authored item bank; else a real graph-derived retrieval for a foundation
-    // skill; else a subject retrieval; else the generic daf-reading prompt.
-    const bank = authored[skillId];
-    if (bank && bank.length) return authoredReviewItem(skillId, bank);
-    const fnd = fndById.get(skillId);
+    // skill (including content-step ids that map onto one); else a subject retrieval; else the
+    // generic daf-reading prompt for truly unmapped leftovers.
+    const resolvedId = resolveFoundationSkillId(graph, map, skillId) || skillId;
+    const bank = authored[resolvedId] || authored[skillId];
+    if (bank && bank.length) return authoredReviewItem(resolvedId, bank);
+    const fnd = fndById.get(resolvedId);
     if (fnd) return foundationReviewItem(fnd, fndSkills);
     return subjectReviewItem(skillId) || ({
       trueSkillId: skillId, label: 'DAF RETRIEVAL', hebrew: 'מַה תַּפְקִיד הַשּׁוּרָה?', translation: 'What job does this line perform?',
