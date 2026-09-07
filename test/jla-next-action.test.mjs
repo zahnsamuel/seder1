@@ -16,16 +16,27 @@ test('selector enforces the learner-facing priority', () => {
 
 test('normalizer returns exactly the public contract and strips internal fields', () => {
   const result = normalizeNextAction({ type: 'frontier', title: 'Learn a new reading move', reason: 'Recommended next step.', href: 'academy-session.html?skill=fnd-one', cta: 'Start', skillId: 'fnd-one', learner: { mastery: {} }, alternatives: [] });
-  assert.deepEqual(Object.keys(result), ['version', 'type', 'title', 'reason', 'href', 'cta', 'progress']);
+  assert.deepEqual(Object.keys(result), ['version', 'type', 'title', 'reason', 'href', 'cta', 'progress', 'skillId']);
   assert.equal(result.href, 'academy-session.html?skill=fnd-one');
-  assert.doesNotMatch(JSON.stringify(result), /skillId|mastery|alternatives/);
+  assert.equal(result.skillId, 'fnd-one');
+  assert.doesNotMatch(JSON.stringify(result), /mastery|alternatives/);
+});
+
+test('UI next-action cites a skill id on the public contract', () => {
+  const cited = normalizeNextAction({ type: 'foundation', title: 'Orient to a Jewish source', reason: 'Start here.', href: 'academy-session.html?skill=fnd-orient-source-type', skillId: 'fnd-orient-source-type' });
+  assert.equal(cited.skillId, 'fnd-orient-source-type');
+  const rejected = normalizeNextAction({ type: 'foundation', title: 'x', reason: 'y', href: 'daily-router.html', skillId: 'javascript:alert(1)' });
+  assert.equal(rejected.skillId, null);
+  const missing = normalizeNextAction({ type: 'today', title: 'Continue', reason: 'Open Today.', href: 'daily-router.html' });
+  assert.equal(missing.skillId, null);
 });
 
 test('normalizer handles malformed inputs and unsafe URLs with the safe Today fallback', () => {
   for (const input of [null, 'bad', { href: 'https://evil.example/x' }, { href: '//evil.example/x' }, { href: '/absolute' }, { href: 'javascript:alert(1)' }]) {
     const result = normalizeNextAction(input);
     assert.equal(result.href, 'daily-router.html');
-    assert.equal(Object.keys(result).length, 7);
+    assert.equal(Object.keys(result).length, 8);
+    assert.equal(result.skillId, null);
   }
 });
 
@@ -39,6 +50,7 @@ test('Today component is isolated, uses safe DOM construction, records starts, a
   assert.match(source, /createElement/);
   assert.match(source, /replaceChildren/);
   assert.match(source, /next_action_started/);
+  assert.match(source, /data-skill-id/);
   assert.match(source, /daily-router\.html/);
   assert.match(css, /\[data-jla-next-action\]/);
 });

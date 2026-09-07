@@ -6,8 +6,8 @@ test('daily path explains the graph evidence behind its next skill', async () =>
   const [html, source] = await Promise.all(['daily-router.html', 'jla-next-action.js'].map((file) => readFile(new URL(`../${file}`, import.meta.url), 'utf8')));
   assert.match(html, /jla-next-action\.css/);
   assert.match(html, /jla-next-action\.js/);
-  for (const phrase of ['next-action', 'title', 'reason', 'next_action_started']) assert.match(source, new RegExp(phrase));
-  assert.doesNotMatch(source, /mastery|reviewQueue|skillId/);
+  for (const phrase of ['next-action', 'title', 'reason', 'next_action_started', 'skillId']) assert.match(source, new RegExp(phrase));
+  assert.doesNotMatch(source, /mastery|reviewQueue/);
 });
 
 test('every flagship Gemara path has guided practice and fresh-source transfer', async () => {

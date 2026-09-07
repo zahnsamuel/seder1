@@ -3131,6 +3131,71 @@ at 1/3 with Continue disabled again. Console: usual favicon 404 only after a cle
 reload. `node --test "test/*.test.mjs"` **565/565**.
 
 ## 2026-09-03 — Cursor: simplify arc and syllabus-dump surfaces to one next move
+## 2026-09-07 — Cursor: skill-graph north star + audit (no curriculum rewrite)
+
+Sam asked for product law on the skill graph (0→1 literacy, not a Yochai dump, not
+Gemara-only absolute mastery) grounded in the repo that already exists. Shipped
+`docs/skill-graph-north-star.md` plus cross-links from the authoring / schema /
+UI / growth docs. Small contract fix: public next-action now carries a sanitized
+`skillId`; Today sets `data-skill-id` when the engine has one.
+
+### What already exists (live, `npm run graph:quality`)
+
+The **brain** is `data/foundation-skill-graph.json` v0.3.2: **55** `fnd-` skills,
+11 layers (0 decoding through 10 agency), 76 prerequisite edges, 165 knowledge
+points, 55/55 step-8 source contexts. Shape gate (`graph:skills`) keeps nodes as
+capabilities, not named sources. Engine in `data/knowledge-graph.mjs` already
+has frontier, learning path, encompassing review, diagnostic probe, downward
+placement inference, key-prerequisite remediation. `POST /api/graph/diagnostic`
+and `enrichPlacementWithFrontier` are wired. Mastery decay (21-day half-life)
+exists locally. Content map tags **49/55** skills to real units. Graduation-slice
+map links **18/24** slice ids to `fnd-` (6 unmapped: citation, repetition,
+narrative-vs-command, midrash move, tefillah move, study habit).
+
+Parallel graphs that are **not** the brain:
+
+- `data/skill-graph.json` — 15 older track nodes (language / gemara / thought).
+- `data/content-skill-graph.mjs` — **714** content-bound source-move nodes.
+- `data/non-gemara-skill-graph.mjs` — **137** more.
+- `data/jla-foundation-skill-slice.json` — 24 graduation ids (`source-family-001`).
+- Yochai — source-finding substrate; no live key in this app; must not become the DAG.
+
+### Gaps vs the north star
+
+1. **Today does not teach a frontier skill.** `academyFoundationRecommendation`
+   walks a **hardcoded 14-skill ladder**, not `knowledgeFrontier()`. After that
+   ladder, `chooseRecommendation` falls through Foundation Year / Gemara Year /
+   `nextGraphPractice` (the ~850 content-move merge). The learner can be sent to
+   a tractate page while 40+ `fnd-` skills are still unsecured.
+2. **Foundation hrefs bounce to Today.** Non-decode foundation actions emit
+   `daily-router.html?foundationSkill=…`. `daily-router.html` no longer loads
+   `daily-router.js`, so the query string is ignored and the CTA can reload Today.
+   `academy-session.html?skill=` already teaches `fnd-` skills.
+3. **Two placement brains.** Diagnostic estimates the `fnd-` frontier.
+   `jla-placement-router.js` still ranks slice ids.
+4. **Coverage is context-rich and assessment-thin.** 0/55 item banks, 0/55 named
+   misconception models, 0/55 authored transfer items, 0/76 edge rationales.
+   17/55 graph skills have a scorable academy item (via the slice map).
+5. **UI evidence language is still mixed.** Graph states are
+   emerging / secure / transfer; several surfaces still speak XP / % / level.
+6. **Hosted decay is incomplete.** `masteryUpdatedAt` is local-only.
+7. **Fat buckets** (`fnd-arg-response`, `fnd-role-ruling-vs-discussion`,
+   `fnd-case-what-happens`) still swallow most tagged content — the daily loop
+   cannot teach them precisely.
+
+Ordered next engineering steps are in the north-star checklist (point Today at a
+frontier `fnd-` id, retire the 14-skill ladder, demote the content-move graph,
+freeze a teachable starter set, unify placement, then audit/items). No ontology
+rewrite in this PR.
+
+### Small fix in this PR
+
+- `normalizeNextAction` / `nextActionFor` pass a kebab-case `skillId` (reject
+  unsafe strings). `jla-next-action.js` cites it on the mount and on
+  `next_action_started`. Tests: `jla-next-action`, `next-step-transparency`,
+  `academy-foundation-recommendation` (ladder ids must exist on the foundation
+  graph).
+
 
 Presentation-only. Pedagogy, scoring, mastery routes, and source-reader retrieval
 untouched. Live learner paths: the 45 `*-arc.html` pages, `shas-map-v2.html` (gemara

@@ -8,7 +8,8 @@
     const heading = document.createElement('h1'), reason = document.createElement('p'), link = document.createElement('a');
     heading.textContent = item.title || fallback.title; reason.textContent = item.reason || fallback.reason;
     link.textContent = `${item.cta || fallback.cta} →`; link.href = safeHref(item.href || fallback.href); link.className = 'jla-next-action__cta';
-    link.addEventListener('click', () => Seder.api(`/api/learners/${Seder.currentLearnerId()}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'next_action_started', actionType: item.type || 'today', actionHref: link.getAttribute('href') }) }).catch(() => {}));
+    if (item.skillId) root.setAttribute('data-skill-id', item.skillId); else root.removeAttribute('data-skill-id');
+    link.addEventListener('click', () => Seder.api(`/api/learners/${Seder.currentLearnerId()}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'next_action_started', actionType: item.type || 'today', actionHref: link.getAttribute('href'), skillId: item.skillId || null }) }).catch(() => {}));
     root.replaceChildren(heading, reason, link);
   };
   Seder.api(`/api/learners/${Seder.currentLearnerId()}/next-action`).then((response) => response.ok ? response.json() : Promise.reject(new Error('unavailable'))).then(render).catch(() => render(fallback));

@@ -216,7 +216,8 @@ async function nextActionFor(learner) {
   const recommendation = await recommendFor(learner);
   const daysSinceStudy = learner.lastStudyDate ? Math.floor((Date.now() - new Date(learner.lastStudyDate).getTime()) / 86400000) : 0;
   const recoveryWindow = learner.rhythm === 'weekly' ? 8 : learner.rhythm === 'three-times-weekly' ? 4 : 3;
-  const base = { title: recommendation.title, reason: recommendation.reason, href: recommendation.url, cta: 'Start this step' };
+  const skillId = recommendation.skillId || recommendation.skill?.id || null;
+  const base = { title: recommendation.title, reason: recommendation.reason, href: recommendation.url, cta: 'Start this step', skillId };
   const candidates = {};
   if (daysSinceStudy >= recoveryWindow) candidates.recovery = { title: 'Welcome back with one small step', reason: 'One short retrieval is enough to restart your learning rhythm.', href: 'daily-recall.html', cta: 'Begin a short recall' };
   if (recommendation.kind === 'review') candidates.review = { ...base, cta: 'Review now' };

@@ -10,7 +10,9 @@ advance, spaced retrieval, low cognitive load, the system chooses the next task)
 interface should feel as simple and sticky as a well-designed habit app without becoming
 shallow.
 
-Yochai’s knowledge graph is inspiration and a later source layer. These rules govern the
+Skill-graph product law — what a skill is versus a text or concept, the frontier,
+evidence states, and Yochai as source substrate — lives in
+[`docs/skill-graph-north-star.md`](skill-graph-north-star.md). These rules govern the
 **learner UI** in front of that work.
 
 ## One next task

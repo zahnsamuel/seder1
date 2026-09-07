@@ -1,10 +1,15 @@
 # Foundational Skill Graph — spec & authoring contract
 
+Product law for what this graph is *for* lives in
+[`docs/skill-graph-north-star.md`](skill-graph-north-star.md). This file is the
+authoring contract.
+
 Seder · The Jewish Learning Academy is skills-first. The **foundational skill graph**
 (`data/foundation-skill-graph.json`) is the canonical artifact of that reset: a directed graph
 of transferable *reading capabilities*, deliberately separate from content. It is the thing the
 mentor notes call the linchpin — "I need a skill-based graph … a few hundred interlocking
-concepts." This is the first slice (45 skills across 10 layers); it grows from here.
+concepts." The live slice is the `fnd-` DAG (see `npm run graph:quality`); it grows from
+observed bottlenecks, not from a content catalog.
 
 ## Why this exists separately from the other graphs
 
