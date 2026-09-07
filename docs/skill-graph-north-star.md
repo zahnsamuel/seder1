@@ -154,25 +154,20 @@ are mapped. Legacy graphs are not consulted for “what should the learner do no
 Ordered for the current repo, not a fantasy greenfield. Do these before authoring
 another hundred skills.
 
-1. **Point Today at a frontier `fnd-` skill, not back at Today.**
-   `academyFoundationRecommendation` still emits
-   `daily-router.html?foundationSkill=…`, and Today no longer loads
-   `daily-router.js`, so the query string is dropped. Send foundation and
-   frontier actions to `academy-session.html?skill=<fnd-id>` (or
-   `hebrew-decoding.html` for Layer 0). Keep `skillId` on the public next-action
+1. **Point Today at a frontier `fnd-` skill, not back at Today.** Done (PR #13).
+   Foundation and frontier actions open `academy-session.html?skill=<fnd-id>`
+   (Layer 0 → `hebrew-decoding.html`). `skillId` is on the public next-action
    contract.
 
-2. **Replace the hardcoded 14-skill ladder with `knowledgeFrontier()`.**
-   The engine in `data/knowledge-graph.mjs` already computes the frontier.
-   `academyFoundationRecommendation` ignores it and walks a fixed sequence.
-   Daily routing should teach a frontier skill, retrieve a fading one, or repair
-   a key prerequisite — exclusively on `fnd-` ids.
+2. **Replace the hardcoded 14-skill ladder with `knowledgeFrontier()`.** Done (PR #13).
+   Daily routing teaches a frontier skill, retrieves a fading one, or repairs a
+   key prerequisite — exclusively on `fnd-` ids.
 
 3. **Stop letting the content-move graph choose the next action.**
-   `nextGraphPractice` merges `skill-graph.json` + content + non-Gemara nodes
-   (~850 source-bound ids) and is still the fallback after the foundation
-   ladder. Demote it to “practice this skill in a real unit” once a `fnd-` id is
-   chosen. The content map already exists for that.
+   `nextGraphPractice` no longer merges `skill-graph.json` + content + non-Gemara
+   nodes (~850 source-bound ids) as Today's fallback. After a `fnd-` id is
+   chosen, it looks up `foundation-content-map` and returns “practice this skill
+   in a real unit.” Content graphs stay indexes.
 
 4. **Name a teachable starter set and freeze the rest.**
    Live graph: 55 skills, 11 layers. Item banks are 0/55. Pick ~20–30 skills the

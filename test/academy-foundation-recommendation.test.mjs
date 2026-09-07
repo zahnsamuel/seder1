@@ -63,3 +63,13 @@ test('a graduated or fully-secured foundation learner is not given a leftover fo
   const all = graph.skills.map((skill) => skill.id);
   assert.equal(foundationFrontierRecommendation({ foundationScores: secure(all) }, graph), null);
 });
+
+test('Today no longer falls through to nextGraphPractice as an independent next-action', () => {
+  const engine = readFileSync(new URL('../data/curriculum-engine.mjs', import.meta.url), 'utf8');
+  assert.doesNotMatch(server, /if \(graphPractice\) return \{ kind: 'graph-practice'/);
+  assert.match(server, /citedSkillId/);
+  assert.match(server, /Content-move graphs are indexes/);
+  assert.doesNotMatch(engine, /content-skill-graph/);
+  assert.doesNotMatch(engine, /skill-graph\.json/);
+  assert.match(engine, /foundation-content-map\.json/);
+});

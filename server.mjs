@@ -13,7 +13,7 @@ import { explainRecommendation, whySentence } from './data/recommendation-why.mj
 import { foundationRecommendation, gemaraYearRecommendation, moedExpansionRecommendation } from './data/term-recommendations.mjs';
 import { keyPrerequisiteRemediation, estimateFrontierFromDiagnostic, nextDiagnosticProbe } from './data/knowledge-graph.mjs';
 import { computeGraphPilotAnalytics } from './data/pilot-analytics.mjs';
-import { foundationFrontierRecommendation, normalizeNextAction, selectNextAction } from './data/next-action.mjs';
+import { citedSkillId, foundationFrontierRecommendation, normalizeNextAction, selectNextAction } from './data/next-action.mjs';
 import { isTestLearner } from './scripts/scrub-test-learners.mjs';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
@@ -81,7 +81,7 @@ async function readJsonBody(request) {
   }
 }
 
-let cachedFoundationGraph = null, cachedKpLayer = null, cachedGraphSkills = null;
+let cachedFoundationGraph = null, cachedKpLayer = null, cachedGraphSkills = null, cachedContentMap = null;
 async function loadFoundationGraph() {
   if (!cachedFoundationGraph) {
     cachedFoundationGraph = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-skill-graph.json'), 'utf8'));
@@ -90,8 +90,13 @@ async function loadFoundationGraph() {
   return cachedFoundationGraph;
 }
 
+async function loadFoundationContentMap() {
+  if (!cachedContentMap) cachedContentMap = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-content-map.json'), 'utf8'));
+  return cachedContentMap;
+}
+
 async function academyFoundationRecommendation(learner) {
-  return foundationFrontierRecommendation(learner, await loadFoundationGraph());
+  return foundationFrontierRecommendation(learner, await loadFoundationGraph(), await loadFoundationContentMap());
 }
 
 // Build the Math-Academy-Way key-prerequisite remediation from the knowledge-point layer: a struggled
@@ -170,8 +175,8 @@ async function chooseRecommendation(learner, { skipReview = false } = {}) {
   if (gemaraYearTerm) return { kind: 'gemara-year-term', ...gemaraYearTerm };
   const moedExpansion = moedExpansionRecommendation(learner);
   if (moedExpansion) return { kind: 'moed-expansion', ...moedExpansion };
-  const graphPractice = await nextGraphPractice(root, learner);
-  if (graphPractice) return { kind: 'graph-practice', title: graphPractice.skill.title, reason: graphPractice.reason, url: graphPractice.url, skill: graphPractice.skill, context: graphPractice.context, mastery: graphPractice.mastery, builtOn: graphPractice.builtOn, unlocks: graphPractice.unlocks };
+  // Content-move graphs are indexes, not a next-action picker. Practice in a real
+  // unit is selected only after a fnd- skill is chosen (see nextGraphPractice).
   const journeyRecommendation = await nextJourneyRecommendation(root, learner);
   if (journeyRecommendation) return journeyRecommendation;
   const gemaraArc = await nextGemaraArc(root, learner);
@@ -194,7 +199,7 @@ async function nextActionFor(learner) {
   const recommendation = await recommendFor(learner);
   const daysSinceStudy = learner.lastStudyDate ? Math.floor((Date.now() - new Date(learner.lastStudyDate).getTime()) / 86400000) : 0;
   const recoveryWindow = learner.rhythm === 'weekly' ? 8 : learner.rhythm === 'three-times-weekly' ? 4 : 3;
-  const skillId = recommendation.skillId || recommendation.skill?.id || null;
+  const skillId = citedSkillId(recommendation);
   const base = { title: recommendation.title, reason: recommendation.reason, href: recommendation.url, cta: 'Start this step', skillId };
   const candidates = {};
   if (daysSinceStudy >= recoveryWindow) candidates.recovery = { title: 'Welcome back with one small step', reason: 'One short retrieval is enough to restart your learning rhythm.', href: 'daily-recall.html', cta: 'Begin a short recall' };

@@ -1,8 +1,7 @@
 import { promises as fs } from 'node:fs';
 import { join } from 'node:path';
 import { advancedCanonSessions } from './advanced-canon-cycle.mjs';
-import { nonGemaraSkillGraph } from './non-gemara-skill-graph.mjs';
-import { contentSkillGraph } from './content-skill-graph.mjs';
+import { pickContentPracticeForSkill, pickFrontierFoundationSkill } from './next-action.mjs';
 
 let cachedJourney;
 let cachedGemaraSequence;
@@ -286,32 +285,45 @@ export async function remediationFor(root, learner) {
   };
 }
 
-// Select the most teachable next skill: prerequisites must be present, and the
-// least-established eligible skill is preferred. This gives the app a graph-based
-// practice choice alongside its narrative course sequence.
-export async function nextGraphPractice(root, learner) {
-  const graph = JSON.parse(await fs.readFile(join(root, 'data', 'skill-graph.json'), 'utf8'));
-  const mastery = learner.mastery || {};
-  const allSkills = [...graph.skills, ...nonGemaraSkillGraph, ...contentSkillGraph];
-  const eligible = allSkills.filter((skill) => (skill.prerequisites || []).every((id) => (mastery[id] || 0) >= .67));
-  const candidate = eligible.filter((skill) => (mastery[skill.id] || 0) < .85).sort((a, b) => (mastery[a.id] || 0) - (mastery[b.id] || 0))[0];
-  if (!candidate) return null;
-  const workbenchByContext = {
-    'Berakhot 2a': 'daf-workbench.html?tractate=berakhot',
-    'Shabbat 2a': 'flagship-daf-workbench.html?tractate=shabbat',
-    'Eruvin 2a': 'flagship-daf-workbench.html?tractate=eruvin',
-    'Pesachim 2a': 'flagship-daf-workbench.html?tractate=pesachim',
-    'Sukkah 2a': 'flagship-daf-workbench.html?tractate=sukkah',
-    'Yoma 2a': 'yoma-daf-workbench.html',
-    'Bava Metzia 2a': 'flagship-daf-workbench.html?tractate=bava-metzia'
+let cachedPracticeGraph, cachedContentMap;
+async function practiceIndex(root) {
+  if (!cachedPracticeGraph) {
+    try { cachedPracticeGraph = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-skill-graph.json'), 'utf8')); }
+    catch { cachedPracticeGraph = { skills: [] }; }
+  }
+  if (!cachedContentMap) {
+    try { cachedContentMap = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-content-map.json'), 'utf8')); }
+    catch { cachedContentMap = { bySkill: {} }; }
+  }
+  return { graph: cachedPracticeGraph, map: cachedContentMap };
+}
+
+// Practice an already-chosen foundation skill in a mapped real unit. The foundation DAG
+// chooses the skill; the content map is only an index of vehicles. Never walks the ~850
+// content-move nodes to pick Today's next action.
+export async function nextGraphPractice(root, learner, skillId = null) {
+  const { graph, map } = await practiceIndex(root);
+  const chosen = typeof skillId === 'string' && skillId.startsWith('fnd-')
+    ? graph.skills.find((skill) => skill.id === skillId)
+    : pickFrontierFoundationSkill(graph, learner);
+  if (!chosen) return null;
+  const practice = pickContentPracticeForSkill(map, chosen.id, learner);
+  if (!practice) return null;
+  const byId = new Map(graph.skills.map((skill) => [skill.id, skill]));
+  const builtOn = (chosen.prerequisites || []).map((id) => byId.get(id)).find(Boolean);
+  const unlocks = graph.skills.find((skill) => (skill.prerequisites || []).includes(chosen.id));
+  const mastery = Math.max(Number(learner?.foundationScores?.[chosen.id]) || 0, Number(learner?.mastery?.[chosen.id]) || 0);
+  return {
+    skill: { id: chosen.id, title: chosen.title, prerequisites: chosen.prerequisites || [] },
+    context: practice.ref,
+    url: practice.href,
+    reason: `Practice ${chosen.title.toLowerCase()} in a real source unit.`,
+    mastery,
+    builtOn: builtOn?.title || null,
+    unlocks: unlocks?.title || null,
+    contentSkill: practice.contentSkill,
+    unit: practice.unit,
+    label: practice.label,
+    genre: practice.genre
   };
-  const context = candidate.reviewContexts?.find((item) => workbenchByContext[item]) || candidate.reviewContexts?.[0];
-  const url = candidate.route || (candidate.track === 'language'
-    ? 'language.html'
-    : workbenchByContext[context] || (candidate.track === 'thought' ? 'source-reader.html?collection=freedom' : 'cross-tractate.html'));
-  // Graph-derived explanation beats: the secured prerequisite this builds on, and the dependent
-  // skill it unlocks (a skill that lists this candidate as a prerequisite).
-  const builtOn = (candidate.prerequisites || []).map((id) => allSkills.find((skill) => skill.id === id)).find((skill) => skill && (mastery[skill.id] || 0) >= .67);
-  const unlocks = allSkills.find((skill) => (skill.prerequisites || []).includes(candidate.id));
-  return { skill: candidate, context, url, reason: `Build ${candidate.title.toLowerCase()} before moving to the next dependent source skill.`, mastery: mastery[candidate.id] || 0, builtOn: builtOn?.title || null, unlocks: unlocks?.title || null };
 }
