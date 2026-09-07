@@ -93,6 +93,9 @@ test('foundation session chrome is see it / try it / new source with a clear ask
   assert.match(js, /foundation-source-excerpts\.json/);
   assert.match(js, /foundation-teach\.json/);
   assert.match(js, /Got it — ask me|continueTeach|holdAsk|awaitingAsk/);
+  assert.ok(html.indexOf('id="ask-panel"') < html.indexOf('id="advance"'));
+  assert.ok(html.indexOf('id="advance"') < html.indexOf('id="complete"'));
+  assert.match(html, /<\/div>\s*<button id="advance"/);
   assert.match(lesson, /You'll practice:/);
   assert.match(lesson, /Got it — ask me/);
   assert.match(lesson, /SOURCE_TYPE_TEACH/);

@@ -3330,5 +3330,5 @@ Hard requirement after a second live look. Renderer now:
 Sam: foundation See it was excerpt + immediate quiz, not a short teach. Approved shape is teach (2–4 sentences) with the on-page excerpt, then the MC — same step or after “Got it — ask me”. Try it / new source stay the same skill with less scaffolding.
 
 - `academy-session-lesson.mjs` now builds a `teach` block for introduce only (`holdAsk`). Prefers optional `item.teach` / `item.introduce` / `skill.teach` / `data/foundation-teach.json`. `fnd-orient-source-type` has a built-in fallback naming Torah verse / Mishnah / Gemara / commentary in plain English if authored teach is missing.
-- Renderer shows WHAT TO NOTICE + excerpt first; choices stay hidden until **Got it — ask me**. Sefaria stays “Open full text”. No “the move” chrome. Did not rewrite Claude’s item banks or touch Today / next-action / placement.
+- Renderer shows WHAT TO NOTICE + excerpt first; choices stay hidden until **Got it — ask me**. `#advance` sits outside `#ask-panel` so the continue is still visible while the ask is held. Sefaria stays “Open full text”. No “the move” chrome. Did not rewrite Claude’s item banks or touch Today / next-action / placement.
 - Tests: `academy-session-lesson`, `academy-session`.
