@@ -107,6 +107,11 @@
 }
 .source-translation { font-style: italic; }
 .source-hebrew { margin: 0 0 .5rem; }
+.source-hebrew:not([hidden]) + .source-translation { margin-top: .15rem; }
+.interaction #check-title {
+  font-size: 1.15rem;
+  max-width: 46ch;
+}
 .move {
   border-inline-start: 3px solid var(--jla-accent);
   padding-inline-start: 1rem;
