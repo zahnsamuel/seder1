@@ -1,0 +1,357 @@
+{
+  "version": "1.0.0",
+  "freezes": "0.3.2",
+  "name": "Jewish Learning Academy — foundation starter set",
+  "principle": "The teachable v1 slice: the prerequisite-closed set of foundation skills the daily loop instruments first (item banks, retrieval, frontier routing). Everything else in the graph is frozen — not taught and not grown — until every starter skill has ≥1 authored transfer item, a retrieval check, and a working frontier router. See docs/foundation-starter-set.md and docs/skill-graph-north-star.md (checklist item 4).",
+  "selection": {
+    "method": "Downward (prerequisite) closure of the target leaf moves, so the set is always walkable by the frontier router — no starter skill depends on a frozen one.",
+    "span": "Layer 0 decoding + orientation, through the first argument moves and the study-vs-ruling responsibility anchor.",
+    "leaves": [
+      "fnd-arg-claim",
+      "fnd-arg-evidence-role",
+      "fnd-arg-objection",
+      "fnd-arg-response",
+      "fnd-arg-unresolved",
+      "fnd-case-what-happens",
+      "fnd-case-actors",
+      "fnd-case-restate",
+      "fnd-case-uncertainty",
+      "fnd-role-ruling-vs-discussion",
+      "fnd-resp-learning-vs-ruling"
+    ]
+  },
+  "starterSet": [
+    {
+      "id": "fnd-decode-blend",
+      "layer": 0,
+      "band": "Decode",
+      "title": "Blend a letter and a vowel"
+    },
+    {
+      "id": "fnd-decode-letters",
+      "layer": 0,
+      "band": "Decode",
+      "title": "Recognize the Hebrew letters"
+    },
+    {
+      "id": "fnd-decode-vowels",
+      "layer": 0,
+      "band": "Decode",
+      "title": "Recognize the Hebrew vowels"
+    },
+    {
+      "id": "fnd-decode-word",
+      "layer": 0,
+      "band": "Decode",
+      "title": "Read a vocalized Hebrew word"
+    },
+    {
+      "id": "fnd-orient-page-geography",
+      "layer": 1,
+      "band": "Orient",
+      "title": "Find the main text and what surrounds it"
+    },
+    {
+      "id": "fnd-orient-question-present",
+      "layer": 1,
+      "band": "Orient",
+      "title": "Notice when a source is asking, not telling"
+    },
+    {
+      "id": "fnd-orient-source-type",
+      "layer": 1,
+      "band": "Orient",
+      "title": "Tell what kind of text you are looking at"
+    },
+    {
+      "id": "fnd-orient-speaker",
+      "layer": 1,
+      "band": "Orient",
+      "title": "Identify who is speaking"
+    },
+    {
+      "id": "fnd-orient-unit-boundary",
+      "layer": 1,
+      "band": "Orient",
+      "title": "Find where one idea starts and stops"
+    },
+    {
+      "id": "fnd-signal-connectors",
+      "layer": 2,
+      "band": "Signals",
+      "title": "Recognize argument connectors"
+    },
+    {
+      "id": "fnd-signal-known-words",
+      "layer": 2,
+      "band": "Signals",
+      "title": "Recognize a bank of high-frequency words"
+    },
+    {
+      "id": "fnd-signal-name-formulas",
+      "layer": 2,
+      "band": "Signals",
+      "title": "Recognize attribution formulas"
+    },
+    {
+      "id": "fnd-signal-question-words",
+      "layer": 2,
+      "band": "Signals",
+      "title": "Recognize question-signal words"
+    },
+    {
+      "id": "fnd-signal-quotation",
+      "layer": 2,
+      "band": "Signals",
+      "title": "Notice when a source quotes another source"
+    },
+    {
+      "id": "fnd-role-example",
+      "layer": 3,
+      "band": "Roles",
+      "title": "Recognize a worked example"
+    },
+    {
+      "id": "fnd-role-question-vs-answer",
+      "layer": 3,
+      "band": "Roles",
+      "title": "Label question, answer, or restatement"
+    },
+    {
+      "id": "fnd-role-quotation-bounds",
+      "layer": 3,
+      "band": "Roles",
+      "title": "Bound a quotation"
+    },
+    {
+      "id": "fnd-role-ruling-vs-discussion",
+      "layer": 3,
+      "band": "Roles",
+      "title": "Distinguish a ruling from a discussion"
+    },
+    {
+      "id": "fnd-case-actors",
+      "layer": 4,
+      "band": "Case",
+      "title": "Identify who acts"
+    },
+    {
+      "id": "fnd-case-restate",
+      "layer": 4,
+      "band": "Case",
+      "title": "Restate a case in your own words"
+    },
+    {
+      "id": "fnd-case-uncertainty",
+      "layer": 4,
+      "band": "Case",
+      "title": "Name what is uncertain"
+    },
+    {
+      "id": "fnd-case-what-happens",
+      "layer": 4,
+      "band": "Case",
+      "title": "State what happens in plain language"
+    },
+    {
+      "id": "fnd-arg-claim",
+      "layer": 5,
+      "band": "Argument",
+      "title": "State the claim"
+    },
+    {
+      "id": "fnd-arg-evidence-role",
+      "layer": 5,
+      "band": "Argument",
+      "title": "Say what a cited source is doing"
+    },
+    {
+      "id": "fnd-arg-objection",
+      "layer": 5,
+      "band": "Argument",
+      "title": "Mark an objection"
+    },
+    {
+      "id": "fnd-arg-response",
+      "layer": 5,
+      "band": "Argument",
+      "title": "Follow the response"
+    },
+    {
+      "id": "fnd-arg-unresolved",
+      "layer": 5,
+      "band": "Argument",
+      "title": "Recognize an open tension"
+    },
+    {
+      "id": "fnd-context-genre-expectations",
+      "layer": 7,
+      "band": "Context",
+      "title": "Let the genre set your expectations"
+    },
+    {
+      "id": "fnd-resp-learning-vs-ruling",
+      "layer": 8,
+      "band": "Responsibility",
+      "title": "Tell learning apart from a ruling"
+    }
+  ],
+  "frozen": [
+    {
+      "id": "fnd-signal-sentence-structure",
+      "layer": 2,
+      "band": "Signals",
+      "title": "Read the grammatical skeleton of a sentence"
+    },
+    {
+      "id": "fnd-role-text-vs-commentary",
+      "layer": 3,
+      "band": "Roles",
+      "title": "Tell primary text from commentary"
+    },
+    {
+      "id": "fnd-role-translation-gap",
+      "layer": 3,
+      "band": "Roles",
+      "title": "Notice where a translation makes a choice"
+    },
+    {
+      "id": "fnd-case-category",
+      "layer": 4,
+      "band": "Case",
+      "title": "Classify the case into a category"
+    },
+    {
+      "id": "fnd-case-obligation",
+      "layer": 4,
+      "band": "Case",
+      "title": "Identify who is obligated and who is exempt"
+    },
+    {
+      "id": "fnd-case-procedure",
+      "layer": 4,
+      "band": "Case",
+      "title": "Follow the order of a procedure"
+    },
+    {
+      "id": "fnd-case-what-changes",
+      "layer": 4,
+      "band": "Case",
+      "title": "Find the factor that changes the outcome"
+    },
+    {
+      "id": "fnd-compare-divergence",
+      "layer": 6,
+      "band": "Compare",
+      "title": "Name where readings diverge"
+    },
+    {
+      "id": "fnd-compare-scope",
+      "layer": 6,
+      "band": "Compare",
+      "title": "Tell a real dispute from a scope difference"
+    },
+    {
+      "id": "fnd-compare-shared-question",
+      "layer": 6,
+      "band": "Compare",
+      "title": "Find the shared question"
+    },
+    {
+      "id": "fnd-compare-strongest-form",
+      "layer": 6,
+      "band": "Compare",
+      "title": "State each side at its strongest"
+    },
+    {
+      "id": "fnd-compare-translation-choice",
+      "layer": 6,
+      "band": "Compare",
+      "title": "Weigh a translation against the original"
+    },
+    {
+      "id": "fnd-context-evidence-kind",
+      "layer": 7,
+      "band": "Context",
+      "title": "Judge what evidence a source can give"
+    },
+    {
+      "id": "fnd-context-when-where",
+      "layer": 7,
+      "band": "Context",
+      "title": "Place a source in time and place"
+    },
+    {
+      "id": "fnd-context-who-audience",
+      "layer": 7,
+      "band": "Context",
+      "title": "Ask who made it and for whom"
+    },
+    {
+      "id": "fnd-resp-name-limits",
+      "layer": 8,
+      "band": "Responsibility",
+      "title": "Name the limits of what you learned"
+    },
+    {
+      "id": "fnd-resp-preserve-disagreement",
+      "layer": 8,
+      "band": "Responsibility",
+      "title": "Hold more than one view"
+    },
+    {
+      "id": "fnd-resp-when-to-ask",
+      "layer": 8,
+      "band": "Responsibility",
+      "title": "Know when to ask a person"
+    },
+    {
+      "id": "fnd-indep-carry-across-genre",
+      "layer": 9,
+      "band": "Independence",
+      "title": "Carry a reading move across genres"
+    },
+    {
+      "id": "fnd-indep-first-pass",
+      "layer": 9,
+      "band": "Independence",
+      "title": "Make a scaffolded first pass"
+    },
+    {
+      "id": "fnd-indep-map-lines",
+      "layer": 9,
+      "band": "Independence",
+      "title": "Map each line's job"
+    },
+    {
+      "id": "fnd-indep-use-translation-to-check",
+      "layer": 9,
+      "band": "Independence",
+      "title": "Use translation to check, not to skip"
+    },
+    {
+      "id": "fnd-agency-ask-question",
+      "layer": 10,
+      "band": "Agency",
+      "title": "Ask a good question"
+    },
+    {
+      "id": "fnd-agency-choose-next",
+      "layer": 10,
+      "band": "Agency",
+      "title": "Choose your next study move"
+    },
+    {
+      "id": "fnd-agency-record-uncertainty",
+      "layer": 10,
+      "band": "Agency",
+      "title": "Record what you don't yet understand"
+    },
+    {
+      "id": "fnd-agency-use-tools",
+      "layer": 10,
+      "band": "Agency",
+      "title": "Use a source tool on purpose"
+    }
+  ]
+}

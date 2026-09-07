@@ -2,5 +2,197 @@
   "generatedBy": "scripts/import-authored-items.mjs",
   "note": "Authored per-skill review item banks — client-scorable recognition items (source ref, stem, choices, correct index, feedback). Empty until an educator authors items in docs/item-authoring-workbench.html and imports them (npm run graph:import-items -- <export.json>). sourceReviewItems (data/curriculum-engine.mjs) prefers these over the graph-derived retrievals, so authored items upgrade a skill's reviews the moment they land. The >=3-items-per-skill bank (foundation-graph-schema.md step 10) fills here.",
   "target": 3,
-  "items": {}
+  "items": {
+    "fnd-orient-source-type": [
+      {
+        "sourceRef": "Genesis 1:1",
+        "stem": "You open to a line that narrates what happened at the beginning of creation, with no rule and no back-and-forth argument. What kind of text are you most likely looking at?",
+        "choices": [
+          "A verse of Torah, read for its narrative and language before any later discussion.",
+          "A Mishnah, stating a compact rule about a required practice or its timing.",
+          "A Gemara sugya, pressing a claim with a question and an answer.",
+          "A prayer, addressing God in praise, petition, or thanks."
+        ],
+        "correct": 0,
+        "feedback": "A narrative line with no rule and no argument is Torah read as a verse; the genre tells you to attend to story and wording first."
+      },
+      {
+        "sourceRef": "Mishnah Berakhot 1:1",
+        "stem": "A line states from what hour the evening Shema may be recited, as a settled rule, with no one raising an objection. Which genre fits this shape best?",
+        "choices": [
+          "A Mishnah, giving a compact statement of the practice.",
+          "A Gemara sugya, arguing back and forth about a claim.",
+          "A Torah verse telling a story about people.",
+          "A commentary explaining a word in the margin."
+        ],
+        "correct": 0,
+        "feedback": "A short, ruling-shaped statement with no dialectic is the Mishnah's characteristic form; the argument about it comes afterward in the Gemara."
+      },
+      {
+        "sourceRef": "Berakhot 2a",
+        "stem": "A line quotes a short rule and then immediately asks what its source is and presses on it. What kind of text does that asking-and-pressing shape signal?",
+        "choices": [
+          "A Gemara sugya, which tests a stated rule through question and response.",
+          "A Mishnah, which states the rule plainly without ever testing it.",
+          "A Torah verse, quoted here only for its narrative setting.",
+          "A prayer, whose words address God rather than argue a point."
+        ],
+        "correct": 0,
+        "feedback": "The move from a stated rule to a question about it and pressure on it is the Gemara's signature; the Mishnah states, the Gemara interrogates."
+      }
+    ],
+    "fnd-orient-page-geography": [
+      {
+        "sourceRef": "Berakhot 2a (Vilna page)",
+        "stem": "On a standard printed Talmud page, the block of text runs down the center and different commentaries sit in the columns around it. Which block is the primary Talmud text you are learning?",
+        "choices": [
+          "The central block, which carries the Mishnah and Gemara themselves.",
+          "The inner-margin column, which is where the main text always sits.",
+          "The outer-margin column, since commentary is printed largest.",
+          "Whichever block has the most vowels printed on it."
+        ],
+        "correct": 0,
+        "feedback": "The center column is the Mishnah and Gemara; the surrounding columns (such as Rashi and Tosafot) are commentary that frames the main text."
+      },
+      {
+        "sourceRef": "Mikraot Gedolot, Genesis 1:1",
+        "stem": "On a Mikraot Gedolot page, a Torah verse sits at the top and several commentaries are printed beneath and around it. What is the relationship you should read first?",
+        "choices": [
+          "The verse is the primary text; the surrounding material comments on it.",
+          "The longest commentary is the primary text and the verse illustrates it.",
+          "Each block is an independent source with no particular center.",
+          "The commentaries must be read before the verse can be understood at all."
+        ],
+        "correct": 0,
+        "feedback": "The verse is the center of a Mikraot Gedolot page; the commentaries orbit it, so you orient to the verse before weighing what others say about it."
+      },
+      {
+        "sourceRef": "Mishnah and Gemara, Berakhot 2a",
+        "stem": "Reading down a Talmud page you reach the abbreviation גמ׳. What does its position tell you about where you are?",
+        "choices": [
+          "The Mishnah just ended and the Gemara's discussion of it begins here.",
+          "A brand-new tractate is starting from the top on this very line.",
+          "A Torah verse is being quoted here for the very first time.",
+          "The page is finished and the next daf begins right below."
+        ],
+        "correct": 0,
+        "feedback": "גמ׳ marks the start of the Gemara; seeing it tells you the Mishnah is done and the analysis of it now opens."
+      }
+    ],
+    "fnd-orient-speaker": [
+      {
+        "sourceRef": "Pirkei Avot 1:1",
+        "stem": "A line reads, in effect, \"Moshe received the Torah from Sinai and handed it on...\", with no name attached to the sentence itself. Whose voice is telling you this?",
+        "choices": [
+          "The anonymous voice of the Mishnah, narrating the chain of transmission.",
+          "Moshe himself, speaking about his own life in the first person.",
+          "A named later sage whose attribution formula opens the line.",
+          "God, quoted here directly and by name as the one speaking."
+        ],
+        "correct": 0,
+        "feedback": "With no attribution formula, the sentence is the Mishnah's own anonymous narrating voice, not any single named person speaking."
+      },
+      {
+        "sourceRef": "Pirkei Avot 1:2",
+        "stem": "A line begins with a name followed by \"used to say\" and then a teaching. What does that opening tell you to do before weighing the teaching?",
+        "choices": [
+          "Attach the teaching to the named sage as its speaker.",
+          "Treat the teaching as the anonymous Mishnah's own ruling.",
+          "Assume the teaching is a direct quotation of a Torah verse.",
+          "Read the name as the audience being addressed, not the speaker."
+        ],
+        "correct": 0,
+        "feedback": "An attribution formula (\"Rabbi X used to say\") names the speaker; identifying whose view it is comes before deciding what to make of it."
+      },
+      {
+        "sourceRef": "Berakhot 2a",
+        "stem": "In a Gemara line \"Rabbi Yochanan said...\" is embedded inside the anonymous discussion. Who is speaking the reported statement, and who is framing it?",
+        "choices": [
+          "Rabbi Yochanan is quoted; the anonymous Gemara frames and reports him.",
+          "The anonymous Gemara is speaking; Rabbi Yochanan is the one being addressed.",
+          "Rabbi Yochanan both frames the sugya and reports every other view in it.",
+          "There is no framing voice; the whole line is a single verse."
+        ],
+        "correct": 0,
+        "feedback": "The named statement is the quoted view; the surrounding anonymous voice reports and arranges it, so a line can carry a speaker inside a framer."
+      }
+    ],
+    "fnd-orient-unit-boundary": [
+      {
+        "sourceRef": "Mishnah Berakhot 1:1",
+        "stem": "A Mishnah first fixes when the evening Shema may be recited, then turns to a different dispute about how late it may be said. How should you mark these?",
+        "choices": [
+          "As two units: one idea closes before the next question opens.",
+          "As one continuous idea, since they share the same tractate.",
+          "As unrelated verses that happen to be printed together.",
+          "As a single ruling followed by its own margin commentary."
+        ],
+        "correct": 0,
+        "feedback": "When the topic shifts from one question to a distinct dispute, one unit of thought has ended and another begins; naming that boundary keeps the reading clear."
+      },
+      {
+        "sourceRef": "Berakhot 2a",
+        "stem": "Reading a Gemara, the discussion resolves one question and then a fresh question is posed on a new point. What does the fresh question mark?",
+        "choices": [
+          "The start of a new unit of discussion, distinct from the one just closed.",
+          "A restatement of the very same question in slightly different words.",
+          "The end of the whole tractate, with nothing further to follow.",
+          "A quotation of a Torah verse rather than any new question at all."
+        ],
+        "correct": 0,
+        "feedback": "A new question on a new point opens a new unit; recognizing where one discussion stops and the next starts is what keeps a long sugya legible."
+      },
+      {
+        "sourceRef": "Genesis 1:1–2:3",
+        "stem": "You are reading the opening of the Torah and reach the end of the seventh day before the text turns to a second telling of creation. Where is the unit boundary?",
+        "choices": [
+          "At the close of the seventh day, where the first account completes.",
+          "In the middle of the first verse, at the first strong word.",
+          "There is no boundary; the whole book is one undivided unit.",
+          "Only at chapter numbers, which the original text itself supplies."
+        ],
+        "correct": 0,
+        "feedback": "The first account closes when the seventh day is done; a unit boundary follows the shape of the idea, not the printed chapter numbers added later."
+      }
+    ],
+    "fnd-orient-question-present": [
+      {
+        "sourceRef": "Berakhot 2a",
+        "stem": "The Gemara opens with מאימתי (\"from when...?\"). Is this line asking or telling, and how do you know?",
+        "choices": [
+          "Asking: the word opens an inquiry that the discussion will try to answer.",
+          "Telling: it states a settled fact that plainly needs no answer.",
+          "Neither: it is simply a name introducing the next speaker.",
+          "Telling: it is a direct quotation lifted from a Torah verse."
+        ],
+        "correct": 0,
+        "feedback": "מאימתי is a question word; noticing that the source is asking, not asserting, sets you up to look for the answer that follows."
+      },
+      {
+        "sourceRef": "Mishnah Berakhot 1:1",
+        "stem": "A Mishnah states plainly that the evening Shema is recited from a certain hour. Is the line asking or telling?",
+        "choices": [
+          "Telling: it asserts the practice as a settled rule.",
+          "Asking: it is inviting the reader to supply the hour.",
+          "Both at once: every Mishnah is a question and an answer together.",
+          "Neither: it is a margin comment, not a statement."
+        ],
+        "correct": 0,
+        "feedback": "A plain assertion of a rule is telling; distinguishing it from a question keeps you from hunting for an answer the line never asked for."
+      },
+      {
+        "sourceRef": "Berakhot 2a",
+        "stem": "A Gemara line reads, in effect, \"What is the source for this?\" before citing a proof. Asking or telling?",
+        "choices": [
+          "Asking: it demands a source, and the citation that follows is the answer.",
+          "Telling: it is simply stating the source outright and plainly.",
+          "Neither: it is naming the sage who happens to speak next.",
+          "Telling: it is the settled conclusion of the whole discussion."
+        ],
+        "correct": 0,
+        "feedback": "\"What is the source?\" is a question that sets up the proof; reading it as an inquiry tells you the next line is meant to answer it."
+      }
+    ]
+  },
+  "updatedAt": "2026-09-07T05:56:11.427Z"
 }

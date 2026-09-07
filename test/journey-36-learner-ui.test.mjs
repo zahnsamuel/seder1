@@ -5,11 +5,12 @@ import { readFile } from 'node:fs/promises';
 test('the learner journey groups 100 source encounters into six earned levels', async () => {
   const [html, script, styles] = await Promise.all(['journey.html', 'journey.js', 'journey.css'].map((file) => readFile(new URL(`../${file}`, import.meta.url), 'utf8')));
   // Demoted to a progress reference (simplification fold-in): the "100 MOVES" label left the header,
-  // but the 100-encounter / six-level substance stays on the page.
+  // but the 100-encounter / six-level substance stays on the page. journey.html is now the single
+  // canonical map — the separate long-form curriculum page was folded in and redirects here — so the
+  // old "long-term mastery map" cross-link is gone.
   assert.match(html, /One hundred source encounters/);
   assert.match(html, /6 EARNED LEVELS/);
   assert.match(html, /YOUR CURRENT FOCUS/);
-  assert.match(html, /long-term mastery map/);
   assert.match(script, /phaseGuides/);
   assert.match(script, /const levels = \[/);
   assert.match(script, /YOUR CURRENT LEVEL/);
