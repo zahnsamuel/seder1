@@ -63,7 +63,8 @@ test('citedSkillId refuses content-move ids from graph-practice and foundation p
   assert.equal(citedSkillId({ kind: 'academy-foundation', skillId: 'hebrew-page-orientation' }), null);
   assert.equal(citedSkillId({ kind: 'graph-practice', skill: { id: 'lab-shabbat-count' } }), null);
   assert.equal(citedSkillId({ kind: 'graph-practice', skillId: 'fnd-arg-claim', skill: { id: 'tentative-inference' } }), 'fnd-arg-claim');
-  assert.equal(citedSkillId({ kind: 'review', skillId: 'source-signals' }), 'source-signals');
+  assert.equal(citedSkillId({ kind: 'review', skillId: 'source-signals' }), null);
+  assert.equal(citedSkillId({ kind: 'review', skillId: 'fnd-arg-claim' }), 'fnd-arg-claim');
 });
 
 test('nextGraphPractice never treats an unmastered content-step as the skill', async () => {

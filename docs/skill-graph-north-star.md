@@ -183,9 +183,11 @@ another hundred skills.
    translation layer only — they are not the learner’s “start here” id.
 
 6. **Retrieval checks on the same ids.**
-   Review, decay, and welcome-back recall must cite `fnd-` skills and use an
-   item (or a mapped real-source step) for that skill — not a generic Daf
-   prompt and not a vanished content-step id.
+   Done (PR #18). Review, decay, and welcome-back recall cite `fnd-` skills
+   and open `academy-session.html?skill=<fnd-id>` (Layer 0 → `hebrew-decoding.html`).
+   The check is an authored item when present, else a graph-derived retrieval or
+   a mapped real-source step — not a generic Daf prompt and not a vanished
+   content-step id.
 
 7. **Close the fat buckets before adding siblings.**
    `fnd-arg-response`, `fnd-role-ruling-vs-discussion`, and
