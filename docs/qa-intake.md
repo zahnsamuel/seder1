@@ -3337,3 +3337,24 @@ Sam: foundation See it was excerpt + immediate quiz, not a short teach. Approved
 ## 2026-09-07 — Cursor: drop “NO TYPING REQUIRED” from academy ask chrome
 
 Sam: get rid of learner-facing “no typing required.” `academy-session.html` ask eyebrow is now `YOUR ASK`. Grep of HTML/JS session chrome is clean. Pedagogy/routing unchanged.
+
+## 2026-09-07 — Claude: L2–L5 starter item banks (signals, roles, case, argument)
+
+Continues safe-lane item 2 on the frozen starter set, after the Layer-1 orientation banks
+(merged in #14). Authored the **18 L2–L5 starter banks**, 3 client-scorable review items each
+(**54 items**), imported through the validator (`npm run graph:import-items`) into
+`data/foundation-authored-items.json` — now **23/55 banks complete** (orientation 5 + these 18).
+
+- Bands: L2 signals (known-words, question-words, name-formulas, connectors, quotation),
+  L3 roles (question-vs-answer, example, quotation-bounds, ruling-vs-discussion), L4 case
+  (actors, what-happens, restate, uncertainty), L5 argument (claim, evidence-role, objection,
+  response, unresolved).
+- Each item `{sourceRef, stem, choices, correct, feedback}` is grounded in that skill's own
+  sourceContexts (Berakhot 2a/2b, Mishnah Berakhot/Bava Kamma/Bava Metzia, Kiddushin 31b,
+  Eruvin 13b, Sukkah 2a, Rambam, Bava Metzia 59b, Job) and tests the reading move, not trivia.
+- Quality bar met (content-standard): distinct near-miss distractors, no length-bias exploit
+  (correct <= 1.5x shortest), feedback >=25 chars that teaches.
+- Guarded by `test/foundation-l2-l5-items.test.mjs`. Updated `test/foundation-review-items.test.mjs`:
+  authored items are preferred over the graph-derived retrieval, so a banked skill (fnd-arg-claim)
+  now returns `authored-fnd-*`; the graph-derived `fnd-*` path is checked on a bankless frozen skill.
+- Single-concern PR: item banks only. No map folds, no Today/next-action changes.

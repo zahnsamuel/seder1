@@ -31,12 +31,23 @@ test('the same seed is deterministic; different seeds vary the retrieval', () =>
   assert.notDeepEqual(a.answers, b.answers, 'a different seed rotates/repicks the choices');
 });
 
-test('sourceReviewItems now gives a due fnd-* skill a real retrieval, not the generic daf card', async () => {
-  const items = await sourceReviewItems('.', ['fnd-arg-claim']);
-  const item = items.find((entry) => entry.trueSkillId === 'fnd-arg-claim');
-  assert.ok(item, 'an item is produced for the foundation skill');
-  assert.match(item.variantId, /^fnd-/, 'it is the foundation retrieval, not a fallback');
-  const skill = graph.skills.find((s) => s.id === 'fnd-arg-claim');
-  assert.equal(item.answers[item.correct], skill.statement, 'answer is this skill, not the shared boilerplate');
-  assert.notEqual(item.prompt, 'Before deciding whether a line is correct, what should you identify in a sugya?');
+test('sourceReviewItems gives a due fnd-* skill a real retrieval, not the generic daf card', async () => {
+  // A skill with no authored bank falls to the graph-derived foundation retrieval (a real
+  // discrimination against other skills' statements), never the generic daf fallback.
+  const bankless = 'fnd-compare-shared-question';
+  const graphItems = await sourceReviewItems('.', [bankless]);
+  const graphItem = graphItems.find((entry) => entry.trueSkillId === bankless);
+  assert.ok(graphItem, 'an item is produced for the foundation skill');
+  assert.match(graphItem.variantId, /^fnd-/, 'graph-derived foundation retrieval, not a fallback');
+  const skill = graph.skills.find((s) => s.id === bankless);
+  assert.equal(graphItem.answers[graphItem.correct], skill.statement, 'answer is this skill, not the shared boilerplate');
+  assert.notEqual(graphItem.prompt, 'Before deciding whether a line is correct, what should you identify in a sugya?');
+
+  // A skill that now has an authored bank returns the preferred authored item — still a real,
+  // skill-specific retrieval, not the daf card. (Authored items upgrade a skill's reviews.)
+  const bankedItems = await sourceReviewItems('.', ['fnd-arg-claim']);
+  const authored = bankedItems.find((entry) => entry.trueSkillId === 'fnd-arg-claim');
+  assert.ok(authored, 'an item is produced for the banked skill');
+  assert.match(authored.variantId, /^authored-fnd-/, 'authored items are preferred over the graph-derived retrieval');
+  assert.ok(authored.answers.length >= 2, 'a real multiple-choice retrieval');
 });

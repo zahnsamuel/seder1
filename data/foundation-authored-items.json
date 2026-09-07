@@ -192,7 +192,691 @@
         "correct": 0,
         "feedback": "\"What is the source?\" is a question that sets up the proof; reading it as an inquiry tells you the next line is meant to answer it."
       }
+    ],
+    "fnd-signal-known-words": [
+      {
+        "sourceRef": "Gemara Berakhot 2a",
+        "stem": "You keep meeting the word אָמַר as you read. What does sight-reading such a high-frequency word buy you?",
+        "choices": [
+          "Attention to spare for the argument instead of re-decoding it.",
+          "A guarantee that the sentence is a question, not a statement.",
+          "Proof that the passage is quoting a verse of the Torah.",
+          "A signal that a brand-new tractate is about to begin here."
+        ],
+        "correct": 0,
+        "feedback": "Fluent recognition of common words frees working memory for the reasoning; that is the point of a word bank."
+      },
+      {
+        "sourceRef": "Amidah, opening blessing",
+        "stem": "The word בָּרוּךְ opens many prayers and blessings. Recognizing it instantly helps you because you can...?",
+        "choices": [
+          "Expect a blessing formula and read for whom it praises.",
+          "Assume the text is a legal ruling that must be decided.",
+          "Know that a named sage is about to be quoted next.",
+          "Skip the rest of the line as unimportant filler."
+        ],
+        "correct": 0,
+        "feedback": "High-frequency openers set your expectation for the genre that follows; בָּרוּךְ flags a blessing."
+      },
+      {
+        "sourceRef": "Genesis 22",
+        "stem": "A reader who must stop and decode every common word will most likely...?",
+        "choices": [
+          "Lose the thread of the passage while decoding each word.",
+          "Understand the argument better than a fluent reader would.",
+          "Finish the passage faster than a fluent reader would.",
+          "Correctly identify every rare word before the common ones."
+        ],
+        "correct": 0,
+        "feedback": "Stopping on common words breaks comprehension; a rehearsed word bank keeps the thread intact."
+      }
+    ],
+    "fnd-signal-question-words": [
+      {
+        "sourceRef": "Gemara Berakhot 2a",
+        "stem": "The sugya opens with מַאי (\"what?\"). What kind of answer does this question word invite?",
+        "choices": [
+          "An explanation or definition of the term in question.",
+          "A named sage to whom the line is being attributed.",
+          "A blessing formula offering praise to God.",
+          "A count of how many separate cases follow."
+        ],
+        "correct": 0,
+        "feedback": "מַאי asks for an explanation or definition; matching a question word to its expected answer sets up the reading."
+      },
+      {
+        "sourceRef": "Gemara Berakhot 2a",
+        "stem": "You see מְנָא הָנֵי מִילֵי (\"from where do we know these things?\"). What should you expect next?",
+        "choices": [
+          "A cited source brought as proof for the rule.",
+          "A plain restatement of the very same rule.",
+          "A change of speaker to a different sage.",
+          "The conclusion that ends the whole discussion."
+        ],
+        "correct": 0,
+        "feedback": "מנא הני מילי asks for a source; the next line typically supplies a proof text."
+      },
+      {
+        "sourceRef": "Mishnah Pesachim 1:1",
+        "stem": "Recognizing a question word before reading the rest of a line mainly lets you...?",
+        "choices": [
+          "Predict the shape of the answer and read toward it.",
+          "Skip the answer, since the question alone suffices.",
+          "Assume the line is quoting some other source.",
+          "Decide the practical halakhah on the spot."
+        ],
+        "correct": 0,
+        "feedback": "A question word primes you for the kind of answer coming, so you read with a purpose."
+      }
+    ],
+    "fnd-signal-name-formulas": [
+      {
+        "sourceRef": "Mishnah Berakhot 1:1",
+        "stem": "A line reads רַבִּי אֱלִיעֶזֶר אוֹמֵר (\"Rabbi Eliezer says\"). What does this formula do?",
+        "choices": [
+          "Hands the words that follow to Rabbi Eliezer as his view.",
+          "Signals that the previous ruling is now being overturned.",
+          "Marks the beginning of a quoted verse from the Torah.",
+          "Brings the current unit of discussion to its close."
+        ],
+        "correct": 0,
+        "feedback": "An attribution formula assigns the following words to a named voice; here they are Rabbi Eliezer's."
+      },
+      {
+        "sourceRef": "Gemara Shabbat 55a",
+        "stem": "You meet אָמַר רַב (\"Rav said\") embedded in the discussion. To read accurately you should...?",
+        "choices": [
+          "Attach the statement that follows to Rav as its speaker.",
+          "Treat the words that follow as the Gemara's own voice.",
+          "Read it as a question that is awaiting an answer.",
+          "Assume a verse of Torah is now being cited."
+        ],
+        "correct": 0,
+        "feedback": "\"Amar Rav\" attributes the next words to Rav; tracking who speaks keeps the voices straight."
+      },
+      {
+        "sourceRef": "Mishnah Berakhot 1:1",
+        "stem": "Why is it worth marking every attribution formula in a passage?",
+        "choices": [
+          "So you can list the voices and see who disagrees with whom.",
+          "So you can safely skip whatever a named sage says.",
+          "So you can tell prose sections apart from poetry.",
+          "So you can count how many verses are quoted."
+        ],
+        "correct": 0,
+        "feedback": "Attributions let you map the conversation of voices, which is where the disagreement lives."
+      }
+    ],
+    "fnd-signal-connectors": [
+      {
+        "sourceRef": "Gemara Berakhot 2b",
+        "stem": "A line hinges on the connector אֶלָּא (\"rather\"). What move does it signal?",
+        "choices": [
+          "A correction that replaces the prior explanation.",
+          "An added example supporting the prior point.",
+          "A citation of a proof text from Scripture.",
+          "A plain restatement of the same claim."
+        ],
+        "correct": 0,
+        "feedback": "אלא marks a corrective turn; the text is rejecting what came before and substituting a new reading."
+      },
+      {
+        "sourceRef": "Gemara Berakhot 2b",
+        "stem": "You meet שֶׁנֶּאֱמַר (\"as it says\"). What kind of connector is this?",
+        "choices": [
+          "A citing connector introducing a proof text.",
+          "An opposing connector raising an objection.",
+          "An adding connector piling on another case.",
+          "A concluding connector stating the ruling."
+        ],
+        "correct": 0,
+        "feedback": "שנאמר introduces a citation; sorting connectors into adding, opposing, or citing reveals the argument's shape."
+      },
+      {
+        "sourceRef": "Rambam, Hilchot Deot 1:4",
+        "stem": "Reading only the connectors of a passage first helps you...?",
+        "choices": [
+          "Feel the shape of the argument before the details.",
+          "Memorize the full vocabulary of the passage.",
+          "Identify exactly who each of the speakers is.",
+          "Decide the practical halakhah of the passage."
+        ],
+        "correct": 0,
+        "feedback": "Connectors carry the logical skeleton; skimming them previews how the argument moves."
+      }
+    ],
+    "fnd-signal-quotation": [
+      {
+        "sourceRef": "Gemara Berakhot 2a",
+        "stem": "After דִּכְתִיב (\"as it is written\") comes a run of words from Tanakh. How should you treat them?",
+        "choices": [
+          "As borrowed words quoted from another text.",
+          "As the Gemara's own newly-made claim.",
+          "As a question being posed to the reader.",
+          "As an attribution to some named sage."
+        ],
+        "correct": 0,
+        "feedback": "A citation formula marks the next words as borrowed; bracket them as quoted, not the source's own voice."
+      },
+      {
+        "sourceRef": "Kiddushin 31b",
+        "stem": "A passage on honoring parents strings together several verses. Recognizing the citations lets you...?",
+        "choices": [
+          "Separate the quoted verses from the argument built on them.",
+          "Assume every verse cited says exactly the same thing.",
+          "Skip past the verses as mere decoration.",
+          "Treat the sage as the author of the verses."
+        ],
+        "correct": 0,
+        "feedback": "Bracketing quoted verses keeps them distinct from the reasoning that uses them."
+      },
+      {
+        "sourceRef": "Gemara Berakhot 2a",
+        "stem": "Which is the clearest sign that a source is quoting another text rather than speaking for itself?",
+        "choices": [
+          "A citation formula such as \"as it is written\" precedes the words.",
+          "The quoted words are printed in a noticeably larger font.",
+          "The passage in question is unusually short overall.",
+          "A named sage appears somewhere else on the page."
+        ],
+        "correct": 0,
+        "feedback": "Citation formulas, not layout, are the reliable signal that borrowed words follow."
+      }
+    ],
+    "fnd-role-question-vs-answer": [
+      {
+        "sourceRef": "Gemara Berakhot 2a",
+        "stem": "A line asks when the Shema is read; the next line names a time. How do you label the two lines?",
+        "choices": [
+          "The first is a question, the second is its answer.",
+          "Both lines are answers to an unstated question.",
+          "The first is a ruling, the second a citation.",
+          "Both lines merely restate the Mishnah's words."
+        ],
+        "correct": 0,
+        "feedback": "Tagging lines as question, answer, or restatement turns a passage into a legible chain."
+      },
+      {
+        "sourceRef": "Gemara Berakhot 2a",
+        "stem": "A line repeats the previous point in different words without adding anything. What is its role?",
+        "choices": [
+          "A restatement of what was already said.",
+          "A fresh objection raised against the claim.",
+          "A proof text drawn from the Tanakh.",
+          "A new question opening a new topic."
+        ],
+        "correct": 0,
+        "feedback": "Not every line advances the argument; a restatement re-says the prior point and should be tagged R."
+      },
+      {
+        "sourceRef": "Job 38-40",
+        "stem": "God answers Job with a long series of questions. In a question-and-answer tagging, these lines are...?",
+        "choices": [
+          "Questions, even though no plain answer follows them.",
+          "Answers, because they conclude the book's argument.",
+          "Restatements of Job's own earlier complaint.",
+          "Citations of a source outside the book."
+        ],
+        "correct": 0,
+        "feedback": "A line's role is its form: these are questions by shape, whether or not a tidy answer follows."
+      }
+    ],
+    "fnd-role-example": [
+      {
+        "sourceRef": "Mishnah Bava Kamma 1:1",
+        "stem": "After stating a rule about damages, the Mishnah turns to \"an ox that gored...\". What is that turn?",
+        "choices": [
+          "A worked example testing the rule just stated.",
+          "A new and entirely unrelated rule.",
+          "A quotation brought from the Torah.",
+          "The final ruling of the whole tractate."
+        ],
+        "correct": 0,
+        "feedback": "When a text drops into a concrete case, read it as a test of the rule it follows."
+      },
+      {
+        "sourceRef": "Orchot Tzaddikim",
+        "stem": "A mussar work names a trait, then describes \"someone who...\" in a specific situation. The specific case is...?",
+        "choices": [
+          "An example showing the trait in action.",
+          "A digression unrelated to the trait.",
+          "A legal ruling about the person described.",
+          "A quotation of some earlier sage."
+        ],
+        "correct": 0,
+        "feedback": "\"Someone who...\" usually introduces an example that makes an abstract trait concrete."
+      },
+      {
+        "sourceRef": "Mishnah Bava Kamma 1:1",
+        "stem": "Why does recognizing an example matter for understanding the rule?",
+        "choices": [
+          "The example shows the rule's boundaries in a real case.",
+          "The example simply replaces the rule entirely.",
+          "The example is there only to add length.",
+          "The example proves the rule must be wrong."
+        ],
+        "correct": 0,
+        "feedback": "Examples test and bound a rule; naming which rule an example serves is the reading move."
+      }
+    ],
+    "fnd-role-quotation-bounds": [
+      {
+        "sourceRef": "Pirkei Avot 3:2",
+        "stem": "A teaching cites a verse and then comments on it. To read it well you must...?",
+        "choices": [
+          "Mark where the quoted verse ends and the comment begins.",
+          "Treat the whole line as a single continuous quotation.",
+          "Assume the comment is also drawn from the Tanakh.",
+          "Ignore the verse and read only the comment."
+        ],
+        "correct": 0,
+        "feedback": "Bounding a quotation keeps the cited words apart from the voice interpreting them."
+      },
+      {
+        "sourceRef": "Gemara Berakhot 2a",
+        "stem": "The Gemara quotes part of a verse, then returns to its own argument. The risk if you miss that boundary is...?",
+        "choices": [
+          "Reading the Gemara's own words as if Scripture said them.",
+          "Finding the passage too short to follow at all.",
+          "Mistaking the speaker for Rabbi Akiva.",
+          "Skipping the ruling that comes at the end."
+        ],
+        "correct": 0,
+        "feedback": "If you don't mark where the quote ends, you attribute the source's own reasoning to the verse."
+      },
+      {
+        "sourceRef": "Shulchan Aruch, Orach Chaim 1:1",
+        "stem": "A code cites an earlier authority mid-sentence. Bounding the quotation means...?",
+        "choices": [
+          "Separating the cited words from the code's own ruling.",
+          "Deciding that the quotation is the final law.",
+          "Treating the entire sentence as one single voice.",
+          "Discarding the citation as irrelevant to the law."
+        ],
+        "correct": 0,
+        "feedback": "Marking the cited words apart from the citing voice is what keeps the two straight."
+      }
+    ],
+    "fnd-role-ruling-vs-discussion": [
+      {
+        "sourceRef": "Shulchan Aruch, Orach Chaim 1:1",
+        "stem": "A line states plainly what a person should do, closing off the alternatives. Is this ruling or discussion?",
+        "choices": [
+          "A ruling, because it decides and closes options.",
+          "A discussion, because it explores possibilities.",
+          "A quotation with no position of its own.",
+          "A question that is still awaiting an answer."
+        ],
+        "correct": 0,
+        "feedback": "A decision that closes options is a ruling; the deciding word is the tell."
+      },
+      {
+        "sourceRef": "Gemara Eruvin 13b",
+        "stem": "A passage weighs two views and says \"these and those are the words of the living God\" (אֵלּוּ וָאֵלּוּ). This is...?",
+        "choices": [
+          "Discussion that holds both views open.",
+          "A ruling that decides firmly between them.",
+          "A citation of a single Torah verse.",
+          "A restatement of one earlier line."
+        ],
+        "correct": 0,
+        "feedback": "Elu va-elu keeps both readings alive; it explores rather than decides, so it is discussion."
+      },
+      {
+        "sourceRef": "Shulchan Aruch, Orach Chaim 1:1",
+        "stem": "What is the quickest way to tell a ruling from a discussion?",
+        "choices": [
+          "Ask whether the text decides or keeps options open.",
+          "Count how many separate sages are named.",
+          "Check whether Hebrew or Aramaic is used.",
+          "Measure how long the passage happens to be."
+        ],
+        "correct": 0,
+        "feedback": "Decides means ruling, explores means discussion; that question is the discriminator."
+      }
+    ],
+    "fnd-case-actors": [
+      {
+        "sourceRef": "Mishnah Bava Metzia 1:1",
+        "stem": "Two people are holding a garment, each claiming it. Who are the actors you should list first?",
+        "choices": [
+          "The two claimants, each asserting that it is his.",
+          "Only the court and its scribes on the scene.",
+          "The Torah and the Mishnah as the speakers.",
+          "A single owner together with one witness."
+        ],
+        "correct": 0,
+        "feedback": "Naming the cast of actors and what each does is the first step in mapping a case."
+      },
+      {
+        "sourceRef": "Genesis 22",
+        "stem": "In the binding of Isaac, listing the actors and their actions means noting that...?",
+        "choices": [
+          "Abraham journeys and binds, Isaac is bound, the angel calls out.",
+          "Only Abraham matters, since he is the main figure.",
+          "The narrator alone acts, since he tells the story.",
+          "God acts but no human participant does anything."
+        ],
+        "correct": 0,
+        "feedback": "A case's actors are everyone who acts; attach one verb to each to see the situation."
+      },
+      {
+        "sourceRef": "Mishnah Bava Metzia 1:1",
+        "stem": "Why identify who acts before asking the legal question?",
+        "choices": [
+          "The rights at stake depend on who did what.",
+          "The actors never actually affect the ruling.",
+          "It lets you skip reading the case itself.",
+          "It tells you which tractate you are in."
+        ],
+        "correct": 0,
+        "feedback": "Who acts and how frames the whole case; the legal question rides on it."
+      }
+    ],
+    "fnd-case-what-happens": [
+      {
+        "sourceRef": "Mishnah Bava Kamma 1:1",
+        "stem": "Before analyzing liability, what should you be able to say about a damages case?",
+        "choices": [
+          "A one-sentence plain account of what happened.",
+          "The final ruling and its Torah source.",
+          "Every sage who has ever discussed it.",
+          "The Aramaic term for each action taken."
+        ],
+        "correct": 0,
+        "feedback": "Tell the case as a plain one-sentence story before touching the legal question."
+      },
+      {
+        "sourceRef": "Gittin 55b",
+        "stem": "For the story of Kamtza and Bar Kamtza, stating \"what happens\" plainly means saying that...?",
+        "choices": [
+          "A man is shamed at a feast after a mistaken invitation.",
+          "A ruling about invitations is finally decided.",
+          "A verse of the Torah is being expounded here.",
+          "An argument between two named sages is traced."
+        ],
+        "correct": 0,
+        "feedback": "Plain-language retelling captures the situation before any lesson is drawn from it."
+      },
+      {
+        "sourceRef": "Mishnah Bava Kamma 1:1",
+        "stem": "What is the danger of skipping the plain-language summary of a case?",
+        "choices": [
+          "Arguing the law while still unclear on what happened.",
+          "Understanding the case far too quickly.",
+          "Finishing the passage far too slowly.",
+          "Naming rather too many of the actors."
+        ],
+        "correct": 0,
+        "feedback": "Legal analysis built on a fuzzy grasp of the facts goes wrong; state the facts first."
+      }
+    ],
+    "fnd-case-restate": [
+      {
+        "sourceRef": "Mishnah Berakhot 1:1",
+        "stem": "You close the text, retell the case, then reopen it. What are you checking?",
+        "choices": [
+          "Which details you dropped or changed in the retelling.",
+          "Whether the ruling of the case is ultimately correct.",
+          "Who printed the particular edition you are reading.",
+          "How many separate verses the passage happens to quote."
+        ],
+        "correct": 0,
+        "feedback": "Restating from memory then checking against the text exposes what you truly grasped."
+      },
+      {
+        "sourceRef": "Pirkei Avot 5:7",
+        "stem": "A faithful restatement in your own words should...?",
+        "choices": [
+          "Preserve the case accurately without copying its wording.",
+          "Quote the original sentence exactly word for word.",
+          "Add a fresh ruling of your own to the case.",
+          "Leave out the case's main action entirely."
+        ],
+        "correct": 0,
+        "feedback": "Restating tests understanding: keep the substance, drop the reliance on the exact words."
+      },
+      {
+        "sourceRef": "Mishnah Berakhot 1:1",
+        "stem": "Retelling a case in your own words mainly builds...?",
+        "choices": [
+          "Real understanding rather than surface familiarity.",
+          "A larger vocabulary of rare Hebrew words.",
+          "Greater speed at decoding the letters.",
+          "Knowledge of how the page is laid out."
+        ],
+        "correct": 0,
+        "feedback": "Owning a case in your own words is the difference between understanding and mere recognition."
+      }
+    ],
+    "fnd-case-uncertainty": [
+      {
+        "sourceRef": "Mishnah Berakhot 1:1",
+        "stem": "The Mishnah asks until when the evening Shema may be recited, and the views differ. The uncertainty is...?",
+        "choices": [
+          "The cutoff time that the case turns on.",
+          "Whether the Shema exists as a text at all.",
+          "Who the author of the Mishnah was.",
+          "Which language the Mishnah is written in."
+        ],
+        "correct": 0,
+        "feedback": "The open question is what the case needs settled; here it is the latest permitted time."
+      },
+      {
+        "sourceRef": "Gemara Bava Metzia 2a",
+        "stem": "Two people claim a found garment and neither can prove ownership. Naming the uncertainty means...?",
+        "choices": [
+          "Stating that ownership cannot be established from these facts.",
+          "Deciding at once in favor of whichever party spoke first.",
+          "Noting merely that the garment is a valuable object.",
+          "Listing the tractate and chapter in which it appears."
+        ],
+        "correct": 0,
+        "feedback": "The uncertainty is the missing thing needed to decide: here, proof of who owns the garment."
+      },
+      {
+        "sourceRef": "Mishnah Berakhot 1:1",
+        "stem": "How do you locate the point of uncertainty in a case?",
+        "choices": [
+          "Ask what the case would need in order to be decided.",
+          "Count how many actors are involved in it.",
+          "Find the single longest sentence in it.",
+          "Identify the earliest sage it names."
+        ],
+        "correct": 0,
+        "feedback": "The missing piece required for a decision is the uncertainty the case turns on."
+      }
+    ],
+    "fnd-arg-claim": [
+      {
+        "sourceRef": "Rambam, Yesodei HaTorah 1:1",
+        "stem": "Rambam opens by asserting a First Being who brings all else into existence. Stated as a claim, this is...?",
+        "choices": [
+          "\"There is a First Cause on whom all else depends.\"",
+          "A question about who first created the world.",
+          "A citation of a verse offered without comment.",
+          "An objection raised against an earlier view."
+        ],
+        "correct": 0,
+        "feedback": "State the claim in one sentence ('This source claims that...') before analyzing anything else."
+      },
+      {
+        "sourceRef": "Gemara Berakhot 2a",
+        "stem": "To find a passage's claim, the most useful first move is to finish which sentence?",
+        "choices": [
+          "\"This source claims that...\"",
+          "\"The rarest word on the page is...\"",
+          "\"The name of the speaker here is...\"",
+          "\"The number printed on this page is...\""
+        ],
+        "correct": 0,
+        "feedback": "Naming the claim first orients everything else you notice in the passage."
+      },
+      {
+        "sourceRef": "Rambam, Yesodei HaTorah 1:1",
+        "stem": "Which of these is a claim, as opposed to some other kind of line?",
+        "choices": [
+          "\"Everything depends on God for its existence.\"",
+          "\"From where do we learn this teaching?\"",
+          "\"As it is written in the Torah...\"",
+          "\"Rabbi Yehuda says the following:\""
+        ],
+        "correct": 0,
+        "feedback": "A claim asserts something; questions, citations, and attributions are other roles, not claims."
+      }
+    ],
+    "fnd-arg-evidence-role": [
+      {
+        "sourceRef": "Gemara Berakhot 2a",
+        "stem": "A verse is brought that directly backs the stated rule. What job is that citation doing?",
+        "choices": [
+          "Supporting the claim as a proof.",
+          "Attacking the claim as a counterexample.",
+          "Refining the claim's precise scope.",
+          "Splitting the claim into two cases."
+        ],
+        "correct": 0,
+        "feedback": "Ask of each citation: does it prop, attack, refine, or split? Here it props the claim."
+      },
+      {
+        "sourceRef": "Kiddushin 31b",
+        "stem": "Two verses on honoring parents are compared to show they cover different things. The second verse's role is to...?",
+        "choices": [
+          "Refine the claim by distinguishing what each verse covers.",
+          "Simply repeat the first verse's point again.",
+          "Reject the whole idea of honoring parents.",
+          "End the discussion with a final ruling."
+        ],
+        "correct": 0,
+        "feedback": "A citation that draws a distinction is refining, not merely supporting."
+      },
+      {
+        "sourceRef": "Gemara Berakhot 2a",
+        "stem": "Why name the job a cited source is doing rather than just noting that it appears?",
+        "choices": [
+          "The same verse can support, challenge, or refine a claim.",
+          "Citations never change how the argument actually works.",
+          "It tells you who printed the edition you are holding.",
+          "It makes the passage noticeably shorter to read through."
+        ],
+        "correct": 0,
+        "feedback": "A citation's force depends on its job; identifying prop/attack/refine/split is the reading move."
+      }
+    ],
+    "fnd-arg-objection": [
+      {
+        "sourceRef": "Gemara Berakhot 2b",
+        "stem": "The Gemara raises a case that the stated rule seems to get wrong. What is this move?",
+        "choices": [
+          "An objection pressing on the rule.",
+          "A proof brought to support the rule.",
+          "A restatement of the rule itself.",
+          "An attribution of the rule to a sage."
+        ],
+        "correct": 0,
+        "feedback": "An objection pushes back; name what it threatens — the claim, its reason, or its scope."
+      },
+      {
+        "sourceRef": "Gemara Berakhot 2b",
+        "stem": "When you mark an objection, the key thing to describe is...?",
+        "choices": [
+          "Exactly what pressure it puts on the claim.",
+          "How many words it happens to contain.",
+          "Which typeface it is printed in.",
+          "Whether its phrasing happens to rhyme."
+        ],
+        "correct": 0,
+        "feedback": "An objection matters by what it endangers; say whether it hits the claim, its reason, or its reach."
+      },
+      {
+        "sourceRef": "Guide for the Perplexed",
+        "stem": "A text anticipates a reader's difficulty and states it plainly before answering. That stated difficulty is...?",
+        "choices": [
+          "An objection the author raises in order to address it.",
+          "The author's own final conclusion on the matter.",
+          "A quotation lifted from an opponent's book.",
+          "An abrupt change to a different topic."
+        ],
+        "correct": 0,
+        "feedback": "Authors often voice an objection themselves; recognizing it as an objection sets up the response."
+      }
+    ],
+    "fnd-arg-response": [
+      {
+        "sourceRef": "Gemara Sukkah 2a",
+        "stem": "After an objection, the Gemara limits the rule to a narrower case. How does the response work?",
+        "choices": [
+          "It narrows the claim so the objection no longer applies.",
+          "It denies that any objection was ever raised.",
+          "It abandons the original claim entirely.",
+          "It merely repeats the objection in other words."
+        ],
+        "correct": 0,
+        "feedback": "Ask whether a response denies, limits, or accepts-and-adjusts; here it narrows the claim."
+      },
+      {
+        "sourceRef": "Rambam, Hilchot Deot 1:5",
+        "stem": "A response that grants an objection's point but adjusts the original claim is doing what?",
+        "choices": [
+          "Accepting and reframing rather than flatly denying.",
+          "Ignoring the objection completely.",
+          "Restating the objection as its own view.",
+          "Citing a verse with no comment at all."
+        ],
+        "correct": 0,
+        "feedback": "Responses aren't only denials; naming deny/limit/adjust tells you how the argument moved."
+      },
+      {
+        "sourceRef": "Gemara Sukkah 2a",
+        "stem": "To follow a response well, the question to ask is...?",
+        "choices": [
+          "Does it deny the objection, limit it, or adjust the claim?",
+          "How many named sages are mentioned within the response?",
+          "Is the response itself written in Hebrew or in Aramaic?",
+          "Where exactly does the response sit on the printed page?"
+        ],
+        "correct": 0,
+        "feedback": "Classifying the response as deny/limit/adjust is how you track the argument's resolution."
+      }
+    ],
+    "fnd-arg-unresolved": [
+      {
+        "sourceRef": "Bava Metzia 59b",
+        "stem": "The Oven of Akhnai story ends without the tension between the voices tidily settled. Recognizing this means...?",
+        "choices": [
+          "Naming the tension the passage deliberately leaves open.",
+          "Assuming a ruling was simply omitted by mistake.",
+          "Treating the last speaker as the decided law.",
+          "Concluding the passage is really about ovens."
+        ],
+        "correct": 0,
+        "feedback": "Some passages leave a tension standing on purpose; noticing the openness is itself the reading."
+      },
+      {
+        "sourceRef": "Job 42",
+        "stem": "Job's ending restores his fortunes but leaves the deeper question of suffering not fully answered. This openness...?",
+        "choices": [
+          "May be the point, not a defect in the text.",
+          "Proves the book was simply left unfinished.",
+          "Means the question was already answered earlier.",
+          "Shows the text is quoting another book."
+        ],
+        "correct": 0,
+        "feedback": "Ask whether an unresolved ending is intentional; in Job the open question does real work."
+      },
+      {
+        "sourceRef": "Bava Metzia 59b",
+        "stem": "How do you tell a deliberately open ending from a resolved one?",
+        "choices": [
+          "Check whether the passage decides, and if not, name what stands open.",
+          "Count how many separate verses the passage happens to cite.",
+          "See whether the passage runs longer than a single page.",
+          "Find the earliest named sage the passage happens to mention."
+        ],
+        "correct": 0,
+        "feedback": "First ask if it resolves; if it doesn't, naming the standing tension is the move."
+      }
     ]
   },
-  "updatedAt": "2026-09-07T05:56:11.427Z"
+  "updatedAt": "2026-09-07T17:13:49.586Z"
 }
