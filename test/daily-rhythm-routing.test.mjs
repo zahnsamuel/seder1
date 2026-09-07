@@ -8,7 +8,8 @@ test('daily session honors the learner rhythm without changing the next skill', 
   const server = fs.readFileSync('server.mjs', 'utf8');
   assert.match(html, /data-jla-next-action/);
   assert.match(client, /next-action/);
-  assert.doesNotMatch(client, /mastery|reviewQueue|skillId/);
+  assert.match(client, /skillId/);
+  assert.doesNotMatch(client, /mastery|reviewQueue/);
   assert.match(server, /rhythmMinutes/);
   assert.match(server, /learner\.rhythm/);
 });
