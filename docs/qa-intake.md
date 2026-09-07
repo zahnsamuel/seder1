@@ -3278,7 +3278,12 @@ Verified: unit tests on the picker + `node --test` for the demotion files;
 HTTP `GET /next-action` after `placement_completed` returns `skillId` `fnd-…`
 and `academy-session.html?skill=` / `hebrew-decoding.html`, never a content-step
 id. `GET /graph-practice` after decode-on-ramp returns `fnd-orient-source-type`
-with `berakhot-deep.html` as the vehicle.
+with `berakhot-deep.html` as the vehicle. Flagship workbench test no longer
+greps the old content-move fallback in `curriculum-engine.mjs`.
+
+Pre-existing reds left untouched (Claude’s map/graph drift, not this demotion):
+`foundation-content-map` stale, two unmapped `fnd-role-quotation-bounds` /
+`fnd-compare-translation-choice`, two content skills not in `content-skill-graph`.
 
 Left alone: starter-set freeze, authored item banks, canon/mastery/gemara-path
 fold files (Claude / PR #14).
