@@ -7,11 +7,19 @@ import { loadUnits } from '../scripts/audit-content.mjs';
 import { nonGemaraSkillGraph } from '../data/non-gemara-skill-graph.mjs';
 import { contentSkillGraph } from '../data/content-skill-graph.mjs';
 import { nextGraphPractice } from '../data/curriculum-engine.mjs';
+import { buildContentSkillGraph, serializeContentSkillGraph } from '../scripts/build-skill-graph.mjs';
 
+const lf = (s) => s.replace(/\r\n/g, '\n');
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const core = JSON.parse(readFileSync(join(root, 'data', 'skill-graph.json'), 'utf8')).skills;
 const merged = [...core, ...nonGemaraSkillGraph, ...contentSkillGraph];
 const byId = new Map(merged.map((skill) => [skill.id, skill]));
+
+test('content-skill-graph.mjs is in sync with assessed content', () => {
+  const committed = readFileSync(join(root, 'data', 'content-skill-graph.mjs'), 'utf8');
+  assert.equal(lf(committed), lf(serializeContentSkillGraph(buildContentSkillGraph(root))),
+    'data/content-skill-graph.mjs is stale — run: node scripts/build-skill-graph.mjs');
+});
 
 test('every skill assessed in a content unit is reachable in the adaptive graph', () => {
   const assessed = new Set();
