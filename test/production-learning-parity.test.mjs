@@ -18,7 +18,7 @@ test('repair requires a contrasting-source check and saves successful transfer e
 
 test('hosted persistence retains the adaptive fields needed for learner parity', async () => {
   const [hosted, migration, map] = await Promise.all(['data/supabase-learner-repository.mjs', 'supabase/migrations/006_hosted_learning_parity.sql', 'daf-argument-map.js'].map((file) => readFile(new URL(`../${file}`, import.meta.url), 'utf8')));
-  for (const field of ['masteryUpdatedAt', 'struggles', 'events', 'dailyStreak', 'lastStudyDate']) assert.match(hosted, new RegExp(field));
+  for (const field of ['masteryUpdatedAt', 'decayedMastery', 'struggles', 'events', 'dailyStreak', 'lastStudyDate']) assert.match(hosted, new RegExp(field));
   for (const column of ['mastery_updated_at', 'struggles', 'events', 'total_answered', 'daily_streak', 'last_study_date']) assert.match(migration, new RegExp(column));
   assert.match(map, /artifactType: 'source_map'/);
 });

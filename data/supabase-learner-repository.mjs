@@ -1,5 +1,6 @@
 import { supabaseRest } from './supabase-adapter.mjs';
 import { recordAcademyCapabilityEvent } from '../jla-capability-evidence.js';
+import { decayedMasteryMap } from './mastery-decay.mjs';
 import { creditImplicitReviews } from './repository.mjs';
 
 const competencies = { recognition: 0, translation: 0, argument: 0, sourceReasoning: 0 };
@@ -29,12 +30,15 @@ export async function getHostedLearner(user, accessToken) {
   ]);
   const state = stateRows[0] || {};
   const profile = profileRows[0] || {};
+  const mastery = state.mastery || {};
+  const masteryUpdatedAt = state.mastery_updated_at || {};
   return {
     ...empty(id, profile.display_name || user.user_metadata?.display_name || user.email?.split('@')[0] || 'Learner'),
     xp: state.xp || 0,
-    mastery: state.mastery || {},
+    mastery,
     evidence: state.evidence || {},
-    masteryUpdatedAt: state.mastery_updated_at || {},
+    masteryUpdatedAt,
+    decayedMastery: decayedMasteryMap(mastery, masteryUpdatedAt),
     struggles: state.struggles || {},
     artifacts: state.artifacts || {},
     events: state.events || [],
@@ -125,7 +129,11 @@ export async function recordHostedEvent(user, accessToken, event) {
         : null
     };
     learner.foundationScores = { ...(learner.foundationScores || {}), ...(event.foundationScores || {}) };
-    Object.entries(event.scores || {}).forEach(([skill, score]) => { learner.mastery[skill] = Math.max(learner.mastery[skill] || 0, Math.min(1, Number(score) || 0)); });
+    learner.masteryUpdatedAt ||= {};
+    Object.entries(event.scores || {}).forEach(([skill, score]) => {
+      learner.mastery[skill] = Math.max(learner.mastery[skill] || 0, Math.min(1, Number(score) || 0));
+      learner.masteryUpdatedAt[skill] = recorded.at;
+    });
     learner.competencies.recognition = Math.max(learner.competencies.recognition, event.scores?.['hebrew-decoding'] || 0);
     learner.competencies.argument = Math.max(learner.competencies.argument, event.scores?.['gemara-moves'] || 0);
     learner.competencies.sourceReasoning = Math.max(learner.competencies.sourceReasoning, event.scores?.['proof-texts'] || 0);
