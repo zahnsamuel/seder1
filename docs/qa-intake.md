@@ -3352,3 +3352,6 @@ Before → after (learner-visible):
 
 Tests: `capability-state`, `capability-state-surfaces`, plus path/academy/academy-next grep guards. HTML grep of those six files is clean of `0 XP`, `MASTERY MARKERS`, `levelProgress}%`, and “reading level”.
 
+Verification: `node --test "test/*.test.mjs"` **615/615**. Browser (`:4180`, demo learner with two earned capabilities): Path header **2 on your own**, chips **2 Secure**, graduation **Your reading capabilities** / **SOURCE EXPLORER · Secure** (no %), detail **THIS CAPABILITY**. Academy progress card **DAY 1 OF 90 · 2 SECURE** + “You can make 2 reading moves on your own.” + **Continue on Today →**; placement “not yet secure”. Academy-next header **2 on your own**, “least secure evidence” / transferable (no `% demonstrated mastery`). Today remains one next action. Console: favicon 404 only.
+
+
