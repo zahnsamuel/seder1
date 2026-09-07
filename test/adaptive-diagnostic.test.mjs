@@ -54,7 +54,8 @@ test('diagnostic.js drives the stateless estimator and seeds through the placeme
   assert.ok(!/\[id, 1\]|\[id, 1\.0\]/.test(js), 'self-report must not seed a perfect 1.0');
   // decode skills route to the real drills; everything else into the scaffolded lesson
   assert.match(js, /fnd-decode-[\s\S]*hebrew-decoding\.html/);
-  assert.match(js, /foundationSkill=/);
+  assert.match(js, /academy-session\.html\?skill=/);
+  assert.doesNotMatch(js, /foundationSkill=/);
   assert.match(js, /jla-choice/);
   assert.match(js, /intro\) intro\.hidden = true/);
 });

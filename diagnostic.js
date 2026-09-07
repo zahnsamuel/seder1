@@ -142,7 +142,7 @@ function renderResults(estimate, start) {
   }).join('');
   const begin = $('#results-begin');
   if (begin) begin.href = start
-    ? (start.id.startsWith('fnd-decode-') ? 'hebrew-decoding.html' : `daily-router.html?foundationSkill=${encodeURIComponent(start.id)}`)
+    ? (start.id.startsWith('fnd-decode-') ? 'hebrew-decoding.html' : `academy-session.html?skill=${encodeURIComponent(start.id)}`)
     : 'my-graph.html';
   bindRhythm();
 }

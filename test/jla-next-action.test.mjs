@@ -1,7 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { normalizeNextAction, selectNextAction } from '../data/next-action.mjs';
+import { foundationFrontierRecommendation, foundationSessionHref, normalizeNextAction, selectNextAction } from '../data/next-action.mjs';
+import { readFileSync } from 'node:fs';
+
+const graph = JSON.parse(readFileSync(new URL('../data/foundation-skill-graph.json', import.meta.url), 'utf8'));
 
 const action = (title) => ({ title, reason: `${title} reason`, href: `${title}.html`, cta: 'Start' });
 
@@ -40,6 +43,23 @@ test('normalizer handles malformed inputs and unsafe URLs with the safe Today fa
   }
 });
 
+test('foundation next-action cites skillId and a live session href', () => {
+  const rec = foundationFrontierRecommendation({
+    placement: { completedAt: '2026-09-07' },
+    foundationScores: {
+      'fnd-decode-letters': 0.8,
+      'fnd-decode-vowels': 0.8,
+      'fnd-decode-blend': 0.8,
+      'fnd-decode-word': 0.8
+    }
+  }, graph);
+  const result = normalizeNextAction({ type: 'foundation', title: rec.title, reason: rec.reason, href: rec.url, cta: 'Start this step', skillId: rec.skillId });
+  assert.equal(result.skillId, 'fnd-orient-source-type');
+  assert.equal(result.href, 'academy-session.html?skill=fnd-orient-source-type');
+  assert.equal(result.href, foundationSessionHref(result.skillId));
+  assert.doesNotMatch(result.href, /daily-router\.html/);
+});
+
 test('Today component is isolated, uses safe DOM construction, records starts, and exposes one CTA', async () => {
   const [html, source, css] = await Promise.all(['daily-router.html', 'jla-next-action.js', 'jla-next-action.css'].map((file) => readFile(new URL(`../${file}`, import.meta.url), 'utf8')));
   assert.match(html, /data-jla-next-action/);
@@ -52,6 +72,9 @@ test('Today component is isolated, uses safe DOM construction, records starts, a
   assert.match(source, /next_action_started/);
   assert.match(source, /data-skill-id/);
   assert.match(source, /daily-router\.html/);
+  assert.match(source, /location\.replace/);
+  assert.match(source, /foundationSkill/);
+  assert.match(source, /academy-session\.html\?skill=/);
   assert.match(css, /\[data-jla-next-action\]/);
 });
 
