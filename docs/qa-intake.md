@@ -3333,3 +3333,7 @@ Sam: foundation See it was excerpt + immediate quiz, not a short teach. Approved
 - Renderer shows WHAT TO NOTICE + excerpt first; choices stay hidden until **Got it — ask me**. `#advance` sits outside `#ask-panel` so the continue is still visible while the ask is held. Sefaria stays “Open full text”. No “the move” chrome. Did not rewrite Claude’s item banks or touch Today / next-action / placement.
 - Tests: `academy-session-lesson`, `academy-session`.
 - Browser (`?skill=fnd-orient-source-type`): first paint is Genesis 1:1 + WHAT TO NOTICE + **Got it — ask me**, no choices. After the continue, the authored genre ask appears. Try it (Mishnah Berakhot 1:1) and new source (Berakhot 2a) skip the mini-lesson and show the ask immediately. 390px: teach + full-width continue. Console: expected 404 on `/api/jla/academy-session/fnd-orient-source-type` (scaffold fallback) and favicon.
+
+## 2026-09-07 — Cursor: drop “NO TYPING REQUIRED” from academy ask chrome
+
+Sam: get rid of learner-facing “no typing required.” `academy-session.html` ask eyebrow is now `YOUR ASK`. Grep of HTML/JS session chrome is clean. Pedagogy/routing unchanged.
