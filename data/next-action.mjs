@@ -1,5 +1,6 @@
-const FALLBACK = { type: 'today', title: 'Continue today’s learning', reason: 'Your recommended next step is ready on Today.', href: 'daily-router.html', cta: 'Open Today', progress: null };
+const FALLBACK = { type: 'today', title: 'Continue today’s learning', reason: 'Your recommended next step is ready on Today.', href: 'daily-router.html', cta: 'Open Today', progress: null, skillId: null };
 const PRIORITY = ['recovery', 'review', 'foundation', 'academy', 'transfer', 'frontier', 'completion', 'continuation'];
+const SKILL_ID = /^[a-z][a-z0-9-]{1,80}$/;
 
 export function selectNextAction(candidates = {}) {
   for (const type of PRIORITY) if (candidates[type] && typeof candidates[type] === 'object') return { type, ...candidates[type] };
@@ -15,6 +16,7 @@ function safeRelativeHref(value) {
 }
 
 const text = (value, fallback) => typeof value === 'string' && value.trim() ? value.trim() : fallback;
+const skillIdOf = (value) => typeof value === 'string' && SKILL_ID.test(value.trim()) ? value.trim() : null;
 export function normalizeNextAction(action) {
   const input = action && typeof action === 'object' ? action : FALLBACK;
   const href = safeRelativeHref(input.href || input.url);
@@ -22,6 +24,7 @@ export function normalizeNextAction(action) {
   return {
     version: 1, type: text(safe.type, FALLBACK.type), title: text(safe.title, FALLBACK.title), reason: text(safe.reason, FALLBACK.reason), href,
     cta: text(safe.cta, 'Start'),
-    progress: safe.progress && typeof safe.progress === 'object' && !Array.isArray(safe.progress) ? { label: text(safe.progress.label, 'Progress'), current: Math.max(0, Number(safe.progress.current) || 0), total: Math.max(0, Number(safe.progress.total) || 0) } : null
+    progress: safe.progress && typeof safe.progress === 'object' && !Array.isArray(safe.progress) ? { label: text(safe.progress.label, 'Progress'), current: Math.max(0, Number(safe.progress.current) || 0), total: Math.max(0, Number(safe.progress.total) || 0) } : null,
+    skillId: skillIdOf(safe.skillId)
   };
 }

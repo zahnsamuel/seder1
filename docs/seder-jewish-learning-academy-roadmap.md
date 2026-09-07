@@ -47,6 +47,9 @@ Seder should be welcoming without pretending that Jewish texts are frictionless.
 
 ## Foundational skill graph
 
+Product law for this graph (skill vs text vs concept, 0→1 scope, Yochai as
+substrate) is [`docs/skill-graph-north-star.md`](skill-graph-north-star.md).
+
 The next core artifact is a directed graph of a few hundred interlocking skills. Each skill needs:
 
 - a stable ID and plain-language learner title;

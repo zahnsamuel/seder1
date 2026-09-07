@@ -1,9 +1,12 @@
 # Foundation graph schema & governance (v0.1)
 
+Product law: [`docs/skill-graph-north-star.md`](skill-graph-north-star.md). Live counts:
+`npm run graph:quality`.
+
 The foundation skill graph is a **version 0.1 prototype**: a credible, structurally sound skill
-ontology (49 skills, 74 prerequisite edges, 10 layers, all with teaching/transfer/repair language),
-but not yet a Math-Academy-style adaptive learning engine. This document freezes it, defines the
-formal schema it must grow into, and sets the governance for getting there. It is the reference for
+ontology (capability DAG, typed edges, teaching/transfer/repair language),
+but not yet a fully wired adaptive learning engine. This document freezes the schema, defines the
+formal shape it must grow into, and sets the governance for getting there. It is the reference for
 steps 1–4 and 12 of the "what should happen next" plan.
 
 Run `node scripts/graph-quality.mjs` for the live readiness report against everything below.

@@ -6,9 +6,10 @@ roadmap calls the linchpin. This is a **plan, not an implementation** — it nam
 recommends a sequence grounded in real content traffic, and defines the authoring guardrails so the
 graph stays valid and every new skill stays *coverable* by real sources.
 
-Read alongside `docs/foundation-skill-graph.md` (the schema + authoring contract) and
-`docs/seder-jewish-learning-academy-roadmap.md` (Phase 5: "expand from 60 to a few hundred skills
-based on observed bottlenecks").
+Read alongside [`docs/skill-graph-north-star.md`](skill-graph-north-star.md) (product law —
+grow from bottlenecks, do not catalog Judaism), `docs/foundation-skill-graph.md` (the schema +
+authoring contract) and `docs/seder-jewish-learning-academy-roadmap.md` (Phase 5: "expand from
+60 to a few hundred skills based on observed bottlenecks").
 
 ## Where we are
 

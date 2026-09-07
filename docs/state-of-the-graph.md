@@ -1,8 +1,9 @@
 # State of the JLA knowledge graph
 
-*A one-page status of the skills-first Jewish-learning graph, modeled on Math Academy. Live numbers:
-`npm run graph:quality`. Companion docs: [foundation-graph-schema.md](foundation-graph-schema.md)
-(governance), [math-academy-way-graph.md](math-academy-way-graph.md) (the MA mapping).*
+*A one-page status of the skills-first Jewish-learning graph. Live numbers:
+`npm run graph:quality`. Companion docs: [skill-graph-north-star.md](skill-graph-north-star.md)
+(product law), [foundation-graph-schema.md](foundation-graph-schema.md)
+(governance), [math-academy-way-graph.md](math-academy-way-graph.md) (engine mapping).*
 
 ## What it is
 

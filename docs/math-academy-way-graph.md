@@ -1,5 +1,10 @@
 # A knowledge graph for JLA, built the Math Academy Way
 
+Product law — what a skill is, 0→1 scope, Yochai as substrate not DAG — is
+[`docs/skill-graph-north-star.md`](skill-graph-north-star.md). This file is an
+engineering mapping of our existing engine onto that law. Do not treat it as
+permission to paste book prose into the product.
+
 Source: *The Math Academy Way* (Working Draft), esp. **Ch. 4 — Core Technology: the Knowledge
 Graph**, and the chapters on the knowledge frontier and encompassings/FIRe. This doc translates that
 model into the JLA foundation skill graph and records what is built vs. what remains.
