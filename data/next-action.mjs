@@ -23,13 +23,24 @@ export function pickFrontierFoundationSkill(graph, learner) {
   return frontier.map((id) => byId.get(id)).filter(Boolean).sort((a, b) => (a.layer - b.layer) || a.id.localeCompare(b.id))[0] || null;
 }
 
-export function foundationFrontierRecommendation(learner, graph) {
+export function pickContentPracticeForSkill(map, skillId, learner) {
+  if (typeof skillId !== 'string' || !skillId.startsWith('fnd-')) return null;
+  const rows = map?.bySkill?.[skillId];
+  if (!Array.isArray(rows) || !rows.length) return null;
+  const mastery = learner?.mastery || {};
+  const pick = rows.find((row) => (Number(mastery[row.contentSkill]) || 0) < 0.85) || rows[0];
+  if (!pick?.route) return null;
+  return { unit: pick.unit, label: pick.label, href: pick.route, ref: pick.ref, genre: pick.genre, contentSkill: pick.contentSkill };
+}
+
+export function foundationFrontierRecommendation(learner, graph, map) {
   if (!learner || learner.foundationGraduated) return null;
   const next = pickFrontierFoundationSkill(graph, learner);
   if (!next) return null;
   const byId = new Map(graph.skills.map((skill) => [skill.id, skill]));
   const prior = (next.prerequisites || []).map((id) => byId.get(id)).find(Boolean);
   const upcoming = graph.skills.find((skill) => (skill.prerequisites || []).includes(next.id));
+  const practice = pickContentPracticeForSkill(map, next.id, learner);
   return {
     kind: 'academy-foundation',
     title: `Academy Foundation · ${next.title}`,
@@ -38,8 +49,17 @@ export function foundationFrontierRecommendation(learner, graph) {
     skillId: next.id,
     foundation: true,
     builtOn: prior && skillScore(learner, prior.id) >= SECURE ? prior.title : null,
-    unlocks: upcoming ? upcoming.title : null
+    unlocks: upcoming ? upcoming.title : null,
+    practice
   };
+}
+
+export function citedSkillId(recommendation) {
+  const id = recommendation?.skillId || recommendation?.skill?.id || null;
+  if (typeof id !== 'string' || !SKILL_ID.test(id.trim())) return null;
+  const trimmed = id.trim();
+  if (['academy-foundation', 'graph-practice'].includes(recommendation?.kind) && !trimmed.startsWith('fnd-')) return null;
+  return trimmed;
 }
 
 export function selectNextAction(candidates = {}) {

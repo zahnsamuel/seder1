@@ -26,12 +26,20 @@ test('the merged graph has no duplicate ids and every prerequisite resolves', ()
   assert.deepEqual(broken, [], `unresolvable prerequisites: ${broken.slice(0, 6).join('; ')}`);
 });
 
-test('content skills participate in the teachable frontier, not just the catalog', async () => {
-  // Master everything except one lab-entry skill; the frontier must surface exactly that
-  // skill, with the lab route attached, proving content nodes flow through the engine.
+test('content-move nodes stay an index: they never win as the graph-practice skill', async () => {
   const mastery = Object.fromEntries(merged.map((skill) => [skill.id, .9]));
   delete mastery['lab-shabbat-count'];
+  delete mastery['hebrew-page-orientation'];
   const next = await nextGraphPractice(root, { mastery });
-  assert.equal(next?.skill?.id, 'lab-shabbat-count');
-  assert.equal(next?.url, 'lab.html?tractate=shabbat');
+  assert.notEqual(next?.skill?.id, 'lab-shabbat-count');
+  assert.notEqual(next?.skill?.id, 'hebrew-page-orientation');
+  if (next) {
+    assert.match(next.skill.id, /^fnd-/);
+    assert.ok(next.contentSkill);
+    assert.notEqual(next.contentSkill, next.skill.id);
+  }
+  const forFoundation = await nextGraphPractice(root, { mastery }, 'fnd-arg-claim');
+  assert.equal(forFoundation?.skill?.id, 'fnd-arg-claim');
+  assert.equal(forFoundation?.url, 'gemara-toolkit.html');
+  assert.equal(forFoundation?.contentSkill, 'tentative-inference');
 });

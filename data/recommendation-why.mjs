@@ -8,7 +8,7 @@
 //
 // This module is pure: it reads only fields already present on the chosen recommendation and the
 // learner. Graph-derived beats (builtOn / unlocks) are computed upstream where the graph is loaded
-// (curriculum-engine nextGraphPractice, server academyFoundationRecommendation) and passed through
+// (foundation DAG / content-map practice, server academyFoundationRecommendation) and passed through
 // on the recommendation, so no file I/O happens here.
 
 export function explainRecommendation(rec, learner = {}) {

@@ -3258,3 +3258,32 @@ hardcoded 14-skill ladder instead of `knowledgeFrontier()`.
 
 Out of scope (unchanged): starter-set freeze, item banks, Yochai, mastery-decay
 math, content-move graph demotion.
+
+## 2026-09-07 — Cursor: demote content-move graph as next-action picker
+
+North-star checklist item 3. Verified that `chooseRecommendation` in `server.mjs`
+still called `nextGraphPractice` after the foundation path, and that function
+merged `skill-graph.json` + `content-skill-graph.mjs` + `non-gemara-skill-graph.mjs`
+(~850 source-bound ids). A placed foundation learner with no frontier left, or
+any fall-through, could get `hebrew-page-orientation` / `lab-shabbat-count` as
+the public `skillId`.
+
+Fix: choose a `fnd-` skill first (`knowledgeFrontier` / `pickFrontierFoundationSkill`).
+`nextGraphPractice` now looks up `data/foundation-content-map.json` for that id
+and returns a mapped unit as the vehicle (`contentSkill` stays the authored step).
+It is no longer a Today fallback. `citedSkillId` refuses content-move ids on
+foundation / graph-practice recommendations.
+
+Verified: unit tests on the picker + `node --test` for the demotion files;
+HTTP `GET /next-action` after `placement_completed` returns `skillId` `fnd-…`
+and `academy-session.html?skill=` / `hebrew-decoding.html`, never a content-step
+id. `GET /graph-practice` after decode-on-ramp returns `fnd-orient-source-type`
+with `berakhot-deep.html` as the vehicle. Flagship workbench test no longer
+greps the old content-move fallback in `curriculum-engine.mjs`.
+
+Pre-existing reds left untouched (Claude’s map/graph drift, not this demotion):
+`foundation-content-map` stale, two unmapped `fnd-role-quotation-bounds` /
+`fnd-compare-translation-choice`, two content skills not in `content-skill-graph`.
+
+Left alone: starter-set freeze, authored item banks, canon/mastery/gemara-path
+fold files (Claude / PR #14).

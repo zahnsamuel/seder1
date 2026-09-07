@@ -39,28 +39,31 @@ test('Gemara continuation selects the first unfinished tractate arc', async () =
   assert.equal((await nextGemaraArc(root, learner({ completedStages: ['berakhot-baraita-disagreement', 'shabbat-tractate-arc'] }))).stageId, 'eruvin-tractate-arc');
 });
 
-test('graph practice recommends the earliest unmet reading dependency with a usable route', async () => {
+test('graph practice does not pick a content-move id as the skill', async () => {
   const first = await nextGraphPractice(root, learner());
-  assert.equal(first.skill.id, 'hebrew-page-orientation');
-  assert.equal(first.url, 'language.html');
-  const afterOrientation = await nextGraphPractice(root, learner({ mastery: { 'hebrew-page-orientation': .9 } }));
-  assert.equal(afterOrientation.skill.id, 'hebrew-question-words');
-  assert.equal(afterOrientation.url, 'language.html');
+  assert.equal(first, null, 'Layer 0 decode has no mapped content vehicle');
+  const decodeReady = {
+    foundationScores: {
+      'fnd-decode-letters': .8, 'fnd-decode-vowels': .8, 'fnd-decode-blend': .8, 'fnd-decode-word': .8
+    }
+  };
+  const next = await nextGraphPractice(root, learner(decodeReady));
+  assert.ok(next);
+  assert.match(next.skill.id, /^fnd-/);
+  assert.notEqual(next.skill.id, 'hebrew-page-orientation');
+  assert.notEqual(next.contentSkill, next.skill.id);
+  assert.equal(next.skill.id, 'fnd-orient-source-type');
+  assert.equal(next.url, 'berakhot-deep.html');
+  assert.equal(next.contentSkill, 'berakhot-orientation');
 });
 
-test('graph practice includes source-specific non-Gemara course skills', async () => {
-  const graphReady = {
-    'hebrew-page-orientation': .9, 'hebrew-question-words': .9, 'source-signals': .9,
-    'rabbinic-phrase-recognition': .9, 'sentence-role-mapping': .9, 'aramean-question-particles': .9,
-    'mishnah-orientation': .9, 'gemara-context-question': .9, 'proof-role': .9,
-    'challenge-and-answer': .9, 'independent-sugya-reading': .9, 'identify-conceptual-claim': .9,
-    'define-conceptual-term': .9, 'compare-interpretations': .9, 'conceptual-application': .9
-  };
-  const next = await nextGraphPractice(root, learner({ mastery: graphReady }));
-  assert.equal(next.skill.id, 'halakha-honor-torah-kibud');
-  assert.equal(next.url, 'halakha-honor-parents.html');
-  const afterFirstSource = await nextGraphPractice(root, learner({ mastery: { ...graphReady, 'halakha-honor-torah-kibud': .9 } }));
-  assert.equal(afterFirstSource.skill.id, 'halakha-honor-two-verses');
+test('graph practice only selects a content unit for an already-chosen fnd- skill', async () => {
+  const practice = await nextGraphPractice(root, learner(), 'fnd-orient-page-geography');
+  assert.equal(practice.skill.id, 'fnd-orient-page-geography');
+  assert.equal(practice.url, 'foundation-reading-orientation.html');
+  assert.equal(practice.contentSkill, 'reading-orientation-page-geography');
+  assert.equal(await nextGraphPractice(root, learner(), 'hebrew-page-orientation'), null);
+  assert.equal(await nextGraphPractice(root, learner(), 'lab-shabbat-count'), null);
 });
 
 test('adaptive graph includes every later non-Gemara source sequence as an earned continuation', () => {
