@@ -3337,3 +3337,16 @@ Sam: foundation See it was excerpt + immediate quiz, not a short teach. Approved
 ## 2026-09-07 — Cursor: drop “NO TYPING REQUIRED” from academy ask chrome
 
 Sam: get rid of learner-facing “no typing required.” `academy-session.html` ask eyebrow is now `YOUR ASK`. Grep of HTML/JS session chrome is clean. Pedagogy/routing unchanged.
+
+## 2026-09-07 — Claude: genre-literacy teach content (foundation-teach.json)
+
+Single-concern, non-colliding with #16 (edits data/foundation-teach.json only, not
+foundation-authored-items.json). Feeds JLA Bot's See-it mini-lesson.
+
+Added a `genres` block: a plain-adult mini-lesson (2–4 sentences, no "make the move"
+jargon) for each basic kind of Jewish text — Torah verse, Mishnah, Gemara, commentary —
+each with one short on-page excerpt (Hebrew + translation in the data, not a Sefaria link).
+Existing teach[] strings untouched (additive). Guarded by
+test/orient-genre-literacy-teach.test.mjs. Committed via git plumbing so the live
+preview on :4190 was not disturbed. The genre-identification CHECKS (authored items with
+excerpts) follow in the full genre PR once #16 merges. Draft for educator audit.
