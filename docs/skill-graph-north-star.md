@@ -183,7 +183,7 @@ another hundred skills.
    translation layer only — they are not the learner’s “start here” id.
 
 6. **Retrieval checks on the same ids.**
-   Done (this PR). Review, decay, and welcome-back recall cite `fnd-` skills
+   Done (PR #18). Review, decay, and welcome-back recall cite `fnd-` skills
    and open `academy-session.html?skill=<fnd-id>` (Layer 0 → `hebrew-decoding.html`).
    The check is an authored item when present, else a graph-derived retrieval or
    a mapped real-source step — not a generic Daf prompt and not a vanished
