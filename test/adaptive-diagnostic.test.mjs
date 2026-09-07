@@ -56,6 +56,10 @@ test('diagnostic.js drives the stateless estimator and seeds through the placeme
   assert.match(js, /fnd-decode-[\s\S]*hebrew-decoding\.html/);
   assert.match(js, /academy-session\.html\?skill=/);
   assert.doesNotMatch(js, /foundationSkill=/);
+  // Same frontier pick as Today (lowest layer, then id) — not a second leverage ranking.
+  assert.match(js, /a\.skill\.layer - b\.skill\.layer \|\| a\.id\.localeCompare\(b\.id\)/);
+  assert.doesNotMatch(js, /b\.lev - a\.lev/);
+  assert.match(js, /recommendedSkill: start \? start\.id : null/);
   assert.match(js, /jla-choice/);
   assert.match(js, /intro\) intro\.hidden = true/);
 });

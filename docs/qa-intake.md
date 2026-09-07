@@ -3287,3 +3287,22 @@ Pre-existing reds left untouched (Claude’s map/graph drift, not this demotion)
 
 Left alone: starter-set freeze, authored item banks, canon/mastery/gemara-path
 fold files (Claude / PR #14).
+
+## 2026-09-07 — Cursor: one placement, one `fnd-` id space
+
+North-star checklist item 5. Live diagnostic already estimated the foundation
+frontier, but `jla-placement-router.js` still ranked graduation-slice ids
+(`source-family-001`, `tefillah-blessing-001`) as the “start here” handoff.
+
+- `jla-placement-router.js` now builds a capability profile on `fnd-` layers
+  and picks the same frontier start Today uses (`pickFrontierFoundationSkill`).
+  Slice ids / domain scores are translation input only.
+- `enrichPlacementWithFrontier` rewrites leftover slice scores onto `fnd-`,
+  strips slice keys, and stores `placement.recommendedSkill` as `fnd-…`.
+- `diagnostic.js` uses the same lowest-layer frontier pick as next-action
+  (no second leverage ranking). Results grid speaks emerging / secure.
+- Tests: `jla-placement-router`, `placement-foundation-handoff` (HTTP: diagnostic
+  probe, beginner next-action, slice-id rewrite), `adaptive-diagnostic`,
+  `placement-frontier`.
+
+Left alone: item banks, starter-set freeze, content-move demotion, graph growth.

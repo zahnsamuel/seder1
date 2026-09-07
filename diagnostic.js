@@ -90,12 +90,14 @@ function renderProbe(probe) {
   }
 }
 
-// The single highest-leverage frontier skill: ready now, and more later moves depend on it than on any
-// other ready-now move (picks the first skill that unlocks the most, as the retired graded placement did).
+// The same frontier pick Today uses: lowest layer, then id. Leverage still explains why the move matters,
+// but it must not invent a second start beside the next-action engine.
 function pickStart(frontier) {
-  const candidates = (frontier || []).map((id) => ({ id, skill: skillById(id), lev: leverage(id) })).filter((entry) => entry.skill);
+  const candidates = (frontier || []).map((id) => ({ id, skill: skillById(id) })).filter((entry) => entry.skill);
   if (!candidates.length) return null;
-  return candidates.sort((a, b) => b.lev - a.lev || a.skill.layer - b.skill.layer || a.id.localeCompare(b.id))[0];
+  const start = candidates.sort((a, b) => a.skill.layer - b.skill.layer || a.id.localeCompare(b.id))[0];
+  start.lev = leverage(start.id);
+  return start;
 }
 
 function finish(estimate) {
@@ -134,10 +136,10 @@ function renderResults(estimate, start) {
   $('#results-grid').innerHTML = layers.map((layer) => {
     const inLayer = (graph.skills || []).filter((skill) => skill.layer === layer.n);
     const got = inLayer.filter((skill) => known.has(skill.id)).length;
-    let status = 'Start here', tone = 'low';
+    let status = 'Emerging', tone = 'low';
     if (!inLayer.length) { status = '—'; tone = 'neutral'; }
     else if (got === inLayer.length) { status = 'Secure'; tone = 'strong'; }
-    else if (got > 0) { status = `${got}/${inLayer.length} secure`; tone = 'mid'; }
+    else if (got > 0) { status = `${got}/${inLayer.length} emerging`; tone = 'mid'; }
     return `<article class="tone-${tone}"><span>${layer.n}. ${esc(layer.title)}</span><strong>${status}</strong></article>`;
   }).join('');
   const begin = $('#results-begin');

@@ -294,7 +294,13 @@ async function recordLearnerEventUnlocked(root, id, event) {
   if (event.type === 'goal_set') learner.goal = event.goal || null;
   if (event.type === 'learning_rhythm_set' && ['daily', 'three-times-weekly', 'weekly'].includes(event.rhythm)) learner.rhythm = event.rhythm;
   if (event.type === 'placement_completed') {
-    learner.placement = { completedAt: recorded.at, scores: event.scores || {} };
+    learner.placement = {
+      completedAt: recorded.at,
+      scores: event.scores || {},
+      recommendedSkill: typeof event.recommendedSkill === 'string' && event.recommendedSkill.startsWith('fnd-')
+        ? event.recommendedSkill
+        : null
+    };
     learner.foundationScores = { ...(learner.foundationScores || {}), ...(event.foundationScores || {}) };
     learner.masteryUpdatedAt ||= {};
     Object.entries(event.scores || {}).forEach(([skillId, score]) => {
