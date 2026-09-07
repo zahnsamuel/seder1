@@ -6,10 +6,9 @@
 //
 // Pure functions, no I/O, so both the local (data/repository.mjs) and hosted
 // (data/supabase-learner-repository.mjs) learner stores can share this logic.
-// NOTE: the hosted/Supabase path does not yet persist a per-skill "last updated"
-// timestamp (see data/supabase-learner-repository.mjs), so decay is only wired
-// into the local demo-mode path for now. Adding a masteryUpdatedAt column/table
-// to the Supabase schema would let the hosted path call this too.
+// Hosted persistence is learner_state.mastery_updated_at (jsonb map, camelCased
+// back to masteryUpdatedAt on read). getHostedLearner attaches decayedMastery
+// from that map so review urgency is not demo-only.
 
 const HALF_LIFE_DAYS = 21; // a skill loses half its displayed strength after ~3 weeks of no practice
 const MIN_RETENTION = 0.12; // relearning is faster than learning from zero; never decay all the way to nothing

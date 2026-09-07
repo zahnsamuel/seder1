@@ -3337,3 +3337,13 @@ Sam: foundation See it was excerpt + immediate quiz, not a short teach. Approved
 ## 2026-09-07 — Cursor: drop “NO TYPING REQUIRED” from academy ask chrome
 
 Sam: get rid of learner-facing “no typing required.” `academy-session.html` ask eyebrow is now `YOUR ASK`. Grep of HTML/JS session chrome is clean. Pedagogy/routing unchanged.
+
+## 2026-09-07 — Cursor: hosted decay timestamps
+
+North-star checklist item 10. Local decay already used `masteryUpdatedAt`; hosted writes already sent `mastery_updated_at`, but reads never attached `decayedMastery`, placement never stamped clocks, and no test actually round-tripped the map (existing parity test only grepped source).
+
+- `getHostedLearner` now returns `decayedMastery` from `learner_state.mastery_updated_at`, same math as local (`decayedMasteryMap`). Review/today fade signals can see hosted timestamps.
+- Hosted `placement_completed` stamps `masteryUpdatedAt` per scored skill (parity with local). Scores and `recommendedSkill` are unchanged.
+- Test: `hosted-mastery-timestamps` — stateful Supabase REST mock proves write → store → read of `masteryUpdatedAt`, fresh `decayedMastery`, and `decayingSkills` on a backdated hosted row.
+
+Left alone: mastery gain numbers, next-action selector, session chrome, item banks.

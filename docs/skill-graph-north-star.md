@@ -204,8 +204,9 @@ another hundred skills.
    transfer item per starter skill before expanding.
 
 10. **Hosted decay timestamps.**
-    Local mastery decay exists; the hosted path does not persist
-    `masteryUpdatedAt`. Without it, review urgency is demo-only.
+    Done: hosted `learner_state.mastery_updated_at` round-trips as
+    `masteryUpdatedAt`. `getHostedLearner` attaches `decayedMastery` so
+    review urgency is not demo-only.
 
 Do not start a parallel graph. Do not paste a concept catalog into
 `foundation-skill-graph.json`. Do not ship another content unit as if it were a
