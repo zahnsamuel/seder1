@@ -55,11 +55,17 @@ function capabilityChrome(learner) {
 }
 
 // Progressive foundations: show one at a time, keyed to each foundation's REAL completion signal.
-// Decoding writes a localStorage flag (seder-decoding-done); the other two record server stages via
-// course-engine.js. (A uniform completedStages.has(id) check would leave decoding stuck as "next"
-// forever, since the decoding flow never records a stage — verified before wiring this.)
+// Decoding writes seder-decoding-done:<learner> (lesson ids) and seder-decoding-complete:<learner>
+// on skip or ladder finish. The other two record server stages via course-engine.js.
 const foundations = [
-  { id: 'foundation-hebrew-decoding', number: '01', title: 'Read Hebrew from scratch', copy: 'Recognize each letter and vowel, then blend them into words — no prior Hebrew assumed.', url: 'hebrew-decoding.html', done: () => { try { return Boolean(localStorage.getItem('seder-decoding-done')); } catch { return false; } } },
+  { id: 'foundation-hebrew-decoding', number: '01', title: 'Read Hebrew from scratch', copy: 'Recognize each letter and vowel, then blend them into words — no prior Hebrew assumed.', url: 'hebrew-decoding.html', done: () => {
+    try {
+      const id = (window.Seder && Seder.currentLearnerId && Seder.currentLearnerId()) || 'demo';
+      if (localStorage.getItem(`seder-decoding-complete:${id}`)) return true;
+      const done = JSON.parse(localStorage.getItem(`seder-decoding-done:${id}`) || '[]');
+      return Array.isArray(done) && done.length >= 9;
+    } catch { return false; }
+  } },
   { id: 'foundation-reading-orientation', number: '02', title: 'Find your place in a source', copy: 'Identify the primary text, its voices, the seams, and the question it is asking.', url: 'foundation-reading-orientation.html', done: (stages) => stages.has('foundation-reading-orientation') },
   { id: 'foundation-independent-reading', number: '03', title: 'Read with growing independence', copy: 'Check a translation rather than lean on it, restate a case, and defend a next move.', url: 'foundation-independent-reading.html', done: (stages) => stages.has('foundation-independent-reading') }
 ];

@@ -44,6 +44,7 @@
       font-weight: 600;
       letter-spacing: .04em;
     }
+    [data-decoding-next] .jla-quiet-link { margin-top: 0; }
     .decoding-ladder {
       margin-top: var(--jla-sp-6);
       max-width: 640px;
@@ -74,6 +75,7 @@
     .dl-body strong { display: block; font-family: var(--jla-font-display); font-weight: 600; color: var(--jla-accent-ink); font-size: 1.02rem; }
     .dl-body small { color: var(--jla-text-soft); font-size: .72rem; letter-spacing: .06em; }
     .dl-go { font: 600 12px var(--jla-font-body); color: var(--jla-accent-ink); white-space: nowrap; }
+    [data-decoding-next] [hidden] { display: none !important; }
     @media (max-width: 720px) {
       [data-decoding-next] { max-width: none; width: 100%; padding: 24px 18px; }
       .decoding-ladder { max-width: none; }
@@ -86,10 +88,12 @@
   <main class="jla-main">
     <p class="jla-eyebrow jla-na-eyebrow">DECODING</p>
     <section class="jla-next-action" data-decoding-next>
-      <h1 id="decoding-title">Learn to read Hebrew from the very beginning.</h1>
-      <p id="decoding-copy">Before you can read a source you have to decode it — recognize each letter and its sound, then each vowel, then blend them into words. Short lessons, one glyph at a time, in Modern Hebrew pronunciation.</p>
-      <a class="jla-next-action__cta" id="continue-cta" href="decoding-lesson.html">Start decoding →</a>
+      <h1 id="decoding-title">First, learn to read the Hebrew letters.</h1>
+      <p id="decoding-copy">This is today’s first step: match each letter to its sound, then vowels, then short words. One short lesson at a time. No prior Hebrew needed. Modern Israeli pronunciation.</p>
+      <a class="jla-next-action__cta" id="continue-cta" href="decoding-lesson.html?lesson=letters-1">Start this lesson →</a>
       <small class="decoding-progress" id="ladder-progress"></small>
+      <p class="jla-quiet-link" id="skip-decode-wrap"><a id="skip-decode" href="daily-router.html">I already read Hebrew →</a></p>
+      <p class="jla-quiet-link" id="decode-academy" hidden><a href="academy.html">See your path on Academy</a></p>
     </section>
     <details class="decoding-ladder">
       <summary>See the full ladder</summary>
@@ -100,6 +104,6 @@
   <script src="capability-state.js"></script>
   <script src="jla-shell.js"></script>
   <script src="decoding-drills.js?v=1"></script>
-  <script src="decoding-index.js?v=2"></script>
+  <script src="decoding-index.js?v=3"></script>
 </body>
 </html>

@@ -29,6 +29,10 @@ test('decoding lesson is one next move on the shared shell, not a dual-column sy
   assert.ok(html.indexOf('<details class="decoding-this-lesson">') < html.indexOf('id="map"'));
   assert.doesNotMatch(html, /\sopen[\s>]/);
   assert.match(html, /id="xp" hidden/);
+  assert.doesNotMatch(html, /0 XP/);
+  assert.match(html, /id="skip-decode"/);
+  assert.match(html, /I already read Hebrew/);
+  assert.match(html, /daily-router\.html/);
   assert.match(html, /hebrew-decoding\.html/);
   assert.match(html, /data-links='\[\{"label":"The ladder","href":"hebrew-decoding\.html"\}\]'/);
   assert.doesNotMatch(html, /<header>/);
@@ -38,14 +42,16 @@ test('decoding lesson is one next move on the shared shell, not a dual-column sy
   assert.doesNotMatch(html, /chatbot|ChatGPT|ask the assistant/i);
   assert.match(html, /decoding-engine\.js/);
   assert.match(html, /decoding-drills\.js/);
+  assert.match(html, /decoding-index\.js/);
   assert.match(html, /feedback\.js/);
   const authOrder = html.indexOf('seder-auth.js');
+  const indexOrder = html.indexOf('decoding-index.js');
   const shellOrder = html.indexOf('jla-shell.js');
   const engineOrder = html.indexOf('decoding-engine.js');
-  assert.ok(authOrder < shellOrder && shellOrder < engineOrder);
+  assert.ok(authOrder < shellOrder && shellOrder < indexOrder && indexOrder < engineOrder);
 });
 
-test('decoding engine keeps drill wiring and drops XP from learner-facing feedback', async () => {
+test('decoding engine keeps drill wiring, speaks capability, and hands off to Today', async () => {
   const js = await read('decoding-engine.js');
   for (const hook of ['#map', '#band', '#bar', '#count', '#glyph', '#hear', '#prompt', '#answers', '#feedback', '#continue', '#xp', '#band-title', '.lesson']) {
     assert.match(js, new RegExp(hook.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), hook);
@@ -54,6 +60,7 @@ test('decoding engine keeps drill wiring and drops XP from learner-facing feedba
   assert.match(js, /seder-decoding-done:/);
   assert.match(js, /seder-decoding-progress:/);
   assert.match(js, /seder-decoding-review:/);
+  assert.match(js, /seder-decoding-complete:/);
   assert.match(js, /fnd-decode-/);
   assert.match(js, /recordGraphMasteryIfBandComplete/);
   assert.match(js, /scheduleReview/);
@@ -62,12 +69,19 @@ test('decoding engine keeps drill wiring and drops XP from learner-facing feedba
   assert.match(js, /is-wrong/);
   assert.match(js, /classList\.add\(correct \? 'correct' : 'incorrect'\)/);
   assert.match(js, /jla-btn jla-btn-primary/);
-  assert.match(js, /xp\.textContent = `\$\{decXp\} XP`/);
+  assert.match(js, /xp\.textContent = correct \? 'Emerging'/);
+  assert.doesNotMatch(js, /\bXP\b/);
   assert.doesNotMatch(js, /\+10 XP/);
   assert.doesNotMatch(js, /\+5 XP/);
   assert.match(js, /fb\.textContent = item\.feedback/);
   assert.match(js, /class="mastery"/);
   assert.match(js, /decoding-lesson\.html\?lesson=/);
+  assert.match(js, /daily-router\.html/);
+  assert.match(js, /Continue to Today/);
+  assert.match(js, /academy\.html/);
+  assert.match(js, /You can decode Hebrew/);
+  assert.match(js, /HEBREW DECODING IS SECURE/);
+  assert.doesNotMatch(js, /foundation-reading-orientation\.html/);
 });
 
 test('glyph card is a reusable jla-system primitive', async () => {
@@ -76,4 +90,5 @@ test('glyph card is a reusable jla-system primitive', async () => {
   assert.match(css, /\.jla-glyph\s*\{/);
   assert.match(css, /Noto Sans Hebrew/);
   assert.match(css, /\.jla-hear\s*\{/);
+  assert.match(css, /\.jla-quiet-link\s*\{/);
 });

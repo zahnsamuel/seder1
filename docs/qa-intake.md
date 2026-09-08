@@ -3388,3 +3388,29 @@ removed halakhah / aggadah / sugya / Shulchan Aruch / commentary from all stems 
 terms now appear only in the teach and in post-answer feedback. Extended
 test/starter-context-resp-items.test.mjs to require the teach exists and defines the terms, and to
 assert no ask for these skills uses an unexplained term. No academy-session.* change.
+
+## 2026-09-08 -- Cursor: Layer 0 Hebrew decoding UX for the friend/demo path
+
+Presentation + local handoff only. Did not author L0 banks in `foundation-authored-items.json`.
+Did not touch Today / frontier pickers (`data/next-action.mjs`, PR #30). Drill items in
+`decoding-drills.js` untouched.
+
+Cold visitor from Today used to land on a generic "from the very beginning" hero with
+**Start decoding**, no skip, and a finished ladder that still said continue (or jumped
+straight to `foundation-reading-orientation.html`). XP still wrote to the hidden hook.
+
+After:
+
+- Index (`hebrew-decoding.html` / `decoding-index.js`): one next-step hero -- "First, learn
+  to read the Hebrew letters." / **Start this lesson**. Quiet **I already read Hebrew**
+  skip (not a second CTA). Finished or skipped ladder: capability copy ("You can decode
+  Hebrew." / "Hebrew decoding is secure.") and **Continue to Today**, with a quiet Academy
+  path link. Skip writes `seder-decoding-complete:<learner>` and posts the four `fnd-decode-*`
+  skills so Today can advance.
+- Lesson (`decoding-lesson.html` / `decoding-engine.js`): same quiet skip; lesson-complete
+  primary is still **Next lesson** with quiet **Back to Today**; ladder-complete primary is
+  **Continue to Today** (not orientation). Hidden `#xp` speaks "Emerging", never XP.
+- Academy progress reference now reads the learner-suffixed decoding keys, so foundation 01
+  can actually clear after skip/finish.
+
+Tests: `test/decoding-index.test.mjs`, `test/decoding-lesson.test.mjs`, `test/academy.test.mjs`.
