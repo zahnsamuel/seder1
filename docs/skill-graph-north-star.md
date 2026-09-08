@@ -203,7 +203,9 @@ another hundred skills.
 9. **Educator pass on the starter edges, then item banks.**
    Rationales are 0/76; named misconceptions 0/55; authored transfer items 0/55.
    Software cannot invent those. Stage the audit workbench; write ≥1 real
-   transfer item per starter skill before expanding.
+   transfer item per starter skill before expanding. The authoring contract is
+   staged (schema + 2 EXAMPLE items, not counted):
+   [`docs/foundation-transfer-items.md`](foundation-transfer-items.md).
 
 10. **Hosted decay timestamps.**
     Done: hosted `learner_state.mastery_updated_at` round-trips as

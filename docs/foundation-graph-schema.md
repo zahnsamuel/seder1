@@ -90,6 +90,13 @@ discrimination null until calibrated
 **Requirements:** an **item bank of ≥3 items** per foundational skill (step 10), and **every
 graduation-critical skill has ≥1 `transfer` item drawing from an unfamiliar family** (step 9).
 
+**Transfer-item authoring schema (staged, not coverage):** educators write transfer
+items against [`data/foundation-transfer-items.schema.json`](../data/foundation-transfer-items.schema.json).
+Two labeled EXAMPLE entries live in [`data/foundation-transfer-items.examples.json`](../data/foundation-transfer-items.examples.json)
+(`loadIntoAcademy: false`). They illustrate the shape; they do **not** count toward
+step 9 and must not be folded into `foundation-authored-items.json`. How to add real
+items: [`docs/foundation-transfer-items.md`](foundation-transfer-items.md).
+
 **Built (layer materialized, banks not yet):** `data/foundation-assessment-items.json`
 (`npm run graph:items`, `scripts/build-assessment-items.mjs`) promotes the 18 authored academy items
 that Migration 001 links into **first-class assessment-item nodes attached to their `fnd-*` graph

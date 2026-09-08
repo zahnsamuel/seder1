@@ -102,7 +102,8 @@ The freeze is the *list + rationale*. It deliberately does **not** touch the liv
 
 1. **Educator edge-audit** of the 29 starter skills' prerequisites (rationales are 0/76).
 2. **≥1 authored transfer item per starter skill** (item banks are 0/55) — start here, not
-   with new skills.
+   with new skills. Schema + 2 labeled EXAMPLE entries (not coverage, not loaded):
+   [`docs/foundation-transfer-items.md`](foundation-transfer-items.md).
 3. **Retrieval checks** citing these `fnd-` ids.
 4. **Frontier router** scoped to the starter set (consumes
    `data/foundation-starter-set.json`), so Today teaches/reviews/repairs inside the slice.

@@ -3388,3 +3388,11 @@ removed halakhah / aggadah / sugya / Shulchan Aruch / commentary from all stems 
 terms now appear only in the teach and in post-answer feedback. Extended
 test/starter-context-resp-items.test.mjs to require the teach exists and defines the terms, and to
 assert no ask for these skills uses an unexplained term. No academy-session.* change.
+
+## 2026-09-08 -- Cursor: transfer-item schema + 2 EXAMPLE entries (north-star #9 partial)
+
+Stages the authoring contract for ">=1 real transfer item per starter skill" without filling the bank or touching Claude's production recognition items.
+
+- New: `data/foundation-transfer-items.schema.json` (JSON Schema), `data/foundation-transfer-items.examples.json` (exactly two items, `status: examples-only`, `loadIntoAcademy: false`, every stem/label marked EXAMPLE), `data/foundation-transfer-items.mjs` (shared validator), `docs/foundation-transfer-items.md` (how educators add `draft`/`ready` items later).
+- Examples (Sefaria-checked, not coverage): `fnd-orient-source-type` on Shulchan Aruch, Orach Chaim 1:1 (halakhic -- bank is tanakh/rabbinic); `fnd-arg-claim` on Psalms 23:1 (tanakh -- bank is thought/rabbinic). Same stem/choices/correct/feedback shape as `foundation-authored-items.json`, plus `sourceFamily`, `practicedFamilies`, `whyTransfer`, `sefariaUrl`.
+- Did not edit `data/foundation-authored-items.json`, academy-session, Today, next-action, or `graph:quality` counts (transfer items remain 0/55). Tests: `test/foundation-transfer-items.test.mjs`. Pointers from north-star #9, starter-set "what this unblocks", and foundation-graph-schema section 2.3.
