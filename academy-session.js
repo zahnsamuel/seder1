@@ -137,12 +137,31 @@ function startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, 
     });
   }
 
-  function finish() {
+  async function finish() {
     $('#step').hidden = true;
     document.querySelector('#kp-steps').hidden = true;
     stepEls.forEach((el) => { el.classList.add('done', 'is-done'); el.classList.remove('current', 'is-current', 'is-upcoming'); });
-    $('#complete-title').textContent = `You practised “${skill.title}” across the canon.`;
-    $('#complete-copy').textContent = 'You saw the skill on a source, tried it, and carried it into a new source. Your map has moved.';
+    try { sessionStorage.setItem('jla-last-foundation-skill', skillId); } catch { /* private mode */ }
+    let stateKey = 'emerging';
+    try {
+      const response = await Seder.api(`/api/learners/${learnerId}`);
+      const learner = response.ok ? await response.json() : null;
+      if (typeof Seder.skillCapabilityState === 'function') stateKey = Seder.skillCapabilityState(learner, skillId);
+    } catch { /* keep emerging */ }
+    const state = (Seder.capabilityStates && Seder.capabilityStates[stateKey]) || { label: 'Emerging', blurb: 'can make this with support' };
+    const chip = $('#complete-chip');
+    if (chip) {
+      chip.hidden = false;
+      chip.className = `jla-chip is-${stateKey}`;
+      chip.textContent = state.label;
+    }
+    if ($('#complete-eyebrow')) $('#complete-eyebrow').textContent = 'THIS CAPABILITY';
+    $('#complete-title').textContent = skill.title;
+    $('#complete-copy').textContent = `${state.label}: ${state.blurb}.`;
+    const next = $('#complete-next');
+    if (next) { next.href = 'daily-router.html'; next.textContent = 'Continue on Today →'; }
+    const academy = $('#complete-academy');
+    if (academy) academy.href = `academy.html?skill=${encodeURIComponent(skillId)}`;
     $('#complete').hidden = false;
     $('#complete').scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
@@ -203,6 +222,7 @@ async function chooseJla(button, session) {
     button.classList.add(result.correct ? 'is-correct' : 'is-wrong');
     $('#feedback').className = `jla-feedback ${result.correct ? 'is-correct' : 'is-wrong'}`;
     $('#feedback').textContent = result.feedback || (result.correct ? 'Good. That reading fits this source window.' : 'Not quite — look back at the source and try the next window.');
+    try { sessionStorage.setItem('jla-last-foundation-skill', session.skillId || skillId); } catch { /* private mode */ }
   } catch { $('#feedback').textContent = 'Your result is ready locally; it will sync when your account is available.'; }
 }
 

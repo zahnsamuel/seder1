@@ -61,3 +61,21 @@ test('ninety-day academy gives beginners a single sequenced, evidence-led entry 
   assert.doesNotMatch(source, /MASTERY MARKERS/);
   assert.doesNotMatch(source, /reading level/);
 });
+
+test('post-session Academy shows one emerging/secure capability and Today, not a syllabus', async () => {
+  const [html, source] = await Promise.all(['academy.html', 'academy.js'].map((file) => readFile(file, 'utf8')));
+  assert.match(html, /id="foundationEyebrow"/);
+  assert.match(html, /id="foundationHeading"/);
+  assert.match(html, /id="foundationLead"/);
+  assert.match(source, /renderCapabilityHandoff/);
+  assert.match(source, /pendingFoundationSkill/);
+  assert.match(source, /skillCapabilityState/);
+  assert.match(source, /jla-last-foundation-skill/);
+  assert.match(source, /THIS CAPABILITY/);
+  assert.match(source, /Continue on Today/);
+  assert.match(source, /jla-chip is-\$\{stateKey\}/);
+  assert.match(source, /See all foundations|foundationAll/);
+  assert.doesNotMatch(source, /starterSet/);
+  assert.doesNotMatch(source, /foundation-starter-set/);
+  assert.doesNotMatch(source, /0 XP/);
+});

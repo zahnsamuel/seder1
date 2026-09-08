@@ -57,4 +57,20 @@
     const base = `You can make ${onOwn} reading move${onOwn === 1 ? '' : 's'} on your own`;
     return unfamiliar ? `${base}, ${unfamiliar} in an unfamiliar source.` : `${base}.`;
   };
+
+  // Score used by Today / the frontier picker to treat a foundation skill as secured.
+  Seder.SECURE_SCORE = 0.67;
+
+  Seder.skillScore = (learner, skillId) => Math.max(
+    Number(learner?.foundationScores?.[skillId]) || 0,
+    Number(learner?.mastery?.[skillId]) || 0
+  );
+
+  // One skill's learner-facing state. Prefer recorded capability evidence; otherwise map the
+  // foundation/mastery score onto emerging vs secure so Academy can speak after a starter session.
+  Seder.skillCapabilityState = (learner, skillId) => {
+    const evidence = (learner?.capabilityEvidence || []).find((item) => item.skillId === skillId);
+    if (evidence?.status) return Seder.capabilityStateFor(evidence.status);
+    return Seder.skillScore(learner, skillId) >= Seder.SECURE_SCORE ? 'secure' : 'emerging';
+  };
 })();

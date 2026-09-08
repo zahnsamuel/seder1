@@ -3388,3 +3388,23 @@ removed halakhah / aggadah / sugya / Shulchan Aruch / commentary from all stems 
 terms now appear only in the teach and in post-answer feedback. Extended
 test/starter-context-resp-items.test.mjs to require the teach exists and defines the terms, and to
 assert no ask for these skills uses an unexplained term. No academy-session.* change.
+
+## 2026-09-08 ? Cursor: Academy post-session evidence handoff (emerging/secure ? Today)
+
+After a starter skill session, Academy was still a 90-day / three-unit checklist, and the
+session complete screen said ?practised across the canon? with **Back to your path**. Complementary
+to merged #25 (capability language on academy references) and open #34 (XP leftovers on
+academy-evidence and other path surfaces). Did not touch academy-evidence.*, item banks,
+or knowledgeFrontier / starter-set routing (#30).
+
+- `capability-state.js`: `skillScore` / `skillCapabilityState` map one `fnd-` skill to
+  emerging / secure / transferable from evidence or the 0.67 secure score.
+- `academy-session` complete: **THIS CAPABILITY** + Emerging/Secure chip, primary
+  **Continue on Today ?**, quiet **See this on Academy** (`academy.html?skill=`).
+  Stores `jla-last-foundation-skill` so Academy can show the same skill once.
+- `academy.html` / `academy.js`: when `?skill=` or that session flag is present, the hero
+  is that one capability (not Day N of 90) and the foundation slot is a chip, not Begin
+  on the next unit. ?See all foundations? still holds the original three units ? not the
+  29-skill starter set.
+- Tests: `capability-state`, `academy`, `academy-session`. Left `foundation-authored-items.json`
+  alone.

@@ -40,3 +40,18 @@ test('progress chrome helpers speak capability states, not scores', () => {
   assert.match(Seder.capabilitySentence(counts), /3 reading moves on your own/);
   assert.match(Seder.capabilitySentence(counts), /1 in an unfamiliar source/);
 });
+
+test('a single skill maps to emerging or secure from evidence or score, not XP', () => {
+  assert.equal(Seder.SECURE_SCORE, 0.67);
+  assert.equal(Seder.skillScore({}, 'fnd-orient-source-type'), 0);
+  assert.equal(Seder.skillCapabilityState({}, 'fnd-orient-source-type'), 'emerging');
+  assert.equal(Seder.skillCapabilityState({ mastery: { 'fnd-orient-source-type': 0.34 } }, 'fnd-orient-source-type'), 'emerging');
+  assert.equal(Seder.skillCapabilityState({ foundationScores: { 'fnd-orient-source-type': 0.8 } }, 'fnd-orient-source-type'), 'secure');
+  assert.equal(Seder.skillCapabilityState({
+    mastery: { 'fnd-orient-source-type': 0.2 },
+    capabilityEvidence: [{ skillId: 'fnd-orient-source-type', status: 'earned' }]
+  }, 'fnd-orient-source-type'), 'secure');
+  assert.equal(Seder.skillCapabilityState({
+    capabilityEvidence: [{ skillId: 'fnd-orient-source-type', status: 'transfer-ready' }]
+  }, 'fnd-orient-source-type'), 'transferable');
+});

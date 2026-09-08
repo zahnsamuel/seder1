@@ -14,6 +14,8 @@
 .context-link a:hover,.quiet-link a:hover{color:var(--jla-accent-ink,#173b57);border-bottom-color:currentColor}
 .today-steps{margin-top:16px}
 .capability-line{color:var(--muted);font-size:.88rem;line-height:1.55;margin:8px 0 0}
+.phase.evidence-handoff{grid-template-columns:auto 1fr;border-left:4px solid var(--jla-green,#24614c)}
+.phase.evidence-handoff .jla-chip{justify-self:start;white-space:nowrap}
 
 /* Demoted 90-day day-flow: a quiet disclosure so it does not compete with the one Today. */
 .academy-direct { margin-top: 16px; }
