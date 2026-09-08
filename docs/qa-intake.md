@@ -3363,3 +3363,17 @@ Rashi on Genesis 1:1) plus two discrimination items (Mishnah vs Gemara; Torah ve
 commentary). Feeds See-it → ask. Balanced distractors (no length-bias), teaching feedback.
 Guarded by test/orient-genre-checks.test.mjs. Excerpt rides in the item stem, so no
 academy-session.* changes. Draft for educator audit.
+
+## 2026-09-07 — Claude: starter-set checks for context (L7) and responsibility (L8)
+
+Single-concern, off main f861d47. Completes the frozen starter set's authored checks (bar L0 decode,
+held): authored 3 items each for the two remaining bankless starter skills —
+fnd-context-genre-expectations (L7, "let the genre set your expectations") and
+fnd-resp-learning-vs-ruling (L8, "tell learning apart from a ruling"). Bank coverage 23 → 25 of 55.
+
+Context items test matching the reading stance to the genre (psalm/poetry vs legal code; aggadah vs
+halakhah), grounded in the skill's own source contexts. Responsibility items reinforce the
+study-aid-not-pesak boundary (docs/ui-principles.md): studying views/disputes yields understanding,
+not a personal ruling — name the limit and ask a competent authority. Balanced distractors (no
+length-bias), teaching feedback, no "make the move" jargon. Guarded by
+test/starter-context-resp-items.test.mjs. No academy-session.* changes. Draft for educator audit.

@@ -912,7 +912,83 @@
         "correct": 0,
         "feedback": "First ask if it resolves; if it doesn't, naming the standing tension is the move."
       }
+    ],
+    "fnd-context-genre-expectations": [
+      {
+        "sourceRef": "Psalm 23",
+        "stem": "You are reading a psalm that pours out trust in God through images of a shepherd and still waters. What is fair to ask of this text, and what is not?",
+        "choices": [
+          "Ask it for resonance and imagery, not for a precise legal ruling.",
+          "Ask it for a precise legal ruling on how to pray.",
+          "Ask it to settle a dispute between two named sages.",
+          "Ask it for the exact clock times of daily prayer."
+        ],
+        "correct": 0,
+        "feedback": "A psalm is poetry: it offers resonance and imagery. Demanding a precise legal ruling from it mistakes what the genre can deliver."
+      },
+      {
+        "sourceRef": "Aggadah vs. halakhah in one sugya",
+        "stem": "In one sugya, a legal ruling sits right next to an aggadic story about a sage's life. How should your expectations differ between the two?",
+        "choices": [
+          "Read halakhah for precise practice; read aggadah for meaning, not law.",
+          "Read both of them as equally binding legal rulings to follow.",
+          "Read both only as stories, with no legal weight at all.",
+          "Ignore the aggadah entirely, since only halakhah counts here."
+        ],
+        "correct": 0,
+        "feedback": "Halakhah invites precision about practice; aggadah invites meaning and character. Matching your stance to each is the genre move."
+      },
+      {
+        "sourceRef": "Psalm vs. legal code",
+        "stem": "A legal code states, in plain terms, exactly what to do in a situation. What does this genre invite — and not invite?",
+        "choices": [
+          "Precision about the rule, not a poem's open-ended resonance.",
+          "Emotional resonance far above precise practical detail.",
+          "A single correct feeling the reader is meant to have.",
+          "A narrative about how the law was first given at Sinai."
+        ],
+        "correct": 0,
+        "feedback": "A code invites precision; a poem invites resonance. Reading a code like a poem — or a poem like a code — misreads the genre."
+      }
+    ],
+    "fnd-resp-learning-vs-ruling": [
+      {
+        "sourceRef": "A sugya with multiple undecided views",
+        "stem": "You study a sugya that lays out several views and does not decide between them. What have you gained, and what have you not gained?",
+        "choices": [
+          "You learned the range of views, not a ruling for your own practice.",
+          "You received a binding ruling that you must follow right away.",
+          "You learned nothing at all until a rabbi rules on it.",
+          "You must simply follow whichever view happens to appear first."
+        ],
+        "correct": 0,
+        "feedback": "Studying the views teaches you what the source says; it does not by itself tell you what to do. That second step needs more than reading."
+      },
+      {
+        "sourceRef": "Shulchan Aruch with disputing commentaries",
+        "stem": "You read a passage in the Shulchan Aruch where later commentaries dispute how to apply it. Studying this, what is the responsible thing to say about your own practice?",
+        "choices": [
+          "I understand the dispute; deciding my practice needs a competent authority.",
+          "I can now confidently rule for myself and for other people.",
+          "The first commentary I happened to read is binding on me.",
+          "Because the sources dispute, none of it applies to anyone."
+        ],
+        "correct": 0,
+        "feedback": "Learning a dispute is not the same as being ruled for. Naming the limit — 'I have learned, but not been told what to do' — is the responsible move."
+      },
+      {
+        "sourceRef": "A sugya with multiple undecided views",
+        "stem": "What is the honest way to state where you stand after studying a halakhic source on your own?",
+        "choices": [
+          "\"I have learned what the source says, not yet what to do.\"",
+          "\"I have been given a ruling I must act on right now.\"",
+          "\"I have learned nothing here that is worth knowing.\"",
+          "\"My own reading overrides what any authority says.\""
+        ],
+        "correct": 0,
+        "feedback": "The responsible boundary: study yields understanding, not a personal ruling. Say what you have learned and what you have not yet been told to do."
+      }
     ]
   },
-  "updatedAt": "2026-09-07T23:15:56.770Z"
+  "updatedAt": "2026-09-08T03:10:46.067Z"
 }
