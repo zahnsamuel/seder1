@@ -3349,3 +3349,17 @@ Sam: sessions still felt link-heavy vs teach. “Open full text in Sefaria ?” was 
 - Left alone: routing, item banks, Today, `foundation-teach.json`, Claude teach JSON.
 
 Browser (`:4180`, `?skill=fnd-orient-source-type`, hard refresh v=6): first paint is Genesis 1:1 excerpt + WHAT TO NOTICE + navy **Got it — ask me**; Sefaria is muted footer **Full text (optional)** (href `sefaria.org/Genesis.1.1`, `target=_blank`). After Got it, YOUR ASK + four choices; footer stays quiet. Try it (Mishnah Berakhot 1:1) shows the ask immediately with the same quiet footer. 390px: teach + full-width Got it, footer still small/muted. Old “Open full text in Sefaria” copy gone. Console: expected 404 on `/api/jla/academy-session/fnd-orient-source-type` and favicon. Suite `node --test "test/*.test.mjs"` 610/610.
+
+## 2026-09-07 â€” Claude: genre-literacy checks for fnd-orient-source-type
+
+Single-concern, off main f7cac3a (post #16/#22). The CHECKS half of genre literacy, pairing
+with the teach `genres` block merged in #22.
+
+Replaced fnd-orient-source-type's generic bank in data/foundation-authored-items.json with 6
+genre-identification checks: each shows a short on-page excerpt (Hebrew + translation in the
+stem, not a Sefaria link) then asks MC "what kind of text is this?" â€” Torah verse / Mishnah /
+Gemara / commentary. Four per-genre items (Deuteronomy 6:4, Mishnah Berakhot 1:1, Berakhot 2a,
+Rashi on Genesis 1:1) plus two discrimination items (Mishnah vs Gemara; Torah verse vs
+commentary). Feeds See-it â†’ ask. Balanced distractors (no length-bias), teaching feedback.
+Guarded by test/orient-genre-checks.test.mjs. Excerpt rides in the item stem, so no
+academy-session.* changes. Draft for educator audit.

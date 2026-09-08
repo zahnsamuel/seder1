@@ -5,40 +5,76 @@
   "items": {
     "fnd-orient-source-type": [
       {
-        "sourceRef": "Genesis 1:1",
-        "stem": "You open to a line that narrates what happened at the beginning of creation, with no rule and no back-and-forth argument. What kind of text are you most likely looking at?",
+        "sourceRef": "Deuteronomy 6:4",
+        "stem": "Read this line, then say what kind of text it is:\n\nשְׁמַע יִשְׂרָאֵל יְהוָה אֱלֹהֵינוּ יְהוָה אֶחָד\n\"Hear, O Israel: the LORD is our God, the LORD is one.\" (Deuteronomy 6:4)\n\nWhat kind of text is this?",
         "choices": [
-          "A verse of Torah, read for its narrative and language before any later discussion.",
-          "A Mishnah, stating a compact rule about a required practice or its timing.",
-          "A Gemara sugya, pressing a claim with a question and an answer.",
-          "A prayer, addressing God in praise, petition, or thanks."
+          "A verse of the Torah",
+          "A passage of Mishnah",
+          "A passage of Gemara",
+          "A line of commentary"
         ],
         "correct": 0,
-        "feedback": "A narrative line with no rule and no argument is Torah read as a verse; the genre tells you to attend to story and wording first."
+        "feedback": "It is a verse of the Torah — Scripture in its own voice, stated directly, with no sage's name and no question-and-answer around it."
       },
       {
         "sourceRef": "Mishnah Berakhot 1:1",
-        "stem": "A line states from what hour the evening Shema may be recited, as a settled rule, with no one raising an objection. Which genre fits this shape best?",
+        "stem": "Read this line, then say what kind of text it is:\n\nמֵאֵימָתַי קוֹרִין אֶת שְׁמַע בְּעַרְבִין\n\"From when may one recite the Shema in the evening?\" (Mishnah Berakhot 1:1)\n\nWhat kind of text is this?",
         "choices": [
-          "A Mishnah, giving a compact statement of the practice.",
-          "A Gemara sugya, arguing back and forth about a claim.",
-          "A Torah verse telling a story about people.",
-          "A commentary explaining a word in the margin."
+          "A passage of Mishnah",
+          "A verse of the Torah",
+          "A passage of Gemara",
+          "A line of commentary"
         ],
         "correct": 0,
-        "feedback": "A short, ruling-shaped statement with no dialectic is the Mishnah's characteristic form; the argument about it comes afterward in the Gemara."
+        "feedback": "It is Mishnah — a compact rule or question about practice, in tight Hebrew, that sages then dispute; not Scripture and not the Aramaic discussion that follows it."
       },
       {
         "sourceRef": "Berakhot 2a",
-        "stem": "A line quotes a short rule and then immediately asks what its source is and presses on it. What kind of text does that asking-and-pressing shape signal?",
+        "stem": "Read this line, then say what kind of text it is:\n\nתַּנָּא הֵיכָא קָאֵי דְּקָתָנֵי מֵאֵימָתַי\n\"Where does the Tanna stand [what is he discussing], that he teaches 'from when'?\" (Berakhot 2a)\n\nWhat kind of text is this?",
         "choices": [
-          "A Gemara sugya, which tests a stated rule through question and response.",
-          "A Mishnah, which states the rule plainly without ever testing it.",
-          "A Torah verse, quoted here only for its narrative setting.",
-          "A prayer, whose words address God rather than argue a point."
+          "A passage of Gemara",
+          "A passage of Mishnah",
+          "A verse of the Torah",
+          "A line of commentary"
         ],
         "correct": 0,
-        "feedback": "The move from a stated rule to a question about it and pressure on it is the Gemara's signature; the Mishnah states, the Gemara interrogates."
+        "feedback": "It is Gemara — it questions and analyzes the Mishnah, here in Aramaic (דְּקָתָנֵי, 'that he teaches'), rather than simply stating a rule."
+      },
+      {
+        "sourceRef": "Rashi on Genesis 1:1",
+        "stem": "Read this line, then say what kind of text it is:\n\nבְּרֵאשִׁית — אֵין הַמִּקְרָא הַזֶּה אוֹמֵר אֶלָּא דָּרְשֵׁנִי\n\"'In the beginning' — this verse says nothing other than 'interpret me.'\" (Rashi on Genesis 1:1)\n\nWhat kind of text is this?",
+        "choices": [
+          "A line of commentary",
+          "A verse of the Torah",
+          "A passage of Mishnah",
+          "A passage of Gemara"
+        ],
+        "correct": 0,
+        "feedback": "It is commentary — it quotes a word from the base text (בְּרֵאשִׁית) and then explains it. That quoted-word-then-explanation shape is the tell of Rashi and other commentaries."
+      },
+      {
+        "sourceRef": "Berakhot 2a",
+        "stem": "Two lines come from the same page:\n\n(1) מֵאֵימָתַי קוֹרִין אֶת שְׁמַע בְּעַרְבִין — \"From when may one recite the Shema in the evening?\"\n(2) תַּנָּא הֵיכָא קָאֵי דְּקָתָנֵי מֵאֵימָתַי — \"Where does the Tanna stand, that he teaches 'from when'?\"\n\nWhich line is the Gemara?",
+        "choices": [
+          "Line 2 — it opens a question about line 1",
+          "Line 1 — it states the opening rule of the page",
+          "Both lines are Gemara discussion here",
+          "Neither line is Gemara; both are Torah"
+        ],
+        "correct": 0,
+        "feedback": "Line 1 is the Mishnah (it states the opening rule); line 2 is the Gemara, which opens a question about it. The Mishnah states; the Gemara probes."
+      },
+      {
+        "sourceRef": "Rashi on Genesis 1:1",
+        "stem": "Both lines mention the same opening words:\n\n(1) בְּרֵאשִׁית בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ — \"In the beginning God created the heavens and the earth.\"\n(2) בְּרֵאשִׁית — אֵין הַמִּקְרָא הַזֶּה אוֹמֵר אֶלָּא דָּרְשֵׁנִי — \"'In the beginning' — this verse says nothing other than 'interpret me.'\"\n\nWhich line is the commentary?",
+        "choices": [
+          "Line 2 — it quotes a word, then explains it",
+          "Line 1 — it is the verse being explained here",
+          "Both lines are lines of commentary",
+          "Both lines are the plain Torah verse"
+        ],
+        "correct": 0,
+        "feedback": "Line 1 is the Torah verse itself. Line 2 is commentary — it lifts a word from the verse and comments on it (the quoted-word-then-explanation shape)."
       }
     ],
     "fnd-orient-page-geography": [
@@ -878,5 +914,5 @@
       }
     ]
   },
-  "updatedAt": "2026-09-07T17:13:49.586Z"
+  "updatedAt": "2026-09-07T23:15:56.770Z"
 }
