@@ -3,6 +3,8 @@ import {
   STEP_CHROME,
   buildScaffoldSteps,
   frameJlaSession,
+  isRetrievalMode,
+  normalizeSessionMode,
   practiceLine,
   whyLine
 } from './academy-session-lesson.mjs';
@@ -10,6 +12,8 @@ import {
 const learnerId = Seder.currentLearnerId();
 const params = new URLSearchParams(location.search);
 const skillId = params.get('skill') || 'fnd-orient-source-type';
+const sessionMode = normalizeSessionMode(params.get('mode'));
+const chromeFor = (kind) => STEP_CHROME[kind] || STEP_CHROME.introduce;
 const $ = (selector) => document.querySelector(selector);
 const escapeHtml = (value) => String(value || '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 
@@ -57,16 +61,30 @@ function showAsk(visible) {
   if (panel) panel.hidden = !visible;
 }
 
-function startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, teachBank) {
+function startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, teachBank, mode = 'introduce') {
   $('#title').textContent = skill.title;
   $('#statement').textContent = practiceLine(skill.statement);
   $('#why').textContent = whyLine(skill, graph);
 
-  const steps = buildScaffoldSteps({ skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, teachBank });
+  const steps = buildScaffoldSteps({ skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, teachBank, mode });
+  const retrieval = isRetrievalMode(mode) && steps.length === 1;
+  const eyebrow = document.querySelector('.jla-main > .jla-eyebrow');
+  if (eyebrow && retrieval) {
+    eyebrow.textContent = mode === 'welcome-back'
+      ? 'WELCOME BACK · ONE SHORT CHECK'
+      : 'RETRIEVE · ONE SKILL · ONE SOURCE';
+  }
   let i = 0;
   let awaitingAsk = false;
   const stepEls = [...document.querySelectorAll('#kp-steps li')];
   const advance = $('#advance');
+  if (retrieval) {
+    stepEls.forEach((el, n) => { if (n > 0) el.hidden = true; });
+    const label = stepEls[0]?.querySelector('span');
+    const small = stepEls[0]?.querySelector('small');
+    if (label) label.textContent = mode === 'welcome-back' ? 'Welcome back' : 'Retrieve';
+    if (small) small.textContent = 'see it';
+  }
 
   const goNext = () => { if (i < steps.length - 1) { i += 1; renderStep(); } else finish(); };
 
@@ -82,7 +100,7 @@ function startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, 
   function revealAsk() {
     showAsk(true);
     advance.disabled = true;
-    advance.textContent = STEP_CHROME[steps[i].kind].next;
+    advance.textContent = chromeFor(steps[i].kind).next;
     $('#check-title').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
@@ -96,7 +114,8 @@ function startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, 
       el.classList.toggle('is-current', n === i);
       el.classList.toggle('is-upcoming', n > i);
     });
-    $('#step-label').textContent = STEP_CHROME[step.kind].label;
+    const chrome = chromeFor(step.kind);
+    $('#step-label').textContent = chrome.label;
     fillSourceCard(step.sourceWindow);
     fillTeach(step);
     const guidance = $('#teaching-move');
@@ -110,12 +129,12 @@ function startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, 
       awaitingAsk = true;
       showAsk(false);
       advance.disabled = false;
-      advance.textContent = STEP_CHROME.introduce.continueTeach;
+      advance.textContent = chrome.continueTeach;
     } else {
       awaitingAsk = false;
       showAsk(true);
       advance.disabled = true;
-      advance.textContent = STEP_CHROME[step.kind].next;
+      advance.textContent = chrome.next;
     }
 
     let answered = false;
@@ -141,8 +160,13 @@ function startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, 
     $('#step').hidden = true;
     document.querySelector('#kp-steps').hidden = true;
     stepEls.forEach((el) => { el.classList.add('done', 'is-done'); el.classList.remove('current', 'is-current', 'is-upcoming'); });
-    $('#complete-title').textContent = `You practised “${skill.title}” across the canon.`;
-    $('#complete-copy').textContent = 'You saw the skill on a source, tried it, and carried it into a new source. Your map has moved.';
+    if (retrieval) {
+      $('#complete-title').textContent = `You brought “${skill.title}” back into reach.`;
+      $('#complete-copy').textContent = 'You saw the skill on a source, then answered. Your map has moved.';
+    } else {
+      $('#complete-title').textContent = `You practised “${skill.title}” across the canon.`;
+      $('#complete-copy').textContent = 'You saw the skill on a source, tried it, and carried it into a new source. Your map has moved.';
+    }
     $('#complete').hidden = false;
     $('#complete').scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
@@ -221,7 +245,7 @@ Promise.all([
   } else {
     const skill = graph?.skills.find((item) => item.id === skillId) || { ...FALLBACK_SKILL, id: skillId };
     const authoredBank = authoredFile?.items?.[skillId] || [];
-    startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, teachBank);
+    startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, teachBank, sessionMode);
   }
   renderRealContent(map);
 });

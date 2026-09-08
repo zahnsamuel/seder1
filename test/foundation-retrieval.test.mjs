@@ -62,7 +62,8 @@ test('review and welcome-back recommendations cite fnd- and a live session href'
   const review = foundationRetrievalRecommendation({ mastery: {} }, graph, map, { dueIds: ['berakhot-orientation'] });
   assert.equal(review.kind, 'review');
   assert.equal(review.skillId, 'fnd-orient-source-type');
-  assert.equal(review.url, foundationSessionHref('fnd-orient-source-type'));
+  assert.equal(review.url, foundationSessionHref('fnd-orient-source-type', 'review'));
+  assert.match(review.url, /mode=review/);
   assert.ok(isLiveHref(review.url));
   assert.doesNotMatch(review.url, /review\.html|daily-recall\.html/);
   assert.ok(review.practice);
@@ -76,6 +77,7 @@ test('review and welcome-back recommendations cite fnd- and a live session href'
   assert.equal(recovery.skillId, 'fnd-orient-source-type');
   assert.match(recovery.title, /Welcome back/);
   assert.ok(isLiveHref(recovery.url));
+  assert.match(recovery.url, /mode=welcome-back/);
   const action = normalizeNextAction({
     type: 'recovery',
     title: 'Welcome back with one small step',
@@ -106,6 +108,8 @@ test('sourceReviewItems resolves a real item for a fnd- skill and a mapped conte
   assert.notEqual(authoredItem.prompt, DAF_PROMPT);
   assert.ok(authoredItem.answers?.length >= 3);
   assert.ok(Number.isInteger(authoredItem.correct));
+  assert.ok(authoredItem.hebrew || authoredItem.translation, 'authored retrieval should carry an on-page excerpt when one exists');
+  assert.ok(authoredItem.teach, 'authored retrieval should carry See-it teach when one exists');
 
   const mappedItem = mapped.find((item) => item.trueSkillId === 'fnd-orient-source-type');
   assert.ok(mappedItem, 'a content-step id must resolve to the fnd- item, not a generic Daf card');
@@ -128,7 +132,7 @@ test('welcome-back beats foundation teach and still cites one fnd- next move', (
   assert.equal(action.type, 'recovery');
   assert.match(action.skillId, /^fnd-/);
   assert.ok(isLiveHref(action.href));
-  assert.equal(action.href, foundationSessionHref(action.skillId));
+  assert.equal(action.href, foundationSessionHref(action.skillId, 'welcome-back'));
 });
 
 function freePort() {
@@ -186,7 +190,7 @@ test('HTTP review next-action cites a fnd- skill and a live item href, not a gen
   const action = await (await fetch(`${base}/api/learners/${learner.id}/next-action`, { headers: auth(learner) })).json();
   assert.equal(action.type, 'review');
   assert.equal(action.skillId, 'fnd-orient-source-type');
-  assert.equal(action.href, 'academy-session.html?skill=fnd-orient-source-type');
+  assert.equal(action.href, 'academy-session.html?skill=fnd-orient-source-type&mode=review');
   assert.doesNotMatch(action.href, /review\.html|daily-recall\.html/);
 
   const items = await (await fetch(`${base}/api/learners/${learner.id}/review-items`, { headers: auth(learner) })).json();
@@ -195,6 +199,8 @@ test('HTTP review next-action cites a fnd- skill and a live item href, not a gen
   assert.notEqual(item.label, 'DAF RETRIEVAL');
   assert.notEqual(item.prompt, DAF_PROMPT);
   assert.ok(item.answers?.length >= 3);
+  assert.ok(item.hebrew || item.translation, 'review-items should include an on-page excerpt when one exists');
+  assert.ok(item.teach, 'review-items should include See-it teach when one exists');
 });
 
 test('HTTP welcome-back next-action cites a secured fnd- skill, not daily-recall', async () => {
@@ -232,6 +238,6 @@ test('HTTP welcome-back next-action cites a secured fnd- skill, not daily-recall
   assert.match(action.skillId, /^fnd-/);
   assert.ok(graph.skills.some((skill) => skill.id === action.skillId));
   assert.ok(isLiveHref(action.href));
-  assert.equal(action.href, foundationSessionHref(action.skillId));
+  assert.equal(action.href, foundationSessionHref(action.skillId, 'welcome-back'));
   assert.doesNotMatch(action.href, /daily-recall\.html|review\.html/);
 });

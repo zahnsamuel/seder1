@@ -5,8 +5,28 @@
 export const STEP_CHROME = {
   introduce: { label: 'SEE IT', next: 'I can see it — try it →', continueTeach: 'Got it — ask me' },
   practice: { label: 'TRY IT', next: 'Try a new source →' },
-  transfer: { label: 'NEW SOURCE', next: 'Finish →' }
+  transfer: { label: 'NEW SOURCE', next: 'Finish →' },
+  review: { label: 'SEE IT', next: 'Finish →', continueTeach: 'Got it — ask me' },
+  retrieval: { label: 'SEE IT', next: 'Finish →', continueTeach: 'Got it — ask me' },
+  'welcome-back': { label: 'SEE IT', next: 'Finish →', continueTeach: 'Got it — ask me' }
 };
+
+const RETRIEVAL_MODES = new Set(['review', 'retrieval', 'recovery', 'welcome-back', 'decay']);
+
+export function isRetrievalMode(mode) {
+  return RETRIEVAL_MODES.has(String(mode || '').trim().toLowerCase());
+}
+
+export function normalizeSessionMode(mode) {
+  const value = String(mode || '').trim().toLowerCase();
+  if (value === 'recovery' || value === 'welcome-back') return 'welcome-back';
+  if (value === 'review' || value === 'retrieval' || value === 'decay') return 'review';
+  return 'introduce';
+}
+
+export function isSeeItKind(kind) {
+  return kind === 'introduce' || isRetrievalMode(kind);
+}
 
 // Built-in See-it fallback until authored teach lands. Sam: briefly name
 // Torah verse / Mishnah / Gemara / commentary in plain adult English.
@@ -161,8 +181,11 @@ export function resolveTeachBank(teachBank = {}) {
 export function bankedTeach(skill = {}, kind = 'introduce', teachBank = {}) {
   const entry = resolveTeachBank(teachBank)[skill.id];
   if (!entry) return '';
-  if (typeof entry === 'string') return kind === 'introduce' ? entry : '';
-  return entry[kind] || (kind === 'introduce' ? (entry.introduce || entry.teach) : '');
+  const seeIt = isSeeItKind(kind);
+  if (typeof entry === 'string') return seeIt ? entry : '';
+  if (entry[kind]) return entry[kind];
+  if (seeIt) return entry.introduce || entry.teach || entry.review || '';
+  return '';
 }
 
 export function genericIntroduceTeach(skill = {}) {
@@ -173,18 +196,39 @@ export function genericIntroduceTeach(skill = {}) {
   return 'Look at the excerpt on this page. Notice what kind of text it is and what it is doing, then you will get a short question.';
 }
 
-export function teachCopy({ skill = {}, item, kind = 'introduce', teachBank = {} } = {}) {
-  if (kind !== 'introduce') return '';
-  const authored = firstPlainTeach(
+export function authoredTeachCopy({ skill = {}, item, teachBank = {} } = {}) {
+  return firstPlainTeach(
     item?.teach,
     item?.introduce,
     skill.teach,
     skill.introduce,
-    bankedTeach(skill, kind, teachBank)
+    bankedTeach(skill, 'introduce', teachBank)
   );
+}
+
+export function teachCopy({ skill = {}, item, kind = 'introduce', teachBank = {} } = {}) {
+  if (!isSeeItKind(kind)) return '';
+  const authored = authoredTeachCopy({ skill, item, teachBank });
   if (authored) return authored;
+  if (isRetrievalMode(kind)) return '';
   if (skill.id === 'fnd-orient-source-type') return SOURCE_TYPE_TEACH;
   return genericIntroduceTeach(skill);
+}
+
+export function pickRetrievalItem(authoredBank = [], excerpts = {}) {
+  const items = Array.isArray(authoredBank) ? authoredBank.filter(Boolean) : [];
+  return items.find((item) => {
+    const excerpt = lookupExcerpt(item.sourceRef, excerpts);
+    return Boolean(excerpt && (excerpt.hebrew || excerpt.translation));
+  }) || items[0] || null;
+}
+
+export function hasSeeItMaterials({ skill = {}, authoredBank = [], excerpts = {}, teachBank = {} } = {}) {
+  const item = pickRetrievalItem(authoredBank, excerpts);
+  if (!item) return false;
+  if (!authoredTeachCopy({ skill, item, teachBank })) return false;
+  const excerpt = lookupExcerpt(item.sourceRef, excerpts);
+  return Boolean(excerpt && (excerpt.hebrew || excerpt.translation));
 }
 
 export function shuffleList(list, random = Math.random) {
@@ -250,13 +294,17 @@ export function contextsForSkill(skill, ctxLayer) {
   return (skill.sourceContexts || []).map((context) => ({ ...context, family: context.genre || 'source' }));
 }
 
-export function pickStepContexts(skill, ctxLayer, authoredBank = []) {
-  const pool = contextsForSkill(skill, ctxLayer);
-  const first = pool[0] || {
+function fallbackContext(skill) {
+  return {
     ref: skill.sourceContexts?.[0]?.ref || FALLBACK_SKILL.sourceContexts[0].ref,
     genre: skill.sourceContexts?.[0]?.genre || 'source',
     family: skill.sourceContexts?.[0]?.genre || 'source'
   };
+}
+
+export function pickStepContexts(skill, ctxLayer, authoredBank = []) {
+  const pool = contextsForSkill(skill, ctxLayer);
+  const first = pool[0] || fallbackContext(skill);
   const transfer = pool.find((context) => context.family && context.family !== first.family) || pool[1] || first;
 
   return ['introduce', 'practice', 'transfer'].map((kind, index) => {
@@ -269,6 +317,17 @@ export function pickStepContexts(skill, ctxLayer, authoredBank = []) {
     }
     return kind === 'transfer' ? transfer : first;
   });
+}
+
+export function pickRetrievalContext(skill, ctxLayer, item) {
+  const pool = contextsForSkill(skill, ctxLayer);
+  if (item?.sourceRef) {
+    const match = pool.find((context) => refsOverlap(context.ref, item.sourceRef));
+    if (match) return match;
+    const genre = guessGenre(item.sourceRef);
+    return { ref: item.sourceRef, genre, family: genre };
+  }
+  return pool[0] || fallbackContext(skill);
 }
 
 export function buildSourceWindow(context, excerpts) {
@@ -285,6 +344,61 @@ export function buildSourceWindow(context, excerpts) {
   };
 }
 
+function buildOneStep({
+  skill,
+  graph,
+  item,
+  context,
+  kind,
+  excerpts,
+  teachBank,
+  random,
+  seed = 1
+}) {
+  const allSkills = graph?.skills || [];
+  const sourceWindow = buildSourceWindow(context, excerpts);
+  const presented = item
+    ? presentChoices(item.choices, item.correct, random)
+    : (() => {
+      const fallback = fallbackChoiceTexts(skill, allSkills, seed);
+      return presentChoices(fallback.texts, fallback.correctIndex, random);
+    })();
+
+  let guidance = howToLook(skill);
+  if (kind === 'introduce' || isRetrievalMode(kind)) {
+    guidance = '';
+  } else if (kind === 'transfer') {
+    const family = context.family && context.family !== context.genre ? ` (${context.family})` : '';
+    guidance = `Now try the same skill on this new source${family}.`;
+  } else if (isVagueMoveAsk(guidance)) {
+    guidance = '';
+  }
+
+  const teach = teachCopy({ skill, item, kind, teachBank });
+  const taught = item?.feedback || '';
+  const askKind = isRetrievalMode(kind) ? 'introduce' : kind;
+  return {
+    kind,
+    chrome: STEP_CHROME[kind] || STEP_CHROME.introduce,
+    context,
+    sourceWindow,
+    teach,
+    holdAsk: isSeeItKind(kind) && Boolean(teach),
+    guidance,
+    prompt: explicitAsk({ skill, context, item, kind: askKind }),
+    choices: presented.choices,
+    correctId: presented.correctId,
+    feedback: {
+      correct: taught || `Yes — that matches this skill: ${skill.statement}`,
+      incorrect: taught || (skill.statement
+        ? `The highlighted choice is the one that matches this skill: ${skill.statement}`
+        : 'Look back at the source and the question, then try the highlighted choice.')
+    },
+    authored: Boolean(item),
+    recordId: `kp-${skill.id}-${kind === 'practice' ? 2 : kind === 'transfer' ? 3 : 1}`
+  };
+}
+
 export function buildScaffoldSteps({
   skill,
   graph,
@@ -293,55 +407,37 @@ export function buildScaffoldSteps({
   authoredBank = [],
   excerpts = {},
   teachBank = {},
-  random = Math.random
+  random = Math.random,
+  mode = 'introduce'
 } = {}) {
+  const sessionMode = normalizeSessionMode(mode);
+  if (isRetrievalMode(sessionMode) && hasSeeItMaterials({ skill, authoredBank, excerpts, teachBank })) {
+    const item = pickRetrievalItem(authoredBank, excerpts);
+    return [buildOneStep({
+      skill,
+      graph,
+      item,
+      context: pickRetrievalContext(skill, ctxLayer, item),
+      kind: sessionMode,
+      excerpts,
+      teachBank,
+      random,
+      seed: 1
+    })];
+  }
+
   const contexts = pickStepContexts(skill, ctxLayer, authoredBank);
-  const allSkills = graph?.skills || [];
-
-  return ['introduce', 'practice', 'transfer'].map((kind, index) => {
-    const item = authoredBank[index] || null;
-    const context = contexts[index];
-    const sourceWindow = buildSourceWindow(context, excerpts);
-    const presented = item
-      ? presentChoices(item.choices, item.correct, random)
-      : (() => {
-        const fallback = fallbackChoiceTexts(skill, allSkills, index + 1);
-        return presentChoices(fallback.texts, fallback.correctIndex, random);
-      })();
-
-    let guidance = howToLook(skill);
-    if (kind === 'introduce') {
-      guidance = '';
-    } else if (kind === 'transfer') {
-      const family = context.family && context.family !== context.genre ? ` (${context.family})` : '';
-      guidance = `Now try the same skill on this new source${family}.`;
-    } else if (isVagueMoveAsk(guidance)) {
-      guidance = '';
-    }
-
-    const teach = teachCopy({ skill, item, kind, teachBank });
-    const taught = item?.feedback || '';
-    return {
-      kind,
-      chrome: STEP_CHROME[kind],
-      context,
-      sourceWindow,
-      teach,
-      holdAsk: kind === 'introduce' && Boolean(teach),
-      guidance,
-      prompt: explicitAsk({ skill, context, item, kind }),
-      choices: presented.choices,
-      correctId: presented.correctId,
-      feedback: {
-        correct: taught || `Yes — that matches this skill: ${skill.statement}`,
-        incorrect: taught || (skill.statement
-          ? `The highlighted choice is the one that matches this skill: ${skill.statement}`
-          : 'Look back at the source and the question, then try the highlighted choice.')
-      },
-      authored: Boolean(item),
-      recordId: `kp-${skill.id}-${index + 1}`
-    };
-  });
+  return ['introduce', 'practice', 'transfer'].map((kind, index) => buildOneStep({
+    skill,
+    graph,
+    item: authoredBank[index] || null,
+    context: contexts[index],
+    kind,
+    excerpts,
+    teachBank,
+    random,
+    seed: index + 1
+  }));
 }
 
 export function concreteJlaPrompt(session = {}) {

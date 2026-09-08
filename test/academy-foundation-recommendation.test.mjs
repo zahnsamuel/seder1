@@ -21,7 +21,10 @@ test('server foundation path uses the knowledge frontier, not a hardcoded ladder
 
 test('foundation session href opens the live lesson with the skill id preserved', () => {
   assert.equal(foundationSessionHref('fnd-decode-letters'), 'hebrew-decoding.html');
+  assert.equal(foundationSessionHref('fnd-decode-letters', 'review'), 'hebrew-decoding.html');
   assert.equal(foundationSessionHref('fnd-orient-source-type'), 'academy-session.html?skill=fnd-orient-source-type');
+  assert.equal(foundationSessionHref('fnd-orient-source-type', 'review'), 'academy-session.html?skill=fnd-orient-source-type&mode=review');
+  assert.equal(foundationSessionHref('fnd-orient-source-type', 'recovery'), 'academy-session.html?skill=fnd-orient-source-type&mode=welcome-back');
   assert.equal(foundationSessionHref('javascript:alert(1)'), 'daily-router.html');
 });
 

@@ -48,6 +48,18 @@ test('authoredReviewItem turns an authored item into a client-scorable retrieval
   assert.equal(item.answers[item.correct], 'State the claim');
   assert.match(item.variantId, /^authored-/);
   assert.match(item.label, /Berakhot 2a/);
+  assert.equal(item.hebrew, '');
+  assert.equal(item.teach, '');
+});
+
+test('authoredReviewItem attaches teach and excerpt when those banks have the skill', () => {
+  const excerpts = JSON.parse(readFileSync(new URL('../data/foundation-source-excerpts.json', import.meta.url), 'utf8'));
+  const teachBank = JSON.parse(readFileSync(new URL('../data/foundation-teach.json', import.meta.url), 'utf8'));
+  const bank = JSON.parse(readFileSync(new URL('../data/foundation-authored-items.json', import.meta.url), 'utf8')).items['fnd-orient-source-type'];
+  const item = authoredReviewItem('fnd-orient-source-type', bank, 0, { excerpts, teachBank, skill: { id: 'fnd-orient-source-type' } });
+  assert.ok(item.hebrew || item.translation);
+  assert.ok(item.teach);
+  assert.match(item.teach, /Torah verse|Mishnah|Gemara/i);
 });
 
 test('the item-authoring workbench generates as a self-contained page covering every skill', () => {

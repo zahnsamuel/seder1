@@ -3388,3 +3388,15 @@ removed halakhah / aggadah / sugya / Shulchan Aruch / commentary from all stems 
 terms now appear only in the teach and in post-answer feedback. Extended
 test/starter-context-resp-items.test.mjs to require the teach exists and defines the terms, and to
 assert no ask for these skills uses an unexplained term. No academy-session.* change.
+
+## 2026-09-08 - Cursor: review / welcome-back get See-it quality when materials exist
+
+Fading-skill retrieval was the same academy-session URL as first-time introduce (full see it / try it / new source) or, on review.html, an authored stem with empty hebrew/translation and no teach. That made review feel thinner than Today's teach path.
+
+- Academy-session now reads `?mode=review` and `?mode=welcome-back`. When an authored item + See-it teach + on-page excerpt exist for that `fnd-` skill, the session is one See-it -> ask step (teach, excerpt, Got it -- ask me, shuffled authored choices). Missing any of the three keeps the existing three-step introduce path.
+- Today review / decay / welcome-back hrefs append that mode (`foundationSessionHref(id, 'review'|'welcome-back')`). Frontier teach hrefs stay `academy-session.html?skill=<id>` with no mode.
+- `authoredReviewItem` now attaches hebrew/translation/teach from `foundation-source-excerpts.json` + `foundation-teach.json` so `/review-items` matches. Did not edit item banks, teach JSON, or excerpts JSON (complementary to open #35 / #38). Did not touch knowledgeFrontier.
+
+Before: review opened the full three-step introduce lesson (or a quiz with no excerpt). After: `fnd-orient-source-type` review is one See-it check with Deuteronomy 6:4 on the page. Skills that still lack teach or excerpt on main stay on the three-step path until those PRs land.
+
+

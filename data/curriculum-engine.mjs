@@ -2,6 +2,7 @@ import { promises as fs } from 'node:fs';
 import { join } from 'node:path';
 import { advancedCanonSessions } from './advanced-canon-cycle.mjs';
 import { pickContentPracticeForSkill, pickFrontierFoundationSkill, resolveFoundationSkillId } from './next-action.mjs';
+import { authoredTeachCopy, lookupExcerpt } from '../academy-session-lesson.mjs';
 
 let cachedJourney;
 let cachedGemaraSequence;
@@ -32,21 +33,48 @@ async function authoredItems(root) {
   return cachedAuthoredItems;
 }
 
+let cachedExcerpts;
+async function sourceExcerpts(root) {
+  if (!cachedExcerpts) {
+    try { cachedExcerpts = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-source-excerpts.json'), 'utf8')); }
+    catch { cachedExcerpts = {}; }
+  }
+  return cachedExcerpts;
+}
+
+let cachedTeachBank;
+async function teachBankFile(root) {
+  if (!cachedTeachBank) {
+    try { cachedTeachBank = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-teach.json'), 'utf8')); }
+    catch { cachedTeachBank = {}; }
+  }
+  return cachedTeachBank;
+}
+
 // A retrieval from an educator-authored item bank (data/foundation-authored-items.json): real graded
 // recognition — the author's stem, choices, and correct index, with hand-written distractors. Preferred
 // over the graph-derived foundationReviewItem the moment a bank is imported. `seed` rotates variants.
-export function authoredReviewItem(skillId, bank, seed = Math.floor(Math.random() * 997)) {
+// When teach + excerpt exist for the item's sourceRef, attach them so review.html / review-items
+// match academy-session See-it quality (hebrew/translation/teach). No JSON bank edits.
+export function authoredReviewItem(skillId, bank, seed = Math.floor(Math.random() * 997), extras = {}) {
   const item = bank[seed % bank.length];
+  const excerpts = extras.excerpts || {};
+  const excerpt = lookupExcerpt(item.sourceRef, excerpts) || {};
+  const skill = extras.skill || { id: skillId };
+  const teach = authoredTeachCopy({ skill, item, teachBank: extras.teachBank || {} });
   return {
     trueSkillId: skillId,
     label: item.sourceRef ? `RETRIEVAL · ${item.sourceRef}` : 'FOUNDATION RETRIEVAL',
-    hebrew: '', translation: '',
+    hebrew: excerpt.hebrew || '',
+    translation: excerpt.translation || '',
+    teach,
     prompt: item.stem,
     answers: item.choices,
     correct: item.correct,
     feedback: item.feedback || '',
     sourceContext: `retrieval for ${skillId}`,
-    variantId: `authored-${skillId}-${seed}`
+    variantId: `authored-${skillId}-${seed}`,
+    sourceRef: item.sourceRef || ''
   };
 }
 
@@ -235,14 +263,20 @@ export async function sourceReviewItems(root, skillIds = []) {
   const { graph, map } = await practiceIndex(root);
   const fndSkills = graph.skills || [];
   const fndById = new Map(fndSkills.map((skill) => [skill.id, skill]));
-  const authored = await authoredItems(root);
+  const [authored, excerpts, teachBank] = await Promise.all([authoredItems(root), sourceExcerpts(root), teachBankFile(root)]);
   const workbenchFallbacks = skillIds.filter((skillId) => !covered.has(skillId)).map((skillId) => {
     // Prefer an educator-authored item bank; else a real graph-derived retrieval for a foundation
     // skill (including content-step ids that map onto one); else a subject retrieval; else the
     // generic daf-reading prompt for truly unmapped leftovers.
     const resolvedId = resolveFoundationSkillId(graph, map, skillId) || skillId;
     const bank = authored[resolvedId] || authored[skillId];
-    if (bank && bank.length) return authoredReviewItem(resolvedId, bank);
+    if (bank && bank.length) {
+      return authoredReviewItem(resolvedId, bank, Math.floor(Math.random() * 997), {
+        excerpts,
+        teachBank,
+        skill: fndById.get(resolvedId) || { id: resolvedId }
+      });
+    }
     const fnd = fndById.get(resolvedId);
     if (fnd) return foundationReviewItem(fnd, fndSkills);
     return subjectReviewItem(skillId) || ({
