@@ -6,11 +6,16 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { mkdtempSync, rmSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { foundationSessionHref } from '../data/next-action.mjs';
+import { STARTER_SKILL_IDS, foundationSessionHref } from '../data/next-action.mjs';
 import { buildJlaPlacementResult } from '../jla-placement-router.js';
 
 const repoRoot = fileURLToPath(new URL('..', import.meta.url));
 const graph = JSON.parse(readFileSync(new URL('../data/foundation-skill-graph.json', import.meta.url), 'utf8'));
+const starterDoc = JSON.parse(readFileSync(new URL('../data/foundation-starter-set.json', import.meta.url), 'utf8'));
+const starterIds = new Set(starterDoc.starterSet.map((skill) => skill.id));
+const frozenIds = new Set(starterDoc.frozen.map((skill) => skill.id));
+const starterThrough = (maxLayer) => starterDoc.starterSet.filter((skill) => skill.layer <= maxLayer).map((skill) => skill.id);
+const secure = (ids) => Object.fromEntries(ids.map((id) => [id, 0.8]));
 const sliceSkills = JSON.parse(readFileSync(new URL('../data/jla-foundation-skill-slice.json', import.meta.url), 'utf8'));
 const sliceIds = new Set(sliceSkills.map((skill) => skill.id));
 const { map: graduationMap } = JSON.parse(readFileSync(new URL('../data/graduation-skill-map.json', import.meta.url), 'utf8'));
@@ -115,4 +120,29 @@ test('legacy slice-id placement scores rewrite onto fnd- and still open a live s
   });
   assert.equal(action.skillId, expected.skillId);
   assert.equal(action.href, expected.firstSession);
+});
+
+test('a placed learner with unsecured starters is taught a starter skill, not a frozen sibling', async () => {
+  const known = starterThrough(2);
+  assert.ok(known.includes('fnd-decode-letters'));
+  const learner = await signup('Place Starter Slice');
+  const placed = await fetch(`${base}/api/learners/${learner.id}/events`, {
+    method: 'POST', headers: auth(learner),
+    body: JSON.stringify({
+      type: 'placement_completed',
+      scores: secure(known),
+      foundationScores: secure(known)
+    })
+  });
+  assert.equal(placed.status, 201);
+  const action = await (await fetch(`${base}/api/learners/${learner.id}/next-action`, { headers: auth(learner) })).json();
+  assert.equal(action.type, 'foundation');
+  assert.ok(STARTER_SKILL_IDS.has(action.skillId), `${action.skillId} must be in the starter set`);
+  assert.ok(!frozenIds.has(action.skillId), `${action.skillId} is frozen and must not be Today's teach`);
+  assert.notEqual(action.skillId, 'fnd-signal-sentence-structure');
+  assert.equal(action.href, foundationSessionHref(action.skillId));
+  assert.ok(isLiveSession(action.href));
+  const expected = buildJlaPlacementResult({ graph, known });
+  assert.ok(starterIds.has(expected.skillId));
+  assert.equal(action.skillId, expected.skillId);
 });

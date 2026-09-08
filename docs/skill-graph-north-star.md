@@ -170,11 +170,13 @@ another hundred skills.
    in a real unit.” Content graphs stay indexes.
 
 4. **Name a teachable starter set and freeze the rest.**
-   Live graph: 55 skills, 11 layers. Item banks are 0/55. Pick ~20–30 skills the
-   daily loop can actually teach in the next slice (Layer 0 decoding +
-   orientation through first argument/responsibility moves). Educator-audit
-   those edges. Do not grow toward 150 until the starter set has items,
-   retrieval, and a working frontier router.
+   Named and frozen (`data/foundation-starter-set.json`, 29 teach / 26 hold).
+   Today’s teach / review / repair now consume that list: `knowledgeFrontier`
+   can scope to the slice, and `pickFrontierFoundationSkill` will not surface a
+   frozen sibling while starter skills remain unsecured. Layer 0 decode stays
+   the on-ramp. Remaining work on this item is educator-audit + item banks,
+   not more skills. Do not grow toward 150 until those banks and retrieval
+   checks cover the starter set.
 
 5. **One placement, one id space.**
    Done: `diagnostic.html` + `/api/graph/diagnostic` + `jla-placement-router.js`

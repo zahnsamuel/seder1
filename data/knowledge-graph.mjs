@@ -21,18 +21,29 @@ function prereqMap(graph) {
 //   mastered : ids the learner is at/above secure on
 //   frontier : ready to learn now — not mastered, every direct prerequisite mastered
 //   blocked  : not masterable yet — lists which prerequisites are still missing
-export function knowledgeFrontier(graph, masteredIds) {
+// Optional `among` (Set or array of ids) scopes the partition to a slice of the graph
+// (the teachable starter set). Skills outside the slice stay in the DAG for diagnostic
+// inference but are not returned as frontier/blocked/mastered. Prerequisite checks still
+// see the full mastered set, so a closed slice (no starter depends on a frozen skill)
+// walks without hitting an out-of-slice prerequisite.
+export function knowledgeFrontier(graph, masteredIds, options = {}) {
   const mastered = new Set(masteredIds);
+  const among = options.among == null ? null : options.among instanceof Set ? options.among : new Set(options.among);
   const prereqs = prereqMap(graph);
   const frontier = [];
   const blocked = [];
   for (const skill of graph.skills) {
+    if (among && !among.has(skill.id)) continue;
     if (mastered.has(skill.id)) continue;
     const missing = (prereqs.get(skill.id) || []).filter((p) => !mastered.has(p));
     if (missing.length === 0) frontier.push(skill.id);
     else blocked.push({ skill: skill.id, missing });
   }
-  return { mastered: [...mastered].filter((id) => prereqs.has(id)), frontier, blocked };
+  return {
+    mastered: [...mastered].filter((id) => prereqs.has(id) && (!among || among.has(id))),
+    frontier,
+    blocked
+  };
 }
 
 // The ordered learning path to `goalId`: every not-yet-mastered ancestor (transitive prerequisite)
@@ -159,8 +170,9 @@ export function nextDiagnosticProbe(graph, responses = {}) {
 //   knowledgePoints : data/foundation-knowledge-points.json's `knowledgePoints`
 //   struggles       : learner.struggles (skillId -> count)
 //   mastery         : learner.mastery (skillId -> 0..1)
-export function keyPrerequisiteRemediation({ knowledgePoints, struggles = {}, knowledgePointStruggles = {}, mastery = {}, threshold = 2, strongMastery = 0.85 }) {
-  const usable = (keyPrerequisite) => keyPrerequisite && (mastery[keyPrerequisite] || 0) < strongMastery;
+export function keyPrerequisiteRemediation({ knowledgePoints, struggles = {}, knowledgePointStruggles = {}, mastery = {}, threshold = 2, strongMastery = 0.85, among = null }) {
+  const inSlice = (id) => !among || among.has(id);
+  const usable = (keyPrerequisite) => keyPrerequisite && inSlice(keyPrerequisite) && (mastery[keyPrerequisite] || 0) < strongMastery;
   // 1. Knowledge-point-granular: a specific KP failed >= threshold routes to THAT KP's key
   //    prerequisite (introduce -> foundational, practice/transfer -> proximate). This is MA's exact
   //    "fail a KP twice -> review its key prerequisite" — precise once the KP model is deepened.

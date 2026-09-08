@@ -3388,3 +3388,30 @@ removed halakhah / aggadah / sugya / Shulchan Aruch / commentary from all stems 
 terms now appear only in the teach and in post-answer feedback. Extended
 test/starter-context-resp-items.test.mjs to require the teach exists and defines the terms, and to
 assert no ask for these skills uses an unexplained term. No academy-session.* change.
+
+## 2026-09-08 ? Cursor: Today / frontier routing respects the starter-set freeze
+
+North-star item 4 (router half). `knowledgeFrontier()` still walks the full 55-skill DAG
+(placement / diagnostic stay whole-graph). After starter Layers 0?2 are secured, the
+unrestricted frontier includes frozen `fnd-signal-sentence-structure`, and
+`pickFrontierFoundationSkill` was sorting by layer then id ? so Today taught that frozen
+L2 sibling instead of the ready starter roles (`fnd-role-question-vs-answer`). Same trap
+for review (a due frozen id) and key-prerequisite repair.
+
+Fix: daily teach / review / repair consume `data/foundation-starter-set.json`.
+`knowledgeFrontier(..., { among })` scopes the partition; pickers default to the 29
+starter ids. Frozen stays in the graph, is not taught while starters remain unsecured,
+and is not the next lesson after the slice is done. Layer 0 decode is in the starter
+set and remains the beginner on-ramp.
+
+- `data/knowledge-graph.mjs`: optional `among` on frontier + remediation
+- `data/next-action.mjs`: `STARTER_SKILL_IDS`, `teachableFoundationIds`, starter-scoped
+  `pickFrontierFoundationSkill` / `pickRetrievalFoundationSkill`
+- `server.mjs`: key-prerequisite repair passes the starter set
+- Tests: `test/starter-frontier-routing.test.mjs` (placed learner?s next teach skill is
+  in the starter set at every remaining layer; L2 regression; review/repair skip frozen)
+  plus HTTP in `placement-foundation-handoff`
+
+Left alone: `data/foundation-authored-items.json`, Claude?s item tests, academy-session
+chrome.
+

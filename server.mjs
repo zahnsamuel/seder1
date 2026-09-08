@@ -13,7 +13,7 @@ import { explainRecommendation, whySentence } from './data/recommendation-why.mj
 import { foundationRecommendation, gemaraYearRecommendation, moedExpansionRecommendation } from './data/term-recommendations.mjs';
 import { keyPrerequisiteRemediation, estimateFrontierFromDiagnostic, nextDiagnosticProbe } from './data/knowledge-graph.mjs';
 import { computeGraphPilotAnalytics } from './data/pilot-analytics.mjs';
-import { citedSkillId, foundationFrontierRecommendation, foundationRetrievalRecommendation, normalizeNextAction, resolveFoundationSkillId, selectNextAction } from './data/next-action.mjs';
+import { citedSkillId, foundationFrontierRecommendation, foundationRetrievalRecommendation, normalizeNextAction, resolveFoundationSkillId, selectNextAction, STARTER_SKILL_IDS } from './data/next-action.mjs';
 import { resolvePlacementStart } from './jla-placement-router.js';
 import { isTestLearner } from './scripts/scrub-test-learners.mjs';
 
@@ -122,7 +122,7 @@ async function foundationRetrievalFor(learner, options = {}) {
 // skill routes to a review of the foundation its knowledge points most directly use.
 async function keyPrerequisiteRemediationFor(root, learner) {
   if (!cachedKpLayer) cachedKpLayer = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-knowledge-points.json'), 'utf8'));
-  const result = keyPrerequisiteRemediation({ knowledgePoints: cachedKpLayer.knowledgePoints, struggles: learner.struggles, knowledgePointStruggles: learner.knowledgePointStruggles, mastery: learner.mastery });
+  const result = keyPrerequisiteRemediation({ knowledgePoints: cachedKpLayer.knowledgePoints, struggles: learner.struggles, knowledgePointStruggles: learner.knowledgePointStruggles, mastery: learner.mastery, among: STARTER_SKILL_IDS });
   if (!result) return null;
   if (!cachedGraphSkills) cachedGraphSkills = (await loadFoundationGraph()).skills;
   const titleOf = (id) => cachedGraphSkills.find((s) => s.id === id)?.title || id;

@@ -1,9 +1,21 @@
+import { readFileSync } from 'node:fs';
 import { knowledgeFrontier } from './knowledge-graph.mjs';
 
 const FALLBACK = { type: 'today', title: 'Continue today’s learning', reason: 'Your recommended next step is ready on Today.', href: 'daily-router.html', cta: 'Open Today', progress: null, skillId: null };
 const PRIORITY = ['recovery', 'review', 'foundation', 'academy', 'transfer', 'frontier', 'completion', 'continuation'];
 const SKILL_ID = /^[a-z][a-z0-9-]{1,80}$/;
 const SECURE = 0.67;
+const STARTER_SET = JSON.parse(readFileSync(new URL('./foundation-starter-set.json', import.meta.url), 'utf8'));
+export const STARTER_SKILL_IDS = new Set(STARTER_SET.starterSet.map((skill) => skill.id));
+
+// Daily teach / review / repair stay inside the frozen starter set. Pass `null` to walk the
+// whole graph (diagnostics still do). A custom Set/array overrides the default slice.
+export function teachableFoundationIds(override) {
+  if (override === null) return null;
+  if (override instanceof Set) return override;
+  if (Array.isArray(override)) return new Set(override);
+  return STARTER_SKILL_IDS;
+}
 
 export function foundationSessionHref(skillId) {
   if (typeof skillId !== 'string' || !SKILL_ID.test(skillId.trim())) return FALLBACK.href;
@@ -15,10 +27,11 @@ function skillScore(learner, skillId) {
   return Math.max(Number(learner?.foundationScores?.[skillId]) || 0, Number(learner?.mastery?.[skillId]) || 0);
 }
 
-export function pickFrontierFoundationSkill(graph, learner) {
+export function pickFrontierFoundationSkill(graph, learner, options = {}) {
   if (!graph?.skills?.length) return null;
+  const among = teachableFoundationIds(options.teachableIds);
   const mastered = graph.skills.map((skill) => skill.id).filter((id) => skillScore(learner, id) >= SECURE);
-  const { frontier } = knowledgeFrontier(graph, mastered);
+  const { frontier } = knowledgeFrontier(graph, mastered, among ? { among } : {});
   const byId = new Map(graph.skills.map((skill) => [skill.id, skill]));
   return frontier.map((id) => byId.get(id)).filter(Boolean).sort((a, b) => (a.layer - b.layer) || a.id.localeCompare(b.id))[0] || null;
 }
@@ -49,19 +62,21 @@ export function resolveFoundationSkillId(graph, map, skillId) {
   return contentSkillToFoundationId(map, id);
 }
 
-export function pickRetrievalFoundationSkill(graph, map, { dueIds = [], fadedIds = [], learner = null, allowSecuredFallback = false } = {}) {
+export function pickRetrievalFoundationSkill(graph, map, { dueIds = [], fadedIds = [], learner = null, allowSecuredFallback = false, teachableIds } = {}) {
   if (!graph?.skills?.length) return null;
+  const among = teachableFoundationIds(teachableIds);
+  const allowed = (id) => !among || among.has(id);
   const resolve = (id) => resolveFoundationSkillId(graph, map, id);
   for (const id of dueIds) {
     const skillId = resolve(id);
-    if (skillId) return { skillId, sourceId: id, trigger: 'due' };
+    if (skillId && allowed(skillId)) return { skillId, sourceId: id, trigger: 'due' };
   }
   for (const id of fadedIds) {
     const skillId = resolve(id);
-    if (skillId) return { skillId, sourceId: id, trigger: 'decay' };
+    if (skillId && allowed(skillId)) return { skillId, sourceId: id, trigger: 'decay' };
   }
   if (!allowSecuredFallback || !learner) return null;
-  const secured = graph.skills.filter((skill) => skillScore(learner, skill.id) >= SECURE);
+  const secured = graph.skills.filter((skill) => allowed(skill.id) && skillScore(learner, skill.id) >= SECURE);
   if (!secured.length) return null;
   const updated = learner.masteryUpdatedAt || {};
   secured.sort((a, b) => {
@@ -94,13 +109,14 @@ export function foundationRetrievalRecommendation(learner, graph, map, options =
   };
 }
 
-export function foundationFrontierRecommendation(learner, graph, map) {
+export function foundationFrontierRecommendation(learner, graph, map, options = {}) {
   if (!learner || learner.foundationGraduated) return null;
-  const next = pickFrontierFoundationSkill(graph, learner);
+  const next = pickFrontierFoundationSkill(graph, learner, options);
   if (!next) return null;
+  const among = teachableFoundationIds(options.teachableIds);
   const byId = new Map(graph.skills.map((skill) => [skill.id, skill]));
   const prior = (next.prerequisites || []).map((id) => byId.get(id)).find(Boolean);
-  const upcoming = graph.skills.find((skill) => (skill.prerequisites || []).includes(next.id));
+  const upcoming = graph.skills.find((skill) => (skill.prerequisites || []).includes(next.id) && (!among || among.has(skill.id)));
   const practice = pickContentPracticeForSkill(map, next.id, learner);
   return {
     kind: 'academy-foundation',

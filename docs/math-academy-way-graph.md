@@ -31,9 +31,10 @@ thousands; step 7 of the freeze plan targets ~150 → ~300).
 
 ## What was built here (`data/knowledge-graph.mjs`, pure functions)
 
-- **`knowledgeFrontier(graph, mastered)`** → `{ mastered, frontier, blocked }`. `frontier` = skills
+- **`knowledgeFrontier(graph, mastered, options?)`** → `{ mastered, frontier, blocked }`. `frontier` = skills
   with every prerequisite mastered but not themselves mastered (ready now); `blocked` lists the
   missing prerequisites per skill. A brand-new learner's frontier is exactly the graph roots.
+  Optional `among` scopes the partition to a slice (Today uses the 29-skill starter set).
 - **`learningPath(graph, goal, mastered)`** → the topologically-ordered not-yet-mastered
   prerequisites to reach `goal`.
 - **`encompassingReviewSet(due, edges)`** → `{ practice, covered }`: the FIRe set. A due simpler

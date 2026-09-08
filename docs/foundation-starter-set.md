@@ -97,15 +97,20 @@ lines → map the case → follow the first argument → and keep study distinct
 
 ## What this unblocks next (not done here)
 
-The freeze is the *list + rationale*. It deliberately does **not** touch the live router
-(that lane is owned separately). With the starter set named, the sequenced next steps are:
+The freeze is the *list + rationale*. The daily router now consumes it: teach, review,
+and repair prefer the 29 starter ids and will not pick a frozen skill while any starter
+skill remains unsecured. Placement may still diagnose across the whole graph. Layer 0
+decode stays the on-ramp.
+
+Remaining work on the starter slice (not more skills):
 
 1. **Educator edge-audit** of the 29 starter skills' prerequisites (rationales are 0/76).
-2. **≥1 authored transfer item per starter skill** (item banks are 0/55) — start here, not
-   with new skills.
-3. **Retrieval checks** citing these `fnd-` ids.
-4. **Frontier router** scoped to the starter set (consumes
-   `data/foundation-starter-set.json`), so Today teaches/reviews/repairs inside the slice.
+2. **≥1 authored transfer item per starter skill** — Claude is deepening banks; do not
+   grow the graph until the slice is instrumented.
+3. **Retrieval checks** citing these `fnd-` ids (wired; keep authored items on the same ids).
+4. **Frontier router** scoped to the starter set — done. `pickFrontierFoundationSkill`
+   / `pickRetrievalFoundationSkill` / key-prerequisite repair read
+   `data/foundation-starter-set.json`.
 
-Do not expand past 29 until the starter set has items, retrieval, and a working frontier
-router (north-star item 4).
+Do not expand past 29 until the starter set has items, retrieval, and this working
+frontier router (north-star item 4).

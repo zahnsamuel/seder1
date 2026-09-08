@@ -14,6 +14,8 @@ test('server foundation path uses the knowledge frontier, not a hardcoded ladder
   assert.match(server, /academyFoundationRecommendation/);
   assert.match(server, /foundationFrontierRecommendation/);
   assert.match(engine, /knowledgeFrontier/);
+  assert.match(engine, /foundation-starter-set\.json/);
+  assert.match(engine, /STARTER_SKILL_IDS/);
   assert.match(engine, /foundationGraduated/);
   assert.doesNotMatch(server, /daily-router\.html\?foundationSkill=/);
   assert.doesNotMatch(server, /fnd-signal-question-words[\s\S]*fnd-orient-question-present[\s\S]*fnd-arg-claim/);
