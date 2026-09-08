@@ -164,23 +164,29 @@ another hundred skills.
    key prerequisite — exclusively on `fnd-` ids.
 
 3. **Stop letting the content-move graph choose the next action.**
-   `nextGraphPractice` no longer merges `skill-graph.json` + content + non-Gemara
-   nodes (~850 source-bound ids) as Today's fallback. After a `fnd-` id is
-   chosen, it looks up `foundation-content-map` and returns “practice this skill
-   in a real unit.” Content graphs stay indexes.
+   Done (PR #15). `nextGraphPractice` no longer merges `skill-graph.json` +
+   content + non-Gemara nodes (~850 source-bound ids) as Today's fallback.
+   After a `fnd-` id is chosen, it looks up `foundation-content-map` and
+   returns “practice this skill in a real unit.” Content graphs stay indexes.
 
 4. **Name a teachable starter set and freeze the rest.**
-   Live graph: 55 skills, 11 layers. Item banks are 0/55. Pick ~20–30 skills the
-   daily loop can actually teach in the next slice (Layer 0 decoding +
-   orientation through first argument/responsibility moves). Educator-audit
-   those edges. Do not grow toward 150 until the starter set has items,
-   retrieval, and a working frontier router.
+   Done (PR #14). Live graph: 55 skills, 11 layers, frozen as 29 starter /
+   26 hold (`data/foundation-starter-set.json`). Authored banks exist for
+   25/29 starter skills (78 items in `data/foundation-authored-items.json`)
+   via PRs #16 / #22 / #27 / #28; teach-before-ask is product law (PR #29).
+   Layer 0 decode banks (4 skills) are still held — `hebrew-decoding.html`
+   is the on-ramp. Do not grow toward 150 until the starter set has retrieval
+   (done, #18), a working frontier router scoped to the freeze list (open:
+   PR #30), and educator-audit (item 9). `npm run graph:quality` still
+   reports 0/55 first-class assessment banks; that counter reads
+   `foundation-assessment-items.json`, not the authored JSON above.
 
 5. **One placement, one id space.**
-   Done: `diagnostic.html` + `/api/graph/diagnostic` + `jla-placement-router.js`
-   now leave a capability profile and one `fnd-` start on the same next-action
-   path as Today. Graduation-slice ids (`source-family-001`) remain a
-   translation layer only — they are not the learner’s “start here” id.
+   Done (PR #17). `diagnostic.html` + `/api/graph/diagnostic` +
+   `jla-placement-router.js` now leave a capability profile and one `fnd-`
+   start on the same next-action path as Today. Graduation-slice ids
+   (`source-family-001`) remain a translation layer only — they are not the
+   learner’s “start here” id.
 
 6. **Retrieval checks on the same ids.**
    Done (PR #18). Review, decay, and welcome-back recall cite `fnd-` skills
@@ -190,23 +196,30 @@ another hundred skills.
    content-step id.
 
 7. **Close the fat buckets before adding siblings.**
-   `fnd-arg-response`, `fnd-role-ruling-vs-discussion`, and
+   Open. `fnd-arg-response`, `fnd-role-ruling-vs-discussion`, and
    `fnd-case-what-happens` still swallow most tagged content. Split only where
    the daily loop would route differently, and only with a rubric signal plus
-   retagged units (`docs/foundation-graph-growth-plan.md`).
+   retagged units (`docs/foundation-graph-growth-plan.md`). A docs+data
+   proposal for one child (`fnd-arg-resolve-distinction`) is PR #32 — not
+   on the live graph. Do not implement a live split until that judgment lands.
 
 8. **Capability-state language on the learner surfaces that already show
-   progress.** Retire leftover % / XP / level copy on path and academy
-   references in favor of emerging / secure / transferable / durable. Today
-   stays one action, not a scoreboard.
+   progress.** Partial (PR #25). Path, academy, and academy-next speak
+   emerging / secure / transferable / durable. Today stays one action, not a
+   scoreboard. Leftover visible `0 XP` chrome remains on many content / arc /
+   recall pages. No leftovers PR is open.
 
 9. **Educator pass on the starter edges, then item banks.**
-   Rationales are 0/76; named misconceptions 0/55; authored transfer items 0/55.
-   Software cannot invent those. Stage the audit workbench; write ≥1 real
-   transfer item per starter skill before expanding.
+   Open. Edge rationales are 0/76; named misconceptions 0/55; authored
+   transfer items 0/55 (`npm run graph:quality`). Starter recognition banks
+   exist (item 4) but are not transfer items. The audit workbench already
+   lives on main (`docs/educator-audit-workbench.html`,
+   `docs/item-authoring-workbench.html`); no separate landing PR is open.
+   Software cannot invent the rationales. Write ≥1 real transfer item per
+   starter skill before expanding.
 
 10. **Hosted decay timestamps.**
-    Done: hosted `learner_state.mastery_updated_at` round-trips as
+    Done (PR #23). Hosted `learner_state.mastery_updated_at` round-trips as
     `masteryUpdatedAt`. `getHostedLearner` attaches `decayedMastery` so
     review urgency is not demo-only.
 
