@@ -3401,3 +3401,6 @@ Copy + light chrome only. Did not edit item banks, did not rewrite `knowledgeFro
 - Academy session: See it / try it / new source; excerpt is the lesson; Sefaria hidden during See-it and never dumped to a search URL; complete returns to Today, not `path.html`.
 - Tests: `test/friend-first-run.test.mjs` plus updates to session, diagnostic, onboarding, and sign-in front-door guards.
 
+Follow-up same day: name-only signup hid the email *input* but CSS `label{display:block}` unhid the EMAIL label. `[hidden]{display:none!important}` on the sign-in card; kicker is START HERE in token mode.
+
+

@@ -23,6 +23,7 @@ test('friend click path: landing → name signup → placement, not a homepage d
   assert.match(onboarding, /href="diagnostic\.html"/);
   assert.match(signIn, /return 'daily-router\.html'/);
   assert.match(signIn, /No email, no password/);
+  assert.match(signIn, /\[hidden\].*display:\s*none\s*!important/);
   assert.doesNotMatch(signIn, /return 'seder\.html'/);
 });
 
