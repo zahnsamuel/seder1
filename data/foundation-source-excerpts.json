@@ -1,5 +1,5 @@
 {
-  "note": "Client-safe short source windows for academy foundation sessions. Hebrew and translations are excerpts already used in this repo (or public-domain Hebrew plus a short educational gloss), so a learner can answer on the page. Sefaria links are secondary. Do not treat this as a full text store.",
+  "note": "Client-safe short source windows for academy foundation sessions. Hebrew and translations are excerpts already used in this repo (seed lessons, curriculum snippets, or public-domain Hebrew plus a short educational gloss), so a learner can answer on the page. Sefaria links are secondary. Do not treat this as a full text store. Teach-before-ask: excerpts may show terms; asks stay plain until taught.",
   "excerpts": {
     "Genesis 1:1": {
       "hebrew": "בְּרֵאשִׁית בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ",
@@ -13,17 +13,59 @@
       "setting": "The first creation account runs from this opening verse through the close of the seventh day.",
       "sourceUrl": "https://www.sefaria.org/Genesis.1.1"
     },
+    "Genesis 22": {
+      "hebrew": "וַיֹּאמֶר אֵלָיו אַבְרָהָם וַיֹּאמֶר הִנֵּנִי",
+      "translation": "He said to him, “Abraham,” and he said, “Here I am.”",
+      "setting": "A narrative line from the binding of Isaac — a named actor answers a call.",
+      "sourceUrl": "https://www.sefaria.org/Genesis.22.1"
+    },
     "Deuteronomy 6:4": {
       "hebrew": "שְׁמַע יִשְׂרָאֵל ה׳ אֱלֹהֵינוּ ה׳ אֶחָד",
       "translation": "Hear, Israel: the Lord is our God, the Lord is one.",
       "setting": "A Torah verse of direct address — later reused in prayer, but first a verse.",
       "sourceUrl": "https://www.sefaria.org/Deuteronomy.6.4"
     },
+    "Psalm 23": {
+      "hebrew": "ה׳ רֹעִי לֹא אֶחְסָר",
+      "translation": "The Lord is my shepherd; I shall not lack.",
+      "setting": "A psalm line of image and trust — poetry, not a legal ruling.",
+      "sourceUrl": "https://www.sefaria.org/Psalms.23.1"
+    },
+    "Job 38-40": {
+      "hebrew": "",
+      "translation": "God answers Job with a long series of questions.",
+      "setting": "A questioning speech from the book of Job — the form is inquiry, whether or not a tidy answer follows.",
+      "sourceUrl": "https://www.sefaria.org/Job.38"
+    },
+    "Job 42": {
+      "hebrew": "ה׳ נָתַן וַה׳ לָקָח יְהִי שֵׁם ה׳ מְבֹרָךְ",
+      "translation": "The Lord gave, and the Lord has taken away; blessed be the name of the Lord.",
+      "setting": "A short Job window already used in Academy thought sessions — the book later restores Job’s fortunes while leaving the deeper question of suffering open.",
+      "sourceUrl": "https://www.sefaria.org/Job.42"
+    },
     "Mishnah Berakhot 1:1": {
       "hebrew": "מֵאֵימָתַי קוֹרִין אֶת שְׁמַע בְּעַרְבִית",
       "translation": "From when do we recite Shema in the evening?",
       "setting": "A compact Mishnah question about a practice and its time — a rule-shaped opening, not a story.",
       "sourceUrl": "https://www.sefaria.org/Mishnah_Berakhot.1.1"
+    },
+    "Mishnah Pesachim 1:1": {
+      "hebrew": "אוֹר לְאַרְבָּעָה עָשָׂר בּוֹדְקִין אֶת הֶחָמֵץ",
+      "translation": "On the eve of the fourteenth one searches for leaven.",
+      "setting": "A compact Mishnah case that opens with a time and an action — a question-shaped rule, not a story.",
+      "sourceUrl": "https://www.sefaria.org/Mishnah_Pesachim.1.1"
+    },
+    "Mishnah Bava Kamma 1:1": {
+      "hebrew": "אַרְבָּעָה אֲבוֹת נְזִיקִין",
+      "translation": "Four primary categories of damages.",
+      "setting": "A counted Mishnah opening that names a field of cases before any one example is worked.",
+      "sourceUrl": "https://www.sefaria.org/Mishnah_Bava_Kamma.1.1"
+    },
+    "Mishnah Bava Metzia 1:1": {
+      "hebrew": "שְׁנַיִם אוֹחֲזִין בְּטַלִּית",
+      "translation": "Two people are holding a garment.",
+      "setting": "A concrete Mishnah case: two claimants, one object — name who acts before asking the law.",
+      "sourceUrl": "https://www.sefaria.org/Mishnah_Bava_Metzia.1.1"
     },
     "Berakhot 2a": {
       "hebrew": "תַּנָּא הֵיכָא קָאֵי דְּקָתָנֵי מֵאֵימָתַי",
@@ -49,11 +91,65 @@
       "setting": "A Gemara line that asks about the Mishnah’s opening rather than retelling a story.",
       "sourceUrl": "https://www.sefaria.org/Berakhot.2a"
     },
+    "Gemara Berakhot 2b": {
+      "hebrew": "וְעוֹד · אֶלָּא · שֶׁנֶּאֱמַר",
+      "translation": "and further · rather · as it is said.",
+      "setting": "Berakhot 2b argument signals already used in Academy orientation — adding, correcting, and citing.",
+      "sourceUrl": "https://www.sefaria.org/Berakhot.2b"
+    },
+    "Gemara Shabbat 55a": {
+      "hebrew": "חוֹתָמוֹ שֶׁל הַקָּדוֹשׁ בָּרוּךְ הוּא אֱמֶת",
+      "translation": "The seal of the Holy One is truth.",
+      "setting": "A named-voice Gemara line already used in Academy middot sessions — attach the statement to its speaker.",
+      "sourceUrl": "https://www.sefaria.org/Shabbat.55a"
+    },
+    "Gemara Eruvin 13b": {
+      "hebrew": "אֵלּוּ וָאֵלּוּ דִּבְרֵי אֱלֹהִים חַיִּים",
+      "translation": "These and those are the words of the living God.",
+      "setting": "A discussion line that holds two views open rather than closing them with a single ruling.",
+      "sourceUrl": "https://www.sefaria.org/Eruvin.13b"
+    },
+    "Gemara Sukkah 2a": {
+      "hebrew": "סוּכָּה שֶׁהִיא גְבוֹהָה לְמַעְלָה מֵעֶשְׂרִים אַמָּה",
+      "translation": "A sukkah that is higher than twenty cubits.",
+      "setting": "A validity case: a structure, a measure, and a ruling that later discussion may narrow.",
+      "sourceUrl": "https://www.sefaria.org/Sukkah.2a"
+    },
+    "Gemara Bava Metzia 2a": {
+      "hebrew": "שְׁנַיִם אוֹחֲזִין בְּטַלִּית",
+      "translation": "Two people are holding a garment.",
+      "setting": "The opening case on the daf: two claimants, one object, and no proof yet of ownership.",
+      "sourceUrl": "https://www.sefaria.org/Bava_Metzia.2a"
+    },
+    "Bava Metzia 59b": {
+      "hebrew": "לֹא בַשָּׁמַיִם הִיא",
+      "translation": "It is not in heaven.",
+      "setting": "From the Oven of Akhnai story — a tension the passage leaves standing rather than tidily settling.",
+      "sourceUrl": "https://www.sefaria.org/Bava_Metzia.59b"
+    },
+    "Kiddushin 31b": {
+      "hebrew": "אֵיזֶהוּ מוֹרָא וְאֵיזֶהוּ כִּבּוּד",
+      "translation": "What is reverence, and what is honor?",
+      "setting": "The Gemara cites and distinguishes two verses on honoring parents — quoted words, then the argument built on them.",
+      "sourceUrl": "https://www.sefaria.org/Kiddushin.31b"
+    },
+    "Gittin 55b": {
+      "hebrew": "אַקַּמְצָא וּבַר קַמְצָא חֲרוּב יְרוּשָׁלַיִם",
+      "translation": "On account of Kamtza and Bar Kamtza, Jerusalem was destroyed.",
+      "setting": "A story window: a man is shamed at a feast after a mistaken invitation — state what happens before drawing a lesson.",
+      "sourceUrl": "https://www.sefaria.org/Gittin.55b"
+    },
     "Mikraot Gedolot, Genesis 1:1": {
       "hebrew": "בְּרֵאשִׁית בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ",
       "translation": "In the beginning God created the heaven and the earth.",
       "setting": "On a Mikraot Gedolot page the verse sits as the primary text; commentaries are printed around it.",
       "sourceUrl": "https://www.sefaria.org/Genesis.1.1"
+    },
+    "Rashi on Genesis 1:1": {
+      "hebrew": "בְּרֵאשִׁית — אֵין הַמִּקְרָא הַזֶּה אוֹמֵר אֶלָּא דָּרְשֵׁנִי",
+      "translation": "'In the beginning' — this verse says nothing other than 'interpret me.'",
+      "setting": "Commentary quotes a word from the verse, then explains it — the quoted-word-then-explanation shape.",
+      "sourceUrl": "https://www.sefaria.org/Rashi_on_Genesis.1.1"
     },
     "Pirkei Avot 1:1": {
       "hebrew": "מֹשֶׁה קִבֵּל תּוֹרָה מִסִּינַי וּמְסָרָהּ לִיהוֹשֻׁעַ",
@@ -67,6 +163,24 @@
       "setting": "A named sage plus “he used to say” — an attribution formula before the teaching itself.",
       "sourceUrl": "https://www.sefaria.org/Pirkei_Avot.1.2"
     },
+    "Pirkei Avot 3:2": {
+      "hebrew": "שֶׁנֶּאֱמַר וְאָכַלְתָּ וְשָׂבָעְתָּ וּבֵרַכְתָּ · מִכָּאן אָמְרוּ",
+      "translation": "as it is said: “you shall eat and be satisfied and bless” · from here they said.",
+      "setting": "A teaching cites a verse, then comments — a short bound-the-quote window already used in Academy orientation.",
+      "sourceUrl": "https://www.sefaria.org/Pirkei_Avot.3.2"
+    },
+    "Pirkei Avot 5:7": {
+      "hebrew": "אֵיזֶהוּ חָכָם? הַלּוֹמֵד מִכָּל אָדָם",
+      "translation": "Who is wise? One who learns from every person.",
+      "setting": "An Avot teaching already used in Academy sessions — restating it in your own words is the skill.",
+      "sourceUrl": "https://www.sefaria.org/Pirkei_Avot.4.1"
+    },
+    "Amidah, opening blessing": {
+      "hebrew": "בָּרוּךְ אַתָּה ה׳",
+      "translation": "Blessed are You, Lord.",
+      "setting": "A blessing formula of public address — liturgical praise, not a legal case.",
+      "sourceUrl": "https://www.sefaria.org/search?q=Amidah%20opening%20blessing&tab=texts"
+    },
     "Kaddish": {
       "hebrew": "יִתְגַּדַּל וְיִתְקַדַּשׁ שְׁמֵהּ רַבָּא",
       "translation": "May His great name be magnified and sanctified.",
@@ -78,6 +192,66 @@
       "translation": "The foundation of foundations and the pillar of wisdoms is to know that there is a First Being.",
       "setting": "A code-style claim stated as a principle, not as a back-and-forth sugya.",
       "sourceUrl": "https://www.sefaria.org/Mishneh_Torah,_Foundations_of_the_Torah.1.1"
+    },
+    "Rambam, Hilchot Deot 1:4": {
+      "hebrew": "הַדֶּרֶךְ הַיְשָׁרָה הִיא מִדָּה בֵינוֹנִית",
+      "translation": "The straight way is the middle measure.",
+      "setting": "A code-style principle about character — connectors and claims sit in legal prose, not in a sugya.",
+      "sourceUrl": "https://www.sefaria.org/Mishneh_Torah,_Human_Dispositions.1.4"
+    },
+    "Rambam, Hilchot Deot 1:5": {
+      "hebrew": "וְהָלַכְתָּ בִּדְרָכָיו",
+      "translation": "Walk in His ways.",
+      "setting": "A code line that can grant a point and then adjust the original claim — already used in Academy character sessions.",
+      "sourceUrl": "https://www.sefaria.org/Mishneh_Torah,_Human_Dispositions.1.5"
+    },
+    "Shulchan Aruch, Orach Chaim 1:1": {
+      "hebrew": "מִצְוַת עֲשֵׂה מִן הַתּוֹרָה לְבָרֵךְ",
+      "translation": "It is a positive commandment from the Torah to bless.",
+      "setting": "A code-style line that states what to do — the same ruling shape as a Shulchan Aruch se’if, already used in Academy halakha sessions.",
+      "sourceUrl": "https://www.sefaria.org/Shulchan_Arukh%2C_Orach_Chayim.1.1"
+    },
+    "Orchot Tzaddikim": {
+      "hebrew": "עֲנָוָה · אֱמֶת · כַּעַס",
+      "translation": "Humility · truth · anger.",
+      "setting": "Mussar names a trait, then works a case of someone who… — a short middah window already used in Academy sessions.",
+      "sourceUrl": "https://www.sefaria.org/search?q=Orchot%20Tzaddikim&tab=texts"
+    },
+    "Guide for the Perplexed": {
+      "hebrew": "רְשׁוּת לְכָל אָדָם נְתוּנָה",
+      "translation": "Permission / freedom is given to every person.",
+      "setting": "A Maimonidean philosophical line already used in Academy thought sessions — it states a difficulty, then the work answers it.",
+      "sourceUrl": "https://www.sefaria.org/search?q=Guide%20for%20the%20Perplexed&tab=texts"
+    },
+    "One passage with a ruling and a story side by side": {
+      "hebrew": "חָרוּב · בַּת קוֹל · לֹא בַשָּׁמַיִם הִיא · נִצְּחוּנִי בָנַי",
+      "translation": "Carob tree · Heavenly Voice · it is not in heaven · My children have defeated Me.",
+      "setting": "One sugya holds a legal principle beside a story — read the ruling for practice, the story for meaning.",
+      "sourceUrl": "https://www.sefaria.org/Bava_Metzia.59b"
+    },
+    "Psalm vs. legal code": {
+      "hebrew": "ה׳ רֹעִי לֹא אֶחְסָר · יְסוֹד הַיְסוֹדוֹת",
+      "translation": "The Lord is my shepherd; I shall not lack. · The foundation of foundations…",
+      "setting": "A psalm line of image beside a code-style claim — poetry invites resonance; a code invites precision.",
+      "sourceUrl": "https://www.sefaria.org/Psalms.23.1"
+    },
+    "A source with several undecided views": {
+      "hebrew": "אֵלּוּ וָאֵלּוּ דִּבְרֵי אֱלֹהִים חַיִּים",
+      "translation": "These and those are the words of the living God.",
+      "setting": "A source that lays out more than one view and does not by itself tell you what to do.",
+      "sourceUrl": "https://www.sefaria.org/Eruvin.13b"
+    },
+    "A code of Jewish law with disagreeing explanations": {
+      "hebrew": "אֵלּוּ וָאֵלּוּ דִּבְרֵי אֱלֹהִים חַיִּים וַהֲלָכָה כְּבֵית הִלֵּל",
+      "translation": "These and those are the words of the living God — and the halakha follows Beit Hillel.",
+      "setting": "A later line that both preserves disagreement and states a practice — studying it is not yet a personal ruling.",
+      "sourceUrl": "https://www.sefaria.org/Eruvin.13b"
+    },
+    "A source of Jewish law studied on your own": {
+      "hebrew": "לִלְמוֹד · לְהָבִין · לִשְׁאוֹל",
+      "translation": "To learn · to understand · to ask.",
+      "setting": "Study yields understanding, not a personal ruling — a boundary window already used in Academy halakha sessions.",
+      "sourceUrl": "https://www.sefaria.org/search?q=halakha&tab=texts"
     }
   }
 }

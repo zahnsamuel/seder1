@@ -3388,3 +3388,30 @@ removed halakhah / aggadah / sugya / Shulchan Aruch / commentary from all stems 
 terms now appear only in the teach and in post-answer feedback. Extended
 test/starter-context-resp-items.test.mjs to require the teach exists and defines the terms, and to
 assert no ask for these skills uses an unexplained term. No academy-session.* change.
+
+## 2026-09-08 -- Cursor: on-page source excerpts for starter academy sessions
+
+Starter See-it / try-it / new-source was bouncing to Sefaria whenever
+`data/foundation-source-excerpts.json` had no window for the authored
+`sourceRef`. Audited that map (and the session lookup) against starter
+skills that have authored banks. Did not edit `data/foundation-authored-items.json`.
+
+Filled missing windows with short Hebrew/translation already used in-repo
+(seed lessons, orientation, arcs, thought/halakha/mussar units). No live
+Sefaria scrape; no invented Hebrew. Teach-before-ask unchanged: excerpts
+may show terms; asks stay as authored.
+
+Skills that gained on-page windows (first three session steps now have
+Hebrew or translation): `fnd-signal-known-words`, `fnd-signal-question-words`,
+`fnd-signal-name-formulas`, `fnd-signal-connectors`, `fnd-signal-quotation`,
+`fnd-role-question-vs-answer`, `fnd-role-example`, `fnd-role-quotation-bounds`,
+`fnd-role-ruling-vs-discussion`, `fnd-case-actors`, `fnd-case-what-happens`,
+`fnd-case-restate`, `fnd-case-uncertainty`, `fnd-arg-evidence-role`,
+`fnd-arg-objection`, `fnd-arg-response`, `fnd-arg-unresolved`,
+`fnd-context-genre-expectations`, `fnd-resp-learning-vs-ruling`. Also added
+Rashi on Genesis 1:1 for the extra genre-literacy items. L1 orientation
+skills already had windows. L0 decode has no authored session yet.
+
+Guard: `test/foundation-source-excerpts.test.mjs`. Left academy-session
+renderer, Today, and item banks alone.
+
