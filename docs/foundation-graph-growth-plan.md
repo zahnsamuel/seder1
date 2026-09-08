@@ -123,21 +123,22 @@ each sprint is a few dozen skills that the content and the daily loop can actual
 
 ## Concrete first slice (proposed — Axis A sprint 1)
 
-Splitting `fnd-arg-response` (90 units) is the single highest-leverage move. Candidate children (all
-L5, prereq `fnd-arg-objection`, each teachable in Gemara **and** Rambam/Guide/responsum):
+**Decided (2026-09-08):** implement **one** child, not the three-way split. Audit + retag map:
+[`docs/fat-bucket-first-split.md`](fat-bucket-first-split.md) /
+`data/fat-bucket-first-split.json`. Live graph unchanged until the starter set is instrumented.
 
-| new id | move | rubric signal (mode) |
-|---|---|---|
-| `fnd-arg-resolve-distinction` | answer by distinguishing two cases | `DISTINCTION ANSWER` |
-| `fnd-arg-reinterpret` | answer by re-reading the challenged claim | `REINTERPRET` |
-| `fnd-arg-two-answers` | recognize the sugya gives multiple answers | `SECOND ANSWER` |
-| `fnd-arg-response` (kept) | the general "answers the objection" move | (existing default) |
+| new id | move | rubric signal (mode) | Status |
+|---|---|---|---|
+| `fnd-arg-resolve-distinction` | answer by distinguishing two cases | `DISTINCTION ANSWER` | **First split.** Four remode targets already teach this move. |
+| `fnd-arg-reinterpret` | answer by re-reading the challenged claim | `REINTERPRET` | Deferred — no mode in content. |
+| `fnd-arg-two-answers` | recognize the sugya gives multiple answers | `SECOND ANSWER` | Deferred — no mode in content. |
+| `fnd-arg-response` (kept) | the general "answers the objection" move | (existing default) | Fallback. |
 
-`fnd-arg-response` stays as the fallback so nothing regresses; the finer skills claim steps whose
-mode carries the signal. **Content step needed:** most existing arc "answer" steps use a generic
-mode, so this sprint includes a light content-mode pass (or new steps) so the finer skills get real
-coverage rather than reporting 0. Repeat the pattern for `role-ruling-vs-discussion` and
-`case-what-happens`.
+`fnd-arg-response` stays as the fallback. The child prerequisites `fnd-arg-response` so Today
+teaches the general move first, then distinction instead of jumping to `fnd-arg-unresolved`.
+Do **not** key the child on bare `DISTINCTION` — that token already belongs to
+`fnd-compare-scope`. `fnd-case-what-happens` is already closed (0.2.0 children);
+`fnd-role-ruling-vs-discussion` has no remode signal yet.
 
 ## Authoring guardrails (per skill, non-negotiable)
 

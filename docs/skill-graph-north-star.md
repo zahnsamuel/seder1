@@ -194,6 +194,8 @@ another hundred skills.
    `fnd-case-what-happens` still swallow most tagged content. Split only where
    the daily loop would route differently, and only with a rubric signal plus
    retagged units (`docs/foundation-graph-growth-plan.md`).
+   First-split proposal (not implemented): one child
+   `fnd-arg-resolve-distinction` — see `docs/fat-bucket-first-split.md`.
 
 8. **Capability-state language on the learner surfaces that already show
    progress.** Retire leftover % / XP / level copy on path and academy

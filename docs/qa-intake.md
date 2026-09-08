@@ -3388,3 +3388,28 @@ removed halakhah / aggadah / sugya / Shulchan Aruch / commentary from all stems 
 terms now appear only in the teach and in post-answer feedback. Extended
 test/starter-context-resp-items.test.mjs to require the teach exists and defines the terms, and to
 assert no ask for these skills uses an unexplained term. No academy-session.* change.
+
+## 2026-09-08 -- Fat-bucket first split (north-star item 7): proposal only
+
+Audit of the three named fat buckets against the live rubric (`tagFor` over `loadUnits`).
+Did not edit the graph, the starter set, next-action, or `data/foundation-authored-items.json`.
+
+- `fnd-case-what-happens` (41): already closed in graph 0.2.0. Leftover modes are only
+  `CASE ORIENTATION` / `FACT PATTERN`. No new case children.
+- `fnd-role-ruling-vs-discussion` (78): sourceReasoning catch-all, 41 unmoded. No split;
+  a child would have 0 units.
+- `fnd-arg-response` (90): argument catch-all. One justified child:
+  `fnd-arg-resolve-distinction`, keyed on `DISTINCTION ANSWER` (must sit above L6
+  `DISTINCTION` -> `fnd-compare-scope`). Four remode targets named; three currently
+  stolen by compare-scope. Deferred: reinterpret / two-answers (no mode in content).
+
+Routing difference after the split (starter-scoped Today, the intended loop): a learner
+who has secured every starter skill except `fnd-arg-unresolved` is sent to open tension
+today; after the child joins the starter set they are sent to
+`academy-session.html?skill=fnd-arg-resolve-distinction` instead. Live full-graph Today
+would not move (still picks frozen L2 `fnd-signal-sentence-structure`). Practice/review
+of the four remode steps would cite the child.
+
+Artifacts: `docs/fat-bucket-first-split.md`, `data/fat-bucket-first-split.json`,
+`test/fat-bucket-first-split.test.mjs`. Implement later as graph 0.3.3 + 30th starter
+skill, after starter items exist. Do not remode Claude's authored-item file.
