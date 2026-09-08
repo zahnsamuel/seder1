@@ -3388,3 +3388,19 @@ removed halakhah / aggadah / sugya / Shulchan Aruch / commentary from all stems 
 terms now appear only in the teach and in post-answer feedback. Extended
 test/starter-context-resp-items.test.mjs to require the teach exists and defines the terms, and to
 assert no ask for these skills uses an unexplained term. No academy-session.* change.
+
+## 2026-09-08 -- Cursor: close See-it teach coverage gaps for non-L0 starter skills
+
+Audit of `data/foundation-teach.json` vs the frozen starter set (29 skills): only two See-it
+entries existed (`fnd-orient-source-type`, `fnd-context-genre-expectations`). Academy-session
+See-it for every other teachable starter fell through to the generic "noticing one thing in a
+source" fallback.
+
+Filled plain-English 2-4 sentence mini-lessons for the remaining 23 non-L0 starters (orient,
+signals, roles, case, argument, responsibility). Held L0 decode (`fnd-decode-*`) -- glyph UI
+does not need this bank. Did not touch frozen skills, `foundation-authored-items.json`, or
+the genre gallery Claude already owns. Terms that later asks use (Talmud page / Gemara marker,
+sugya) are introduced in the matching See-it after a plain-English first sentence.
+
+Guard: `test/foundation-starter-teach.test.mjs` -- every non-L0 starter has a banked teach that
+`teachCopy` actually uses; L0 keys stay absent; teach keys stay inside the starter set.
