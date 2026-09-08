@@ -55,6 +55,21 @@ daily page. Never require the learner to understand the whole curriculum before 
 
 If a control does not help the next twenty minutes, it does not belong on the first screen.
 
+## Teach a term before you test it
+
+A learner-facing question or check must never use a Jewish or technical term the learner has not
+already been taught earlier in the path — in a See-it mini-lesson, in a prior skill, or in the teach
+text for this one. Assume the reader does not yet know words like *Torah* (as a genre label),
+*Mishnah*, *Gemara*, *commentary*, *halakhah*, *aggadah*, *sugya*, or the titles of specific works.
+Teach the term first, then ask; or ask in plain English and introduce the term only once it has been
+defined. A term may appear in teaching text and in post-answer feedback — never in the stem or the
+choices of an ask that has not earned it.
+
+This is the point of the teach-then-ask split: the See-it mini-lesson (`data/foundation-teach.json`,
+or a skill's or item's own `teach`) defines the vocabulary, and the check then uses it. An item bank
+that leans on an undefined term is testing recall of a word we never taught, not the reading
+capability the skill is about.
+
 ## No chatbot as the primary UI
 
 This is a study academy, not a conversation product. Lessons, retrieval, and source
