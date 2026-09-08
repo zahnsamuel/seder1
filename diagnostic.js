@@ -59,7 +59,7 @@ function updateGauge(estimate) {
   const pct = Math.min(100, Math.round((mapped.size / total) * 100));
   const fill = $('#gauge-fill'); if (fill) fill.style.width = `${pct}%`;
   const gauge = $('.gauge'); if (gauge) gauge.setAttribute('aria-valuenow', String(pct));
-  $('#placed-label').textContent = `${mapped.size} of ${total} skills mapped`;
+  $('#placed-label').textContent = 'Finding a starting point';
   $('#q-label').textContent = `Question ${questionCount + 1}`;
 }
 
@@ -67,7 +67,7 @@ function renderProbe(probe) {
   const intro = $('.intro'); if (intro) intro.hidden = true;
   $('#probe-shell').hidden = false;
   const skill = skillById(probe.id);
-  $('#probe-layer').textContent = (skill ? `Layer ${skill.layer} · ${layerTitle(skill.layer)}` : 'Foundation').toUpperCase();
+  $('#probe-layer').textContent = (skill ? layerTitle(skill.layer) : 'Getting started').toUpperCase();
   $('#probe-title').textContent = probe.title || (skill && skill.title) || '';
   $('#probe-stmt').textContent = probe.statement || (skill && skill.statement) || '';
   $('#probe-check').textContent = probe.check || 'Judge honestly whether you can do this on your own.';
@@ -122,16 +122,16 @@ function finish(estimate) {
 function renderResults(estimate, start) {
   $('#results').hidden = false;
   const known = new Set(estimate.known || []);
-  const why = start && start.lev > 0
-    ? `More of the foundation builds on this than anything else you haven’t shown yet — ${start.lev} later move${start.lev === 1 ? '' : 's'} depend on it.`
-    : (start ? 'This is your next move toward reading a source on your own.' : 'Every foundational move is already in place — carry them into an unfamiliar source to make them durable.');
-  $('#results-title').textContent = start ? `Start here: ${start.skill.title}` : 'You’ve placed out of the foundation.';
+  const why = start
+    ? 'Next you’ll get one short lesson on Today. Stay on the page, see it, then answer.'
+    : 'You’ve already shown the starting skills. Today will give you the next lesson.';
+  $('#results-title').textContent = start ? `Start with: ${start.skill.title}` : 'You’re ready for Today.';
   $('#results-copy').textContent = start
-    ? `${start.skill.statement || ''} ${why} This is a starting point, not a permanent level — your first sessions confirm it, and anything you can’t yet do comes right back.`
+    ? `${start.skill.statement || ''} ${why}`
     : why;
   $('#results-cando').textContent = known.size
-    ? `You placed ${known.size} of ${total} reading moves as already yours.`
-    : 'You’re right at the beginning of the foundation — a good place to start.';
+    ? 'We’ll treat what you already know as a starting point — your first lesson will confirm it.'
+    : 'You’re at the beginning, which is a good place to start.';
   const layers = (graph && graph.layers) || [];
   $('#results-grid').innerHTML = layers.map((layer) => {
     const inLayer = (graph.skills || []).filter((skill) => skill.layer === layer.n);
@@ -143,9 +143,10 @@ function renderResults(estimate, start) {
     return `<article class="tone-${tone}"><span>${layer.n}. ${esc(layer.title)}</span><strong>${status}</strong></article>`;
   }).join('');
   const begin = $('#results-begin');
-  if (begin) begin.href = start
-    ? (start.id.startsWith('fnd-decode-') ? 'hebrew-decoding.html' : `academy-session.html?skill=${encodeURIComponent(start.id)}`)
-    : 'my-graph.html';
+  if (begin) {
+    begin.href = 'daily-router.html';
+    begin.textContent = 'See today’s lesson →';
+  }
   bindRhythm();
 }
 
@@ -157,7 +158,7 @@ function bindRhythm() {
     try {
       const response = await Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'learning_rhythm_set', rhythm: button.dataset.rhythm }) });
       if (!response.ok) throw new Error('rhythm');
-      $('#rhythm-status').textContent = 'Rhythm saved. The Academy will keep the next move small and consistent.';
+      $('#rhythm-status').textContent = 'Saved. Continue to Today whenever you’re ready.';
     } catch { $('#rhythm-status').textContent = 'Rhythm will stay on this device until your account is available.'; }
   }));
 }

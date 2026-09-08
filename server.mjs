@@ -169,7 +169,7 @@ async function enrichPlacementWithFrontier(root, event) {
 }
 
 async function chooseRecommendation(learner, { skipReview = false } = {}) {
-  if (!learner.placement) return { kind: 'placement', title: 'Find your Gemara starting point', reason: 'A short adaptive placement pins your knowledge frontier in a handful of questions — what you already know and what to build next.', url: 'diagnostic.html' };
+  if (!learner.placement) return { kind: 'placement', title: 'Find where to start', reason: 'A few short questions so we start in the right place — not too hard, not too easy.', url: 'diagnostic.html' };
   if (!skipReview) {
     // Recover / review before teaching the next frontier skill. Only fire when the
     // due or faded id resolves to a live fnd- skill — never a generic Daf card or a
@@ -234,7 +234,8 @@ async function nextActionFor(learner) {
     }
   }
   if (recommendation.kind === 'review' && skillId) candidates.review = { ...base, cta: 'Review now' };
-  else if (['placement', 'academy-foundation', 'foundation-term'].includes(recommendation.kind)) candidates.foundation = base;
+  else if (recommendation.kind === 'placement') candidates.foundation = { ...base, cta: 'Start the questions' };
+  else if (['academy-foundation', 'foundation-term'].includes(recommendation.kind)) candidates.foundation = { ...base, cta: 'Start this lesson' };
   else if (recommendation.kind === 'academy-session') candidates.academy = base;
   else if (recommendation.kind === 'graph-practice' && /transfer/i.test(`${recommendation.skill?.id || ''} ${recommendation.context || ''}`)) candidates.transfer = { ...base, cta: 'Try it in a new source' };
   else if (recommendation.kind === 'graph-practice') candidates.frontier = { ...base, cta: 'Learn a new reading move' };

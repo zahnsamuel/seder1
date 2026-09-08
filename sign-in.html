@@ -5,15 +5,15 @@ const status = $('#status');
 function nextUrl() {
   const next = new URLSearchParams(location.search).get('next');
   try { const u = next && new URL(next, location.origin); if (u && u.origin === location.origin && u.pathname !== '/sign-in.html') return `${u.pathname}${u.search}${u.hash}`; } catch { /* ignore */ }
-  return 'seder.html';
+  return 'daily-router.html';
 }
 let mode = 'supabase';
 Seder.config().then((config) => {
   mode = config.mode || (config.supabaseUrl && config.supabaseAnonKey ? 'supabase' : 'local');
   if (mode === 'token') {
     // Name-only sign-up: claim a private learner and keep a bearer token on this device.
-    $('#heading').textContent = 'Start learning and save your progress.';
-    $('#lede').textContent = 'Pick a name — your progress, the skills you’ve secured and what comes next, stays private to your account on this device.';
+    $('#heading').textContent = 'Pick a name to start.';
+    $('#lede').textContent = 'No email, no password. We’ll save your progress on this device and take you to a few short questions, then one lesson.';
     $('#emailLabel').hidden = true; $('#email').hidden = true; $('#email').required = false;
     $('#name').required = true; $('#submit').textContent = 'Start learning →';
     $('#recoveryBlock').hidden = false;

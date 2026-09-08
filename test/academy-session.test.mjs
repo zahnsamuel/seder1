@@ -16,9 +16,9 @@ const HOOKS = [
   'id="complete-copy"', 'id="real-content"', 'id="real-content-title"', 'id="real-content-list"'
 ];
 
-test('academy session is a graph-driven 20-minute experience', () => {
-  assert.match(html, /ONE SKILL.*20 MINUTES/);
-  assert.match(html, /id="ask-eyebrow">YOUR ASK</);
+test('academy session is a graph-driven 15-minute experience', () => {
+  assert.match(html, /SEE IT, THEN ANSWER.*15 MINUTES/);
+  assert.match(html, /id="ask-eyebrow">YOUR QUESTION</);
   assert.doesNotMatch(html, /no typing|typing required/i);
   assert.match(html, /choices/);
   assert.match(js, /foundation-skill-graph\.json/);
@@ -36,7 +36,7 @@ test('academy session is one next move on the shared shell, not a dual-column sy
   assert.match(html, /family=Inter/);
   assert.match(html, /family=Noto\+Sans\+Hebrew/);
   assert.match(html, /class="jla-main"/);
-  assert.match(html, /<p class="jla-eyebrow">ONE SKILL · ONE SOURCE · 20 MINUTES<\/p>/);
+  assert.match(html, /<p class="jla-eyebrow">SEE IT, THEN ANSWER · ABOUT 15 MINUTES<\/p>/);
   assert.match(html, /id="advance" class="jla-btn jla-btn-primary"/);
   assert.equal((html.match(/id="advance"/g) || []).length, 1);
   assert.equal((html.match(/class="jla-btn jla-btn-primary"/g) || []).length, 2); // continue + complete
@@ -85,23 +85,27 @@ test('foundation session chrome is see it / try it / new source with a clear ask
   assert.match(html, /<small>new source<\/small>/);
   assert.doesNotMatch(html, /see the move/i);
   assert.doesNotMatch(html, /make the move/i);
-  assert.match(html, /id="ask-eyebrow">YOUR ASK</);
+  assert.match(html, /id="ask-eyebrow">YOUR QUESTION</);
   assert.doesNotMatch(html, /no typing|typing required/i);
   assert.match(html, /WHAT TO NOTICE/);
   assert.match(html, /id="teach-copy"/);
   assert.match(html, /id="ask-panel"/);
   assert.match(html, /id="source-footer"/);
-  assert.match(html, /Full text \(optional\)/);
+  assert.match(html, /Look up later \(optional\)/);
   assert.doesNotMatch(html, /Open full text in Sefaria/);
+  assert.doesNotMatch(html, /Full text \(optional\)/);
   assert.ok(html.indexOf('id="teach-block"') < html.indexOf('id="source-footer"'));
   assert.ok(html.indexOf('id="source-footer"') < html.indexOf('id="ask-panel"'));
   assert.match(js, /foundation-authored-items\.json/);
   assert.match(js, /foundation-source-excerpts\.json/);
   assert.match(js, /foundation-teach\.json/);
+  assert.match(js, /hideOutbound/);
   assert.match(js, /Got it — ask me|continueTeach|holdAsk|awaitingAsk/);
   assert.ok(html.indexOf('id="ask-panel"') < html.indexOf('id="advance"'));
   assert.ok(html.indexOf('id="advance"') < html.indexOf('id="complete"'));
   assert.match(html, /<\/div>\s*<button id="advance"/);
+  assert.match(html, /href="daily-router.html">Continue to Today/);
+  assert.doesNotMatch(html, /href="path.html">Back to your path/);
   assert.match(lesson, /You'll practice:/);
   assert.match(lesson, /Got it — ask me/);
   assert.match(lesson, /SOURCE_TYPE_TEACH/);

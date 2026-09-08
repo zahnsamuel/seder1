@@ -104,8 +104,10 @@ export function foundationFrontierRecommendation(learner, graph, map) {
   const practice = pickContentPracticeForSkill(map, next.id, learner);
   return {
     kind: 'academy-foundation',
-    title: `Academy Foundation · ${next.title}`,
-    reason: next.statement || next.teachingMove || 'Practice one transferable reading move.',
+    title: next.title,
+    reason: next.statement
+      ? `${next.statement} About 15 minutes — you’ll see it, then answer a question.`
+      : 'One short lesson: see it on the page, then answer a question.',
     url: foundationSessionHref(next.id),
     skillId: next.id,
     foundation: true,

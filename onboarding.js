@@ -7,7 +7,7 @@
     if (hasProgress || localStorage.getItem(key) || document.querySelector('.onboarding')) return;
     const panel = document.createElement('section');
     panel.className = 'onboarding';
-    panel.innerHTML = `<p>WELCOME TO THE ACADEMY</p><h2>One Jewish literacy, built one source move at a time.</h2><ol><li><b>1. Study today’s next step.</b> Jewish Learning Academy chooses a source skill that is ready to grow.</li><li><b>2. See why it is next.</b> You will see prerequisites, evidence, and a transfer goal.</li><li><b>3. Return until it transfers.</b> Skills reappear in new sources until you can read independently.</li></ol><div><a href="daily-router.html">Start today’s study →</a><button type="button">Got it</button></div>`;
+    panel.innerHTML = `<p>WELCOME</p><h2>Here’s how this works.</h2><ol><li><b>1. Pick a name.</b> No email, no password — just something to save your progress.</li><li><b>2. Answer a few questions.</b> We’ll start you in the right place, not too hard and not too easy.</li><li><b>3. Do one short lesson.</b> See it on the page, then answer. That’s the whole first visit.</li></ol><div><a href="diagnostic.html">Find where to start →</a><button type="button">Got it</button></div>`;
     const hero = document.querySelector('.hero');
     if (hero) hero.after(panel);
     panel.querySelector('button').onclick = () => { localStorage.setItem(key, 'true'); panel.remove(); };

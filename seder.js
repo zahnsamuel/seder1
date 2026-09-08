@@ -39,7 +39,7 @@ Promise.all([
   set('#todayTitle',el=>el.textContent=placement?decision.recommendation.title:'Today in Jewish Learning Academy');
   // Grounded "why this, now" from the server (recommendation.why), shared across surfaces.
   set('#todayCopy',el=>el.textContent=decision.recommendation.why?.sentence||(placement?decision.recommendation.reason:'One clear next step: repair what is fragile, then build the next source move.'));
-  set('#nextAction',el=>{el.href=placement?decision.recommendation.url:'daily-router.html';el.textContent=placement?'Find my starting point →':'See today’s next step →';});
+  set('#nextAction',el=>{el.href=placement?decision.recommendation.url:'daily-router.html';el.textContent=placement?'Find my starting point →':'See today’s lesson →';});
   // Welcome intro is for brand-new learners only. A returning learner with real evidence gets a
   // clean front door and one next step — no intro, no second CTA competing with today's step.
   const hasProgress=(learner.capabilityEvidence||[]).length>0||(learner.dailyStreak||0)>0;

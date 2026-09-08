@@ -57,6 +57,13 @@
 .jla-next-action__cta:hover { transform: translateY(-1px); box-shadow: var(--jla-shadow-2); }
 .jla-next-action__cta:focus-visible { outline: 3px solid var(--jla-accent); outline-offset: 2px; }
 
+.jla-next-action__hint {
+  color: var(--jla-text-soft);
+  font-size: .88rem;
+  font-weight: 600;
+  margin: 0;
+}
+
 @media (max-width: 720px) {
   .jla-next-action,
   [data-jla-next-action] {

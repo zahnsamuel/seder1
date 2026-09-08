@@ -52,9 +52,10 @@ test('diagnostic.js drives the stateless estimator and seeds through the placeme
   // self-report seeds at a provisional secure level, never a graded 1.0
   assert.match(js, /\[id, 0\.8\]/);
   assert.ok(!/\[id, 1\]|\[id, 1\.0\]/.test(js), 'self-report must not seed a perfect 1.0');
-  // decode skills route to the real drills; everything else into the scaffolded lesson
-  assert.match(js, /fnd-decode-[\s\S]*hebrew-decoding\.html/);
-  assert.match(js, /academy-session\.html\?skill=/);
+  // Placement hands the learner to Today; Today opens decode drills or the scaffolded lesson.
+  assert.match(js, /begin\.href = 'daily-router\.html'/);
+  assert.match(js, /See today’s lesson/);
+  assert.doesNotMatch(js, /academy-session\.html\?skill=/);
   assert.doesNotMatch(js, /foundationSkill=/);
   // Same frontier pick as Today (lowest layer, then id) — not a second leverage ranking.
   assert.match(js, /a\.skill\.layer - b\.skill\.layer \|\| a\.id\.localeCompare\(b\.id\)/);

@@ -3388,3 +3388,16 @@ removed halakhah / aggadah / sugya / Shulchan Aruch / commentary from all stems 
 terms now appear only in the teach and in post-answer feedback. Extended
 test/starter-context-resp-items.test.mjs to require the teach exists and defines the terms, and to
 assert no ask for these skills uses an unexplained term. No academy-session.* change.
+
+## 2026-09-08 ? Cursor: friend/demo first-run copy + chrome
+
+Cold-visitor path on the hosted sqlite demo: landing ? name signup ? placement ? one Today lesson ? academy-session See-it ? ask.
+
+Copy + light chrome only. Did not edit item banks, did not rewrite `knowledgeFrontier` / PR #30 routing, did not change hosted sqlite signup.
+
+- Landing / onboarding: no-background promise; three plain steps (name, questions, one lesson). Signup default next is Today (not the homepage). Landing CTA still sends `next=diagnostic.html`.
+- Placement: ?find where to start,? not knowledge-frontier / Gemara / graph jargon. Results CTA is Today (`See today?s lesson ?`), not a skip into the session. Rhythm is optional.
+- Today: loading ?Finding today?s lesson?; hint ?This is the only thing to do right now.? Foundation title is the skill name (no ?Academy Foundation ·?). Placement next-action CTA is ?Start the questions?; lesson CTA is ?Start this lesson.?
+- Academy session: See it / try it / new source; excerpt is the lesson; Sefaria hidden during See-it and never dumped to a search URL; complete returns to Today, not `path.html`.
+- Tests: `test/friend-first-run.test.mjs` plus updates to session, diagnostic, onboarding, and sign-in front-door guards.
+

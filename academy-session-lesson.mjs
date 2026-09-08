@@ -49,7 +49,7 @@ export function whyLine(skill, graph) {
   const skills = graph?.skills || [];
   const prereq = (skill.prerequisites || []).map((id) => skills.find((s) => s.id === id)?.title).filter(Boolean)[0];
   const unlock = skills.filter((s) => (s.prerequisites || []).includes(skill.id)).map((s) => s.title)[0];
-  return `${prereq ? `Builds on ${prereq}` : 'A foundational skill'}${unlock ? `, and unlocks ${unlock}.` : '.'}`;
+  return `${prereq ? `Builds on ${prereq}` : 'A first reading skill'}${unlock ? `, then you’ll be ready for ${unlock}.` : '.'}`;
 }
 
 export function normalizeRef(ref) {
@@ -90,9 +90,7 @@ export function sefariaUrl(context = {}) {
   if (context.sourceUrl) return context.sourceUrl;
   if (context.url) return context.url;
   if (context.excerpt?.sourceUrl) return context.excerpt.sourceUrl;
-  const ref = context.ref || context.sourceRef;
-  if (!ref) return '#';
-  return `https://www.sefaria.org/search?q=${encodeURIComponent(ref)}&tab=texts`;
+  return '';
 }
 
 export function sourceSetting(context = {}, excerpt) {
@@ -101,8 +99,8 @@ export function sourceSetting(context = {}, excerpt) {
   const genre = context.genre || excerpt?.genre;
   const family = context.family;
   const bits = [genre, family && family !== genre ? `${family} family` : ''].filter(Boolean);
-  if (bits.length) return `Read this ${bits.join(' · ')} passage on the page, then answer the question below.`;
-  return 'Read this source on the page, then answer the question below.';
+  if (bits.length) return `Read this ${bits.join(' · ')} passage on this page, then answer the question below.`;
+  return 'Read this source on this page, then answer the question below.';
 }
 
 export function uncapitalize(text) {
@@ -361,10 +359,10 @@ export function frameJlaSession(session) {
     title: session.title,
     practiceLine: practiceLine(session.evidencePreview || session.title),
     why: guidance,
-    stepLabel: 'TODAY’S SOURCE WINDOW',
+    stepLabel: 'ON THIS PAGE',
     sourceWindow: {
       ...sourceWindow,
-      context: sourceWindow.context || 'Read this source on the page, then answer the question below.',
+      context: sourceWindow.context || 'Read this source on this page, then answer the question below.',
       hasOnPageSource: Boolean(sourceWindow.hebrew || sourceWindow.translation)
     },
     guidance,

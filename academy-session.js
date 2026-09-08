@@ -13,7 +13,7 @@ const skillId = params.get('skill') || 'fnd-orient-source-type';
 const $ = (selector) => document.querySelector(selector);
 const escapeHtml = (value) => String(value || '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 
-function fillSourceCard(sourceWindow = {}) {
+function fillSourceCard(sourceWindow = {}, { hideOutbound = false } = {}) {
   $('#source-ref').textContent = sourceWindow.sourceRef || 'Source';
   const hebrew = $('#source-hebrew');
   const translation = $('#source-translation');
@@ -21,11 +21,11 @@ function fillSourceCard(sourceWindow = {}) {
   else { hebrew.textContent = ''; hebrew.hidden = true; }
   if (sourceWindow.translation) { translation.textContent = sourceWindow.translation; translation.hidden = false; }
   else { translation.textContent = ''; translation.hidden = true; }
-  $('#source-setting').textContent = sourceWindow.context || 'Read this source on the page, then answer the question below.';
+  $('#source-setting').textContent = sourceWindow.context || 'Read this source on this page, then answer the question below.';
   const link = $('#source-link');
   const footer = $('#source-footer');
   const url = sourceWindow.sourceUrl;
-  const hasUrl = Boolean(url) && url !== '#';
+  const hasUrl = Boolean(url) && url !== '#' && !hideOutbound;
   link.href = hasUrl ? url : '#';
   link.hidden = !hasUrl;
   if (footer) footer.hidden = !hasUrl;
@@ -97,7 +97,7 @@ function startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, 
       el.classList.toggle('is-upcoming', n > i);
     });
     $('#step-label').textContent = STEP_CHROME[step.kind].label;
-    fillSourceCard(step.sourceWindow);
+    fillSourceCard(step.sourceWindow, { hideOutbound: Boolean(step.holdAsk) });
     fillTeach(step);
     const guidance = $('#teaching-move');
     guidance.textContent = step.guidance || '';
@@ -141,8 +141,8 @@ function startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, 
     $('#step').hidden = true;
     document.querySelector('#kp-steps').hidden = true;
     stepEls.forEach((el) => { el.classList.add('done', 'is-done'); el.classList.remove('current', 'is-current', 'is-upcoming'); });
-    $('#complete-title').textContent = `You practised “${skill.title}” across the canon.`;
-    $('#complete-copy').textContent = 'You saw the skill on a source, tried it, and carried it into a new source. Your map has moved.';
+    $('#complete-title').textContent = `You practiced “${skill.title}.”`;
+    $('#complete-copy').textContent = 'That’s this lesson. Continue to Today for the next one — one thing at a time.';
     $('#complete').hidden = false;
     $('#complete').scrollIntoView({ behavior: 'smooth', block: 'center' });
   }

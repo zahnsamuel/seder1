@@ -10,8 +10,8 @@ test('hosted Seder directs unsigned learners into secure sign-in', async () => {
   assert.match(page, /"href":"sign-in\.html","id":"accountAction"/);
   assert.match(page, /hosted-sign-in-front-door\.js/);
   assert.match(script, /Seder\.config\(\)\.then/);
-  assert.match(script, /action\.href = 'sign-in\.html'/);
+  assert.match(script, /action\.href = 'sign-in\.html\?next=diagnostic\.html'/);
   assert.match(script, /Sign in to begin/);
-  assert.match(script, /private learning path awaits/);
+  assert.match(script, /Start where you are/);
   assert.match(signIn, /Send secure sign-in link/);
 });
