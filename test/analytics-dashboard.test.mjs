@@ -22,6 +22,11 @@ test('the dashboard surfaces learner feedback, with comments escaped', () => {
   assert.match(js, /escapeHtml\(f\.comment\)/);
 });
 
+test('the operator dashboard links to the starter edge-audit workbench', () => {
+  assert.match(html, /educator-edge-audit\.html/);
+  assert.match(html, /Educator graph tools/);
+});
+
 test('the dashboard stays honest about sample size — sparse rows are held back, not read as signal', () => {
   // Only rows with enough responses are shown; the rest surface an explicit "awaiting data" message.
   assert.match(js, /\.filter\(\(x\) => x\.enough\)/);

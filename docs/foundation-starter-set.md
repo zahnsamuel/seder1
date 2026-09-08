@@ -100,7 +100,7 @@ lines → map the case → follow the first argument → and keep study distinct
 The freeze is the *list + rationale*. It deliberately does **not** touch the live router
 (that lane is owned separately). With the starter set named, the sequenced next steps are:
 
-1. **Educator edge-audit** of the 29 starter skills' prerequisites (rationales are 0/76).
+1. **Educator edge-audit** of the 29 starter skills' prerequisites (38 starter edges of 76 graph-wide; rationales still 0). Staging surface: [`educator-edge-audit.html`](../educator-edge-audit.html) + fillable stub [`data/foundation-edge-audit.json`](../data/foundation-edge-audit.json) (empty except labeled EXAMPLE records). Full-graph tool remains [`docs/educator-audit-workbench.html`](educator-audit-workbench.html).
 2. **≥1 authored transfer item per starter skill** (item banks are 0/55) — start here, not
    with new skills.
 3. **Retrieval checks** citing these `fnd-` ids.

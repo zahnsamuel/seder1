@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Jewish Learning Academy · Starter edge audit (Educator)</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="educator-edge-audit.css">
+</head>
+<body>
+  <header class="top">
+    <a href="seder.html">ס Jewish Learning Academy</a>
+    <span>STARTER EDGE AUDIT · EDUCATOR</span>
+    <nav>
+      <a href="analytics.html">Analytics</a>
+      <a href="docs/educator-audit-workbench.html">Full-graph audit</a>
+      <a href="docs/item-authoring-workbench.html">Item authoring</a>
+    </nav>
+  </header>
+  <div class="bar">
+    <div class="bar-inner">
+      <span class="title">Starter edge audit</span>
+      <span class="stat"><span class="k todo"></span>Rationales <b id="p-rat">0</b>/<span id="t-rat">—</span></span>
+      <span class="stat"><span class="k todo"></span>Misconceptions <b id="p-mis">0</b>/<span id="t-mis">—</span></span>
+      <span class="saved" id="saved"></span>
+      <button class="export" id="export" type="button">Export JSON ↓</button>
+    </div>
+  </div>
+  <main>
+    <section class="hero">
+      <span>INTERNAL · NOT LEARNER-FACING</span>
+      <h1>Record why each starter edge holds.</h1>
+      <p>Software cannot invent these claims. The frozen starter set has <b>29</b> <code>fnd-</code> skills; every prerequisite edge still has <code>rationale: null</code>, and named misconception models are empty. Fill a field here (autosaves in this browser) or edit the committed stub <code>data/foundation-edge-audit.json</code>. Export JSON folds into <code>npm run graph:import</code> — the same round-trip as the full-graph workbench. Do not write pedagogical copy for a real skill unless you are the educator signing it.</p>
+    </section>
+    <div class="how">
+      <b>What to write.</b> For each incoming edge, state why the prerequisite must be <em>secure</em> before this skill is taught — a claim an educator would defend, not a restatement of the titles. For each skill, name the wrong reading it exists to correct (<em>description</em>) and what a learner <em>does</em> when they hold it (<em>signal</em>). The two EXAMPLE records below are format illustrations on fake <code>example-*</code> ids; they are never imported.
+    </div>
+    <div id="error" class="err" hidden></div>
+    <div id="example-panel" class="example" hidden></div>
+    <nav class="bands" id="bands" hidden></nav>
+    <div id="cards"></div>
+  </main>
+  <footer>
+    <p>JLA starter-set edge audit · graph <span id="ver">—</span> · entries stay in this browser until you export.</p>
+    <p>After export: <code>npm run graph:import -- &lt;file.json&gt;</code>, then <code>npm run graph:edges &amp;&amp; npm run graph:misconceptions</code>. Full-graph tool (all 55 skills): <a href="docs/educator-audit-workbench.html">educator-audit-workbench.html</a>. Schema: <a href="data/foundation-edge-audit.json">data/foundation-edge-audit.json</a>.</p>
+  </footer>
+  <script src="educator-edge-audit.js"></script>
+</body>
+</html>

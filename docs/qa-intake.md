@@ -3388,3 +3388,19 @@ removed halakhah / aggadah / sugya / Shulchan Aruch / commentary from all stems 
 terms now appear only in the teach and in post-answer feedback. Extended
 test/starter-context-resp-items.test.mjs to require the teach exists and defines the terms, and to
 assert no ask for these skills uses an unexplained term. No academy-session.* change.
+
+## 2026-09-08 ? Cursor: stage educator starter-set edge / misconception audit (north-star #9)
+
+Software cannot invent pedagogical claims (still 0/76 rationales, 0/55 named misconceptions). Staged a
+lightweight internal workbench so a human educator can record them for the frozen starter set:
+
+- `educator-edge-audit.html` ? operator page, not learner-facing. Lists the 29 starter `fnd-` skills
+  and their 38 closed prerequisite edges with empty rationale / misconception fields. Autosave +
+  Export JSON in the existing `jla-educator-audit` shape (`npm run graph:import`).
+- `data/foundation-edge-audit.json` ? fillable stub. Authored arrays empty. Two `examples[]` records
+  are labeled EXAMPLE ONLY on fake `example-*` ids and are never imported.
+- Entry from `analytics.html` (Educator graph tools). Docs: `foundation-starter-set.md`,
+  `skill-graph-north-star.md` #9, `foundation-graph-schema.md`.
+- Tests: `test/educator-edge-audit.test.mjs`. Did not edit `data/foundation-authored-items.json`.
+  Did not change Today / next-action routing. Live graph edges stay `rationale: null`.
+

@@ -187,6 +187,12 @@ habit. Several of those are the reduce-Gemara-dominance gap: the graph is argume
 under-covers midrash/tefillah. The pairings are **proposed, not authoritative** — educators confirm
 or correct them in the audit, and only after that does a *rename* (re-keying slice ids to `fnd-*`,
 with a `capabilityEvidence` remap) become safe.
+**Starter-set staging (BUILT).** `educator-edge-audit.html` is the lightweight educator
+surface for the frozen 29-skill starter set (38 prerequisite edges). The fillable stub
+`data/foundation-edge-audit.json` is empty of real claims; its `examples[]` are labeled
+format illustrations on `example-*` ids and are never imported. Export uses the same
+`jla-educator-audit` shape as the full-graph workbench.
+
 **Audit round-trip (BUILT).** The educator-audit workbench
 (`docs/educator-audit-workbench.html`, `npm run graph:workbench`) exports a JSON that folds back in:
 `npm run graph:import -- <export.json>` validates it against the current graph version (stale keys are

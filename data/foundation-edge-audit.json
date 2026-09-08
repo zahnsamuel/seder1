@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "1.0.0",
+  "kind": "jla-foundation-edge-audit",
+  "graphVersion": "0.3.2",
+  "scope": "starter-set",
+  "note": "Fillable stub for educator-written prerequisite rationales and named misconceptions on the frozen starter set (29 fnd- skills). Software must not invent these claims — leave edgeRationales and misconceptions empty until a human educator writes them. The two records in examples[] are FORMAT ILLUSTRATIONS only (example: true, example-* ids); they must never be imported as real graph content. Workbench: educator-edge-audit.html. Fold a completed export with npm run graph:import, then npm run graph:edges && npm run graph:misconceptions.",
+  "schema": {
+    "edgeRationale": {
+      "from": "prerequisite skill id (fnd-…)",
+      "to": "dependent skill id (fnd-…)",
+      "rationale": "why an educator asserts that `to` cannot be learned before `from` is at least secure"
+    },
+    "misconception": {
+      "id": "mis-<skillId> (optional; assigned on fold if omitted)",
+      "skill": "starter skill id (fnd-…)",
+      "description": "the named wrong reading a learner holds",
+      "signal": "what the learner does when they hold that reading (observable on an item)"
+    }
+  },
+  "edgeRationales": [],
+  "misconceptions": [],
+  "examples": [
+    {
+      "example": true,
+      "kind": "edgeRationale",
+      "from": "example-skill-a",
+      "to": "example-skill-b",
+      "fromTitle": "EXAMPLE skill A",
+      "toTitle": "EXAMPLE skill B",
+      "rationale": "EXAMPLE ONLY — not a pedagogical claim about a real skill. Format: one or two sentences an educator would defend, stating why A must be secure before teaching B."
+    },
+    {
+      "example": true,
+      "kind": "misconception",
+      "id": "mis-example-skill-b",
+      "skill": "example-skill-b",
+      "skillTitle": "EXAMPLE skill B",
+      "description": "EXAMPLE ONLY — the wrong reading a learner holds (a named model, not a vague 'confused').",
+      "signal": "EXAMPLE ONLY — what the learner does when they hold that reading (something an item can observe)."
+    }
+  ]
+}

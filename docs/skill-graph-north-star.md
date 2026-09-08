@@ -202,8 +202,10 @@ another hundred skills.
 
 9. **Educator pass on the starter edges, then item banks.**
    Rationales are 0/76; named misconceptions 0/55; authored transfer items 0/55.
-   Software cannot invent those. Stage the audit workbench; write ≥1 real
-   transfer item per starter skill before expanding.
+   Software cannot invent those. Staged: [`educator-edge-audit.html`](../educator-edge-audit.html)
+   lists the 29 starter skills and 38 closed prerequisite edges against
+   [`data/foundation-edge-audit.json`](../data/foundation-edge-audit.json) (empty but for
+   labeled EXAMPLE stubs). Write ≥1 real transfer item per starter skill before expanding.
 
 10. **Hosted decay timestamps.**
     Done: hosted `learner_state.mastery_updated_at` round-trips as
