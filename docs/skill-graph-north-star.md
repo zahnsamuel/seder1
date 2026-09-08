@@ -213,3 +213,16 @@ another hundred skills.
 Do not start a parallel graph. Do not paste a concept catalog into
 `foundation-skill-graph.json`. Do not ship another content unit as if it were a
 skill.
+
+## Open-PR hygiene
+
+**Close, do not merge:** [PR #10](https://github.com/zahnsamuel/seder1/pull/10)
+(`fix-foundation-derived-files`). It is superseded by merged
+[PR #24](https://github.com/zahnsamuel/seder1/pull/24) (green derived-file suite
++ drift lock). Merging #10 would replay a 2026-09-03 regen that is already on
+`main`. Paste-ready close comment:
+[`docs/merge-brief-2026-09-08.md`](merge-brief-2026-09-08.md).
+
+A live scan of every other open PR (#30–#42) found **no second clearly
+superseded PR**. Staging/judgment drafts (#32, #37, #40) stay open until Sam
+decides; they are not duplicates of merged work.

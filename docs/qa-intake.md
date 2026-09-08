@@ -3388,3 +3388,24 @@ removed halakhah / aggadah / sugya / Shulchan Aruch / commentary from all stems 
 terms now appear only in the teach and in post-answer feedback. Extended
 test/starter-context-resp-items.test.mjs to require the teach exists and defines the terms, and to
 assert no ask for these skills uses an unexplained term. No academy-session.* change.
+
+## 2026-09-08 ? Cursor: close hygiene ? PR #10 superseded by #24
+
+Docs only. Did not close #10 via API.
+
+Open [PR #10](https://github.com/zahnsamuel/seder1/pull/10)
+(`fix-foundation-derived-files`, 2026-09-03) is the post-#8 derived-file regen.
+It is **superseded by merged PR #24** (green derived-file suite + LF-normalized
+drift lock, 612/612). #10 is 55 commits behind `main`; its three derived files
+already match current `main` byte-for-byte. **Close #10. Do not merge it.**
+
+Paste-ready GitHub comment and the scan of every other open PR live in
+`docs/merge-brief-2026-09-08.md` (close-hygiene lock at the top). North-star
+got a short Open-PR hygiene note pointing at that brief.
+
+Other open PRs scanned (#30?#42): **none else clearly superseded.** #9 is
+already closed unmerged. #34/#35/#38/#41 extend merged #25/#20?#22/#19/#29;
+they are not duplicates. Staging/judgment drafts #32/#37/#40 stay open until
+Sam decides. #41 and #42 arrived after PR #33?s afternoon merge-order scan;
+they are still-live, not close-candidates. If folding with #33, keep the Close
+without merging section at the top of the merge brief.
