@@ -3388,3 +3388,20 @@ removed halakhah / aggadah / sugya / Shulchan Aruch / commentary from all stems 
 terms now appear only in the teach and in post-answer feedback. Extended
 test/starter-context-resp-items.test.mjs to require the teach exists and defines the terms, and to
 assert no ask for these skills uses an unexplained term. No academy-session.* change.
+
+## 2026-09-07 — Claude: deepen 11 thin L2–L5 starter banks (quality, not count)
+
+Audited all 25 non-L0 starter banks: all had >=3 by count, but the #16 L2–L5 banks systematically
+carried a weak abstract/"meta" item ("Why does recognizing X matter?", "How do you locate…?") instead
+of source-grounded application, and a few stems used an untaught term. Replaced the weak item in each
+of 11 banks with a source-grounded application item (varied contexts, plain English until terms are
+taught), and fixed untaught-term stems in kept items (sugya → discussion, Rambam → "a foundational
+law-code", mussar → "an ethics-and-character work", Tanakh → Scripture). Each bank stays at 3 items;
+the change is quality.
+
+Banks deepened: signal-question-words, signal-name-formulas, signal-connectors, signal-quotation,
+role-example, case-actors, case-restate, case-uncertainty, arg-claim, arg-evidence-role,
+arg-unresolved. **Left untouched (JLA Bot fat-bucket-split lane):** arg-response,
+role-ruling-vs-discussion, case-what-happens. Guarded by test/deepened-l2-l5-quality.test.mjs
+(source-grounded, valid, unbiased, no untaught term in any ask). No academy-session.* / next-action /
+starter-set routing changes. Draft for educator audit.
