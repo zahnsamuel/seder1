@@ -1,7 +1,8 @@
 {
   "note": "Optional learner-facing See-it mini-lessons for academy foundation sessions. 2–4 sentences in plain adult English. Not Sefaria-as-instruction. The renderer also accepts skill.teach / item.teach; if those are missing, academy-session-lesson.mjs falls back here, then to a built-in source-type lesson. The `genres` block below adds a plain-adult mini-lesson for each basic kind of Jewish text (Torah verse, Mishnah, Gemara, commentary), each with one short on-page excerpt (Hebrew + translation, not a Sefaria link), to feed the See-it mini-lesson's genre gallery for fnd-orient-source-type.",
   "teach": {
-    "fnd-orient-source-type": "Jewish texts come in a few basic kinds, and you can often tell which one you are looking at from its shape — before you translate every word. A Torah verse usually tells or commands in the Bible’s own voice. A Mishnah states a compact rule; the Gemara then asks about that rule and argues it. Commentary talks about the text from the side, rather than being the text itself."
+    "fnd-orient-source-type": "Jewish texts come in a few basic kinds, and you can often tell which one you are looking at from its shape — before you translate every word. A Torah verse usually tells or commands in the Bible’s own voice. A Mishnah states a compact rule; the Gemara then asks about that rule and argues it. Commentary talks about the text from the side, rather than being the text itself.",
+    "fnd-context-genre-expectations": "Jewish sources come in different genres, and each asks to be read differently. Halakhah is the practice-and-law side — it tells you what to do, and rewards precise, careful reading. Aggadah is the story, meaning, and sage-life side — it teaches through narrative and is not binding practice in the same way. A single passage can hold both, so notice which one you are reading and adjust what you expect from it."
   },
   "genres": {
     "torah": {

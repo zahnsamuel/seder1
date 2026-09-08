@@ -3377,3 +3377,14 @@ study-aid-not-pesak boundary (docs/ui-principles.md): studying views/disputes yi
 not a personal ruling — name the limit and ask a competent authority. Balanced distractors (no
 length-bias), teaching feedback, no "make the move" jargon. Guarded by
 test/starter-context-resp-items.test.mjs. No academy-session.* changes. Draft for educator audit.
+
+## 2026-09-07 — Claude: #28 review fix — teach genre terms before asking (product law)
+
+Sam's product law: a learner-facing ask must not use an untaught Jewish/technical term. Patched #28
+on-branch: added a See-it teach for fnd-context-genre-expectations (data/foundation-teach.json)
+defining halakhah (the law-and-practice side) vs aggadah (the story-and-meaning side) in plain adult
+English, shown before the ask. Rewrote every context and responsibility ask to plain English —
+removed halakhah / aggadah / sugya / Shulchan Aruch / commentary from all stems and choices; those
+terms now appear only in the teach and in post-answer feedback. Extended
+test/starter-context-resp-items.test.mjs to require the teach exists and defines the terms, and to
+assert no ask for these skills uses an unexplained term. No academy-session.* change.

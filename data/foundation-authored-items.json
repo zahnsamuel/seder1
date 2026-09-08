@@ -927,16 +927,16 @@
         "feedback": "A psalm is poetry: it offers resonance and imagery. Demanding a precise legal ruling from it mistakes what the genre can deliver."
       },
       {
-        "sourceRef": "Aggadah vs. halakhah in one sugya",
-        "stem": "In one sugya, a legal ruling sits right next to an aggadic story about a sage's life. How should your expectations differ between the two?",
+        "sourceRef": "One passage with a ruling and a story side by side",
+        "stem": "In one passage you find two things side by side: a legal ruling about what to do, and a story about a sage's life. Reading with genre in mind, how should your expectations differ?",
         "choices": [
-          "Read halakhah for precise practice; read aggadah for meaning, not law.",
+          "Read the ruling for precise practice; read the story for meaning, not binding law.",
           "Read both of them as equally binding legal rulings to follow.",
-          "Read both only as stories, with no legal weight at all.",
-          "Ignore the aggadah entirely, since only halakhah counts here."
+          "Read both only as stories, with no practical weight at all.",
+          "Ignore the story entirely, since only the ruling could matter."
         ],
         "correct": 0,
-        "feedback": "Halakhah invites precision about practice; aggadah invites meaning and character. Matching your stance to each is the genre move."
+        "feedback": "The law-and-practice side is called halakhah; it invites precise practice. The story-and-meaning side is called aggadah; it invites meaning and character. Matching your stance to each is the genre move."
       },
       {
         "sourceRef": "Psalm vs. legal code",
@@ -945,7 +945,7 @@
           "Precision about the rule, not a poem's open-ended resonance.",
           "Emotional resonance far above precise practical detail.",
           "A single correct feeling the reader is meant to have.",
-          "A narrative about how the law was first given at Sinai."
+          "A narrative about how the law was first handed down."
         ],
         "correct": 0,
         "feedback": "A code invites precision; a poem invites resonance. Reading a code like a poem — or a poem like a code — misreads the genre."
@@ -953,42 +953,42 @@
     ],
     "fnd-resp-learning-vs-ruling": [
       {
-        "sourceRef": "A sugya with multiple undecided views",
-        "stem": "You study a sugya that lays out several views and does not decide between them. What have you gained, and what have you not gained?",
+        "sourceRef": "A source with several undecided views",
+        "stem": "You study a source that lays out several different views and does not decide between them. What have you gained, and what have you not gained?",
         "choices": [
           "You learned the range of views, not a ruling for your own practice.",
-          "You received a binding ruling that you must follow right away.",
-          "You learned nothing at all until a rabbi rules on it.",
+          "You received a binding ruling to follow right away.",
+          "You learned nothing at all until a teacher rules on it.",
           "You must simply follow whichever view happens to appear first."
         ],
         "correct": 0,
-        "feedback": "Studying the views teaches you what the source says; it does not by itself tell you what to do. That second step needs more than reading."
+        "feedback": "Studying the views teaches you what the source says; it does not by itself tell you what to do. That step needs more than reading — often asking a knowledgeable teacher."
       },
       {
-        "sourceRef": "Shulchan Aruch with disputing commentaries",
-        "stem": "You read a passage in the Shulchan Aruch where later commentaries dispute how to apply it. Studying this, what is the responsible thing to say about your own practice?",
+        "sourceRef": "A code of Jewish law with disagreeing explanations",
+        "stem": "You read a code of Jewish law where later explanations disagree about how to apply it. Studying this on your own, what is the responsible thing to say about your own practice?",
         "choices": [
-          "I understand the dispute; deciding my practice needs a competent authority.",
+          "I understand the disagreement; deciding what to do needs a knowledgeable teacher.",
           "I can now confidently rule for myself and for other people.",
-          "The first commentary I happened to read is binding on me.",
-          "Because the sources dispute, none of it applies to anyone."
+          "The first explanation I happened to read is binding on me.",
+          "Because the explanations disagree, none of it applies to anyone."
         ],
         "correct": 0,
-        "feedback": "Learning a dispute is not the same as being ruled for. Naming the limit — 'I have learned, but not been told what to do' — is the responsible move."
+        "feedback": "Learning a disagreement is not the same as being told what to do. Naming the limit — 'I have learned, but not yet been told what to do' — is the responsible move."
       },
       {
-        "sourceRef": "A sugya with multiple undecided views",
-        "stem": "What is the honest way to state where you stand after studying a halakhic source on your own?",
+        "sourceRef": "A source of Jewish law studied on your own",
+        "stem": "What is the honest way to state where you stand after studying a source of Jewish law on your own?",
         "choices": [
           "\"I have learned what the source says, not yet what to do.\"",
           "\"I have been given a ruling I must act on right now.\"",
           "\"I have learned nothing here that is worth knowing.\"",
-          "\"My own reading overrides what any authority says.\""
+          "\"My own reading overrides what any teacher would say.\""
         ],
         "correct": 0,
         "feedback": "The responsible boundary: study yields understanding, not a personal ruling. Say what you have learned and what you have not yet been told to do."
       }
     ]
   },
-  "updatedAt": "2026-09-08T03:10:46.067Z"
+  "updatedAt": "2026-09-08T03:22:32.973Z"
 }
