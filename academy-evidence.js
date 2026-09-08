@@ -128,7 +128,10 @@ async function answer(button, question) {
   if (!correct) $('.answers').querySelector('[data-choice="0"]').classList.add('correct');
   $('#feedback').textContent = correct ? 'Evidence recorded. Continue to the next check.' : 'Review the highlighted answer. This move will return in spaced retrieval.';
   const response = await Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'answer_submitted', skillId: question.skill, competency: 'sourceReasoning', sourceContext: `academy day ${day} check ${index + 1}`, correct }) });
-  if (response.ok) $('#xp').textContent = `${(await response.json()).xp || 0} XP`;
+  if (response.ok) {
+    const learner = await response.json();
+    if ($('#xp')) $('#xp').textContent = Seder.capabilityHeaderText(learner?.capabilityEvidence);
+  }
   if (!correct) { setTimeout(render, 900); return; }
   setTimeout(() => { index++; if (index < questions.length) render(); else if (day % 7 === 0) showMap(); else completeDay(); }, 800);
 }
@@ -147,6 +150,6 @@ function showMap() {
 }
 async function completeDay() {
   const completion = await Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'stage_mastered', stageId: `academy-day-${day}` }) });
-  if (completion.ok) { $('#map').hidden = true; $('#card').innerHTML = '<p class="count">DAY MASTERED</p><h2>Tomorrow is now available.</h2><p>You demonstrated the day’s reading move with source evidence. Your review rhythm will bring it back when it needs strengthening.</p>'; $('#return').hidden = false; } else $('#feedback').textContent = 'The evidence for this day is incomplete. Review the source, then try again.';
+  if (completion.ok) { $('#map').hidden = true; $('#card').innerHTML = '<p class="count">EVIDENCE RECORDED</p><h2>Tomorrow is now available.</h2><p>You demonstrated the day’s reading move with source evidence. Your review rhythm will bring it back when it needs strengthening.</p>'; $('#return').hidden = false; } else $('#feedback').textContent = 'The evidence for this day is incomplete. Review the source, then try again.';
 }
-if (!Number.isInteger(day) || day < 1 || day > 90) location.href = 'academy.html'; else Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? response.json() : Promise.reject()).then((learner) => { $('#xp').textContent = `${learner.xp || 0} XP`; $('#title').textContent = `Day ${day}: demonstrate today’s reading move.`; render(); }).catch(() => { location.href = 'academy.html'; });
+if (!Number.isInteger(day) || day < 1 || day > 90) location.href = 'academy.html'; else Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? response.json() : Promise.reject()).then((learner) => { if ($('#xp')) $('#xp').textContent = Seder.capabilityHeaderText(learner?.capabilityEvidence); $('#title').textContent = `Day ${day}: demonstrate today’s reading move.`; render(); }).catch(() => { location.href = 'academy.html'; });

@@ -157,7 +157,7 @@ Promise.all([
 
   if (!category?.score && !(personalDue || vocabDue) && (foundationTerm || gemaraYearMove || moedExpansionMove)) recommendation = foundationTerm || gemaraYearMove || moedExpansionMove;
   if (recommendation.url === `tractate-mastery.html?tractate=${tractate}`) recommendation.url = gemaraWorkbenchUrl[tractate];
-  if (needsPlacement) recommendation = { title: 'Find your starting point', url: 'diagnostic.html', reason: 'Begin with a short adaptive placement. A handful of questions pin where you are and set a review rhythm, without assigning a permanent level.' };
+  if (needsPlacement) recommendation = { title: 'Find your starting point', url: 'diagnostic.html', reason: 'Begin with a short adaptive placement. A handful of questions pin where you are and set a review rhythm, without assigning a score.' };
   const requestedFoundation = !needsPlacement && foundationSkill ? foundationSkill : null;
   if (requestedFoundation) {
     recommendation = { title: 'Academy Foundation · one focused skill', url: `academy-session.html?skill=${encodeURIComponent(requestedFoundation)}`, reason: 'A short, source-based session builds one transferable learning move at a time.', foundation: true, skillId: requestedFoundation };

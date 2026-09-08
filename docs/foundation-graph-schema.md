@@ -222,7 +222,10 @@ expansion of the on-ramp, distinct from the frozen 49 reading-move skills, which
 8. **Content coverage** — ≥3 contexts / ≥2 families per skill (currently 6/49).
 9. **Transfer items** for every graduation-critical skill.
 10. **Item bank** — ≥3 items/skill, on the unified id space.
-11. **Capability-state UI** — retire %/XP/level language.
+11. **Capability-state UI** — retire %/XP/level language. Learner-facing path,
+    academy, evidence, recall, review, map, journey, study record, and placement
+    handoff now speak emerging / secure / transferable / durable (hidden lesson
+    `#xp` hooks remain instrumentation). Today stays one action.
 12. **Graph-quality gates** — `scripts/graph-quality.mjs` (this is step 12). ✅
 13. **Explainable recommendations** — surface "you see this because you have A, need B, B unlocks C."
     ✅ `data/recommendation-why.mjs`: every recommendation carries a structured `{ because, build,

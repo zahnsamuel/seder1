@@ -127,10 +127,12 @@ function renderResults(estimate, start) {
     : (start ? 'This is your next move toward reading a source on your own.' : 'Every foundational move is already in place — carry them into an unfamiliar source to make them durable.');
   $('#results-title').textContent = start ? `Start here: ${start.skill.title}` : 'You’ve placed out of the foundation.';
   $('#results-copy').textContent = start
-    ? `${start.skill.statement || ''} ${why} This is a starting point, not a permanent level — your first sessions confirm it, and anything you can’t yet do comes right back.`
+    ? `${start.skill.statement || ''} ${why} This is a starting point, not a score — your first sessions confirm it, and anything you can’t yet do comes right back.`
     : why;
   $('#results-cando').textContent = known.size
-    ? `You placed ${known.size} of ${total} reading moves as already yours.`
+    ? (known.size === 1
+      ? 'One reading move already looks secure. Begin at the first that is not yet.'
+      : `${known.size} reading moves already look secure. Begin at the first that is not yet.`)
     : 'You’re right at the beginning of the foundation — a good place to start.';
   const layers = (graph && graph.layers) || [];
   $('#results-grid').innerHTML = layers.map((layer) => {
@@ -139,7 +141,7 @@ function renderResults(estimate, start) {
     let status = 'Emerging', tone = 'low';
     if (!inLayer.length) { status = '—'; tone = 'neutral'; }
     else if (got === inLayer.length) { status = 'Secure'; tone = 'strong'; }
-    else if (got > 0) { status = `${got}/${inLayer.length} emerging`; tone = 'mid'; }
+    else if (got > 0) { status = 'Emerging'; tone = 'mid'; }
     return `<article class="tone-${tone}"><span>${layer.n}. ${esc(layer.title)}</span><strong>${status}</strong></article>`;
   }).join('');
   const begin = $('#results-begin');

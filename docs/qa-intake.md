@@ -3388,3 +3388,27 @@ removed halakhah / aggadah / sugya / Shulchan Aruch / commentary from all stems 
 terms now appear only in the teach and in post-answer feedback. Extended
 test/starter-context-resp-items.test.mjs to require the teach exists and defines the terms, and to
 assert no ask for these skills uses an unexplained term. No academy-session.* change.
+
+## 2026-09-08 ? leftover % / XP / level chrome on path + academy surfaces
+
+North-star checklist item 8 leftover after PR #25. Path, academy hub, and academy-next already
+speak emerging / secure / transferable / durable. This pass retires the remaining scoreboard
+copy on Today-adjacent, academy evidence, practice, progress, and placement handoff. Today
+itself stays one action (no new chrome on `daily-router.html` / `jla-next-action.js`). Did not
+touch `data/foundation-authored-items.json` or knowledgeFrontier pickers (PR #30).
+
+| Surface | Before | After |
+|---|---|---|
+| Academy evidence header | `0 XP` / `${xp} XP` | capability header (`3 on your own` or empty) |
+| Academy evidence complete | `EARN TOMORROW` · `DAY MASTERED` | `OPEN TOMORROW` · `EVIDENCE RECORDED` |
+| Daily recall header | `0 XP` | capability header |
+| Review feedback | `+10 XP.` / `+5 XP.` | authored feedback only |
+| Review header | `${xp} XP` | capability header; hide a dead `0` streak |
+| Map legend / copy | `Mastered` / `You have mastered` | `Secure` / `You have secured` |
+| Eight-week journey | `XP EARNED` + raw XP | `ON YOUR OWN` + capability header |
+| Study record | `XP` metric, `% secure`, `Mastery in motion` | capability eyebrow, `Secure`, `Capabilities in motion` |
+| Placement handoff | `permanent level`, `You placed X of Y`, `n/m emerging` | `not a score`, secure/emerging words |
+| daily-router.js placement reason | `permanent level` | `without assigning a score` (copy-only) |
+
+Guard: `test/capability-state-surfaces.test.mjs` now covers these files. Hidden `#xp` hooks on
+lesson arcs remain instrumentation.

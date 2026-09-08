@@ -12,8 +12,10 @@ test('the map page loads the graph and its own script/style', () => {
   assert.match(html, /id="map"/);
   assert.match(html, /id="summary"/);
   assert.match(html, /id="detail"/);
-  // The three-state legend is the whole point — mastered / ready-now / ahead.
+  // The three-state legend is the whole point — secure / ready-now / ahead.
   for (const k of ['mastered', 'frontier', 'locked']) assert.match(html, new RegExp(`class="k ${k}"`));
+  assert.match(html, />Secure</);
+  assert.doesNotMatch(html, />Mastered</);
 });
 
 test('the map colours every skill by the learner\'s state, computed from evidence', () => {
@@ -22,6 +24,8 @@ test('the map colours every skill by the learner\'s state, computed from evidenc
   // The frontier is the same rule as My Path: not secured, but every prerequisite is.
   assert.match(js, /\(s\.prerequisites \|\| \[\]\)\.every\(isSecure\)/);
   for (const s of ['mastered', 'frontier', 'locked']) assert.match(js, new RegExp(`'${s}'`));
+  assert.match(js, /stateLabel = \{ mastered: 'Secure'/);
+  assert.match(js, /You have secured/);
   // Clicking a node explains how it connects (builds on / unlocks).
   assert.match(js, /Builds on/);
   assert.match(js, /Unlocks/);

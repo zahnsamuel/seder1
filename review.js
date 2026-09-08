@@ -734,7 +734,7 @@ Object.assign(variantBank,{
   ]
 });
 const returnTargets={'roshHashanah-independent-map':'gemara-mastery.html','taanit-independent-map':'gemara-mastery.html','megillah-independent-map':'gemara-mastery.html'};
-let set = [], index = 0, answered = false, xp = 0, learnerId = Seder.currentLearnerId();
+let set = [], index = 0, answered = false, learnerId = Seder.currentLearnerId();
 const $ = (s) => document.querySelector(s);
 const pretty = (id) => id.replace(/^lab-/, '').replaceAll('-', ' ');
 const variantHistoryKey = 'seder-review-variant-history-v1';
@@ -762,14 +762,15 @@ function shuffled(item) { return item.answers.map((text, i) => ({ text, i })).so
   const style = document.createElement('style');
   style.id = 'seder-celebration-styles';
   style.textContent = `
-    @keyframes seder-xp-pop{0%{transform:scale(1);}35%{transform:scale(1.28);color:#b88028;}100%{transform:scale(1);}}
     @keyframes seder-checkpoint-in{0%{opacity:0;transform:translateY(10px) scale(.98);}100%{opacity:1;transform:translateY(0) scale(1);}}
-    .seder-xp-pop{animation:seder-xp-pop .5s ease;}
     .seder-checkpoint-celebrate{animation:seder-checkpoint-in .45s ease;}
   `;
   document.head.appendChild(style);
 })();
-function celebrateXp(el) { if (!el) return; el.classList.remove('seder-xp-pop'); void el.offsetWidth; el.classList.add('seder-xp-pop'); }
+function paintCapability(learner) {
+  const xp = $('#xp');
+  if (xp) xp.textContent = Seder.capabilityHeaderText(learner?.capabilityEvidence);
+}
 
 function render() {
   const item = set[index];
@@ -791,12 +792,12 @@ function answer(button, correct, item) {
   answered = true;
   document.querySelectorAll('#answers button').forEach((b) => b.disabled = true);
   button.classList.add(correct ? 'correct' : 'incorrect');
-  $('#feedback').textContent = correct ? `+10 XP. ${item.feedback}` : `+5 XP. ${item.feedback}`;
+  $('#feedback').textContent = item.feedback;
   $('#continue').disabled = false;
   // Record against the learner's true due skillId (not the display variant's bank key),
   // so the review actually clears from their queue once mastery is shown.
   Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'answer_submitted', skillId: item.trueSkillId, sourceContext: item.sourceContext, correct }) })
-    .then((r) => r.ok ? r.json() : null).then((l) => { if (l) { xp = l.xp; $('#xp').textContent = `${xp} XP`; celebrateXp($('#xp')); } }).catch(() => {});
+    .then((r) => r.ok ? r.json() : null).then((l) => { if (l) paintCapability(l); }).catch(() => {});
 }
 
 $('#continue').addEventListener('click', () => {
@@ -813,7 +814,10 @@ Promise.all([
   Seder.api(`/api/learners/${learnerId}/review-items`).then((r) => r.ok ? r.json() : { items: [] }),
   fetch('data/foundation-skill-graph.json').then((r) => r.ok ? r.json() : null).catch(() => null)
 ]).then(([l, adaptive, graph]) => {
-  xp = l?.xp || 0; $('#xp').textContent = `${xp} XP`; $('#streak').textContent = l?.dailyStreak || 0;
+  paintCapability(l);
+  const streak = l?.dailyStreak || 0;
+  $('#streak').textContent = streak;
+  if (!streak && $('#streak')?.parentElement) $('#streak').parentElement.hidden = true;
   const titleById = new Map((graph?.skills || []).map((s) => [s.id, s.title]));
   const titleFor = (id) => titleById.get(id) || pretty(id);
   const due = l?.reviewQueue?.filter((i) => new Date(i.dueAt) <= Date.now()) || [];

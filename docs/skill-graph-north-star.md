@@ -196,9 +196,12 @@ another hundred skills.
    retagged units (`docs/foundation-graph-growth-plan.md`).
 
 8. **Capability-state language on the learner surfaces that already show
-   progress.** Retire leftover % / XP / level copy on path and academy
-   references in favor of emerging / secure / transferable / durable. Today
-   stays one action, not a scoreboard.
+   progress.** Done on path and academy references (PR #25) and leftover
+   Today-adjacent / practice / progress / placement chrome (evidence, recall,
+   review, map, eight-week journey, study record, diagnostic handoff). Learner
+   copy uses emerging / secure / transferable / durable. Today stays one
+   action, not a scoreboard. Hidden `#xp` hooks on lesson arcs remain
+   instrumentation.
 
 9. **Educator pass on the starter edges, then item banks.**
    Rationales are 0/76; named misconceptions 0/55; authored transfer items 0/55.
