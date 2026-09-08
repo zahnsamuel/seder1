@@ -175,7 +175,7 @@
         <span class="sid">${esc(s.id)} · ${esc(s.band)} · layer ${s.layer}</span>
       </div>
       <div class="block">
-        <div class="block-label">Prerequisite rationales <span class="req">${ins.length} edge${ins.length === 1 ? '' : 's'} need a human</span><span class="done-tick" data-tick="rat|${esc(s.id)}">✓ done</span></div>
+        <div class="block-label">Prerequisite rationales <span class="req">${ins.length} edge${ins.length === 1 ? '' : 's'} need${ins.length === 1 ? 's' : ''} a human</span><span class="done-tick" data-tick="rat|${esc(s.id)}">✓ done</span></div>
         ${edgesHtml}
       </div>
       <div class="block">
