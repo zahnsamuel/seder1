@@ -14,8 +14,8 @@ test('the map page loads the graph and its own script/style', () => {
   assert.match(html, /id="detail"/);
   // The three-state legend is the whole point — secure / ready-now / ahead.
   for (const k of ['mastered', 'frontier', 'locked']) assert.match(html, new RegExp(`class="k ${k}"`));
-  assert.match(html, />Secure</);
-  assert.doesNotMatch(html, />Mastered</);
+  assert.match(html, /<\/i> Secure</);
+  assert.doesNotMatch(html, /<\/i> Mastered</);
 });
 
 test('the map colours every skill by the learner\'s state, computed from evidence', () => {

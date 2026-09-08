@@ -34,5 +34,5 @@ test('academy makes daily source evidence, rather than opening a link, the unloc
   for (const citation of ['Berakhot 2a', 'Pesachim 2a', 'Eruvin 2a', 'Bava Metzia 2a', 'Bava Kamma 2a', 'Mishnah Sukkah 1:1']) assert.match(evidence, new RegExp(citation.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   for (const citation of ['Genesis 22:1', 'Kaddish', 'Yavneh: Gittin 56b', 'Psalm 23', 'Halakhic machloket']) assert.match(evidence, new RegExp(citation.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   for (const citation of ['Cairo Geniza study protocol', 'Shabbat 21b', 'Gemara unseen check', 'Canon journey']) assert.match(evidence, new RegExp(citation.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
-  assert.match(html, /EARN TOMORROW/);
+  assert.match(html, /OPEN TOMORROW/);
 });

@@ -103,8 +103,8 @@ test('leftover progress surfaces speak capability states instead of XP / level /
   assert.match(reviewJs, /capabilityHeaderText/);
   assert.match(reviewJs, /item\.feedback/);
 
-  assert.match(graphHtml, />Secure</);
-  assert.doesNotMatch(graphHtml, />Mastered</);
+  assert.match(graphHtml, /<\/i> Secure</);
+  assert.doesNotMatch(graphHtml, /<\/i> Mastered</);
   assert.match(graphJs, /stateLabel = \{ mastered: 'Secure'/);
   assert.match(graphJs, /You have secured/);
 
