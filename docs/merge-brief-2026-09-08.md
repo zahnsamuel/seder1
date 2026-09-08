@@ -26,8 +26,10 @@ the top** and fold #33’s order under it. Do not drop the paste-ready comment.
 | Why it is done | **#24 merged 2026-09-07** (`826665f` / merge `f7cac3a`). Map + content-skill-graph were already in sync on then-`main`; #24 rebuilt stale `foundation-content-contexts.json` and locked drift with LF-normalized identity tests. Suite was **612/612**. |
 | Why merge is the wrong action | GitHub still shows a 33-line “fix.” The three files at #10’s tip already **match current `main` byte-for-byte**. Merging would only add a 5-day-old branch (55 commits behind) as noise. The PR description still claims `main` is red. |
 
-This agent did **not** close #10 via API (no merge-rights drama). Sam: close it
-in the GitHub UI, **Close pull request**, not Merge.
+This agent did **not** close #10 via API (no merge-rights drama). A top-level
+comment with the paste below was posted on #10 so the close instruction is
+visible on the PR itself. Sam: close it in the GitHub UI, **Close pull
+request**, not Merge. The PR is still open until you do.
 
 #### Paste-ready GitHub comment for #10
 

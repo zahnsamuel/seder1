@@ -3391,7 +3391,8 @@ assert no ask for these skills uses an unexplained term. No academy-session.* ch
 
 ## 2026-09-08 ? Cursor: close hygiene ? PR #10 superseded by #24
 
-Docs only. Did not close #10 via API.
+Docs only. Did not close #10 via API. Posted a top-level ?close, do not merge?
+comment on #10 so the instruction is visible there; the PR is still open.
 
 Open [PR #10](https://github.com/zahnsamuel/seder1/pull/10)
 (`fix-foundation-derived-files`, 2026-09-03) is the post-#8 derived-file regen.
