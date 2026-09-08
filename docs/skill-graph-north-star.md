@@ -207,14 +207,16 @@ another hundred skills.
    progress.** Partial (PR #25). Path, academy, and academy-next speak
    emerging / secure / transferable / durable. Today stays one action, not a
    scoreboard. Leftover visible `0 XP` chrome remains on many content / arc /
-   recall pages. No leftovers PR is open.
+   recall pages. Leftovers PR: #34 (open, not merged).
 
 9. **Educator pass on the starter edges, then item banks.**
    Open. Edge rationales are 0/76; named misconceptions 0/55; authored
    transfer items 0/55 (`npm run graph:quality`). Starter recognition banks
-   exist (item 4) but are not transfer items. The audit workbench already
-   lives on main (`docs/educator-audit-workbench.html`,
-   `docs/item-authoring-workbench.html`); no separate landing PR is open.
+   exist (item 4) but are not transfer items. Staging PRs (not merged, and
+   they do not fill this gap): #37 educator edge workbench (empty real
+   fields + EXAMPLE stubs) and #40 transfer-item schema + EXAMPLE only.
+   Older workbench HTML already lives on main
+   (`docs/educator-audit-workbench.html`, `docs/item-authoring-workbench.html`).
    Software cannot invent the rationales. Write ≥1 real transfer item per
    starter skill before expanding.
 

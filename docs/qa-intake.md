@@ -3389,36 +3389,30 @@ terms now appear only in the teach and in post-answer feedback. Extended
 test/starter-context-resp-items.test.mjs to require the teach exists and defines the terms, and to
 assert no ask for these skills uses an unexplained term. No academy-session.* change.
 
-## 2026-09-08 ? Cursor: north-star checklist vs live main + Sam merge brief
+## 2026-09-08 — Cursor: north-star checklist vs live main + Sam merge brief
 
 Docs only. Rechecked `main` at c6d2175 (PR #29) and live GitHub PRs.
 
 Updated `docs/skill-graph-north-star.md` Next-build checklist to match reality:
-items 1?6 and 10 done on main (#13/#14/#15/#17/#18 plus academy chrome #19?#22/#26/#29
+items 1–6 and 10 done on main (#13/#14/#15/#17/#18 plus academy chrome #19–#22/#26/#29
 and starter banks #16/#27/#28); item 4 freeze + 25/29 authored banks (L0 decode still
 held); item 7 still open (live fat-bucket split deferred; #32 is a docs proposal);
 item 8 partial (#25 path/academy/academy-next; leftover `0 XP` on other pages, no
 leftovers PR); item 9 still open (rationales 0/76, workbench HTML already on main).
 
-New `docs/merge-brief-2026-09-08.md` for Sam?s return: recommended merge order
-#30 (Today starter-set routing, real bug) then #31 (deepen 11 L2?L5 banks) then
+New `docs/merge-brief-2026-09-08.md` for Sam’s return: recommended merge order
+#30 (Today starter-set routing, real bug) then #31 (deepen 11 L2–L5 banks) then
 #32 (judgment, not live graph); close stale #10 (superseded by #24). Did not claim
 any open PR as merged.
 
+## 2026-09-08 afternoon — Cursor: full open-PR pile on the merge brief
 
-## 2026-09-08 ? Cursor: north-star checklist vs live main + Sam merge brief
-
-Docs only. Rechecked `main` at c6d2175 (PR #29) and live GitHub PRs.
-
-Updated `docs/skill-graph-north-star.md` Next-build checklist to match reality:
-items 1?6 and 10 done on main (#13/#14/#15/#17/#18 plus academy chrome #19?#22/#26/#29
-and starter banks #16/#27/#28); item 4 freeze + 25/29 authored banks (L0 decode still
-held); item 7 still open (live fat-bucket split deferred; #32 is a docs proposal);
-item 8 partial (#25 path/academy/academy-next; leftover `0 XP` on other pages, no
-leftovers PR); item 9 still open (rationales 0/76, workbench HTML already on main).
-
-New `docs/merge-brief-2026-09-08.md` for Sam?s return: recommended merge order
-#30 (Today starter-set routing, real bug) then #31 (deepen 11 L2?L5 banks) then
-#32 (judgment, not live graph); close stale #10 (superseded by #24). Did not claim
-any open PR as merged.
-
+Follow-up on this PR (#33). Rechecked live GitHub: `main` still c6d2175; **none of
+#30–#40 are merged.** Replaced the brief’s open list with the full pile and a
+judgment-aware order: #30 first (Today bug), then #31, #35 (teach JSON), #38
+(excerpts), #36 (friend first-run; rebase onto #30), #34 (XP leftovers; rebase
+vs #36), #40 (transfer schema + EXAMPLE only), #37 (edge workbench, empty real
+fields), #33 (this map), #39 (authoring guide, ready), #32 (fat-bucket judgment).
+Close stale #10. Noted collisions: #35 teach JSON; #38 vs teach (product order);
+#36 vs #34 copy; #30 vs #36 `next-action.mjs`. North-star #8/#9 now point at
+open #34/#37/#40 without claiming they landed.
