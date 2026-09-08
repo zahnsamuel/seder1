@@ -3388,3 +3388,26 @@ removed halakhah / aggadah / sugya / Shulchan Aruch / commentary from all stems 
 terms now appear only in the teach and in post-answer feedback. Extended
 test/starter-context-resp-items.test.mjs to require the teach exists and defines the terms, and to
 assert no ask for these skills uses an unexplained term. No academy-session.* change.
+
+## 2026-09-08 ? Cursor: teach-before-ask guard
+
+Standing product law (`docs/ui-principles.md`): learner-facing ask stems/choices must not use a
+Jewish or technical term that this skill's See-it (or an explicit already-taught prerequisite)
+has not introduced. Feedback and sourceRef are allowed.
+
+- Helper: `data/teach-before-ask.mjs`. Banned list is Gemara / Mishnah / Torah / commentary /
+  aggadah / halakhah / sugya / Talmud / Rashi / Tosafot / Shulchan Aruch / Rambam / mussar /
+  Tanakh / Mikraot Gedolot / daf. Terms are earned from the skill's See-it (`foundation-teach.json`,
+  the source-type genre gallery, optional `item.teach`) plus the explicit prerequisite allowlist
+  `fnd-orient-source-type` and `fnd-context-genre-expectations`.
+- Test: `test/teach-before-ask.test.mjs` ? synthetic helper cases + pairing for skills that
+  already have teach + remaining authored banks on main.
+- Minimal plain-English ask fixes (not pedagogy rewrites): page-geography "Mikraot Gedolot page" /
+  "next daf"; speaker "sugya"; role-question-vs-answer and role-quotation-bounds "Tanakh" ?
+  "Scripture". Feedback left as-is.
+- Left untouched on purpose (Claude deepen PR #31 is rewriting those asks): the 11 L2?L5 banks
+  listed in the test's `PEER_LANE_BANKS`. Re-include when that rewrite lands. Did not edit
+  `foundation-teach.json` (PR #35's lane).
+
+Judgment calls left in the PR: "Tanna" inside a quoted on-page translation; "tractate" as a
+common page-geography distractor; work titles that appear only in `sourceRef` / feedback.
