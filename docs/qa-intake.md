@@ -3416,3 +3416,12 @@ fields), #33 (this map), #39 (authoring guide, ready), #32 (fat-bucket judgment)
 Close stale #10. Noted collisions: #35 teach JSON; #38 vs teach (product order);
 #36 vs #34 copy; #30 vs #36 `next-action.mjs`. North-star #8/#9 now point at
 open #34/#37/#40 without claiming they landed.
+
+## 2026-09-08 later afternoon — Cursor: merge brief addendum #41–#44
+
+Follow-up on PR #33. Rechecked live GitHub: `main` still c6d2175; **none of
+#30–#44 are merged.** Appended slots: #41 after #31 (skips #31 banks; rebase
+when #31 merges); #42 L0 decode UX anytime after #30 (no decode/Today file
+overlap with #36; nicer after #36); #43 close-#10 docs fold into #33; #44
+Academy post-session capability handoff after #34 (academy-session collision
+with #36; academy.js with #42). Folded #43’s paste-ready close comment for #10.

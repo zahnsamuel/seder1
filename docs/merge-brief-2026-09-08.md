@@ -4,8 +4,9 @@ For Sam, returning to the queue. Companion:
 [`docs/skill-graph-north-star.md`](skill-graph-north-star.md) checklist.
 
 **Verified live on GitHub the afternoon of 2026-09-08** (`main` still `c6d2175`,
-PR #29). **None of #30–#40 are merged.** Do not treat the morning three-PR
-list as the current pile.
+PR #29). **None of #30–#44 are merged.** Do not treat the morning three-PR
+list as the current pile. A later-afternoon addendum for **#41–#44** is at
+the bottom; fold it into the sitting below.
 
 ## Already on main — do not re-merge
 
@@ -136,7 +137,11 @@ Stale “fix red main” from 2026-09-03. Superseded by merged **#24**.
 | **#35 vs later teach JSON** | Only #35 edits `data/foundation-teach.json` today | Merge #35 before any new teach PR |
 | **#35 vs #38** | No shared files; See-it consumes both | Merge #35 then #38 (product order) |
 | **#36 vs #34** | `diagnostic.js`, adaptive-diagnostic tests; first-run copy vs capability copy | Rebase the later one; pick whose placement sentence wins |
-| **#33 / #30 / #32 / #34 / #37 / #40** | `docs/skill-graph-north-star.md` | Docs-only conflicts; keep checklist status lines |
+| **#31 vs #41** | `data/foundation-authored-items.json` | #41 **skips** #31’s 11 banks (`PEER_LANE_BANKS`). Merge #31, then rebase #41 and drop the skip |
+| **#36 vs #44** | `academy-session.html` / `.js` (not `academy.html` — #36 does not touch that file) | Merge #36 first if demo chrome should win See-it/complete copy; rebase #44 |
+| **#42 vs #44** | `academy.js`, `test/academy.test.mjs` | Rebase the later one. #42 is decode hub; #44 is post-session capability card |
+| **#33 vs #43** | this brief + north-star + qa-intake | Fold #43 into #33 (this PR). Do not merge both as competing maps |
+| **#33 / #30 / #32 / #34 / #37 / #40 / #43** | `docs/skill-graph-north-star.md` | Docs-only conflicts; keep checklist status lines |
 | **#30 / #32 / #37 / #40** | `docs/foundation-starter-set.md` | Same: fold, don’t revert the freeze list |
 | **#34 / #37 / #40** | `docs/foundation-graph-schema.md` | Fold |
 | Almost everyone | `docs/qa-intake.md` | Append-only; should merge |
@@ -157,12 +162,79 @@ Stale “fix red main” from 2026-09-03. Superseded by merged **#24**.
 
 ## Suggested sitting
 
-1. Merge **#30** (Today bug). Rebase anything that touches `next-action.mjs`.
-2. Merge **#31** (bank quality) and **#39** (authoring guide) — no judgment.
-3. Merge **#35** then **#38** (See-it teach + on-page source).
-4. Choose demo vs leftovers: **#36** (friend path, rebase onto #30) and
+1. **Close #10** in the GitHub UI (do not merge). Paste-ready comment in the
+   addendum / already on the #10 thread from #43.
+2. Merge **#30** (Today bug). Rebase anything that touches `next-action.mjs`.
+3. Merge **#31** (bank quality) and **#39** (authoring guide) — no judgment.
+   Then rebase **#41** (teach-before-ask guard; it skipped #31’s banks).
+4. Merge **#35** then **#38** (See-it teach + on-page source).
+5. Choose demo vs leftovers: **#36** (friend path, rebase onto #30) and
    **#34** (XP chrome, rebase against #36).
-5. Merge staging **#40** and **#37** if you want the empty workbench / EXAMPLE
+6. **#42** (L0 decode UX) anytime after #30; after **#36** if you want the
+   friend path coherent. It does **not** share decode/Today chrome files with
+   #36. Rebase against **#44** on `academy.js`.
+7. **#44** after **#34** (capability leftovers). Watch academy-session files
+   vs **#36**.
+8. Merge staging **#40** and **#37** if you want the empty workbench / EXAMPLE
    schema on main — they do not fill #9.
-6. Merge **#33** when you want this map on main.
-7. Read **#32** and decide. Close **#10**.
+9. Merge **#33** (this map; fold **#43** into it). Read **#32** and decide.
+
+---
+
+## Later afternoon — #41–#44 (still not merged)
+
+Verified live on GitHub after the earlier afternoon scan. `main` is still
+`c6d2175`. **Do not claim #41–#44 landed.**
+
+### 2b. After #31: [#41](https://github.com/zahnsamuel/seder1/pull/41) (draft)
+
+**Teach-before-ask guard** for foundation item banks (`data/teach-before-ask.mjs`
++ test). Product law from #29, now a suite gate on stem + choices.
+
+Shares `data/foundation-authored-items.json` with **#31**, but **does not
+edit #31’s 11 banks** — the guard skips them (`PEER_LANE_BANKS`) so the suite
+stays green while #31 rewrites those asks. **Merge #31 first, then rebase
+#41** and re-include the skipped banks. Does not edit `foundation-teach.json`
+(#35’s lane).
+
+### 5b. L0 decode UX: [#42](https://github.com/zahnsamuel/seder1/pull/42) (draft)
+
+**Polish Layer 0 Hebrew decoding** for the friend/demo path (one next lesson,
+capability language, skip if they already read Hebrew, handoff back to Today).
+Does **not** author L0 banks. Does **not** rewrite the #30 picker.
+
+File check vs **#36**: no shared decode/Today chrome (`hebrew-decoding.html` /
+`decoding-*` vs `daily-router.html` / `jla-next-action*` / `next-action.mjs`).
+**Slot: anytime after #30.** After #36 if you want the friend story in one
+sitting. Watch **#44** on `academy.js`.
+
+### Fold with this PR: [#43](https://github.com/zahnsamuel/seder1/pull/43) (draft)
+
+**Document closing stale #10.** Same three files as #33 (this brief, north-star,
+qa-intake). **Fold here; do not merge both.** Close #10 in the GitHub UI
+(Close, not Merge). Comment already on the #10 thread; paste-ready copy:
+
+```
+Closing as superseded — do not merge.
+
+This regen targeted post-#8 main (2026-09-03). The green derived-file suite is
+PR #24 (merged 2026-09-07): it rebuilt foundation-content-contexts.json from
+then-current main, confirmed map + content-skill-graph already in sync, and
+locked drift with LF-normalized file-identity tests (612/612).
+
+This branch is 55 commits behind main. The three derived files at this tip
+already match current main; merging would only add history noise. Close this
+PR. Do not merge it.
+
+See docs/merge-brief-2026-09-08.md.
+```
+
+### 6b. After #34: [#44](https://github.com/zahnsamuel/seder1/pull/44) (draft)
+
+**Academy post-session capability handoff** — session complete names the skill
+emerging/secure (not XP) and **Continue on Today**. Academy hub shows that one
+capability card. Complements merged #25 and open #34. Does not rewrite #30.
+
+**After #34** so leftover scoreboard language is gone before the new handoff.
+Watch **#36**: shared `academy-session.html` / `.js` (complete-screen copy).
+`academy.html` is **not** in #36; it is in #44. Also `academy.js` vs **#42**.
