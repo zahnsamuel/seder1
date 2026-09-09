@@ -145,9 +145,11 @@ function renderResults(estimate, start) {
     return `<article class="tone-${tone}"><span>${layer.n}. ${esc(layer.title)}</span><strong>${status}</strong></article>`;
   }).join('');
   const begin = $('#results-begin');
-  if (begin) begin.href = start
-    ? (start.id.startsWith('fnd-decode-') ? 'hebrew-decoding.html' : `academy-session.html?skill=${encodeURIComponent(start.id)}`)
-    : 'my-graph.html';
+  // Placement hands the learner to Today; Today opens decode drills or the scaffolded lesson.
+  if (begin) {
+    begin.href = 'daily-router.html';
+    begin.textContent = 'See today’s lesson →';
+  }
   bindRhythm();
 }
 

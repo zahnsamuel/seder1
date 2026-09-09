@@ -3683,3 +3683,16 @@ duplicate `# QA intake` document starts and the in-copy duplicate Berakhot
 independent-source-check heading (same body). Append-only history is otherwise
 unchanged. North-star checklist updated to merged reality; merge brief marked
 landed so it does not read as an open queue. No product behavior change.
+
+## 2026-09-09 -- Cursor: green the 11 post-merge test failures on main
+
+Keep-both of #36/#44/#45 left tests pinning later chrome against earlier HTML/JS.
+Did not invent L0 banks or expand the starter set.
+
+| Failure | Choice |
+|---|---|
+| academy-session 15-minute / See-it chrome (4 tests) | Product fix: restore #36 lesson chrome (15 min, YOUR QUESTION, Look up later, ON THIS PAGE) and keep #44 complete screen (THIS CAPABILITY + Continue on Today). Restore `hideOutbound` and emerging/secure `finish()` that the union-merge dropped from JS. Honest test pin: complete CTA is ?Continue on Today? (#44), not ?Continue to Today? (#36). |
+| diagnostic href pin (2 tests) | Product fix: placement CTA stays on Today (`begin.href = 'daily-router.html'`). Skipping Today into academy-session was a merge regression of the friend first-run funnel. |
+| fnd-arg-unresolved excerpt (2 tests) | Product fix: add a short on-page window for existing sourceRef ?A dispute closed with teiku? (Bava Metzia 21a, Sefaria-checked). Not a new bank. |
+| fat-bucket live picker pin (1 test) | Honest test/docs update: after #30 the live picker is starter-scoped, so the arg-response closure now picks `fnd-role-ruling-vs-discussion`, not frozen L2. An L5 child still would not move live Today. |
+

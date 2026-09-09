@@ -107,7 +107,7 @@ test('foundation session chrome is see it / try it / new source with a clear ask
   assert.ok(html.indexOf('id="ask-panel"') < html.indexOf('id="advance"'));
   assert.ok(html.indexOf('id="advance"') < html.indexOf('id="complete"'));
   assert.match(html, /<\/div>\s*<button id="advance"/);
-  assert.match(html, /href="daily-router.html">Continue to Today/);
+  assert.match(html, /href="daily-router.html">Continue on Today/);
   assert.doesNotMatch(html, /href="path.html">Back to your path/);
   assert.match(lesson, /You'll practice:/);
   assert.match(lesson, /Got it — ask me/);

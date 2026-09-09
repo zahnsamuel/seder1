@@ -17,7 +17,7 @@ const chromeFor = (kind) => STEP_CHROME[kind] || STEP_CHROME.introduce;
 const $ = (selector) => document.querySelector(selector);
 const escapeHtml = (value) => String(value || '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 
-function fillSourceCard(sourceWindow = {}) {
+function fillSourceCard(sourceWindow = {}, { hideOutbound = false } = {}) {
   $('#source-ref').textContent = sourceWindow.sourceRef || 'Source';
   const hebrew = $('#source-hebrew');
   const translation = $('#source-translation');
@@ -25,11 +25,11 @@ function fillSourceCard(sourceWindow = {}) {
   else { hebrew.textContent = ''; hebrew.hidden = true; }
   if (sourceWindow.translation) { translation.textContent = sourceWindow.translation; translation.hidden = false; }
   else { translation.textContent = ''; translation.hidden = true; }
-  $('#source-setting').textContent = sourceWindow.context || 'Read this source on the page, then answer the question below.';
+  $('#source-setting').textContent = sourceWindow.context || 'Read this source on this page, then answer the question below.';
   const link = $('#source-link');
   const footer = $('#source-footer');
   const url = sourceWindow.sourceUrl;
-  const hasUrl = Boolean(url) && url !== '#';
+  const hasUrl = Boolean(url) && url !== '#' && !hideOutbound;
   link.href = hasUrl ? url : '#';
   link.hidden = !hasUrl;
   if (footer) footer.hidden = !hasUrl;
@@ -116,7 +116,7 @@ function startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, 
     });
     const chrome = chromeFor(step.kind);
     $('#step-label').textContent = chrome.label;
-    fillSourceCard(step.sourceWindow);
+    fillSourceCard(step.sourceWindow, { hideOutbound: Boolean(step.holdAsk) });
     fillTeach(step);
     const guidance = $('#teaching-move');
     guidance.textContent = step.guidance || '';
@@ -156,17 +156,35 @@ function startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, 
     });
   }
 
-  function finish() {
+  async function finish() {
     $('#step').hidden = true;
     document.querySelector('#kp-steps').hidden = true;
     stepEls.forEach((el) => { el.classList.add('done', 'is-done'); el.classList.remove('current', 'is-current', 'is-upcoming'); });
-    if (retrieval) {
-      $('#complete-title').textContent = `You brought “${skill.title}” back into reach.`;
-      $('#complete-copy').textContent = 'You saw the skill on a source, then answered. Your map has moved.';
-    } else {
-      $('#complete-title').textContent = `You practised “${skill.title}” across the canon.`;
-      $('#complete-copy').textContent = 'You saw the skill on a source, tried it, and carried it into a new source. Your map has moved.';
+    try { sessionStorage.setItem('jla-last-foundation-skill', skillId); } catch { /* private mode */ }
+    let stateKey = 'emerging';
+    try {
+      const response = await Seder.api(`/api/learners/${learnerId}`);
+      const learner = response.ok ? await response.json() : null;
+      if (typeof Seder.skillCapabilityState === 'function') stateKey = Seder.skillCapabilityState(learner, skillId);
+    } catch { /* keep emerging */ }
+    const state = (Seder.capabilityStates && Seder.capabilityStates[stateKey]) || { label: 'Emerging', blurb: 'can make this with support' };
+    const chip = $('#complete-chip');
+    if (chip) {
+      chip.hidden = false;
+      chip.className = `jla-chip is-${stateKey}`;
+      chip.textContent = state.label;
     }
+    if ($('#complete-eyebrow')) $('#complete-eyebrow').textContent = 'THIS CAPABILITY';
+    $('#complete-title').textContent = retrieval
+      ? `You brought “${skill.title}” back into reach.`
+      : skill.title;
+    $('#complete-copy').textContent = retrieval
+      ? `${state.label}: ${state.blurb}. One short check, then back to Today.`
+      : `${state.label}: ${state.blurb}.`;
+    const next = $('#complete-next');
+    if (next) { next.href = 'daily-router.html'; next.textContent = 'Continue on Today →'; }
+    const academy = $('#complete-academy');
+    if (academy) academy.href = `academy.html?skill=${encodeURIComponent(skillId)}`;
     $('#complete').hidden = false;
     $('#complete').scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
@@ -208,7 +226,7 @@ function renderJlaSession(session) {
   $('#teaching-move').textContent = view.guidance;
   $('#check-title').textContent = view.prompt;
   const advance = $('#advance');
-  advance.textContent = 'Continue to Today →';
+  advance.textContent = 'Continue on Today →';
   advance.onclick = () => { location.href = 'daily-router.html'; };
   renderChoices(view.choices, (button) => chooseJla(button, session));
 }
@@ -227,6 +245,7 @@ async function chooseJla(button, session) {
     button.classList.add(result.correct ? 'is-correct' : 'is-wrong');
     $('#feedback').className = `jla-feedback ${result.correct ? 'is-correct' : 'is-wrong'}`;
     $('#feedback').textContent = result.feedback || (result.correct ? 'Good. That reading fits this source window.' : 'Not quite — look back at the source and try the next window.');
+    try { sessionStorage.setItem('jla-last-foundation-skill', session.skillId || skillId); } catch { /* private mode */ }
   } catch { $('#feedback').textContent = 'Your result is ready locally; it will sync when your account is available.'; }
 }
 

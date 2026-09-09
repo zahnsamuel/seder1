@@ -111,9 +111,8 @@ id through `contentSkillToFoundationId` / `pickContentPracticeForSkill`.
 
 ### 1. Starter-scoped Today (the intended loop)
 
-The starter set is not yet wired into the live router (that lane is separate). Once it
-is, a learner who has secured every starter skill except `fnd-arg-unresolved` is sent to
-**Recognize an open tension**.
+#30 wired the starter set into the live router. A learner who has secured every
+starter skill except `fnd-arg-unresolved` is sent to **Recognize an open tension**.
 
 After this split, with the child in the starter set and prereq `fnd-arg-response`:
 
@@ -129,12 +128,15 @@ asks for.
 The child must join the starter set (29 → 30, the documented cap) when implemented.
 Adding it only to `frozen` would **not** change a starter-scoped Today.
 
-### 2. Live full-graph Today (current router)
+### 2. Live Today after the arg-response closure (current router)
 
-The live picker is **not** starter-scoped. After the `arg-response` closure is secured,
-it currently picks frozen L2 `fnd-signal-sentence-structure` (lowest layer). Adding an
-L5 child does **not** change that pick. Do not implement against this router expecting
-an immediate Today change.
+The live picker **is** starter-scoped (#30). After the `arg-response` closure is
+secured, it currently picks L3 `fnd-role-ruling-vs-discussion` (lowest-layer
+unsecured starter skill). Adding an L5 child does **not** change that pick. Do not
+implement against this router expecting an immediate Today change.
+
+The unscoped / full-graph picker would still land on frozen L2
+`fnd-signal-sentence-structure`. That is no longer what Today uses.
 
 ### 3. Practice and review (changes on remode day)
 
@@ -170,7 +172,8 @@ distinction-answer; the child gains the four (plus the future non-Gemara step).
 
 - Starter-set freeze: no new siblings until the 29 have items, retrieval, and a
   working frontier router.
-- Live Today would not move (full-graph picker still lands on a frozen L2 skill).
+- Live Today would not move (starter-scoped picker still lands on L3
+  `fnd-role-ruling-vs-discussion` after the arg-response closure).
 - A child with no authored item adds another 0-bank skill while Claude is filling
   the starter banks.
 - Axis C is unfinished: four remode targets are one genre.
