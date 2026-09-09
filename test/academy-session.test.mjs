@@ -12,8 +12,9 @@ const HOOKS = [
   'id="step-label"', 'id="source-ref"', 'id="source-hebrew"', 'id="source-translation"',
   'id="source-setting"', 'id="teach-block"', 'id="teach-copy"', 'id="teaching-move"',
   'id="source-footer"', 'id="source-link"', 'id="ask-panel"', 'id="check-title"',
-  'id="choices"', 'id="feedback"', 'id="advance"', 'id="complete"', 'id="complete-title"',
-  'id="complete-copy"', 'id="real-content"', 'id="real-content-title"', 'id="real-content-list"'
+  'id="choices"', 'id="feedback"', 'id="advance"', 'id="complete"', 'id="complete-title"', 'id="complete-copy"', 'id="complete-eyebrow"',
+  'id="complete-chip"', 'id="complete-next"', 'id="complete-academy"',
+  'id="real-content"', 'id="real-content-title"', 'id="real-content-list"'
 ];
 
 test('academy session is a graph-driven 15-minute experience', () => {
@@ -112,6 +113,23 @@ test('foundation session chrome is see it / try it / new source with a clear ask
   assert.doesNotMatch(html + js, /Make the move:/);
   assert.doesNotMatch(html + js, /Show me the move/);
   assert.doesNotMatch(html + js, /INTRODUCE · SEE THE MOVE/);
+});
+
+test('finishing a starter session names emerging or secure and returns to Today', () => {
+  assert.match(html, /id="complete-eyebrow">THIS CAPABILITY</);
+  assert.match(html, /id="complete-chip"/);
+  assert.match(html, /id="complete-next"[^>]*href="daily-router\.html"/);
+  assert.match(html, /Continue on Today/);
+  assert.match(html, /id="complete-academy"/);
+  assert.match(html, /See this on Academy/);
+  assert.doesNotMatch(html, /Back to your path/);
+  assert.doesNotMatch(html, /SKILL PRACTISED ACROSS THE CANON/);
+  assert.doesNotMatch(js, /You practised/);
+  assert.match(js, /skillCapabilityState/);
+  assert.match(js, /jla-last-foundation-skill/);
+  assert.match(js, /academy\.html\?skill=/);
+  assert.match(js, /jla-chip is-\$\{stateKey\}/);
+  assert.doesNotMatch(js, /0 XP|\$\{[^}]*\} XP/);
 });
 
 test('academy-session CSS uses jla tokens and a single-column lesson', () => {

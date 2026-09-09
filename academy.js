@@ -75,20 +75,65 @@ function renderFoundations(stages) {
   $('#foundationAll').innerHTML = foundations.map((step) => renderFoundationCard(step, step.done(stages) ? 'Review' : 'Open')).join('');
 }
 
-Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? response.json() : null).then((learner) => {
+function knownFoundationIds(graph) {
+  return new Set((graph?.skills || []).map((skill) => skill.id).filter((id) => typeof id === 'string' && id.startsWith('fnd-')));
+}
+
+function pendingFoundationSkill(graph) {
+  const known = knownFoundationIds(graph);
+  const fromQuery = new URLSearchParams(location.search).get('skill');
+  if (fromQuery && known.has(fromQuery)) return fromQuery;
+  try {
+    const stored = sessionStorage.getItem('jla-last-foundation-skill');
+    if (stored && known.has(stored)) return stored;
+  } catch { /* private mode */ }
+  return null;
+}
+
+function fillFoundationLibrary(stages) {
+  if ($('#foundationAll')) {
+    $('#foundationAll').innerHTML = foundations.map((step) => renderFoundationCard(step, step.done(stages) ? 'Review' : 'Open')).join('');
+  }
+}
+
+function renderCapabilityHandoff(learner, graph) {
+  const skillId = pendingFoundationSkill(graph);
+  if (!skillId || !$('#todayCard')) return false;
+  const skill = (graph?.skills || []).find((item) => item.id === skillId) || { id: skillId, title: skillId };
+  const stateKey = typeof Seder.skillCapabilityState === 'function' ? Seder.skillCapabilityState(learner, skillId) : 'emerging';
+  const state = (Seder.capabilityStates && Seder.capabilityStates[stateKey]) || { label: 'Emerging', blurb: 'can make this with support' };
+  $('#todayCard').innerHTML = `<small>THIS CAPABILITY · ${state.label.toUpperCase()}</small><h2>${skill.title}</h2><p class="capability-line">${state.label}: ${state.blurb}.</p><p>This is now on your record as a reading capability, not as a score.</p><div class="today-actions"><a class="prove" href="daily-router.html">Continue on Today →</a></div>`;
+  if ($('#foundationEyebrow')) $('#foundationEyebrow').textContent = 'JUST SHOWN';
+  if ($('#foundationHeading')) $('#foundationHeading').textContent = 'One capability at a time.';
+  if ($('#foundationLead')) $('#foundationLead').textContent = 'The rest of the map stays put. Today will choose the next skill from this evidence.';
+  if ($('#foundationNext')) {
+    $('#foundationNext').innerHTML = `<article class="phase evidence-handoff"><span class="jla-chip is-${stateKey}">${state.label}</span><div><h3>${skill.title}</h3><p>${state.blurb}.</p></div></article>`;
+  }
+  return true;
+}
+
+Promise.all([
+  Seder.api(`/api/learners/${learnerId}`).then((response) => response.ok ? response.json() : null),
+  fetch('data/foundation-skill-graph.json').then((response) => response.ok ? response.json() : null).catch(() => null)
+]).then(([learner, graph]) => {
   const completedStages = new Set(learner?.completedStages || []);
   const day = currentDay(completedStages), [title, url] = plan[day - 1];
   const academyComplete = completedStages.size >= plan.length && plan.every((_, index) => completedStages.has(dayStage(index + 1)));
   const chrome = capabilityChrome(learner);
   $('#placement').innerHTML = learner?.placement?.completedAt ? '<b>Starting point saved.</b> Your source evidence—not this placement alone—will determine what becomes secure.' : '<b>Choose a starting point first.</b> A short adaptive placement lets Jewish Learning Academy begin at the first move that is not yet secure. <a href="diagnostic.html">Find my starting point →</a>';
-  renderFoundations(completedStages);
-  if (academyComplete) {
-    $('#todayCard').innerHTML = `<small>FOUNDATION COMPLETE · ${chrome.eyebrow.toUpperCase()}</small><h2>You have completed the Academy foundation.</h2><p class="capability-line">${chrome.sentence}</p><p>You now move from a fixed beginning into an evidence-led canon journey. Jewish Learning Academy will recommend a next move from your demonstrated work, not from a separate track.</p><div class="today-actions"><a class="prove" href="academy-next.html">Choose what to make secure next →</a></div><p class="quiet-link"><a href="study-record.html">Open my study record</a></p><small class="mastery-note">Completion is a beginning: retrieve what fades, deepen what is ready, and keep one accountable question in view.</small>`;
+  const handedOff = renderCapabilityHandoff(learner, graph);
+  if (handedOff) {
+    fillFoundationLibrary(completedStages);
   } else {
-    // One clear starting action (Continue on Today) without turning this reference into a scoreboard.
-    // Demonstrate stays available behind a disclosure so the 90-day engine still records evidence.
-    $('#todayCard').innerHTML = `<small>DAY ${day} OF ${plan.length} · ${chrome.eyebrow.toUpperCase()}</small><h2>${title}</h2><p class="capability-line">${chrome.sentence}</p><p class="why-next"><b>Where you are:</b> ${phaseForDay(day).milestone}</p><div class="today-actions"><a class="prove" href="daily-router.html">Continue on Today →</a></div><details class="academy-direct"><summary>Work this 90-day step here instead</summary><ol class="jla-path today-steps"><li class="jla-node is-current"><span class="marker">1</span><span class="kicker">Study</span><h3>Read today’s source</h3><p>${whyNext(day)}</p><a id="openToday" class="open" href="${url}">Open the source →</a></li><li class="jla-node is-upcoming"><span class="marker">2</span><span class="kicker">Demonstrate</span><h3>Show today’s move</h3><p>Two correct source checks record your evidence and open tomorrow.</p><a class="open" href="academy-evidence.html?day=${day}">Demonstrate the move →</a></li></ol></details><small class="mastery-note">Tomorrow opens after two source checks are correct. On Day 7, 14, and each weekly boundary, one check is an unfamiliar-source transfer.</small>`;
-    $('#openToday').addEventListener('click', () => openDay(day));
+    renderFoundations(completedStages);
+    if (academyComplete) {
+      $('#todayCard').innerHTML = `<small>FOUNDATION COMPLETE · ${chrome.eyebrow.toUpperCase()}</small><h2>You have completed the Academy foundation.</h2><p class="capability-line">${chrome.sentence}</p><p>You now move from a fixed beginning into an evidence-led canon journey. Jewish Learning Academy will recommend a next move from your demonstrated work, not from a separate track.</p><div class="today-actions"><a class="prove" href="academy-next.html">Choose what to make secure next →</a></div><p class="quiet-link"><a href="study-record.html">Open my study record</a></p><small class="mastery-note">Completion is a beginning: retrieve what fades, deepen what is ready, and keep one accountable question in view.</small>`;
+    } else {
+      // One clear starting action (Continue on Today) without turning this reference into a scoreboard.
+      // Demonstrate stays available behind a disclosure so the 90-day engine still records evidence.
+      $('#todayCard').innerHTML = `<small>DAY ${day} OF ${plan.length} · ${chrome.eyebrow.toUpperCase()}</small><h2>${title}</h2><p class="capability-line">${chrome.sentence}</p><p class="why-next"><b>Where you are:</b> ${phaseForDay(day).milestone}</p><div class="today-actions"><a class="prove" href="daily-router.html">Continue on Today →</a></div><details class="academy-direct"><summary>Work this 90-day step here instead</summary><ol class="jla-path today-steps"><li class="jla-node is-current"><span class="marker">1</span><span class="kicker">Study</span><h3>Read today’s source</h3><p>${whyNext(day)}</p><a id="openToday" class="open" href="${url}">Open the source →</a></li><li class="jla-node is-upcoming"><span class="marker">2</span><span class="kicker">Demonstrate</span><h3>Show today’s move</h3><p>Two correct source checks record your evidence and open tomorrow.</p><a class="open" href="academy-evidence.html?day=${day}">Demonstrate the move →</a></li></ol></details><small class="mastery-note">Tomorrow opens after two source checks are correct. On Day 7, 14, and each weekly boundary, one check is an unfamiliar-source transfer.</small>`;
+      $('#openToday').addEventListener('click', () => openDay(day));
+    }
   }
   // The 90-day map, milestones, and phases were removed from the hub (mentor reset: don't show the
   // whole curriculum map up front). Guard so their absence never trips the .catch error state; the

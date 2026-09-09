@@ -186,6 +186,7 @@
 }
 .complete p { color: var(--jla-text-soft); max-width: 46ch; margin: 0; }
 .complete-actions { display: flex; margin-top: 4px; }
+.complete .jla-chip { margin: 0; }
 .quiet-link { margin: 0; }
 .quiet-link a {
   color: var(--jla-text-soft);
