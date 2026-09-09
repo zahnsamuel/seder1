@@ -3683,3 +3683,21 @@ duplicate `# QA intake` document starts and the in-copy duplicate Berakhot
 independent-source-check heading (same body). Append-only history is otherwise
 unchanged. North-star checklist updated to merged reality; merge brief marked
 landed so it does not read as an open queue. No product behavior change.
+
+## 2026-09-09 ? Cursor: placement tests the skill, does not ask the learner to self-rate
+
+Sam: diagnostic skill cards asked "Could you do this reliably right now?" Learners must not
+speculate; we test, then place.
+
+- `diagnostic.html` / `diagnostic.js` / `diagnostic.css`: the probe is one authored MC (shuffled),
+  optional WHAT TO NOTICE teach when `foundation-teach.json` has an entry, then feedback + Continue.
+  Removed the skill-statement syllabus, "WHAT THAT LOOKS LIKE", and Yes / Not reliably / Not sure.
+- `POST /api/graph/diagnostic` attaches an authored item from `foundation-authored-items.json`.
+  Only skills with a bank are probed. L0 `fnd-decode-*` is skipped (no invented glyph banks); decode
+  is still inferred from a pass above it, and a complete beginner still lands on the decode frontier
+  for Today.
+- `data/diagnostic-items.mjs` + `nextDiagnosticProbe(..., { probeable })`. Placement still seeds
+  0.8 and hands off to Today (`daily-router.html`).
+- Tests: `test/diagnostic-items.test.mjs`, `test/adaptive-diagnostic.test.mjs`,
+  `test/placement-foundation-handoff.test.mjs`.
+

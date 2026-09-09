@@ -9,7 +9,7 @@ const graph = JSON.parse(await readFile(new URL('../data/foundation-skill-graph.
 const layerOf = (id) => graph.skills.find((s) => s.id === id)?.layer ?? 99;
 
 test('adaptive diagnostic page has the probe loop, gauge, results and rhythm surfaces', () => {
-  for (const marker of ['id="probe-shell"', 'id="gauge-fill"', 'id="answers"', 'id="results"', 'data-rhythm="daily"']) {
+  for (const marker of ['id="probe-shell"', 'id="gauge-fill"', 'id="answers"', 'id="results"', 'data-rhythm="daily"', 'id="probe-stem"', 'id="probe-continue"', 'id="probe-teach"']) {
     assert.match(html, new RegExp(marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   }
   assert.match(html, /src="diagnostic\.js/);
@@ -18,6 +18,21 @@ test('adaptive diagnostic page has the probe loop, gauge, results and rhythm sur
   // the adaptive diagnostic is the single navigable placement. (daily-router still protects the
   // placement-first entry; that guarantee lives in daily-router.test.mjs.)
   assert.doesNotMatch(html, /placement\.html/);
+});
+
+test('placement asks a real check, not a self-rate', () => {
+  assert.doesNotMatch(html, /Could you do this reliably right now\?/);
+  assert.doesNotMatch(html, /honest self-checks/);
+  assert.doesNotMatch(html, /WHAT THAT LOOKS LIKE/);
+  assert.doesNotMatch(html, /over-claiming/);
+  assert.doesNotMatch(js, /Yes — I can do this reliably/);
+  assert.doesNotMatch(js, /Not reliably yet/);
+  assert.doesNotMatch(js, /Judge honestly whether you can do this/);
+  assert.match(html, /A few short questions about a source/);
+  assert.doesNotMatch(html, /what you can do today/);
+  assert.match(js, /probe\.item/);
+  assert.match(js, /shuffleChoices\(item\.choices, item\.correct\)/);
+  assert.match(js, /responses\[pending\.id\] = pending\.passed/);
 });
 
 test('diagnostic results push one next CTA on the shared shell, not a menu of destinations', () => {
@@ -47,14 +62,14 @@ test('diagnostic CSS honours hidden so results never compete with the current pr
 
 test('diagnostic.js drives the stateless estimator and seeds through the placement path', () => {
   assert.match(js, /\/api\/graph\/diagnostic/);
-  assert.match(js, /responses\[probe\.id\] = option\.passed/);
+  assert.match(js, /responses\[pending\.id\] = pending\.passed/);
   assert.match(js, /type: 'placement_completed'/);
-  // self-report seeds at a provisional secure level, never a graded 1.0
+  // a single placement item seeds at a provisional secure level, never a graded 1.0
   assert.match(js, /\[id, 0\.8\]/);
-  assert.ok(!/\[id, 1\]|\[id, 1\.0\]/.test(js), 'self-report must not seed a perfect 1.0');
+  assert.ok(!/\[id, 1\]|\[id, 1\.0\]/.test(js), 'a single placement item must not seed a perfect 1.0');
   // Placement hands the learner to Today; Today opens decode drills or the scaffolded lesson.
   assert.match(js, /begin\.href = 'daily-router\.html'/);
-  assert.match(js, /See today’s lesson/);
+  assert.match(html, /See today’s lesson/);
   assert.doesNotMatch(js, /academy-session\.html\?skill=/);
   assert.doesNotMatch(js, /foundationSkill=/);
   // Same frontier pick as Today (lowest layer, then id) — not a second leverage ranking.

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="jla-system.css">
-  <link rel="stylesheet" href="diagnostic.css?v=2">
+  <link rel="stylesheet" href="diagnostic.css?v=3">
 </head>
 <body class="jla">
   <div id="jla-shell-mount"></div>
@@ -17,7 +17,7 @@
     <section class="intro">
       <p class="jla-eyebrow">A STARTING POINT, NOT A TEST</p>
       <h1>Let’s find where to start.</h1>
-      <p>A few honest questions about what you can do today. We’ll start you in the right place — not too hard, not too easy. This is not a grade, and you can change it by actually studying.</p>
+      <p>A few short questions about a source are enough to place you. We’ll start you in the right place — not too hard, not too easy. This is not a grade, and you can change it by actually studying.</p>
     </section>
 
     <section class="probe-shell" id="probe-shell" hidden>
@@ -26,16 +26,19 @@
         <div class="gauge" role="progressbar" aria-label="Starting point" aria-valuemin="0" aria-valuemax="100"><div class="gauge-fill" id="gauge-fill"></div></div>
         <p id="placed-label">Finding a starting point</p>
         <p id="q-label">Question 1</p>
-        <p class="aside-note">Each answer skips questions you don’t need.</p>
+        <p class="aside-note">Answer the question on the source. We’ll skip what we can infer.</p>
       </aside>
       <section class="probe">
         <span class="jla-eyebrow" id="probe-layer">FOUNDATION</span>
-        <h2 id="probe-title"></h2>
-        <p class="stmt" id="probe-stmt"></p>
-        <div class="check"><span>WHAT THAT LOOKS LIKE</span><p id="probe-check"></p></div>
-        <p class="ask">Could you do this reliably right now?</p>
+        <p class="source-ref" id="probe-ref" hidden></p>
+        <div class="teach-block" id="probe-teach-block" hidden>
+          <p class="jla-eyebrow">WHAT TO NOTICE</p>
+          <p id="probe-teach"></p>
+        </div>
+        <h2 class="ask" id="probe-stem" dir="auto"></h2>
         <div class="answers" id="answers"></div>
-        <p class="note">Answer honestly — over-claiming just means re-doing it later. “Not sure” counts as not yet.</p>
+        <p class="jla-feedback" id="probe-feedback" hidden></p>
+        <button type="button" class="jla-btn jla-btn-primary" id="probe-continue" hidden>Continue →</button>
       </section>
     </section>
 
@@ -67,7 +70,7 @@
   <script src="seder-auth.js?v=2"></script>
   <script src="capability-state.js"></script>
   <script src="jla-shell.js"></script>
-  <script src="diagnostic.js?v=2"></script>
+  <script src="diagnostic.js?v=3"></script>
   <script src="feedback.js?v=1"></script>
 </body>
 </html>

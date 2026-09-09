@@ -68,6 +68,11 @@ test('diagnostic API probes fnd- skills, never graduation-slice ids', async () =
   assert.ok(data.nextProbe?.id);
   assert.match(data.nextProbe.id, /^fnd-/);
   assert.ok(!sliceIds.has(data.nextProbe.id));
+  assert.ok(!data.nextProbe.id.startsWith('fnd-decode-'), 'placement does not invent L0 glyph checks');
+  assert.ok(data.nextProbe.item?.stem);
+  assert.ok(Array.isArray(data.nextProbe.item.choices) && data.nextProbe.item.choices.length >= 2);
+  assert.equal(typeof data.nextProbe.item.correct, 'number');
+  assert.doesNotMatch(JSON.stringify(data.nextProbe), /Could you do this reliably/);
   assert.ok((data.estimate.frontier || []).every((id) => id.startsWith('fnd-')));
 });
 

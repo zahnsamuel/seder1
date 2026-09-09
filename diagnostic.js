@@ -1,10 +1,10 @@
 // Adaptive placement as a knowledge-frontier estimator (The Math Academy Way, ch. 4). Drives the
-// stateless graph diagnostic (POST /api/graph/diagnostic): each answer is fed back, the server picks
-// the next skill that best splits the remaining uncertainty (binary search through the DAG) and
-// infers everything below a passed skill, so the frontier is pinned in a handful of questions rather
-// than one per skill. On completion it seeds the frontier through the same placement_completed path
-// the graded placement uses (enrichPlacementWithFrontier), at a provisional "secure" level — this is
-// self-calibrated placement, corrected by real evidence the moment the learner starts practicing.
+// stateless graph diagnostic (POST /api/graph/diagnostic): each answer is a real authored MC, the
+// server picks the next skill that best splits remaining uncertainty, and infers everything below a
+// passed skill. Self-ratings ("Could you do this reliably right now?") are not used. On completion it
+// seeds the frontier through the same placement_completed path the rest of the app uses
+// (enrichPlacementWithFrontier), at a provisional "secure" level — one placement item is evidence,
+// not a graded 1.0, and later sessions refine it.
 const learnerId = Seder.currentLearnerId();
 const $ = (selector) => document.querySelector(selector);
 const esc = (value) => String(value == null ? '' : value).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -15,6 +15,7 @@ let done = false;          // once the result is shown, the diagnostic is termin
 let graph = null;
 let total = 53;            // graph skill count, for the "mapped" gauge; refined once the graph loads
 let kids = new Map();      // skillId -> direct dependents, for local descendant/leverage math
+let pending = null;        // { id, passed } while feedback is on screen
 
 const graphReady = fetch('data/foundation-skill-graph.json')
   .then((response) => (response.ok ? response.json() : null))
@@ -32,6 +33,15 @@ const skillById = (id) => (graph && graph.skills || []).find((skill) => skill.id
 const layerTitle = (n) => ((graph && graph.layers) || []).find((layer) => layer.n === n)?.title || 'Foundation';
 function descendants(id, out = new Set()) { for (const child of kids.get(id) || []) if (!out.has(child)) { out.add(child); descendants(child, out); } return out; }
 const leverage = (id) => descendants(id).size; // how many later moves depend on this one
+
+function shuffleChoices(choices, correctIndex) {
+  const items = choices.map((text, index) => ({ text, correct: index === correctIndex }));
+  for (let i = items.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [items[i], items[j]] = [items[j], items[i]];
+  }
+  return items;
+}
 
 // One round-trip to the stateless estimator: send everything answered so far, get the current
 // estimate, the next probe, or completion.
@@ -64,30 +74,74 @@ function updateGauge(estimate) {
 }
 
 function renderProbe(probe) {
+  const item = probe.item;
+  if (!item || !Array.isArray(item.choices) || item.choices.length < 2) {
+    $('#status').textContent = 'Diagnostic unavailable — reload to try again.';
+    return;
+  }
   const intro = $('.intro'); if (intro) intro.hidden = true;
   $('#probe-shell').hidden = false;
+  pending = { id: probe.id, passed: null };
   const skill = skillById(probe.id);
   $('#probe-layer').textContent = (skill ? `Layer ${skill.layer} · ${layerTitle(skill.layer)}` : 'Foundation').toUpperCase();
-  $('#probe-title').textContent = probe.title || (skill && skill.title) || '';
-  $('#probe-stmt').textContent = probe.statement || (skill && skill.statement) || '';
-  $('#probe-check').textContent = probe.check || 'Judge honestly whether you can do this on your own.';
-  const answers = $('#answers'); answers.innerHTML = '';
-  const options = [
-    { label: 'Yes — I can do this reliably', passed: true, cls: 'yes' },
-    { label: 'Not reliably yet', passed: false, cls: 'no' },
-    { label: 'Not sure', passed: false, cls: 'no' }
-  ];
-  for (const option of options) {
+  const ref = $('#probe-ref');
+  if (item.sourceRef) { ref.textContent = item.sourceRef; ref.hidden = false; }
+  else { ref.textContent = ''; ref.hidden = true; }
+  const teachBlock = $('#probe-teach-block');
+  const teach = $('#probe-teach');
+  if (probe.teach) {
+    teach.textContent = probe.teach;
+    teachBlock.hidden = false;
+  } else {
+    teach.textContent = '';
+    teachBlock.hidden = true;
+  }
+  $('#probe-stem').textContent = item.stem;
+  const feedback = $('#probe-feedback');
+  feedback.hidden = true;
+  feedback.textContent = '';
+  feedback.className = 'jla-feedback';
+  const cont = $('#probe-continue');
+  cont.hidden = true;
+
+  const answers = $('#answers');
+  answers.innerHTML = '';
+  for (const option of shuffleChoices(item.choices, item.correct)) {
     const button = document.createElement('button');
-    button.type = 'button'; button.className = `jla-choice ${option.cls}`; button.textContent = option.label;
+    button.type = 'button';
+    button.className = 'jla-choice';
+    button.textContent = option.text;
     button.addEventListener('click', () => {
-      responses[probe.id] = option.passed;
-      questionCount += 1;
-      answers.querySelectorAll('button').forEach((other) => { other.disabled = true; });
-      step();
+      if (!pending || pending.passed !== null) return;
+      const passed = option.correct;
+      pending.passed = passed;
+      answers.querySelectorAll('button').forEach((other) => {
+        other.disabled = true;
+        if (other === button) other.classList.add(passed ? 'is-correct' : 'is-wrong');
+      });
+      const taught = item.feedback || '';
+      feedback.textContent = passed ? (taught || 'Yes.') : (taught ? `Not yet. ${taught}` : 'Not yet.');
+      feedback.className = passed ? 'jla-feedback is-correct' : 'jla-feedback is-wrong';
+      feedback.hidden = false;
+      cont.hidden = false;
+      cont.focus();
     });
     answers.appendChild(button);
   }
+}
+
+function bindContinue() {
+  const cont = $('#probe-continue');
+  if (!cont || cont.dataset.bound) return;
+  cont.dataset.bound = 'true';
+  cont.addEventListener('click', () => {
+    if (!pending || pending.passed === null || done) return;
+    responses[pending.id] = pending.passed;
+    questionCount += 1;
+    pending = null;
+    cont.hidden = true;
+    step();
+  });
 }
 
 // The same frontier pick Today uses: lowest layer, then id. Leverage still explains why the move matters,
@@ -103,13 +157,14 @@ function pickStart(frontier) {
 function finish(estimate) {
   if (done) return; // idempotent: only place the result once, and never re-open it afterward
   done = true;
+  pending = null;
   $('#probe-shell').hidden = true;
   const intro = $('.intro'); if (intro) intro.hidden = true;
   $('#status').textContent = 'STARTING POINT READY';
   const start = pickStart(estimate.frontier);
-  // Seed via the proven placement path: pass the directly-claimed skills; the server's downward
-  // inference (enrichPlacementWithFrontier) seeds their prerequisites too. Self-report lands at a
-  // provisional 0.8 ("secure"), never a graded 1.0, and real practice refines it from there.
+  // Seed via the proven placement path: pass the directly-demonstrated skills; the server's downward
+  // inference (enrichPlacementWithFrontier) seeds their prerequisites too. One placement item lands
+  // at a provisional 0.8 ("secure"), never a graded 1.0, and real practice refines it from there.
   const passed = Object.keys(responses).filter((id) => responses[id]);
   const foundationScores = Object.fromEntries(passed.map((id) => [id, 0.8]));
   Seder.api(`/api/learners/${learnerId}/events`, {
@@ -145,13 +200,11 @@ function renderResults(estimate, start) {
     return `<article class="tone-${tone}"><span>${layer.n}. ${esc(layer.title)}</span><strong>${status}</strong></article>`;
   }).join('');
   const begin = $('#results-begin');
-  if (begin) begin.href = start
-    ? (start.id.startsWith('fnd-decode-') ? 'hebrew-decoding.html' : `academy-session.html?skill=${encodeURIComponent(start.id)}`)
-    : 'my-graph.html';
+  if (begin) begin.href = 'daily-router.html';
   bindRhythm();
 }
 
-// Same rhythm capture as the graded placement, so a learner leaves either path with a pace set.
+// Same rhythm capture as the rest of placement, so a learner leaves with a pace set.
 function bindRhythm() {
   document.querySelectorAll('[data-rhythm]').forEach((button) => button.addEventListener('click', async () => {
     document.querySelectorAll('[data-rhythm]').forEach((other) => other.classList.toggle('selected', other === button));
@@ -164,4 +217,5 @@ function bindRhythm() {
   }));
 }
 
+bindContinue();
 graphReady.then(step); // load the graph first so probes show their layer and the gauge has a denominator

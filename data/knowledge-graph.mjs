@@ -140,7 +140,9 @@ export function estimateFrontierFromDiagnostic(graph, responses = {}) {
 // The next skill to probe: the still-uncertain skill that most evenly splits the remaining
 // uncertainty (binary-search through the DAG) — passing it resolves everything below it, failing it
 // prunes everything above. Returns null once the frontier is pinned down (no informative probe left).
-export function nextDiagnosticProbe(graph, responses = {}) {
+// `options.probeable` (iterable of skill ids) limits candidates to skills we can actually test;
+// unresolved-but-untestable skills still count toward the split score so inference stays honest.
+export function nextDiagnosticProbe(graph, responses = {}, options = {}) {
   const prereqs = prereqMap(graph);
   const kids = dependentsMap(graph);
   const answered = new Set(Object.keys(responses));
@@ -148,13 +150,15 @@ export function nextDiagnosticProbe(graph, responses = {}) {
   const knownSet = new Set(estimateFrontierFromDiagnostic(graph, responses).known);
   const unreachable = new Set(); // above a failed skill: definitely beyond the frontier, no need to test
   for (const f of failed) for (const d of descendantsOf(kids, f)) unreachable.add(d);
-  const uncertain = (id) => !answered.has(id) && !knownSet.has(id) && !unreachable.has(id);
-  const candidates = graph.skills.map((s) => s.id).filter(uncertain);
+  const unresolved = (id) => !answered.has(id) && !knownSet.has(id) && !unreachable.has(id);
+  const allow = options.probeable == null ? null : new Set(options.probeable);
+  const candidateOf = (id) => unresolved(id) && (!allow || allow.has(id));
+  const candidates = graph.skills.map((s) => s.id).filter(candidateOf);
   if (!candidates.length) return null;
   let best = null, bestScore = -1;
   for (const id of candidates) {
-    const below = [...ancestorsOf(prereqs, id)].filter(uncertain).length;
-    const above = [...descendantsOf(kids, id)].filter(uncertain).length;
+    const below = [...ancestorsOf(prereqs, id)].filter(unresolved).length;
+    const above = [...descendantsOf(kids, id)].filter(unresolved).length;
     const score = Math.min(below, above);
     if (score > bestScore) { bestScore = score; best = id; }
   }
