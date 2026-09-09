@@ -1,0 +1,131 @@
+{
+  "status": "proposal",
+  "graphVersion": "0.3.2",
+  "northStarItem": 7,
+  "docs": "docs/fat-bucket-first-split.md",
+  "principle": "Split only where the daily loop would route differently, and only with a rubric signal plus retagged units. Do not add the child to the live graph until the starter set has items and a starter-scoped frontier router.",
+  "audit": {
+    "asOf": "2026-09-08",
+    "method": "tagFor() in scripts/build-foundation-content-map.mjs over loadUnits('.')",
+    "buckets": {
+      "fnd-arg-response": {
+        "steps": 90,
+        "signal": "competency === argument catch-all",
+        "verdict": "split-one-child"
+      },
+      "fnd-role-ruling-vs-discussion": {
+        "steps": 78,
+        "signal": "competency === sourceReasoning catch-all",
+        "verdict": "no-split-no-mode-signal"
+      },
+      "fnd-case-what-happens": {
+        "steps": 41,
+        "allowedLeftoverModes": ["CASE ORIENTATION", "FACT PATTERN"],
+        "verdict": "already-closed-in-0.2.0"
+      }
+    }
+  },
+  "firstSplit": {
+    "parent": "fnd-arg-response",
+    "child": {
+      "id": "fnd-arg-resolve-distinction",
+      "layer": 5,
+      "title": "Answer by distinguishing cases",
+      "statement": "You can recognize when a response answers an objection by showing the sources apply to different cases, not by denying the objection.",
+      "prerequisites": ["fnd-arg-response"],
+      "sourceContexts": [
+        { "ref": "Gemara Shabbat 2a (similar cases that differ)", "genre": "gemara" },
+        { "ref": "Rambam, Hilchot Deot 1:4–5 (the middle path distinguished from extremes)", "genre": "halakha" }
+      ],
+      "teachingMove": "Ask whether the response denies the pressure or splits the case — if two sources both stand, name the fact that keeps them from colliding.",
+      "checks": [
+        "Given an objection and a reply, say whether the reply distinguishes cases or rejects the objection."
+      ],
+      "transfer": "In an unseen sugya or responsum, mark a distinction-answer and name the two cases it separates.",
+      "repair": "Write the objection as \"these two sources conflict,\" then ask what fact would make both true.",
+      "graduationThreshold": "transfer",
+      "durability": "transfer"
+    },
+    "rubric": {
+      "token": "DISTINCTION ANSWER",
+      "rule": "if (has(/DISTINCTION ANSWER/)) return 'fnd-arg-resolve-distinction';",
+      "placeBefore": "L6 DISTINCTION|CONTRAST → fnd-compare-scope",
+      "doNotKeyOn": ["DISTINCTION", "DISTINCTION MAP", "ROLE DISTINCTION", "WITNESS DISTINCTION", "CONTRAST"]
+    },
+    "starterSet": {
+      "whenImplementing": "add as the 30th starter skill (documented cap)",
+      "whyNotFrozen": "a starter-scoped Today would not pick a frozen child, so the daily loop would not route differently"
+    }
+  },
+  "retag": [
+    {
+      "unit": "berakhot-unit-5",
+      "contentSkill": "baraita-distinction-response",
+      "currentMode": "RESPONSE",
+      "currentFoundation": "fnd-arg-response",
+      "newMode": "DISTINCTION ANSWER",
+      "why": "Asks what kind of response this is; correct answer is a distinction that shows the sources may not conflict."
+    },
+    {
+      "unit": "gemara-toolkit",
+      "contentSkill": "distinction-signal",
+      "currentMode": "DISTINCTION",
+      "currentFoundation": "fnd-compare-scope",
+      "newMode": "DISTINCTION ANSWER",
+      "why": "Toolkit teach: a difference may resolve a problem by showing the sources apply in different situations."
+    },
+    {
+      "unit": "shabbat-arc",
+      "contentSkill": "shabbat-distinction",
+      "currentMode": "DISTINCTION",
+      "currentFoundation": "fnd-compare-scope",
+      "newMode": "DISTINCTION ANSWER",
+      "why": "Names the reasoning move: a distinction that explains why similar cases differ."
+    },
+    {
+      "unit": "taanit-arc",
+      "contentSkill": "taanit-mention-request-distinction",
+      "currentMode": "DISTINCTION",
+      "currentFoundation": "fnd-compare-scope",
+      "newMode": "DISTINCTION ANSWER",
+      "why": "The reply distinguishes two related practices rather than denying the concern — deny vs distinguish."
+    }
+  ],
+  "leaveOnCompareScope": [
+    "arakhin-vow-measure-distinction",
+    "bekhorot-status-redemption",
+    "avodah-zarah-category-distinction",
+    "bava-kamma-av-toldot-stakes",
+    "pesachim-distinction",
+    "eruvin-distinction-reason",
+    "thought-distinction",
+    "daf-rashi-script"
+  ],
+  "deferredChildren": [
+    {
+      "id": "fnd-arg-reinterpret",
+      "plannedMode": "REINTERPRET",
+      "whyNotNow": "No REINTERPRET mode in content. INTERPRETATION/CONCEPT steps are middot, aggadah, and close reading — not one move."
+    },
+    {
+      "id": "fnd-arg-two-answers",
+      "plannedMode": "SECOND ANSWER",
+      "whyNotNow": "No SECOND ANSWER mode. SECOND SOURCE already maps to fnd-arg-evidence-role."
+    }
+  ],
+  "routing": {
+    "starterScopedAfterResponse": {
+      "secured": "every starter skill except fnd-arg-unresolved",
+      "todayPicks": "fnd-arg-unresolved",
+      "afterSplitPicks": "fnd-arg-resolve-distinction",
+      "href": "academy-session.html?skill=fnd-arg-resolve-distinction",
+      "why": "Both children sit on the L5 frontier; alphabetical id prefers resolve-distinction over unresolved."
+    },
+    "liveFullGraphAfterResponseClosure": {
+      "todayPicks": "fnd-signal-sentence-structure",
+      "afterSplitPicks": "fnd-signal-sentence-structure",
+      "why": "Unscoped picker sorts by layer then id; frozen L2 still wins. Implementing the child would not move live Today."
+    }
+  },
+  "genreGap": "All four remode targets are Gemara. Author one new DISTINCTION ANSWER step in a non-Gemara unit before shipping. Do not remode an existing COMPARISON step. Do not edit data/foundation-authored-items.json."
+}

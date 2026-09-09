@@ -110,3 +110,9 @@ The freeze is the *list + rationale*. It deliberately does **not** touch the liv
 
 Do not expand past 29 until the starter set has items, retrieval, and a working frontier
 router (north-star item 4).
+
+North-star item 7 (fat buckets) has a locked first-split proposal —
+[`docs/fat-bucket-first-split.md`](fat-bucket-first-split.md) — one child of
+`fnd-arg-response`. When that PR lands it becomes the 30th starter skill so a
+starter-scoped Today teaches distinction before open tension. Do not add it while
+this freeze holds.
