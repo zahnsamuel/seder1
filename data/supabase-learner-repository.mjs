@@ -1,7 +1,7 @@
 import { supabaseRest } from './supabase-adapter.mjs';
 import { recordAcademyCapabilityEvent } from '../jla-capability-evidence.js';
 import { decayedMasteryMap } from './mastery-decay.mjs';
-import { creditImplicitReviews } from './repository.mjs';
+import { applyAcademyFoundationSecureFloor, creditImplicitReviews, FOUNDATION_SECURE_SCORE } from './repository.mjs';
 
 const competencies = { recognition: 0, translation: 0, argument: 0, sourceReasoning: 0 };
 const empty = (id, displayName = 'Learner') => ({ id, xp: 0, mastery: {}, evidence: {}, masteryUpdatedAt: {}, struggles: {}, competencies: { ...competencies }, profile: { displayName }, completedStages: [], reviewQueue: [], placement: null, foundationScores: {}, artifacts: {}, capabilityEvidence: [], events: [], dailyStreak: 0, lastStudyDate: null, totalAnswered: 0, updatedAt: new Date().toISOString() });
@@ -87,13 +87,15 @@ export async function recordHostedEvent(user, accessToken, event) {
     learner.evidence[skillId] = [...contexts];
     const transferBonus = correct && contexts.size > 1 ? .08 : 0;
     learner.mastery[skillId] = Math.min(1, (learner.mastery[skillId] || 0) + (correct ? .34 + transferBonus : .08));
+    if (correct) applyAcademyFoundationSecureFloor(learner, skillId);
     learner.masteryUpdatedAt[skillId] = recorded.at;
     learner.competencies[competency] = Math.min(1, (learner.competencies[competency] || 0) + (correct ? .22 : .04));
     learner.struggles[skillId] = Math.max(0, (learner.struggles[skillId] || 0) + (correct ? -1 : 1));
     const existing = learner.reviewQueue.find((item) => item.skillId === skillId);
+    const secured = (learner.mastery[skillId] || 0) >= FOUNDATION_SECURE_SCORE;
     if (!correct || learner.mastery[skillId] < .85) {
       const priorAttempts = existing?.attempts || 0;
-      const delay = correct ? [24, 72, 168, 336][Math.min(priorAttempts, 3)] : 0;
+      const delay = correct ? [24, 72, 168, 336][Math.min(priorAttempts, 3)] : (secured ? 24 : 0);
       const item = existing || { skillId, attempts: 0 };
       Object.assign(item, { dueAt: new Date(Date.now() + delay * 3600000).toISOString(), reason: correct ? 'A second retrieval will help make this skill durable.' : 'Revisit this source move while it is still fresh.', attempts: (item.attempts || 0) + 1 });
       if (!existing) learner.reviewQueue.push(item);

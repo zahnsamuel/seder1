@@ -3683,3 +3683,32 @@ duplicate `# QA intake` document starts and the in-copy duplicate Berakhot
 independent-source-check heading (same body). Append-only history is otherwise
 unchanged. North-star checklist updated to merged reality; merge brief marked
 landed so it does not read as an open queue. No product behavior change.
+
+## 2026-09-09 -- Cursor: second Today lesson (post-session → next frontier)
+
+After the first academy session, Today was re-serving the same skill. A correct
+`fnd-` See-it ask only added 0.34 mastery (below the 0.67 secure line), and the
+local review ladder’s first interval was 0h, so the just-finished skill was due
+now. Review outranks foundation teach, so lesson 2 was a same-skill retrieval
+instead of the next frontier skill (`fnd-orient-source-type` →
+`fnd-orient-page-geography`).
+
+- Local repository now matches hosted: first correct review is 24h, not due now.
+- One correct academy-foundation (`fnd-`, not Layer 0 decode) answer floors
+  mastery + `foundationScores` at 0.67 so the frontier advances.
+- Today defers a same-sitting retrieval of a skill that is already secure, so
+  Continue on Today opens the next teach.
+- Academy-session complete names emerging/secure, primary **Continue on Today**,
+  no Path dump in the shell. See-it hides the outbound lookup until the ask.
+  Complementary to open #48 (session chrome overlap; #48 still owns diagnostic →
+  Today and the teiku excerpt) and #53 (decode skip → first non-L0 session).
+
+Click path: placement (decode already secure) → Today →
+`academy-session.html?skill=fnd-orient-source-type` → See-it → Got it — ask me →
+correct answer → Continue on Today → Today →
+`academy-session.html?skill=fnd-orient-page-geography` (teach + excerpt, no
+`mode=review`).
+
+Tests: `test/lesson-two-today.test.mjs`, repository academy-foundation cases.
+Did not rewrite item banks, teach JSON, or diagnostic (#50/#51).
+

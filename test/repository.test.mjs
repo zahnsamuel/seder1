@@ -11,6 +11,9 @@ import {
   listLearnersFull,
   reviewStatus,
   decayingSkills,
+  applyAcademyFoundationSecureFloor,
+  FOUNDATION_SECURE_SCORE,
+  isAcademyFoundationSkill,
 } from '../data/repository.mjs';
 
 // Every test gets its own scratch "root" directory (with a data/ subfolder, matching
@@ -88,6 +91,43 @@ describe('recordLearnerEvent: answer_submitted', () => {
     // scheduled yet from the ">= .67 and < .85" durability branch specifically -- but
     // this confirms the mastery value itself is what later gates that branch.
     assert.ok(updated.mastery['skill-v'] < 0.67);
+  });
+
+  test('a correct academy foundation answer secures the skill and does not due a same-sitting review', async () => {
+    assert.equal(isAcademyFoundationSkill('fnd-orient-source-type'), true);
+    assert.equal(isAcademyFoundationSkill('fnd-decode-letters'), false);
+    assert.equal(isAcademyFoundationSkill('skill-x'), false);
+    const learner = await createLearner(root, 'Academy Sit');
+    const updated = await recordLearnerEvent(root, learner.id, {
+      type: 'answer_submitted',
+      skillId: 'fnd-orient-source-type',
+      foundationSkillId: 'fnd-orient-source-type',
+      competency: 'sourceReasoning',
+      correct: true,
+      sourceContext: 'Deuteronomy 6:4'
+    });
+    assert.ok(updated.mastery['fnd-orient-source-type'] >= FOUNDATION_SECURE_SCORE);
+    assert.ok(updated.foundationScores['fnd-orient-source-type'] >= FOUNDATION_SECURE_SCORE);
+    const status = reviewStatus(updated);
+    assert.equal(status.due.length, 0, 'just-taught skill must not be due now');
+    assert.equal(status.upcoming.length, 1);
+    assert.equal(status.upcoming[0].skillId, 'fnd-orient-source-type');
+    const floored = applyAcademyFoundationSecureFloor({ mastery: { 'fnd-orient-source-type': 0.34 }, foundationScores: {} }, 'fnd-orient-source-type');
+    assert.ok(floored.mastery['fnd-orient-source-type'] >= FOUNDATION_SECURE_SCORE);
+  });
+
+  test('a wrong academy answer still dues a repair review when the skill is not yet secure', async () => {
+    const learner = await createLearner(root, 'Academy Miss');
+    const updated = await recordLearnerEvent(root, learner.id, {
+      type: 'answer_submitted',
+      skillId: 'fnd-orient-source-type',
+      foundationSkillId: 'fnd-orient-source-type',
+      correct: false
+    });
+    assert.ok(updated.mastery['fnd-orient-source-type'] < 0.67);
+    const due = reviewStatus(updated).due;
+    assert.equal(due.length, 1);
+    assert.equal(due[0].skillId, 'fnd-orient-source-type');
   });
 });
 

@@ -100,9 +100,27 @@ function queueReview(learner, skillId, { delayHours = 0, reason } = {}) {
   else learner.reviewQueue.push({ skillId, dueAt, reason, attempts: 1 });
 }
 
-function reviewDelayHours(learner, skillId) {
+export const FOUNDATION_SECURE_SCORE = 0.67;
+
+export function isAcademyFoundationSkill(skillId) {
+  return typeof skillId === 'string' && skillId.startsWith('fnd-') && !skillId.startsWith('fnd-decode-');
+}
+
+export function applyAcademyFoundationSecureFloor(learner, skillId) {
+  if (!learner || !isAcademyFoundationSkill(skillId)) return learner;
+  learner.mastery ||= {};
+  learner.foundationScores ||= {};
+  const floored = Math.min(1, Math.max(Number(learner.mastery[skillId]) || 0, FOUNDATION_SECURE_SCORE));
+  learner.mastery[skillId] = floored;
+  learner.foundationScores[skillId] = Math.max(Number(learner.foundationScores[skillId]) || 0, floored);
+  return learner;
+}
+
+function reviewDelayHours(learner, skillId, { correct = false, secured = false } = {}) {
   const prior = normalizedReviewQueue(learner.reviewQueue).find((item) => item.skillId === skillId);
   const repetitions = prior?.attempts || 0;
+  if (correct) return [24, 72, 168, 336][Math.min(repetitions, 3)];
+  if (secured) return 24;
   return [0, 24, 72, 168, 336][Math.min(repetitions, 4)];
 }
 
@@ -255,6 +273,7 @@ async function recordLearnerEventUnlocked(root, id, event) {
     learner.evidence[event.skillId] = [...contexts];
     const transferBonus = event.correct && contexts.size > 1 ? .08 : 0;
     learner.mastery[event.skillId] = Math.min(1, (learner.mastery[event.skillId] || 0) + (event.correct ? .34 + transferBonus : .08));
+    if (event.correct) applyAcademyFoundationSecureFloor(learner, event.skillId);
     learner.masteryUpdatedAt ||= {};
     learner.masteryUpdatedAt[event.skillId] = recorded.at;
     const competency = competencyFor(event);
@@ -264,17 +283,20 @@ async function recordLearnerEventUnlocked(root, id, event) {
     // it exercised, count struggle at that KP, so remediation can target the specific KP's key
     // prerequisite (which varies by KP) rather than only a skill-level proxy.
     if (event.knowledgePointId) { learner.knowledgePointStruggles ||= {}; learner.knowledgePointStruggles[event.knowledgePointId] = Math.max(0, (learner.knowledgePointStruggles[event.knowledgePointId] || 0) + (event.correct ? -1 : 1)); }
-    if (!event.correct) queueReview(learner, event.skillId, { delayHours: reviewDelayHours(learner, event.skillId), reason: 'Revisit this source move while it is still fresh.' });
+    const secured = (learner.mastery[event.skillId] || 0) >= FOUNDATION_SECURE_SCORE;
+    if (!event.correct) queueReview(learner, event.skillId, { delayHours: reviewDelayHours(learner, event.skillId, { secured }), reason: 'Revisit this source move while it is still fresh.' });
     if (event.correct && learner.mastery[event.skillId] < .85) {
       // Read the delay (which depends on this skill's prior attempts in the review
       // queue) BEFORE clearing the queue entry below. Clearing first and computing
       // the delay after always found an empty queue, so every durability review was
       // silently scheduled as "due now" instead of properly spaced out.
+      // First correct interval is 24h (hosted path already did this) so a just-finished
+      // academy session cannot steal Today as a due-now review of the same skill.
       const contexts = learner.evidence?.[event.skillId]?.length || 0;
-      const delay = reviewDelayHours(learner, event.skillId) * (contexts > 1 ? 2 : 1);
-      if (learner.mastery[event.skillId] >= .67) learner.reviewQueue = learner.reviewQueue.filter((item) => item.skillId !== event.skillId);
+      const delay = reviewDelayHours(learner, event.skillId, { correct: true }) * (contexts > 1 ? 2 : 1);
+      if (secured) learner.reviewQueue = learner.reviewQueue.filter((item) => item.skillId !== event.skillId);
       queueReview(learner, event.skillId, { delayHours: delay, reason: contexts > 1 ? 'You have shown transfer across sources; the next retrieval is spaced further out.' : 'A later retrieval will help make this skill durable.' });
-    } else if (event.correct && learner.mastery[event.skillId] >= .67) {
+    } else if (event.correct && secured) {
       learner.reviewQueue = learner.reviewQueue.filter((item) => item.skillId !== event.skillId);
     }
     // FIRe: a correct answer also implicitly reviews the simpler skills this one fully encompasses,
