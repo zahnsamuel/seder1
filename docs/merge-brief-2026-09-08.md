@@ -1,27 +1,27 @@
-# Merge brief — 2026-09-08
+﻿# Merge brief ΓÇö 2026-09-08
 
 For Sam, returning to the queue. Companion:
 [`docs/skill-graph-north-star.md`](skill-graph-north-star.md) checklist.
 
 **Verified live on GitHub the afternoon of 2026-09-08** (`main` still `c6d2175`,
-PR #29). **None of #30–#44 are merged.** Do not treat the morning three-PR
-list as the current pile. A later-afternoon addendum for **#41–#44** is at
+PR #29). **None of #30ΓÇô#44 are merged.** Do not treat the morning three-PR
+list as the current pile. A later-afternoon addendum for **#41ΓÇô#44** is at
 the bottom; fold it into the sitting below.
 
-## Already on main — do not re-merge
+## Already on main ΓÇö do not re-merge
 
 | PR | What landed |
 |---|---|
-| #13 | Today → frontier `fnd-`; `knowledgeFrontier()` replaces the 14-skill ladder |
+| #13 | Today ΓåÆ frontier `fnd-`; `knowledgeFrontier()` replaces the 14-skill ladder |
 | #14 | Starter-set freeze (29 teach / 26 hold) |
 | #15 | Content-move graph demoted; practice a chosen `fnd-` skill |
 | #17 | Placement unified onto one `fnd-` start |
 | #18 | Review / decay / welcome-back cite `fnd-` ids |
 | #19 | Academy clear ask + on-page source |
 | #20 | See-it is a mini-lesson, then the ask |
-| #21 | Dropped “NO TYPING REQUIRED” chrome |
+| #21 | Dropped ΓÇ£NO TYPING REQUIREDΓÇ¥ chrome |
 | #22 | Genre-literacy teach (`foundation-teach.json`) |
-| #16 | L2–L5 starter item banks |
+| #16 | L2ΓÇôL5 starter item banks |
 | #23 | Hosted `masteryUpdatedAt` / `decayedMastery` |
 | #24 | Derived-file greens (stale contexts / drift lock) |
 | #25 | Capability-state language on path / academy / academy-next |
@@ -35,7 +35,7 @@ on main. Item **8** is still only the #25 surfaces until #34 lands. Items **7**
 and **9** stay open even if their staging PRs merge (proposal / empty fields /
 EXAMPLE only).
 
-## Full open pile — recommended merge order
+## Full open pile ΓÇö recommended merge order
 
 All mergeable as of this check. Drafts are marked. Ready (not draft): #31, #39,
 and stale #10.
@@ -44,7 +44,7 @@ and stale #10.
 
 **Scope Today / frontier routing to the frozen starter set.**
 
-Real Today bug. After starter Layers 0–2 are secured, unrestricted
+Real Today bug. After starter Layers 0ΓÇô2 are secured, unrestricted
 `knowledgeFrontier()` still returns frozen `fnd-signal-sentence-structure`,
 and the picker teaches that instead of starter `fnd-role-question-vs-answer`.
 
@@ -53,7 +53,7 @@ touches. Merge #30 before #36 and rebase #36.
 
 ### 2. Safe: [#31](https://github.com/zahnsamuel/seder1/pull/31) (ready)
 
-**Deepen 11 thin L2–L5 starter item banks (quality, not count).**
+**Deepen 11 thin L2ΓÇôL5 starter item banks (quality, not count).**
 
 Independent of routing. Does not touch the three fat-bucket skills. Merge
 whenever after or beside #30 (`qa-intake.md` only shared file).
@@ -76,11 +76,11 @@ may show terms; asks stay as authored).
 
 ### 5. Friend/demo path: [#36](https://github.com/zahnsamuel/seder1/pull/36) (draft)
 
-**First-run polish: landing → placement → Today → See-it → ask.**
+**First-run polish: landing ΓåÆ placement ΓåÆ Today ΓåÆ See-it ΓåÆ ask.**
 
 Copy/chrome, not the frontier picker. **Rebase onto #30** (`next-action.mjs`,
 `server.mjs`). Also overlaps **#34** on `diagnostic.js` and
-`test/adaptive-diagnostic.test.mjs` — first-run placement copy vs
+`test/adaptive-diagnostic.test.mjs` ΓÇö first-run placement copy vs
 capability-state copy. If the friend demo is the next sitting, merge #36
 after #30/#35/#38, then rebase #34. If leftover XP chrome is the next
 sitting, merge #34 first and rebase #36 so friend copy wins on shared
@@ -107,7 +107,7 @@ misconception fields are **empty**. Two EXAMPLE stubs on fake `example-*`
 ids, never imported. Live graph edges stay `rationale: null`. Safe to merge
 as tooling; **does not close #9.** Overlaps the same docs as #40.
 
-### 9. This map: [#33](https://github.com/zahnsamuel/seder1/pull/33) (draft — this PR)
+### 9. This map: [#33](https://github.com/zahnsamuel/seder1/pull/33) (draft ΓÇö this PR)
 
 North-star checklist + this brief. Docs only. Merge whenever you want the
 map on main; expect small north-star conflicts with #30/#32/#34/#37/#40.
@@ -127,7 +127,7 @@ rewrite the child, or hold. Do not implement a live split until this call.
 
 ### Close without merging: [#10](https://github.com/zahnsamuel/seder1/pull/10)
 
-Stale “fix red main” from 2026-09-03. Superseded by merged **#24**.
+Stale ΓÇ£fix red mainΓÇ¥ from 2026-09-03. Superseded by merged **#24**.
 
 ## Conflicts to watch (rebase order)
 
@@ -137,12 +137,12 @@ Stale “fix red main” from 2026-09-03. Superseded by merged **#24**.
 | **#35 vs later teach JSON** | Only #35 edits `data/foundation-teach.json` today | Merge #35 before any new teach PR |
 | **#35 vs #38** | No shared files; See-it consumes both | Merge #35 then #38 (product order) |
 | **#36 vs #34** | `diagnostic.js`, adaptive-diagnostic tests; first-run copy vs capability copy | Rebase the later one; pick whose placement sentence wins |
-| **#31 vs #41** | `data/foundation-authored-items.json` | #41 **skips** #31’s 11 banks (`PEER_LANE_BANKS`). Merge #31, then rebase #41 and drop the skip |
-| **#36 vs #44** | `academy-session.html` / `.js` (not `academy.html` — #36 does not touch that file) | Merge #36 first if demo chrome should win See-it/complete copy; rebase #44 |
+| **#31 vs #41** | `data/foundation-authored-items.json` | #41 **skips** #31ΓÇÖs 11 banks (`PEER_LANE_BANKS`). Merge #31, then rebase #41 and drop the skip |
+| **#36 vs #44** | `academy-session.html` / `.js` (not `academy.html` ΓÇö #36 does not touch that file) | Merge #36 first if demo chrome should win See-it/complete copy; rebase #44 |
 | **#42 vs #44** | `academy.js`, `test/academy.test.mjs` | Rebase the later one. #42 is decode hub; #44 is post-session capability card |
 | **#33 vs #43** | this brief + north-star + qa-intake | Fold #43 into #33 (this PR). Do not merge both as competing maps |
 | **#33 / #30 / #32 / #34 / #37 / #40 / #43** | `docs/skill-graph-north-star.md` | Docs-only conflicts; keep checklist status lines |
-| **#30 / #32 / #37 / #40** | `docs/foundation-starter-set.md` | Same: fold, don’t revert the freeze list |
+| **#30 / #32 / #37 / #40** | `docs/foundation-starter-set.md` | Same: fold, donΓÇÖt revert the freeze list |
 | **#34 / #37 / #40** | `docs/foundation-graph-schema.md` | Fold |
 | Almost everyone | `docs/qa-intake.md` | Append-only; should merge |
 
@@ -165,8 +165,8 @@ Stale “fix red main” from 2026-09-03. Superseded by merged **#24**.
 1. **Close #10** in the GitHub UI (do not merge). Paste-ready comment in the
    addendum / already on the #10 thread from #43.
 2. Merge **#30** (Today bug). Rebase anything that touches `next-action.mjs`.
-3. Merge **#31** (bank quality) and **#39** (authoring guide) — no judgment.
-   Then rebase **#41** (teach-before-ask guard; it skipped #31’s banks).
+3. Merge **#31** (bank quality) and **#39** (authoring guide) ΓÇö no judgment.
+   Then rebase **#41** (teach-before-ask guard; it skipped #31ΓÇÖs banks).
 4. Merge **#35** then **#38** (See-it teach + on-page source).
 5. Choose demo vs leftovers: **#36** (friend path, rebase onto #30) and
    **#34** (XP chrome, rebase against #36).
@@ -176,15 +176,15 @@ Stale “fix red main” from 2026-09-03. Superseded by merged **#24**.
 7. **#44** after **#34** (capability leftovers). Watch academy-session files
    vs **#36**.
 8. Merge staging **#40** and **#37** if you want the empty workbench / EXAMPLE
-   schema on main — they do not fill #9.
+   schema on main ΓÇö they do not fill #9.
 9. Merge **#33** (this map; fold **#43** into it). Read **#32** and decide.
 
 ---
 
-## Later afternoon — #41–#44 (still not merged)
+## Later afternoon ΓÇö #41ΓÇô#44 (still not merged)
 
 Verified live on GitHub after the earlier afternoon scan. `main` is still
-`c6d2175`. **Do not claim #41–#44 landed.**
+`c6d2175`. **Do not claim #41ΓÇô#44 landed.**
 
 ### 2b. After #31: [#41](https://github.com/zahnsamuel/seder1/pull/41) (draft)
 
@@ -192,10 +192,10 @@ Verified live on GitHub after the earlier afternoon scan. `main` is still
 + test). Product law from #29, now a suite gate on stem + choices.
 
 Shares `data/foundation-authored-items.json` with **#31**, but **does not
-edit #31’s 11 banks** — the guard skips them (`PEER_LANE_BANKS`) so the suite
+edit #31ΓÇÖs 11 banks** ΓÇö the guard skips them (`PEER_LANE_BANKS`) so the suite
 stays green while #31 rewrites those asks. **Merge #31 first, then rebase
 #41** and re-include the skipped banks. Does not edit `foundation-teach.json`
-(#35’s lane).
+(#35ΓÇÖs lane).
 
 ### 5b. L0 decode UX: [#42](https://github.com/zahnsamuel/seder1/pull/42) (draft)
 
@@ -215,7 +215,7 @@ qa-intake). **Fold here; do not merge both.** Close #10 in the GitHub UI
 (Close, not Merge). Comment already on the #10 thread; paste-ready copy:
 
 ```
-Closing as superseded — do not merge.
+Closing as superseded ΓÇö do not merge.
 
 This regen targeted post-#8 main (2026-09-03). The green derived-file suite is
 PR #24 (merged 2026-09-07): it rebuilt foundation-content-contexts.json from
@@ -231,10 +231,106 @@ See docs/merge-brief-2026-09-08.md.
 
 ### 6b. After #34: [#44](https://github.com/zahnsamuel/seder1/pull/44) (draft)
 
-**Academy post-session capability handoff** — session complete names the skill
+**Academy post-session capability handoff** ΓÇö session complete names the skill
 emerging/secure (not XP) and **Continue on Today**. Academy hub shows that one
 capability card. Complements merged #25 and open #34. Does not rewrite #30.
 
 **After #34** so leftover scoreboard language is gone before the new handoff.
 Watch **#36**: shared `academy-session.html` / `.js` (complete-screen copy).
 `academy.html` is **not** in #36; it is in #44. Also `academy.js` vs **#42**.
+
+
+
+# Merge brief ΓÇö 2026-09-08
+
+For Sam. Companion: [`docs/skill-graph-north-star.md`](skill-graph-north-star.md).
+
+Verified live on GitHub against `main` `c6d2175` (PR #29). This note is the
+**close-hygiene lock**. Draft [PR #33](https://github.com/zahnsamuel/seder1/pull/33)
+has the full still-live merge order; if both land, **keep this Close section at
+the top** and fold #33ΓÇÖs order under it. Do not drop the paste-ready comment.
+
+---
+
+## Close without merging ΓÇö do this first
+
+### [#10](https://github.com/zahnsamuel/seder1/pull/10) ΓÇö CLOSE. Do not merge.
+
+**Superseded by merged [PR #24](https://github.com/zahnsamuel/seder1/pull/24)**
+(green derived-file suite).
+
+| | |
+|---|---|
+| Title | Regenerate foundation derived files to match merged source (fix red main) |
+| Branch | `fix-foundation-derived-files` |
+| Opened | 2026-09-03 ΓÇö one commit (`bc14e9e`), **55 commits behind** current `main` |
+| Files | `data/foundation-content-map.json`, `data/content-skill-graph.mjs`, `data/foundation-content-contexts.json` |
+| Why it existed | Post-#8 `main` had source changes with pre-regen derived files (red map / graph / coverage tests) |
+| Why it is done | **#24 merged 2026-09-07** (`826665f` / merge `f7cac3a`). Map + content-skill-graph were already in sync on then-`main`; #24 rebuilt stale `foundation-content-contexts.json` and locked drift with LF-normalized identity tests. Suite was **612/612**. |
+| Why merge is the wrong action | GitHub still shows a 33-line ΓÇ£fix.ΓÇ¥ The three files at #10ΓÇÖs tip already **match current `main` byte-for-byte**. Merging would only add a 5-day-old branch (55 commits behind) as noise. The PR description still claims `main` is red. |
+
+This agent did **not** close #10 via API (no merge-rights drama). A top-level
+comment with the paste below was posted on #10 so the close instruction is
+visible on the PR itself. Sam: close it in the GitHub UI, **Close pull
+request**, not Merge. The PR is still open until you do.
+
+#### Paste-ready GitHub comment for #10
+
+```
+Closing as superseded ΓÇö do not merge.
+
+This regen targeted post-#8 main (2026-09-03). The green derived-file suite is
+PR #24 (merged 2026-09-07): it rebuilt foundation-content-contexts.json from
+then-current main, confirmed map + content-skill-graph already in sync, and
+locked drift with LF-normalized file-identity tests (612/612).
+
+This branch is 55 commits behind main. The three derived files at this tip
+already match current main; merging would only add history noise. Close this
+PR. Do not merge it.
+
+See docs/merge-brief-2026-09-08.md.
+```
+
+**Already closed, not mergeable:** [#9](https://github.com/zahnsamuel/seder1/pull/9)
+(`foundation-content-coverage`) was closed unmerged on 2026-09-03. No action.
+
+---
+
+## Other open PRs scanned ΓÇö none else clearly superseded
+
+Scanned every open PR on 2026-09-08 (including #41 and #42, which arrived after
+#33ΓÇÖs afternoon pass). **Only #10 duplicates work that already merged.**
+
+| PR | State | Verdict |
+|---|---|---|
+| [#10](https://github.com/zahnsamuel/seder1/pull/10) | OPEN | **Close, do not merge.** Superseded by #24. |
+| [#30](https://github.com/zahnsamuel/seder1/pull/30) | draft | Keep. Starter-set frontier routing (Today bug). |
+| [#31](https://github.com/zahnsamuel/seder1/pull/31) | ready | Keep. Deepen thin L2ΓÇôL5 banks. |
+| [#32](https://github.com/zahnsamuel/seder1/pull/32) | draft | Keep. Fat-bucket split **proposal** ΓÇö not live graph. Judgment, not a close. |
+| [#33](https://github.com/zahnsamuel/seder1/pull/33) | draft | Keep. Full merge-order map. Fold with this close-hygiene note. |
+| [#34](https://github.com/zahnsamuel/seder1/pull/34) | draft | Keep. XP/% leftovers after #25 ΓÇö continuation, not a duplicate of #25. |
+| [#35](https://github.com/zahnsamuel/seder1/pull/35) | draft | Keep. See-it teach coverage for non-L0 starters. |
+| [#36](https://github.com/zahnsamuel/seder1/pull/36) | draft | Keep. Friend/demo first-run polish. |
+| [#37](https://github.com/zahnsamuel/seder1/pull/37) | draft | Keep. Educator edge workbench **staging** (empty real fields). Not superseded by the older workbench HTML on main. |
+| [#38](https://github.com/zahnsamuel/seder1/pull/38) | draft | Keep. On-page source excerpts. Continuation of #19, not a duplicate. |
+| [#39](https://github.com/zahnsamuel/seder1/pull/39) | ready | Keep. Item-bank authoring guide (new docs file). |
+| [#40](https://github.com/zahnsamuel/seder1/pull/40) | draft | Keep. Transfer-item schema + EXAMPLE only. Does not close north-star #9. |
+| [#41](https://github.com/zahnsamuel/seder1/pull/41) | draft | Keep. Teach-before-ask **guard** (tests + helper). Complements #29ΓÇÖs product-law docs; does not duplicate them. Collides with **#31** on `data/foundation-authored-items.json`. |
+| [#42](https://github.com/zahnsamuel/seder1/pull/42) | draft | Keep. Layer 0 Hebrew decoding UX for the friend/demo path. |
+
+Not close-candidates even though they look ΓÇ£emptyΓÇ¥ or overlapping:
+
+- **#32 / #37 / #40** are staging or judgment. Close only after Sam decides, not
+  because a prior PR landed.
+- **#34** vs merged **#25**, **#35** vs **#20/#22**, **#38** vs **#19**, **#41**
+  vs **#29**: later PRs extend the earlier merge; they are not the same diff.
+
+---
+
+## Suggested sitting (close hygiene only)
+
+1. **Close #10** in the GitHub UI (paste the comment above). Do not merge.
+2. Use [PR #33](https://github.com/zahnsamuel/seder1/pull/33) for merge order of
+   the still-live pile. Add **#41** and **#42** to that order when folding:
+   #41 after or beside #31 (shared item-bank file); #42 with the friend-demo
+   sitting (#36), not instead of it.
