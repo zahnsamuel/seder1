@@ -30,7 +30,7 @@ function render(learner, graph) {
   set('#xp', (el) => { el.textContent = counts.mastered ? `${counts.mastered} on your own` : ''; });
   set('#summary', (el) => {
     el.innerHTML = counts.mastered
-      ? `You have mastered <b>${counts.mastered}</b> reading move${counts.mastered === 1 ? '' : 's'}. <b>${counts.frontier}</b> ${counts.frontier === 1 ? 'is' : 'are'} ready now${startHere ? `, starting with <b>${esc(titleOf(startHere))}</b>` : ''}; <b>${counts.locked}</b> lie ahead. The gold moves are your frontier — where your evidence says you are ready to learn next.`
+      ? `You have secured <b>${counts.mastered}</b> reading move${counts.mastered === 1 ? '' : 's'}. <b>${counts.frontier}</b> ${counts.frontier === 1 ? 'is' : 'are'} ready now${startHere ? `, starting with <b>${esc(titleOf(startHere))}</b>` : ''}; <b>${counts.locked}</b> lie ahead. The gold moves are your frontier — where your evidence says you are ready to learn next.`
       : `The whole map of ${skills.length} reading moves. <b>${counts.frontier}</b> ${counts.frontier === 1 ? 'is' : 'are'} ready to begin; the rest open up as you secure each one.`;
   });
 
@@ -88,7 +88,7 @@ function render(learner, graph) {
   svg.innerHTML = g;
 
   // ---- detail panel ----
-  const stateLabel = { mastered: 'Mastered', frontier: 'Ready now', locked: 'Ahead' };
+  const stateLabel = { mastered: 'Secure', frontier: 'Ready now', locked: 'Ahead' };
   function showDetail(id) {
     const s = byId.get(id); if (!s) return;
     const st = state.get(id);

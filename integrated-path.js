@@ -14,8 +14,9 @@ function render(path, learner) {
   const current = currentWeek(path.weeks, learner);
   $('#title').textContent = path.title;
   $('#principle').textContent = path.principle;
-  $('#xp').textContent = learner?.xp ?? 0;
-  $('#skills').textContent = Object.values(learner?.mastery || {}).filter((value) => value >= .67).length;
+  const counts = Seder.summarizeCapabilities(learner?.capabilityEvidence);
+  $('#xp').textContent = Seder.capabilityHeaderText(learner?.capabilityEvidence) || '—';
+  $('#skills').textContent = counts.secure + counts.transferable + counts.durable || Object.values(learner?.mastery || {}).filter((value) => value >= .67).length;
   const readyWeeks = path.weeks.filter((week) => readyForReview(week, learner)).length;
   $('#weeks-ready').textContent = `${readyWeeks} / ${path.weeks.length}`;
   $('#journey').innerHTML = path.weeks.map((week) => {

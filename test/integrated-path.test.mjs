@@ -7,7 +7,7 @@ test('eight-week journey is learner-facing, sequential, and does not confuse sel
     'integrated-path.html', 'integrated-path.css', 'integrated-path.js', 'data/eight-week-integrated-path.json', 'path.html', 'academy.html'
   ].map((file) => readFile(file, 'utf8')));
   const path = JSON.parse(dataFile);
-  for (const phrase of ['YOUR FIRST EIGHT WEEKS', 'XP EARNED', 'SKILLS WITH EVIDENCE', 'WEEKS READY FOR REVIEW']) assert.match(html, new RegExp(phrase));
+  for (const phrase of ['YOUR FIRST EIGHT WEEKS', 'ON YOUR OWN', 'SECURE MOVES', 'WEEKS READY FOR REVIEW']) assert.match(html, new RegExp(phrase));
   for (const phrase of ['READY TO BEGIN', 'IN PROGRESS', 'RETRIEVAL READY', 'COMING NEXT', 'integrated_week_started', 'evidenceFor', 'readyForReview']) assert.match(source, new RegExp(phrase));
   assert.match(source, /Evidence: \$\{evidence\}/);
   assert.match(html, /mastery evidence separate from simply opening a page/);

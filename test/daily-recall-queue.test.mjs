@@ -9,4 +9,8 @@ test('daily recall queue combines saved source words with due Gemara retrieval',
   assert.match(router, /daily-recall\.html/);
   assert.match(router, /personalDue/);
   assert.match(router, /Bring back source words and Gemara moves due today/);
+  assert.match(page, /capability-state\.js/);
+  assert.doesNotMatch(page, /0 XP/);
+  assert.match(source, /capabilityHeaderText/);
+  assert.doesNotMatch(source, /learner\.xp/);
 });
