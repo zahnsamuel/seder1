@@ -51197,3 +51197,18 @@ of the four remode steps would cite the child.
 Artifacts: `docs/fat-bucket-first-split.md`, `data/fat-bucket-first-split.json`,
 `test/fat-bucket-first-split.test.mjs`. Implement later as graph 0.3.3 + 30th starter
 skill, after starter items exist. Do not remode Claude's authored-item file.
+
+## 2026-09-08 — Claude: add a source-varied 4th item to each in-scope starter bank
+
+Deepened the starter-set item banks (Sam: prefer deeper/better, ≥3 varied per skill). Added ONE
+new item to each of the 21 in-scope banks (non-L0, excluding JLA Bot's fat-bucket trio and the
+already-6-item source-type bank), each grounded in a source family not already used in that bank and
+testing the same reading move in a fresh context. Every bank goes 3→4 items; source variety rises
+(e.g. fnd-signal-connectors was single-source, now spans two).
+
+Fresh contexts pull from across the canon — Genesis (Cain, the binding, the garden), Exodus 20/21,
+Job 38, Psalms/Ashrei, Song of Songs, Pirkei Avot, a siddur page, Mishnah Sanhedrin/Bava Metzia — so
+retrieval isn't anchored to one tractate. Validated against the merged teach-before-ask engine
+(data/teach-before-ask.mjs, findTeachBeforeAskViolations = 0 across all 21), plus length-bias
+(correct ≤ 1.5× shortest) and item validity. 23/23 item guard tests pass. Held L0 decode; no
+Today/next-action/session-chrome. Draft PR for review. Draft for educator audit.

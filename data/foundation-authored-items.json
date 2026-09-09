@@ -113,6 +113,18 @@
         ],
         "correct": 0,
         "feedback": "גמ׳ marks the start of the Gemara; seeing it tells you the Mishnah is done and the analysis of it now opens."
+      },
+      {
+        "sourceRef": "A printed siddur (prayer-book) page",
+        "stem": "On a prayer-book page, the large central text is the prayer itself, and small notes in the margin tell you when to bow. Which part do you actually recite?",
+        "choices": [
+          "The central text — that is the prayer.",
+          "The margin notes — those are the prayer.",
+          "The page number printed at the bottom.",
+          "The publisher's name from the cover."
+        ],
+        "correct": 0,
+        "feedback": "The main text is the prayer; the margins are instructions about it. Telling the center from its surroundings is the page-geography move."
       }
     ],
     "fnd-orient-speaker": [
@@ -151,6 +163,18 @@
         ],
         "correct": 0,
         "feedback": "The named statement is the quoted view; the surrounding anonymous voice reports and arranges it, so a line can carry a speaker inside a framer."
+      },
+      {
+        "sourceRef": "Exodus 20:2",
+        "stem": "A line reads, \"I am the LORD your God, who brought you out of the land of Egypt.\" Who is speaking?",
+        "choices": [
+          "God, speaking in the first person.",
+          "The narrator, describing God from outside.",
+          "An unnamed later teacher.",
+          "The people, speaking in reply."
+        ],
+        "correct": 0,
+        "feedback": "The 'I' is God speaking directly; identifying the speaker is the move, and here the first-person voice is God's own."
       }
     ],
     "fnd-orient-unit-boundary": [
@@ -189,6 +213,18 @@
         ],
         "correct": 0,
         "feedback": "The first account closes when the seventh day is done; a unit boundary follows the shape of the idea, not the printed chapter numbers added later."
+      },
+      {
+        "sourceRef": "Pirkei Avot 1:1–1:2",
+        "stem": "A chapter gives one teacher's saying, then a new name followed by a fresh saying. Where does one teaching end and the next begin?",
+        "choices": [
+          "At the new name that opens the second saying.",
+          "In the middle of the first teacher's saying.",
+          "There is no boundary; it is one long teaching.",
+          "Only where a printed number happens to appear."
+        ],
+        "correct": 0,
+        "feedback": "A new name opening a new saying marks the boundary; units follow the shape of the ideas, not the printed numbers added later."
       }
     ],
     "fnd-orient-question-present": [
@@ -227,6 +263,18 @@
         ],
         "correct": 0,
         "feedback": "\"What is the source?\" is a question that sets up the proof; reading it as an inquiry tells you the next line is meant to answer it."
+      },
+      {
+        "sourceRef": "Genesis 4:9",
+        "stem": "God says to Cain, \"Where is your brother Abel?\" Is this line asking or telling?",
+        "choices": [
+          "Asking — it poses a question to Cain.",
+          "Telling — it states where Abel is.",
+          "Neither — it only names a speaker.",
+          "Telling — it gives a command to obey."
+        ],
+        "correct": 0,
+        "feedback": "The line is shaped as a question ('Where...?'); noticing that it asks rather than tells sets up what should follow."
       }
     ],
     "fnd-signal-known-words": [
@@ -265,6 +313,18 @@
         ],
         "correct": 0,
         "feedback": "Stopping on common words breaks comprehension; a rehearsed word bank keeps the thread intact."
+      },
+      {
+        "sourceRef": "Psalms 145 (Ashrei)",
+        "stem": "In this psalm the short word כֹּל (\"all\") recurs line after line. What does recognizing it on sight give you?",
+        "choices": [
+          "Flow through the psalm without decoding it afresh each time.",
+          "Proof that the psalm is really a legal ruling.",
+          "A signal that a new book is now beginning.",
+          "The name of the person who wrote the psalm."
+        ],
+        "correct": 0,
+        "feedback": "A rehearsed high-frequency word keeps you reading instead of stalling; that fluency is the whole point of a word bank."
       }
     ],
     "fnd-signal-question-words": [
@@ -303,6 +363,18 @@
         ],
         "correct": 0,
         "feedback": "כֵּיצַד asks \"how?\" — expect a description of the way something is done, not a name or a bare verdict."
+      },
+      {
+        "sourceRef": "Job 38:4",
+        "stem": "God asks Job, \"Where were you when I laid the foundations of the earth?\" What does the opening \"Where were you...\" set you up to expect?",
+        "choices": [
+          "An answer about place or presence — which Job cannot give.",
+          "A name being assigned to the speaker of the line.",
+          "A blessing formula offering praise to God.",
+          "A count of how many separate things follow."
+        ],
+        "correct": 0,
+        "feedback": "'Where...?' is a question word pointing at place; matching a question word to its expected answer is the move, even when the answer turns out to be 'none.'"
       }
     ],
     "fnd-signal-name-formulas": [
@@ -341,6 +413,18 @@
         ],
         "correct": 0,
         "feedback": "Each \"X says\" opening hands its words to a different speaker; the formulas let you track whose view is whose."
+      },
+      {
+        "sourceRef": "Pirkei Avot 2:10",
+        "stem": "A passage lists \"Rabbi Eliezer says... Rabbi Yehoshua says...\", each with its own teaching. What do the two name-openings let you do?",
+        "choices": [
+          "Keep each teaching attached to the sage who said it.",
+          "Blend the two teachings into a single view.",
+          "Skip the names as unimportant labels.",
+          "Assume both are quoting the very same verse."
+        ],
+        "correct": 0,
+        "feedback": "Each 'X says' hands its words to a named voice; tracking the formulas keeps distinct views from collapsing into one."
       }
     ],
     "fnd-signal-connectors": [
@@ -379,6 +463,18 @@
         ],
         "correct": 0,
         "feedback": "תָּא שְׁמַע (\"come and hear\") introduces a source as evidence; the connector tells you a proof or challenge follows."
+      },
+      {
+        "sourceRef": "Mishnah Sanhedrin 4:5",
+        "stem": "A line turns on the word לְפִיכָךְ (\"therefore\"). What does that connector signal is coming?",
+        "choices": [
+          "A conclusion drawn from what came just before.",
+          "An objection pushing back on the point.",
+          "A quotation brought in from another text.",
+          "A switch to an entirely different speaker."
+        ],
+        "correct": 0,
+        "feedback": "'Therefore' (לְפִיכָךְ) marks a conclusion; sorting connectors into concluding, opposing, and citing is what reveals the argument's shape."
       }
     ],
     "fnd-signal-quotation": [
@@ -417,6 +513,18 @@
         ],
         "correct": 0,
         "feedback": "The citation formula marks where borrowed words begin; bracket them as Scripture, separate from the teacher who cites them."
+      },
+      {
+        "sourceRef": "Shulchan Aruch, Orach Chaim 1:1",
+        "stem": "A code urges a person to be \"strong as a lion,\" then adds \"as it is stated\" followed by a line of Scripture. How should you read the words after \"as it is stated\"?",
+        "choices": [
+          "As words quoted from Scripture, not the code's own.",
+          "As the code's own newly-written rule.",
+          "As a question being posed to the reader.",
+          "As the name of the work's own author."
+        ],
+        "correct": 0,
+        "feedback": "'As it is stated' is a citation formula; bracket the words after it as borrowed Scripture, kept separate from the voice that quotes them."
       }
     ],
     "fnd-role-question-vs-answer": [
@@ -455,6 +563,18 @@
         ],
         "correct": 0,
         "feedback": "A line's role is its form: these are questions by shape, whether or not a tidy answer follows."
+      },
+      {
+        "sourceRef": "Genesis 3:9–3:10",
+        "stem": "One line: \"Where are you?\" The next: \"I heard your voice in the garden, and I hid.\" How do you label the two lines?",
+        "choices": [
+          "The first is a question, the second is its answer.",
+          "Both are answers to an earlier question.",
+          "The first is a ruling, the second a proof.",
+          "Both merely restate the very same point."
+        ],
+        "correct": 0,
+        "feedback": "Tagging lines as question, answer, or restatement turns a passage into a legible chain; here it is a plain question then its answer."
       }
     ],
     "fnd-role-example": [
@@ -493,6 +613,18 @@
         ],
         "correct": 0,
         "feedback": "A concrete \"a case...\" line is a worked example; read it as a test of the rule it follows."
+      },
+      {
+        "sourceRef": "Mishnah Bava Metzia 2:1",
+        "stem": "After a rule about returning lost objects, the text says, \"A case: one who finds scattered coins...\". What is that \"a case\" line?",
+        "choices": [
+          "A worked example that tests the rule just stated.",
+          "A brand-new rule about a different topic.",
+          "A line of Scripture quoted as proof.",
+          "The final decision of the whole chapter."
+        ],
+        "correct": 0,
+        "feedback": "'A case: one who...' drops into a concrete situation; read it as a test of the rule it follows, not a new topic."
       }
     ],
     "fnd-role-quotation-bounds": [
@@ -531,6 +663,18 @@
         ],
         "correct": 0,
         "feedback": "Marking the cited words apart from the citing voice is what keeps the two straight."
+      },
+      {
+        "sourceRef": "A verse-by-verse commentary on Genesis 1:1",
+        "stem": "A comment reads: \"In the beginning — the plain sense is that God created the heavens first.\" Where do the quoted words of the verse stop and the comment begin?",
+        "choices": [
+          "After \"In the beginning\" — the rest is the comment.",
+          "There is no break; it is all the verse itself.",
+          "After \"the heavens\" — that whole line is the verse.",
+          "The comment quotes no words from the verse at all."
+        ],
+        "correct": 0,
+        "feedback": "A comment lifts a word from the verse ('In the beginning') and then explains it; marking where the quote ends keeps the verse and the comment apart."
       }
     ],
     "fnd-role-ruling-vs-discussion": [
@@ -607,6 +751,18 @@
         ],
         "correct": 0,
         "feedback": "Name everyone whose action matters — here the two owners via their animals — before asking who owes what."
+      },
+      {
+        "sourceRef": "Exodus 21:28",
+        "stem": "A rule runs: \"If an ox gores a man or a woman to death...\". Listing the actors, who acts here?",
+        "choices": [
+          "The ox, which gores, and the person who is gored.",
+          "Only the court that will later judge it.",
+          "The scribe who first wrote the rule down.",
+          "No one acts; it is a rule with no actors."
+        ],
+        "correct": 0,
+        "feedback": "Name everyone whose action matters — here the goring ox and the person harmed — before asking what the law requires."
       }
     ],
     "fnd-case-what-happens": [
@@ -683,6 +839,18 @@
         ],
         "correct": 0,
         "feedback": "A faithful restatement preserves the outcome; the real case splits the cloak, so \"gave it to one\" is a genuine error."
+      },
+      {
+        "sourceRef": "Genesis 22:2",
+        "stem": "The text: \"Take your son, your only son, whom you love, and offer him on one of the mountains I will show you.\" Which is a faithful restatement?",
+        "choices": [
+          "God tells Abraham to offer his son on a mountain God will point out.",
+          "God asks Abraham to explain why he loves his son.",
+          "God promises Abraham a great many descendants.",
+          "God forbids Abraham from climbing any mountain."
+        ],
+        "correct": 0,
+        "feedback": "A faithful restatement keeps the instruction's substance in plainer words, without adding or dropping what it actually says."
       }
     ],
     "fnd-case-uncertainty": [
@@ -721,6 +889,18 @@
         ],
         "correct": 0,
         "feedback": "The open question — is a first goring already \"forewarned\"? — is exactly what must be settled to decide the payment."
+      },
+      {
+        "sourceRef": "Genesis 18:23–25",
+        "stem": "Abraham asks whether God will \"sweep away the righteous with the wicked\" if a city holds fifty righteous people. What open question does the passage turn on?",
+        "choices": [
+          "Whether the righteous few spare the whole place.",
+          "Whether Abraham is able to count to fifty.",
+          "Who first wrote this account down.",
+          "Which language the account is recorded in."
+        ],
+        "correct": 0,
+        "feedback": "The uncertainty is the point that must be settled — here, whether a righteous minority spares the city — not an incidental detail."
       }
     ],
     "fnd-arg-claim": [
@@ -759,6 +939,18 @@
         ],
         "correct": 0,
         "feedback": "The claim is what the source asserts — here, the permitted start time — not a question, a citation, or a dispute about it."
+      },
+      {
+        "sourceRef": "Pirkei Avot 1:14",
+        "stem": "A line reads: \"If I am not for myself, who is for me? And if I am only for myself, what am I?\" State its claim in one sentence.",
+        "choices": [
+          "A person must act for themselves, yet not for themselves alone.",
+          "When exactly should a person act for other people?",
+          "As it is written in Scripture about kindness.",
+          "One teacher disagrees with another one here."
+        ],
+        "correct": 0,
+        "feedback": "The claim is what the source asserts — here, a balance between self and others — even when it is phrased as questions."
       }
     ],
     "fnd-arg-evidence-role": [
@@ -797,6 +989,18 @@
         ],
         "correct": 0,
         "feedback": "A citation that pushes back is challenging, not supporting; naming its job (prop / attack / refine / split) is the move."
+      },
+      {
+        "sourceRef": "Pirkei Avot 3:2",
+        "stem": "A teaching says that when two people share words of Torah the Divine Presence rests between them, then cites a verse showing God is present where people speak of Him. What job does that citation do?",
+        "choices": [
+          "Supports the teaching as a proof.",
+          "Attacks the teaching as a counter-case.",
+          "Changes the subject to something else.",
+          "Repeats the teaching word for word."
+        ],
+        "correct": 0,
+        "feedback": "Ask of each citation: does it prop, attack, refine, or split? Here the verse props the teaching, offered as its proof."
       }
     ],
     "fnd-arg-objection": [
@@ -835,6 +1039,18 @@
         ],
         "correct": 0,
         "feedback": "Authors often voice an objection themselves; recognizing it as an objection sets up the response."
+      },
+      {
+        "sourceRef": "Mishnah Berakhot 1:3",
+        "stem": "One view says the evening Shema must be said while reclining. Another points to a traveler who may say it standing — a case the first view seems to get wrong. What is that second move?",
+        "choices": [
+          "An objection pressing on the first view.",
+          "A proof supporting the first view.",
+          "A plain restatement of the first view.",
+          "A blessing added onto the Shema."
+        ],
+        "correct": 0,
+        "feedback": "Raising a case the rule seems to fail is an objection; name what it threatens — here the claim that one must recline."
       }
     ],
     "fnd-arg-response": [
@@ -911,6 +1127,18 @@
         ],
         "correct": 0,
         "feedback": "תֵּיקוּ signals a question left standing; recognizing the deliberate openness is the reading, not a hunt for a verdict."
+      },
+      {
+        "sourceRef": "Genesis 4:1–16 (Cain and Abel)",
+        "stem": "The account never fully explains why Cain's offering was rejected and his brother's accepted. Recognizing this, you should...?",
+        "choices": [
+          "Name the question the text leaves standing, not invent an answer.",
+          "Assume a line that explained it was simply lost.",
+          "Treat the very last verse as the hidden reason.",
+          "Conclude the story is really just about farming."
+        ],
+        "correct": 0,
+        "feedback": "Some texts leave a tension open; naming the unanswered question is the reading, not forcing a resolution the text withholds."
       }
     ],
     "fnd-context-genre-expectations": [
@@ -949,6 +1177,18 @@
         ],
         "correct": 0,
         "feedback": "A code invites precision; a poem invites resonance. Reading a code like a poem — or a poem like a code — misreads the genre."
+      },
+      {
+        "sourceRef": "Song of Songs 1:2",
+        "stem": "A book of the Bible speaks in the voice of two lovers longing for one another. Reading with genre in mind, what is fair to ask of it?",
+        "choices": [
+          "Read it for image and longing, not as a step-by-step legal code.",
+          "Read it for the exact rules of a wedding ceremony.",
+          "Read it as a dated chronicle of kings and battles.",
+          "Read it as a binding court ruling one must obey."
+        ],
+        "correct": 0,
+        "feedback": "Love poetry invites image and resonance; demanding legal procedure from it mistakes the genre. Match your stance to the kind of text."
       }
     ],
     "fnd-resp-learning-vs-ruling": [
@@ -987,6 +1227,18 @@
         ],
         "correct": 0,
         "feedback": "The responsible boundary: study yields understanding, not a personal ruling. Say what you have learned and what you have not yet been told to do."
+      },
+      {
+        "sourceRef": "A study session on the laws of prayer",
+        "stem": "After studying the laws of when to pray, a friend asks you to decide the exact time they must pray tomorrow. What is the responsible response?",
+        "choices": [
+          "Share what the sources say, and send them to a teacher to decide.",
+          "Give them a firm ruling to follow, since you just studied it.",
+          "Tell them the study was pointless without a ruling.",
+          "Insist your own reading outranks any teacher's answer."
+        ],
+        "correct": 0,
+        "feedback": "Studying yields understanding, not the standing to rule for someone else; naming that limit — and pointing to a teacher — is the responsible move."
       }
     ]
   },
