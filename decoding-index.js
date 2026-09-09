@@ -9,9 +9,11 @@
   const START_COPY = 'This is today’s first step: match each letter to its sound, then vowels, then short words. One short lesson at a time. No prior Hebrew needed. Modern Israeli pronunciation.';
   const REVIEW_COPY = 'A quick re-drill keeps the letters automatic. Review this lesson, then return to the next new one.';
   const DONE_TITLE = 'You can decode Hebrew.';
-  const DONE_COPY = 'That capability is in place. Return to Today for the next reading skill.';
+  const DONE_COPY = 'That capability is in place. Next you’ll see a short source, then answer one question about what kind of text it is.';
   const TODAY = 'daily-router.html';
   const ACADEMY = 'academy.html';
+  const FIRST_NON_DECODE = 'fnd-orient-source-type';
+  const FIRST_SESSION = `academy-session.html?skill=${FIRST_NON_DECODE}`;
   const DECODE_GRAPH_SKILLS = ['fnd-decode-letters', 'fnd-decode-vowels', 'fnd-decode-blend', 'fnd-decode-word'];
 
   const readJSON = (storage, key, fallback) => {
@@ -57,10 +59,40 @@
     }));
   };
 
+  const postDecodeComplete = () => {
+    if (!(root.Seder && root.Seder.api && root.Seder.currentLearnerId)) return Promise.resolve();
+    const id = root.Seder.currentLearnerId();
+    return root.Seder.api(`/api/learners/${id}/events`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'decoding_completed', skills: DECODE_GRAPH_SKILLS })
+    }).catch(() => {});
+  };
+
+  const goToNextSkill = (location) => {
+    const fallback = () => { if (location) location.href = FIRST_SESSION; };
+    if (!(root.Seder && root.Seder.api && root.Seder.currentLearnerId)) {
+      fallback();
+      return Promise.resolve();
+    }
+    const id = root.Seder.currentLearnerId();
+    return root.Seder.api(`/api/learners/${id}/next-action`)
+      .then((response) => (response && response.ok ? response.json() : Promise.reject()))
+      .then((action) => {
+        const href = action && typeof action.href === 'string' ? action.href.trim() : '';
+        // Stay off the decode ladder. Placement (no scores yet) still goes to diagnostic.
+        if (href && !href.startsWith('hebrew-decoding')) {
+          location.href = href;
+          return;
+        }
+        fallback();
+      })
+      .catch(fallback);
+  };
+
   const skipDecode = (storage, drills, learner, location) => {
     markLadderComplete(storage, learner, drills);
-    const go = () => { if (location) location.href = TODAY; };
-    return postDecodeSkills(DECODE_GRAPH_SKILLS, 'Decoding · already reads Hebrew').then(go).catch(go);
+    return postDecodeComplete().then(() => goToNextSkill(location)).catch(() => goToNextSkill(location));
   };
 
   const learnerState = (drills, storage, learner, now) => {
@@ -84,7 +116,7 @@
       return { title: lesson.title || START_TITLE, copy: REVIEW_COPY, cta: 'Review what is due →', href: `decoding-lesson.html?lesson=${state.target}` };
     }
     if (state.mode === 'done') {
-      return { title: DONE_TITLE, copy: DONE_COPY, cta: 'Continue to Today →', href: TODAY };
+      return { title: DONE_TITLE, copy: DONE_COPY, cta: 'See it on a source →', href: FIRST_SESSION };
     }
     if (state.mode === 'continue') {
       return { title: lesson.title || START_TITLE, copy: lesson.intro || 'Continue with the next short decoding lesson.', cta: 'Continue this lesson →', href: `decoding-lesson.html?lesson=${state.target}` };
@@ -146,9 +178,10 @@
   };
 
   root.SederDecodingIndex = {
-    TODAY, ACADEMY, DECODE_GRAPH_SKILLS, START_TITLE, DONE_TITLE,
+    TODAY, ACADEMY, FIRST_NON_DECODE, FIRST_SESSION, DECODE_GRAPH_SKILLS, START_TITLE, DONE_TITLE,
     learnerState, heroFor, progressFor, ladderHtml, render,
-    markLadderComplete, isLadderComplete, decodeSkillEvent, postDecodeSkills, skipDecode, bindSkip
+    markLadderComplete, isLadderComplete, decodeSkillEvent, postDecodeSkills, postDecodeComplete,
+    goToNextSkill, skipDecode, bindSkip
   };
 
   if (typeof document !== 'undefined' && document.querySelector) {

@@ -122,6 +122,53 @@ test('legacy slice-id placement scores rewrite onto fnd- and still open a live s
   assert.equal(action.href, expected.firstSession);
 });
 
+test('after decode skip/complete, next-action teaches fnd-orient-source-type not hebrew-decoding', async () => {
+  const learner = await signup('Decode Then Orient');
+  const placed = await fetch(`${base}/api/learners/${learner.id}/events`, {
+    method: 'POST', headers: auth(learner),
+    body: JSON.stringify({ type: 'placement_completed', scores: {}, foundationScores: {} })
+  });
+  assert.equal(placed.status, 201);
+  const before = await (await fetch(`${base}/api/learners/${learner.id}/next-action`, { headers: auth(learner) })).json();
+  assert.equal(before.href, 'hebrew-decoding.html');
+
+  const done = await fetch(`${base}/api/learners/${learner.id}/events`, {
+    method: 'POST', headers: auth(learner),
+    body: JSON.stringify({ type: 'decoding_completed' })
+  });
+  assert.equal(done.status, 201);
+  const me = await (await fetch(`${base}/api/learners/${learner.id}`, { headers: auth(learner) })).json();
+  assert.ok(me.mastery['fnd-decode-word'] >= 0.8);
+  assert.ok(me.foundationScores['fnd-decode-word'] >= 0.8);
+  assert.equal((me.reviewQueue || []).some((item) => String(item.skillId).startsWith('fnd-decode-')), false);
+
+  const action = await (await fetch(`${base}/api/learners/${learner.id}/next-action`, { headers: auth(learner) })).json();
+  assert.equal(action.type, 'foundation');
+  assert.equal(action.skillId, 'fnd-orient-source-type');
+  assert.equal(action.href, 'academy-session.html?skill=fnd-orient-source-type');
+});
+
+test('due-now decode reviews after fake glyph answers still yield the non-L0 session', async () => {
+  const learner = await signup('Decode Review Bounce');
+  await fetch(`${base}/api/learners/${learner.id}/events`, {
+    method: 'POST', headers: auth(learner),
+    body: JSON.stringify({ type: 'placement_completed', scores: {}, foundationScores: {} })
+  });
+  for (const skillId of ['fnd-decode-letters', 'fnd-decode-vowels', 'fnd-decode-blend', 'fnd-decode-word']) {
+    for (let i = 0; i < 2; i += 1) {
+      const posted = await fetch(`${base}/api/learners/${learner.id}/events`, {
+        method: 'POST', headers: auth(learner),
+        body: JSON.stringify({ type: 'answer_submitted', skillId, correct: true, sourceContext: 'Decoding · skip' })
+      });
+      assert.equal(posted.status, 201);
+    }
+  }
+  const action = await (await fetch(`${base}/api/learners/${learner.id}/next-action`, { headers: auth(learner) })).json();
+  assert.equal(action.skillId, 'fnd-orient-source-type');
+  assert.equal(action.href, 'academy-session.html?skill=fnd-orient-source-type');
+  assert.notEqual(action.href, 'hebrew-decoding.html');
+});
+
 test('a placed learner with unsecured starters is taught a starter skill, not a frozen sibling', async () => {
   const known = starterThrough(2);
   assert.ok(known.includes('fnd-decode-letters'));

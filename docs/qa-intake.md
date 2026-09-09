@@ -3683,3 +3683,29 @@ duplicate `# QA intake` document starts and the in-copy duplicate Berakhot
 independent-source-check heading (same body). Append-only history is otherwise
 unchanged. North-star checklist updated to merged reality; merge brief marked
 landed so it does not read as an open queue. No product behavior change.
+
+## 2026-09-09 -- Cursor: decode skip/complete lands on first non-L0 See-it session
+
+0→1 handoff after “I already read Hebrew” / finishing Layer 0. Did not author L0 banks.
+Did not touch diagnostic / placement probes (open #50 stays complementary).
+
+Before: skip posted eight parallel `answer_submitted` events (due-now L0 reviews, XP) then
+sent the learner to Today. Review outranked foundation, so Today bounced them back to
+`hebrew-decoding.html`. Finishing the ladder had the same Today dead end.
+
+After:
+
+- One `decoding_completed` event secures the four `fnd-decode-*` skills at 0.8 in mastery
+  and `foundationScores`, and clears those reviews. No XP.
+- Today retrieval ignores `fnd-decode-*` (glyph review stays on the ladder). Frontier after
+  decode is `fnd-orient-source-type`.
+- Skip / ladder-done primary CTA is `academy-session.html?skill=fnd-orient-source-type`
+  (See-it teach + on-page excerpt + shuffled MC, then Continue on Today). If next-action
+  is still placement, skip follows `diagnostic.html` (real MC once #50 lands).
+
+Click path: Today → decode (or skip) → “I already read Hebrew” → source-type See-it →
+Got it — ask me → MC → Continue on Today.
+
+Tests: `decoding-index`, `decoding-lesson`, `repository`, `foundation-retrieval`,
+`placement-foundation-handoff`. Session teach/excerpt/MC already locked in
+`academy-session-lesson`.

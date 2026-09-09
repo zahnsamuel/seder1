@@ -7,6 +7,11 @@ const SKILL_ID = /^[a-z][a-z0-9-]{1,80}$/;
 const SECURE = 0.67;
 const STARTER_SET = JSON.parse(readFileSync(new URL('./foundation-starter-set.json', import.meta.url), 'utf8'));
 export const STARTER_SKILL_IDS = new Set(STARTER_SET.starterSet.map((skill) => skill.id));
+export const FIRST_NON_DECODE_STARTER = 'fnd-orient-source-type';
+
+export function isDecodeSkill(id) {
+  return typeof id === 'string' && id.startsWith('fnd-decode-');
+}
 
 // Daily teach / review / repair stay inside the frozen starter set. Pass `null` to walk the
 // whole graph (diagnostics still do). A custom Set/array overrides the default slice.
@@ -72,7 +77,9 @@ export function resolveFoundationSkillId(graph, map, skillId) {
 export function pickRetrievalFoundationSkill(graph, map, { dueIds = [], fadedIds = [], learner = null, allowSecuredFallback = false, teachableIds } = {}) {
   if (!graph?.skills?.length) return null;
   const among = teachableFoundationIds(teachableIds);
-  const allowed = (id) => !among || among.has(id);
+  // Layer 0 has its own glyph ladder and review. Due/faded fnd-decode-* must not
+  // outrank the first non-L0 teach (skip/complete used to bounce back to hebrew-decoding).
+  const allowed = (id) => Boolean(id) && (!among || among.has(id)) && !isDecodeSkill(id);
   const resolve = (id) => resolveFoundationSkillId(graph, map, id);
   for (const id of dueIds) {
     const skillId = resolve(id);
