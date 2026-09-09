@@ -3683,3 +3683,23 @@ duplicate `# QA intake` document starts and the in-copy duplicate Berakhot
 independent-source-check heading (same body). Append-only history is otherwise
 unchanged. North-star checklist updated to merged reality; merge brief marked
 landed so it does not read as an open queue. No product behavior change.
+
+## 2026-09-09 -- Cursor: 0→1 return merge map
+
+Docs only. New `docs/merge-brief-2026-09-09.md` for Sam’s return sitting.
+Product intent is 0→1 learner success (real placement checks → short first
+day → Today → decode skip lands on orient See-it). Did not edit product
+files, item banks, or routing.
+
+Verified live on GitHub against `main` `4b61c0c`. Nine open drafts:
+
+- 0→1 pile, all `MERGEABLE` vs main independently: #50 (placement MC),
+  #51 (six-check day-1), #48 (green suite 689/689), #53 (decode→orient),
+  #52 (path contract tests), #54 (purge self-rate copy), #49 (thin /
+  fat-bucket banks), #55 (early frontier banks).
+- Extra: #47 (Claude 4th items) is `CONFLICTING`. Recommend close, do not
+  merge — overlaps #49 and #55 on `foundation-authored-items.json`.
+
+Recommended order: #50 → rebase #51 → rebase #48 (drop its `diagnostic.js`
+hunk) → #53 → #52 → #54 → #49 → rebase #55 (`fnd-signal-connectors`: keep
+#55). Keep-both `qa-intake.md`. The 09-08 brief stays historical.
