@@ -92,7 +92,7 @@ export function pickRetrievalFoundationSkill(graph, map, { dueIds = [], fadedIds
     if (usable(skillId)) return { skillId, sourceId: id, trigger: 'decay' };
   }
   if (!allowSecuredFallback || !learner) return null;
-  const secured = graph.skills.filter((skill) => allowed(skill.id) && skillScore(learner, skill.id) >= SECURE && !(deferSameSittingSecure && shouldDeferSameSittingRetrieval(learner, skill.id)));
+  const secured = graph.skills.filter((skill) => allowed(skill.id) && skillScore(learner, skill.id) >= SECURE);
   if (!secured.length) return null;
   const updated = learner.masteryUpdatedAt || {};
   secured.sort((a, b) => {
