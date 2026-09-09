@@ -127,6 +127,12 @@
       "setting": "From the Oven of Akhnai story — a tension the passage leaves standing rather than tidily settling.",
       "sourceUrl": "https://www.sefaria.org/Bava_Metzia.59b"
     },
+    "A dispute closed with teiku": {
+      "hebrew": "תֵּיקוּ",
+      "translation": "Let it stand — the question is left undecided.",
+      "setting": "A discussion marker that closes a dispute without a verdict (as in Yoma 49a). The openness is the point, not a missing page.",
+      "sourceUrl": "https://www.sefaria.org/Yoma.49a"
+    },
     "Kiddushin 31b": {
       "hebrew": "אֵיזֶהוּ מוֹרָא וְאֵיזֶהוּ כִּבּוּד",
       "translation": "What is reverence, and what is honor?",
@@ -194,9 +200,9 @@
       "sourceUrl": "https://www.sefaria.org/Mishneh_Torah,_Foundations_of_the_Torah.1.1"
     },
     "Rambam, Hilchot Deot 1:4": {
-      "hebrew": "הַדֶּרֶךְ הַיְשָׁרָה הִיא מִדָּה בֵינוֹנִית",
-      "translation": "The straight way is the middle measure.",
-      "setting": "A code-style principle about character — connectors and claims sit in legal prose, not in a sugya.",
+      "hebrew": "הַדֶּרֶךְ הַיְשָׁרָה הִיא מִדָּה בֵינוֹנִית · לְפִיכָךְ צִוּוּ חֲכָמִים",
+      "translation": "The straight way is the middle measure; therefore the sages commanded.",
+      "setting": "A code-style principle about character — a \"therefore\" connector draws a conclusion in legal prose, not in a back-and-forth discussion.",
       "sourceUrl": "https://www.sefaria.org/Mishneh_Torah,_Human_Dispositions.1.4"
     },
     "Rambam, Hilchot Deot 1:5": {
@@ -206,9 +212,9 @@
       "sourceUrl": "https://www.sefaria.org/Mishneh_Torah,_Human_Dispositions.1.5"
     },
     "Shulchan Aruch, Orach Chaim 1:1": {
-      "hebrew": "מִצְוַת עֲשֵׂה מִן הַתּוֹרָה לְבָרֵךְ",
-      "translation": "It is a positive commandment from the Torah to bless.",
-      "setting": "A code-style line that states what to do — the same ruling shape as a Shulchan Aruch se’if, already used in Academy halakha sessions.",
+      "hebrew": "יִתְגַּבֵּר כָּאֲרִי לַעֲמוֹד בַּבֹּקֶר לַעֲבוֹדַת בּוֹרְאוֹ",
+      "translation": "One should strengthen oneself like a lion to rise in the morning to serve his Creator.",
+      "setting": "A code-style line that states what to do — it closes options rather than weighing several views.",
       "sourceUrl": "https://www.sefaria.org/Shulchan_Arukh%2C_Orach_Chayim.1.1"
     },
     "Orchot Tzaddikim": {

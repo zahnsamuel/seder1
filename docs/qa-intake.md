@@ -3683,3 +3683,42 @@ duplicate `# QA intake` document starts and the in-copy duplicate Berakhot
 independent-source-check heading (same body). Append-only history is otherwise
 unchanged. North-star checklist updated to merged reality; merge brief marked
 landed so it does not read as an open queue. No product behavior change.
+
+## 2026-09-09 -- Cursor: audit + deepen the thinnest non-L0 starter banks
+
+Claude is off; item banks are this lane. Audited all 25 non-L0 starter skills in
+`data/foundation-authored-items.json` (L0 decode still held -- no authored banks).
+
+**Count:** every non-L0 starter already had >=3 items (source-type 6; the rest 3).
+No L0 banks. No frozen-skill banks.
+
+**Variety / quality (the remaining thinness after #31):** all 25 met the count
+floor, but six banks were still weak as *solid* items:
+
+| Skill | n | What was thin |
+|---|---|---|
+| `fnd-arg-response` | 3 | Fat-bucket leftover; item 2 was abstract meta ("To follow a response well, the question to ask is...") |
+| `fnd-case-what-happens` | 3 | Fat-bucket leftover; items 0 and 2 were knowing-about, not doing |
+| `fnd-role-ruling-vs-discussion` | 3 | Fat-bucket leftover; item 2 was "What is the quickest way to tell..." |
+| `fnd-arg-objection` | 3 | Item 1 still abstract ("When you mark an objection, the key thing to describe is...") -- not in #31's 11 |
+| `fnd-signal-connectors` | 3 | All three items on Gemara Berakhot 2b (zero family variety); "What move does it signal?" |
+| `fnd-resp-learning-vs-ruling` | 3 | Generic sourceRefs; items 1-2 asked for a slogan instead of a sourced situation |
+
+Other banks (including #31's 11) are >=3 with mixed families or already
+source-grounded application items. `fnd-orient-source-type` is the thickest (6).
+Teach-before-ask had **no** unearned-term leaks once #31's skip list was dropped.
+
+**This PR** replaces those six banks with 4 items each: on-page Hebrew +
+translation in the stem, >=2 source families, deny/limit/adjust or
+ruling/discussion or connector-type variety, comparable-length distractors.
+Reused existing excerpt keys. Synced two windows to the cited text: Orach Chaim
+1:1 (rise like a lion -- the previous blessing-command Hebrew belongs to
+Rambam, Laws of Blessings 1:1, already used there) and Hilchot Deot 1:4 (adds
+the "therefore" clause the connectors item needs). Did not grow past the 29-skill
+starter set. Did not author L0 decode banks. Teach JSON unchanged.
+
+Guard: `test/deepened-thin-starter-banks.test.mjs`. Dropped the old #31
+peer-lane skip in `test/teach-before-ask.test.mjs` so the product-law guard
+covers the whole authored file. Also added an on-page window for the existing
+`fnd-arg-unresolved` teiku item (pre-existing session-excerpt gap; not a rewrite
+of that bank).
