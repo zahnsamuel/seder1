@@ -34,7 +34,7 @@ const cyclingRandom = () => {
 test('practiceLine and whyLine use skill language, not abstract move chrome', () => {
   const skill = graph.skills.find((item) => item.id === 'fnd-orient-source-type');
   assert.match(practiceLine(skill.statement), /^You'll practice: You can say whether a source is Torah/);
-  assert.match(whyLine(skill, graph), /A foundational skill|Builds on /);
+  assert.match(whyLine(skill, graph), /A first reading skill|Builds on /);
   assert.doesNotMatch(whyLine(skill, graph), /foundational move/i);
   assert.equal(practiceLine("You'll practice: already framed"), "You'll practice: already framed");
 });
