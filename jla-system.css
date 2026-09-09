@@ -211,6 +211,14 @@ body.jla a:not([class]) { color: inherit; }
   font-weight: 600;
   letter-spacing: .04em;
 }
+.jla-quiet-link { margin: 0; }
+.jla-quiet-link a {
+  color: var(--jla-text-soft);
+  font-size: .88rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.jla-quiet-link a:hover { color: var(--jla-accent-ink); }
 
 /* --- Responsive ------------------------------------------------------- */
 @media (max-width: 720px) {

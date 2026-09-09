@@ -1,12 +1,14 @@
 // Glyph-card decoding runner for window.DecodingDrills. Standalone (not course-engine.js): a single
 // large glyph, no source card, and the drill is not a canon source. Reads ?lesson=<id>; renders that
-// lesson's items; marks the lesson complete (localStorage) and links to the next one. XP is a local
-// session counter and per-glyph answers stay local. But completing a BAND now posts graph mastery for
-// its Layer-0 decoding skill (fnd-decode-*, added to the skill graph in v0.3.0) — so the real decoding
-// drills feed the knowledge-frontier engine directly: finish the Letters band and the graph secures
-// fnd-decode-letters, advancing the learner's frontier toward orientation. Audio is browser TTS
-// (he-IL), shown only when a Hebrew voice is available — a graceful fallback until recorded audio.
+// lesson's items; marks the lesson complete (localStorage) and links to the next one. Per-glyph
+// answers stay local. Completing a BAND posts graph mastery for its Layer-0 decoding skill
+// (fnd-decode-*, added to the skill graph in v0.3.0) — so the real decoding drills feed the
+// knowledge-frontier engine directly: finish the Letters band and the graph secures
+// fnd-decode-letters, advancing the learner's frontier toward orientation. A finished ladder
+// hands off to Today. Audio is browser TTS (he-IL), shown only when a Hebrew voice is available —
+// a graceful fallback until recorded audio.
 const drills = window.DecodingDrills;
+const indexApi = window.SederDecodingIndex;
 const order = drills.bands.flatMap((b) => b.lessons);
 const params = new URLSearchParams(location.search);
 let lessonId = params.get('lesson');
@@ -14,6 +16,7 @@ if (!lessonId || !drills.lessons[lessonId]) lessonId = order[0];
 const drill = drills.lessons[lessonId];
 const decLearner = (window.Seder && Seder.currentLearnerId && Seder.currentLearnerId()) || 'local';
 const doneKey = `seder-decoding-done:${decLearner}`;
+const completeKey = `seder-decoding-complete:${decLearner}`;
 const progressKey = `seder-decoding-progress:${decLearner}:${lessonId}`;
 const readDone = () => { try { return new Set(JSON.parse(localStorage.getItem(doneKey) || '[]')); } catch { return new Set(); } };
 // Spaced review: on completing (or reviewing) a lesson, push each of its dec- skills' next-due date
@@ -34,19 +37,28 @@ function scheduleReview() {
 }
 // Each decoding band maps to one Layer-0 graph skill. Completing the band's lessons secures it.
 const BAND_GRAPH_SKILL = { '0.1': 'fnd-decode-letters', '0.2': 'fnd-decode-vowels', '0.3': 'fnd-decode-blend', '0.4': 'fnd-decode-word', '0.5': 'fnd-decode-word', '0.6': 'fnd-decode-word' };
+function postSkill(skill, sourceContext) {
+  if (indexApi && indexApi.postDecodeSkills) return indexApi.postDecodeSkills([skill], sourceContext);
+  if (!(window.Seder && Seder.api && Seder.currentLearnerId)) return Promise.resolve();
+  const id = Seder.currentLearnerId();
+  const event = JSON.stringify({ type: 'answer_submitted', skillId: skill, foundationSkillId: skill, knowledgePointId: `kp-${skill}-2`, correct: true, sourceContext, competency: 'sourceReasoning' });
+  const post = () => Seder.api(`/api/learners/${id}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: event });
+  // Two correct answers take graph mastery past the secure threshold (>= .67), so the frontier advances.
+  return post().then(post).catch(() => {});
+}
 function recordGraphMasteryIfBandComplete(done) {
   const band = drills.bands.find((b) => b.lessons.includes(lessonId));
   const skill = band && BAND_GRAPH_SKILL[band.id];
   if (!skill || !band.lessons.every((l) => done.has(l))) return;              // band not finished yet
-  if (!(window.Seder && Seder.currentLearnerId && Seder.session?.access_token)) return; // only for a signed-in learner
-  const id = Seder.currentLearnerId();
-  const event = JSON.stringify({ type: 'answer_submitted', skillId: skill, foundationSkillId: skill, knowledgePointId: `kp-${skill}-2`, correct: true, sourceContext: `Decoding · ${band.title}`, competency: 'sourceReasoning' });
-  const post = () => Seder.api(`/api/learners/${id}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: event });
-  // Two correct answers take graph mastery past the secure threshold (>= .67), so the frontier advances.
-  post().then(post).catch(() => {});
+  postSkill(skill, `Decoding · ${band.title}`);
+}
+function markLadderFinished(done) {
+  localStorage.setItem(completeKey, '1');
+  if (indexApi && indexApi.markLadderComplete) indexApi.markLadderComplete(localStorage, decLearner, drills);
+  else localStorage.setItem(doneKey, JSON.stringify([...done]));
 }
 const decSaved = Number(localStorage.getItem(progressKey));
-let decIndex = Number.isInteger(decSaved) && decSaved >= 0 && decSaved < drill.items.length ? decSaved : 0, decAnswered = false, decXp = 0;
+let decIndex = Number.isInteger(decSaved) && decSaved >= 0 && decSaved < drill.items.length ? decSaved : 0, decAnswered = false;
 const $ = (s) => document.querySelector(s);
 const decShuffle = (list) => list.map((text, i) => ({ text, i })).sort(() => Math.random() - .5);
 
@@ -92,13 +104,18 @@ function decAnswer(button, correct, item) {
   document.querySelectorAll('#answers button').forEach((b) => b.disabled = true);
   button.classList.add(correct ? 'correct' : 'incorrect');
   button.classList.add(correct ? 'is-correct' : 'is-wrong');
-  decXp += correct ? 10 : 5;
   const xp = $('#xp');
-  if (xp) xp.textContent = `${decXp} XP`;
+  if (xp) xp.textContent = correct ? 'Emerging' : xp.textContent;
   const fb = $('#feedback');
   fb.className = `feedback jla-feedback ${correct ? 'is-correct' : 'is-wrong'}`;
   fb.textContent = item.feedback;
   $('#continue').disabled = false;
+}
+function completionHtml(next) {
+  if (next) {
+    return `<section class="mastery"><span class="eyebrow jla-eyebrow">LESSON COMPLETE</span><h2>${drill.title || 'Lesson complete.'}</h2><p>That lesson is saved. The next one builds on what you just learned.</p><a class="jla-btn jla-btn-primary" href="decoding-lesson.html?lesson=${next}">Next lesson →</a><p class="jla-quiet-link"><a href="daily-router.html">Back to Today</a></p></section>`;
+  }
+  return `<section class="mastery"><span class="eyebrow jla-eyebrow">HEBREW DECODING IS SECURE</span><h2>You can decode Hebrew.</h2><p>You finished the decoding ladder — you can sound out a Hebrew word. Today will pick the next reading skill.</p><a class="jla-btn jla-btn-primary" href="daily-router.html">Continue to Today →</a><p class="jla-quiet-link"><a href="academy.html">See your path on Academy</a></p></section>`;
 }
 $('#continue').addEventListener('click', () => {
   if (!decAnswered) return;
@@ -108,10 +125,8 @@ $('#continue').addEventListener('click', () => {
   recordGraphMasteryIfBandComplete(done);
   scheduleReview();
   const next = order[order.indexOf(lessonId) + 1];
-  const cta = next
-    ? `<a class="jla-btn jla-btn-primary" href="decoding-lesson.html?lesson=${next}">Next lesson →</a>`
-    : '<a class="jla-btn jla-btn-primary" href="foundation-reading-orientation.html">Begin Reading Orientation →</a>';
-  $('.lesson').innerHTML = `<section class="mastery"><span class="eyebrow jla-eyebrow">${next ? 'LESSON COMPLETE' : 'YOU CAN READ HEBREW'}</span><h2>${drill.title || 'Lesson complete.'}</h2><p>Your progress is saved. ${next ? 'The next lesson builds on what you just learned.' : 'You have finished the decoding ladder — you can read Hebrew and begin an unvocalized line. Next comes learning to read a source: orientation.'}</p>${cta}</section>`;
+  if (!next) markLadderFinished(done);
+  $('.lesson').innerHTML = completionHtml(next);
 });
 if ($('#band-title')) $('#band-title').textContent = drill.title || '';
 decRender();

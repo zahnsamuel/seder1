@@ -33,6 +33,7 @@ test('ninety-day academy gives beginners a single sequenced, evidence-led entry 
   // Decoding completion is a localStorage flag, not a server stage — the render must honour that,
   // or the first foundation would never advance.
   assert.match(source, /seder-decoding-done/);
+  assert.match(source, /seder-decoding-complete/);
 
   // One primary action for the day, with the evidence step kept VISIBLE (not hidden in a disclosure):
   // the two steps render as a sequence, so Demonstrate — which records the gating evidence — stays seen.
