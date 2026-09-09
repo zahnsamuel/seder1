@@ -79,7 +79,7 @@ we build the transferable reading skills that let someone open any Jewish text o
   > review, targeted remediation. What it needs next is two things, and we're not faking either:
   > **(1)** a real pilot to calibrate difficulty and validate the graph — that starts **this week**; and
   > **(2)** educator sign-off and authored assessment items — captured through these two workbenches
-  > [show the educator-audit + item-authoring workbench artifacts]."
+  > [show `educator-edge-audit.html` for the starter-set edges, then the educator-audit + item-authoring workbench artifacts]."
 
 ### 6 · The ask — ~1 min
 - State plainly what you're raising / what you want from *them* specifically (intros to educators?
