@@ -13,13 +13,9 @@ import {
 
 const load = async (file) => JSON.parse(await readFile(new URL(`../${file}`, import.meta.url), 'utf8'));
 
-// Claude's deepen PR #31 is rewriting these L2–L5 asks. Asserting on them here would
-// collide and freeze a red suite; re-include when that bank rewrite lands.
+// Later L3–L5 banks still being rewritten in a peer lane. Early signal asks are
+// guarded here now that those banks are source-grounded on this branch.
 const PEER_LANE_BANKS = new Set([
-  'fnd-signal-question-words',
-  'fnd-signal-name-formulas',
-  'fnd-signal-connectors',
-  'fnd-signal-quotation',
   'fnd-role-example',
   'fnd-case-actors',
   'fnd-case-restate',

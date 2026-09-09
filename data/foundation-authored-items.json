@@ -75,12 +75,24 @@
         ],
         "correct": 0,
         "feedback": "Line 1 is the Torah verse itself. Line 2 is commentary — it lifts a word from the verse and comments on it (the quoted-word-then-explanation shape)."
+      },
+      {
+        "sourceRef": "Kaddish",
+        "stem": "Read this line, then say what kind of text it is:\n\nיִתְגַּדַּל וְיִתְקַדַּשׁ שְׁמֵהּ רַבָּא\n\"May His great name be magnified and sanctified.\" (Kaddish)\n\nWhat kind of text is this?",
+        "choices": [
+          "A prayer of public praise",
+          "A verse of the Torah",
+          "A passage of Mishnah",
+          "A passage of Gemara"
+        ],
+        "correct": 0,
+        "feedback": "It is a prayer — it addresses God in public praise. It is not Scripture in its own voice, not a compact rule, and not a question-and-answer discussion of a rule."
       }
     ],
     "fnd-orient-page-geography": [
       {
         "sourceRef": "Berakhot 2a (Vilna page)",
-        "stem": "On a standard printed Talmud page, the block of text runs down the center and different commentaries sit in the columns around it. Which block is the primary Talmud text you are learning?",
+        "stem": "On a printed Talmud page this block sits in the large center column:\n\nמֵאֵימָתַי קוֹרִין אֶת שְׁמַע בְּעַרְבִית\n\"From when do we recite Shema in the evening?\"\n\nSmaller notes sit in the columns around it. Which block is the primary text you are learning?",
         "choices": [
           "The central block, which carries the Mishnah and Gemara themselves.",
           "The inner-margin column, which is where the main text always sits.",
@@ -88,11 +100,11 @@
           "Whichever block has the most vowels printed on it."
         ],
         "correct": 0,
-        "feedback": "The center column is the Mishnah and Gemara; the surrounding columns (such as Rashi and Tosafot) are commentary that frames the main text."
+        "feedback": "The center column is the Mishnah and Gemara; the surrounding columns (such as Rashi) are commentary that frames the main text."
       },
       {
         "sourceRef": "Mikraot Gedolot, Genesis 1:1",
-        "stem": "On a printed page of Torah, a verse sits at the top and several commentaries are printed beneath and around it. What is the relationship you should read first?",
+        "stem": "On a printed page of Torah, this verse sits at the top:\n\nבְּרֵאשִׁית בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ\n\"In the beginning God created the heaven and the earth.\"\n\nNotes beneath and around it quote a word and then explain it. What should you read first?",
         "choices": [
           "The verse is the primary text; the surrounding material comments on it.",
           "The longest commentary is the primary text and the verse illustrates it.",
@@ -100,11 +112,11 @@
           "The commentaries must be read before the verse can be understood at all."
         ],
         "correct": 0,
-        "feedback": "The verse is the center of a Mikraot Gedolot page; the commentaries orbit it, so you orient to the verse before weighing what others say about it."
+        "feedback": "The verse is the center of the page; the notes orbit it. Orient to the verse before weighing what others say about it."
       },
       {
         "sourceRef": "Mishnah and Gemara, Berakhot 2a",
-        "stem": "Reading down a Talmud page you reach the abbreviation גמ׳. What does its position tell you about where you are?",
+        "stem": "Reading down a Talmud page you reach the abbreviation גמ׳ after this compact line:\n\nמֵאֵימָתַי קוֹרִין אֶת שְׁמַע בְּעַרְבִית\n\"From when do we recite Shema in the evening?\"\n\nWhat does גמ׳ tell you about where you are?",
         "choices": [
           "The Mishnah just ended and the Gemara's discussion of it begins here.",
           "A brand-new tractate is starting from the top on this very line.",
@@ -113,50 +125,74 @@
         ],
         "correct": 0,
         "feedback": "גמ׳ marks the start of the Gemara; seeing it tells you the Mishnah is done and the analysis of it now opens."
+      },
+      {
+        "sourceRef": "Amidah, opening blessing",
+        "stem": "On a prayer page this line sits in the main column:\n\nבָּרוּךְ אַתָּה ה׳\n\"Blessed are You, Lord.\"\n\nSmaller notes around it explain the words. Which block is the primary text?",
+        "choices": [
+          "The blessing in the main column; the notes talk about it.",
+          "The surrounding notes; the blessing is only a caption.",
+          "Whichever block names a sage first is the main text.",
+          "There is no primary text on a prayer page at all."
+        ],
+        "correct": 0,
+        "feedback": "Find the block that would still make sense if everything around it were removed — here, the blessing itself. The notes are talk about the prayer, not the prayer."
       }
     ],
     "fnd-orient-speaker": [
       {
         "sourceRef": "Pirkei Avot 1:1",
-        "stem": "A line reads, in effect, \"Moshe received the Torah from Sinai and handed it on...\", with no name attached to the sentence itself. Whose voice is telling you this?",
+        "stem": "Read this opening line:\n\nמֹשֶׁה קִבֵּל תּוֹרָה מִסִּינַי וּמְסָרָהּ לִיהוֹשֻׁעַ\n\"Moses received the Torah at Sinai and handed it to Joshua.\"\n\nNo name formula introduces the sentence. Whose voice is telling you this?",
         "choices": [
           "The anonymous voice of the Mishnah, narrating the chain of transmission.",
-          "Moshe himself, speaking about his own life in the first person.",
+          "Moses himself, speaking about his own life in the first person.",
           "A named later sage whose attribution formula opens the line.",
           "God, quoted here directly and by name as the one speaking."
         ],
         "correct": 0,
-        "feedback": "With no attribution formula, the sentence is the Mishnah's own anonymous narrating voice, not any single named person speaking."
+        "feedback": "With no \"Rabbi X said\" formula, the sentence is the Mishnah's own anonymous narrating voice, not any single named person speaking."
       },
       {
         "sourceRef": "Pirkei Avot 1:2",
-        "stem": "A line begins with a name followed by \"used to say\" and then a teaching. What does that opening tell you to do before weighing the teaching?",
+        "stem": "A line begins:\n\nשִׁמְעוֹן הַצַּדִּיק הָיָה מִשְּׁיָרֵי כְנֶסֶת הַגְּדוֹלָה. הוּא הָיָה אוֹמֵר\n\"Shimon the Righteous was of the remnants of the Great Assembly. He used to say…\"\n\nWhat does that opening tell you to do before weighing the teaching?",
         "choices": [
-          "Attach the teaching to the named sage as its speaker.",
+          "Attach the teaching that follows to the named sage as its speaker.",
           "Treat the teaching as the anonymous Mishnah's own ruling.",
           "Assume the teaching is a direct quotation of a Torah verse.",
           "Read the name as the audience being addressed, not the speaker."
         ],
         "correct": 0,
-        "feedback": "An attribution formula (\"Rabbi X used to say\") names the speaker; identifying whose view it is comes before deciding what to make of it."
+        "feedback": "An attribution formula (\"he used to say\") names the speaker; identifying whose view it is comes before deciding what to make of it."
       },
       {
         "sourceRef": "Berakhot 2a",
-        "stem": "In a Gemara line \"Rabbi Yochanan said...\" is embedded inside the anonymous discussion. Who is speaking the reported statement, and who is framing it?",
+        "stem": "A Gemara line reports:\n\nאָמַר רַב יְהוּדָה אָמַר שְׁמוּאֵל\n\"Rav Yehudah said that Shmuel said…\"\n\nThe words sit inside the anonymous discussion. Who is speaking the reported statement, and who is framing it?",
         "choices": [
-          "Rabbi Yochanan is quoted; the anonymous Gemara frames and reports him.",
-          "The anonymous Gemara is speaking; Rabbi Yochanan is the one being addressed.",
-          "Rabbi Yochanan both frames the discussion and reports every other view in it.",
+          "Shmuel is quoted; Rav Yehudah reports him; the anonymous Gemara frames both.",
+          "The anonymous Gemara is speaking; Shmuel is the one being addressed.",
+          "Shmuel both frames the discussion and reports every other view in it.",
           "There is no framing voice; the whole line is a single verse."
         ],
         "correct": 0,
-        "feedback": "The named statement is the quoted view; the surrounding anonymous voice reports and arranges it, so a line can carry a speaker inside a framer."
+        "feedback": "A name formula can nest: Shmuel is the quoted voice, Rav Yehudah reports him, and the anonymous Gemara frames the report. Track speaker and framer separately."
+      },
+      {
+        "sourceRef": "Genesis 22",
+        "stem": "Read this narrative line:\n\nוַיֹּאמֶר אֵלָיו אַבְרָהָם וַיֹּאמֶר הִנֵּנִי\n\"He said to him, 'Abraham,' and he said, 'Here I am.'\"\n\nWho is speaking the word הִנֵּנִי (\"Here I am\")?",
+        "choices": [
+          "Abraham, answering when he is called by name.",
+          "The book's narrator, with no person answering the call.",
+          "A later sage whose name formula opens the line.",
+          "God, repeating the call rather than answering it."
+        ],
+        "correct": 0,
+        "feedback": "The narrator reports two voices: someone calls \"Abraham,\" and Abraham answers \"Here I am.\" Track the named reply separately from the framing narration."
       }
     ],
     "fnd-orient-unit-boundary": [
       {
         "sourceRef": "Mishnah Berakhot 1:1",
-        "stem": "A Mishnah first fixes when the evening Shema may be recited, then turns to a different dispute about how late it may be said. How should you mark these?",
+        "stem": "A Mishnah opens with one question, then turns to a distinct dispute:\n\n(1) מֵאֵימָתַי קוֹרִין אֶת שְׁמַע בְּעַרְבִין — \"From when may one recite the Shema in the evening?\"\n(2) וַחֲכָמִים אוֹמְרִים עַד חֲצוֹת — \"The Sages say: until midnight.\"\n\nHow should you mark these?",
         "choices": [
           "As two units: one idea closes before the next question opens.",
           "As one continuous idea, since they share the same tractate.",
@@ -164,11 +200,11 @@
           "As a single ruling followed by its own margin commentary."
         ],
         "correct": 0,
-        "feedback": "When the topic shifts from one question to a distinct dispute, one unit of thought has ended and another begins; naming that boundary keeps the reading clear."
+        "feedback": "The first unit asks from when the evening Shema may begin; the next unit disputes how late it may run. Naming that seam keeps the reading clear."
       },
       {
         "sourceRef": "Berakhot 2a",
-        "stem": "Reading a Gemara, the discussion resolves one question and then a fresh question is posed on a new point. What does the fresh question mark?",
+        "stem": "The Gemara first presses this question:\n\nתַּנָּא הֵיכָא קָאֵי דְּקָתָנֵי מֵאֵימָתַי\n\"Where does the Tanna stand, that he teaches 'from when'?\"\n\nAfter that point is handled, a fresh question is posed on a new issue. What does the fresh question mark?",
         "choices": [
           "The start of a new unit of discussion, distinct from the one just closed.",
           "A restatement of the very same question in slightly different words.",
@@ -176,11 +212,11 @@
           "A quotation of a Torah verse rather than any new question at all."
         ],
         "correct": 0,
-        "feedback": "A new question on a new point opens a new unit; recognizing where one discussion stops and the next starts is what keeps a long sugya legible."
+        "feedback": "A new question on a new point opens a new unit; recognizing where one discussion stops and the next starts is what keeps a long page legible."
       },
       {
         "sourceRef": "Genesis 1:1–2:3",
-        "stem": "You are reading the opening of the Torah and reach the end of the seventh day before the text turns to a second telling of creation. Where is the unit boundary?",
+        "stem": "You are reading the opening of the Torah:\n\nבְּרֵאשִׁית בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ\n\"In the beginning God created the heaven and the earth.\"\n\nThe first account then runs through the seventh day before the text turns to a second telling of creation. Where is the unit boundary?",
         "choices": [
           "At the close of the seventh day, where the first account completes.",
           "In the middle of the first verse, at the first strong word.",
@@ -189,62 +225,86 @@
         ],
         "correct": 0,
         "feedback": "The first account closes when the seventh day is done; a unit boundary follows the shape of the idea, not the printed chapter numbers added later."
+      },
+      {
+        "sourceRef": "Psalm 19",
+        "stem": "A psalm places these two lines some distance apart:\n\n(1) הַשָּׁמַיִם מְסַפְּרִים כְּבוֹד אֵל — \"The heavens declare the glory of God.\"\n(2) תּוֹרַת ה׳ תְּמִימָה — \"The teaching of the LORD is perfect.\"\n\nWhere is the unit boundary?",
+        "choices": [
+          "Where the psalm turns from the heavens to the teaching — a new idea begins.",
+          "There is no seam; every psalm line is one undivided thought from start to end.",
+          "Only at the book title, before any line of the psalm is spoken.",
+          "Inside the first line, at the first verb, before the topic can shift."
+        ],
+        "correct": 0,
+        "feedback": "Psalm 19 shifts from the sky as witness to the teaching as perfect. That topic turn is a unit boundary — mark the seam before treating the psalm as one blob."
       }
     ],
     "fnd-orient-question-present": [
       {
-        "sourceRef": "Berakhot 2a",
-        "stem": "The Gemara opens with מאימתי (\"from when...?\"). Is this line asking or telling, and how do you know?",
+        "sourceRef": "Mishnah Berakhot 1:1",
+        "stem": "Read this opening line:\n\nמֵאֵימָתַי קוֹרִין אֶת שְׁמַע בְּעַרְבִין\n\"From when may one recite the Shema in the evening?\"\n\nIs this line asking or telling, and how do you know?",
         "choices": [
-          "Asking: the word opens an inquiry that the discussion will try to answer.",
-          "Telling: it states a settled fact that plainly needs no answer.",
+          "Asking: \"from when\" opens an inquiry that expects a time in reply.",
+          "Telling: it already states a settled hour with no question at all.",
           "Neither: it is simply a name introducing the next speaker.",
           "Telling: it is a direct quotation lifted from a Torah verse."
         ],
         "correct": 0,
-        "feedback": "מאימתי is a question word; noticing that the source is asking, not asserting, sets you up to look for the answer that follows."
+        "feedback": "מֵאֵימָתַי is a question word. The Mishnah itself opens by asking, not by stating a finished hour — look next for the answer that follows."
       },
       {
-        "sourceRef": "Mishnah Berakhot 1:1",
-        "stem": "A Mishnah states plainly that the evening Shema is recited from a certain hour. Is the line asking or telling?",
+        "sourceRef": "Mishnah Pesachim 1:1",
+        "stem": "Read this line:\n\nאוֹר לְאַרְבָּעָה עָשָׂר בּוֹדְקִין אֶת הֶחָמֵץ\n\"On the eve of the fourteenth one searches for leaven.\"\n\nIs the line asking or telling?",
         "choices": [
           "Telling: it asserts the practice as a settled rule.",
-          "Asking: it is inviting the reader to supply the hour.",
+          "Asking: it is inviting the reader to supply the action.",
           "Both at once: every Mishnah is a question and an answer together.",
           "Neither: it is a margin comment, not a statement."
         ],
         "correct": 0,
-        "feedback": "A plain assertion of a rule is telling; distinguishing it from a question keeps you from hunting for an answer the line never asked for."
+        "feedback": "A plain assertion of a rule is telling. This line names a time and an action; it does not wait for the reader to fill them in."
       },
       {
         "sourceRef": "Berakhot 2a",
-        "stem": "A Gemara line reads, in effect, \"What is the source for this?\" before citing a proof. Asking or telling?",
+        "stem": "The Gemara asks:\n\nתַּנָּא הֵיכָא קָאֵי דְּקָתָנֵי מֵאֵימָתַי\n\"Where does the Tanna stand, that he teaches 'from when'?\"\n\nAsking or telling?",
         "choices": [
-          "Asking: it demands a source, and the citation that follows is the answer.",
+          "Asking: it probes why the Mishnah opens with \"from when.\"",
           "Telling: it is simply stating the source outright and plainly.",
           "Neither: it is naming the sage who happens to speak next.",
           "Telling: it is the settled conclusion of the whole discussion."
         ],
         "correct": 0,
-        "feedback": "\"What is the source?\" is a question that sets up the proof; reading it as an inquiry tells you the next line is meant to answer it."
+        "feedback": "הֵיכָא (\"where\") flags a question. The Gemara is probing the Mishnah, not announcing a finished fact."
+      },
+      {
+        "sourceRef": "Job 38:4",
+        "stem": "Read this line:\n\nאֵיפֹה הָיִיתָ בְּיָסְדִי אָרֶץ\n\"Where were you when I laid the earth's foundation?\"\n\nIs this line asking or telling?",
+        "choices": [
+          "Asking: it expects a reply, even if no tidy answer follows.",
+          "Telling: it states a settled fact that needs no answer.",
+          "Neither: it is only a name introducing the next speaker.",
+          "Telling: it is a compact rule about how to build."
+        ],
+        "correct": 0,
+        "feedback": "אֵיפֹה (\"where\") opens a question. A line can be asking even when the book never supplies a short answer."
       }
     ],
     "fnd-signal-known-words": [
       {
         "sourceRef": "Gemara Berakhot 2a",
-        "stem": "You keep meeting the word אָמַר as you read. What does sight-reading such a high-frequency word buy you?",
+        "stem": "You meet this Gemara line:\n\nתַּנָּא הֵיכָא קָאֵי דְּקָתָנֵי מֵאֵימָתַי\n\"Where does the Tanna stand, that he teaches 'from when'?\"\n\nWhich high-frequency word should you read on sight as \"from when\"?",
         "choices": [
-          "Attention to spare for the argument instead of re-decoding it.",
-          "A guarantee that the sentence is a question, not a statement.",
-          "Proof that the passage is quoting a verse of the Torah.",
-          "A signal that a brand-new tractate is about to begin here."
+          "מֵאֵימָתַי — a common opener meaning \"from when.\"",
+          "תַּנָּא — a common opener meaning \"blessed.\"",
+          "הֵיכָא — a common opener meaning \"he said.\"",
+          "דְּקָתָנֵי — a common opener meaning \"Israel.\""
         ],
         "correct": 0,
-        "feedback": "Fluent recognition of common words frees working memory for the reasoning; that is the point of a word bank."
+        "feedback": "מֵאֵימָתַי is a bank word: once you know it on sight, you hear the question instead of decoding letter by letter."
       },
       {
         "sourceRef": "Amidah, opening blessing",
-        "stem": "The word בָּרוּךְ opens many prayers and blessings. Recognizing it instantly helps you because you can...?",
+        "stem": "A prayer opens:\n\nבָּרוּךְ אַתָּה ה׳\n\"Blessed are You, Lord.\"\n\nRecognizing בָּרוּךְ on sight helps you because you can…?",
         "choices": [
           "Expect a blessing formula and read for whom it praises.",
           "Assume the text is a legal ruling that must be decided.",
@@ -252,19 +312,31 @@
           "Skip the rest of the line as unimportant filler."
         ],
         "correct": 0,
-        "feedback": "High-frequency openers set your expectation for the genre that follows; בָּרוּךְ flags a blessing."
+        "feedback": "בָּרוּךְ is a high-frequency opener. Seeing it tells you a blessing is underway, so you read for whom it praises instead of decoding the first word again."
       },
       {
         "sourceRef": "Genesis 22",
-        "stem": "A reader who must stop and decode every common word will most likely...?",
+        "stem": "Read this narrative line:\n\nוַיֹּאמֶר אֵלָיו אַבְרָהָם וַיֹּאמֶר הִנֵּנִי\n\"He said to him, 'Abraham,' and he said, 'Here I am.'\"\n\nWhich high-frequency word should you read on sight as \"said\"?",
         "choices": [
-          "Lose the thread of the passage while decoding each word.",
-          "Understand the argument better than a fluent reader would.",
-          "Finish the passage faster than a fluent reader would.",
-          "Correctly identify every rare word before the common ones."
+          "וַיֹּאמֶר — the common verb \"he said.\"",
+          "אַבְרָהָם — the common verb \"he said.\"",
+          "הִנֵּנִי — the common verb \"he said.\"",
+          "אֵלָיו — the common verb \"he said.\""
         ],
         "correct": 0,
-        "feedback": "Stopping on common words breaks comprehension; a rehearsed word bank keeps the thread intact."
+        "feedback": "וַיֹּאמֶר / אָמַר is a bank word for \"said.\" Spot it first and the sentence's voices come into focus without a full decode."
+      },
+      {
+        "sourceRef": "Deuteronomy 6:4",
+        "stem": "Read this verse:\n\nשְׁמַע יִשְׂרָאֵל יְהוָה אֱלֹהֵינוּ יְהוָה אֶחָד\n\"Hear, O Israel: the LORD is our God, the LORD is one.\"\n\nWhich high-frequency word should you read on sight as \"hear\"?",
+        "choices": [
+          "שְׁמַע — a common command meaning \"hear.\"",
+          "יִשְׂרָאֵל — a common command meaning \"hear.\"",
+          "אֱלֹהֵינוּ — a common command meaning \"hear.\"",
+          "אֶחָד — a common command meaning \"hear.\""
+        ],
+        "correct": 0,
+        "feedback": "שְׁמַע is a bank word. Recognizing it on sight lets you hear the address (\"Hear, Israel\") instead of stopping on the first letters."
       }
     ],
     "fnd-signal-question-words": [
@@ -303,6 +375,18 @@
         ],
         "correct": 0,
         "feedback": "כֵּיצַד asks \"how?\" — expect a description of the way something is done, not a name or a bare verdict."
+      },
+      {
+        "sourceRef": "Pirkei Avot 4:1",
+        "stem": "A teaching opens:\n\nאֵיזֶהוּ חָכָם? הַלּוֹמֵד מִכָּל אָדָם\n\"Who is wise? One who learns from every person.\"\n\nWhat kind of answer does אֵיזֶהוּ (\"who is…?\") invite?",
+        "choices": [
+          "A definition of the person or trait being asked about.",
+          "A named sage to whom the line is being attributed.",
+          "A blessing formula offering praise to God.",
+          "A count of how many separate cases follow."
+        ],
+        "correct": 0,
+        "feedback": "אֵיזֶהוּ asks \"who is…?\" and wants a definition. The next clause (\"one who learns from every person\") is that definition."
       }
     ],
     "fnd-signal-name-formulas": [
@@ -332,7 +416,7 @@
       },
       {
         "sourceRef": "Pirkei Avot 1:2",
-        "stem": "In a list of teachings, one line begins with a name and \"says\" before the teaching, and the next line begins the same way with a different name. What are these two openings doing?",
+        "stem": "In a list of teachings, one line begins הוּא הָיָה אוֹמֵר (\"he used to say\") before the teaching, and the next line begins the same way with a different name. What are these two openings doing?",
         "choices": [
           "Assigning each teaching to a different named speaker.",
           "Marking two quotations of the same Bible verse.",
@@ -341,6 +425,18 @@
         ],
         "correct": 0,
         "feedback": "Each \"X says\" opening hands its words to a different speaker; the formulas let you track whose view is whose."
+      },
+      {
+        "sourceRef": "Pirkei Avot 4:1",
+        "stem": "A line begins:\n\nבֶּן זוֹמָא אוֹמֵר\n\"Ben Zoma says.\"\n\nThen comes a teaching. What does this formula do?",
+        "choices": [
+          "Hands the words that follow to Ben Zoma as his view.",
+          "Signals that the previous ruling is now being overturned.",
+          "Marks the beginning of a quoted verse from the Torah.",
+          "Brings the current unit of discussion to its close."
+        ],
+        "correct": 0,
+        "feedback": "אוֹמֵר (\"says\") after a name assigns the following words to that person. Here they are Ben Zoma's, not the anonymous narrator's."
       }
     ],
     "fnd-signal-connectors": [
@@ -379,6 +475,18 @@
         ],
         "correct": 0,
         "feedback": "תָּא שְׁמַע (\"come and hear\") introduces a source as evidence; the connector tells you a proof or challenge follows."
+      },
+      {
+        "sourceRef": "Gemara Berakhot 2b",
+        "stem": "A discussion uses the connector וְעוֹד (\"and further\") before bringing another point:\n\nוְעוֹד · אֶלָּא · שֶׁנֶּאֱמַר\n\"and further · rather · as it is said.\"\n\nWhat move does וְעוֹד signal?",
+        "choices": [
+          "An added point stacked onto what came before.",
+          "A correction that replaces the prior explanation.",
+          "A citation of a proof text from Scripture.",
+          "A closing ruling that ends the discussion."
+        ],
+        "correct": 0,
+        "feedback": "וְעוֹד (\"and further\") adds. Contrast אֶלָּא (\"rather\"), which replaces, and שֶׁנֶּאֱמַר (\"as it is said\"), which cites. The connector is the turn signal."
       }
     ],
     "fnd-signal-quotation": [
@@ -396,7 +504,7 @@
       },
       {
         "sourceRef": "Kiddushin 31b",
-        "stem": "A passage on honoring parents strings together several verses. Recognizing the citations lets you...?",
+        "stem": "A passage on honoring parents strings together verses after a question:\n\nאֵיזֶהוּ מוֹרָא וְאֵיזֶהוּ כִּבּוּד\n\"What is reverence, and what is honor?\"\n\nRecognizing the citations lets you…?",
         "choices": [
           "Separate the quoted verses from the argument built on them.",
           "Assume every verse cited says exactly the same thing.",
@@ -417,44 +525,68 @@
         ],
         "correct": 0,
         "feedback": "The citation formula marks where borrowed words begin; bracket them as Scripture, separate from the teacher who cites them."
+      },
+      {
+        "sourceRef": "Deuteronomy 6:4",
+        "stem": "A later discussion introduces the Shema with \"as it is written\" and then these words appear:\n\nשְׁמַע יִשְׂרָאֵל יְהוָה אֱלֹהֵינוּ יְהוָה אֶחָד\n\"Hear, O Israel: the LORD is our God, the LORD is one.\"\n\nHow should you treat those words?",
+        "choices": [
+          "As borrowed words quoted from Scripture, not this speaker's own.",
+          "As the Gemara's own newly-made claim, invented here on the page.",
+          "As a question being posed to the reader about Shema.",
+          "As an attribution naming the sage who speaks next."
+        ],
+        "correct": 0,
+        "feedback": "A citation formula marks the next words as borrowed. Bracket the Shema as quoted Scripture, separate from the voice that brought it."
       }
     ],
     "fnd-role-question-vs-answer": [
       {
-        "sourceRef": "Gemara Berakhot 2a",
-        "stem": "A line asks when the Shema is read; the next line names a time. How do you label the two lines?",
+        "sourceRef": "Mishnah Berakhot 1:1",
+        "stem": "Two lines of the same Mishnah:\n\n(1) מֵאֵימָתַי קוֹרִין אֶת שְׁמַע בְּעַרְבִין — \"From when may one recite the Shema in the evening?\"\n(2) מִשָּׁעָה שֶׁהַכֹּהֲנִים נִכְנָסִים לֶאֱכֹל בִּתְרוּמָתָן — \"From the time the priests enter to eat their terumah.\"\n\nHow do you label the two lines?",
         "choices": [
-          "The first is a question, the second is its answer.",
+          "The first is a question; the second is its answer.",
           "Both lines are answers to an unstated question.",
-          "The first is a ruling, the second a citation.",
-          "Both lines merely restate the Mishnah's words."
+          "The first is a ruling; the second is a citation.",
+          "Both lines merely restate a Torah verse."
         ],
         "correct": 0,
-        "feedback": "Tagging lines as question, answer, or restatement turns a passage into a legible chain."
+        "feedback": "Line 1 asks \"from when\"; line 2 supplies a time. Tagging question then answer turns the compact Mishnah into a readable chain."
       },
       {
-        "sourceRef": "Gemara Berakhot 2a",
-        "stem": "A line repeats the previous point in different words without adding anything. What is its role?",
+        "sourceRef": "Berakhot 2a",
+        "stem": "The Mishnah asked מֵאֵימָתַי (\"from when\"). The Gemara then says:\n\nדְּקָתָנֵי מֵאֵימָתַי\n\"that he teaches 'from when.'\"\n\nWhat is that Gemara line doing?",
         "choices": [
-          "A restatement of what was already said.",
-          "A fresh objection raised against the claim.",
-          "A proof text drawn from Scripture.",
-          "A new question opening a new topic."
+          "Restating the Mishnah's words so it can ask about them.",
+          "Answering the Mishnah with a time of day for Shema.",
+          "Opening a brand-new topic unrelated to Shema.",
+          "Naming the sage who will speak the next line."
         ],
         "correct": 0,
-        "feedback": "Not every line advances the argument; a restatement re-says the prior point and should be tagged R."
+        "feedback": "Repeating \"from when\" does not answer the Mishnah. It restates the wording so the Gemara can probe it. Tag it as restatement, not as the answer."
       },
       {
-        "sourceRef": "Job 38-40",
-        "stem": "God answers Job with a long series of questions. In a question-and-answer tagging, these lines are...?",
+        "sourceRef": "Job 38:4",
+        "stem": "God's reply to Job includes:\n\nאֵיפֹה הָיִיתָ בְּיָסְדִי אָרֶץ\n\"Where were you when I laid the earth's foundation?\"\n\nIn a question-and-answer tagging, this line is…?",
         "choices": [
-          "Questions, even though no plain answer follows them.",
-          "Answers, because they conclude the book's argument.",
-          "Restatements of Job's own earlier complaint.",
-          "Citations of a source outside the book."
+          "A question, even though no plain answer follows it.",
+          "An answer, because it concludes the book's argument.",
+          "A restatement of Job's own earlier complaint.",
+          "A citation of a source outside the book."
         ],
         "correct": 0,
-        "feedback": "A line's role is its form: these are questions by shape, whether or not a tidy answer follows."
+        "feedback": "A line's role is its form: אֵיפֹה (\"where\") makes this a question, whether or not a tidy answer follows."
+      },
+      {
+        "sourceRef": "Pirkei Avot 4:1",
+        "stem": "Read this teaching:\n\nאֵיזֶהוּ חָכָם? הַלּוֹמֵד מִכָּל אָדָם\n\"Who is wise? One who learns from every person.\"\n\nHow do you label the two halves?",
+        "choices": [
+          "A question, then the answer that defines it.",
+          "Two answers to an unstated earlier question.",
+          "A restatement, then a new unrelated rule.",
+          "A citation of Scripture, then a blessing."
+        ],
+        "correct": 0,
+        "feedback": "אֵיזֶהוּ חָכָם asks \"who is wise?\"; הַלּוֹמֵד מִכָּל אָדָם answers. Question then answer, in one short teaching."
       }
     ],
     "fnd-role-example": [
@@ -990,5 +1122,5 @@
       }
     ]
   },
-  "updatedAt": "2026-09-08T03:54:27.451Z"
+  "updatedAt": "2026-09-09T13:33:17.468Z"
 }

@@ -32,8 +32,8 @@
       "sourceUrl": "https://www.sefaria.org/Psalms.23.1"
     },
     "Job 38-40": {
-      "hebrew": "",
-      "translation": "God answers Job with a long series of questions.",
+      "hebrew": "אֵיפֹה הָיִיתָ בְּיָסְדִי אָרֶץ",
+      "translation": "Where were you when I laid the earth’s foundation?",
       "setting": "A questioning speech from the book of Job — the form is inquiry, whether or not a tidy answer follows.",
       "sourceUrl": "https://www.sefaria.org/Job.38"
     },
@@ -252,6 +252,30 @@
       "translation": "To learn · to understand · to ask.",
       "setting": "Study yields understanding, not a personal ruling — a boundary window already used in Academy halakha sessions.",
       "sourceUrl": "https://www.sefaria.org/search?q=halakha&tab=texts"
+    },
+    "A dispute closed with teiku": {
+      "hebrew": "תֵּיקוּ",
+      "translation": "Let it stand — the question remains undecided.",
+      "setting": "A dispute marker that ends without choosing a side — the source leaves the tension open on purpose.",
+      "sourceUrl": "https://www.sefaria.org/search?q=%D7%AA%D7%99%D7%A7%D7%95&tab=texts"
+    },
+    "Psalm 19": {
+      "hebrew": "הַשָּׁמַיִם מְסַפְּרִים כְּבוֹד אֵל · תּוֹרַת ה׳ תְּמִימָה",
+      "translation": "The heavens declare the glory of God. · The teaching of the LORD is perfect.",
+      "setting": "Psalm 19 turns from the sky as witness to the teaching as perfect — two units in one psalm.",
+      "sourceUrl": "https://www.sefaria.org/Psalms.19.2"
+    },
+    "Job 38:4": {
+      "hebrew": "אֵיפֹה הָיִיתָ בְּיָסְדִי אָרֶץ",
+      "translation": "Where were you when I laid the earth’s foundation?",
+      "setting": "God answers Job with a question, not a tidy verdict — the form is inquiry.",
+      "sourceUrl": "https://www.sefaria.org/Job.38.4"
+    },
+    "Pirkei Avot 4:1": {
+      "hebrew": "בֶּן זוֹמָא אוֹמֵר אֵיזֶהוּ חָכָם הַלּוֹמֵד מִכָּל אָדָם",
+      "translation": "Ben Zoma says: Who is wise? One who learns from every person.",
+      "setting": "A named sage, a question formula, then a one-line definition — attribution plus question-and-answer.",
+      "sourceUrl": "https://www.sefaria.org/Pirkei_Avot.4.1"
     }
   }
 }

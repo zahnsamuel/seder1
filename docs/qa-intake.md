@@ -3683,3 +3683,46 @@ duplicate `# QA intake` document starts and the in-copy duplicate Berakhot
 independent-source-check heading (same body). Append-only history is otherwise
 unchanged. North-star checklist updated to merged reality; merge brief marked
 landed so it does not read as an open queue. No product behavior change.
+
+## 2026-09-09 -- Cursor: deepen earliest non-L0 starter sessions (orientation + first signals/roles)
+
+Quality, not graph growth. After Layer 0 decode, Today teaches orientation then
+signals then `fnd-role-question-vs-answer`. Those banks were at 3 (source-type 6)
+and several were thin/meta or missing an on-page excerpt in the stem. Held L0
+decode banks. Did not add skills past the frozen 29.
+
+Item counts before → after:
+
+| Skill | before | after |
+|---|---|---|
+| `fnd-orient-source-type` | 6 | 7 |
+| `fnd-orient-page-geography` | 3 | 4 |
+| `fnd-orient-speaker` | 3 | 4 |
+| `fnd-orient-unit-boundary` | 3 | 4 |
+| `fnd-orient-question-present` | 3 | 4 |
+| `fnd-signal-known-words` | 3 | 4 |
+| `fnd-signal-question-words` | 3 | 4 |
+| `fnd-signal-name-formulas` | 3 | 4 |
+| `fnd-signal-connectors` | 3 | 4 |
+| `fnd-signal-quotation` | 3 | 4 |
+| `fnd-role-question-vs-answer` | 3 | 4 |
+
+Rewrites: every early item now carries Hebrew in the stem; distractors rebalanced
+(no length-bias). `fnd-signal-known-words` dropped the abstract "what does
+sight-reading buy you" asks for on-page word spotting. **Content fix:**
+`fnd-orient-question-present` no longer treats Mishnah Berakhot 1:1 (מֵאֵימָתַי)
+as telling — that line is asking; telling is now Mishnah Pesachim 1:1.
+
+See-it teach: source-type names prayer; known-words names אָמַר / בָּרוּךְ /
+מֵאֵימָתַי / שְׁמַע; question-present and role-question tightened. New excerpt
+windows: Psalm 19, Job 38:4, Pirkei Avot 4:1. Also filled the missing
+session window for `A dispute closed with teiku` (arg-unresolved first-3
+see-it/try-it/new-source had no excerpt). Did not rewrite that fat-bucket bank.
+
+Guard: `test/early-frontier-items.test.mjs` (≥4, Hebrew in stem, excerpt, teach,
+teach-before-ask, no meta-asks). Orientation bank floor 3→4. Teach-before-ask
+skip list no longer holds the four early signal banks.
+
+Left alone: starter-set JSON, L0 banks, case/argument banks, next-action /
+academy-session chrome. Draft for educator audit.
+
