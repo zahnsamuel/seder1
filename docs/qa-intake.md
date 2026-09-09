@@ -3683,3 +3683,19 @@ duplicate `# QA intake` document starts and the in-copy duplicate Berakhot
 independent-source-check heading (same body). Append-only history is otherwise
 unchanged. North-star checklist updated to merged reality; merge brief marked
 landed so it does not read as an open queue. No product behavior change.
+
+## 2026-09-09 -- Cursor: 0→1 path contract tests
+
+Added `test/zero-to-one-path.test.mjs` to pin the critical learner journey, using the
+existing SQLite server spawn + `academy-session-lesson` / `next-action` helpers. No
+product files changed.
+
+- Placed beginner next teach skill stays in the frozen starter set (engine + HTTP
+  `/next-action`).
+- Every non-L0 starter with teach + excerpt builds See-it then ask (`holdAsk`, on-page
+  source, shuffled choices).
+- Academy-session, Today, hebrew-decoding, tractate diagnostics, and the graph
+  diagnostic probe payload never ask “Could you do this reliably”. Placement HTML
+  chrome still has that self-rating line; the real-checks rewrite owns that page.
+- Today CTA is `hebrew-decoding.html` for Layer 0 and `academy-session.html?skill=fnd-*`
+  after decode.
