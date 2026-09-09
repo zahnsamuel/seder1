@@ -14,6 +14,7 @@ import {
   practiceLine,
   presentChoices,
   sentenceCount,
+  stripCapabilityClaim,
   teachCopy,
   whyLine
 } from '../academy-session-lesson.mjs';
@@ -35,10 +36,13 @@ const cyclingRandom = () => {
 
 test('practiceLine and whyLine use skill language, not abstract move chrome', () => {
   const skill = graph.skills.find((item) => item.id === 'fnd-orient-source-type');
-  assert.match(practiceLine(skill.statement), /^You'll practice: You can say whether a source is Torah/);
+  assert.equal(stripCapabilityClaim(skill.statement), 'say whether a source is Torah, Mishnah, Gemara, commentary, a code, or a prayer');
+  assert.match(practiceLine(skill.statement), /^You'll practice: say whether a source is Torah/);
+  assert.doesNotMatch(practiceLine(skill.statement), /You can |I can /i);
   assert.match(whyLine(skill, graph), /A first reading skill|Builds on /);
   assert.doesNotMatch(whyLine(skill, graph), /foundational move/i);
   assert.equal(practiceLine("You'll practice: already framed"), "You'll practice: already framed");
+  assert.match(practiceLine('I can recognize a Jewish source family before I interpret it.'), /^You'll practice: recognize a Jewish source family/);
 });
 
 test('lookupExcerpt matches authored source refs to on-page Hebrew/translation', () => {
@@ -60,7 +64,9 @@ test('banked orientation skill uses authored stems, on-page source, and shuffled
   assert.equal(steps.length, 3);
   assert.equal(steps[0].kind, 'introduce');
   assert.equal(steps[0].chrome.label, 'SEE IT');
+  assert.equal(steps[0].chrome.next, 'Try it →');
   assert.equal(steps[0].chrome.continueTeach, 'Got it — ask me');
+  assert.doesNotMatch(steps[0].chrome.next, /I can/i);
   assert.equal(steps[1].chrome.label, 'TRY IT');
   assert.equal(steps[2].chrome.label, 'NEW SOURCE');
   assert.equal(steps[0].prompt, bank[0].stem);
@@ -181,6 +187,8 @@ test('JLA session framing prefixes You\'ll practice and rewrites a vague move as
     choices: [{ id: 'a', text: 'Name the family' }]
   });
   assert.match(view.practiceLine, /^You'll practice:/);
+  assert.doesNotMatch(view.practiceLine, /I can |You can /i);
+  assert.match(view.practiceLine, /recognize a Jewish source family/);
   assert.match(view.prompt, /which option correctly/i);
   assert.doesNotMatch(view.prompt, /the move/i);
   assert.equal(view.sourceWindow.hasOnPageSource, true);

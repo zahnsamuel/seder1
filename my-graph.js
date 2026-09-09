@@ -47,7 +47,7 @@ function render(learner, graph) {
       el.className = 'placement-cta';
       el.innerHTML = isDemo
         ? `An adaptive placement maps a learner's frontier in about five minutes.`
-        : `Not sure where you are on the map? <a href="diagnostic.html">Take the 5-minute adaptive placement →</a> It pins your frontier in a handful of questions.`;
+        : `Need a starting point on the map? <a href="diagnostic.html">Take the 5-minute adaptive placement →</a> A few source questions pin your frontier.`;
     } else {
       el.className = 'placement-cta subtle';
       el.innerHTML = isDemo

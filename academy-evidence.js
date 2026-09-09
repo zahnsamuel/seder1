@@ -61,7 +61,7 @@ const thirdMonth = [
   ['Vocabulary retrieval', 'קֻשְׁיָא · תֵּרוּץ · רְאָיָה', 'challenge-and-answer', 'What is vocabulary retrieval for?', 'Using the words to identify an argument’s moves in a new source.'],
   ['Tractate continuation', 'מִשְׁנָה · גְּמָרָא', 'mishnah-orientation', 'What is a disciplined way to enter a new tractate?', 'Map its first case before deciding what later discussion will prove.'],
   ['Pirkei Avot 2:5 return', 'הִשְׁתַּדֵּל לִהְיוֹת אִישׁ', 'conceptual-application', 'What keeps ethical study serious?', 'A source, a real tension, and a modest practice rather than a slogan.'],
-  ['Weekly durability review', 'חֲזָרָה · בֵּירוּר', 'source-signals', 'What does a durable review ask?', 'Can you use the move again without relying on the original screen.'],
+  ['Weekly durability review', 'חֲזָרָה · בֵּירוּר', 'source-signals', 'What does a durable review ask?', 'Whether that reading still works without the original screen.'],
   ['Sugya notebook', 'שְׁאֵלָה · רְאָיָה · קֻשְׁיָא · תֵּרוּץ', 'independent-sugya-reading', 'What should a notebook reveal?', 'How every line advances the argument and what remains to be checked.'],
   ['Gemara unseen check', 'מַעֲשֶׂה · טַעֲנָה · רְאָיָה', 'independent-sugya-reading', 'What is the strongest first move with an unseen case?', 'Name its people or object, condition, open question, and evidence.'],
   ['Freedom source connection', 'וְיָדַעְתָּ הַיּוֹם', 'identify-conceptual-claim', 'What should a learner compare between sources on freedom?', 'Their precise claims, terms, reasons, and contexts.'],

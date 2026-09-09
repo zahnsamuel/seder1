@@ -31,12 +31,18 @@
 
   const sefariaLink = (w) => w.sourceUrl || `https://www.sefaria.org/search?q=${encodeURIComponent(w.sourceRef || '')}&tab=texts`;
   const vagueMoveAsk = (text) => /\b((make|see|show me|that is) the move|the move|which first move|what move)\b/i.test(String(text || ''));
+  const stripCapabilityClaim = (text) => String(text || '').trim()
+    .replace(/^you'll practice:\s*/i, '')
+    .replace(/^(i can|you can)\s+/i, '')
+    .replace(/[.]+$/, '');
+  const practiceLine = (statement) => {
+    const target = stripCapabilityClaim(statement);
+    return target ? `You'll practice: ${target.charAt(0).toLowerCase()}${target.slice(1)}.` : '';
+  };
   const practicePrompt = (session) => {
     const prompt = session.prompt || '';
     if (prompt && !vagueMoveAsk(prompt)) return prompt;
-    const capability = String(session.evidencePreview || session.title || '')
-      .replace(/^I can /i, '')
-      .replace(/\.$/, '');
+    const capability = stripCapabilityClaim(session.evidencePreview || session.title || '');
     return capability
       ? `In this source, which option correctly does this: ${capability.charAt(0).toLowerCase()}${capability.slice(1)}?`
       : 'In this source, which option correctly answers the question about the text?';
@@ -46,7 +52,7 @@
     el('eyebrow').textContent = session.domain ? session.domain.replace(/-/g, ' ') : 'Source practice';
     el('title').textContent = session.title || 'Read a source';
     el('teaching').textContent = session.evidencePreview
-      ? `You'll practice: ${session.evidencePreview}`
+      ? practiceLine(session.evidencePreview)
       : (session.teachingMove || '');
 
     const w = session.sourceWindow || {};

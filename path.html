@@ -49,14 +49,15 @@
         const counts = window.Seder.summarizeCapabilities(transcript);
         const stateKey = progress.foundationComplete ? 'transferable' : window.Seder.leadingCapabilityState(counts);
         const state = window.Seder.capabilityStates[stateKey];
+        const promiseTarget = String(level?.promise || '').replace(/^I can /i, '').replace(/\.$/, '');
         document.querySelector('#jla-grad-card').innerHTML =
           `<div><span>${esc((level?.title || 'Foundation').toUpperCase())} · ${esc(state.label)}</span>` +
-          `<strong>${esc(next ? next.title : (progress.foundationComplete ? 'Foundation capabilities are secure' : level?.promise || ''))}</strong>` +
-          `<small>${esc(window.Seder.capabilitySentence(counts))}${level?.promise ? ` · ${esc(level.promise)}` : ''}</small></div>` +
+          `<strong>${esc(next ? next.title : (progress.foundationComplete ? 'Foundation capabilities are secure' : promiseTarget))}</strong>` +
+          `<small>${esc(window.Seder.capabilitySentence(counts))}${promiseTarget ? ` · working toward: ${esc(promiseTarget)}` : ''}</small></div>` +
           (next ? `<a href="${esc(next.nextStep)}">Practice →</a>` : '<a href="daily-router.html">Continue →</a>');
         document.querySelector('#jla-grad-copy').textContent = progress.foundationComplete
           ? 'Foundation capabilities are secure. Carry them into an unfamiliar source to make them transferable.'
-          : `Working toward ${level?.title || 'the next capability'}: ${level?.promise || ''}`;
+          : `Working toward ${level?.title || 'the next capability'}: ${promiseTarget}`;
         document.querySelector('#jla-graduation').hidden = false;
       }).catch(() => {});
     }

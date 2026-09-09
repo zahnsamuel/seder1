@@ -111,6 +111,7 @@ test('foundation session chrome is see it / try it / new source with a clear ask
   assert.doesNotMatch(html, /href="path.html">Back to your path/);
   assert.match(lesson, /You'll practice:/);
   assert.match(lesson, /Got it — ask me/);
+  assert.doesNotMatch(lesson, /I can see it/);
   assert.match(lesson, /SOURCE_TYPE_TEACH/);
   assert.doesNotMatch(html + js, /Make the move:/);
   assert.doesNotMatch(html + js, /Show me the move/);

@@ -3,7 +3,7 @@
 // source on the page, one explicit ask, shuffled real choices.
 
 export const STEP_CHROME = {
-  introduce: { label: 'SEE IT', next: 'I can see it — try it →', continueTeach: 'Got it — ask me' },
+  introduce: { label: 'SEE IT', next: 'Try it →', continueTeach: 'Got it — ask me' },
   practice: { label: 'TRY IT', next: 'Try a new source →' },
   transfer: { label: 'NEW SOURCE', next: 'Finish →' },
   review: { label: 'SEE IT', next: 'Finish →', continueTeach: 'Got it — ask me' },
@@ -34,7 +34,7 @@ export const SOURCE_TYPE_TEACH = 'Jewish texts come in a few basic kinds, and yo
 
 export const FALLBACK_SKILL = {
   title: 'Practice one reading skill',
-  statement: 'You can do the reading skill named by this session.',
+  statement: 'Name what this skill asks, then point to the part of the source that supports it.',
   sourceContexts: [{ ref: 'A short Jewish source', genre: 'source' }],
   teachingMove: 'Name what you notice in this source before trying to solve the whole text.',
   checks: ['Name what the skill asks you to do, and point to the part of the source that supports it.'],
@@ -58,11 +58,25 @@ export const VAGUE_MOVE_ASK = [
   /\bwhat(?:'s| is) the move\b/i
 ];
 
+// Strip unearned "I can / You can" claims so practice chrome names the skill, not a self-rating.
+export function stripCapabilityClaim(text) {
+  let value = String(text || '').trim();
+  if (!value) return '';
+  value = value.replace(/^you'll practice:\s*/i, '');
+  value = value.replace(/^(i can|you can)\s+/i, '');
+  value = value.replace(/[.]+$/, '');
+  return value;
+}
+
 export function practiceLine(statement) {
-  const text = String(statement || '').trim();
-  if (!text) return '';
-  if (/^you'?ll practice:/i.test(text)) return text;
-  return `You'll practice: ${text}`;
+  const raw = String(statement || '').trim();
+  if (!raw) return '';
+  const rest = raw.replace(/^you'll practice:\s*/i, '');
+  const claimed = /^(i can|you can)\s+/i.test(rest);
+  if (/^you'?ll practice:/i.test(raw) && !claimed) return raw;
+  const target = stripCapabilityClaim(raw);
+  if (!target) return '';
+  return `You'll practice: ${target.charAt(0).toLowerCase()}${target.slice(1)}.`;
 }
 
 export function whyLine(skill, graph) {

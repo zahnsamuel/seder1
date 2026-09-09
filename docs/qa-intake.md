@@ -3683,3 +3683,41 @@ duplicate `# QA intake` document starts and the in-copy duplicate Berakhot
 independent-source-check heading (same body). Append-only history is otherwise
 unchanged. North-star checklist updated to merged reality; merge brief marked
 landed so it does not read as an open queue. No product behavior change.
+
+## 2026-09-09 — Cursor: remaining self-assessment UI outside diagnostic
+
+Product law: never ask learners to speculate; test or teach. Placement self-ratings
+stay on diagnostic (open PR #50). This pass audited practice / academy / path /
+evidence / map and every grep hit for reliably, confidence, self-assess, can you,
+do you know, how confident, I can do this.
+
+**Fixed**
+
+- `academy-session-lesson.mjs` See-it next CTA `I can see it — try it →` → `Try it →`.
+- `practiceLine` / `jla-practice.js` no longer show unearned `You'll practice: I can…`
+  / `You can…`. Chrome names the skill; `I can` stays on scored evidence statements.
+- `academy.js` 90-day milestones were `Where you are: I can…` (calendar, not evidence)
+  → `This stretch trains:` + infinitive.
+- `academy-evidence.js` durability answer `Can you use the move again…` → `Whether
+  that reading still works without the original screen.`
+- `my-graph.js` / regenerated `docs/demo-map.html`: `Not sure where you are…` →
+  `Need a starting point…` + invite the placement *test*.
+- `path.html` strips `I can` from graduation-level promises at display time.
+
+**Kept (not speculation UI)**
+
+- Diagnostic Yes / Not reliably / Not sure — out of scope (#50).
+- `Got it — ask me` — Sam-approved teach→ask continue, not a capability rating.
+- Earned `I can` evidence statements after a scored check (`jla-capability-evidence`,
+  session `evidencePreview`, capstone, Today router).
+- Graph `statement` / graduation `promise` / domain `learnerPromise` as schema;
+  path/map show statements as skill definitions, not Yes/No self-ratings.
+- `capabilitySentence` (`You can make N reading moves on your own`) — evidence counts.
+- Path copy `evidence, not self-report, moves this path forward`.
+- Rhetorical `Can you…` headings on real checks (gemara-foundations, unseen-check,
+  cross-tractate) — test framing, not self-report.
+- Internal `confidence` on skill-map pairing; ladder `secure: Can do it reliably
+  and unaided`; source-signal `reliably` in teaching copy; pilot-survey confidence.
+
+Guard: `test/no-self-assessment-ui.test.mjs`. Did not edit item banks, diagnostic.*,
+or Today / next-action routing.
