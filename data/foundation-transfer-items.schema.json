@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jewishlearning.academy/schemas/foundation-transfer-items.schema.json",
+  "title": "JLA foundation transfer items (authoring contract)",
+  "description": "Educator-facing shape for a transfer item: the same reading skill, exercised on a source family the learner did not practice in. Recognition banks stay in data/foundation-authored-items.json (Claude). This schema does not invent pedagogy — examples in data/foundation-transfer-items.examples.json are labeled EXAMPLE and must not be counted as production coverage. See docs/foundation-transfer-items.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "status", "loadIntoAcademy", "note", "items"],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "status": {
+      "description": "examples-only files never feed the learner loop. Production authoring uses a separate file with status draft|ready.",
+      "enum": ["examples-only", "draft", "ready"]
+    },
+    "loadIntoAcademy": {
+      "type": "boolean",
+      "description": "Must be false until academy is explicitly wired to load status=ready items. Examples stay false."
+    },
+    "note": { "type": "string", "minLength": 40 },
+    "items": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/transferItem" }
+    }
+  },
+  "$defs": {
+    "sourceFamily": {
+      "type": "string",
+      "enum": ["tanakh", "rabbinic", "halakhic", "liturgical", "thought", "historical"]
+    },
+    "transferItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "label",
+        "skill",
+        "type",
+        "status",
+        "loadIntoAcademy",
+        "sourceRef",
+        "sefariaUrl",
+        "sourceFamily",
+        "practicedFamilies",
+        "whyTransfer",
+        "stem",
+        "choices",
+        "correct",
+        "feedback"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "example-xfer-<skill>-<n> for illustrations; xfer-<skill>-<n> for real authored items.",
+          "pattern": "^(example-xfer|xfer)-fnd-[a-z0-9-]+-[0-9]+$"
+        },
+        "label": {
+          "type": "string",
+          "description": "Human-facing status. Example entries must include the word EXAMPLE."
+        },
+        "skill": {
+          "type": "string",
+          "pattern": "^fnd-[a-z0-9-]+$",
+          "description": "A real foundation-skill-graph id, preferably from the frozen starter set."
+        },
+        "type": {
+          "const": "transfer",
+          "description": "Always transfer. Recognition/practice items belong in foundation-authored-items.json."
+        },
+        "status": {
+          "enum": ["example", "draft", "ready"]
+        },
+        "loadIntoAcademy": {
+          "type": "boolean"
+        },
+        "sourceRef": {
+          "type": "string",
+          "minLength": 3,
+          "description": "Exact work, chapter, folio, or section — same convention as authored recognition items."
+        },
+        "sefariaUrl": {
+          "type": "string",
+          "pattern": "^https://www\\.sefaria\\.org/",
+          "description": "Primary-text link used to verify the citation before shipping."
+        },
+        "sourceFamily": { "$ref": "#/$defs/sourceFamily" },
+        "practicedFamilies": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/sourceFamily" },
+          "description": "Families this skill was practiced in (recognition bank / teaching contexts). sourceFamily must not appear here — that is what makes the item transfer."
+        },
+        "whyTransfer": {
+          "type": "string",
+          "minLength": 40,
+          "description": "Educator note: which familiar families this is leaving, and why the new source still tests the same skill."
+        },
+        "stem": {
+          "type": "string",
+          "minLength": 20,
+          "description": "Learner-facing prompt. Include a short on-page Hebrew excerpt plus translation. Do not use untaught jargon as the ask."
+        },
+        "choices": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 5,
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Same shape as data/foundation-authored-items.json. Render shuffled; never ship a fixed visible correct index."
+        },
+        "correct": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Index into choices in this authoring file. Academy loading (later) should shuffle and may strip this key from the client payload."
+        },
+        "feedback": {
+          "type": "string",
+          "minLength": 25,
+          "description": "Teaches after the answer. May name genre terms that the teach step already introduced."
+        },
+        "misconceptions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Optional ids of named misconception models. Empty until the educator audit writes them."
+        },
+        "difficulty": {
+          "type": ["number", "null"],
+          "description": "Null until calibrated from pilot data."
+        },
+        "discrimination": {
+          "type": ["number", "null"],
+          "description": "Null until calibrated from pilot data."
+        }
+      }
+    }
+  }
+}

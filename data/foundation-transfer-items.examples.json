@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "examples-only",
+  "loadIntoAcademy": false,
+  "note": "SCHEMA ILLUSTRATIONS ONLY — not production pedagogy and not learner-facing. Two EXAMPLE transfer items so educators can see the shape for north-star #9 (≥1 real transfer item per starter skill). Do not count these toward coverage. Do not import them into academy. Recognition banks stay in data/foundation-authored-items.json (Claude). Copy the shape into a future data/foundation-transfer-items.json with status draft|ready. See docs/foundation-transfer-items.md.",
+  "items": [
+    {
+      "id": "example-xfer-fnd-orient-source-type-1",
+      "label": "EXAMPLE — schema illustration, not a production item",
+      "skill": "fnd-orient-source-type",
+      "type": "transfer",
+      "status": "example",
+      "loadIntoAcademy": false,
+      "sourceRef": "Shulchan Aruch, Orach Chaim 1:1",
+      "sefariaUrl": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.1.1",
+      "sourceFamily": "halakhic",
+      "practicedFamilies": ["tanakh", "rabbinic"],
+      "whyTransfer": "The recognition bank for this skill practices Torah verse, Mishnah, Gemara, and commentary (tanakh + rabbinic). A compact legal-code line is a different family: the learner still names the kind of text, but the tells are ruling language rather than verse, mishnah, or analysis.",
+      "stem": "EXAMPLE — schema illustration, not a production item.\n\nRead this line, then say what kind of text it is:\n\nיִתְגַּבֵּר כָּאֲרִי לַעֲמוֹד בַּבֹּקֶר לַעֲבוֹדַת בּוֹרְאוֹ\n\"One should strengthen himself like a lion to get up in the morning to serve his Creator.\" (Shulchan Aruch, Orach Chaim 1:1)\n\nWhat kind of text is this?",
+      "choices": [
+        "A legal code stating what a person should do.",
+        "A Torah verse speaking in Scripture's own voice.",
+        "A Mishnah line stating a compact practice rule.",
+        "A Gemara line analyzing an earlier stated rule."
+      ],
+      "correct": 0,
+      "feedback": "It is a legal code: compact language telling a person what to do. That shape is not a Torah verse, a Mishnah question, or Gemara analysis. (EXAMPLE item — not loaded for learners.)",
+      "misconceptions": [],
+      "difficulty": null,
+      "discrimination": null
+    },
+    {
+      "id": "example-xfer-fnd-arg-claim-1",
+      "label": "EXAMPLE — schema illustration, not a production item",
+      "skill": "fnd-arg-claim",
+      "type": "transfer",
+      "status": "example",
+      "loadIntoAcademy": false,
+      "sourceRef": "Psalms 23:1",
+      "sefariaUrl": "https://www.sefaria.org/Psalms.23.1",
+      "sourceFamily": "tanakh",
+      "practicedFamilies": ["thought", "rabbinic"],
+      "whyTransfer": "Practice for this skill uses Rambam, Yesodei HaTorah 1:1 (thought) and Gemara Berakhot 2a (rabbinic). A psalm line is tanakh: the same 'this source claims that…' move, in a genre the recognition bank never used.",
+      "stem": "EXAMPLE — schema illustration, not a production item.\n\nRead this line, then finish the sentence \"This source claims that…\":\n\nיְהֹוָה רֹעִי לֹא אֶחְסָר\n\"The LORD is my shepherd; I shall not want.\" (Psalms 23:1)\n\nStated as a claim, this is…?",
+      "choices": [
+        "God cares for the speaker as a shepherd does, so the speaker lacks nothing.",
+        "The speaker is asking God whether food and safety will arrive by tomorrow.",
+        "A later sage is objecting here to an earlier teaching about shepherds.",
+        "This line only cites another book and makes no claim of its own here."
+      ],
+      "correct": 0,
+      "feedback": "Finish 'This source claims that…' first. The psalm asserts that God shepherds the speaker, so the speaker lacks nothing — not a question, an objection, or a bare citation. (EXAMPLE item — not loaded for learners.)",
+      "misconceptions": [],
+      "difficulty": null,
+      "discrimination": null
+    }
+  ]
+}
