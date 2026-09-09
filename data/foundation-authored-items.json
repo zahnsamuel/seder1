@@ -92,7 +92,7 @@
       },
       {
         "sourceRef": "Mikraot Gedolot, Genesis 1:1",
-        "stem": "On a Mikraot Gedolot page, a Torah verse sits at the top and several commentaries are printed beneath and around it. What is the relationship you should read first?",
+        "stem": "On a printed page of Torah, a verse sits at the top and several commentaries are printed beneath and around it. What is the relationship you should read first?",
         "choices": [
           "The verse is the primary text; the surrounding material comments on it.",
           "The longest commentary is the primary text and the verse illustrates it.",
@@ -109,7 +109,7 @@
           "The Mishnah just ended and the Gemara's discussion of it begins here.",
           "A brand-new tractate is starting from the top on this very line.",
           "A Torah verse is being quoted here for the very first time.",
-          "The page is finished and the next daf begins right below."
+          "The page is finished and the next page begins right below."
         ],
         "correct": 0,
         "feedback": "גמ׳ marks the start of the Gemara; seeing it tells you the Mishnah is done and the analysis of it now opens."
@@ -146,7 +146,7 @@
         "choices": [
           "Rabbi Yochanan is quoted; the anonymous Gemara frames and reports him.",
           "The anonymous Gemara is speaking; Rabbi Yochanan is the one being addressed.",
-          "Rabbi Yochanan both frames the sugya and reports every other view in it.",
+          "Rabbi Yochanan both frames the discussion and reports every other view in it.",
           "There is no framing voice; the whole line is a single verse."
         ],
         "correct": 0,
@@ -438,7 +438,7 @@
         "choices": [
           "A restatement of what was already said.",
           "A fresh objection raised against the claim.",
-          "A proof text drawn from the Tanakh.",
+          "A proof text drawn from Scripture.",
           "A new question opening a new topic."
         ],
         "correct": 0,
@@ -502,7 +502,7 @@
         "choices": [
           "Mark where the quoted verse ends and the comment begins.",
           "Treat the whole line as a single continuous quotation.",
-          "Assume the comment is also drawn from the Tanakh.",
+          "Assume the comment is also drawn from Scripture.",
           "Ignore the verse and read only the comment."
         ],
         "correct": 0,
