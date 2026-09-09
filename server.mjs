@@ -11,7 +11,7 @@ import { loadJlaAcademySession, checkJlaAcademyChoice } from './jla-academy-sess
 import { canMasterJourneyStage, canonJourney, journeyStatus, nextGemaraArc, nextGraphPractice, nextJourneyRecommendation, remediationFor, sourceReviewItems } from './data/curriculum-engine.mjs';
 import { explainRecommendation, whySentence } from './data/recommendation-why.mjs';
 import { foundationRecommendation, gemaraYearRecommendation, moedExpansionRecommendation } from './data/term-recommendations.mjs';
-import { keyPrerequisiteRemediation, estimateFrontierFromDiagnostic, nextDiagnosticProbe } from './data/knowledge-graph.mjs';
+import { keyPrerequisiteRemediation, estimateFrontierFromDiagnostic, nextDiagnosticProbe, DIAGNOSTIC_PROBE_CAP } from './data/knowledge-graph.mjs';
 import { computeGraphPilotAnalytics } from './data/pilot-analytics.mjs';
 import { citedSkillId, foundationFrontierRecommendation, foundationRetrievalRecommendation, normalizeNextAction, resolveFoundationSkillId, selectNextAction, STARTER_SKILL_IDS } from './data/next-action.mjs';
 import { resolvePlacementStart } from './jla-placement-router.js';
@@ -367,19 +367,22 @@ async function handleApi(request, response, url) {
   // Adaptive diagnostic as a knowledge-frontier estimator (The Math Academy Way). Stateless graph
   // computation: POST the responses so far ({ responses: { skillId: passed } }); get the current
   // frontier estimate plus the next skill to probe (with its check), or complete:true when the
-  // frontier is pinned. Downward inference means far fewer questions than there are skills.
+  // frontier is pinned or the first-day probe cap is hit. Downward inference still fills the rest.
+  // Merge-after-#50: keep maxProbes on this call (`{ probeable, maxProbes: DIAGNOSTIC_PROBE_CAP }`)
+  // and keep maxProbes in the JSON so the client can show "Check N of 6".
   if (request.method === 'POST' && url.pathname === '/api/graph/diagnostic') {
     const body = await readJsonBody(request);
     const responses = (body && typeof body.responses === 'object' && body.responses) || {};
     if (!cachedGraphSkills) cachedGraphSkills = (await loadFoundationGraph()).skills;
     const graph = { skills: cachedGraphSkills };
     const estimate = estimateFrontierFromDiagnostic(graph, responses);
-    const probeId = nextDiagnosticProbe(graph, responses);
+    const probeId = nextDiagnosticProbe(graph, responses, { maxProbes: DIAGNOSTIC_PROBE_CAP });
     const probe = probeId ? cachedGraphSkills.find((s) => s.id === probeId) : null;
     sendJson(response, 200, {
       estimate: { known: estimate.known, frontier: estimate.frontier, tested: estimate.tested },
       nextProbe: probe ? { id: probe.id, title: probe.title, statement: probe.statement, check: (probe.checks || [])[0] } : null,
-      complete: !probeId
+      complete: !probeId,
+      maxProbes: DIAGNOSTIC_PROBE_CAP
     });
     return true;
   }

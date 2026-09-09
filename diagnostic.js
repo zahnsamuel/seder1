@@ -1,19 +1,20 @@
 // Adaptive placement as a knowledge-frontier estimator (The Math Academy Way, ch. 4). Drives the
 // stateless graph diagnostic (POST /api/graph/diagnostic): each answer is fed back, the server picks
 // the next skill that best splits the remaining uncertainty (binary search through the DAG) and
-// infers everything below a passed skill, so the frontier is pinned in a handful of questions rather
-// than one per skill. On completion it seeds the frontier through the same placement_completed path
-// the graded placement uses (enrichPlacementWithFrontier), at a provisional "secure" level — this is
-// self-calibrated placement, corrected by real evidence the moment the learner starts practicing.
+// infers everything below a passed skill. First day is capped at a few checks (DIAGNOSTIC_PROBE_CAP),
+// then one Today lesson — not a long quiz. On completion it seeds the frontier through the same
+// placement_completed path the graded placement uses (enrichPlacementWithFrontier), at a provisional
+// "secure" level — corrected by real evidence the moment the learner starts practicing.
 const learnerId = Seder.currentLearnerId();
 const $ = (selector) => document.querySelector(selector);
 const esc = (value) => String(value == null ? '' : value).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const PROBE_CAP = 6;       // keep in sync with DIAGNOSTIC_PROBE_CAP; server may send maxProbes
 
 const responses = {};      // skillId -> passed boolean, accumulated across probes
 let questionCount = 0;
+let maxProbes = PROBE_CAP;
 let done = false;          // once the result is shown, the diagnostic is terminal — no late probe may reappear
 let graph = null;
-let total = 53;            // graph skill count, for the "mapped" gauge; refined once the graph loads
 let kids = new Map();      // skillId -> direct dependents, for local descendant/leverage math
 
 const graphReady = fetch('data/foundation-skill-graph.json')
@@ -21,7 +22,6 @@ const graphReady = fetch('data/foundation-skill-graph.json')
   .then((data) => {
     graph = data;
     if (data && Array.isArray(data.skills)) {
-      total = data.skills.length;
       kids = new Map(data.skills.map((skill) => [skill.id, []]));
       for (const skill of data.skills) for (const prereq of skill.prerequisites || []) kids.get(prereq)?.push(skill.id);
     }
@@ -43,24 +43,23 @@ async function step() {
     if (!response.ok) throw new Error('diagnostic');
     data = await response.json();
   } catch { $('#status').textContent = 'Diagnostic unavailable — reload to try again.'; return; }
+  if (typeof data.maxProbes === 'number' && data.maxProbes > 0) maxProbes = data.maxProbes;
   updateGauge(data.estimate || {});
-  if (data.complete || !data.nextProbe) { finish(data.estimate || {}); return; }
+  const atCap = Object.keys(responses).length >= maxProbes;
+  if (data.complete || !data.nextProbe || atCap) { finish(data.estimate || {}); return; }
   if (done) return; // finished while this round-trip was in flight
   renderProbe(data.nextProbe);
 }
 
-// Honest progress: skills whose status is now settled — known (inferred below the frontier), directly
-// answered, or provably beyond it (a descendant of something the learner failed).
-function updateGauge(estimate) {
-  const failed = Object.keys(responses).filter((id) => !responses[id]);
-  const beyond = new Set();
-  for (const id of failed) for (const d of descendants(id)) beyond.add(d);
-  const mapped = new Set([...(estimate.known || []), ...beyond, ...Object.keys(responses)]);
-  const pct = Math.min(100, Math.round((mapped.size / total) * 100));
+// Honest progress: Check N of the first-day cap — never a corpus-size count, which reads as a long quiz.
+function updateGauge() {
+  const asked = Object.keys(responses).length;
+  const shown = Math.min(asked + 1, maxProbes);
+  const pct = Math.min(100, Math.round((asked / maxProbes) * 100));
   const fill = $('#gauge-fill'); if (fill) fill.style.width = `${pct}%`;
   const gauge = $('.gauge'); if (gauge) gauge.setAttribute('aria-valuenow', String(pct));
-  $('#placed-label').textContent = `${mapped.size} of ${total} skills mapped`;
-  $('#q-label').textContent = `Question ${questionCount + 1}`;
+  $('#placed-label').textContent = 'A few short checks';
+  $('#q-label').textContent = `Check ${shown} of ${maxProbes}`;
 }
 
 function renderProbe(probe) {
@@ -125,9 +124,9 @@ function renderResults(estimate, start) {
   const why = start && start.lev > 0
     ? `More of the foundation builds on this than anything else you haven’t shown yet — ${start.lev} later move${start.lev === 1 ? '' : 's'} depend on it.`
     : (start ? 'This is your next move toward reading a source on your own.' : 'Every foundational move is already in place — carry them into an unfamiliar source to make them durable.');
-  $('#results-title').textContent = start ? `Start here: ${start.skill.title}` : 'You’ve placed out of the foundation.';
+  $('#results-title').textContent = start ? `Today’s lesson: ${start.skill.title}` : 'You’ve placed out of the foundation.';
   $('#results-copy').textContent = start
-    ? `${start.skill.statement || ''} ${why} This is a starting point, not a score — your first sessions confirm it, and anything you can’t yet do comes right back.`
+    ? `${start.skill.statement || ''} ${why} This is a starting point, not a score — one short lesson today will confirm it, and anything you can’t yet do comes right back.`
     : why;
   $('#results-cando').textContent = known.size
     ? (known.size === 1
@@ -145,9 +144,11 @@ function renderResults(estimate, start) {
     return `<article class="tone-${tone}"><span>${layer.n}. ${esc(layer.title)}</span><strong>${status}</strong></article>`;
   }).join('');
   const begin = $('#results-begin');
-  if (begin) begin.href = start
-    ? (start.id.startsWith('fnd-decode-') ? 'hebrew-decoding.html' : `academy-session.html?skill=${encodeURIComponent(start.id)}`)
-    : 'my-graph.html';
+  if (begin) {
+    begin.href = 'daily-router.html';
+    begin.textContent = 'Start today’s lesson →';
+    begin.focus();
+  }
   bindRhythm();
 }
 

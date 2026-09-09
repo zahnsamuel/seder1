@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { knowledgeFrontier, learningPath, encompassingReviewSet, keyPrerequisiteRemediation, estimateFrontierFromDiagnostic, nextDiagnosticProbe } from '../data/knowledge-graph.mjs';
+import { knowledgeFrontier, learningPath, encompassingReviewSet, keyPrerequisiteRemediation, estimateFrontierFromDiagnostic, nextDiagnosticProbe, DIAGNOSTIC_PROBE_CAP } from '../data/knowledge-graph.mjs';
 
 const graph = JSON.parse(readFileSync(new URL('../data/foundation-skill-graph.json', import.meta.url), 'utf8'));
 const edges = JSON.parse(readFileSync(new URL('../data/foundation-skill-edges.json', import.meta.url), 'utf8')).edges;
@@ -113,6 +113,19 @@ test('the adaptive diagnostic pins the exact frontier in far fewer questions tha
     assert.deepEqual(est.known.sort(), [...trueKnown].sort(), `known set exact at layer<=${maxLayer}`);
     assert.ok(questions < graph.skills.length, `${questions} questions < ${graph.skills.length} skills`);
   }
+});
+
+test('first-day maxProbes stops the estimator at the product cap', () => {
+  assert.equal(DIAGNOSTIC_PROBE_CAP, 6);
+  const responses = {};
+  for (let i = 0; i < 20; i++) {
+    const probe = nextDiagnosticProbe(graph, responses, { maxProbes: DIAGNOSTIC_PROBE_CAP });
+    if (!probe) break;
+    responses[probe] = false;
+  }
+  assert.equal(Object.keys(responses).length, DIAGNOSTIC_PROBE_CAP);
+  assert.equal(nextDiagnosticProbe(graph, responses, { maxProbes: DIAGNOSTIC_PROBE_CAP }), null);
+  assert.ok(nextDiagnosticProbe(graph, responses), 'uncapped estimator can still continue after the first-day cap');
 });
 
 test('MA remediation routes a struggled skill to its knowledge points’ key prerequisite', () => {

@@ -137,10 +137,19 @@ export function estimateFrontierFromDiagnostic(graph, responses = {}) {
   return { known: [...known].filter((id) => prereqs.has(id)), frontier, blocked, tested: Object.keys(responses).length };
 }
 
+// First-day product cap: a handful of real checks, then Today. The estimator can still run
+// uncapped (pass maxProbes: Infinity) when a test needs an exact frontier. Live placement
+// always sends DIAGNOSTIC_PROBE_CAP from the server. Merge-after-#50: keep this constant and
+// pass it alongside options.probeable — `{ probeable, maxProbes: DIAGNOSTIC_PROBE_CAP }`.
+export const DIAGNOSTIC_PROBE_CAP = 6;
+
 // The next skill to probe: the still-uncertain skill that most evenly splits the remaining
 // uncertainty (binary-search through the DAG) — passing it resolves everything below it, failing it
-// prunes everything above. Returns null once the frontier is pinned down (no informative probe left).
-export function nextDiagnosticProbe(graph, responses = {}) {
+// prunes everything above. Returns null once the frontier is pinned down (no informative probe left)
+// or once options.maxProbes answers have already been collected.
+export function nextDiagnosticProbe(graph, responses = {}, options = {}) {
+  const maxProbes = Number.isFinite(Number(options.maxProbes)) ? Number(options.maxProbes) : Infinity;
+  if (Object.keys(responses).length >= maxProbes) return null;
   const prereqs = prereqMap(graph);
   const kids = dependentsMap(graph);
   const answered = new Set(Object.keys(responses));

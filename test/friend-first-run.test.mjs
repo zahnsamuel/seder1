@@ -19,6 +19,7 @@ test('friend click path: landing → name signup → placement, not a homepage d
   assert.match(front, /Start learning/);
   assert.match(onboarding, /Pick a name/);
   assert.match(onboarding, /Answer a few questions/);
+  assert.match(onboarding, /At most six short checks/);
   assert.match(onboarding, /Do one short lesson/);
   assert.match(onboarding, /href="diagnostic\.html"/);
   assert.match(signIn, /return 'daily-router\.html'/);
@@ -34,10 +35,13 @@ test('friend click path: placement copy is a starting point, then one Today less
   assert.match(html, /Let’s find where to start/);
   assert.doesNotMatch(html, /knowledge frontier/i);
   assert.doesNotMatch(html, /The graph infers/);
-  assert.match(html, /See today’s lesson/);
+  assert.match(html, /Start today’s lesson/);
+  assert.match(html, /At most six checks/);
+  assert.match(html, /id="results-hint"/);
   assert.match(html, /href="daily-router.html"/);
   assert.match(html, /OPTIONAL · HOW OFTEN YOU STUDY/);
   assert.match(js, /begin\.href = 'daily-router\.html'/);
+  assert.match(js, /Start today’s lesson/);
   assert.doesNotMatch(js, /academy-session\.html\?skill=/);
   assert.doesNotMatch(js, /hebrew-decoding\.html/);
   assert.match(server, /Find where to start/);

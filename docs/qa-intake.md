@@ -3683,3 +3683,33 @@ duplicate `# QA intake` document starts and the in-copy duplicate Berakhot
 independent-source-check heading (same body). Append-only history is otherwise
 unchanged. North-star checklist updated to merged reality; merge brief marked
 landed so it does not read as an open queue. No product behavior change.
+
+## 2026-09-09 — Cursor: first-day placement is a few checks, then one Today lesson
+
+PR #50 (replace self-rate with MC probes) is still open. This change is complementary
+chrome / count / handoff on `main`, written to merge after #50 rather than rewrite the
+probe body.
+
+**Cap.** Live placement stops at `DIAGNOSTIC_PROBE_CAP = 6` (`data/knowledge-graph.mjs`
+`nextDiagnosticProbe(..., { maxProbes })`, `POST /api/graph/diagnostic`, client
+belt-and-suspenders). Uncapped estimator tests still omit `maxProbes` so they can pin an
+exact frontier. A complete beginner still lands on `fnd-decode-letters`. The cap is
+conservative for mid-graph learners (first sessions confirm); first day must not feel like
+a 15–23 question quiz.
+
+**Chrome.** Progress is `Check N of 6`, not `Question N` / `X of 53 skills mapped`. Intro
+adds `At most six checks. Then one lesson today.` (left the existing intro paragraph for
+#50 to swap self-rate copy). Onboarding step 2 names the six-check ceiling.
+
+**Handoff.** Results CTA no longer jumps to `academy-session.html` / `hebrew-decoding.html`.
+It stays on Today: `begin.href = 'daily-router.html'`, label **Start today’s lesson →**,
+hint `One short lesson. That’s the whole first day.` Larger primary button; map and rhythm
+stay optional below.
+
+**Merge-after-#50.** Keep `maxProbes: DIAGNOSTIC_PROBE_CAP` on the diagnostic call next to
+#50’s `{ probeable }` — `{ probeable, maxProbes: DIAGNOSTIC_PROBE_CAP }` — and keep
+`maxProbes` in the JSON. Do not drop the Today href or the Check N of 6 chrome. Probe MC /
+teach-before-ask stays #50’s.
+
+Tests: `adaptive-diagnostic`, `knowledge-graph`, `placement-foundation-handoff`,
+`friend-first-run` (placement assertions). Did not rewrite item banks or `renderProbe`.
