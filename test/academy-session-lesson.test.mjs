@@ -7,8 +7,10 @@ import {
   buildScaffoldSteps,
   explicitAsk,
   frameJlaSession,
+  hasSeeItMaterials,
   learnerCopyHasBannedPhrase,
   lookupExcerpt,
+  normalizeSessionMode,
   practiceLine,
   presentChoices,
   sentenceCount,
@@ -156,6 +158,9 @@ test('See-it teach is a 2–4 sentence mini-lesson before the ask, with a source
 
   assert.equal(teachCopy({ skill, kind: 'practice', teachBank }), '');
   assert.equal(teachCopy({ skill, kind: 'transfer', teachBank }), '');
+  assert.equal(teachCopy({ skill, kind: 'review', teachBank }), fromBank);
+  assert.equal(teachCopy({ skill, kind: 'welcome-back', teachBank }), fromBank);
+  assert.equal(teachCopy({ skill, kind: 'review', teachBank: {} }), '');
 
   const generic = teachCopy({
     skill: graph.skills.find((item) => item.id === 'fnd-arg-claim'),
@@ -179,4 +184,64 @@ test('JLA session framing prefixes You\'ll practice and rewrites a vague move as
   assert.match(view.prompt, /which option correctly/i);
   assert.doesNotMatch(view.prompt, /the move/i);
   assert.equal(view.sourceWindow.hasOnPageSource, true);
+});
+
+test('review and welcome-back use See-it → ask when authored item, teach, and excerpt exist', () => {
+  const skill = graph.skills.find((item) => item.id === 'fnd-orient-source-type');
+  const bank = authored.items[skill.id];
+  assert.equal(normalizeSessionMode('recovery'), 'welcome-back');
+  assert.equal(normalizeSessionMode('decay'), 'review');
+  assert.equal(hasSeeItMaterials({ skill, authoredBank: bank, excerpts, teachBank }), true);
+
+  const review = buildScaffoldSteps({
+    skill, graph, kpLayer, ctxLayer, authoredBank: bank, excerpts, teachBank,
+    mode: 'review', random: cyclingRandom()
+  });
+  assert.equal(review.length, 1);
+  assert.equal(review[0].kind, 'review');
+  assert.equal(review[0].chrome.label, 'SEE IT');
+  assert.equal(review[0].chrome.continueTeach, 'Got it — ask me');
+  assert.ok(review[0].teach);
+  assert.equal(review[0].holdAsk, true);
+  assert.equal(review[0].guidance, '');
+  assert.equal(review[0].authored, true);
+  assert.equal(review[0].sourceWindow.hasOnPageSource, true);
+  assert.ok(review[0].sourceWindow.hebrew || review[0].sourceWindow.translation);
+  assert.ok(review[0].prompt);
+  assert.ok(review[0].choices.length >= 3);
+  assert.doesNotMatch(review[0].teach, /\bthe move\b/i);
+  assert.doesNotMatch(review[0].prompt, /\bthe move\b/i);
+
+  const welcome = buildScaffoldSteps({
+    skill, graph, kpLayer, ctxLayer, authoredBank: bank, excerpts, teachBank,
+    mode: 'welcome-back', random: cyclingRandom()
+  });
+  assert.equal(welcome.length, 1);
+  assert.equal(welcome[0].kind, 'welcome-back');
+  assert.ok(welcome[0].teach);
+  assert.equal(welcome[0].holdAsk, true);
+  assert.equal(welcome[0].sourceWindow.hasOnPageSource, true);
+
+  const noMaterials = buildScaffoldSteps({
+    skill, graph, kpLayer, ctxLayer, authoredBank: bank, excerpts, teachBank: {},
+    mode: 'review', random: cyclingRandom()
+  });
+  assert.equal(noMaterials.length, 3);
+  assert.equal(noMaterials[0].kind, 'introduce');
+
+  const claim = graph.skills.find((item) => item.id === 'fnd-arg-claim');
+  const claimBank = authored.items[claim.id] || [];
+  const claimReview = buildScaffoldSteps({
+    skill: claim, graph, kpLayer, ctxLayer, authoredBank: claimBank, excerpts, teachBank: {},
+    mode: 'review', random: cyclingRandom()
+  });
+  assert.equal(claimReview.length, 3, 'authored item + excerpt without teach keeps the introduce path');
+
+  const bankless = graph.skills.find((item) => item.id === 'fnd-compare-shared-question');
+  const fallback = buildScaffoldSteps({
+    skill: bankless, graph, kpLayer, ctxLayer, authoredBank: [], excerpts, teachBank,
+    mode: 'review', random: cyclingRandom()
+  });
+  assert.equal(fallback.length, 3);
+  assert.equal(fallback[0].kind, 'introduce');
 });

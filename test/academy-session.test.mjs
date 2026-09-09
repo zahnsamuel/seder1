@@ -102,6 +102,8 @@ test('foundation session chrome is see it / try it / new source with a clear ask
   assert.match(js, /foundation-teach\.json/);
   assert.match(js, /hideOutbound/);
   assert.match(js, /Got it — ask me|continueTeach|holdAsk|awaitingAsk/);
+  assert.match(js, /normalizeSessionMode|mode === 'welcome-back'|RETRIEVE/);
+  assert.match(js, /params\.get\('mode'\)/);
   assert.ok(html.indexOf('id="ask-panel"') < html.indexOf('id="advance"'));
   assert.ok(html.indexOf('id="advance"') < html.indexOf('id="complete"'));
   assert.match(html, /<\/div>\s*<button id="advance"/);

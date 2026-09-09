@@ -57,6 +57,7 @@
 .teach-block[hidden],
 #ask-panel[hidden],
 .source-footer[hidden] { display: none !important; }
+.kp-steps li[hidden] { display: none !important; }
 .kp-steps li {
   color: var(--jla-text-soft);
   opacity: .72;

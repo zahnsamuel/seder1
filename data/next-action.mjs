@@ -17,10 +17,17 @@ export function teachableFoundationIds(override) {
   return STARTER_SKILL_IDS;
 }
 
-export function foundationSessionHref(skillId) {
+export function foundationSessionHref(skillId, mode) {
   if (typeof skillId !== 'string' || !SKILL_ID.test(skillId.trim())) return FALLBACK.href;
   const id = skillId.trim();
-  return id.startsWith('fnd-decode-') ? 'hebrew-decoding.html' : `academy-session.html?skill=${encodeURIComponent(id)}`;
+  if (id.startsWith('fnd-decode-')) return 'hebrew-decoding.html';
+  const value = String(mode || '').trim().toLowerCase();
+  const sessionMode = value === 'recovery' || value === 'welcome-back'
+    ? 'welcome-back'
+    : value === 'review' || value === 'retrieval' || value === 'decay'
+      ? 'review'
+      : '';
+  return `academy-session.html?skill=${encodeURIComponent(id)}${sessionMode ? `&mode=${sessionMode}` : ''}`;
 }
 
 function skillScore(learner, skillId) {
@@ -102,7 +109,7 @@ export function foundationRetrievalRecommendation(learner, graph, map, options =
       : decay
         ? `${skill.title} has faded below its peak. A quick retrieval restores it faster than relearning.`
         : `A short check of ${skill.title.toLowerCase()} keeps the move from fading.`,
-    url: foundationSessionHref(pick.skillId),
+    url: foundationSessionHref(pick.skillId, recovery ? 'welcome-back' : 'review'),
     skillId: pick.skillId,
     practice: pickContentPracticeForSkill(map, pick.skillId, learner),
     trigger: pick.trigger
