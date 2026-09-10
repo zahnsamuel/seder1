@@ -14,6 +14,7 @@ const DEEPENED = [
   'fnd-signal-connectors',
   'fnd-signal-quotation',
   'fnd-role-example',
+  'fnd-role-quotation-bounds',
   'fnd-case-actors',
   'fnd-case-restate',
   'fnd-case-uncertainty',
@@ -33,7 +34,7 @@ test('deepened L2-L5 banks are source-grounded, valid, unbiased, and free of unt
   for (const skill of DEEPENED) {
     assert.ok(starter.has(skill), `${skill} is in the frozen starter set`);
     const items = bank[skill];
-    assert.ok(Array.isArray(items) && items.length >= 3, `${skill} needs >=3 items`);
+    assert.ok(Array.isArray(items) && items.length >= 4, `${skill} needs >=4 items`);
     for (const [i, item] of items.entries()) {
       assert.equal(itemProblem(item), null, `${skill}[${i}] invalid: ${itemProblem(item)}`);
       assert.ok(item.sourceRef && item.sourceRef.trim(), `${skill}[${i}] missing sourceRef`);

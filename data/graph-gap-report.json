@@ -18,8 +18,8 @@
     "highPrereq": 1,
     "thinCoverage": 0,
     "step8Coverage": "55/55",
-    "authoredItemBanks": "0/55",
-    "skillsWithAnyItem": "17/55",
+    "authoredItemBanks": "25/55",
+    "skillsWithAnyItem": "31/55",
     "scaleNote": "55 skills now; the schema targets ~150 then ~300. Long edges below are the first places intermediate skills belong."
   },
   "findings": [

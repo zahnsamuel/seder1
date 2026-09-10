@@ -33447,3 +33447,15 @@ Fix:
 
 Landing `seder.html` → name signup → diagnostic is unchanged. No L0 glyph
 banks, no self-rate `check` probes, `DIAGNOSTIC_PROBE_CAP` stays 6.
+
+## 2026-09-10 — thicken nine remaining 3-item starter banks (L3–L5 + L7)
+
+After pull of `main` @ `75b1e4c`, the only starter banks still at 3 items (non-L0) were:
+
+- L3: `fnd-role-example`, `fnd-role-quotation-bounds`
+- L4: `fnd-case-actors`, `fnd-case-restate`, `fnd-case-uncertainty`
+- L5: `fnd-arg-claim`, `fnd-arg-evidence-role`, `fnd-arg-unresolved`
+- L7: `fnd-context-genre-expectations`
+
+Each got a fourth source-grounded recognition item (Hebrew on the page, 4 choices, no length-bias) and a tighter See-it so the first ask is fair. No L0 `fnd-decode-*` banks. Teach-before-ask skip for the old peer-lane six was removed; those banks now sit in the same guard as the rest.
+
