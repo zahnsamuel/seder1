@@ -122,9 +122,9 @@
       "why": "Both children sit on the L5 frontier; alphabetical id prefers resolve-distinction over unresolved."
     },
     "liveFullGraphAfterResponseClosure": {
-      "todayPicks": "fnd-signal-sentence-structure",
-      "afterSplitPicks": "fnd-signal-sentence-structure",
-      "why": "Unscoped picker sorts by layer then id; frozen L2 still wins. Implementing the child would not move live Today."
+      "todayPicks": "fnd-role-ruling-vs-discussion",
+      "afterSplitPicks": "fnd-role-ruling-vs-discussion",
+      "why": "After #30 the live picker is starter-scoped. Lowest-layer unsecured starter skill after the arg-response closure is L3 fnd-role-ruling-vs-discussion. An L5 child would not move live Today."
     }
   },
   "genreGap": "All four remode targets are Gemara. Author one new DISTINCTION ANSWER step in a non-Gemara unit before shipping. Do not remode an existing COMPARISON step. Do not edit data/foundation-authored-items.json."

@@ -235,6 +235,12 @@
       "setting": "A psalm line of image beside a code-style claim — poetry invites resonance; a code invites precision.",
       "sourceUrl": "https://www.sefaria.org/Psalms.23.1"
     },
+    "A dispute closed with teiku": {
+      "hebrew": "מַאי? תֵּיקוּ",
+      "translation": "What is the law? The dilemma shall stand unresolved.",
+      "setting": "A Gemara dispute on Bava Metzia 21a that closes with this marker — the question is left standing, not decided.",
+      "sourceUrl": "https://www.sefaria.org/Bava_Metzia.21a"
+    },
     "A source with several undecided views": {
       "hebrew": "אֵלּוּ וָאֵלּוּ דִּבְרֵי אֱלֹהִים חַיִּים",
       "translation": "These and those are the words of the living God.",

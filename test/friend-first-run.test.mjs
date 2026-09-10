@@ -78,12 +78,12 @@ test('friend click path: academy session is See-it then ask on this page, then b
   assert.match(html, /YOUR QUESTION/);
   assert.match(html, /ON THIS PAGE/);
   assert.match(html, /Look up later \(optional\)/);
-  assert.match(html, /Continue to Today/);
+  assert.match(html, /Continue on Today/);
   assert.match(html, /href="daily-router.html"/);
   assert.doesNotMatch(html, /path\.html/);
   assert.doesNotMatch(html, /Open full text in Sefaria/);
   assert.match(js, /hideOutbound/);
-  assert.match(js, /Continue to Today/);
+  assert.match(js, /Continue on Today/);
   assert.doesNotMatch(lesson, /sefaria\.org\/search/);
   assert.doesNotMatch(lesson, /TODAY’S SOURCE WINDOW|TODAY'S SOURCE WINDOW/);
 });
