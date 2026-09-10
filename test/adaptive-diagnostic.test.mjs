@@ -69,7 +69,8 @@ test('diagnostic.js drives the stateless estimator and seeds through the placeme
   assert.ok(!/\[id, 1\]|\[id, 1\.0\]/.test(js), 'a single placement item must not seed a perfect 1.0');
   // Placement hands the learner to Today; Today opens decode drills or the scaffolded lesson.
   assert.match(js, /begin\.href = 'daily-router\.html'/);
-  assert.match(html, /See today’s lesson/);
+  assert.match(html, /Start today’s lesson/);
+  assert.match(html, /id="results-hint"/);
   assert.doesNotMatch(js, /academy-session\.html\?skill=/);
   assert.doesNotMatch(js, /foundationSkill=/);
   // Same frontier pick as Today (lowest layer, then id) — not a second leverage ranking.

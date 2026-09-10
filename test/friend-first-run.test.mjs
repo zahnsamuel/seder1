@@ -35,8 +35,9 @@ test('friend click path: placement copy is a starting point, then one Today less
   assert.match(html, /Let’s find where to start/);
   assert.doesNotMatch(html, /knowledge frontier/i);
   assert.doesNotMatch(html, /The graph infers/);
-  assert.match(html, /See today’s lesson|Start today’s lesson/);
+  assert.match(html, /Start today’s lesson/);
   assert.match(html, /At most six checks/);
+  assert.match(html, /id="results-hint"/);
   assert.match(html, /href="daily-router.html"/);
   assert.match(html, /OPTIONAL · HOW OFTEN YOU STUDY/);
   assert.match(js, /begin\.href = 'daily-router\.html'/);

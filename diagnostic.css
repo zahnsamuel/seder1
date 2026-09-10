@@ -116,6 +116,7 @@
 .results p { max-width: 46ch; color: var(--jla-text-soft); line-height: 1.6; margin: 0; }
 .results-cando { color: var(--jla-accent-ink) !important; font-weight: 500; }
 .results-actions { display: flex; margin-top: 4px; }
+.results-hint { font-size: .88rem; }
 .quiet-link { margin: 0; }
 .quiet-link a {
   color: var(--jla-text-soft);
