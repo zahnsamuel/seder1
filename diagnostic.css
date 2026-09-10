@@ -33,6 +33,11 @@
   margin: 0;
   max-width: 46ch;
 }
+.intro .intro-cap {
+  margin-top: 12px;
+  color: var(--jla-accent-ink);
+  font-weight: 600;
+}
 
 .probe-shell {
   max-width: 640px;
@@ -112,7 +117,20 @@
 .results h2 { font-size: clamp(1.5rem, 3.2vw, 2rem); margin: 0; }
 .results p { max-width: 46ch; color: var(--jla-text-soft); line-height: 1.6; margin: 0; }
 .results-cando { color: var(--jla-accent-ink) !important; font-weight: 500; }
-.results-actions { display: flex; margin-top: 4px; }
+.results-actions { display: flex; margin-top: 8px; width: 100%; }
+.results-actions .jla-btn {
+  min-height: 52px;
+  font-size: 1.08rem;
+  font-weight: 800;
+  padding: 16px 28px;
+  box-shadow: var(--jla-shadow-1);
+}
+.results-hint {
+  margin: 0 !important;
+  color: var(--jla-accent-ink) !important;
+  font-weight: 600;
+  font-size: 1rem !important;
+}
 .quiet-link { margin: 0; }
 .quiet-link a {
   color: var(--jla-text-soft);

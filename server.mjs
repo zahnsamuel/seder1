@@ -11,8 +11,7 @@ import { loadJlaAcademySession, checkJlaAcademyChoice } from './jla-academy-sess
 import { canMasterJourneyStage, canonJourney, journeyStatus, nextGemaraArc, nextGraphPractice, nextJourneyRecommendation, remediationFor, sourceReviewItems } from './data/curriculum-engine.mjs';
 import { explainRecommendation, whySentence } from './data/recommendation-why.mjs';
 import { foundationRecommendation, gemaraYearRecommendation, moedExpansionRecommendation } from './data/term-recommendations.mjs';
-import { keyPrerequisiteRemediation, estimateFrontierFromDiagnostic, nextDiagnosticProbe } from './data/knowledge-graph.mjs';
-import { probeableSkillIds, pickDiagnosticItem, diagnosticTeachFor } from './data/diagnostic-items.mjs';
+import { keyPrerequisiteRemediation, estimateFrontierFromDiagnostic, nextDiagnosticProbe, DIAGNOSTIC_PROBE_CAP } from './data/knowledge-graph.mjs';
 import { computeGraphPilotAnalytics } from './data/pilot-analytics.mjs';
 import { citedSkillId, foundationFrontierRecommendation, foundationRetrievalRecommendation, normalizeNextAction, resolveFoundationSkillId, selectNextAction, STARTER_SKILL_IDS } from './data/next-action.mjs';
 import { resolvePlacementStart } from './jla-placement-router.js';
@@ -84,23 +83,6 @@ async function readJsonBody(request) {
 }
 
 let cachedFoundationGraph = null, cachedKpLayer = null, cachedGraphSkills = null, cachedContentMap = null, cachedGraduationMap = null;
-let cachedAuthoredItems = null, cachedFoundationTeach = null;
-
-async function loadAuthoredItems() {
-  if (!cachedAuthoredItems) {
-    const data = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-authored-items.json'), 'utf8'));
-    cachedAuthoredItems = data.items || {};
-  }
-  return cachedAuthoredItems;
-}
-
-async function loadFoundationTeach() {
-  if (!cachedFoundationTeach) {
-    cachedFoundationTeach = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-teach.json'), 'utf8'));
-  }
-  return cachedFoundationTeach;
-}
-
 async function loadFoundationGraph() {
   if (!cachedFoundationGraph) {
     cachedFoundationGraph = JSON.parse(await fs.readFile(join(root, 'data', 'foundation-skill-graph.json'), 'utf8'));
@@ -384,29 +366,23 @@ async function handleApi(request, response, url) {
   }
   // Adaptive diagnostic as a knowledge-frontier estimator (The Math Academy Way). Stateless graph
   // computation: POST the responses so far ({ responses: { skillId: passed } }); get the current
-  // frontier estimate plus the next skill to probe as a real authored MC (never a self-rate), or
-  // complete:true when the frontier is pinned. Only skills with an authored item are probed; L0
-  // decode is skipped (no invented glyph banks). Downward inference still fills the rest.
+  // frontier estimate plus the next skill to probe (with its check), or complete:true when the
+  // frontier is pinned or the first-day probe cap is hit. Downward inference still fills the rest.
+  // Merge-after-#50: keep maxProbes on this call (`{ probeable, maxProbes: DIAGNOSTIC_PROBE_CAP }`)
+  // and keep maxProbes in the JSON so the client can show "Check N of 6".
   if (request.method === 'POST' && url.pathname === '/api/graph/diagnostic') {
     const body = await readJsonBody(request);
     const responses = (body && typeof body.responses === 'object' && body.responses) || {};
-    const graph = await loadFoundationGraph();
-    const items = await loadAuthoredItems();
-    const teachFile = await loadFoundationTeach();
-    const probeable = probeableSkillIds(graph, items);
+    if (!cachedGraphSkills) cachedGraphSkills = (await loadFoundationGraph()).skills;
+    const graph = { skills: cachedGraphSkills };
     const estimate = estimateFrontierFromDiagnostic(graph, responses);
-    const probeId = nextDiagnosticProbe(graph, responses, { probeable });
-    const probe = probeId ? graph.skills.find((s) => s.id === probeId) : null;
-    const item = probeId ? pickDiagnosticItem(probeId, items, Object.keys(responses).length) : null;
+    const probeId = nextDiagnosticProbe(graph, responses, { maxProbes: DIAGNOSTIC_PROBE_CAP });
+    const probe = probeId ? cachedGraphSkills.find((s) => s.id === probeId) : null;
     sendJson(response, 200, {
       estimate: { known: estimate.known, frontier: estimate.frontier, tested: estimate.tested },
-      nextProbe: probe && item ? {
-        id: probe.id,
-        title: probe.title,
-        teach: diagnosticTeachFor(probe.id, teachFile),
-        item
-      } : null,
-      complete: !(probe && item)
+      nextProbe: probe ? { id: probe.id, title: probe.title, statement: probe.statement, check: (probe.checks || [])[0] } : null,
+      complete: !probeId,
+      maxProbes: DIAGNOSTIC_PROBE_CAP
     });
     return true;
   }

@@ -7,7 +7,7 @@
     if (hasProgress || localStorage.getItem(key) || document.querySelector('.onboarding')) return;
     const panel = document.createElement('section');
     panel.className = 'onboarding';
-    panel.innerHTML = `<p>WELCOME</p><h2>Here’s how this works.</h2><ol><li><b>1. Pick a name.</b> No email, no password — just something to save your progress.</li><li><b>2. Answer a few questions.</b> We’ll start you in the right place, not too hard and not too easy.</li><li><b>3. Do one short lesson.</b> See it on the page, then answer. That’s the whole first visit.</li></ol><div><a href="diagnostic.html">Find where to start →</a><button type="button">Got it</button></div>`;
+    panel.innerHTML = `<p>WELCOME</p><h2>Here’s how this works.</h2><ol><li><b>1. Pick a name.</b> No email, no password — just something to save your progress.</li><li><b>2. Answer a few questions.</b> At most six short checks — not a quiz. We’ll start you in the right place.</li><li><b>3. Do one short lesson.</b> See it on the page, then answer. That’s the whole first visit.</li></ol><div><a href="diagnostic.html">Find where to start →</a><button type="button">Got it</button></div>`;
     const hero = document.querySelector('.hero');
     if (hero) hero.after(panel);
     panel.querySelector('button').onclick = () => { localStorage.setItem(key, 'true'); panel.remove(); };

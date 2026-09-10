@@ -74,6 +74,27 @@ test('diagnostic API probes fnd- skills, never graduation-slice ids', async () =
   assert.equal(typeof data.nextProbe.item.correct, 'number');
   assert.doesNotMatch(JSON.stringify(data.nextProbe), /Could you do this reliably/);
   assert.ok((data.estimate.frontier || []).every((id) => id.startsWith('fnd-')));
+  assert.equal(data.maxProbes, 6);
+  assert.equal(data.complete, false);
+});
+
+test('first-day diagnostic API completes at the probe cap', async () => {
+  const responses = {};
+  let last = null;
+  for (let i = 0; i < 12; i++) {
+    last = await (await fetch(`${base}/api/graph/diagnostic`, {
+      method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ responses })
+    })).json();
+    assert.equal(last.maxProbes, 6);
+    if (last.complete || !last.nextProbe) break;
+    assert.match(last.nextProbe.id, /^fnd-/);
+    responses[last.nextProbe.id] = false;
+  }
+  assert.ok(last);
+  assert.equal(last.complete, true);
+  assert.equal(last.nextProbe, null);
+  assert.ok(Object.keys(responses).length <= 6, `asked ${Object.keys(responses).length}`);
+  assert.ok((last.estimate.frontier || []).length > 0);
 });
 
 test('a placed beginner next-action cites the same fnd- start as the placement CTA', async () => {
