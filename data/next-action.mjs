@@ -148,9 +148,7 @@ export function foundationFrontierRecommendation(learner, graph, map, options = 
   return {
     kind: 'academy-foundation',
     title: next.title,
-    reason: next.statement
-      ? `${next.statement} About 15 minutes — you’ll see it, then answer a question.`
-      : 'One short lesson: see it on the page, then answer a question.',
+    reason: 'About 15 minutes — you’ll see a short source, then answer a few questions.',
     url: foundationSessionHref(next.id),
     skillId: next.id,
     foundation: true,

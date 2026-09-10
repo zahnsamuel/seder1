@@ -43,6 +43,7 @@ test('lesson 1 → lesson 2 chrome is one skill, See-it → ask, Continue on Tod
   assert.match(html, /YOUR QUESTION/);
   assert.match(html, /Got it — ask me|id="advance"/);
   assert.match(html, /Continue on Today/);
+  assert.match(html, /Today has the next short lesson if you want it/);
   assert.match(html, /id="complete-next"[^>]*href="daily-router\.html"/);
   assert.doesNotMatch(html, /data-links='[^']*path\.html/);
   assert.doesNotMatch(html, /Back to your path/);

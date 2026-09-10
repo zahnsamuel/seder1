@@ -33448,6 +33448,7 @@ Fix:
 Landing `seder.html` → name signup → diagnostic is unchanged. No L0 glyph
 banks, no self-rate `check` probes, `DIAGNOSTIC_PROBE_CAP` stays 6.
 
+<<<<<<< HEAD
 ## 2026-09-10 — thicken nine remaining 3-item starter banks (L3–L5 + L7)
 
 After pull of `main` @ `75b1e4c`, the only starter banks still at 3 items (non-L0) were:
@@ -33499,3 +33500,29 @@ Away-day draft off PR #62 tip (`cursor/thicken-l1-l2-starter-banks-c4a1` @ `f348
 Still at 4 after this slice: `fnd-arg-objection`, `fnd-arg-response`, `fnd-arg-unresolved`. Light See-it edit only for `fnd-role-example` (adds "a booth that is higher than"). No L0 `fnd-decode-*` banks. No Today/diagnostic chrome. Guard: `test/foundation-l3-l8-banks.test.mjs` (≥5).
 
 
+=======
+## 2026-09-10 — Cursor: friend 0→1 Today ↔ academy-session handoff (away-day draft)
+
+Copy/chrome only. No mastery math, no bank rewrites, L0 decode banks still held.
+
+Colleague-demo friction after placement: Today promised “one question,” the
+session has three short checks, results said “THIS CAPABILITY / Emerging: can
+make the move with support,” and returning to Today reused “Start this lesson”
+as if the first one had not happened.
+
+After:
+
+- Today reason: “About 15 minutes — you’ll see a short source, then answer a
+  few questions.” (no unearned “You can…” statement)
+- Today hint names the loop: see it, answer, come back here. After a finished
+  skill, CTA becomes “Start the next lesson”
+- Loading CTA on Today is “Start this lesson,” not “Open Today”
+- Lesson complete: “LESSON DONE” + “Today has the next short lesson if you
+  want it.” Emerging chip stays hidden; Secure still shows. Academy link is
+  “See your progress later”
+- Real-source accordion waits until complete so it does not compete with See-it
+- Duplicate chip sublabels (“See it see it”) hidden
+
+Contract pins in `test/friend-first-run.test.mjs`. Teach-before-ask and
+Got it — ask me unchanged.
+>>>>>>> origin/cursor/friend-first-run-handoff-79f8
