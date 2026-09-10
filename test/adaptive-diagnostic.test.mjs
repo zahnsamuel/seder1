@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { estimateFrontierFromDiagnostic, nextDiagnosticProbe, DIAGNOSTIC_PROBE_CAP } from '../data/knowledge-graph.mjs';
+import { estimateFrontierFromDiagnostic, nextDiagnosticProbe } from '../data/knowledge-graph.mjs';
 
 const html = await readFile(new URL('../diagnostic.html', import.meta.url), 'utf8');
 const js = await readFile(new URL('../diagnostic.js', import.meta.url), 'utf8');
@@ -9,7 +9,7 @@ const graph = JSON.parse(await readFile(new URL('../data/foundation-skill-graph.
 const layerOf = (id) => graph.skills.find((s) => s.id === id)?.layer ?? 99;
 
 test('adaptive diagnostic page has the probe loop, gauge, results and rhythm surfaces', () => {
-  for (const marker of ['id="probe-shell"', 'id="gauge-fill"', 'id="answers"', 'id="results"', 'data-rhythm="daily"']) {
+  for (const marker of ['id="probe-shell"', 'id="gauge-fill"', 'id="answers"', 'id="results"', 'data-rhythm="daily"', 'id="probe-stem"', 'id="probe-continue"', 'id="probe-teach"']) {
     assert.match(html, new RegExp(marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   }
   assert.match(html, /src="diagnostic\.js/);
@@ -20,6 +20,21 @@ test('adaptive diagnostic page has the probe loop, gauge, results and rhythm sur
   assert.doesNotMatch(html, /placement\.html/);
 });
 
+test('placement asks a real check, not a self-rate', () => {
+  assert.doesNotMatch(html, /Could you do this reliably right now\?/);
+  assert.doesNotMatch(html, /honest self-checks/);
+  assert.doesNotMatch(html, /WHAT THAT LOOKS LIKE/);
+  assert.doesNotMatch(html, /over-claiming/);
+  assert.doesNotMatch(js, /Yes — I can do this reliably/);
+  assert.doesNotMatch(js, /Not reliably yet/);
+  assert.doesNotMatch(js, /Judge honestly whether you can do this/);
+  assert.match(html, /A few short questions about a source/);
+  assert.doesNotMatch(html, /what you can do today/);
+  assert.match(js, /probe\.item/);
+  assert.match(js, /shuffleChoices\(item\.choices, item\.correct\)/);
+  assert.match(js, /responses\[pending\.id\] = pending\.passed/);
+});
+
 test('diagnostic results push one next CTA on the shared shell, not a menu of destinations', () => {
   for (const sharedUi of ['class="jla"', 'id="jla-shell-mount"', 'jla-system.css', 'capability-state.js', 'jla-shell.js']) {
     assert.match(html, new RegExp(sharedUi.replace(/[.?]/g, '\\$&')));
@@ -27,11 +42,6 @@ test('diagnostic results push one next CTA on the shared shell, not a menu of de
   assert.match(html, /class="jla-main"/);
   assert.match(html, /id="results-begin" class="jla-btn jla-btn-primary"/);
   assert.equal((html.match(/id="results-begin"/g) || []).length, 1);
-  assert.match(html, /Start today’s lesson/);
-  assert.match(html, /id="results-hint"/);
-  assert.match(html, /One short lesson\. That’s the whole first day\./);
-  assert.ok(html.indexOf('id="results-begin"') < html.indexOf('id="results-hint"'));
-  assert.ok(html.indexOf('id="results-hint"') < html.indexOf('id="results-grid"'));
   assert.doesNotMatch(html, /results-secondary|results-continue/);
   assert.match(html, /<details class="results-map">/);
   assert.match(html, /<summary>See the foundation map<\/summary>/);
@@ -48,24 +58,20 @@ test('diagnostic CSS honours hidden so results never compete with the current pr
   assert.match(css, /\.results\[hidden\][\s\S]*display:\s*none/);
   assert.match(css, /\.probe-shell\[hidden\][\s\S]*display:\s*none/);
   assert.match(css, /\.intro\[hidden\][\s\S]*display:\s*none/);
-  assert.match(css, /\.results-actions \.jla-btn[\s\S]*min-height:\s*52px/);
-  assert.match(css, /\.results-hint/);
 });
 
 test('diagnostic.js drives the stateless estimator and seeds through the placement path', () => {
   assert.match(js, /\/api\/graph\/diagnostic/);
-  assert.match(js, /responses\[probe\.id\] = option\.passed/);
+  assert.match(js, /responses\[pending\.id\] = pending\.passed/);
   assert.match(js, /type: 'placement_completed'/);
-  // self-report seeds at a provisional secure level, never a graded 1.0
+  // a single placement item seeds at a provisional secure level, never a graded 1.0
   assert.match(js, /\[id, 0\.8\]/);
-  assert.ok(!/\[id, 1\]|\[id, 1\.0\]/.test(js), 'self-report must not seed a perfect 1.0');
+  assert.ok(!/\[id, 1\]|\[id, 1\.0\]/.test(js), 'a single placement item must not seed a perfect 1.0');
   // Placement hands the learner to Today; Today opens decode drills or the scaffolded lesson.
   assert.match(js, /begin\.href = 'daily-router\.html'/);
-  assert.match(js, /Start today’s lesson/);
-  assert.match(html, /Start today’s lesson/);
+  assert.match(html, /See today’s lesson/);
   assert.doesNotMatch(js, /academy-session\.html\?skill=/);
   assert.doesNotMatch(js, /foundationSkill=/);
-  assert.doesNotMatch(js, /hebrew-decoding\.html/);
   // Same frontier pick as Today (lowest layer, then id) — not a second leverage ranking.
   assert.match(js, /a\.skill\.layer - b\.skill\.layer \|\| a\.id\.localeCompare\(b\.id\)/);
   assert.doesNotMatch(js, /b\.lev - a\.lev/);
@@ -75,36 +81,6 @@ test('diagnostic.js drives the stateless estimator and seeds through the placeme
   assert.match(js, /not a score/);
   assert.doesNotMatch(js, /permanent level/);
   assert.match(js, /already look secure/);
-});
-
-test('first-day placement chrome is a few checks, not a long quiz or skill-count gauge', () => {
-  assert.equal(DIAGNOSTIC_PROBE_CAP, 6);
-  assert.match(html, /At most six checks\. Then one lesson today\./);
-  assert.match(html, /Check 1 of 6/);
-  assert.match(html, /A few short checks/);
-  assert.match(html, /A FEW CHECKS/);
-  assert.match(html, /TODAY’S LESSON/);
-  assert.doesNotMatch(html, /Question 1/);
-  assert.doesNotMatch(html, /A FEW QUESTIONS/);
-  assert.doesNotMatch(js, /\$\{mapped\.size\} of \$\{total\}/);
-  assert.match(js, /PROBE_CAP = 6/);
-  assert.match(js, /Check \$\{shown\} of \$\{maxProbes\}/);
-  assert.match(js, /Object\.keys\(responses\)\.length >= maxProbes/);
-  assert.match(js, /Today’s lesson:/);
-});
-
-test('capped first-day probes still land a complete beginner on the decode start', () => {
-  const responses = {};
-  for (let i = 0; i < graph.skills.length + 5; i++) {
-    const probe = nextDiagnosticProbe(graph, responses, { maxProbes: DIAGNOSTIC_PROBE_CAP });
-    if (!probe) break;
-    responses[probe] = false;
-  }
-  assert.ok(Object.keys(responses).length <= DIAGNOSTIC_PROBE_CAP);
-  const { frontier } = estimateFrontierFromDiagnostic(graph, responses);
-  const start = frontier.map((id) => graph.skills.find((s) => s.id === id)).filter(Boolean)
-    .sort((a, b) => a.layer - b.layer || a.id.localeCompare(b.id))[0];
-  assert.equal(start?.id, 'fnd-decode-letters');
 });
 
 test('the estimator pins a mid-graph frontier in far fewer questions than there are skills, inferring prerequisites', () => {
