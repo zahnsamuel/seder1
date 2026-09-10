@@ -9,8 +9,12 @@ merge list.
 
 Verified live on GitHub **2026-09-10** against `main`
 `75b1e4c` (merge of [#58](https://github.com/zahnsamuel/seder1/pull/58)).
-Open PRs at that scan: **one draft**, [#59](https://github.com/zahnsamuel/seder1/pull/59).
-Independently `MERGEABLE` / `CLEAN` vs current `main`.
+Open drafts at the later scan: [#59](https://github.com/zahnsamuel/seder1/pull/59)
+(3→4 banks), stacked [#62](https://github.com/zahnsamuel/seder1/pull/62)
+(4→5 earliest banks), sibling [#61](https://github.com/zahnsamuel/seder1/pull/61)
+(friend-path chrome), and this brief [#60](https://github.com/zahnsamuel/seder1/pull/60).
+#59, #61, and #62 are `MERGEABLE` / `CLEAN` vs `main` (#62 because it
+already contains #59).
 
 Companion: [`docs/skill-graph-north-star.md`](skill-graph-north-star.md).
 
@@ -70,10 +74,9 @@ transfer items) is still staging. L0 decode banks are still held.
 
 ## Full open pile — recommended merge order when Sam returns
 
-Start with **#59** if it is still open. Then this brief. Then any
-sibling away-day drafts that land later today (fill the TODO section
-below; rebase anything that shares `data/foundation-authored-items.json`
-onto #59).
+Start with **#59** if it is still open. Then **#62** (stacked 4→5 on
+#59 — do not merge #62 instead of reviewing #59). Then **#61** (chrome;
+no bank files). Then this brief (#60) whenever.
 
 ### 1. Merge first: [#59](https://github.com/zahnsamuel/seder1/pull/59) (draft)
 
@@ -105,12 +108,67 @@ current `main` at the scan.
 
 Shared files later drafts will hit: `data/foundation-authored-items.json`,
 `data/foundation-teach.json`, `data/foundation-source-excerpts.json`,
-`test/teach-before-ask.test.mjs`, `docs/qa-intake.md`.
+`test/teach-before-ask.test.mjs`, `docs/qa-intake.md`. **#62 is already
+branched from this tip** (`8fbdca4`).
 
-### 2. This map: (this PR, draft)
+### 2. After #59 (stacked): [#62](https://github.com/zahnsamuel/seder1/pull/62) (draft)
+
+**Thicken nine earliest starter banks 4 → 5 items.**
+
+Branch `cursor/thicken-l1-l2-starter-banks-c4a1`, **off #59**, not off
+`main`. After #59, 24 non-L0 starters were still at 4. This takes the
+earliest path — L1 orient except `fnd-orient-source-type` (already 7)
+and all five L2 signal skills — to 5. Does **not** re-thicken #59’s
+nine L3–L7 skills (those stay at 4).
+
+| Skill | New fifth item |
+|---|---|
+| `fnd-orient-page-geography` | Rashi on Genesis 1:1 — side column that quotes a word vs the verse |
+| `fnd-orient-speaker` | Psalm 23:1 — named psalmist vs God |
+| `fnd-orient-unit-boundary` | Mishnah Bava Metzia 1:1 — all-vs-all vs all-vs-half |
+| `fnd-orient-question-present` | Genesis 1:1 — telling, not asking |
+| `fnd-signal-known-words` | Mishnah Berakhot 1:1 — `אוֹמֵר` as “says” |
+| `fnd-signal-question-words` | Mishnah Berakhot 1:1 — `לָמָה` wants a reason |
+| `fnd-signal-name-formulas` | Mishnah Berakhot 1:1 — `דִּבְרֵי רַבִּי אֱלִיעֶזֶר` |
+| `fnd-signal-connectors` | Berakhot 2a — `וְתוּ` as an adding connector |
+| `fnd-signal-quotation` | Berakhot 2a — `דִּכְתִיב` plus Genesis 1:5 |
+
+Light See-it edits on question-words and name-formulas only. New guard
+`test/foundation-l1-l2-banks.test.mjs`. No L0 banks, no self-rate, no
+Today / diagnostic chrome.
+
+**Merge #59 first, then this.** Merging #62 to `main` without #59 would
+still land #59’s commits (it is stacked) and leave #59 looking empty —
+review them as two diffs. GitHub: `MERGEABLE` / `CLEAN` vs `main`
+because the stack already includes #59.
+
+### 3. After #59 (product, not files): [#61](https://github.com/zahnsamuel/seder1/pull/61) (draft)
+
+**Clarify the friend 0→1 Today ↔ lesson handoff.** Copy/chrome only.
+
+Branch `cursor/friend-first-run-handoff-79f8`. After placement, Today
+names a short source-then-questions lesson (**Start this lesson →**),
+academy complete says **LESSON DONE** + **Continue on Today**, and a
+finished skill makes Today offer **Start the next lesson** instead of
+repeating the first CTA. Real-source accordion waits until complete.
+**Got it — ask me** and teach-before-ask are unchanged. No mastery math,
+no item banks, no L0 banks, no diagnostic API.
+
+Files: `daily-router.html`, `jla-next-action.js`, `data/next-action.mjs`,
+`academy-session.html` / `.js` / `.css`, `test/friend-first-run.test.mjs`,
+`test/academy-session.test.mjs`, `test/lesson-two-today.test.mjs`,
+`docs/qa-intake.md`.
+
+**No shared product files with #59 or #62.** Slot after #59 so the
+restored `Psalm 19` / `Job 38:4` excerpts (which #61’s branch still
+reports as pre-existing reds on main, 716/719) are on the tree before
+the friend walk. Rebase only if `qa-intake.md` concatenates. GitHub:
+`MERGEABLE` / `CLEAN` vs current `main`.
+
+### 4. This map: [#60](https://github.com/zahnsamuel/seder1/pull/60) (draft)
 
 Docs only. Merge whenever you want the away-day map on main. Expect a
-keep-both on `docs/qa-intake.md` if #59 or a sibling also appended.
+keep-both on `docs/qa-intake.md` if #59 / #61 / #62 also appended.
 
 ---
 
@@ -167,23 +225,21 @@ Closed this sitting, do not resurrect:
 
 ---
 
-## Sibling away-day PRs — fill in as they land
+## Sibling away-day PRs — later arrivals
 
-Three Cursor away-day agents were launched together on **2026-09-10**.
-This brief is one of them. The other two had **no pull request yet** at
-the scan (agents still running). Leave this section as the slot they
-(or Sam) fill. Do not invent PR numbers.
+Three Cursor away-day agents launched together on **2026-09-10**. Both
+siblings opened while this brief was in flight and are filled in above.
+If anything else lands today, **update this table** rather than starting
+a second brief.
 
-If a sibling opens before this PR is reviewed, **update the table and
-the merge order above** rather than starting a second brief.
-
-| Expected draft | Agent | PR | Merge slot vs #59 | Shared files |
+| Draft | Agent | PR | Merge slot | Shared files |
 |---|---|---|---|---|
-| **This brief** | [Away-day merge brief 2026-09-10](https://cursor.com/agents/bc-72b2be74-ced6-4357-8b80-2d1f771111ab) | *this PR* | Anytime after or beside #59 (docs only) | `docs/qa-intake.md` (append-only) |
-| **Today / academy friend-path polish** | [Away-day: Today/academy friend-path polish](https://cursor.com/agents/bc-24c97d76-a77d-43dd-85d6-9360854d79f8) | **TODO: PR #____** — not open at scan | **TODO:** likely independent of #59 (chrome, not banks). Confirm files. Slot after #59 if `qa-intake.md` is the only overlap; rebase if academy-session / Today files also moved. | **TODO: list files** |
-| **Thicken early banks 4 → 5** | [Away-day: thicken 4→5 early banks](https://cursor.com/agents/bc-5a6900a8-080e-4ef6-b71d-7fd4871bc4a1) | **TODO: PR #____** — not open at scan | **TODO: rebase onto #59.** Same `data/foundation-authored-items.json` (and likely teach JSON / teach-before-ask test). #59 owns the last 3-item L3–L7 banks; this sibling should deepen *early* banks already at 4 after #55, not re-thicken #59’s nine. Prefer #59’s fourth item on any overlapping skill. | **TODO: list files / overlapping `fnd-` ids** |
+| **This brief** | [Away-day merge brief 2026-09-10](https://cursor.com/agents/bc-72b2be74-ced6-4357-8b80-2d1f771111ab) | [#60](https://github.com/zahnsamuel/seder1/pull/60) | Anytime (docs only) | `docs/qa-intake.md` |
+| **Today / academy friend-path polish** | [Away-day: Today/academy friend-path polish](https://cursor.com/agents/bc-24c97d76-a77d-43dd-85d6-9360854d79f8) | [#61](https://github.com/zahnsamuel/seder1/pull/61) | After #59 for excerpts. No bank files. | Today / academy-session / next-action chrome + friend-path tests; `docs/qa-intake.md` |
+| **Thicken early banks 4 → 5** | [Away-day: thicken 4→5 early banks](https://cursor.com/agents/bc-5a6900a8-080e-4ef6-b71d-7fd4871bc4a1) | [#62](https://github.com/zahnsamuel/seder1/pull/62) | **After #59** (already stacked on #59 tip `8fbdca4`). L1/L2 only; does not rewrite #59’s nine L3–L7 fourth items. | `data/foundation-authored-items.json`, teach JSON, excerpts, teach-before-ask test, `test/foundation-l3-l7-banks.test.mjs` (from #59), new `test/foundation-l1-l2-banks.test.mjs` |
+| **Later arrivals** | — | **TODO: PR #____** | **TODO: slot vs #59 / #61 / #62** | **TODO: files** |
 
-Paste-ready for a sibling to drop in:
+Paste-ready for a later draft:
 
 ```
 ### N. After #59: [#__](https://github.com/zahnsamuel/seder1/pull/__) (draft)
@@ -191,17 +247,16 @@ Paste-ready for a sibling to drop in:
 **TODO: one-line product intent.**
 
 TODO: what changed, what it does not touch (Today / diagnostic / L0 / fat-bucket).
-TODO: rebase notes vs #59 and vs the other sibling.
+TODO: rebase notes vs #59, #61, #62.
 GitHub mergeability at last check: TODO.
 ```
 
-Conflicts to expect once those land:
+Conflicts:
 
 | Collision | Why | What to do |
 |---|---|---|
-| **#59 vs 4→5 sibling** | `data/foundation-authored-items.json` (and likely `foundation-teach.json`, excerpts, teach-before-ask test) | Merge **#59 first**. Rebase 4→5. Keep #59’s new fourth items on the nine L3–L7 skills. |
-| **#59 vs friend-path polish** | Probably none on product files; both may append `docs/qa-intake.md` | Keep-both / concatenate. Do not ship another duplicated log. |
-| **4→5 vs friend-path polish** | **TODO** if both edit academy-session or tests | Rebase the later one; chrome wins on copy, banks win on JSON. |
+| **#59 vs #62** | Same authored-items / teach / excerpts files; #62 is stacked on #59 | Merge **#59 first**, then #62. Do not merge #62 as a substitute for reviewing #59. No overlapping `fnd-` rewrites (#59 = L3–L7 3→4; #62 = L1–L2 4→5). |
+| **#59 / #62 vs #61** | Only `docs/qa-intake.md` on product-adjacent files | Keep-both / concatenate. Chrome vs banks do not share session files. |
 | Almost everyone | `docs/qa-intake.md` | Append-only; should merge. |
 
 ---
@@ -214,14 +269,17 @@ Conflicts to expect once those land:
 2. Merge **#59** (3→4 on the last thin non-L0 starter banks). Walk one
    of those nine skills in academy-session: See-it names the tell, then
    shuffled ask, Hebrew on the newest item.
-3. Fill the sibling table if PRs exist. Rebase the 4→5 bank PR onto
-   #59. Merge friend-path polish if it is chrome-only and green.
-4. Merge **this brief** whenever you want the map on main.
-5. Do **not** author L0 banks, do **not** live-split fat buckets, do
+3. Merge **#62** (4→5 on earliest L1/L2). Confirm it did not rewrite
+   #59’s nine L3–L7 fourth items.
+4. Merge **#61** (Today ↔ lesson chrome). Confirm Today says **Start
+   this lesson**, complete says **LESSON DONE**, and a second visit
+   offers **Start the next lesson**.
+5. Merge **#60** (this brief) whenever you want the map on main.
+6. Do **not** author L0 banks, do **not** live-split fat buckets, do
    **not** treat empty educator fields as done.
 
-Walk once after step 2 (and after polish if it landed): name signup →
-six-check placement → Today → decode skip or finish →
-`fnd-orient-source-type` See-it → Continue on Today. Confirm a hosted
+Walk once after step 4: name signup → six-check placement → Today →
+decode skip or finish → `fnd-orient-source-type` See-it → **Got it —
+ask me** → Continue on Today → next-lesson CTA. Confirm a hosted
 `/diagnostic.html` share still shows **Pick a name to start**, not
 session-expired.
