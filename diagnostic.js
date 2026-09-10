@@ -11,7 +11,8 @@ const esc = (value) => String(value == null ? '' : value).replace(/[&<>"']/g, (c
 
 const responses = {};      // skillId -> passed boolean, accumulated across probes
 let questionCount = 0;
-let maxProbes = 6; // DIAGNOSTIC_PROBE_CAP
+const PROBE_CAP = 6; // keep in sync with DIAGNOSTIC_PROBE_CAP
+let maxProbes = PROBE_CAP;
 let done = false;          // once the result is shown, the diagnostic is terminal — no late probe may reappear
 let graph = null;
 let total = 53;            // graph skill count, for the "mapped" gauge; refined once the graph loads
@@ -203,7 +204,7 @@ function renderResults(estimate, start) {
     return `<article class="tone-${tone}"><span>${layer.n}. ${esc(layer.title)}</span><strong>${status}</strong></article>`;
   }).join('');
   const begin = $('#results-begin');
-  if (begin) begin.href = 'daily-router.html';
+  if (begin) { begin.href = 'daily-router.html'; begin.textContent = 'Start today’s lesson →'; }
   bindRhythm();
 }
 

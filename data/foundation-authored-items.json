@@ -442,7 +442,7 @@
     "fnd-signal-connectors": [
       {
         "sourceRef": "Gemara Berakhot 2b",
-        "stem": "A line hinges on the connector אֶלָּא (\"rather\"). What move does it signal?",
+        "stem": "A discussion line turns on the connector אֶלָּא (\"rather\"):\n\nוְעוֹד · אֶלָּא · שֶׁנֶּאֱמַר\n\"and further · rather · as it is said.\"\n\nWhat does אֶלָּא signal here?",
         "choices": [
           "A correction that replaces the prior explanation.",
           "An added example supporting the prior point.",
@@ -450,43 +450,43 @@
           "A plain restatement of the same claim."
         ],
         "correct": 0,
-        "feedback": "אלא marks a corrective turn; the text is rejecting what came before and substituting a new reading."
+        "feedback": "אלא marks a corrective turn: the text rejects what came before and substitutes a new reading. Sorting connectors into adding, opposing, or citing reveals the argument's shape."
       },
       {
-        "sourceRef": "Gemara Berakhot 2b",
-        "stem": "You meet שֶׁנֶּאֱמַר (\"as it says\"). What kind of connector is this?",
+        "sourceRef": "Rashi on Genesis 1:1",
+        "stem": "Commentary on the opening word reads:\n\nבְּרֵאשִׁית — אֵין הַמִּקְרָא הַזֶּה אוֹמֵר אֶלָּא דָּרְשֵׁנִי\n\"'In the beginning' — this verse says nothing other than 'interpret me.'\"\n\nWhat is אֶלָּא (\"rather / other than\") doing in this line?",
         "choices": [
-          "A citing connector introducing a proof text.",
-          "An opposing connector raising an objection.",
-          "An adding connector piling on another case.",
-          "A concluding connector stating the ruling."
+          "Narrowing the sense: the verse means this, not something else.",
+          "Opening a question that still needs an answer from the reader.",
+          "Handing the next words to a newly named sage as his view.",
+          "Closing the whole book with a court-style final ruling."
         ],
         "correct": 0,
-        "feedback": "שנאמר introduces a citation; sorting connectors into adding, opposing, or citing reveals the argument's shape."
+        "feedback": "Here אלא restricts: \"nothing other than.\" The connector does not add an example or cite a second verse; it narrows what the word is allowed to mean."
       },
       {
-        "sourceRef": "Gemara Berakhot 2b",
-        "stem": "A line uses the connector תָּא שְׁמַע (\"come and hear\") to bring in another source. What is that connector doing?",
+        "sourceRef": "Rambam, Hilchot Deot 1:4",
+        "stem": "A code about character says:\n\nהַדֶּרֶךְ הַיְשָׁרָה הִיא מִדָּה בֵינוֹנִית · לְפִיכָךְ צִוּוּ חֲכָמִים\n\"The straight way is the middle measure; therefore the sages commanded…\"\n\nWhat does לְפִיכָךְ (\"therefore\") signal?",
         "choices": [
-          "Bringing evidence to test the point under discussion.",
-          "Closing the discussion with a final ruling.",
-          "Changing the subject to an unrelated matter.",
-          "Repeating the previous sentence word for word."
+          "A conclusion drawn from the point just stated.",
+          "An objection that undercuts the point just stated.",
+          "A change of speaker to a different named sage.",
+          "A quotation of a verse with no further comment."
         ],
         "correct": 0,
-        "feedback": "תָּא שְׁמַע (\"come and hear\") introduces a source as evidence; the connector tells you a proof or challenge follows."
+        "feedback": "לפיכך is a concluding connector: because the middle path is the straight way, the sages therefore commanded people to aim at it. It adds a consequence, not an objection or a citation."
       },
       {
-        "sourceRef": "Gemara Berakhot 2b",
-        "stem": "A discussion uses the connector וְעוֹד (\"and further\") before bringing another point:\n\nוְעוֹד · אֶלָּא · שֶׁנֶּאֱמַר\n\"and further · rather · as it is said.\"\n\nWhat move does וְעוֹד signal?",
+        "sourceRef": "Pirkei Avot 3:2",
+        "stem": "A teaching continues:\n\nשֶׁנֶּאֱמַר וְאָכַלְתָּ וְשָׂבָעְתָּ וּבֵרַכְתָּ · מִכָּאן אָמְרוּ\n\"as it is said: 'you shall eat and be satisfied and bless' · from here they said.\"\n\nWhat kind of connector is שֶׁנֶּאֱמַר (\"as it is said\")?",
         "choices": [
-          "An added point stacked onto what came before.",
-          "A correction that replaces the prior explanation.",
-          "A citation of a proof text from Scripture.",
-          "A closing ruling that ends the discussion."
+          "A citing connector: the next words are brought as a proof text.",
+          "An opposing connector raising an objection to the last line.",
+          "An adding connector that only piles on another example.",
+          "A concluding connector that states a court ruling."
         ],
         "correct": 0,
-        "feedback": "וְעוֹד (\"and further\") adds. Contrast אֶלָּא (\"rather\"), which replaces, and שֶׁנֶּאֱמַר (\"as it is said\"), which cites. The connector is the turn signal."
+        "feedback": "שנאמר introduces borrowed words from Scripture. Bracket what follows as a citation, then notice \"from here they said\" as the teaching built on that verse."
       }
     ],
     "fnd-signal-quotation": [
@@ -668,39 +668,51 @@
     "fnd-role-ruling-vs-discussion": [
       {
         "sourceRef": "Shulchan Aruch, Orach Chaim 1:1",
-        "stem": "A line states plainly what a person should do, closing off the alternatives. Is this ruling or discussion?",
+        "stem": "Read this line:\n\nיִתְגַּבֵּר כָּאֲרִי לַעֲמוֹד בַּבֹּקֶר לַעֲבוֹדַת בּוֹרְאוֹ\n\"One should strengthen oneself like a lion to rise in the morning to serve his Creator.\"\n\nDoes this decide, or keep options open?",
         "choices": [
-          "A ruling, because it decides and closes options.",
-          "A discussion, because it explores possibilities.",
-          "A quotation with no position of its own.",
-          "A question that is still awaiting an answer."
+          "It decides: it tells you what to do and closes the alternatives.",
+          "It explores two named views and leaves both standing.",
+          "It only quotes a verse and offers no position of its own.",
+          "It asks a question that still needs an answer from you."
         ],
         "correct": 0,
-        "feedback": "A decision that closes options is a ruling; the deciding word is the tell."
+        "feedback": "A line that closes options and states what to do is a ruling. The tell is the deciding word, not how many names appear or which language is used."
       },
       {
         "sourceRef": "Gemara Eruvin 13b",
-        "stem": "A passage weighs two views and says \"these and those are the words of the living God\" (אֵלּוּ וָאֵלּוּ). This is...?",
+        "stem": "A passage weighs two readings and then says:\n\nאֵלּוּ וָאֵלּוּ דִּבְרֵי אֱלֹהִים חַיִּים\n\"These and those are the words of the living God.\"\n\nIs this ruling or discussion?",
         "choices": [
-          "Discussion that holds both views open.",
-          "A ruling that decides firmly between them.",
-          "A citation of a single Torah verse.",
-          "A restatement of one earlier line."
+          "Discussion: it holds more than one view open.",
+          "A ruling: it picks one view and closes the other.",
+          "A citation of a single Torah verse with no comment.",
+          "A restatement of one earlier line in new words."
         ],
         "correct": 0,
-        "feedback": "Elu va-elu keeps both readings alive; it explores rather than decides, so it is discussion."
+        "feedback": "Elu va-elu keeps both readings alive. It explores rather than decides, so the line is discussion — even though it is famous and strongly worded."
       },
       {
-        "sourceRef": "Shulchan Aruch, Orach Chaim 1:1",
-        "stem": "What is the quickest way to tell a ruling from a discussion?",
+        "sourceRef": "Mishnah Pesachim 1:1",
+        "stem": "A compact line of practice reads:\n\nאוֹר לְאַרְבָּעָה עָשָׂר בּוֹדְקִין אֶת הֶחָמֵץ\n\"On the eve of the fourteenth one searches for leaven.\"\n\nIs this line deciding a practice, or exploring several views?",
         "choices": [
-          "Ask whether the text decides or keeps options open.",
-          "Count how many separate sages are named.",
-          "Check whether Hebrew or Aramaic is used.",
-          "Measure how long the passage happens to be."
+          "It decides a practice: it states what is done and does not weigh rivals.",
+          "It holds two named schools open without choosing between them.",
+          "It is only a story about a feast and a mistaken guest.",
+          "It is a question that never states any practice at all."
         ],
         "correct": 0,
-        "feedback": "Decides means ruling, explores means discussion; that question is the discriminator."
+        "feedback": "The line states what is done at a time. That deciding shape is a ruling, not a discussion that leaves several views standing."
+      },
+      {
+        "sourceRef": "Bava Metzia 59b",
+        "stem": "In one passage this principle sits beside a long story about a dispute:\n\nלֹא בַשָּׁמַיִם הִיא\n\"It is not in heaven.\"\n\nHow should you label those two parts?",
+        "choices": [
+          "The principle decides; the story explores meaning and does not by itself close the law.",
+          "Both parts are identical rulings that you must follow in the same way.",
+          "Both parts are only stories, with no deciding language anywhere.",
+          "The story is the ruling, and the principle is only decoration around it."
+        ],
+        "correct": 0,
+        "feedback": "Ask of each block whether it decides or keeps options open. A principle can rule while a neighboring story still explores — label them separately."
       }
     ],
     "fnd-case-actors": [
@@ -743,40 +755,52 @@
     ],
     "fnd-case-what-happens": [
       {
-        "sourceRef": "Mishnah Bava Kamma 1:1",
-        "stem": "Before analyzing liability, what should you be able to say about a damages case?",
+        "sourceRef": "Mishnah Bava Metzia 1:1",
+        "stem": "Read this case:\n\nשְׁנַיִם אוֹחֲזִין בְּטַלִּית\n\"Two people are holding a garment.\"\n\nIn one plain sentence, what happens here?",
         "choices": [
-          "A one-sentence plain account of what happened.",
-          "The final ruling and its Torah source.",
-          "Every sage who has ever discussed it.",
-          "The Aramaic term for each action taken."
+          "Two people are both holding one garment, each treating it as theirs.",
+          "A court has already given the garment to a single owner.",
+          "A verse of the Torah is being copied onto the garment.",
+          "Two sages are debating who wrote the surrounding tractate."
         ],
         "correct": 0,
-        "feedback": "Tell the case as a plain one-sentence story before touching the legal question."
+        "feedback": "Tell the case as a plain one-sentence story before touching the legal question: two people, one object, both holding it. The rights question sits on that fact pattern."
       },
       {
         "sourceRef": "Gittin 55b",
-        "stem": "For the story of Kamtza and Bar Kamtza, stating \"what happens\" plainly means saying that...?",
+        "stem": "The story is introduced:\n\nאַקַּמְצָא וּבַר קַמְצָא חֲרוּב יְרוּשָׁלַיִם\n\"On account of Kamtza and Bar Kamtza, Jerusalem was destroyed.\"\n\nWhat happens in the story, in ordinary words?",
         "choices": [
           "A man is shamed at a feast after a mistaken invitation.",
-          "A ruling about invitations is finally decided.",
-          "A verse of the Torah is being expounded here.",
-          "An argument between two named sages is traced."
+          "A court issues a final ruling about party invitations.",
+          "Two named sages trade proof-texts about the calendar.",
+          "A verse is copied out and then explained word by word."
         ],
         "correct": 0,
-        "feedback": "Plain-language retelling captures the situation before any lesson is drawn from it."
+        "feedback": "Plain-language retelling captures the situation before any lesson is drawn: a mistaken guest is humiliated at a feast. Meaning and law come after that sentence, not instead of it."
       },
       {
-        "sourceRef": "Mishnah Bava Kamma 1:1",
-        "stem": "What is the danger of skipping the plain-language summary of a case?",
+        "sourceRef": "Genesis 22",
+        "stem": "A line of the story reads:\n\nוַיֹּאמֶר אֵלָיו אַבְרָהָם וַיֹּאמֶר הִנֵּנִי\n\"He said to him, 'Abraham,' and he said, 'Here I am.'\"\n\nStated as what happens, this moment is:",
         "choices": [
-          "Arguing the law while still unclear on what happened.",
-          "Understanding the case far too quickly.",
-          "Finishing the passage far too slowly.",
-          "Naming rather too many of the actors."
+          "A named person is called, and he answers that he is present.",
+          "A legal ruling about names is decided on the spot.",
+          "Two claimants argue over a garment until a court splits it.",
+          "A commentary quotes a word and then explains it from the side."
         ],
         "correct": 0,
-        "feedback": "Legal analysis built on a fuzzy grasp of the facts goes wrong; state the facts first."
+        "feedback": "What happens: a call, and an answer of presence. Keep that ordinary sentence before asking what the binding of Isaac means or teaches."
+      },
+      {
+        "sourceRef": "Mishnah Pesachim 1:1",
+        "stem": "The case opens:\n\nאוֹר לְאַרְבָּעָה עָשָׂר בּוֹדְקִין אֶת הֶחָמֵץ\n\"On the eve of the fourteenth one searches for leaven.\"\n\nWhat happens here, in ordinary words?",
+        "choices": [
+          "When that date arrives, a person searches the house for leaven.",
+          "A sage is named as the sole author of the whole tractate.",
+          "Two people pull on one cloak until a court awards it to one.",
+          "A psalm of trust is recited in place of any search at all."
+        ],
+        "correct": 0,
+        "feedback": "Who, did what, when: at that date, someone searches for leaven. If you cannot say that plainly, you are not ready to argue about the details of the search."
       }
     ],
     "fnd-case-restate": [
@@ -933,78 +957,102 @@
     ],
     "fnd-arg-objection": [
       {
-        "sourceRef": "Gemara Berakhot 2b",
-        "stem": "The Gemara raises a case that the stated rule seems to get wrong. What is this move?",
+        "sourceRef": "Gemara Sukkah 2a",
+        "stem": "A reason is given: above twenty cubits, the shade comes from the walls, not the roofing.\n\nסוּכָּה שֶׁהִיא גְבוֹהָה לְמַעְלָה מֵעֶשְׂרִים אַמָּה\n\"A sukkah that is higher than twenty cubits.\"\n\nSomeone then asks: if the booth sat in a deep valley, nearby slopes would also make shade — would that booth fail too?\n\nWhat is that follow-up doing to the reason?",
         "choices": [
-          "An objection pressing on the rule.",
-          "A proof brought to support the rule.",
-          "A restatement of the rule itself.",
-          "An attribution of the rule to a sage."
+          "Pressing on it with a case the reason seems to get wrong.",
+          "Proving the reason with a matching verse from Scripture.",
+          "Restating the reason in slightly different words only.",
+          "Naming the sage who first copied the tractate by hand."
         ],
         "correct": 0,
-        "feedback": "An objection pushes back; name what it threatens — the claim, its reason, or its scope."
+        "feedback": "That follow-up is an objection: it threatens the reason with a case (shade from something else) that the reason has not yet handled. Mark the pressure before you watch the reply."
       },
       {
         "sourceRef": "Gemara Berakhot 2b",
-        "stem": "When you mark an objection, the key thing to describe is...?",
+        "stem": "A rule has just fixed a time to recite a passage at night. A later line says, in effect: but we find people reciting it later than that — so is the rule wrong?\n\nוְעוֹד · אֶלָּא · שֶׁנֶּאֱמַר\n\"and further · rather · as it is said.\"\n\nWhat is this later line doing?",
         "choices": [
-          "Exactly what pressure it puts on the claim.",
-          "How many words it happens to contain.",
-          "Which typeface it is printed in.",
-          "Whether its phrasing happens to rhyme."
+          "Raising an objection that presses on the stated rule.",
+          "Offering a proof that simply supports the stated rule.",
+          "Repeating the rule in new words without adding pressure.",
+          "Handing the rule to a named sage as his private view."
         ],
         "correct": 0,
-        "feedback": "An objection matters by what it endangers; say whether it hits the claim, its reason, or its reach."
+        "feedback": "An objection pushes back. Name what it endangers — here, the reach of the time-rule — before you ask how the discussion will answer it."
       },
       {
         "sourceRef": "Guide for the Perplexed",
-        "stem": "A text anticipates a reader's difficulty and states it plainly before answering. That stated difficulty is...?",
+        "stem": "A writer pauses, states a reader's difficulty in plain words, and only then answers it.\n\nרְשׁוּת לְכָל אָדָם נְתוּנָה\n\"Permission / freedom is given to every person.\"\n\nThe stated difficulty, before the answer, is:",
         "choices": [
-          "An objection the author raises in order to address it.",
-          "The author's own final conclusion on the matter.",
-          "A quotation lifted from an opponent's book.",
-          "An abrupt change to a different topic."
+          "An objection the writer raises in order to address it.",
+          "The writer's own final conclusion on the matter.",
+          "A quotation lifted from an opponent as a binding ruling.",
+          "An abrupt change to an unrelated damages case."
         ],
         "correct": 0,
-        "feedback": "Authors often voice an objection themselves; recognizing it as an objection sets up the response."
+        "feedback": "Authors often voice an objection themselves. Recognizing that stated difficulty as an objection is what sets you up to follow the response that follows."
+      },
+      {
+        "sourceRef": "Bava Metzia 59b",
+        "stem": "The majority has already ruled. A voice from heaven then says the law follows the other sage instead.\n\nלֹא בַשָּׁמַיִם הִיא\n\"It is not in heaven.\"\n\n(That line is the later reply.) Before the reply, what was the heavenly voice doing?",
+        "choices": [
+          "Objecting: it pressed against the majority's claim.",
+          "Simply restating the majority's claim in new words.",
+          "Citing a verse that had not yet been mentioned.",
+          "Ending the tractate so that nothing further could follow."
+        ],
+        "correct": 0,
+        "feedback": "The voice is a pushback against the majority. Naming that pressure — it threatens the claim that the human vote already settled the matter — is the objection skill; the reply comes next."
       }
     ],
     "fnd-arg-response": [
       {
         "sourceRef": "Gemara Sukkah 2a",
-        "stem": "After an objection, the Gemara limits the rule to a narrower case. How does the response work?",
+        "stem": "Someone objects: a booth taller than twenty cubits still has walls and a covering, so why shouldn't it count?\n\nסוּכָּה שֶׁהִיא גְבוֹהָה לְמַעְלָה מֵעֶשְׂרִים אַמָּה\n\"A sukkah that is higher than twenty cubits.\"\n\nThe discussion does not drop the height limit. It treats that height as the edge of what still counts as a temporary booth.\n\nHow does the reply handle the objection?",
         "choices": [
-          "It narrows the claim so the objection no longer applies.",
-          "It denies that any objection was ever raised.",
-          "It abandons the original claim entirely.",
-          "It merely repeats the objection in other words."
+          "It keeps the original rule and limits it, so the objection no longer fits.",
+          "It denies that any booth, at any height, could ever count as valid.",
+          "It drops the original rule and accepts every tall booth as valid.",
+          "It repeats the objection in new words and adds no reply at all."
         ],
         "correct": 0,
-        "feedback": "Ask whether a response denies, limits, or accepts-and-adjusts; here it narrows the claim."
+        "feedback": "Ask whether a response denies, limits, or accepts-and-adjusts. Here it limits: above twenty cubits the booth is not the ordinary temporary dwelling the rule was about."
+      },
+      {
+        "sourceRef": "Bava Metzia 59b",
+        "stem": "A dispute is underway. Someone objects that a voice from heaven already settled it, so the human debate should stop.\n\nThe reply is:\n\nלֹא בַשָּׁמַיִם הִיא\n\"It is not in heaven.\"\n\nHow does that reply handle the objection?",
+        "choices": [
+          "It denies the objection: a heavenly voice does not decide this case.",
+          "It accepts the objection and ends the human debate at once.",
+          "It limits the objection to a later generation, then agrees with it.",
+          "It quotes the objection again and treats that quote as the ruling."
+        ],
+        "correct": 0,
+        "feedback": "This is a denial. The objection said heaven already ruled; the reply says the matter is not decided that way. Compare the claim before and after: the human debate is still on."
+      },
+      {
+        "sourceRef": "Rambam, Hilchot Deot 1:4",
+        "stem": "A first claim: a person should never feel anger at all. A code about character grants that rage is a danger, then restates the path:\n\nהַדֶּרֶךְ הַיְשָׁרָה הִיא מִדָּה בֵינוֹנִית\n\"The straight way is the middle measure.\"\n\nAnger is kept only for a great matter that warrants it — not never, and not constantly.\n\nWhat did this reply do?",
+        "choices": [
+          "It accepted the worry about rage and adjusted the claim to a middle path.",
+          "It denied that anger is ever a problem for anyone at all.",
+          "It ignored the first claim and changed the subject to food laws.",
+          "It copied the first claim word for word as the final unaltered rule."
+        ],
+        "correct": 0,
+        "feedback": "Responses are not only denials. Here the writer grants the danger of rage and adjusts the original \"never\" into a middle measure. Naming deny / limit / adjust is how you track what changed."
       },
       {
         "sourceRef": "Rambam, Hilchot Deot 1:5",
-        "stem": "A response that grants an objection's point but adjusts the original claim is doing what?",
+        "stem": "After an objection that \"walk in His ways\" is too vague to guide character, the code keeps the original command and then specifies it: walk the middle path in ordinary traits.\n\nוְהָלַכְתָּ בִּדְרָכָיו\n\"Walk in His ways.\"\n\nHow does this reply work?",
         "choices": [
-          "Accepting and reframing rather than flatly denying.",
-          "Ignoring the objection completely.",
-          "Restating the objection as its own view.",
-          "Citing a verse with no comment at all."
+          "It keeps the claim and limits it to a clearer, narrower reading.",
+          "It throws out the original command as a mistake.",
+          "It pretends no objection was ever raised in the first place.",
+          "It repeats the objection and offers no further reading at all."
         ],
         "correct": 0,
-        "feedback": "Responses aren't only denials; naming deny/limit/adjust tells you how the argument moved."
-      },
-      {
-        "sourceRef": "Gemara Sukkah 2a",
-        "stem": "To follow a response well, the question to ask is...?",
-        "choices": [
-          "Does it deny the objection, limit it, or adjust the claim?",
-          "How many named sages are mentioned within the response?",
-          "Is the response itself written in Hebrew or in Aramaic?",
-          "Where exactly does the response sit on the printed page?"
-        ],
-        "correct": 0,
-        "feedback": "Classifying the response as deny/limit/adjust is how you track the argument's resolution."
+        "feedback": "The command still stands; the reply narrows how to carry it out. That is a limit, not a denial and not an abandonment of the original claim."
       }
     ],
     "fnd-arg-unresolved": [
@@ -1085,32 +1133,44 @@
     ],
     "fnd-resp-learning-vs-ruling": [
       {
-        "sourceRef": "A source with several undecided views",
-        "stem": "You study a source that lays out several different views and does not decide between them. What have you gained, and what have you not gained?",
+        "sourceRef": "Gemara Eruvin 13b",
+        "stem": "You read a source that says:\n\nאֵלּוּ וָאֵלּוּ דִּבְרֵי אֱלֹהִים חַיִּים\n\"These and those are the words of the living God.\"\n\nIt lays out more than one view and does not tell you which one to follow in your own life.\n\nWhat have you gained, and what have you not gained?",
         "choices": [
           "You learned the range of views, not a ruling for your own practice.",
-          "You received a binding ruling to follow right away.",
-          "You learned nothing at all until a teacher rules on it.",
+          "You received a binding ruling to follow right away in every case.",
+          "You learned nothing at all until a teacher rules on the page.",
           "You must simply follow whichever view happens to appear first."
         ],
         "correct": 0,
-        "feedback": "Studying the views teaches you what the source says; it does not by itself tell you what to do. That step needs more than reading — often asking a knowledgeable teacher."
+        "feedback": "Studying the views teaches you what the source says; it does not by itself tell you what to do. That next step needs more than reading — often asking a knowledgeable teacher who knows your situation."
       },
       {
         "sourceRef": "A code of Jewish law with disagreeing explanations",
-        "stem": "You read a code of Jewish law where later explanations disagree about how to apply it. Studying this on your own, what is the responsible thing to say about your own practice?",
+        "stem": "You study a later line that both preserves disagreement and then states a practice:\n\nאֵלּוּ וָאֵלּוּ דִּבְרֵי אֱלֹהִים חַיִּים וַהֲלָכָה כְּבֵית הִלֵּל\n\"These and those are the words of the living God — and the practice follows Beit Hillel.\"\n\nStudying this on your own, what is the responsible thing to say about your own practice?",
         "choices": [
           "I understand the disagreement; deciding what to do needs a knowledgeable teacher.",
-          "I can now confidently rule for myself and for other people.",
-          "The first explanation I happened to read is binding on me.",
+          "I can now confidently rule for myself and for other people as well.",
+          "The first explanation I happened to read is binding on me today.",
           "Because the explanations disagree, none of it applies to anyone."
         ],
         "correct": 0,
-        "feedback": "Learning a disagreement is not the same as being told what to do. Naming the limit — 'I have learned, but not yet been told what to do' — is the responsible move."
+        "feedback": "Learning a disagreement — even one that then names a practice — is not the same as being told what you must do. Naming the limit is the responsible move: I have learned, but not yet received a ruling for my life."
+      },
+      {
+        "sourceRef": "Shulchan Aruch, Orach Chaim 1:1",
+        "stem": "You have just read this code line alone, with no teacher in the room:\n\nיִתְגַּבֵּר כָּאֲרִי לַעֲמוֹד בַּבֹּקֶר לַעֲבוֹדַת בּוֹרְאוֹ\n\"One should strengthen oneself like a lion to rise in the morning to serve his Creator.\"\n\nAfter reading it, what have you not yet received?",
+        "choices": [
+          "A personal ruling for your life from someone competent who knows your situation.",
+          "Any idea of what the line is trying to say about rising to serve.",
+          "A reason to keep reading Jewish sources of this kind after this line.",
+          "Permission to ignore teachers and decide the practice for everyone else."
+        ],
+        "correct": 0,
+        "feedback": "The line teaches a stated practice. Understanding that sentence is still learning, not a personal ruling. A ruling for your own life needs a competent authority; reading alone does not appoint you as one."
       },
       {
         "sourceRef": "A source of Jewish law studied on your own",
-        "stem": "What is the honest way to state where you stand after studying a source of Jewish law on your own?",
+        "stem": "You close a source of Jewish law you studied by yourself. On the page you had:\n\nלִלְמוֹד · לְהָבִין · לִשְׁאוֹל\n\"To learn · to understand · to ask.\"\n\nWhich sentence states where you stand?",
         "choices": [
           "\"I have learned what the source says, not yet what to do.\"",
           "\"I have been given a ruling I must act on right now.\"",
@@ -1118,9 +1178,9 @@
           "\"My own reading overrides what any teacher would say.\""
         ],
         "correct": 0,
-        "feedback": "The responsible boundary: study yields understanding, not a personal ruling. Say what you have learned and what you have not yet been told to do."
+        "feedback": "The responsible boundary: study yields understanding, not a personal ruling. Say what you have learned and what you have not yet been told to do — and know when the next step is to ask a person."
       }
     ]
   },
-  "updatedAt": "2026-09-09T13:33:17.468Z"
+  "updatedAt": "2026-09-10T02:49:22.326Z"
 }
