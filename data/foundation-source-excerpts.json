@@ -32,8 +32,8 @@
       "sourceUrl": "https://www.sefaria.org/Psalms.23.1"
     },
     "Job 38-40": {
-      "hebrew": "אֵיפֹה הָיִיתָ בְּיָסְדִי אָרֶץ",
-      "translation": "Where were you when I laid the earth’s foundation?",
+      "hebrew": "",
+      "translation": "God answers Job with a long series of questions.",
       "setting": "A questioning speech from the book of Job — the form is inquiry, whether or not a tidy answer follows.",
       "sourceUrl": "https://www.sefaria.org/Job.38"
     },
@@ -127,6 +127,12 @@
       "setting": "From the Oven of Akhnai story — a tension the passage leaves standing rather than tidily settling.",
       "sourceUrl": "https://www.sefaria.org/Bava_Metzia.59b"
     },
+    "A dispute closed with teiku": {
+      "hebrew": "תֵּיקוּ",
+      "translation": "Let it stand — the question is left undecided.",
+      "setting": "A discussion marker that closes a dispute without a verdict (as in Yoma 49a). The openness is the point, not a missing page.",
+      "sourceUrl": "https://www.sefaria.org/Yoma.49a"
+    },
     "Kiddushin 31b": {
       "hebrew": "אֵיזֶהוּ מוֹרָא וְאֵיזֶהוּ כִּבּוּד",
       "translation": "What is reverence, and what is honor?",
@@ -194,9 +200,9 @@
       "sourceUrl": "https://www.sefaria.org/Mishneh_Torah,_Foundations_of_the_Torah.1.1"
     },
     "Rambam, Hilchot Deot 1:4": {
-      "hebrew": "הַדֶּרֶךְ הַיְשָׁרָה הִיא מִדָּה בֵינוֹנִית",
-      "translation": "The straight way is the middle measure.",
-      "setting": "A code-style principle about character — connectors and claims sit in legal prose, not in a sugya.",
+      "hebrew": "הַדֶּרֶךְ הַיְשָׁרָה הִיא מִדָּה בֵינוֹנִית · לְפִיכָךְ צִוּוּ חֲכָמִים",
+      "translation": "The straight way is the middle measure; therefore the sages commanded.",
+      "setting": "A code-style principle about character — a \"therefore\" connector draws a conclusion in legal prose, not in a back-and-forth discussion.",
       "sourceUrl": "https://www.sefaria.org/Mishneh_Torah,_Human_Dispositions.1.4"
     },
     "Rambam, Hilchot Deot 1:5": {
@@ -206,9 +212,9 @@
       "sourceUrl": "https://www.sefaria.org/Mishneh_Torah,_Human_Dispositions.1.5"
     },
     "Shulchan Aruch, Orach Chaim 1:1": {
-      "hebrew": "מִצְוַת עֲשֵׂה מִן הַתּוֹרָה לְבָרֵךְ",
-      "translation": "It is a positive commandment from the Torah to bless.",
-      "setting": "A code-style line that states what to do — the same ruling shape as a Shulchan Aruch se’if, already used in Academy halakha sessions.",
+      "hebrew": "יִתְגַּבֵּר כָּאֲרִי לַעֲמוֹד בַּבֹּקֶר לַעֲבוֹדַת בּוֹרְאוֹ",
+      "translation": "One should strengthen oneself like a lion to rise in the morning to serve his Creator.",
+      "setting": "A code-style line that states what to do — it closes options rather than weighing several views.",
       "sourceUrl": "https://www.sefaria.org/Shulchan_Arukh%2C_Orach_Chayim.1.1"
     },
     "Orchot Tzaddikim": {
@@ -235,12 +241,6 @@
       "setting": "A psalm line of image beside a code-style claim — poetry invites resonance; a code invites precision.",
       "sourceUrl": "https://www.sefaria.org/Psalms.23.1"
     },
-    "A dispute closed with teiku": {
-      "hebrew": "מַאי? תֵּיקוּ",
-      "translation": "What is the law? The dilemma shall stand unresolved.",
-      "setting": "A Gemara dispute on Bava Metzia 21a that closes with this marker — the question is left standing, not decided.",
-      "sourceUrl": "https://www.sefaria.org/Bava_Metzia.21a"
-    },
     "A source with several undecided views": {
       "hebrew": "אֵלּוּ וָאֵלּוּ דִּבְרֵי אֱלֹהִים חַיִּים",
       "translation": "These and those are the words of the living God.",
@@ -258,30 +258,6 @@
       "translation": "To learn · to understand · to ask.",
       "setting": "Study yields understanding, not a personal ruling — a boundary window already used in Academy halakha sessions.",
       "sourceUrl": "https://www.sefaria.org/search?q=halakha&tab=texts"
-    },
-    "A dispute closed with teiku": {
-      "hebrew": "תֵּיקוּ",
-      "translation": "Let it stand — the question remains undecided.",
-      "setting": "A dispute marker that ends without choosing a side — the source leaves the tension open on purpose.",
-      "sourceUrl": "https://www.sefaria.org/search?q=%D7%AA%D7%99%D7%A7%D7%95&tab=texts"
-    },
-    "Psalm 19": {
-      "hebrew": "הַשָּׁמַיִם מְסַפְּרִים כְּבוֹד אֵל · תּוֹרַת ה׳ תְּמִימָה",
-      "translation": "The heavens declare the glory of God. · The teaching of the LORD is perfect.",
-      "setting": "Psalm 19 turns from the sky as witness to the teaching as perfect — two units in one psalm.",
-      "sourceUrl": "https://www.sefaria.org/Psalms.19.2"
-    },
-    "Job 38:4": {
-      "hebrew": "אֵיפֹה הָיִיתָ בְּיָסְדִי אָרֶץ",
-      "translation": "Where were you when I laid the earth’s foundation?",
-      "setting": "God answers Job with a question, not a tidy verdict — the form is inquiry.",
-      "sourceUrl": "https://www.sefaria.org/Job.38.4"
-    },
-    "Pirkei Avot 4:1": {
-      "hebrew": "בֶּן זוֹמָא אוֹמֵר אֵיזֶהוּ חָכָם הַלּוֹמֵד מִכָּל אָדָם",
-      "translation": "Ben Zoma says: Who is wise? One who learns from every person.",
-      "setting": "A named sage, a question formula, then a one-line definition — attribution plus question-and-answer.",
-      "sourceUrl": "https://www.sefaria.org/Pirkei_Avot.4.1"
     }
   }
 }
