@@ -78,6 +78,29 @@ test('diagnostic API probes fnd- skills, never graduation-slice ids', async () =
   assert.equal(data.complete, false);
 });
 
+test('anonymous hosted learner APIs 401 while diagnostic still returns authored MC probes', async () => {
+  const learner = await fetch(`${base}/api/learners/demo`);
+  assert.equal(learner.status, 401);
+  const analytics = await fetch(`${base}/api/learners/demo/pilot-analytics`);
+  assert.equal(analytics.status, 401);
+  const events = await fetch(`${base}/api/learners/demo/events`, {
+    method: 'POST', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ type: 'placement_completed', scores: {} })
+  });
+  assert.equal(events.status, 401);
+  const signed = await signup('Friend Deep Link');
+  const data = await (await fetch(`${base}/api/graph/diagnostic`, {
+    method: 'POST',
+    headers: auth(signed),
+    body: JSON.stringify({ responses: {} })
+  })).json();
+  assert.ok(data.nextProbe?.item?.stem);
+  assert.ok(Array.isArray(data.nextProbe.item.choices) && data.nextProbe.item.choices.length >= 2);
+  assert.equal(typeof data.nextProbe.item.correct, 'number');
+  assert.equal(data.nextProbe.check, undefined);
+  assert.doesNotMatch(JSON.stringify(data.nextProbe), /Could you do this reliably/);
+});
+
 test('first-day diagnostic API completes at the probe cap', async () => {
   const responses = {};
   let last = null;

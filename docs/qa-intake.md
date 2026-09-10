@@ -33420,3 +33420,30 @@ Verified live on GitHub against `main` `4b61c0c`. Nine open drafts:
 Recommended order: #50 ΓåÆ rebase #51 ΓåÆ rebase #48 (drop its `diagnostic.js`
 hunk) ΓåÆ #53 ΓåÆ #52 ΓåÆ #54 ΓåÆ #49 ΓåÆ rebase #55 (`fnd-signal-connectors`: keep
 #55). Keep-both `qa-intake.md`. The 09-08 brief stays historical.
+
+## 2026-09-10 — hosted diagnostic share path: no session-expired bounce from badge/milestones
+
+Hosted friend/colleague links to `/diagnostic.html` were bouncing to
+`sign-in.html?reason=session-expired` (or leaving a blank probe shell) because
+`seder-auth.js` fired best-effort learner GETs on every page:
+
+- `milestones.js` → `GET /api/learners/<id>` (injected even with no session;
+  `currentLearnerId()` fell back to `demo`)
+- `updateAppBadge` → `GET /api/learners/<id>/pilot-analytics` on browsers with
+  the Badging API
+
+Those 401s went through `Seder.api`, which is not a public page for
+`/diagnostic.html`, so the visitor was redirected mid-intro. The diagnostic
+graph API itself was already public and still returns authored MC
+`nextProbe.item` (stem/choices/correct).
+
+Fix:
+
+- `Seder.api(..., { optional: true })` skips the 401 session wipe + redirect
+- badge and milestones are skipped without a session and marked optional
+- unsigned hosted visitors keep the diagnostic intro and get a
+  **Pick a name to start** CTA → `sign-in.html?next=diagnostic.html` instead
+  of a session-expired bounce; probes start after signup (or in local mode)
+
+Landing `seder.html` → name signup → diagnostic is unchanged. No L0 glyph
+banks, no self-rate `check` probes, `DIAGNOSTIC_PROBE_CAP` stays 6.

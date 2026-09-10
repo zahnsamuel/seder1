@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="jla-system.css">
-  <link rel="stylesheet" href="diagnostic.css?v=3">
+  <link rel="stylesheet" href="diagnostic.css?v=4">
 </head>
 <body class="jla">
   <div id="jla-shell-mount"></div>
@@ -18,7 +18,10 @@
       <p class="jla-eyebrow">A STARTING POINT, NOT A TEST</p>
       <h1>Let’s find where to start.</h1>
       <p>A few short questions about a source are enough to place you. We’ll start you in the right place — not too hard, not too easy. This is not a grade, and you can change it by actually studying.</p>
-          <p class="intro-cap">At most six checks. Then one lesson today.</p>
+      <p class="intro-cap">At most six checks. Then one lesson today.</p>
+      <p class="intro-cta" id="intro-cta" hidden>
+        <a class="jla-btn jla-btn-primary" id="intro-start" href="sign-in.html?next=diagnostic.html">Pick a name to start →</a>
+      </p>
     </section>
 
     <section class="probe-shell" id="probe-shell" hidden>
@@ -68,10 +71,10 @@
       </details>
     </section>
   </main>
-  <script src="seder-auth.js?v=2"></script>
+  <script src="seder-auth.js?v=3"></script>
   <script src="capability-state.js"></script>
   <script src="jla-shell.js"></script>
-  <script src="diagnostic.js?v=3"></script>
+  <script src="diagnostic.js?v=4"></script>
   <script src="feedback.js?v=1"></script>
 </body>
 </html>

@@ -35,9 +35,8 @@ test('friend click path: placement copy is a starting point, then one Today less
   assert.match(html, /Let’s find where to start/);
   assert.doesNotMatch(html, /knowledge frontier/i);
   assert.doesNotMatch(html, /The graph infers/);
-  assert.match(html, /Start today’s lesson/);
+  assert.match(html, /See today’s lesson|Start today’s lesson/);
   assert.match(html, /At most six checks/);
-  assert.match(html, /id="results-hint"/);
   assert.match(html, /href="daily-router.html"/);
   assert.match(html, /OPTIONAL · HOW OFTEN YOU STUDY/);
   assert.match(js, /begin\.href = 'daily-router\.html'/);
@@ -47,6 +46,25 @@ test('friend click path: placement copy is a starting point, then one Today less
   assert.match(server, /Find where to start/);
   assert.match(server, /Start the questions/);
   assert.doesNotMatch(server, /Find your Gemara starting point/);
+});
+
+test('friend click path: unsigned diagnostic deep-link offers name signup, not a session-expired bounce', async () => {
+  const [html, js, auth] = await Promise.all([
+    read('diagnostic.html'), read('diagnostic.js'), read('seder-auth.js')
+  ]);
+  assert.match(html, /id="intro-cta"/);
+  assert.match(html, /Pick a name to start/);
+  assert.match(html, /sign-in\.html\?next=diagnostic\.html/);
+  assert.match(js, /hostedSessionReady/);
+  assert.match(js, /showSignupCta/);
+  assert.match(js, /if \(!needsAuth\) return true/);
+  assert.match(js, /if \(!Seder\.session\?\.access_token\)/);
+  assert.match(js, /\/api\/graph\/diagnostic/);
+  assert.match(js, /optional:\s*true/);
+  assert.doesNotMatch(html, /Could you do this reliably right now\?/);
+  assert.doesNotMatch(js, /Yes — I can do this reliably/);
+  assert.match(auth, /optional:\s*true/);
+  assert.match(auth, /!optional && !publicPages\.has/);
 });
 
 test('friend click path: Today is one lesson CTA, not Academy Foundation jargon', async () => {

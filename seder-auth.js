@@ -44,13 +44,16 @@ Seder.recoverWithToken = async (code) => {
   return { id: user.id };
 };
 Seder.api = async (url, options = {}, retried = false) => {
-  const headers = new Headers(options.headers || {});
+  // `optional: true` is a client flag, not a fetch option: best-effort calls (badge, milestones)
+  // must not wipe the session or bounce the learner to sign-in on a 401.
+  const { optional = false, headers: optionHeaders, ...fetchOptions } = options;
+  const headers = new Headers(optionHeaders || {});
   if (Seder.session?.access_token) headers.set('Authorization', `Bearer ${Seder.session.access_token}`);
-  const response = await fetch(url, { ...options, headers });
+  const response = await fetch(url, { ...fetchOptions, headers });
   if (response.status === 401 && !retried && await Seder.refreshSession()) return Seder.api(url, options, true);
   const config = await Seder.config();
   const requiresAuth = config.mode === 'token' || (config.supabaseUrl && config.supabaseAnonKey);
-  if (response.status === 401 && requiresAuth && !publicPages.has(location.pathname)) {
+  if (response.status === 401 && requiresAuth && !optional && !publicPages.has(location.pathname)) {
     localStorage.removeItem(authKey);
     Seder.session = null;
     const signIn = new URL('sign-in.html', location.origin);
@@ -148,7 +151,9 @@ Seder.enableAdaptiveRepairLinks = () => {
 };
 new MutationObserver(Seder.enableAdaptiveRepairLinks).observe(document.documentElement, { childList: true, subtree: true, characterData: true });
 setTimeout(Seder.enableAdaptiveRepairLinks, 0);
-if (!document.querySelector('script[data-seder-milestones]')) { const script=document.createElement('script'); script.src='milestones.js'; script.dataset.sederMilestones='true'; document.head.append(script); }
+// Milestones reads /api/learners/:id. Skip the extra call until there is a session — otherwise a
+// hosted visitor on diagnostic (or any interior page) gets a 401 and a session-expired bounce.
+if (Seder.session?.access_token && !document.querySelector('script[data-seder-milestones]')) { const script=document.createElement('script'); script.src='milestones.js'; script.dataset.sederMilestones='true'; document.head.append(script); }
 Seder.applyMobileStudyStyles = () => { if (document.querySelector('#seder-mobile-study-styles')) return; const style=document.createElement('style'); style.id='seder-mobile-study-styles'; style.textContent='@media(max-width:760px){header{flex-wrap:wrap;gap:12px;padding:15px 16px}main{padding-left:14px!important;padding-right:14px!important}.daf-line{min-height:58px}.daf-line span,.line-hebrew{line-height:1.85!important}.analysis select,.analysis>button,.continue,.save-note{min-height:44px;font-size:16px}.line-actions button,.line-actions a{padding:8px 0;font-size:13px}.tractates{overflow-x:auto;flex-wrap:nowrap;padding-bottom:6px}.tractates button{white-space:nowrap}.days{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px}.day{min-height:138px!important;padding:13px!important}.day a{display:inline-block;padding:8px 0;font-size:13px}.reader{padding:18px 14px!important}.reader textarea{font-size:16px}.dashboard-summary,.course-grid{grid-template-columns:1fr!important}}'; document.head.append(style); };
 Seder.applyMobileStudyStyles();
 Seder.applyAccessibilityStyles = () => { if (document.querySelector('#seder-accessibility-styles')) return; const style=document.createElement('style'); style.id='seder-accessibility-styles'; style.textContent=':focus-visible{outline:3px solid #b88028!important;outline-offset:3px}button,input,select,textarea{font:inherit}button:disabled{cursor:not-allowed}.skip-link{position:absolute;left:8px;top:-48px;z-index:2000;background:#173b57;color:#fff;padding:10px 14px;border-radius:0 0 8px 8px;text-decoration:none;font-weight:600}.skip-link:focus{top:0}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}'; document.head.append(style); };
@@ -182,11 +187,12 @@ Seder.enablePwa();
 // platforms only). Throttled via sessionStorage so ordinary page loads skip the extra call.
 Seder.updateAppBadge = async () => {
   if (!('setAppBadge' in navigator)) return;
+  if (!Seder.session?.access_token) return;
   const last = Number(sessionStorage.getItem('seder-badge-at') || 0);
   if (Date.now() - last < 600000) return;
   sessionStorage.setItem('seder-badge-at', String(Date.now()));
   try {
-    const response = await Seder.api(`/api/learners/${Seder.currentLearnerId()}/pilot-analytics`);
+    const response = await Seder.api(`/api/learners/${Seder.currentLearnerId()}/pilot-analytics`, { optional: true });
     if (!response.ok) return;
     const { reviewDue } = await response.json();
     if (reviewDue > 0) navigator.setAppBadge(reviewDue); else navigator.clearAppBadge();
