@@ -81,6 +81,8 @@ test('diagnostic.js drives the stateless estimator and seeds through the placeme
   assert.match(js, /not a score/);
   assert.doesNotMatch(js, /permanent level/);
   assert.match(js, /already look secure/);
+  assert.match(js, /hostedSessionReady/);
+  assert.match(html, /id="intro-cta"/);
 });
 
 test('the estimator pins a mid-graph frontier in far fewer questions than there are skills, inferring prerequisites', () => {

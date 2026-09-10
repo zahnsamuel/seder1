@@ -1,10 +1,9 @@
 // Adaptive placement as a knowledge-frontier estimator (The Math Academy Way, ch. 4). Drives the
 // stateless graph diagnostic (POST /api/graph/diagnostic): each answer is a real authored MC, the
 // server picks the next skill that best splits remaining uncertainty, and infers everything below a
-// passed skill. Self-ratings ("Could you do this reliably right now?") are not used. On completion it
-// seeds the frontier through the same placement_completed path the rest of the app uses
-// (enrichPlacementWithFrontier), at a provisional "secure" level — one placement item is evidence,
-// not a graded 1.0, and later sessions refine it.
+// passed skill. Self-ratings are not used. On completion it seeds the frontier through the same
+// placement_completed path the rest of the app uses (enrichPlacementWithFrontier), at a provisional
+// "secure" level — one placement item is evidence, not a graded 1.0, and later sessions refine it.
 const learnerId = Seder.currentLearnerId();
 const $ = (selector) => document.querySelector(selector);
 const esc = (value) => String(value == null ? '' : value).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -51,7 +50,7 @@ async function step() {
   if (done) return; // a slow round-trip could resolve after we've already finished; never re-open
   let data;
   try {
-    const response = await Seder.api('/api/graph/diagnostic', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ responses }) });
+    const response = await Seder.api('/api/graph/diagnostic', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ responses }), optional: true });
     if (!response.ok) throw new Error('diagnostic');
     data = await response.json();
   } catch { $('#status').textContent = 'Diagnostic unavailable — reload to try again.'; return; }
@@ -173,7 +172,8 @@ function finish(estimate) {
   const foundationScores = Object.fromEntries(passed.map((id) => [id, 0.8]));
   Seder.api(`/api/learners/${learnerId}/events`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ type: 'placement_completed', source: 'adaptive-diagnostic', scores: foundationScores, foundationScores, recommendedSkill: start ? start.id : null })
+    body: JSON.stringify({ type: 'placement_completed', source: 'adaptive-diagnostic', scores: foundationScores, foundationScores, recommendedSkill: start ? start.id : null }),
+    optional: true
   }).catch(() => {});
   renderResults(estimate, start);
 }
@@ -214,12 +214,34 @@ function bindRhythm() {
     document.querySelectorAll('[data-rhythm]').forEach((other) => other.classList.toggle('selected', other === button));
     $('#rhythm-status').textContent = 'Saving your rhythm…';
     try {
-      const response = await Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'learning_rhythm_set', rhythm: button.dataset.rhythm }) });
+      const response = await Seder.api(`/api/learners/${learnerId}/events`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'learning_rhythm_set', rhythm: button.dataset.rhythm }), optional: true });
       if (!response.ok) throw new Error('rhythm');
       $('#rhythm-status').textContent = 'Rhythm saved. The Academy will keep the next move small and consistent.';
     } catch { $('#rhythm-status').textContent = 'Rhythm will stay on this device until your account is available.'; }
   }));
 }
 
+function showSignupCta() {
+  const intro = $('.intro'); if (intro) intro.hidden = false;
+  const cta = $('#intro-cta'); if (cta) cta.hidden = false;
+  const shell = $('#probe-shell'); if (shell) shell.hidden = true;
+}
+
+async function hostedSessionReady() {
+  const config = await Seder.config();
+  const needsAuth = config.mode === 'token' || (config.supabaseUrl && config.supabaseAnonKey);
+  if (!needsAuth) return true;
+  if (!Seder.session?.access_token) {
+    showSignupCta();
+    return false;
+  }
+  const session = await Seder.api('/api/auth/session', { optional: true });
+  if (session.ok) return true;
+  showSignupCta();
+  return false;
+}
+
 bindContinue();
-graphReady.then(step); // load the graph first so probes show their layer and the gauge has a denominator
+graphReady.then(async () => {
+  if (await hostedSessionReady()) return step();
+});

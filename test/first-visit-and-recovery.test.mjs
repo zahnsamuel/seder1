@@ -21,10 +21,35 @@ test('a first-time visitor gets the landing (not a bounce) and a sign-up CTA in 
 
 test('interior pages still redirect a 401 into sign-in (deep links prompt sign-up)', async () => {
   const auth = await read('seder-auth.js');
-  // The redirect still fires for non-public paths, carrying reason + next.
-  assert.match(auth, /response\.status === 401 && requiresAuth && !publicPages\.has/);
+  // The redirect still fires for non-public paths, carrying reason + next — but not for
+  // best-effort (`optional: true`) calls such as the app badge or milestones.
+  assert.match(auth, /response\.status === 401 && requiresAuth && !optional && !publicPages\.has/);
   assert.match(auth, /reason', 'session-expired/);
   assert.match(auth, /signIn\.searchParams\.set\('next'/);
+});
+
+test('a 401 from badge or milestones cannot bounce a visitor off diagnostic', async () => {
+  const [auth, milestones, diagnosticJs, diagnosticHtml] = await Promise.all([
+    read('seder-auth.js'), read('milestones.js'), read('diagnostic.js'), read('diagnostic.html')
+  ]);
+  // Best-effort learner calls opt out of the session-expired redirect.
+  assert.match(auth, /\{ optional = false/);
+  assert.match(auth, /!optional && !publicPages\.has\(location\.pathname\)/);
+  assert.match(auth, /updateAppBadge[\s\S]*session\?\.access_token/);
+  assert.match(auth, /pilot-analytics[\s\S]*optional:\s*true/);
+  assert.match(auth, /session\?\.access_token && !document\.querySelector\('script\[data-seder-milestones\]'\)/);
+  assert.match(milestones, /session\?\.access_token/);
+  assert.match(milestones, /optional:\s*true/);
+  // Unsigned hosted visitors stay on diagnostic with a signup CTA instead of a bounce.
+  assert.match(diagnosticJs, /hostedSessionReady/);
+  assert.match(diagnosticJs, /if \(!needsAuth\) return true/);
+  assert.match(diagnosticJs, /if \(!Seder\.session\?\.access_token\)/);
+  assert.match(diagnosticJs, /\/api\/auth\/session/);
+  assert.match(diagnosticJs, /optional:\s*true/);
+  assert.match(diagnosticHtml, /id="intro-cta"/);
+  assert.match(diagnosticHtml, /sign-in\.html\?next=diagnostic\.html/);
+  assert.match(diagnosticHtml, /Pick a name to start/);
+  assert.doesNotMatch(diagnosticHtml, /Could you do this reliably/);
 });
 
 test('token accounts can be recovered with a recovery code', async () => {
