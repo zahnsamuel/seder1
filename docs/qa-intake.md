@@ -33461,7 +33461,9 @@ Verified live on GitHub: open drafts [#59](https://github.com/zahnsamuel/seder1/
 #59 / #61 / #62 are `MERGEABLE` / `CLEAN`. The 09-09 0→1 pile is already
 on main; that brief is historical.
 
-Recommended return order: #59 → #62 → #61 → #60. Do not merge #62 as a
-substitute for reviewing #59. Standing laws unchanged: teach-before-ask,
-no self-rate, hold L0 banks. Did not edit product files, item banks, or
-routing.
+Recommended return order: **#59 → #62 → later bank thicken PRs →
+#61 (friend-path) → #60 last** (or fold #60 into a docs-only merge).
+Do not merge #62 as a substitute for reviewing #59. Do not merge
+while Sam is away; hosted main stays `75b1e4c`. Standing laws
+unchanged: teach-before-ask, no self-rate, hold L0 banks. Did not
+edit product files, item banks, or routing.
