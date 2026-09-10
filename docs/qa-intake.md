@@ -33449,6 +33449,7 @@ Landing `seder.html` → name signup → diagnostic is unchanged. No L0 glyph
 banks, no self-rate `check` probes, `DIAGNOSTIC_PROBE_CAP` stays 6.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## 2026-09-10 — thicken nine remaining 3-item starter banks (L3–L5 + L7)
 
 After pull of `main` @ `75b1e4c`, the only starter banks still at 3 items (non-L0) were:
@@ -33526,3 +33527,27 @@ After:
 Contract pins in `test/friend-first-run.test.mjs`. Teach-before-ask and
 Got it — ask me unchanged.
 >>>>>>> origin/cursor/friend-first-run-handoff-79f8
+=======
+## 2026-09-10 — Cursor: away-day merge brief (do not merge until Sam returns)
+
+Docs only. New `docs/merge-brief-2026-09-10.md` for Sam’s return. Hosted
+tip is `75b1e4c` (#58 share-path fix) on https://seder-demo.onrender.com
+and should stay there today — no `main` push while Sam is away.
+
+Verified live on GitHub: five open drafts, all `MERGEABLE` / `CLEAN` vs
+`main` `75b1e4c`: [#59](https://github.com/zahnsamuel/seder1/pull/59)
+(3→4 + See-it), stacked [#62](https://github.com/zahnsamuel/seder1/pull/62)
+(L1/L2 4→5), stacked [#63](https://github.com/zahnsamuel/seder1/pull/63)
+(twelve L3–L8 4→5; leftover arg banks still at 4:
+`fnd-arg-objection`, `fnd-arg-response`, `fnd-arg-unresolved`),
+[#61](https://github.com/zahnsamuel/seder1/pull/61) (friend-path chrome,
+from `main`), and this brief [#60](https://github.com/zahnsamuel/seder1/pull/60).
+The 09-09 0→1 pile is already on main; that brief is historical.
+
+Recommended return order: **#59 → #62 → #63 → (optional leftover-arg
+PR) → #61 → #60 last** (or fold #60 into a docs-only merge). Do not
+merge a stacked bank PR as a substitute for reviewing the earlier
+diffs. Do not merge while Sam is away; hosted main stays `75b1e4c`.
+Standing laws unchanged: teach-before-ask, no self-rate, hold L0
+banks. Did not edit product files, item banks, or routing.
+>>>>>>> origin/cursor/merge-brief-2026-09-10-11ab
