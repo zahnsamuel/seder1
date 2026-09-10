@@ -20,7 +20,7 @@ test('the context and responsibility starter skills have complete, valid, unbias
     assert.ok(graphIds.has(skill), `${skill} is a graph skill`);
     assert.ok(starter.has(skill), `${skill} is in the frozen starter set`);
     const items = bank[skill];
-    assert.ok(Array.isArray(items) && items.length >= 4, `${skill} needs >=4 authored items`);
+    assert.ok(Array.isArray(items) && items.length >= 5, `${skill} needs >=5 authored items`);
     for (const [i, item] of items.entries()) {
       assert.equal(itemProblem(item), null, `${skill}[${i}] invalid: ${itemProblem(item)}`);
       assert.ok(item.sourceRef && item.sourceRef.trim(), `${skill}[${i}] missing sourceRef`);

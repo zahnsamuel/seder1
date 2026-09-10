@@ -25,6 +25,12 @@
       "setting": "A Torah verse of direct address — later reused in prayer, but first a verse.",
       "sourceUrl": "https://www.sefaria.org/Deuteronomy.6.4"
     },
+    "Exodus 21:28": {
+      "hebrew": "וְכִי יִגַּח שׁוֹר אֶת אִישׁ אוֹ אֶת אִשָּׁה וָמֵת",
+      "translation": "When an ox gores a man or a woman to death.",
+      "setting": "A Torah damages case: an ox gores, a person is harmed, and an owner stands behind the animal.",
+      "sourceUrl": "https://www.sefaria.org/Exodus.21.28"
+    },
     "Psalm 23": {
       "hebrew": "ה׳ רֹעִי לֹא אֶחְסָר",
       "translation": "The Lord is my shepherd; I shall not lack.",
@@ -78,6 +84,12 @@
       "translation": "Two people are holding a garment.",
       "setting": "A concrete Mishnah case: two claimants, one object — name who acts before asking the law.",
       "sourceUrl": "https://www.sefaria.org/Mishnah_Bava_Metzia.1.1"
+    },
+    "Mishnah Sukkah 1:1": {
+      "hebrew": "סוּכָּה שֶׁהִיא גְבוֹהָה לְמַעְלָה מֵעֶשְׂרִים אַמָּה, פְּסוּלָה. רַבִּי יְהוּדָה מַכְשִׁיר.",
+      "translation": "A booth that is higher than twenty cubits is unfit. Rabbi Yehuda deems it fit.",
+      "setting": "A concrete validity case that then keeps a second view standing — unfit versus fit.",
+      "sourceUrl": "https://www.sefaria.org/Mishnah_Sukkah.1.1"
     },
     "Berakhot 2a": {
       "hebrew": "תַּנָּא הֵיכָא קָאֵי דְּקָתָנֵי מֵאֵימָתַי",

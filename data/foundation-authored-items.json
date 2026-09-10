@@ -695,6 +695,18 @@
         ],
         "correct": 0,
         "feedback": "אֵיזֶהוּ חָכָם asks \"who is wise?\"; הַלּוֹמֵד מִכָּל אָדָם answers. Question then answer, in one short teaching."
+      },
+      {
+        "sourceRef": "Mishnah Pesachim 1:1",
+        "stem": "After a search rule, the same source asks and then answers:\n\nוְלָמָה אָמְרוּ שְׁתֵּי שׁוּרוֹת בַּמַּרְתֵּף\n\"And why did they say two rows in the cellar?\"\n\nמָקוֹם שֶׁמַּכְנִיסִין בּוֹ חָמֵץ\n\"A place into which one brings leaven.\"\n\nHow do you label those two lines?",
+        "choices": [
+          "The first is a question; the second is its answer.",
+          "Both lines are restatements of an earlier psalm.",
+          "The first is a ruling; the second names a sage.",
+          "Both lines quote a verse without asking anything."
+        ],
+        "correct": 0,
+        "feedback": "לָמָה (\"why\") asks for a reason; the next line supplies one: a cellar into which leaven is brought. Tag question, then answer — not two restatements or two quotes."
       }
     ],
     "fnd-role-example": [
@@ -745,6 +757,18 @@
         ],
         "correct": 0,
         "feedback": "A source that opens on a concrete scene — two people, one garment — is giving a worked example, not stating a new unrelated rule. Name the case, then look for the rule it tests."
+      },
+      {
+        "sourceRef": "Mishnah Sukkah 1:1",
+        "stem": "After rules about what makes a festival booth valid, the source turns to this concrete case:\n\nסוּכָּה שֶׁהִיא גְבוֹהָה לְמַעְלָה מֵעֶשְׂרִים אַמָּה\n\"A booth that is higher than twenty cubits.\"\n\nWhat is that concrete height doing?",
+        "choices": [
+          "A worked example testing the validity rule just in view.",
+          "A brand-new rule about animals that gore, unrelated to booths.",
+          "A quoted psalm of trust offered as a proof about booths.",
+          "The closing blessing that ends the whole festival tractate."
+        ],
+        "correct": 0,
+        "feedback": "A concrete height — a booth taller than twenty cubits — is a worked example of the validity rule, not a new unrelated law, a psalm, or a closing blessing. Name the case, then look for the rule it tests."
       }
     ],
     "fnd-role-quotation-bounds": [
@@ -795,6 +819,18 @@
         ],
         "correct": 0,
         "feedback": "The dash is the edge. בְּרֵאשִׁית is the cited word; the explanation after it is the commentary's own voice, not more of the verse."
+      },
+      {
+        "sourceRef": "Pirkei Avot 3:2",
+        "stem": "A teaching cites a verse, then comments:\n\nשֶׁנֶּאֱמַר וְאָכַלְתָּ וְשָׂבָעְתָּ וּבֵרַכְתָּ · מִכָּאן אָמְרוּ\n\"as it is said: 'you shall eat and be satisfied and bless' · from here they said.\"\n\nWhere does the quoted verse end and this speaker's own voice begin?",
+        "choices": [
+          "At וּבֵרַכְתָּ: \"and bless\" closes the verse; מִכָּאן אָמְרוּ is this speaker using it.",
+          "The whole line is one continuous quotation from the verse, including the last phrase.",
+          "Only מִכָּאן אָמְרוּ is quoted; the eating words are still this speaker's own.",
+          "There is no quotation here; every Hebrew word is the verse itself with no comment."
+        ],
+        "correct": 0,
+        "feedback": "\"As it is said\" opens borrowed text. The verse ends at וּבֵרַכְתָּ (\"and bless\"); מִכָּאן אָמְרוּ (\"from here they said\") is the current voice using the verse, not more of Scripture."
       }
     ],
     "fnd-role-ruling-vs-discussion": [
@@ -845,6 +881,18 @@
         ],
         "correct": 0,
         "feedback": "Ask of each block whether it decides or keeps options open. A principle can rule while a neighboring story still explores — label them separately."
+      },
+      {
+        "sourceRef": "Mishnah Sukkah 1:1",
+        "stem": "Read these two sentences together:\n\nסוּכָּה שֶׁהִיא גְבוֹהָה לְמַעְלָה מֵעֶשְׂרִים אַמָּה, פְּסוּלָה. רַבִּי יְהוּדָה מַכְשִׁיר.\n\"A booth that is higher than twenty cubits is unfit. Rabbi Yehuda deems it fit.\"\n\nAfter both sentences, is the reader left with one option or more than one?",
+        "choices": [
+          "More than one: unfit and fit both still stand.",
+          "One closed ruling: the second sentence only repeats the first.",
+          "Neither: both sentences are only a psalm of trust.",
+          "One question that never states any view at all."
+        ],
+        "correct": 0,
+        "feedback": "The first sentence decides \"unfit,\" but the named disagreement immediately keeps \"fit\" alive. Two views still stand, so the pair is discussion — not a single closed ruling."
       }
     ],
     "fnd-case-actors": [
@@ -895,6 +943,18 @@
         ],
         "correct": 0,
         "feedback": "Name the people who act in the situation: a host, the guest who was meant to come, and the man who arrived by mistake. The moral or legal question sits on that cast, not instead of it."
+      },
+      {
+        "sourceRef": "Exodus 21:28",
+        "stem": "A case reads:\n\nוְכִי יִגַּח שׁוֹר אֶת אִישׁ אוֹ אֶת אִשָּׁה וָמֵת\n\"When an ox gores a man or a woman to death.\"\n\nListing the actors, who belongs on the cast?",
+        "choices": [
+          "The ox that gores, the person who is gored, and the ox's owner.",
+          "Only the later scribe who copied the line into a printed book.",
+          "Only a court clerk who is never mentioned in this case.",
+          "No people or animals act; the line is only a calendar date."
+        ],
+        "correct": 0,
+        "feedback": "Name everyone whose action matters: the ox gores, a person is harmed, and the owner stands behind the animal. The legal question sits on that cast, not instead of it."
       }
     ],
     "fnd-case-what-happens": [
@@ -945,6 +1005,18 @@
         ],
         "correct": 0,
         "feedback": "Who, did what, when: at that date, someone searches for leaven. If you cannot say that plainly, you are not ready to argue about the details of the search."
+      },
+      {
+        "sourceRef": "Gemara Sukkah 2a",
+        "stem": "A case is named:\n\nסוּכָּה שֶׁהִיא גְבוֹהָה לְמַעְלָה מֵעֶשְׂרִים אַמָּה\n\"A booth that is higher than twenty cubits.\"\n\nIn one plain sentence, what happens here?",
+        "choices": [
+          "Someone has a festival booth standing taller than that height.",
+          "Two people pull on one cloak until a court splits it.",
+          "A psalm of trust is recited instead of any booth being built.",
+          "A sage is named as the sole author of the whole printed book."
+        ],
+        "correct": 0,
+        "feedback": "Who, did what: a person has a booth taller than twenty cubits. Say that plainly before arguing about validity, shade, or walls."
       }
     ],
     "fnd-case-restate": [
@@ -995,6 +1067,18 @@
         ],
         "correct": 0,
         "feedback": "A faithful restatement keeps the meaning in plainer words: wisdom here is willingness to learn from anyone. It does not add a ban on learners, a memory test, or a question about printing."
+      },
+      {
+        "sourceRef": "Mishnah Pesachim 1:1",
+        "stem": "Read this case:\n\nאוֹר לְאַרְבָּעָה עָשָׂר בּוֹדְקִין אֶת הֶחָמֵץ לְאוֹר הַנֵּר\n\"On the eve of the fourteenth one searches for leaven by the light of a lamp.\"\n\nWhich is a faithful restatement in your own words?",
+        "choices": [
+          "When that date arrives, a person searches the house for leaven by lamp-light.",
+          "One may search for leaven on any random date, in full daylight, with no lamp.",
+          "Only priests search the house, and they are forbidden to use a lamp.",
+          "The line is only asking who printed this book and in which language."
+        ],
+        "correct": 0,
+        "feedback": "A faithful restatement keeps the date, the search, and the lamp-light condition in plainer words. Dropping the lamp or changing the date is not yet faithful."
       }
     ],
     "fnd-case-uncertainty": [
@@ -1045,6 +1129,18 @@
         ],
         "correct": 0,
         "feedback": "The missing piece needed to decide is the status of that height: does a booth above twenty cubits still count? That open question is the uncertainty, not the material, the copyist, or the language."
+      },
+      {
+        "sourceRef": "Gittin 55b",
+        "stem": "The story is introduced:\n\nאַקַּמְצָא וּבַר קַמְצָא חֲרוּב יְרוּשָׁלַיִם\n\"On account of Kamtza and Bar Kamtza, Jerusalem was destroyed.\"\n\nIn the feast that follows, a host meant one man and a messenger brought the other. What is the uncertainty the case turns on?",
+        "choices": [
+          "Which man the host actually meant to have at the feast.",
+          "Whether Jerusalem is a city that can be named at all.",
+          "Who first printed this story in a modern book.",
+          "Which language the story happens to be written in."
+        ],
+        "correct": 0,
+        "feedback": "The missing piece needed to understand the insult is identity: which man was meant, and which man arrived. Name that open question; do not settle the printer or the language instead."
       }
     ],
     "fnd-arg-claim": [
@@ -1095,6 +1191,18 @@
         ],
         "correct": 0,
         "feedback": "The claim is what the line asserts: God is ours, and God is one. \"Hear\" addresses the listener; it does not turn the line into a timing question, a citation, or an attribution."
+      },
+      {
+        "sourceRef": "Pirkei Avot 1:1",
+        "stem": "Read this opening:\n\nמֹשֶׁה קִבֵּל תּוֹרָה מִסִּינַי וּמְסָרָהּ לִיהוֹשֻׁעַ\n\"Moses received the Torah at Sinai and handed it to Joshua.\"\n\nPut its claim in one plain sentence.",
+        "choices": [
+          "Moses received the Teaching at Sinai and passed it on.",
+          "From when may this line be recited at night?",
+          "As it is written in a different, unnamed book.",
+          "A named sage is about to speak the next line as his own."
+        ],
+        "correct": 0,
+        "feedback": "The claim is what the line asserts: Moses received the Teaching at Sinai and handed it on. Timing questions, citations, and attributions are other roles, not this claim."
       }
     ],
     "fnd-arg-evidence-role": [
@@ -1145,6 +1253,18 @@
         ],
         "correct": 0,
         "feedback": "\"As it is said\" plus \"from here they said\" is a proof-shape: the verse is brought to support the teaching, not to attack it, split it, or stop the page."
+      },
+      {
+        "sourceRef": "Gemara Berakhot 2a",
+        "stem": "A discussion is asking why evening is taught first. It then cites:\n\nדִּכְתִיב: וַיְהִי עֶרֶב וַיְהִי בֹקֶר יוֹם אֶחָד\n\"as it is written: 'and there was evening and there was morning, one day.'\"\n\nWhat job is that cited verse doing?",
+        "choices": [
+          "Supporting the evening-first claim as a proof.",
+          "Attacking the evening-first claim as a counter-example.",
+          "Splitting the claim into two unrelated damages cases.",
+          "Ending the page so that nothing further can follow."
+        ],
+        "correct": 0,
+        "feedback": "\"As it is written\" plus a creation verse that begins with evening is a proof-shape: the citation supports teaching evening first, rather than attacking, splitting, or stopping the page."
       }
     ],
     "fnd-arg-objection": [
@@ -1345,6 +1465,18 @@
         ],
         "correct": 0,
         "feedback": "A blessing is address and praise. Demanding a damages ruling, a dispute verdict, or a search-time from it mistakes what this genre can deliver."
+      },
+      {
+        "sourceRef": "Genesis 1:1",
+        "stem": "You are reading this opening line of a creation narrative:\n\nבְּרֵאשִׁית בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ\n\"In the beginning God created the heaven and the earth.\"\n\nWhat is fair to ask of this line, and what is not?",
+        "choices": [
+          "Ask it for the story of origins, not for a damages procedure.",
+          "Ask it for the exact legal steps of a valid feast invitation.",
+          "Ask it to settle which of two named sages wins a dispute.",
+          "Ask it for the clock times of searching a house for leaven."
+        ],
+        "correct": 0,
+        "feedback": "A creation narrative offers a story of origins. Demanding a damages procedure, a dispute verdict, or a search-time from it mistakes what this genre can deliver."
       }
     ],
     "fnd-resp-learning-vs-ruling": [
@@ -1395,8 +1527,20 @@
         ],
         "correct": 0,
         "feedback": "The responsible boundary: study yields understanding, not a personal ruling. Say what you have learned and what you have not yet been told to do — and know when the next step is to ask a person."
+      },
+      {
+        "sourceRef": "Mishnah Pesachim 1:1",
+        "stem": "You read this practice line by yourself, with no teacher in the room:\n\nאוֹר לְאַרְבָּעָה עָשָׂר בּוֹדְקִין אֶת הֶחָמֵץ\n\"On the eve of the fourteenth one searches for leaven.\"\n\nWhat have you gained, and what have you not gained?",
+        "choices": [
+          "You learned what the source says about a search, not a personal ruling for your household.",
+          "You received a binding ruling you must carry out tonight in every household detail.",
+          "You learned nothing at all until a court reprints the line in a new edition.",
+          "You may now sit as the authority and rule this search for every other household."
+        ],
+        "correct": 0,
+        "feedback": "The line teaches a stated practice. Understanding that sentence is still learning, not a personal ruling for your kitchen. A ruling for your own life needs a competent authority who knows your situation."
       }
     ]
   },
-  "updatedAt": "2026-09-10T03:45:00.000Z"
+  "updatedAt": "2026-09-10T12:45:00.000Z"
 }
