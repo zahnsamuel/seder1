@@ -39,6 +39,14 @@ function skillScore(learner, skillId) {
   return Math.max(Number(learner?.foundationScores?.[skillId]) || 0, Number(learner?.mastery?.[skillId]) || 0);
 }
 
+const SAME_SITTING_MS = 2 * 60 * 60 * 1000;
+
+export function shouldDeferSameSittingRetrieval(learner, skillId, now = Date.now()) {
+  if (!learner || typeof skillId !== 'string' || skillScore(learner, skillId) < SECURE) return false;
+  const at = Date.parse(learner.masteryUpdatedAt?.[skillId] || '');
+  return Number.isFinite(at) && now - at >= 0 && now - at < SAME_SITTING_MS;
+}
+
 export function pickFrontierFoundationSkill(graph, learner, options = {}) {
   if (!graph?.skills?.length) return null;
   const among = teachableFoundationIds(options.teachableIds);
@@ -74,20 +82,21 @@ export function resolveFoundationSkillId(graph, map, skillId) {
   return contentSkillToFoundationId(map, id);
 }
 
-export function pickRetrievalFoundationSkill(graph, map, { dueIds = [], fadedIds = [], learner = null, allowSecuredFallback = false, teachableIds } = {}) {
+export function pickRetrievalFoundationSkill(graph, map, { dueIds = [], fadedIds = [], learner = null, allowSecuredFallback = false, teachableIds, deferSameSittingSecure = false } = {}) {
   if (!graph?.skills?.length) return null;
   const among = teachableFoundationIds(teachableIds);
   // Layer 0 has its own glyph ladder and review. Due/faded fnd-decode-* must not
   // outrank the first non-L0 teach (skip/complete used to bounce back to hebrew-decoding).
   const allowed = (id) => Boolean(id) && (!among || among.has(id)) && !isDecodeSkill(id);
   const resolve = (id) => resolveFoundationSkillId(graph, map, id);
+  const usable = (skillId) => skillId && allowed(skillId) && !(deferSameSittingSecure && shouldDeferSameSittingRetrieval(learner, skillId));
   for (const id of dueIds) {
     const skillId = resolve(id);
-    if (skillId && allowed(skillId)) return { skillId, sourceId: id, trigger: 'due' };
+    if (usable(skillId)) return { skillId, sourceId: id, trigger: 'due' };
   }
   for (const id of fadedIds) {
     const skillId = resolve(id);
-    if (skillId && allowed(skillId)) return { skillId, sourceId: id, trigger: 'decay' };
+    if (usable(skillId)) return { skillId, sourceId: id, trigger: 'decay' };
   }
   if (!allowSecuredFallback || !learner) return null;
   const secured = graph.skills.filter((skill) => allowed(skill.id) && skillScore(learner, skill.id) >= SECURE);
@@ -101,7 +110,11 @@ export function pickRetrievalFoundationSkill(graph, map, { dueIds = [], fadedIds
 }
 
 export function foundationRetrievalRecommendation(learner, graph, map, options = {}) {
-  const pick = pickRetrievalFoundationSkill(graph, map, { ...options, learner });
+  const pick = pickRetrievalFoundationSkill(graph, map, {
+    deferSameSittingSecure: true,
+    ...options,
+    learner
+  });
   if (!pick) return null;
   const skill = graph.skills.find((entry) => entry.id === pick.skillId);
   if (!skill) return null;
