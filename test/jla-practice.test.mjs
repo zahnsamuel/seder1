@@ -35,6 +35,9 @@ test('practice script keeps server scoring and one Continue', async () => {
   assert.match(js, /daily-router\.html/);
   assert.match(js, /jla-source-line/);
   assert.match(js, /jla-chip is-secure/);
+  assert.match(js, /stripCapabilityClaim/);
+  assert.match(js, /practiceLine\(session\.evidencePreview\)/);
+  assert.doesNotMatch(js, /You'll practice: \$\{session\.evidencePreview\}/);
   assert.doesNotMatch(js, /correctChoiceId/);
   assert.doesNotMatch(js, /choice === 0|correct === true/);
 });
