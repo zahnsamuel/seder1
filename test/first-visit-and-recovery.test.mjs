@@ -49,7 +49,7 @@ test('a 401 from badge or milestones cannot bounce a visitor off diagnostic', as
   assert.match(diagnosticHtml, /id="intro-cta"/);
   assert.match(diagnosticHtml, /sign-in\.html\?next=diagnostic\.html/);
   assert.match(diagnosticHtml, /Pick a name to start/);
-  assert.doesNotMatch(diagnosticJs, /Could you do this reliably/);
+  assert.doesNotMatch(diagnosticHtml, /Could you do this reliably/);
 });
 
 test('token accounts can be recovered with a recovery code', async () => {

@@ -1,10 +1,9 @@
 // Adaptive placement as a knowledge-frontier estimator (The Math Academy Way, ch. 4). Drives the
 // stateless graph diagnostic (POST /api/graph/diagnostic): each answer is a real authored MC, the
 // server picks the next skill that best splits remaining uncertainty, and infers everything below a
-// passed skill. Self-ratings ("Could you do this reliably right now?") are not used. On completion it
-// seeds the frontier through the same placement_completed path the rest of the app uses
-// (enrichPlacementWithFrontier), at a provisional "secure" level — one placement item is evidence,
-// not a graded 1.0, and later sessions refine it.
+// passed skill. Self-ratings are not used. On completion it seeds the frontier through the same
+// placement_completed path the rest of the app uses (enrichPlacementWithFrontier), at a provisional
+// "secure" level — one placement item is evidence, not a graded 1.0, and later sessions refine it.
 const learnerId = Seder.currentLearnerId();
 const $ = (selector) => document.querySelector(selector);
 const esc = (value) => String(value == null ? '' : value).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
