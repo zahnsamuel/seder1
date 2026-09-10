@@ -625,6 +625,18 @@
         ],
         "correct": 0,
         "feedback": "A concrete \"a case...\" line is a worked example; read it as a test of the rule it follows."
+      },
+      {
+        "sourceRef": "Mishnah Bava Metzia 1:1",
+        "stem": "Read this opening:\n\nשְׁנַיִם אוֹחֲזִין בְּטַלִּית\n\"Two people are holding a garment.\"\n\nThe source does not start with an abstract rule; it drops into this scene. What is the scene doing?",
+        "choices": [
+          "A worked example: a concrete case the later rules will test.",
+          "A brand-new rule that has nothing to do with found objects.",
+          "A quoted verse of Scripture offered as a proof.",
+          "The final decided law of the whole tractate."
+        ],
+        "correct": 0,
+        "feedback": "A source that opens on a concrete scene — two people, one garment — is giving a worked example, not stating a new unrelated rule. Name the case, then look for the rule it tests."
       }
     ],
     "fnd-role-quotation-bounds": [
@@ -663,6 +675,18 @@
         ],
         "correct": 0,
         "feedback": "Marking the cited words apart from the citing voice is what keeps the two straight."
+      },
+      {
+        "sourceRef": "Rashi on Genesis 1:1",
+        "stem": "A commentary quotes a word from the verse, then explains it:\n\nבְּרֵאשִׁית — אֵין הַמִּקְרָא הַזֶּה אוֹמֵר אֶלָּא דָּרְשֵׁנִי\n\"'In the beginning' — this verse says nothing other than 'interpret me.'\"\n\nWhere does the quoted word end and the commenter's own voice begin?",
+        "choices": [
+          "At the dash: בְּרֵאשִׁית is quoted; what follows is the comment.",
+          "The whole line is one continuous quotation from the verse.",
+          "Only the last Hebrew word is quoted; the rest is still the verse.",
+          "There is no quotation here; every word is the verse itself."
+        ],
+        "correct": 0,
+        "feedback": "The dash is the edge. בְּרֵאשִׁית is the cited word; the explanation after it is the commentary's own voice, not more of the verse."
       }
     ],
     "fnd-role-ruling-vs-discussion": [
@@ -751,6 +775,18 @@
         ],
         "correct": 0,
         "feedback": "Name everyone whose action matters — here the two owners via their animals — before asking who owes what."
+      },
+      {
+        "sourceRef": "Gittin 55b",
+        "stem": "The story is introduced:\n\nאַקַּמְצָא וּבַר קַמְצָא חֲרוּב יְרוּשָׁלַיִם\n\"On account of Kamtza and Bar Kamtza, Jerusalem was destroyed.\"\n\nListing the actors in the feast story that follows, who belongs on the cast?",
+        "choices": [
+          "The host, the intended guest, and the man invited by mistake.",
+          "Only the later court scribes who copied the story down.",
+          "The verse of Scripture that the story is copying out.",
+          "No people act here; the line is only a calendar date."
+        ],
+        "correct": 0,
+        "feedback": "Name the people who act in the situation: a host, the guest who was meant to come, and the man who arrived by mistake. The moral or legal question sits on that cast, not instead of it."
       }
     ],
     "fnd-case-what-happens": [
@@ -839,6 +875,18 @@
         ],
         "correct": 0,
         "feedback": "A faithful restatement preserves the outcome; the real case splits the cloak, so \"gave it to one\" is a genuine error."
+      },
+      {
+        "sourceRef": "Pirkei Avot 4:1",
+        "stem": "Read this teaching:\n\nאֵיזֶהוּ חָכָם? הַלּוֹמֵד מִכָּל אָדָם\n\"Who is wise? One who learns from every person.\"\n\nWhich is a faithful restatement in your own words?",
+        "choices": [
+          "A wise person is someone willing to learn from anyone.",
+          "Only named sages are allowed to study these lines.",
+          "Wisdom here means reciting every line from memory.",
+          "The teaching is only asking who printed this book."
+        ],
+        "correct": 0,
+        "feedback": "A faithful restatement keeps the meaning in plainer words: wisdom here is willingness to learn from anyone. It does not add a ban on learners, a memory test, or a question about printing."
       }
     ],
     "fnd-case-uncertainty": [
@@ -877,6 +925,18 @@
         ],
         "correct": 0,
         "feedback": "The open question — is a first goring already \"forewarned\"? — is exactly what must be settled to decide the payment."
+      },
+      {
+        "sourceRef": "Gemara Sukkah 2a",
+        "stem": "A case is named:\n\nסוּכָּה שֶׁהִיא גְבוֹהָה לְמַעְלָה מֵעֶשְׂרִים אַמָּה\n\"A booth that is higher than twenty cubits.\"\n\nThe discussion then asks whether a booth that tall still counts. What is the uncertainty the case turns on?",
+        "choices": [
+          "Whether a booth that tall still counts as valid.",
+          "Whether booths may be built of wood in any season.",
+          "Who first copied this line into the printed book.",
+          "Which language the discussion is written in."
+        ],
+        "correct": 0,
+        "feedback": "The missing piece needed to decide is the status of that height: does a booth above twenty cubits still count? That open question is the uncertainty, not the material, the copyist, or the language."
       }
     ],
     "fnd-arg-claim": [
@@ -915,6 +975,18 @@
         ],
         "correct": 0,
         "feedback": "The claim is what the source asserts — here, the permitted start time — not a question, a citation, or a dispute about it."
+      },
+      {
+        "sourceRef": "Deuteronomy 6:4",
+        "stem": "Read this line:\n\nשְׁמַע יִשְׂרָאֵל ה׳ אֱלֹהֵינוּ ה׳ אֶחָד\n\"Hear, Israel: the Lord is our God, the Lord is one.\"\n\nPut its claim in one plain sentence.",
+        "choices": [
+          "The Lord is our God, and the Lord is one.",
+          "From when may this line be recited at night?",
+          "As it is written in a different, unnamed book.",
+          "A named sage is about to speak the next line."
+        ],
+        "correct": 0,
+        "feedback": "The claim is what the line asserts: God is ours, and God is one. \"Hear\" addresses the listener; it does not turn the line into a timing question, a citation, or an attribution."
       }
     ],
     "fnd-arg-evidence-role": [
@@ -952,7 +1024,19 @@
           "Ending the discussion with a final ruling."
         ],
         "correct": 0,
-        "feedback": "A citation that pushes back is challenging, not supporting; naming its job (prop / attack / refine / split) is the move."
+        "feedback": "A citation that pushes back is challenging, not supporting; name its job (prop / attack / refine / split) before you go on."
+      },
+      {
+        "sourceRef": "Pirkei Avot 3:2",
+        "stem": "A teaching cites a verse and then builds on it:\n\nשֶׁנֶּאֱמַר וְאָכַלְתָּ וְשָׂבָעְתָּ וּבֵרַכְתָּ · מִכָּאן אָמְרוּ\n\"as it is said: 'you shall eat and be satisfied and bless' · from here they said.\"\n\nWhat job is that cited verse doing?",
+        "choices": [
+          "Supporting the teaching that follows, as a proof.",
+          "Attacking the teaching as a counter-example.",
+          "Splitting the teaching into two unrelated cases.",
+          "Ending the page so that nothing further can follow."
+        ],
+        "correct": 0,
+        "feedback": "\"As it is said\" plus \"from here they said\" is a proof-shape: the verse is brought to support the teaching, not to attack it, split it, or stop the page."
       }
     ],
     "fnd-arg-objection": [
@@ -1091,6 +1175,18 @@
         ],
         "correct": 0,
         "feedback": "תֵּיקוּ signals a question left standing; recognizing the deliberate openness is the reading, not a hunt for a verdict."
+      },
+      {
+        "sourceRef": "Gemara Eruvin 13b",
+        "stem": "A dispute is closed with this line:\n\nאֵלּוּ וָאֵלּוּ דִּבְרֵי אֱלֹהִים חַיִּים\n\"These and those are the words of the living God.\"\n\nWhat should you conclude about the tension between the views?",
+        "choices": [
+          "Both views are left standing; there is no single winner.",
+          "The last speaker automatically becomes the decided law.",
+          "A page was lost, so the second view is a copy error.",
+          "The dispute was only about who copied the tractate."
+        ],
+        "correct": 0,
+        "feedback": "The line keeps both views alive rather than handing victory to one speaker. Name that standing tension; do not invent a lost page or a copy-error to force a winner."
       }
     ],
     "fnd-context-genre-expectations": [
@@ -1129,6 +1225,18 @@
         ],
         "correct": 0,
         "feedback": "A code invites precision; a poem invites resonance. Reading a code like a poem — or a poem like a code — misreads the genre."
+      },
+      {
+        "sourceRef": "Amidah, opening blessing",
+        "stem": "You are reading a blessing that addresses God directly:\n\nבָּרוּךְ אַתָּה ה׳\n\"Blessed are You, Lord.\"\n\nWhat is fair to ask of this line, and what is not?",
+        "choices": [
+          "Ask it as praise addressed to God, not as a damages ruling.",
+          "Ask it for the exact legal steps of a valid feast invitation.",
+          "Ask it to settle which of two named sages wins a dispute.",
+          "Ask it for the clock times of searching a house for leaven."
+        ],
+        "correct": 0,
+        "feedback": "A blessing is address and praise. Demanding a damages ruling, a dispute verdict, or a search-time from it mistakes what this genre can deliver."
       }
     ],
     "fnd-resp-learning-vs-ruling": [
@@ -1182,5 +1290,5 @@
       }
     ]
   },
-  "updatedAt": "2026-09-10T02:49:22.326Z"
+  "updatedAt": "2026-09-10T03:45:00.000Z"
 }

@@ -13,18 +13,6 @@ import {
 
 const load = async (file) => JSON.parse(await readFile(new URL(`../${file}`, import.meta.url), 'utf8'));
 
-// Later L3–L5 banks still being rewritten in a peer lane. Early signal asks are
-// guarded here now that those banks are source-grounded on this branch.
-const PEER_LANE_BANKS = new Set([
-  'fnd-role-example',
-  'fnd-case-actors',
-  'fnd-case-restate',
-  'fnd-case-uncertainty',
-  'fnd-arg-claim',
-  'fnd-arg-evidence-role',
-  'fnd-arg-unresolved'
-]);
-
 const graph = {
   skills: [
     { id: 'fnd-orient-source-type', prerequisites: [] },
@@ -126,21 +114,19 @@ test('See-it teach + ask pairing on main’s current banks uses no unearned term
     itemsBySkill: bank,
     teachFile: teach,
     graph: liveGraph,
-    skillIds: paired,
-    skip: PEER_LANE_BANKS
+    skillIds: paired
   });
   assert.deepEqual(violations, [], formatViolations(violations));
 });
 
-test('authored banks outside the peer deepen lane earn every ask term', async () => {
+test('authored banks earn every ask term on See-it + prior teach', async () => {
   const teach = await load('data/foundation-teach.json');
   const bank = (await load('data/foundation-authored-items.json')).items;
   const liveGraph = await load('data/foundation-skill-graph.json');
   const violations = findTeachBeforeAskViolations({
     itemsBySkill: bank,
     teachFile: teach,
-    graph: liveGraph,
-    skip: PEER_LANE_BANKS
+    graph: liveGraph
   });
   assert.deepEqual(violations, [], formatViolations(violations));
 });
