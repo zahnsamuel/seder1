@@ -11,6 +11,7 @@ const esc = (value) => String(value == null ? '' : value).replace(/[&<>"']/g, (c
 
 const responses = {};      // skillId -> passed boolean, accumulated across probes
 let questionCount = 0;
+let maxProbes = 6; // DIAGNOSTIC_PROBE_CAP
 let done = false;          // once the result is shown, the diagnostic is terminal — no late probe may reappear
 let graph = null;
 let total = 53;            // graph skill count, for the "mapped" gauge; refined once the graph loads
@@ -53,8 +54,10 @@ async function step() {
     if (!response.ok) throw new Error('diagnostic');
     data = await response.json();
   } catch { $('#status').textContent = 'Diagnostic unavailable — reload to try again.'; return; }
+  if (typeof data.maxProbes === "number" && data.maxProbes > 0) maxProbes = data.maxProbes;
   updateGauge(data.estimate || {});
-  if (data.complete || !data.nextProbe) { finish(data.estimate || {}); return; }
+  const atCap = Object.keys(responses).length >= maxProbes;
+  if (data.complete || !data.nextProbe || atCap) { finish(data.estimate || {}); return; }
   if (done) return; // finished while this round-trip was in flight
   renderProbe(data.nextProbe);
 }
@@ -70,7 +73,7 @@ function updateGauge(estimate) {
   const fill = $('#gauge-fill'); if (fill) fill.style.width = `${pct}%`;
   const gauge = $('.gauge'); if (gauge) gauge.setAttribute('aria-valuenow', String(pct));
   $('#placed-label').textContent = `${mapped.size} of ${total} skills mapped`;
-  $('#q-label').textContent = `Question ${questionCount + 1}`;
+  $('#q-label').textContent = `Check ${Math.min(questionCount + 1, maxProbes)} of ${maxProbes}`;
 }
 
 function renderProbe(probe) {
