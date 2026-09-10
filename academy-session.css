@@ -64,7 +64,7 @@
 }
 .kp-steps li b { font-weight: 800; }
 .kp-steps li span { font-weight: 600; }
-.kp-steps li small { font-weight: 500; opacity: .8; }
+.kp-steps li small { display: none; }
 .kp-steps li.is-current,
 .kp-steps li.current {
   opacity: 1;

@@ -61,7 +61,7 @@ function showAsk(visible) {
   if (panel) panel.hidden = !visible;
 }
 
-function startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, teachBank, mode = 'introduce') {
+function startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, teachBank, mode = 'introduce', map = null) {
   $('#title').textContent = skill.title;
   $('#statement').textContent = practiceLine(skill.statement);
   $('#why').textContent = whyLine(skill, graph);
@@ -170,21 +170,27 @@ function startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, 
     const state = (Seder.capabilityStates && Seder.capabilityStates[stateKey]) || { label: 'Emerging', blurb: 'can make this with support' };
     const chip = $('#complete-chip');
     if (chip) {
-      chip.hidden = false;
       chip.className = `jla-chip is-${stateKey}`;
       chip.textContent = state.label;
+      // Emerging on a just-finished first lesson reads as a grade. Show the chip once the
+      // skill is actually secure; otherwise the CTA is the next move, not a scoreboard.
+      chip.hidden = stateKey === 'emerging';
     }
-    if ($('#complete-eyebrow')) $('#complete-eyebrow').textContent = 'THIS CAPABILITY';
+    if ($('#complete-eyebrow')) $('#complete-eyebrow').textContent = 'LESSON DONE';
     $('#complete-title').textContent = retrieval
       ? `You brought “${skill.title}” back into reach.`
       : skill.title;
     $('#complete-copy').textContent = retrieval
-      ? `${state.label}: ${state.blurb}. One short check, then back to Today.`
-      : `${state.label}: ${state.blurb}.`;
+      ? 'One short check. Today has the next step if you want it.'
+      : 'Today has the next short lesson if you want it.';
     const next = $('#complete-next');
     if (next) { next.href = 'daily-router.html'; next.textContent = 'Continue on Today →'; }
     const academy = $('#complete-academy');
-    if (academy) academy.href = `academy.html?skill=${encodeURIComponent(skillId)}`;
+    if (academy) {
+      academy.href = `academy.html?skill=${encodeURIComponent(skillId)}`;
+      academy.textContent = 'See your progress later';
+    }
+    renderRealContent(map);
     $('#complete').hidden = false;
     $('#complete').scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
@@ -264,7 +270,6 @@ Promise.all([
   } else {
     const skill = graph?.skills.find((item) => item.id === skillId) || { ...FALLBACK_SKILL, id: skillId };
     const authoredBank = authoredFile?.items?.[skillId] || [];
-    startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, teachBank, sessionMode);
+    startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, teachBank, sessionMode, map);
   }
-  renderRealContent(map);
 });

@@ -73,9 +73,14 @@ test('friend click path: Today is one lesson CTA, not Academy Foundation jargon'
   ]);
   assert.match(html, /Finding today’s lesson/);
   assert.match(html, /One thing to do next/);
+  assert.match(html, /Start this lesson/);
+  assert.doesNotMatch(html, /Open Today →/);
   assert.doesNotMatch(html, /most useful next move/);
   assert.match(client, /jla-next-action__hint/);
-  assert.match(client, /This is the only thing to do right now/);
+  assert.match(client, /Then you’ll come back here/);
+  assert.match(client, /Start the next lesson/);
+  assert.match(client, /That’s the next short lesson if you want it/);
+  assert.doesNotMatch(client, /This is the only thing to do right now/);
   assert.match(css, /jla-next-action__hint/);
   const rec = foundationFrontierRecommendation({
     placement: { completedAt: '2026-09-08' },
@@ -83,7 +88,9 @@ test('friend click path: Today is one lesson CTA, not Academy Foundation jargon'
   }, graph);
   assert.ok(rec);
   assert.doesNotMatch(rec.title, /Academy Foundation ·/);
-  assert.match(rec.reason, /About 15 minutes|see it/i);
+  assert.match(rec.reason, /About 15 minutes/);
+  assert.match(rec.reason, /see a short source/i);
+  assert.doesNotMatch(rec.reason, /You can say whether/);
   assert.equal(rec.url, 'hebrew-decoding.html');
 });
 
@@ -97,11 +104,20 @@ test('friend click path: academy session is See-it then ask on this page, then b
   assert.match(html, /ON THIS PAGE/);
   assert.match(html, /Look up later \(optional\)/);
   assert.match(html, /Continue on Today/);
+  assert.match(html, /LESSON DONE/);
+  assert.match(html, /Today has the next short lesson if you want it/);
+  assert.match(html, /See your progress later/);
   assert.match(html, /href="daily-router.html"/);
   assert.doesNotMatch(html, /path\.html/);
   assert.doesNotMatch(html, /Open full text in Sefaria/);
+  assert.doesNotMatch(html, /THIS CAPABILITY/);
+  assert.doesNotMatch(html, /See this on Academy/);
   assert.match(js, /hideOutbound/);
   assert.match(js, /Continue on Today/);
+  assert.match(js, /LESSON DONE/);
+  assert.match(js, /Today has the next short lesson if you want it/);
+  assert.doesNotMatch(js, /state\.blurb/);
+  assert.doesNotMatch(js, /can make the move/);
   assert.doesNotMatch(lesson, /sefaria\.org\/search/);
   assert.doesNotMatch(lesson, /TODAY’S SOURCE WINDOW|TODAY'S SOURCE WINDOW/);
 });

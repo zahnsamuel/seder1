@@ -119,19 +119,23 @@ test('foundation session chrome is see it / try it / new source with a clear ask
 });
 
 test('finishing a starter session names emerging or secure and returns to Today', () => {
-  assert.match(html, /id="complete-eyebrow">THIS CAPABILITY</);
+  assert.match(html, /id="complete-eyebrow">LESSON DONE</);
   assert.match(html, /id="complete-chip"/);
   assert.match(html, /id="complete-next"[^>]*href="daily-router\.html"/);
   assert.match(html, /Continue on Today/);
   assert.match(html, /id="complete-academy"/);
-  assert.match(html, /See this on Academy/);
+  assert.match(html, /See your progress later/);
+  assert.match(html, /Today has the next short lesson if you want it/);
+  assert.doesNotMatch(html, /See this on Academy/);
   assert.doesNotMatch(html, /Back to your path/);
   assert.doesNotMatch(html, /SKILL PRACTISED ACROSS THE CANON/);
   assert.doesNotMatch(js, /You practised/);
+  assert.doesNotMatch(js, /can make the move/);
   assert.match(js, /skillCapabilityState/);
   assert.match(js, /jla-last-foundation-skill/);
   assert.match(js, /academy\.html\?skill=/);
   assert.match(js, /jla-chip is-\$\{stateKey\}/);
+  assert.match(js, /chip\.hidden = stateKey === 'emerging'/);
   assert.doesNotMatch(js, /0 XP|\$\{[^}]*\} XP/);
 });
 
