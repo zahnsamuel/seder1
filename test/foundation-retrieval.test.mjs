@@ -34,6 +34,17 @@ test('a content-step id maps onto the fnd- skill it tags, not a vanished step', 
   assert.equal(resolveFoundationSkillId(graph, map, 'habit-recovery-001'), null);
 });
 
+test('due Layer 0 decode reviews do not steal the first non-L0 teach', () => {
+  assert.equal(
+    pickRetrievalFoundationSkill(graph, map, { dueIds: ['fnd-decode-letters', 'fnd-decode-word'] }),
+    null
+  );
+  const mixed = pickRetrievalFoundationSkill(graph, map, {
+    dueIds: ['fnd-decode-letters', 'fnd-arg-claim']
+  });
+  assert.equal(mixed.skillId, 'fnd-arg-claim');
+});
+
 test('due and faded retrieval pick a fnd- skill, including mapped content-steps', () => {
   const dueFnd = pickRetrievalFoundationSkill(graph, map, { dueIds: ['fnd-arg-claim', 'berakhot-orientation'] });
   assert.equal(dueFnd.skillId, 'fnd-arg-claim');

@@ -65,7 +65,8 @@ test('hebrew decoding index is one next move on the shared shell, not a syllabus
   assert.match(html, /I already read Hebrew/);
   assert.match(html, /id="decode-academy"/);
   assert.match(html, /academy\.html/);
-  assert.match(html, /daily-router\.html/);
+  assert.match(html, /academy-session\.html\?skill=fnd-orient-source-type/);
+  assert.doesNotMatch(html, /href="daily-router\.html"/);
   assert.match(html, /<details class="decoding-ladder">/);
   assert.match(html, /<summary>See the full ladder<\/summary>/);
   assert.match(html, /id="ladder"/);
@@ -113,21 +114,21 @@ test('index picker prefers review-due, then the next new lesson, then start', as
   assert.equal(reviewHero.href, 'decoding-lesson.html?lesson=letters-1');
 });
 
-test('a finished ladder hands off to Today with capability language, not a next-lesson CTA', async () => {
+test('a finished ladder hands off to the first non-L0 session with capability language', async () => {
   const [api, drills] = await Promise.all([loadIndex(), loadDrills()]);
   const order = drills.bands.flatMap((b) => b.lessons);
   const done = api.learnerState(drills, storageFor(order, {}), 'local', 1);
   const hero = api.heroFor(drills, done);
   assert.equal(done.mode, 'done');
-  assert.equal(hero.href, 'daily-router.html');
-  assert.equal(hero.cta, 'Continue to Today →');
+  assert.equal(hero.href, 'academy-session.html?skill=fnd-orient-source-type');
+  assert.equal(hero.cta, 'See it on a source →');
   assert.match(hero.title, /decode Hebrew/i);
-  assert.match(hero.copy, /Today/);
+  assert.match(hero.copy, /source|question/i);
   assert.doesNotMatch(hero.copy, /XP/i);
   assert.equal(api.progressFor(done), 'Hebrew decoding is secure.');
 });
 
-test('skip marks the ladder complete and points at Today so Academy can advance', async () => {
+test('skip marks the ladder complete and hands off to the first non-L0 session', async () => {
   const [api, drills] = await Promise.all([loadIndex(), loadDrills()]);
   const storage = storageFor([], {});
   const order = api.markLadderComplete(storage, 'demo', drills);
@@ -141,10 +142,48 @@ test('skip marks the ladder complete and points at Today so Academy can advance'
   assert.equal(event.correct, true);
   assert.equal(api.TODAY, 'daily-router.html');
   assert.equal(api.ACADEMY, 'academy.html');
+  assert.equal(api.FIRST_NON_DECODE, 'fnd-orient-source-type');
+  assert.equal(api.FIRST_SESSION, 'academy-session.html?skill=fnd-orient-source-type');
 
   const location = { href: 'hebrew-decoding.html' };
   await api.skipDecode(storage, drills, 'demo', location);
-  assert.equal(location.href, 'daily-router.html');
+  assert.equal(location.href, 'academy-session.html?skill=fnd-orient-source-type');
+});
+
+test('skip follows a live next-action unless it would send the learner back to decode', async () => {
+  const src = await read('decoding-index.js');
+  const drills = await loadDrills();
+  const loadWith = (href) => {
+    const posts = [];
+    const window = {
+      Seder: {
+        currentLearnerId: () => 'demo',
+        api: async (path, options = {}) => {
+          posts.push({ path, body: options.body });
+          if (String(path).includes('/events')) return { ok: true };
+          return { ok: true, json: async () => ({ href }) };
+        }
+      }
+    };
+    new Function('window', src)(window);
+    return { api: window.SederDecodingIndex, posts };
+  };
+
+  const bounce = loadWith('hebrew-decoding.html');
+  const bounceLoc = { href: '' };
+  await bounce.api.skipDecode(storageFor([], {}), drills, 'demo', bounceLoc);
+  assert.match(bounce.posts[0].body, /decoding_completed/);
+  assert.equal(bounceLoc.href, 'academy-session.html?skill=fnd-orient-source-type');
+
+  const placed = loadWith('academy-session.html?skill=fnd-orient-source-type');
+  const placedLoc = { href: '' };
+  await placed.api.skipDecode(storageFor([], {}), drills, 'demo', placedLoc);
+  assert.equal(placedLoc.href, 'academy-session.html?skill=fnd-orient-source-type');
+
+  const cold = loadWith('diagnostic.html');
+  const coldLoc = { href: '' };
+  await cold.api.skipDecode(storageFor([], {}), drills, 'demo', coldLoc);
+  assert.equal(coldLoc.href, 'diagnostic.html');
 });
 
 test('index still uses the decoding storage keys and fills only the quiet ladder hook', async () => {
@@ -153,6 +192,8 @@ test('index still uses the decoding storage keys and fills only the quiet ladder
   assert.match(js, /seder-decoding-review:/);
   assert.match(js, /seder-decoding-complete:/);
   assert.match(js, /decoding-lesson\.html\?lesson=/);
+  assert.match(js, /academy-session\.html\?skill=/);
+  assert.match(js, /decoding_completed/);
   assert.match(js, /daily-router\.html/);
   assert.doesNotMatch(js, /review-banner/);
   assert.doesNotMatch(js, /decoding-engine/);
@@ -174,8 +215,8 @@ test('index still uses the decoding storage keys and fills only the quiet ladder
 
   const order = drills.bands.flatMap((b) => b.lessons);
   api.render(document, drills, storageFor(order, {}), now, 'local');
-  assert.equal(nodes['continue-cta'].href, 'daily-router.html');
-  assert.equal(nodes['continue-cta'].textContent, 'Continue to Today →');
+  assert.equal(nodes['continue-cta'].href, 'academy-session.html?skill=fnd-orient-source-type');
+  assert.equal(nodes['continue-cta'].textContent, 'See it on a source →');
   assert.equal(nodes['skip-decode-wrap'].hidden, true);
   assert.equal(nodes['decode-academy'].hidden, false);
 });

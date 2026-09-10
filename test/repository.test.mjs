@@ -11,6 +11,7 @@ import {
   listLearnersFull,
   reviewStatus,
   decayingSkills,
+  DECODE_GRAPH_SKILLS,
 } from '../data/repository.mjs';
 
 // Every test gets its own scratch "root" directory (with a data/ subfolder, matching
@@ -164,6 +165,30 @@ describe('recordLearnerEvent: evidence and the multi-context transfer bonus', ()
     await recordLearnerEvent(root, learner.id, { type: 'answer_submitted', skillId: 'skill-ctx3', correct: true, sourceContext: 'Context B' });
     const updated = await recordLearnerEvent(root, learner.id, { type: 'answer_submitted', skillId: 'skill-ctx3', correct: true, sourceContext: 'Context B' });
     assert.equal(updated.evidence['skill-ctx3'].length, 2, 'context set should not grow from a repeated context');
+  });
+});
+
+describe('recordLearnerEvent: decoding_completed', () => {
+  test('secures Layer 0 without XP or a due-now review', async () => {
+    const learner = await createLearner(root, 'Decode Skip');
+    await recordLearnerEvent(root, learner.id, {
+      type: 'answer_submitted', skillId: 'fnd-decode-letters', correct: true, sourceContext: 'Decoding · letters'
+    });
+    await recordLearnerEvent(root, learner.id, {
+      type: 'answer_submitted', skillId: 'fnd-decode-letters', correct: true, sourceContext: 'Decoding · letters'
+    });
+    const before = await getLearner(root, learner.id);
+    assert.ok(before.mastery['fnd-decode-letters'] >= 0.67);
+    assert.ok(before.reviewQueue.some((item) => item.skillId === 'fnd-decode-letters'));
+    const xpBefore = before.xp;
+
+    const updated = await recordLearnerEvent(root, learner.id, { type: 'decoding_completed' });
+    assert.equal(updated.xp, xpBefore, 'skip/complete must not mint XP');
+    for (const skillId of DECODE_GRAPH_SKILLS) {
+      assert.ok(updated.mastery[skillId] >= 0.8, skillId);
+      assert.ok(updated.foundationScores[skillId] >= 0.8, skillId);
+    }
+    assert.equal(updated.reviewQueue.some((item) => String(item.skillId).startsWith('fnd-decode-')), false);
   });
 });
 

@@ -1,7 +1,7 @@
 import { supabaseRest } from './supabase-adapter.mjs';
 import { recordAcademyCapabilityEvent } from '../jla-capability-evidence.js';
 import { decayedMasteryMap } from './mastery-decay.mjs';
-import { creditImplicitReviews } from './repository.mjs';
+import { applyDecodeComplete, creditImplicitReviews, DECODE_GRAPH_SKILLS } from './repository.mjs';
 
 const competencies = { recognition: 0, translation: 0, argument: 0, sourceReasoning: 0 };
 const empty = (id, displayName = 'Learner') => ({ id, xp: 0, mastery: {}, evidence: {}, masteryUpdatedAt: {}, struggles: {}, competencies: { ...competencies }, profile: { displayName }, completedStages: [], reviewQueue: [], placement: null, foundationScores: {}, artifacts: {}, capabilityEvidence: [], events: [], dailyStreak: 0, lastStudyDate: null, totalAnswered: 0, updatedAt: new Date().toISOString() });
@@ -71,6 +71,11 @@ export async function recordHostedEvent(user, accessToken, event) {
   learner.masteryUpdatedAt ||= {};
   const recorded = { ...event, at: new Date().toISOString() };
   learner.events.push(recorded);
+  if (event.type === 'decoding_completed' || event.type === 'decoding_skipped') {
+    const previouslyDue = new Set((learner.reviewQueue || []).map((item) => item.skillId));
+    applyDecodeComplete(learner, recorded.at);
+    await Promise.all(DECODE_GRAPH_SKILLS.filter((id) => previouslyDue.has(id)).map((id) => putReview(learner, id, accessToken)));
+  }
   if (event.type === 'answer_submitted' || event.type === 'source_annotation' || event.type === 'canon_lab') {
     learner.totalAnswered = (learner.totalAnswered || 0) + 1;
     const today = recorded.at.slice(0, 10);

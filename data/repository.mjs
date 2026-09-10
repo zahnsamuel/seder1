@@ -84,6 +84,28 @@ function normalizedReviewQueue(queue = []) {
   return queue.map((item) => typeof item === 'string' ? { skillId: item, dueAt: new Date().toISOString(), attempts: 1, reason: 'A previous answer was uncertain.' } : item);
 }
 
+export const DECODE_GRAPH_SKILLS = ['fnd-decode-letters', 'fnd-decode-vowels', 'fnd-decode-blend', 'fnd-decode-word'];
+const DECODE_SECURE = 0.8;
+
+export function applyDecodeComplete(learner, at = new Date().toISOString()) {
+  if (!learner) return learner;
+  learner.foundationScores ||= {};
+  learner.mastery ||= {};
+  learner.masteryUpdatedAt ||= {};
+  const decode = new Set(DECODE_GRAPH_SKILLS);
+  for (const skillId of DECODE_GRAPH_SKILLS) {
+    learner.foundationScores[skillId] = Math.max(Number(learner.foundationScores[skillId]) || 0, DECODE_SECURE);
+    learner.mastery[skillId] = Math.max(Number(learner.mastery[skillId]) || 0, DECODE_SECURE);
+    learner.masteryUpdatedAt[skillId] = at;
+  }
+  learner.reviewQueue = normalizedReviewQueue(learner.reviewQueue).filter((item) => !decode.has(item.skillId));
+  return learner;
+}
+
+function isDecodeCompleteEvent(type) {
+  return type === 'decoding_completed' || type === 'decoding_skipped';
+}
+
 function competencyFor(event) {
   if (event.competency) return event.competency;
   if (/proof|canon|source/i.test(event.skillId || '')) return 'sourceReasoning';
@@ -233,6 +255,7 @@ async function recordLearnerEventUnlocked(root, id, event) {
   learner.artifacts ||= {};
   const recorded = { ...event, at: new Date().toISOString() };
   learner.events.push(recorded);
+  if (isDecodeCompleteEvent(event.type)) applyDecodeComplete(learner, recorded.at);
   if (event.type === 'retrieval_scheduled' && event.skillId) {
     queueReview(learner, event.skillId, {
       delayHours: Number.isFinite(event.delayHours) ? Math.max(1, event.delayHours) : 24,

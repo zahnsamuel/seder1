@@ -32,7 +32,7 @@ test('decoding lesson is one next move on the shared shell, not a dual-column sy
   assert.doesNotMatch(html, /0 XP/);
   assert.match(html, /id="skip-decode"/);
   assert.match(html, /I already read Hebrew/);
-  assert.match(html, /daily-router\.html/);
+  assert.match(html, /academy-session\.html\?skill=fnd-orient-source-type/);
   assert.match(html, /hebrew-decoding\.html/);
   assert.match(html, /data-links='\[\{"label":"The ladder","href":"hebrew-decoding\.html"\}\]'/);
   assert.doesNotMatch(html, /<header>/);
@@ -76,11 +76,13 @@ test('decoding engine keeps drill wiring, speaks capability, and hands off to To
   assert.match(js, /fb\.textContent = item\.feedback/);
   assert.match(js, /class="mastery"/);
   assert.match(js, /decoding-lesson\.html\?lesson=/);
+  assert.match(js, /Continue to Today|See it on a source/);
+  assert.match(js, /academy-session\.html\?skill=/);
   assert.match(js, /daily-router\.html/);
-  assert.match(js, /Continue to Today/);
-  assert.match(js, /academy\.html/);
+  assert.match(js, /academy\.html|Or open Today/);
   assert.match(js, /You can decode Hebrew/);
   assert.match(js, /HEBREW DECODING IS SECURE/);
+  assert.match(js, /postDecodeComplete/);
   assert.doesNotMatch(js, /foundation-reading-orientation\.html/);
 });
 

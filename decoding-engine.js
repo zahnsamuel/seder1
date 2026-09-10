@@ -56,6 +56,7 @@ function markLadderFinished(done) {
   localStorage.setItem(completeKey, '1');
   if (indexApi && indexApi.markLadderComplete) indexApi.markLadderComplete(localStorage, decLearner, drills);
   else localStorage.setItem(doneKey, JSON.stringify([...done]));
+  if (indexApi && indexApi.postDecodeComplete) indexApi.postDecodeComplete();
 }
 const decSaved = Number(localStorage.getItem(progressKey));
 let decIndex = Number.isInteger(decSaved) && decSaved >= 0 && decSaved < drill.items.length ? decSaved : 0, decAnswered = false;
@@ -112,10 +113,11 @@ function decAnswer(button, correct, item) {
   $('#continue').disabled = false;
 }
 function completionHtml(next) {
+  const nextSkill = (indexApi && indexApi.FIRST_SESSION) || 'academy-session.html?skill=fnd-orient-source-type';
   if (next) {
     return `<section class="mastery"><span class="eyebrow jla-eyebrow">LESSON COMPLETE</span><h2>${drill.title || 'Lesson complete.'}</h2><p>That lesson is saved. The next one builds on what you just learned.</p><a class="jla-btn jla-btn-primary" href="decoding-lesson.html?lesson=${next}">Next lesson →</a><p class="jla-quiet-link"><a href="daily-router.html">Back to Today</a></p></section>`;
   }
-  return `<section class="mastery"><span class="eyebrow jla-eyebrow">HEBREW DECODING IS SECURE</span><h2>You can decode Hebrew.</h2><p>You finished the decoding ladder — you can sound out a Hebrew word. Today will pick the next reading skill.</p><a class="jla-btn jla-btn-primary" href="daily-router.html">Continue to Today →</a><p class="jla-quiet-link"><a href="academy.html">See your path on Academy</a></p></section>`;
+  return `<section class="mastery"><span class="eyebrow jla-eyebrow">HEBREW DECODING IS SECURE</span><h2>You can decode Hebrew.</h2><p>You finished the decoding ladder — you can sound out a Hebrew word. Next you’ll see a short source, then answer one question.</p><a class="jla-btn jla-btn-primary" href="${nextSkill}">See it on a source →</a><p class="jla-quiet-link"><a href="daily-router.html">Or open Today</a></p></section>`;
 }
 $('#continue').addEventListener('click', () => {
   if (!decAnswered) return;
