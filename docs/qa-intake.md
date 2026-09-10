@@ -33477,4 +33477,25 @@ Away-day draft off PR #59 tip (`cursor/thicken-foundation-banks-844e` @ `8fbdca4
 
 Light See-it edits only where the new ask needed them: question-words now pairs "why" with a reason; name-formulas mention "the words of Rabbi X" and assign *those* words, not only the next words. No L0 `fnd-decode-*` banks. No Today/diagnostic chrome. Guard: `test/foundation-l1-l2-banks.test.mjs` (≥5).
 
+## 2026-09-10 — thicken twelve next 4-item starter banks (L3–L5 + L7/L8)
+
+Away-day draft off PR #62 tip (`cursor/thicken-l1-l2-starter-banks-c4a1` @ `f348941`). After that L1/L2 4→5 pass, 15 non-L0 starter banks were still at 4. This slice takes the next ring from 4→5 (cap 12; lower layers first; include the named L7/L8 leftovers):
+
+| Skill | Band | New source (Sefaria-checked) |
+|---|---|---|
+| `fnd-role-example` | L3 | Mishnah Sukkah 1:1 (booth taller than twenty cubits) |
+| `fnd-role-question-vs-answer` | L3 | Mishnah Pesachim 1:1 (`לָמָה` / cellar rows → answer) |
+| `fnd-role-quotation-bounds` | L3 | Pirkei Avot 3:2 (`שֶׁנֶּאֱמַר` … `מִכָּאן אָמְרוּ`) |
+| `fnd-role-ruling-vs-discussion` | L3 | Mishnah Sukkah 1:1 (unfit vs Rabbi Yehuda deems it fit) |
+| `fnd-case-actors` | L4 | Exodus 21:28 (ox, victim, owner) |
+| `fnd-case-restate` | L4 | Mishnah Pesachim 1:1 (search by lamp-light) |
+| `fnd-case-uncertainty` | L4 | Gittin 55b (which man the host meant) |
+| `fnd-case-what-happens` | L4 | Sukkah 2a (a booth taller than twenty cubits) |
+| `fnd-arg-claim` | L5 | Pirkei Avot 1:1 (Moses received / handed on) |
+| `fnd-arg-evidence-role` | L5 | Berakhot 2a (`דִּכְתִיב` + Genesis 1:5 evening-first) |
+| `fnd-context-genre-expectations` | L7 | Genesis 1:1 (creation narrative, not a damages procedure) |
+| `fnd-resp-learning-vs-ruling` | L8 | Mishnah Pesachim 1:1 (learned the search line, not a household ruling) |
+
+Still at 4 after this slice: `fnd-arg-objection`, `fnd-arg-response`, `fnd-arg-unresolved`. Light See-it edit only for `fnd-role-example` (adds "a booth that is higher than"). No L0 `fnd-decode-*` banks. No Today/diagnostic chrome. Guard: `test/foundation-l3-l8-banks.test.mjs` (≥5).
+
 
