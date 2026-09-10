@@ -33454,16 +33454,19 @@ Docs only. New `docs/merge-brief-2026-09-10.md` for Sam’s return. Hosted
 tip is `75b1e4c` (#58 share-path fix) on https://seder-demo.onrender.com
 and should stay there today — no `main` push while Sam is away.
 
-Verified live on GitHub: open drafts [#59](https://github.com/zahnsamuel/seder1/pull/59)
-(3→4 remaining starter banks), stacked [#62](https://github.com/zahnsamuel/seder1/pull/62)
-(4→5 earliest L1/L2, off #59), sibling [#61](https://github.com/zahnsamuel/seder1/pull/61)
-(friend-path Today ↔ lesson chrome), and this brief [#60](https://github.com/zahnsamuel/seder1/pull/60).
-#59 / #61 / #62 are `MERGEABLE` / `CLEAN`. The 09-09 0→1 pile is already
-on main; that brief is historical.
+Verified live on GitHub: five open drafts, all `MERGEABLE` / `CLEAN` vs
+`main` `75b1e4c`: [#59](https://github.com/zahnsamuel/seder1/pull/59)
+(3→4 + See-it), stacked [#62](https://github.com/zahnsamuel/seder1/pull/62)
+(L1/L2 4→5), stacked [#63](https://github.com/zahnsamuel/seder1/pull/63)
+(twelve L3–L8 4→5; leftover arg banks still at 4:
+`fnd-arg-objection`, `fnd-arg-response`, `fnd-arg-unresolved`),
+[#61](https://github.com/zahnsamuel/seder1/pull/61) (friend-path chrome,
+from `main`), and this brief [#60](https://github.com/zahnsamuel/seder1/pull/60).
+The 09-09 0→1 pile is already on main; that brief is historical.
 
-Recommended return order: **#59 → #62 → later bank thicken PRs →
-#61 (friend-path) → #60 last** (or fold #60 into a docs-only merge).
-Do not merge #62 as a substitute for reviewing #59. Do not merge
-while Sam is away; hosted main stays `75b1e4c`. Standing laws
-unchanged: teach-before-ask, no self-rate, hold L0 banks. Did not
-edit product files, item banks, or routing.
+Recommended return order: **#59 → #62 → #63 → (optional leftover-arg
+PR) → #61 → #60 last** (or fold #60 into a docs-only merge). Do not
+merge a stacked bank PR as a substitute for reviewing the earlier
+diffs. Do not merge while Sam is away; hosted main stays `75b1e4c`.
+Standing laws unchanged: teach-before-ask, no self-rate, hold L0
+banks. Did not edit product files, item banks, or routing.
