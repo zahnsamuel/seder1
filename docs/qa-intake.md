@@ -33447,3 +33447,19 @@ Fix:
 
 Landing `seder.html` → name signup → diagnostic is unchanged. No L0 glyph
 banks, no self-rate `check` probes, `DIAGNOSTIC_PROBE_CAP` stays 6.
+
+## 2026-09-10 — Cursor: away-day merge brief (do not merge until Sam returns)
+
+Docs only. New `docs/merge-brief-2026-09-10.md` for Sam’s return. Hosted
+tip is `75b1e4c` (#58 share-path fix) on https://seder-demo.onrender.com
+and should stay there today — no `main` push while Sam is away.
+
+Verified live on GitHub: one open draft, [#59](https://github.com/zahnsamuel/seder1/pull/59)
+(thicken remaining 3-item starter banks to 4). `MERGEABLE` / `CLEAN`.
+The 09-09 0→1 pile is already on main; that brief is historical.
+
+Recommended return order: merge #59 first, then this brief, then
+sibling away-day drafts (Today/academy polish; thicken early banks 4→5)
+once they exist — rebase the 4→5 PR onto #59. Standing laws unchanged:
+teach-before-ask, no self-rate, hold L0 banks. Did not edit product
+files, item banks, or routing.
