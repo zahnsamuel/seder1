@@ -33448,8 +33448,6 @@ Fix:
 Landing `seder.html` → name signup → diagnostic is unchanged. No L0 glyph
 banks, no self-rate `check` probes, `DIAGNOSTIC_PROBE_CAP` stays 6.
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 ## 2026-09-10 — thicken nine remaining 3-item starter banks (L3–L5 + L7)
 
 After pull of `main` @ `75b1e4c`, the only starter banks still at 3 items (non-L0) were:
@@ -33501,7 +33499,6 @@ Away-day draft off PR #62 tip (`cursor/thicken-l1-l2-starter-banks-c4a1` @ `f348
 Still at 4 after this slice: `fnd-arg-objection`, `fnd-arg-response`, `fnd-arg-unresolved`. Light See-it edit only for `fnd-role-example` (adds "a booth that is higher than"). No L0 `fnd-decode-*` banks. No Today/diagnostic chrome. Guard: `test/foundation-l3-l8-banks.test.mjs` (≥5).
 
 
-=======
 ## 2026-09-10 — Cursor: friend 0→1 Today ↔ academy-session handoff (away-day draft)
 
 Copy/chrome only. No mastery math, no bank rewrites, L0 decode banks still held.
@@ -33526,8 +33523,6 @@ After:
 
 Contract pins in `test/friend-first-run.test.mjs`. Teach-before-ask and
 Got it — ask me unchanged.
->>>>>>> origin/cursor/friend-first-run-handoff-79f8
-=======
 ## 2026-09-10 — Cursor: away-day merge brief (do not merge until Sam returns)
 
 Docs only. New `docs/merge-brief-2026-09-10.md` for Sam’s return. Hosted
@@ -33550,4 +33545,3 @@ merge a stacked bank PR as a substitute for reviewing the earlier
 diffs. Do not merge while Sam is away; hosted main stays `75b1e4c`.
 Standing laws unchanged: teach-before-ask, no self-rate, hold L0
 banks. Did not edit product files, item banks, or routing.
->>>>>>> origin/cursor/merge-brief-2026-09-10-11ab
