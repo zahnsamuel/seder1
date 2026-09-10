@@ -33447,3 +33447,10 @@ Fix:
 
 Landing `seder.html` → name signup → diagnostic is unchanged. No L0 glyph
 banks, no self-rate `check` probes, `DIAGNOSTIC_PROBE_CAP` stays 6.
+
+## 2026-09-10 — friend-first-run results copy on diagnostic.html
+
+Folded into the share-path PR: `diagnostic.html` default results CTA is now
+`Start today’s lesson →` (matching `diagnostic.js` on finish) and
+`id="results-hint"` is back (“One short lesson. That’s the whole first day.”).
+`test/friend-first-run.test.mjs` contract restored; bounce fix unchanged.
