@@ -33459,3 +33459,22 @@ After pull of `main` @ `75b1e4c`, the only starter banks still at 3 items (non-L
 
 Each got a fourth source-grounded recognition item (Hebrew on the page, 4 choices, no length-bias) and a tighter See-it so the first ask is fair. No L0 `fnd-decode-*` banks. Teach-before-ask skip for the old peer-lane six was removed; those banks now sit in the same guard as the rest.
 
+## 2026-09-10 — thicken nine earliest 4-item starter banks (L1 orient + L2 signals)
+
+Away-day draft off PR #59 tip (`cursor/thicken-foundation-banks-844e` @ `8fbdca4`). After that 3→4 pass, 24 non-L0 starter banks were still at 4. This slice takes the earliest learner path from 4→5:
+
+| Skill | Band | New source (Sefaria-checked) |
+|---|---|---|
+| `fnd-orient-page-geography` | L1 | Rashi on Genesis 1:1 (side column vs verse) |
+| `fnd-orient-speaker` | L1 | Psalm 23:1 (named psalmist vs God) |
+| `fnd-orient-unit-boundary` | L1 | Mishnah Bava Metzia 1:1 (all-vs-all / all-vs-half) |
+| `fnd-orient-question-present` | L1 | Genesis 1:1 (telling, not asking) |
+| `fnd-signal-known-words` | L2 | Mishnah Berakhot 1:1 (`אוֹמֵר` = says) |
+| `fnd-signal-question-words` | L2 | Mishnah Berakhot 1:1 (`לָמָה` = why → reason) |
+| `fnd-signal-name-formulas` | L2 | Mishnah Berakhot 1:1 (`דִּבְרֵי רַבִּי אֱלִיעֶזֶר`) |
+| `fnd-signal-connectors` | L2 | Berakhot 2a (`וְתוּ` = and further) |
+| `fnd-signal-quotation` | L2 | Berakhot 2a (`דִּכְתִיב` + Genesis 1:5 verse) |
+
+Light See-it edits only where the new ask needed them: question-words now pairs "why" with a reason; name-formulas mention "the words of Rabbi X" and assign *those* words, not only the next words. No L0 `fnd-decode-*` banks. No Today/diagnostic chrome. Guard: `test/foundation-l1-l2-banks.test.mjs` (≥5).
+
+
