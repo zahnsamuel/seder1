@@ -146,6 +146,7 @@ test('academy-session CSS uses jla tokens and a single-column lesson', () => {
   assert.match(css, /min-height:\s*44px/);
   assert.doesNotMatch(css, /grid-template-columns:\s*1\.35fr/);
   assert.match(css, /\.complete\[hidden\][\s\S]*display:\s*none/);
+  assert.match(css, /\.session-title\[hidden\]/);
   assert.match(css, /\.source-footer/);
   assert.match(css, /\.source-fulltext[\s\S]*color:\s*var\(--jla-text-soft/);
   assert.doesNotMatch(css, /\.source-link\s*\{[^}]*font-weight:\s*700/);

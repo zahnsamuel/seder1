@@ -159,6 +159,11 @@ function startScaffold(skill, graph, kpLayer, ctxLayer, authoredBank, excerpts, 
   async function finish() {
     $('#step').hidden = true;
     document.querySelector('#kp-steps').hidden = true;
+    const pageEyebrow = document.querySelector('.jla-main > .jla-eyebrow');
+    if (pageEyebrow) pageEyebrow.hidden = true;
+    if ($('#title')) $('#title').hidden = true;
+    if ($('#statement')) $('#statement').hidden = true;
+    if ($('#why')) $('#why').hidden = true;
     stepEls.forEach((el) => { el.classList.add('done', 'is-done'); el.classList.remove('current', 'is-current', 'is-upcoming'); });
     try { sessionStorage.setItem('jla-last-foundation-skill', skillId); } catch { /* private mode */ }
     let stateKey = 'emerging';

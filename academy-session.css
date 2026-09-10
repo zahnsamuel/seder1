@@ -56,7 +56,11 @@
 .real-content[hidden],
 .teach-block[hidden],
 #ask-panel[hidden],
-.source-footer[hidden] { display: none !important; }
+.source-footer[hidden],
+.session-title[hidden],
+.session-statement[hidden],
+.why[hidden],
+.jla-main > .jla-eyebrow[hidden] { display: none !important; }
 .kp-steps li[hidden] { display: none !important; }
 .kp-steps li {
   color: var(--jla-text-soft);
