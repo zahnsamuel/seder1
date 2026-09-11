@@ -33545,3 +33545,15 @@ merge a stacked bank PR as a substitute for reviewing the earlier
 diffs. Do not merge while Sam is away; hosted main stays `75b1e4c`.
 Standing laws unchanged: teach-before-ask, no self-rate, hold L0
 banks. Did not edit product files, item banks, or routing.
+
+## 2026-09-11 — leftover L5 arg banks 4→5 (objection / response / unresolved)
+
+Draft off latest `main` (`491d93d`). After PR #63, three starter argument banks were still at 4. This slice takes each to 5:
+
+| Skill | Band | New source (Sefaria-checked) |
+|---|---|---|
+| `fnd-arg-objection` | L5 | Genesis 18:23 (Abraham presses the destruction plan) |
+| `fnd-arg-response` | L5 | Exodus 32:14 (the destruction plan is withdrawn) |
+| `fnd-arg-unresolved` | L5 | Pirkei Avot 5:17 (a dispute for Heaven’s sake is meant to endure) |
+
+Light See-it edit only for `fnd-arg-unresolved` (adds “a line that says the disagreement is meant to last”). No L0 `fnd-decode-*` banks. No Today/diagnostic chrome. Guard: `test/foundation-arg-banks.test.mjs` (≥5).
