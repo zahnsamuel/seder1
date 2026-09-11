@@ -158,7 +158,7 @@ footer {
     padding: 24px 0 64px;
   }
   .hero-copy { grid-area: copy; }
-  .today { grid-area: today; align-self: stretch; }
+  .today { grid-area: today; align-self: start; }
   .level { grid-area: learn; }
   footer {
     flex-direction: row;
