@@ -33557,3 +33557,21 @@ Draft off latest `main` (`491d93d`). After PR #63, three starter argument banks 
 | `fnd-arg-unresolved` | L5 | Pirkei Avot 5:17 (a dispute for Heaven’s sake is meant to endure) |
 
 Light See-it edit only for `fnd-arg-unresolved` (adds “a line that says the disagreement is meant to last”). No L0 `fnd-decode-*` banks. No Today/diagnostic chrome. Guard: `test/foundation-arg-banks.test.mjs` (≥5).
+
+## 2026-09-11 — thicken nine earliest 5-item starter banks (L1 orient + L2 signals) 5→6
+
+Draft off latest `main` (`4f903cc`). After the 4→5 passes (#62–#64), L1/L2 peers sat at 5 (`fnd-orient-source-type` already 7 — left alone). This slice takes the earliest learner path from 5→6:
+
+| Skill | Band | New source (Sefaria-checked) |
+|---|---|---|
+| `fnd-orient-page-geography` | L1 | Shabbat 2a Vilna page (center vs two commentary columns) |
+| `fnd-orient-speaker` | L1 | Exodus 20:1–2 (narrator frames God’s “I”) |
+| `fnd-orient-unit-boundary` | L1 | Mishnah Berakhot 1:2 (evening Shema vs morning Shema) |
+| `fnd-orient-question-present` | L1 | Mishnah Sukkah 1:1 (height rule is telling) |
+| `fnd-signal-known-words` | L2 | Mishnah Berakhot 1:1 (`עַד` = until) |
+| `fnd-signal-question-words` | L2 | Mishnah Berakhot 1:1 (`מֵאֵימָתַי` = from when → time) |
+| `fnd-signal-name-formulas` | L2 | Mishnah Berakhot 1:1 (`וַחֲכָמִים אוֹמְרִים`) |
+| `fnd-signal-connectors` | L2 | Berakhot 2a (`וַהֲדַר` = and then) |
+| `fnd-signal-quotation` | L2 | Pirkei Avot 4:1 (`שֶׁנֶּאֱמַר` + Psalm 119:99) |
+
+Light See-it edits only where the new ask needed them: question-present “practice or a rule”; known-words adds `עַד` (“until”); question-words pairs “from when” with a time; name-formulas mention “the Sages say”; connectors mention “and then.” No L0 `fnd-decode-*` banks. No Today/diagnostic chrome. Guard: `test/foundation-l1-l2-banks.test.mjs` (≥6).

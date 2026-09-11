@@ -7,9 +7,9 @@ import { findTeachBeforeAskViolations } from '../data/teach-before-ask.mjs';
 
 const load = async (f) => JSON.parse(await readFile(new URL(`../${f}`, import.meta.url), 'utf8'));
 
-// After the 3→4 thicken (PR #59), the earliest remaining 4-item starter banks
-// are L1 orientation (except source-type) and L2 signals. Each needs ≥5 valid,
-// teach-before-ask-clean items and a fair See-it.
+// After the 4→5 thicken (PR #62), the earliest remaining 5-item starter banks
+// are L1 orientation (except source-type, already 7) and L2 signals. Each needs
+// ≥6 valid, teach-before-ask-clean items and a fair See-it.
 const THICKENED = [
   'fnd-orient-page-geography',
   'fnd-orient-speaker',
@@ -27,7 +27,7 @@ const JARGON = /make the move|reading move|make this .*move|\bthe move\b/i;
 const META = /why does recognizing|what does sight-reading|a reader who must stop|how do you locate|why does noticing/i;
 const L0 = /^fnd-decode-/;
 
-test('the nine earliest 4-item starter banks have ≥5 valid items and fair See-it teach', async () => {
+test('the nine earliest 5-item starter banks have ≥6 valid items and fair See-it teach', async () => {
   const bank = (await load('data/foundation-authored-items.json')).items;
   const teachFile = await load('data/foundation-teach.json');
   const graph = await load('data/foundation-skill-graph.json');
@@ -46,7 +46,7 @@ test('the nine earliest 4-item starter banks have ≥5 valid items and fair See-
     assert.ok(!frozenIds.has(skill), `${skill} is frozen and must not grow`);
     assert.ok(!L0.test(skill), `${skill} is L0; this lane holds those banks`);
     const items = bank[skill];
-    assert.ok(Array.isArray(items) && items.length >= 5, `${skill} needs >=5 authored items (has ${items?.length || 0})`);
+    assert.ok(Array.isArray(items) && items.length >= 6, `${skill} needs >=6 authored items (has ${items?.length || 0})`);
 
     const teach = teachFile.teach[skill];
     assert.ok(typeof teach === 'string' && teach.trim(), `${skill} needs a See-it teach`);
@@ -91,9 +91,18 @@ test('the nine earliest 4-item starter banks have ≥5 valid items and fair See-
   );
 });
 
-test('question-words See-it still pairs what / why / from-where with answer shapes', async () => {
+test('question-words See-it still pairs what / why / from-when / from-where with answer shapes', async () => {
   const teach = (await load('data/foundation-teach.json')).teach['fnd-signal-question-words'];
   assert.match(teach, /what/i);
   assert.match(teach, /why/i);
+  assert.match(teach, /from when/i);
   assert.match(teach, /from where/i);
+});
+
+test('known-words, name-formulas, and connectors See-it cover the new sixth asks', async () => {
+  const teach = (await load('data/foundation-teach.json')).teach;
+  assert.match(teach['fnd-signal-known-words'], /until/i);
+  assert.match(teach['fnd-signal-name-formulas'], /sages say/i);
+  assert.match(teach['fnd-signal-connectors'], /and then/i);
+  assert.match(teach['fnd-orient-question-present'], /practice or a rule/i);
 });
