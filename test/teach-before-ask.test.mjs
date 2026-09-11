@@ -67,6 +67,23 @@ test('an untaught term in the stem or a choice is a violation; the same word in 
   assert.deepEqual(untaughtAskTerms(feedbackOnly, new Set()), []);
 });
 
+test('teiku in a stem is untaught until See-it names the marker', () => {
+  const ask = {
+    stem: 'A dispute ends with the marker תֵּיקוּ. What should you conclude?',
+    choices: ['It is left open', 'The last speaker wins']
+  };
+  assert.deepEqual(termsIn(askSurface(ask)), ['teiku']);
+  assert.deepEqual(untaughtAskTerms(ask, new Set()), ['teiku']);
+  const earned = earnedTerms({
+    skillId: 'fnd-arg-unresolved',
+    teachFile: { teach: { 'fnd-arg-unresolved': 'A marker תֵּיקוּ means let it stand.' } },
+    graph: { skills: [{ id: 'fnd-arg-unresolved', prerequisites: [] }] },
+    item: ask
+  });
+  assert.ok(earned.has('teiku'));
+  assert.deepEqual(untaughtAskTerms(ask, earned), []);
+});
+
 test('explicit already-taught prerequisites earn their See-it terms for later skills', () => {
   assert.deepEqual(ALREADY_TAUGHT_PREREQUISITES, [
     'fnd-orient-source-type',
