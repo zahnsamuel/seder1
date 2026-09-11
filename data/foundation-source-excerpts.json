@@ -25,6 +25,12 @@
       "setting": "A Torah verse of direct address — later reused in prayer, but first a verse.",
       "sourceUrl": "https://www.sefaria.org/Deuteronomy.6.4"
     },
+    "Exodus 20:1–2": {
+      "hebrew": "וַיְדַבֵּר אֱלֹהִים אֵת כָּל הַדְּבָרִים הָאֵלֶּה לֵאמֹר · אָנֹכִי ה׳ אֱלֹהֶיךָ",
+      "translation": "God spoke all these words, saying: I am the LORD your God.",
+      "setting": "The Ten Commandments open with a narrator frame — God spoke, saying — then God speaks in the first person.",
+      "sourceUrl": "https://www.sefaria.org/Exodus.20.1"
+    },
     "Exodus 21:28": {
       "hebrew": "וְכִי יִגַּח שׁוֹר אֶת אִישׁ אוֹ אֶת אִשָּׁה וָמֵת",
       "translation": "When an ox gores a man or a woman to death.",
@@ -67,6 +73,12 @@
       "setting": "A compact Mishnah question about a practice and its time — a rule-shaped opening, not a story.",
       "sourceUrl": "https://www.sefaria.org/Mishnah_Berakhot.1.1"
     },
+    "Mishnah Berakhot 1:2": {
+      "hebrew": "מֵאֵימָתַי קוֹרִין אֶת שְׁמַע בְּשַׁחֲרִית",
+      "translation": "From when may one recite the Shema in the morning?",
+      "setting": "The next Mishnah opens a new time of day — morning Shema — after the evening question of 1:1.",
+      "sourceUrl": "https://www.sefaria.org/Mishnah_Berakhot.1.2"
+    },
     "Mishnah Pesachim 1:1": {
       "hebrew": "אוֹר לְאַרְבָּעָה עָשָׂר בּוֹדְקִין אֶת הֶחָמֵץ",
       "translation": "On the eve of the fourteenth one searches for leaven.",
@@ -102,6 +114,12 @@
       "translation": "From when do we recite Shema in the evening?",
       "setting": "On a Vilna Talmud page this Mishnah–Gemara block sits in the center; commentary fills the columns around it.",
       "sourceUrl": "https://www.sefaria.org/Berakhot.2a"
+    },
+    "Shabbat 2a (Vilna page)": {
+      "hebrew": "יְצִיאוֹת הַשַּׁבָּת שְׁתַּיִם שֶׁהֵן אַרְבַּע",
+      "translation": "The carryings of Shabbat are two that are four.",
+      "setting": "On a Vilna Talmud page this Mishnah–Gemara block sits in the center; commentary fills the columns around it.",
+      "sourceUrl": "https://www.sefaria.org/Shabbat.2a"
     },
     "Mishnah and Gemara, Berakhot 2a": {
       "hebrew": "מֵאֵימָתַי קוֹרִין אֶת שְׁמַע בְּעַרְבִית",

@@ -149,6 +149,18 @@
         ],
         "correct": 0,
         "feedback": "The verse in the large block is the primary text. The smaller column quotes a word from it and explains it — that quoted-word-then-explanation shape is commentary sitting around the source, not the source itself."
+      },
+      {
+        "sourceRef": "Shabbat 2a (Vilna page)",
+        "stem": "On a printed Talmud page three blocks appear. The large center column opens:\n\nיְצִיאוֹת הַשַּׁבָּת שְׁתַּיִם שֶׁהֵן אַרְבַּע\n\"The carryings of Shabbat are two that are four.\"\n\nA smaller inner-margin column quotes a word and explains it. A smaller outer-margin column also quotes a word and argues about it. Which block is the primary text you are learning?",
+        "choices": [
+          "The large center column; the two smaller columns are talk about it.",
+          "The inner-margin column, because it sits closest to the spine.",
+          "The outer-margin column, because it uses a distinctive script.",
+          "Whichever block quotes a word first is the main text."
+        ],
+        "correct": 0,
+        "feedback": "The large center column is the Mishnah and Gemara. The smaller columns quote words from that center and talk about them — they are surrounding commentary, not the primary text."
       }
     ],
     "fnd-orient-speaker": [
@@ -211,6 +223,18 @@
         ],
         "correct": 0,
         "feedback": "The caption names David as the psalm's voice. \"My shepherd\" talks about God; the \"I\" who shall not lack is that named speaker, not God in the first person."
+      },
+      {
+        "sourceRef": "Exodus 20:1–2",
+        "stem": "A narrative line frames a speech:\n\nוַיְדַבֵּר אֱלֹהִים אֵת כָּל הַדְּבָרִים הָאֵלֶּה לֵאמֹר · אָנֹכִי ה׳ אֱלֹהֶיךָ\n\"God spoke all these words, saying: I am the LORD your God.\"\n\nWho is speaking the word אָנֹכִי (\"I\")?",
+        "choices": [
+          "God, whose speech the narrator frames with \"God spoke, saying.\"",
+          "The book's narrator, with no one quoted in the line at all.",
+          "A later sage whose name formula opens the line.",
+          "Moses, answering in the first person when he is called."
+        ],
+        "correct": 0,
+        "feedback": "\"God spoke, saying\" hands the next words to God. The \"I\" who is the LORD is that named speaker, framed by the narrator — not the narrator talking as \"I,\" and not Moses answering a call."
       }
     ],
     "fnd-orient-unit-boundary": [
@@ -273,6 +297,18 @@
         ],
         "correct": 0,
         "feedback": "The first case is two people each claiming the whole garment; the next case changes the claims (all vs. half). That new case is a unit boundary — mark the seam before reading them as one blob."
+      },
+      {
+        "sourceRef": "Mishnah Berakhot 1:2",
+        "stem": "Two compact openings sit one after the other:\n\n(1) מֵאֵימָתַי קוֹרִין אֶת שְׁמַע בָּעַרְבִית — \"From when may one recite the Shema in the evening?\"\n(2) מֵאֵימָתַי קוֹרִין אֶת שְׁמַע בְּשַׁחֲרִית — \"From when may one recite the Shema in the morning?\"\n\nHow should you mark these?",
+        "choices": [
+          "As two units: a new question about a new time of day begins.",
+          "As one continuous idea, since both mention Shema.",
+          "As unrelated verses that happen to be printed together.",
+          "As a single ruling followed by its own margin commentary."
+        ],
+        "correct": 0,
+        "feedback": "Line 1 asks about the evening; line 2 asks about the morning. A new question on a new time of day is a unit boundary — mark the seam before reading them as one blob."
       }
     ],
     "fnd-orient-question-present": [
@@ -335,6 +371,18 @@
         ],
         "correct": 0,
         "feedback": "The line reports an event in past tense. It does not use a question word and does not wait for the reader to fill in what happened — it is telling."
+      },
+      {
+        "sourceRef": "Mishnah Sukkah 1:1",
+        "stem": "Read this line:\n\nסוּכָּה שֶׁהִיא גְבוֹהָה לְמַעְלָה מֵעֶשְׂרִים אַמָּה פְּסוּלָה\n\"A booth that is higher than twenty cubits is unfit.\"\n\nIs this line asking or telling?",
+        "choices": [
+          "Telling: it states a height rule and does not wait for an answer.",
+          "Asking: it expects the reader to supply whether the booth is fit.",
+          "Neither: it is only a name introducing the next speaker.",
+          "Asking: every line that mentions a booth is a question."
+        ],
+        "correct": 0,
+        "feedback": "The line names a height and a verdict (unfit). It does not use a question word and does not wait for the reader to fill in the ruling — it is telling."
       }
     ],
     "fnd-signal-known-words": [
@@ -397,6 +445,18 @@
         ],
         "correct": 0,
         "feedback": "אוֹמֵר / אָמַר is a bank word for \"says\" / \"said.\" Spot it first and the line's speaker comes into focus without a full decode."
+      },
+      {
+        "sourceRef": "Mishnah Berakhot 1:1",
+        "stem": "A Mishnah continues:\n\nוַחֲכָמִים אוֹמְרִים עַד חֲצוֹת\n\"And the Sages say: until midnight.\"\n\nWhich high-frequency word should you read on sight as \"until\"?",
+        "choices": [
+          "עַד — a common word meaning \"until.\"",
+          "חֲצוֹת — a common word meaning \"until.\"",
+          "חֲכָמִים — a common word meaning \"until.\"",
+          "אוֹמְרִים — a common word meaning \"until.\""
+        ],
+        "correct": 0,
+        "feedback": "עַד is a bank word for \"until.\" Spot it first and a time-limit comes into focus without a full decode of the hour-word that follows."
       }
     ],
     "fnd-signal-question-words": [
@@ -459,6 +519,18 @@
         ],
         "correct": 0,
         "feedback": "לָמָה asks \"why?\" and wants a reason. Here the next clause supplies one: so that a person will keep well clear of missing the time."
+      },
+      {
+        "sourceRef": "Mishnah Berakhot 1:1",
+        "stem": "A Mishnah opens:\n\nמֵאֵימָתַי קוֹרִין אֶת שְׁמַע בָּעַרְבִית\n\"From when may one recite the Shema in the evening?\"\n\nWhat kind of answer does מֵאֵימָתַי (\"from when\") invite?",
+        "choices": [
+          "A time from which the practice may begin.",
+          "A named sage to whom the line is being attributed.",
+          "A blessing formula offering praise to God.",
+          "A count of how many separate cases follow."
+        ],
+        "correct": 0,
+        "feedback": "מֵאֵימָתַי asks \"from when?\" and wants a time. The next clause supplies one: from the hour the priests enter to eat their terumah."
       }
     ],
     "fnd-signal-name-formulas": [
@@ -521,6 +593,18 @@
         ],
         "correct": 0,
         "feedback": "דִּבְרֵי (\"the words of\") is an attribution formula. It assigns the nearby time-limit to Rabbi Eliezer; it does not quote a verse or cancel what came before."
+      },
+      {
+        "sourceRef": "Mishnah Berakhot 1:1",
+        "stem": "After one time-limit, a Mishnah continues:\n\nוַחֲכָמִים אוֹמְרִים עַד חֲצוֹת\n\"And the Sages say: until midnight.\"\n\nWhat does וַחֲכָמִים אוֹמְרִים (\"and the Sages say\") do?",
+        "choices": [
+          "Hands that time-limit to the Sages as their view.",
+          "Signals that the previous ruling is now being overturned.",
+          "Marks the beginning of a quoted verse from the Torah.",
+          "Brings the current unit of discussion to its close."
+        ],
+        "correct": 0,
+        "feedback": "אוֹמְרִים (\"say\") after a name assigns the following words to that voice. Here the name is a group — the Sages — not one sage, and not the anonymous narrator."
       }
     ],
     "fnd-signal-connectors": [
@@ -583,6 +667,18 @@
         ],
         "correct": 0,
         "feedback": "וְתוּ is an adding connector: it piles a further question onto the last one rather than correcting it, citing a verse, or handing the line to a new named voice."
+      },
+      {
+        "sourceRef": "Gemara Berakhot 2a",
+        "stem": "A discussion line reads:\n\nתַּנָּא פָּתַח בְּעַרְבִית, וַהֲדַר תָּנֵי בְּשַׁחֲרִית\n\"The teacher opened with the evening, and then taught the morning.\"\n\nWhat does וַהֲדַר (\"and then\") signal?",
+        "choices": [
+          "An adding turn: the next clause continues after the first.",
+          "A correction that replaces the prior explanation.",
+          "A citation of a proof text from Scripture.",
+          "A change of speaker to a different named sage."
+        ],
+        "correct": 0,
+        "feedback": "וַהֲדַר is an adding connector: it sequences what comes next (\"and then\") rather than correcting the last line, citing a verse, or handing the words to a new named voice."
       }
     ],
     "fnd-signal-quotation": [
@@ -645,6 +741,18 @@
         ],
         "correct": 0,
         "feedback": "דִּכְתִיב (\"as it is written\") marks the next words as borrowed. Bracket the creation verse as quoted Scripture, separate from the voice that brought it."
+      },
+      {
+        "sourceRef": "Pirkei Avot 4:1",
+        "stem": "A teaching reads:\n\nאֵיזֶהוּ חָכָם? הַלּוֹמֵד מִכָּל אָדָם, שֶׁנֶּאֱמַר מִכָּל מְלַמְּדַי הִשְׂכַּלְתִּי\n\"Who is wise? One who learns from every person, as it is said: 'From all my teachers I have gained understanding.'\"\n\nHow should you treat מִכָּל מְלַמְּדַי הִשְׂכַּלְתִּי?",
+        "choices": [
+          "As borrowed words quoted from Scripture, not this teacher's own.",
+          "As the teacher's own newly-made claim, invented here in the line.",
+          "As a question being posed to the reader about teachers.",
+          "As an attribution naming the sage who speaks next."
+        ],
+        "correct": 0,
+        "feedback": "שֶׁנֶּאֱמַר (\"as it is said\") marks the next words as borrowed. Bracket the psalm line as quoted Scripture, separate from Ben Zoma who cites it."
       }
     ],
     "fnd-role-question-vs-answer": [
