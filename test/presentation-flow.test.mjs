@@ -9,8 +9,10 @@ import test from 'node:test';
 test('landing page leads with one clear next action, not the whole curriculum', async () => {
   const page = await readFile(new URL('../seder.html', import.meta.url), 'utf8');
   assert.match(page, /Become someone who can open Jewish texts\./);
+  assert.match(page, /reading Jewish sources yourself/);
   assert.match(page, /id="nextAction"/);
   assert.match(page, /id="todayTitle"/);
+  assert.equal((page.match(/id="nextAction"/g) || []).length, 1);
   // The overwhelming surfaces were removed from the front door (they remain reachable via the
   // daily flow); guard against a regression that re-floods the first screen.
   assert.doesNotMatch(page, /THE LEARNING LOOP/);

@@ -7,7 +7,7 @@ Seder.config().then((config) => {
   if (!config.supabaseUrl || !config.supabaseAnonKey) return;
   const action = document.querySelector('#nextAction');
   action.href = 'sign-in.html?next=diagnostic.html';
-  action.textContent = 'Sign in to begin';
+  action.textContent = 'Start learning →';
   document.querySelector('#todayTitle').textContent = 'Start where you are';
   document.querySelector('#todayCopy').textContent = 'A few questions, then one short lesson. Sign-in keeps your progress on your account.';
 });
