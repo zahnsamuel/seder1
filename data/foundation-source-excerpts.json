@@ -306,6 +306,48 @@
       "translation": "To learn · to understand · to ask.",
       "setting": "Study yields understanding, not a personal ruling — a boundary window already used in Academy halakha sessions.",
       "sourceUrl": "https://www.sefaria.org/search?q=halakha&tab=texts"
+    },
+    "Psalm 15:1–2": {
+      "hebrew": "ה׳ מִי יָגוּר בְּאָהֳלֶךָ · הוֹלֵךְ תָּמִים וּפֹעֵל צֶדֶק",
+      "translation": "LORD, who may sojourn in Your tent? One who lives without blame and does what is right.",
+      "setting": "A psalm that asks who may dwell, then answers with a portrait — question, then answer.",
+      "sourceUrl": "https://www.sefaria.org/Psalms.15.1"
+    },
+    "Mishnah Shabbat 1:1": {
+      "hebrew": "כֵּיצַד. הֶעָנִי עוֹמֵד בַּחוּץ וּבַעַל הַבַּיִת בִּפְנִים",
+      "translation": "How so? The poor person stands outside and the householder inside.",
+      "setting": "After a carrying rule, a concrete scene tests it — a worked example, not a new unrelated law.",
+      "sourceUrl": "https://www.sefaria.org/Mishnah_Shabbat.1.1"
+    },
+    "Jonah 1:3": {
+      "hebrew": "וַיָּקָם יוֹנָה לִבְרֹחַ תַּרְשִׁישָׁה מִלִּפְנֵי ה׳",
+      "translation": "Jonah rose to flee to Tarshish from before the LORD.",
+      "setting": "A narrative case with a named actor who flees and the LORD from whom he flees.",
+      "sourceUrl": "https://www.sefaria.org/Jonah.1.3"
+    },
+    "1 Kings 3:23": {
+      "hebrew": "זֹאת אֹמֶרֶת זֶה בְּנִי הַחַי וּבְנֵךְ הַמֵּת",
+      "translation": "This one says: this is my son, the live one, and yours is the dead.",
+      "setting": "Two people claim the same living child — the open question is which person is the parent.",
+      "sourceUrl": "https://www.sefaria.org/I_Kings.3.23"
+    },
+    "Deuteronomy 6:7": {
+      "hebrew": "וּבְשָׁכְבְּךָ וּבְקוּמֶךָ",
+      "translation": "and when you lie down and when you get up.",
+      "setting": "A Torah phrase later cited as proof that a passage is recited at night and in the morning.",
+      "sourceUrl": "https://www.sefaria.org/Deuteronomy.6.7"
+    },
+    "Exodus 5:22": {
+      "hebrew": "לָמָה הֲרֵעֹתָה לָעָם הַזֶּה",
+      "translation": "Why did You bring harm upon this people?",
+      "setting": "A follow-up that presses on a rescue plan: so far the plan has made things worse.",
+      "sourceUrl": "https://www.sefaria.org/Exodus.5.22"
+    },
+    "Genesis 18:26": {
+      "hebrew": "אִם אֶמְצָא בִסְדֹם חֲמִשִּׁים צַדִּיקִים בְּתוֹךְ הָעִיר וְנָשָׂאתִי לְכָל הַמָּקוֹם בַּעֲבוּרָם",
+      "translation": "If I find in Sodom fifty innocent in the city, I will spare the whole place for their sake.",
+      "setting": "A reply that accepts an objection and adjusts the original destruction plan.",
+      "sourceUrl": "https://www.sefaria.org/Genesis.18.26"
     }
   }
 }
