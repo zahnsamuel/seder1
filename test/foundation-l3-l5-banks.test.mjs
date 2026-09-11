@@ -7,9 +7,21 @@ import { findTeachBeforeAskViolations } from '../data/teach-before-ask.mjs';
 
 const load = async (f) => JSON.parse(await readFile(new URL(`../${f}`, import.meta.url), 'utf8'));
 
-// After the L3–L8 4→5 thicken (PR #63) and the leftover-arg 4→5 pass (PR #64),
-// these three L5 argument starter banks move 5→6 with the rest of L3–L5.
+// After the L1/L2 5→6 thicken (PR #66), the remaining 5-item starter banks
+// are L3 roles, L4 cases, and L5 argument. Each needs ≥6 valid,
+// teach-before-ask-clean items and a fair See-it. Leave L0 decode empty,
+// and leave L7/L8 (still at 5) for a later slice.
 const THICKENED = [
+  'fnd-role-example',
+  'fnd-role-question-vs-answer',
+  'fnd-role-quotation-bounds',
+  'fnd-role-ruling-vs-discussion',
+  'fnd-case-actors',
+  'fnd-case-restate',
+  'fnd-case-uncertainty',
+  'fnd-case-what-happens',
+  'fnd-arg-claim',
+  'fnd-arg-evidence-role',
   'fnd-arg-objection',
   'fnd-arg-response',
   'fnd-arg-unresolved'
@@ -20,7 +32,7 @@ const JARGON = /make the move|reading move|make this .*move|\bthe move\b/i;
 const META = /why does recognizing|what does sight-reading|a reader who must stop|how do you locate|why does noticing/i;
 const L0 = /^fnd-decode-/;
 
-test('the three leftover argument starter banks have ≥6 valid items and fair See-it teach', async () => {
+test('the thirteen L3–L5 starter banks have ≥6 valid items and fair See-it teach', async () => {
   const bank = (await load('data/foundation-authored-items.json')).items;
   const teachFile = await load('data/foundation-teach.json');
   const graph = await load('data/foundation-skill-graph.json');
@@ -84,12 +96,14 @@ test('the three leftover argument starter banks have ≥6 valid items and fair S
   );
 });
 
-test('argument See-it still names the shapes the new checks rely on', async () => {
+test('L3–L5 See-it still names the shapes the sixth asks rely on', async () => {
   const teach = (await load('data/foundation-teach.json')).teach;
-  assert.match(teach['fnd-arg-objection'], /pushback|threaten/i);
+  assert.match(teach['fnd-role-example'], /poor person/i);
+  assert.match(teach['fnd-role-example'], /householder/i);
+  assert.match(teach['fnd-role-ruling-vs-discussion'], /two or more views|cutoff times/i);
+  assert.match(teach['fnd-case-actors'], /Jonah/i);
+  assert.match(teach['fnd-case-uncertainty'], /child/i);
   assert.match(teach['fnd-arg-objection'], /rescue plan|made things worse/i);
-  assert.match(teach['fnd-arg-response'], /deny|limit|adjust/i);
   assert.match(teach['fnd-arg-response'], /spared|innocent/i);
-  assert.match(teach['fnd-arg-unresolved'], /meant to last|let it stand|openness/i);
   assert.match(teach['fnd-arg-unresolved'], /further question|verdict/i);
 });

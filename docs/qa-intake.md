@@ -33597,3 +33597,25 @@ Draft off latest `main` (`4f903cc`). After the 4?5 passes (#62–#64), L1/L2 peers
 | `fnd-signal-quotation` | L2 | Pirkei Avot 4:1 (`???????????` + Psalm 119:99) |
 
 Light See-it edits only where the new ask needed them: question-present “practice or a rule”; known-words adds `???` (“until”); question-words pairs “from when” with a time; name-formulas mention “the Sages say”; connectors mention “and then.” No L0 `fnd-decode-*` banks. No Today/diagnostic chrome. Guard: `test/foundation-l1-l2-banks.test.mjs` (=6).
+
+## 2026-09-11 â€” thicken L3â€“L5 starter banks 5â†’6
+
+**Draft â€” do not merge until Sam reviews.** Off latest `main` (`91fe918`, after #66). Non-L0 starter skills in layers 3â€“5 were still at 5; this slice adds one source-grounded recognition item each (target â‰¥6). L1/L2 (already 6+) and L7â€“L8 (still 5) left alone. No L0 `fnd-decode-*` banks. No self-rate. No Today/diagnostic chrome.
+
+| Skill | Layer | New source (Sefaria-checked) |
+|---|---|---|
+| `fnd-role-question-vs-answer` | L3 | Psalm 15:1â€“2 (who may dwell â†’ a portrait answers) |
+| `fnd-role-example` | L3 | Mishnah Shabbat 1:1 (how so? poor person outside / householder inside) |
+| `fnd-role-quotation-bounds` | L3 | Pirkei Avot 4:1 (as it is said + Psalm 119:99) |
+| `fnd-role-ruling-vs-discussion` | L3 | Mishnah Berakhot 1:1 (three named cutoff times still stand) |
+| `fnd-case-actors` | L4 | Jonah 1:3 (Jonah flees; the LORD is the one he flees) |
+| `fnd-case-what-happens` | L4 | Exodus 21:28 (an ox gores a person, and that person dies) |
+| `fnd-case-restate` | L4 | Pirkei Avot 1:2 (world stands on teaching, service, kindness) |
+| `fnd-case-uncertainty` | L4 | 1 Kings 3:23 (which person is the parent of the living child) |
+| `fnd-arg-claim` | L5 | Genesis 1:1 (God created heaven and earth) |
+| `fnd-arg-evidence-role` | L5 | Deuteronomy 6:7 (when you lie down / get up as a proof) |
+| `fnd-arg-objection` | L5 | Exodus 5:22 (why did You bring harm â€” the plan has made things worse) |
+| `fnd-arg-response` | L5 | Genesis 18:26 (if fifty innocent, I will spare the city) |
+| `fnd-arg-unresolved` | L5 | Job 38:4 (a reply that is itself a question leaves the first question standing) |
+
+Light See-it edits only where the new sixth ask would be unfair (example scene; two-or-more views / cutoff times; Jonah; parentage; rescue-plan-made-worse; spared city; question-as-reply). Guard: `test/foundation-l3-l5-banks.test.mjs` (â‰¥6) plus `test/foundation-arg-banks.test.mjs` (â‰¥6).

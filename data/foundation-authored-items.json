@@ -815,6 +815,18 @@
         ],
         "correct": 0,
         "feedback": "לָמָה (\"why\") asks for a reason; the next line supplies one: a cellar into which leaven is brought. Tag question, then answer — not two restatements or two quotes."
+      },
+      {
+        "sourceRef": "Psalm 15:1–2",
+        "stem": "A psalm opens with a who-question, then a portrait:\n\nה׳ מִי יָגוּר בְּאָהֳלֶךָ\n\"LORD, who may sojourn in Your tent?\"\n\nהוֹלֵךְ תָּמִים וּפֹעֵל צֶדֶק\n\"One who lives without blame and does what is right.\"\n\nHow do you label those two lines?",
+        "choices": [
+          "The first asks who may dwell; the second answers with a portrait.",
+          "Both lines are answers to an unstated earlier question.",
+          "The first is a restatement; the second opens a new unrelated rule.",
+          "Both lines are citations of a sage with no question at all."
+        ],
+        "correct": 0,
+        "feedback": "מִי (\"who\") asks who may dwell; the next line supplies a portrait as the answer. Tag question, then answer — not two restatements or a citation of a sage."
       }
     ],
     "fnd-role-example": [
@@ -877,6 +889,18 @@
         ],
         "correct": 0,
         "feedback": "A concrete height — a booth taller than twenty cubits — is a worked example of the validity rule, not a new unrelated law, a psalm, or a closing blessing. Name the case, then look for the rule it tests."
+      },
+      {
+        "sourceRef": "Mishnah Shabbat 1:1",
+        "stem": "After a rule about carrying, the source asks \"how so?\" and drops into this scene:\n\nכֵּיצַד. הֶעָנִי עוֹמֵד בַּחוּץ וּבַעַל הַבַּיִת בִּפְנִים\n\"How so? The poor person stands outside and the householder inside.\"\n\nWhat is that scene doing?",
+        "choices": [
+          "A worked example: a concrete case that tests the carrying rule.",
+          "A brand-new topic about who may dwell in a tent.",
+          "A quoted verse of Scripture offered as a proof.",
+          "The final decided law of a completely different tractate."
+        ],
+        "correct": 0,
+        "feedback": "\"How so?\" plus a concrete scene — a poor person outside, a householder inside — is a worked example of the carrying rule, not a new unrelated topic, a proof-verse, or a closing law from elsewhere."
       }
     ],
     "fnd-role-quotation-bounds": [
@@ -939,6 +963,18 @@
         ],
         "correct": 0,
         "feedback": "\"As it is said\" opens borrowed text. The verse ends at וּבֵרַכְתָּ (\"and bless\"); מִכָּאן אָמְרוּ (\"from here they said\") is the current voice using the verse, not more of Scripture."
+      },
+      {
+        "sourceRef": "Pirkei Avot 4:1",
+        "stem": "A teaching defines the wise person, then cites a verse:\n\nהַלּוֹמֵד מִכָּל אָדָם, שֶׁנֶּאֱמַר מִכָּל מְלַמְּדַי הִשְׂכַּלְתִּי\n\"One who learns from every person, as it is said: 'From all my teachers I have gained understanding.'\"\n\nWhere does the quoted verse begin, and where does this speaker's own voice sit?",
+        "choices": [
+          "The verse is מִכָּל מְלַמְּדַי הִשְׂכַּלְתִּי; הַלּוֹמֵד מִכָּל אָדָם is this speaker's own definition.",
+          "The whole line is one continuous quotation from the verse, including the first clause.",
+          "Only הַלּוֹמֵד is quoted; the \"as it is said\" words are still the verse.",
+          "There is no quotation here; every Hebrew word is the verse itself with no comment."
+        ],
+        "correct": 0,
+        "feedback": "\"As it is said\" opens borrowed text. The verse is מִכָּל מְלַמְּדַי הִשְׂכַּלְתִּי (\"from all my teachers I have gained understanding\"); הַלּוֹמֵד מִכָּל אָדָם is this speaker defining wisdom, not more of the psalm."
       }
     ],
     "fnd-role-ruling-vs-discussion": [
@@ -1001,6 +1037,18 @@
         ],
         "correct": 0,
         "feedback": "The first sentence decides \"unfit,\" but the named disagreement immediately keeps \"fit\" alive. Two views still stand, so the pair is discussion — not a single closed ruling."
+      },
+      {
+        "sourceRef": "Mishnah Berakhot 1:1",
+        "stem": "After a start-time, three named views give an end-time:\n\nעַד סוֹף הָאַשְׁמוּרָה הָרִאשׁוֹנָה, דִּבְרֵי רַבִּי אֱלִיעֶזֶר. וַחֲכָמִים אוֹמְרִים עַד חֲצוֹת. רַבָּן גַּמְלִיאֵל אוֹמֵר עַד שֶׁיַּעֲלֶה עַמּוּד הַשָּׁחַר.\n\"Until the end of the first watch, the words of Rabbi Eliezer. The Sages say until midnight. Rabban Gamliel says until dawn.\"\n\nAfter those three sentences, is the reader left with one option or more than one?",
+        "choices": [
+          "More than one: first watch, midnight, and dawn all still stand.",
+          "One closed ruling: the later sentences only repeat the first.",
+          "Neither: all three sentences are only a psalm of trust.",
+          "One question that never states any view at all."
+        ],
+        "correct": 0,
+        "feedback": "Three named cutoff times are kept in view. Several options still stand, so the stretch is discussion — not a single closed ruling."
       }
     ],
     "fnd-case-actors": [
@@ -1063,6 +1111,18 @@
         ],
         "correct": 0,
         "feedback": "Name everyone whose action matters: the ox gores, a person is harmed, and the owner stands behind the animal. The legal question sits on that cast, not instead of it."
+      },
+      {
+        "sourceRef": "Jonah 1:3",
+        "stem": "A case opens:\n\nוַיָּקָם יוֹנָה לִבְרֹחַ תַּרְשִׁישָׁה מִלִּפְנֵי ה׳\n\"Jonah rose to flee to Tarshish from before the LORD.\"\n\nListing the actors, who belongs on the cast?",
+        "choices": [
+          "Jonah, who flees, and the LORD, from whom he flees.",
+          "Only the later scribe who copied the line into a printed book.",
+          "Only a court clerk who is never mentioned in this line.",
+          "No people act; the line is only a calendar date."
+        ],
+        "correct": 0,
+        "feedback": "Name everyone whose action matters: Jonah flees, and the LORD is the one he is fleeing. The question of the story sits on that cast, not instead of it."
       }
     ],
     "fnd-case-what-happens": [
@@ -1125,6 +1185,18 @@
         ],
         "correct": 0,
         "feedback": "Who, did what: a person has a booth taller than twenty cubits. Say that plainly before arguing about validity, shade, or walls."
+      },
+      {
+        "sourceRef": "Exodus 21:28",
+        "stem": "A case reads:\n\nוְכִי יִגַּח שׁוֹר אֶת אִישׁ אוֹ אֶת אִשָּׁה וָמֵת\n\"When an ox gores a man or a woman to death.\"\n\nIn one plain sentence, what happens here?",
+        "choices": [
+          "An ox gores a person, and that person dies.",
+          "A court has already given the ox to a single owner.",
+          "Two sages are debating who wrote the surrounding tractate.",
+          "A verse is being copied onto the ox as a decoration."
+        ],
+        "correct": 0,
+        "feedback": "Who, did what, to whom: an ox gores a person, and the person dies. Say that plainly before arguing about the owner, stoning, or payment."
       }
     ],
     "fnd-case-restate": [
@@ -1187,6 +1259,18 @@
         ],
         "correct": 0,
         "feedback": "A faithful restatement keeps the date, the search, and the lamp-light condition in plainer words. Dropping the lamp or changing the date is not yet faithful."
+      },
+      {
+        "sourceRef": "Pirkei Avot 1:2",
+        "stem": "Read this teaching:\n\nעַל שְׁלֹשָׁה דְבָרִים הָעוֹלָם עוֹמֵד, עַל הַתּוֹרָה וְעַל הָעֲבוֹדָה וְעַל גְּמִילוּת חֲסָדִים\n\"The world stands on three things: on the Teaching, on service, and on acts of kindness.\"\n\nWhich is a faithful restatement in your own words?",
+        "choices": [
+          "The world is held up by three: teaching, service, and kindness.",
+          "The world stands on teaching alone; the other two can be dropped.",
+          "Only named sages are allowed to study these three things.",
+          "The teaching is only asking who printed this book."
+        ],
+        "correct": 0,
+        "feedback": "A faithful restatement keeps all three supports in plainer words: teaching, service, and kindness. Dropping two of them, or turning the line into a printing question, is not yet faithful."
       }
     ],
     "fnd-case-uncertainty": [
@@ -1249,6 +1333,18 @@
         ],
         "correct": 0,
         "feedback": "The missing piece needed to understand the insult is identity: which man was meant, and which man arrived. Name that open question; do not settle the printer or the language instead."
+      },
+      {
+        "sourceRef": "1 Kings 3:23",
+        "stem": "Two people stand before a king with one living child. The king restates their claims:\n\nזֹאת אֹמֶרֶת זֶה בְּנִי הַחַי וּבְנֵךְ הַמֵּת\n\"This one says: this is my son, the live one, and yours is the dead.\"\n\nWhat is the uncertainty the case turns on?",
+        "choices": [
+          "Which person is the parent of the living child.",
+          "Whether kings are allowed to sit in a room at all.",
+          "Who first printed this story in a modern book.",
+          "Which language the story happens to be written in."
+        ],
+        "correct": 0,
+        "feedback": "The missing piece needed to decide is identity: which person is the parent of the living child. Name that open question; do not settle the printer or the language instead."
       }
     ],
     "fnd-arg-claim": [
@@ -1311,6 +1407,18 @@
         ],
         "correct": 0,
         "feedback": "The claim is what the line asserts: Moses received the Teaching at Sinai and handed it on. Timing questions, citations, and attributions are other roles, not this claim."
+      },
+      {
+        "sourceRef": "Genesis 1:1",
+        "stem": "Read this opening line:\n\nבְּרֵאשִׁית בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ\n\"In the beginning God created the heaven and the earth.\"\n\nPut its claim in one plain sentence.",
+        "choices": [
+          "God created the heaven and the earth.",
+          "The line is only asking who printed this book.",
+          "The line is an objection raised against an earlier view.",
+          "The line merely names a sage without asserting anything."
+        ],
+        "correct": 0,
+        "feedback": "The claim is what the line asserts: God created heaven and earth. A printing question, an objection, and an attribution are other roles, not this claim."
       }
     ],
     "fnd-arg-evidence-role": [
@@ -1373,6 +1481,18 @@
         ],
         "correct": 0,
         "feedback": "\"As it is written\" plus a creation verse that begins with evening is a proof-shape: the citation supports teaching evening first, rather than attacking, splitting, or stopping the page."
+      },
+      {
+        "sourceRef": "Deuteronomy 6:7",
+        "stem": "A discussion of when to recite a passage cites this phrase as written:\n\nוּבְשָׁכְבְּךָ וּבְקוּמֶךָ\n\"and when you lie down and when you get up.\"\n\nWhat job is that cited phrase doing?",
+        "choices": [
+          "Supporting a night-and-morning recitation claim as a proof.",
+          "Attacking the recitation claim as a counter-example.",
+          "Splitting the claim into two unrelated damages cases.",
+          "Ending the page so that nothing further can follow."
+        ],
+        "correct": 0,
+        "feedback": "\"When you lie down and when you get up\" is brought as a proof-shape: the citation supports reciting at night and in the morning, rather than attacking, splitting, or stopping the page."
       }
     ],
     "fnd-arg-objection": [
@@ -1435,6 +1555,18 @@
         ],
         "correct": 0,
         "feedback": "That follow-up is an objection: it threatens how far the destruction-claim reaches. Mark the pressure — innocent people would fall with the guilty — before you watch whether the plan is adjusted."
+      },
+      {
+        "sourceRef": "Exodus 5:22",
+        "stem": "A rescue plan has been set in motion. After the first meeting, things are worse, and Moses asks:\n\nלָמָה הֲרֵעֹתָה לָעָם הַזֶּה\n\"Why did You bring harm upon this people?\"\n\nWhat is that follow-up doing to the plan?",
+        "choices": [
+          "Pressing on it: so far the plan has made things worse.",
+          "Proving the plan with a matching verse from another book.",
+          "Restating the plan in slightly different words only.",
+          "Naming the scribe who first copied the rescue story by hand."
+        ],
+        "correct": 0,
+        "feedback": "That follow-up is an objection: it threatens the rescue-claim with the result so far (harm, not deliverance). Mark the pressure before you watch whether the plan is answered."
       }
     ],
     "fnd-arg-response": [
@@ -1497,6 +1629,18 @@
         ],
         "correct": 0,
         "feedback": "Ask whether a response denies, limits, or accepts-and-adjusts. Here it accepts the point and adjusts the original claim: the destruction plan is withdrawn. Compare the claim before and after."
+      },
+      {
+        "sourceRef": "Genesis 18:26",
+        "stem": "A first plan was to destroy the city. Abraham presses back: will You also sweep away the innocent? Then comes this reply:\n\nאִם אֶמְצָא בִסְדֹם חֲמִשִּׁים צַדִּיקִים בְּתוֹךְ הָעִיר וְנָשָׂאתִי לְכָל הַמָּקוֹם בַּעֲבוּרָם\n\"If I find in Sodom fifty innocent in the city, I will spare the whole place for their sake.\"\n\nHow does this reply handle the objection?",
+        "choices": [
+          "It accepts the point and narrows the destruction: the city can be spared.",
+          "It denies that anyone innocent could ever live in a city.",
+          "It ignores the objection and changes the subject to festival booths.",
+          "It copies the original destruction plan word for word, unchanged."
+        ],
+        "correct": 0,
+        "feedback": "Ask whether a response denies, limits, or accepts-and-adjusts. Here it accepts the point and adjusts: the city can be spared if enough innocent people are found. Compare the claim before and after."
       }
     ],
     "fnd-arg-unresolved": [
@@ -1559,6 +1703,18 @@
         ],
         "correct": 0,
         "feedback": "The line says this kind of disagreement is meant to endure. Name that standing tension; do not invent a lost page or a last-speaker verdict to force a winner."
+      },
+      {
+        "sourceRef": "Job 38:4",
+        "stem": "Job has demanded a verdict about his suffering. The reply is not a yes-or-no. It is this question:\n\nאֵיפֹה הָיִיתָ בְּיָסְדִי אָרֶץ\n\"Where were you when I laid the earth's foundation?\"\n\nWhat should you conclude about Job's original question?",
+        "choices": [
+          "It is left standing: the reply asks further, rather than closing it.",
+          "The original question was fully answered with a single yes.",
+          "A page was lost, so the question is only a copy error.",
+          "The line is only asking who printed this book, and in which language."
+        ],
+        "correct": 0,
+        "feedback": "A reply that is itself a question does not hand Job a verdict. Name that standing tension; do not invent a lost page or a last-speaker ruling to force a winner."
       }
     ],
     "fnd-context-genre-expectations": [
