@@ -33557,3 +33557,26 @@ Draft off latest `main` (`491d93d`). After PR #63, three starter argument banks 
 | `fnd-arg-unresolved` | L5 | Pirkei Avot 5:17 (a dispute for Heaven’s sake is meant to endure) |
 
 Light See-it edit only for `fnd-arg-unresolved` (adds “a line that says the disagreement is meant to last”). No L0 `fnd-decode-*` banks. No Today/diagnostic chrome. Guard: `test/foundation-arg-banks.test.mjs` (≥5).
+
+## 2026-09-11 — Cursor: strengthen L3–L8 See-it teach (draft)
+
+Audit of `data/foundation-teach.json` vs authored banks for every non-L0 starter. Weakest were L3–L5 roles/cases/args plus L7 genre and L8 responsibility: short, abstract, or jargon-heavy relative to the first ask (e.g. "liability / conceptual question", "readable chain", "marking that pressure is the skill").
+
+Rewrote 12 See-its to 2–4 concrete "what to notice" sentences so the first ask is fair. Teach-only; no item-stem edits. `fnd-arg-unresolved` now names תֵּיקוּ before the bank uses it. L0 decode banks untouched.
+
+| Skill | Band | What See-it now notices |
+|---|---|---|
+| `fnd-role-question-vs-answer` | L3 | question / answer / restatement, including from-when then a time |
+| `fnd-role-ruling-vs-discussion` | L3 | one option vs several; rise / search vs these-and-those |
+| `fnd-case-actors` | L4 | cast + one action: two claimants, feast host/guest, ox's owner |
+| `fnd-case-what-happens` | L4 | who-did-what one-sentence story (garment / too-tall booth) |
+| `fnd-case-uncertainty` | L4 | cutoff, missing proof, does-it-still-count as open questions |
+| `fnd-arg-claim` | L5 | "This source claims that" vs question / citation / attribution |
+| `fnd-arg-evidence-role` | L5 | as-it-is-written jobs: support / challenge / clarify / split |
+| `fnd-arg-objection` | L5 | pushback that threatens claim, reason, or reach |
+| `fnd-arg-response` | L5 | deny / limit / adjust, with heaven / booth / withdrawn-plan |
+| `fnd-arg-unresolved` | L5 | תֵּיקוּ "let it stand", two voices, disagreement meant to last |
+| `fnd-context-genre-expectations` | L7 | aggadah (psalm/blessing) vs halakhah (code); mixed passage |
+| `fnd-resp-learning-vs-ruling` | L8 | learned-on-the-page vs a teacher who knows your situation |
+
+Guards: `teiku` added to `BANNED_ASK_TERMS`; `test/foundation-see-it-strengthen.test.mjs` pins length ≥200 and the first-ask cue. Draft — do not merge until Sam reviews.

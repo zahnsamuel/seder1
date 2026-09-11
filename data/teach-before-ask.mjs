@@ -25,7 +25,8 @@ export const BANNED_ASK_TERMS = [
   { id: 'mussar', pattern: /\bmussar\b/i },
   { id: 'tanakh', pattern: /\btanakh\b/i },
   { id: 'mikraot-gedolot', pattern: /\bmikraot\s*gedolot\b/i },
-  { id: 'daf', pattern: /\bdaf\b/i }
+  { id: 'daf', pattern: /\bdaf\b/i },
+  { id: 'teiku', pattern: /\bteiku\b|תֵּיקוּ|תיקו/i }
 ];
 
 // Completing these skills' See-it earns their taught terms for later skills.
