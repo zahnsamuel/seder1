@@ -1315,6 +1315,18 @@
         ],
         "correct": 0,
         "feedback": "The voice is a pushback against the majority. Naming that pressure — it threatens the claim that the human vote already settled the matter — is the objection skill; the reply comes next."
+      },
+      {
+        "sourceRef": "Genesis 18:23",
+        "stem": "A plan has just been stated: the city will be destroyed. Abraham then asks:\n\nהַאַף תִּסְפֶּה צַדִּיק עִם־רָשָׁע\n\"Will You also sweep away the innocent with the guilty?\"\n\nWhat is that follow-up doing to the plan?",
+        "choices": [
+          "Pressing on it: the plan would also sweep away the innocent.",
+          "Proving the plan with a matching verse from another book.",
+          "Restating the plan in slightly different words only.",
+          "Naming the scribe who first copied the city story by hand."
+        ],
+        "correct": 0,
+        "feedback": "That follow-up is an objection: it threatens how far the destruction-claim reaches. Mark the pressure — innocent people would fall with the guilty — before you watch whether the plan is adjusted."
       }
     ],
     "fnd-arg-response": [
@@ -1365,6 +1377,18 @@
         ],
         "correct": 0,
         "feedback": "The command still stands; the reply narrows how to carry it out. That is a limit, not a denial and not an abandonment of the original claim."
+      },
+      {
+        "sourceRef": "Exodus 32:14",
+        "stem": "A first plan was to destroy the people. Moses presses back against that plan. Then comes this line:\n\nוַיִּנָּחֶם ה׳ עַל־הָרָעָה אֲשֶׁר דִּבֶּר לַעֲשׂוֹת לְעַמּוֹ\n\"And the Lord relented concerning the harm He had spoken of doing to His people.\"\n\nHow does this reply handle the objection?",
+        "choices": [
+          "It accepts the pushback and adjusts the original plan.",
+          "It denies that Moses raised any real difficulty.",
+          "It repeats the destruction plan and changes nothing.",
+          "It treats the objection as a citation from another book."
+        ],
+        "correct": 0,
+        "feedback": "Ask whether a response denies, limits, or accepts-and-adjusts. Here it accepts the point and adjusts the original claim: the destruction plan is withdrawn. Compare the claim before and after."
       }
     ],
     "fnd-arg-unresolved": [
@@ -1415,6 +1439,18 @@
         ],
         "correct": 0,
         "feedback": "The line keeps both views alive rather than handing victory to one speaker. Name that standing tension; do not invent a lost page or a copy-error to force a winner."
+      },
+      {
+        "sourceRef": "Pirkei Avot 5:17",
+        "stem": "Two named teachers keep disagreeing. The teaching then says:\n\nכָּל מַחֲלֹקֶת שֶׁהִיא לְשֵׁם שָׁמַיִם סוֹפָהּ לְהִתְקַיֵּם\n\"Any dispute that is for the sake of Heaven is destined to endure.\"\n\nWhat should you conclude about that kind of disagreement?",
+        "choices": [
+          "It is meant to last; both views stay in play on purpose.",
+          "The last speaker automatically becomes the decided law.",
+          "A page was lost, so the second view is a copy error.",
+          "The dispute was only about who copied the tractate."
+        ],
+        "correct": 0,
+        "feedback": "The line says this kind of disagreement is meant to endure. Name that standing tension; do not invent a lost page or a last-speaker verdict to force a winner."
       }
     ],
     "fnd-context-genre-expectations": [
