@@ -42,7 +42,7 @@ main { max-width: var(--jla-maxw, 1100px); margin: auto; padding: 38px 28px 72px
 .hero {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 22px;
   padding: 24px 0 48px;
 }
 .hero-copy > .jla-eyebrow,
@@ -56,25 +56,36 @@ main { max-width: var(--jla-maxw, 1100px); margin: auto; padding: 38px 28px 72px
   font-family: var(--jla-font-display, Fraunces, Georgia, serif);
   letter-spacing: -.045em;
   color: var(--blue);
-  font-size: clamp(2.4rem, 8vw, 5rem);
-  line-height: .98;
-  margin: 12px 0 20px;
+  font-size: clamp(2rem, 7.2vw, 5rem);
+  line-height: 1.02;
+  margin: 10px 0 14px;
   max-width: 760px;
 }
-.hero p { color: var(--muted); line-height: 1.65; max-width: 675px; }
+.hero p { color: var(--muted); line-height: 1.55; max-width: 675px; margin: 0; }
 
 .level {
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: var(--jla-r-md, 13px);
-  margin-top: 28px;
   max-width: 600px;
   padding: 16px;
 }
-.level div { display: flex; justify-content: space-between; gap: 12px; }
+.level > div:first-of-type { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
 .level .jla-chips { display: flex; flex-wrap: wrap; justify-content: flex-start; }
 .level span { font-size: .7rem; font-weight: 800; color: var(--blue); letter-spacing: .09em; }
-.level strong { font-size: .85rem; }
+.level strong { font-size: .92rem; line-height: 1.4; }
+.learn-moves {
+  margin: 12px 0 0;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: 6px;
+  color: var(--ink);
+  font-size: .92rem;
+  line-height: 1.35;
+}
+.learn-moves[hidden],
+.jla-chips[hidden],
+.today-stats[hidden] { display: none !important; }
 
 .today {
   background: var(--blue);
@@ -139,10 +150,16 @@ footer {
   .hero {
     display: grid;
     grid-template-columns: 1.35fr .65fr;
-    gap: 34px;
-    align-items: end;
+    grid-template-areas:
+      "copy today"
+      "learn today";
+    gap: 28px 34px;
+    align-items: start;
     padding: 24px 0 64px;
   }
+  .hero-copy { grid-area: copy; }
+  .today { grid-area: today; align-self: start; }
+  .level { grid-area: learn; }
   footer {
     flex-direction: row;
     justify-content: space-between;
@@ -152,6 +169,7 @@ footer {
 @media (max-width: 720px) {
   header { padding: 16px 18px; gap: 12px; }
   header span, header a:not(:first-child) { display: none; }
-  main { padding: 24px 18px 52px; }
-  .hero { padding-bottom: 36px; }
+  main { padding: 20px 18px 52px; }
+  .hero { padding-bottom: 28px; gap: 18px; }
+  .hero h1 { font-size: clamp(1.85rem, 9vw, 2.35rem); }
 }

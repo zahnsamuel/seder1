@@ -33619,3 +33619,17 @@ Light See-it edits only where the new ask needed them: question-present �practic
 | `fnd-arg-unresolved` | L5 | Job 38:4 (a reply that is itself a question leaves the first question standing) |
 
 Light See-it edits only where the new sixth ask would be unfair (example scene; two-or-more views / cutoff times; Jonah; parentage; rescue-plan-made-worse; spared city; question-as-reply). Guard: `test/foundation-l3-l5-banks.test.mjs` (≥6) plus `test/foundation-arg-banks.test.mjs` (≥6).
+
+## 2026-09-11 — Cursor: first-run onboarding states vision / purpose / learn
+
+Cold-visitor confusion on the hosted demo (especially mobile): landing jumped to “start where you are” without saying what Jewish Learning Academy *is*. Copy + layout only. No L0 banks, no mastery math, no self-rate.
+
+**Before:** Hero promised “even from the Hebrew letters”; empty capabilities scoreboard sat above the CTA; onboarding was process-only (name → questions → lesson) with a second CTA into `diagnostic.html`.
+
+**After:**
+- Landing answers in ~10 seconds: *what* (daily practice for reading Jewish sources yourself), *why* (real reading skill, not a trivia streak), *what you learn* (five scannable reading moves). Hebrew-letters pitch is no longer the headline.
+- Mobile stacks pitch → one **Start learning** CTA → learn list, so the action is not pushed below a wall of bullets. First-run hides Day 1 / capability stats until there is evidence.
+- Onboarding leads with purpose, then the same three first-visit steps. CTA is `sign-in.html?next=diagnostic.html` (aligned with the hero). Sign-in and diagnostic intro carry one purpose sentence each.
+- Returning learners still get capabilities + Today personalization once they have evidence.
+
+Verify on a ~390px viewport: `seder.html` → Start learning → name → placement. Guards: `test/friend-first-run.test.mjs`, `test/landing-onboarding.test.mjs`, `test/first-visit-and-recovery.test.mjs`.
